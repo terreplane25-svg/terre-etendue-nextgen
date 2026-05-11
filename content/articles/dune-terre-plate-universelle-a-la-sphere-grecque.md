@@ -1,221 +1,14 @@
 ---
 title: "D'une Terre plate universelle à la sphère grecque"
-description: ".nx-nav{width:100%;background:#050505;border-bottom:1px solid #1A1A1A;padding:0 2rem;position:sticky;top:0;z-index:999} .nx-nav__inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;ju..."
+description: "« Depuis l'Antiquité, on sait que la Terre est ronde. » Cette affirmation, répétée dans les manuels scolaires, les documentaires et les discours de vulgarisation, est devenue une vérité évidente pour des millions de..."
 date: "2026-04-15"
 author: "Terre Etendue"
 category: "headquarters"
 tags: ["le-nexus"]
 ---
 
-.nx-nav{width:100%;background:#050505;border-bottom:1px solid #1A1A1A;padding:0 2rem;position:sticky;top:0;z-index:999}
-.nx-nav__inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;gap:1.5rem}
-/* Logo */
-.nx-nav__logo{font-family:'Playfair Display',Georgia,serif;font-size:1.1rem;font-weight:700;color:#D4AF37;text-decoration:none;letter-spacing:-.01em;white-space:nowrap;flex-shrink:0}
-.nx-nav__logo:hover{color:#E8C84A}
-/* Liens */
-.nx-nav__links{display:flex;align-items:center;gap:1.8rem;list-style:none;margin:0;padding:0}
-.nx-nav__links a{font-family:'Montserrat',sans-serif;font-size:.73rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9A9589;text-decoration:none;padding:.5em 0;position:relative;transition:color .3s ease;white-space:nowrap}
-.nx-nav__links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:#D4AF37;transition:width .3s ease}
-.nx-nav__links a:hover{color:#E8E4DC}
-.nx-nav__links a:hover::after{width:100%}
-/* Dropdown À propos & Ressources */
-.nx-nav__item-dropdown{position:relative}
-.nx-nav__dropdown-toggle{font-family:'Montserrat',sans-serif;font-size:.73rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:none;border:none;color:#9A9589;cursor:pointer;padding:.5em 0;transition:color .3s ease;display:flex;align-items:center;gap:.4em;position:relative}
-.nx-nav__dropdown-toggle::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:#D4AF37;transition:width .3s ease}
-.nx-nav__dropdown-toggle:hover{color:#E8E4DC}
-.nx-nav__dropdown-toggle:hover::after{width:100%}
-.nx-nav__dropdown-toggle svg{width:12px;height:12px;transition:transform .3s ease}
-.nx-nav__dropdown-toggle.open svg{transform:rotate(180deg)}
-.nx-nav__dropdown-menu{position:absolute;top:calc(100% + 12px);left:0;background:#0A0A0A;border:1px solid #1A1A1A;border-radius:8px;padding:.8rem 0;min-width:220px;opacity:0;visibility:hidden;transform:translateY(-10px);transition:all .3s ease;z-index:1000;box-shadow:0 8px 32px rgba(0,0,0,.4)}
-.nx-nav__dropdown-menu.open{opacity:1;visibility:visible;transform:translateY(0)}
-.nx-nav__dropdown-menu a{display:block;padding:.7em 1.2em;color:#9A9589;text-decoration:none;font-size:.72rem;letter-spacing:.08em;transition:all .3s ease;white-space:nowrap;position:relative}
-.nx-nav__dropdown-menu a::after{display:none}
-.nx-nav__dropdown-menu a:hover{background:rgba(212,175,55,.1);color:#E8E4DC;padding-left:1.6em}
-/* Recherche */
-.nx-nav__search{position:relative;flex-shrink:0}
-.nx-nav__search-btn{background:none;border:none;cursor:pointer;color:#5C5850;font-size:1rem;padding:6px;transition:color .3s ease;display:flex;align-items:center}
-.nx-nav__search-btn:hover{color:#D4AF37}
-.nx-nav__search-box{position:absolute;top:calc(100% + 12px);right:0;width:0;opacity:0;overflow:hidden;transition:all .35s cubic-bezier(.16,1,.3,1);background:#0A0A0A;border:1px solid #1A1A1A;border-radius:8px;padding:0;z-index:1000}
-.nx-nav__search-box.open{width:300px;opacity:1;padding:.6rem}
-.nx-nav__search-input{width:100%;background:transparent;border:none;outline:none;font-family:'Montserrat',sans-serif;font-size:.82rem;color:#E8E4DC;padding:.4em .6em;caret-color:#D4AF37}
-.nx-nav__search-input::placeholder{color:#5C5850}
-/* Hamburger */
-.nx-nav__toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-shrink:0}
-.nx-nav__toggle span{display:block;width:22px;height:2px;background:#9A9589;margin:5px 0;transition:all .3s ease}
-/* Mobile */
-@media(max-width:900px){
- .nx-nav__toggle{display:block}
- .nx-nav__links{display:none;position:absolute;top:64px;left:0;right:0;background:#0A0A0A;border-bottom:1px solid #1A1A1A;flex-direction:column;padding:1rem 2rem;gap:0}
- .nx-nav__links.open{display:flex}
- .nx-nav__links li{width:100%}
- .nx-nav__links a{display:block;padding:.8em 0;border-bottom:1px solid #141414}
- .nx-nav__links li:last-child a{border-bottom:none}
- .nx-nav__item-dropdown{position:static}
- .nx-nav__dropdown-toggle{display:block;width:100%;padding:.8em 0;border-bottom:1px solid #141414;text-align:left;justify-content:space-between}
- .nx-nav__dropdown-menu{position:static;opacity:1;visibility:visible;transform:none;background:transparent;border:none;box-shadow:none;padding:0;max-height:0;overflow:hidden;transition:max-height .3s ease}
- .nx-nav__dropdown-menu.open{max-height:300px}
- .nx-nav__dropdown-menu a{padding:.6em 0 .6em 1.5em;border:none;background:none}
- .nx-nav__dropdown-menu a:hover{background:none;padding-left:2em}
- .nx-nav__search-box.open{width:calc(100vw - 4rem);right:-1rem}
-}
-
-
- [Terre Étendue Islam](/)
- 
- 
- 
-
- - [Le Nexus](/le-nexus/)
-
- - [L'Observatoire](/lobservatoire/)
-
- - [La Bibliothèque](/la-bibliotheque/)
-
- - [Le Lab](/le-lab/)
-
- 
- - À propos
- 
- 
- [Manifeste](/manifeste/)
- [Éthique intellectuelle](/ethique-intellectuelle/)
- [Contact](/contact/)
-
- 
- - Ressources
- 
- 
- [Glossaire](/glossaire/)
- [Index thématique](/index-thematique/)
- [Méthodologie](/methodologie/)
-
- 
-
- 
- - @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
-:root{--bg:#F7F2E8;--bg2:#EDE5D5;--bg3:#111;--gold:#B8860B;--gold-s:#B8962E;--gold-g:rgba(212,175,55,.12);--cobalt:#1B5E3C;--cobalt-l:#2D8B57;--cobalt-g:rgba(30,58,138,.15);--t1:#2C1810;--t2:#5C4A3A;--t3:#8A7A6A;--bdr:#DDD5C5;--f1:'Cormorant Garamond',Georgia,serif;--f2:'Outfit',sans-serif;--f3:'Cormorant Garamond',Georgia,serif}
-.n2{background:var(--bg);color:var(--t1);padding:0}
-/* Hero */
-.n2-h{padding:5rem 2rem 3.5rem;text-align:center;position:relative;overflow:hidden}
-.n2-h::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 30%,rgba(212,175,55,.04),transparent 70%);pointer-events:none}
-.n2-tag{display:inline-block;font-family:var(--f2);font-size:.62rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);background:var(--gold-g);border:1px solid rgba(212,175,55,.2);padding:.3em 1em;border-radius:4px;margin-bottom:1.5rem}
-.n2-title{font-family:var(--f1);font-size:clamp(1.8rem,4.5vw,2.6rem);font-weight:700;color:var(--gold);line-height:1.15;margin:0 0 1rem;max-width:800px;margin-left:auto;margin-right:auto}
-.n2-sub{font-family:var(--f3);font-size:1.02rem;line-height:1.7;color:var(--t2);max-width:650px;margin:0 auto 2rem}
-.n2-meta{max-width:800px;margin:0 auto;padding:1.2em 0;border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);display:flex;flex-wrap:wrap;gap:.5em 2em;font-family:var(--f2);font-size:.75rem;color:var(--t3)}
-.n2-meta dt{font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:.65rem}
-.n2-meta dd{margin:0 0 .6em;color:var(--t2)}
-/* Layout */
-.n2-lay{display:flex;gap:2.5rem;max-width:1200px;margin:0 auto;padding:2.5rem 2rem 5rem;align-items:flex-start}
-/* Sidebar */
-.n2-nav{flex:0 0 255px;position:sticky;top:80px;max-height:calc(100vh - 100px);overflow-y:auto;padding:1.5rem;background:var(--bg2);border:1px solid var(--bdr);border-radius:10px}
-.n2-nav::-webkit-scrollbar{width:3px}
-.n2-nav::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
-.n2-nav__t{font-family:var(--f2);font-size:.65rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin:0 0 1rem;padding-bottom:.6rem;border-bottom:1px solid var(--bdr)}
-.n2-nav ul{list-style:none;padding:0;margin:0}
-.n2-nav li{margin-bottom:.35rem}
-.n2-nav a{display:block;font-family:var(--f2);font-size:.76rem;color:var(--t3);text-decoration:none;padding:.4em .8em;border-radius:5px;border-left:2px solid transparent;transition:all .25s ease;line-height:1.35}
-.n2-nav a:hover{color:var(--t1);background:rgba(212,175,55,.05);border-left-color:var(--gold)}
-.n2-nav a.active{color:var(--gold);background:var(--gold-g);border-left-color:var(--gold);font-weight:500}
-.n2-nav .num{font-size:.6rem;font-weight:600;color:var(--gold-s);margin-right:.4em;opacity:.7}
-.n2-nav .sub{padding:0 0 0 1.2em;margin:.15rem 0 .2rem}
-.n2-nav .sub a{font-size:.7rem;padding:.3em .8em}
-.n2-nav__bk{display:block;margin-top:1.2rem;padding:.6em 1em;background:var(--gold);color:var(--bg);font-family:var(--f2);font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;text-align:center;border-radius:5px;transition:background .3s ease}
-.n2-nav__bk:hover{background:#D4A017}
-/* Body */
-.n2-b{flex:1;min-width:0;max-width:800px;font-family:var(--f3);font-size:clamp(1rem,1.8vw,1.08rem);line-height:1.75;color:var(--t1)}
-.n2-b p{margin-bottom:1.4em;text-align:justify;hyphens:auto}
-.n2-b a{color:var(--gold);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--gold-s)}
-.n2-b h2{font-family:var(--f1);font-size:clamp(1.4rem,3vw,1.85rem);font-weight:700;color:var(--t1);margin:3em 0 .8em;padding-bottom:.4em;border-bottom:1px solid var(--bdr);line-height:1.25;scroll-margin-top:90px}
-.n2-b h3{font-family:var(--f2);font-size:clamp(1rem,1.8vw,1.15rem);font-weight:600;color:var(--cobalt-l);text-transform:uppercase;letter-spacing:.06em;margin:2em 0 .6em;line-height:1.35;scroll-margin-top:90px}
-.sn{font-family:var(--f2);font-size:.65rem;font-weight:600;color:var(--gold);background:var(--gold-g);border:1px solid rgba(212,175,55,.2);padding:.2em .6em;border-radius:3px;margin-right:.6em;vertical-align:middle}
-/* Blocs */
-.bq{margin:2em 0;padding:1.5em 2em;background:linear-gradient(135deg,var(--cobalt-g),transparent 70%);border-left:3px solid var(--cobalt);border-radius:0 8px 8px 0;font-family:var(--f3);font-style:italic;font-size:1.02em;line-height:1.75;color:var(--t1)}
-.bq cite{display:block;margin-top:.8em;font-size:.78em;font-style:normal;font-family:var(--f2);color:var(--t3)}
-.bqs{margin:2em 0;padding:1.5em 2em 1.5em 2.2em;background:linear-gradient(135deg,var(--gold-g),transparent 70%);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;font-family:var(--f1);font-style:italic;font-size:1.05em;line-height:1.8;color:var(--gold)}
-.bqs cite{display:block;margin-top:.8em;font-size:.75em;font-style:normal;font-family:var(--f2);color:var(--t3);text-transform:uppercase;letter-spacing:.06em}
-.db{margin:2em 0;padding:1.4em 1.8em;background:var(--bg2);border:1px solid var(--bdr);border-radius:8px}
-.db__l{display:inline-block;font-family:var(--f2);font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--cobalt-l);background:var(--cobalt-g);padding:.2em .7em;border-radius:3px;margin-bottom:.8em}
-.db p{font-size:.92rem;margin-bottom:.8em;text-align:left}
-.kp{margin:1.5em 0;padding:1.2em 1.6em;background:var(--bg2);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;font-family:var(--f2);font-size:.9rem;line-height:1.6;color:var(--t2)}
-.kp strong{color:var(--t1)}
-/* Tableau */
-.tw{margin:2em 0;overflow-x:auto}
-.tb{width:100%;border-collapse:collapse;font-family:var(--f2);font-size:.8rem}
-.tb th{background:var(--bg2);color:var(--gold);font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:.68rem;padding:.8em 1em;text-align:left;border-bottom:1px solid var(--bdr)}
-.tb td{padding:.7em 1em;border-bottom:1px solid var(--bdr);color:var(--t2);vertical-align:top}
-.tb tr:hover td{background:rgba(212,175,55,.03)}
-/* Image placeholder */
-.n2-img{margin:2em 0;padding:1.2em;background:var(--bg2);border:1px dashed var(--bdr);border-radius:8px;text-align:center}
-.n2-img__cap{font-family:var(--f2);font-size:.75rem;color:var(--t3);line-height:1.5;margin-top:.8em;font-style:italic}
-/* Responsive */
-@media(max-width:900px){
- .n2-lay{flex-direction:column;padding:1.5rem}
- .n2-nav{position:static;flex:none;width:100%;max-height:none;margin-bottom:2rem}
- .n2-h{padding:3.5rem 1.5rem 2.5rem}
-}
-
-
- Le Nexus — NXS-2026-002
- 
-# D'une Terre plate universelle à la sphère grecque
-
- Toutes les civilisations antiques, sans exception, décrivaient une Terre plate. L'idée de sphéricité apparaît tardivement, dans un cercle ésotérique grec, pour des raisons qui n'ont rien d'empirique.
- 
- AuteurTerre Étendue Islam
- DateAvril 2026 — v1.0
- Lecture~50 min
- DomaineHistoire des cosmologies
- 
-
-
- 
- 
- 
-## Sommaire
-
- 
- [Introduction](#intro)
-
- - [I Les cosmologies de la Terre plate](#p1)
- 
- [Babylone](#bab)
-
- - [Égypte](#egy)
-
- - [Chine](#chi)
-
- - [Amériques](#pre)
-
- - [Synthèse](#syn)
-
- 
-
- 
- - [II La révolution grecque](#p2)
- 
- [École de Milet](#mil)
-
- - [Pythagore](#pyt)
-
- 
-
- 
- - [III Aristote & Ptolémée](#p3)
-
- - [IV Transmission à l'islam](#p4)
-
- - [V Conclusion](#ccl)
-
- - [Références](#refs)
-
- 
-
- [← Retour au Nexus](/le-nexus/)
- 
- 
-
-
 ## Introduction : le paradoxe de la modernité
+
 
 « Depuis l'Antiquité, on sait que la Terre est ronde. » Cette affirmation, répétée dans les manuels scolaires, les documentaires et les discours de vulgarisation, est devenue une vérité évidente pour des millions de personnes. Elle sert de repère historique rassurant : l'humanité aurait progressivement découvert la forme de notre planète, passant de l'ignorance à la connaissance rationnelle.
 
@@ -234,10 +27,12 @@ La transition vers une cosmologie sphérique fut tardive, limitée géographique
 
 ## I Les cosmologies de la Terre plate
 
+
 La Terre a toujours été aplanie dans sa totalité dans la majorité des anciennes communautés, et ce dans les quatre coins du monde. Ce n'est pas un hasard. C'est une constante anthropologique qui traverse les continents, les langues et les époques — des plaines de Mésopotamie aux hauts plateaux andins, des rives du Nil aux forêts du Yucatán.
 
 
 ### Babylone : le disque sur les eaux primordiales
+
 
 La Mésopotamie — berceau de l'écriture, des mathématiques et de l'astronomie systématique — développa une cosmologie sophistiquée dont les traces remontent au IIIᵉ millénaire avant notre ère.
 
@@ -267,6 +62,7 @@ La cosmologie babylonienne n'était pas arbitraire. Elle était parfaitement coh
 
 ### Égypte : Geb allongé sous la voûte de Nout
 
+
 La cosmologie égyptienne, tout en partageant des éléments avec la cosmologie babylonienne, présente des spécificités liées à la géographie et à la mythologie nilotique.
 
 
@@ -288,6 +84,7 @@ Les Égyptiens développèrent un calendrier de 365 jours basé sur le lever hé
 
 ### Chine : le Ciel rond sur la Terre carrée
 
+
 La cosmologie chinoise classique repose sur le modèle **Gaitian** (蓋天, « ciel en couverture »), attesté dès la dynastie Zhou (vers 1000 av. J.-C.) et codifié dans le *Zhoubi Suanjing* (周髀算經), texte mathématique et astronomique du Iᵉʳ siècle av. J.-C. compilant des connaissances bien plus anciennes.
 
 
@@ -303,6 +100,7 @@ Le Feng Shui (風水), art géomantique millénaire, repose entièrement sur cet
 
 
 ### Amériques : des Aztèques aux Incas
+
 
 Les civilisations précolombiennes confirment l'universalité du modèle. Les **Aztèques** concevaient la Terre (Tlaltícpac) comme un disque plat entouré par l'Océan Divin (Teoatl), surmonté de treize niveaux célestes et reposant sur neuf niveaux d'inframonde. Leurs calendriers — le Xiuhpohualli (365 jours) et le Tonalpohualli (260 jours) — témoignent d'une astronomie de précision parfaitement compatible avec ce modèle.
 
@@ -332,6 +130,7 @@ L'examen de ces six civilisations, développées indépendamment sur des contine
 
 ### Cas d'étude : le Gài Tiān chinois et « l'Ératosthène de la Terre plate »
 
+
 Le cas chinois mérite un développement particulier, car la Chine antique n'a pas seulement cru en une Terre plate — elle l'a **mesurée mathématiquement** avec une rigueur comparable à celle des Grecs, mais en tirant des conclusions opposées.
 
 
@@ -353,10 +152,12 @@ Le *Huái Nán Zǐ* (淮南子, IIᵉ siècle av. J.-C.) reprend et affine ces c
 
 ## II La révolution grecque : de Milet à Pythagore
 
+
 Si toutes les civilisations antiques convergeaient vers une Terre plate, qu'est-ce qui a changé en Grèce ? La réponse n'est pas une nouvelle observation — c'est un nouveau *cadre de pensée*. Et ce cadre est né dans deux contextes très différents : les naturalistes de Milet, qui cherchaient des explications physiques sans les dieux, et l'école de Pythagore, qui au contraire divinisait les astres et en tirait des conséquences géométriques.
 
 
 ### L'école de Milet : rationaliser sans rompre
+
 
 Milet, cité grecque d'Ionie (côte ouest de l'actuelle Turquie), connaît au VIᵉ siècle av. J.-C. un âge d'or intellectuel. Carrefour commercial entre Orient et Occident, elle est exposée aux savoirs babyloniens, égyptiens, phéniciens. C'est dans ce contexte cosmopolite que naît la philosophie présocratique — première tentative de rationalisation de l'univers sans recours exclusif aux mythes anthropomorphiques.
 
@@ -377,6 +178,7 @@ Lors de ses voyages en Égypte, Thalès mesure la hauteur de la Grande Pyramide 
 
 
 ### Pythagore : l'ésotérisme, l'astrologie et la sphère parfaite
+
 
 Pythagore de Samos (v. 580–495 av. J.-C.) est une figure radicalement différente des naturalistes de Milet. Il n'est pas un observateur de la nature — c'est un **mystagogue**, un fondateur de secte, un initié aux mystères orientaux.
 
@@ -410,14 +212,14 @@ Les arguments pythagoriciens en faveur de la sphéricité sont exclusivement phi
  Schéma des sphères concentriques pythagoriciennes puis ptoléméennes
 
 
- Montrer l'évolution : Pythagore (Feu Central + Contre-Terre + 10 corps) → Aristote (55 sphères cristallines) → Ptolémée (épicycles + déférents).
-Souligner que la forme sphérique vient d'un postulat esthétique, pas d'une observation.
+ Montrer l'évolution : Pythagore (Feu Central + Contre-Terre + 10 corps) → Aristote (55 sphères cristallines) → Ptolémée (épicycles + déférents).**Souligner que la forme sphérique vient d'un postulat esthétique, pas d'une observation.
 
 
- Remplacer ce bloc par : ![\2](\1)
+ Remplacer ce bloc par : *
 
 
 ### Le rôle central de l'astrologie babylonienne
+
 
 La clé de compréhension est le séjour de Pythagore à Babylone. Il y est initié à l'astrologie chaldéenne — système divinatoire basé sur l'observation des planètes et leur association aux dieux. Les pythagoriciens, influencés par cette tradition, associent chaque planète à une divinité grecque : Hélios (Soleil), Artémis (Lune), Hermès (Mercure), Aphrodite (Vénus), Arès (Mars), Zeus (Jupiter), Cronos (Saturne).
 
@@ -425,12 +227,13 @@ La clé de compréhension est le séjour de Pythagore à Babylone. Il y est init
 La conséquence cosmologique est directe : si les planètes sont des divinités incarnées (ou leurs demeures), elles doivent posséder la forme la plus parfaite — la sphère. Et si les astres sont sphériques parce que divins, la Terre (divine aussi selon la mythologie grecque) doit également être sphérique. C'est un raisonnement par analogie théologique, pas par observation.
 
 
-Les pythagoriciens développent alors la doctrine de l'**Harmonie des Sphères** : les planètes, en tournant, produisent des sons musicaux correspondant aux intervalles harmoniques (quarte, quinte, octave) découverts par Pythagore sur le monocorde. L'univers est une symphonie cosmique, inaudible aux humains car nous y sommes habitués depuis la naissance. Cette doctrine est purement spéculative — aucune observation ne la soutient. C'est une projection esthético-mystique sur le cosmos.
+Les pythagoriciens développent alors la doctrine de l'Harmonie des Sphères** : les planètes, en tournant, produisent des sons musicaux correspondant aux intervalles harmoniques (quarte, quinte, octave) découverts par Pythagore sur le monocorde. L'univers est une symphonie cosmique, inaudible aux humains car nous y sommes habitués depuis la naissance. Cette doctrine est purement spéculative — aucune observation ne la soutient. C'est une projection esthético-mystique sur le cosmos.
 
 
 ### Philolaos et le Feu Central : quand la numérologie crée des planètes
 
-Philolaos de Crotone (v. 470–385 av. J.-C.), pythagoricien de la génération suivante, développe un système cosmologique encore plus audacieux. Aristote rapporte dans *Du Ciel* (Livre II, 13) : « Les pythagoriciens disent que le feu est au centre, et que la Terre est l'un des astres, et qu'elle produit la nuit et le jour en tournant autour du centre. »
+
+Philolaos de Crotone (v. 470–385 av. J.-C.), pythagoricien de la génération suivante, développe un système cosmologique encore plus audacieux. Aristote rapporte dans Du Ciel* (Livre II, 13) : « Les pythagoriciens disent que le feu est au centre, et que la Terre est l'un des astres, et qu'elle produit la nuit et le jour en tournant autour du centre. »
 
 
 Le système de Philolaos place au centre cosmique Hestia, le « Feu Central » — invisible depuis la Terre. Entre la Terre et ce Feu, il postule l'existence d'une **Contre-Terre** (Antichthon, ἀντίχθων) — planète invisible inventée pour compléter le nombre sacré de dix corps célestes (la Décade pythagoricienne). La Terre tourne autour du Feu Central en 24 heures, toujours orientée du même côté, ce qui explique l'alternance jour/nuit et l'invisibilité du Feu et de la Contre-Terre.
@@ -454,6 +257,7 @@ L'Antichthon n'a jamais été observée — évidemment, puisqu'elle n'existe pa
 
 ### Réaction politique : violence et secret
 
+
 La cosmologie sphérique de Pythagore et Philolaos reste confinée à un cercle initiatique restreint. Le secret pythagoricien empêche sa diffusion large. Le peuple grec continue de concevoir une Terre plate pendant des siècles. Les poètes (Homère, Hésiode), les historiens (Hérodote), et même certains philosophes postérieurs ne mentionnent pas la sphéricité terrestre.
 
 
@@ -465,10 +269,12 @@ Vers 500 av. J.-C., la communauté pythagoricienne de Crotone est attaquée par 
 
 ## III Aristote et Ptolémée : codification du géocentrisme sphérique
 
+
 L'intuition mystique de Pythagore serait peut-être restée marginale si deux figures majeures ne l'avaient codifiée, rationalisée et transformée en système dominant : Aristote au IVᵉ siècle av. J.-C., puis Ptolémée au IIᵉ siècle ap. J.-C.
 
 
 ### Aristote : quatre arguments, quatre failles
+
 
 Aristote (384–322 av. J.-C.), formé à l'Académie de Platon puis précepteur d'Alexandre le Grand, développe un système philosophique encyclopédique dont les œuvres domineront la pensée européenne pendant près de deux millénaires. Dans *Du Ciel* (Περὶ Οὐρανοῦ), Livre II, il présente quatre arguments en faveur de la Terre sphérique. Examinons-les un par un.
 
@@ -503,6 +309,7 @@ Tous les corps « lourds » tendent naturellement vers le centre de l'univers. S
 
 ### Le système aristotélicien : 55 sphères cristallines
 
+
 Aristote ne se contente pas de la sphéricité terrestre — il construit un système cosmologique complet : la Terre, sphère immobile, occupe le centre absolu de l'univers. Autour d'elle tournent 55 sphères cristallines emboîtées, transparentes, portant chacune un astre. Au-delà de la dernière sphère (étoiles fixes) se trouve le Premier Moteur Immobile — cause divine ultime de tous les mouvements.
 
 
@@ -513,6 +320,7 @@ Au XIIIᵉ siècle, Thomas d'Aquin (1225–1274) entreprend la synthèse entre p
 
 
 ### Ptolémée : quand sauver les apparences exige 80 cercles
+
 
 Claude Ptolémée (v. 100–170 ap. J.-C.), astronome, mathématicien et astrologue alexandrin, hérite du géocentrisme aristotélicien mais doit résoudre un problème majeur : les **mouvements rétrogrades** des planètes. Périodiquement, Mars, Jupiter ou Saturne semblent s'arrêter puis reculer dans le ciel pendant plusieurs semaines avant de reprendre leur course normale. Sur des cercles parfaits autour de la Terre immobile, ces rétrogradations sont inexplicables.
 
@@ -531,6 +339,7 @@ Le système ptolémaïque final comporte **plus de 80 cercles** pour modéliser 
 
 ### Le Califat Abbasside et la Maison de la Sagesse
 
+
 Sous les califes Hārūn al-Rashīd (r. 786–809) et surtout Al-Maʾmūn (r. 813–833), Bagdad devient le centre intellectuel du monde. La Bayt al-Ḥikma (بيت الحكمة, Maison de la Sagesse), fondée vers 830, fonctionne comme académie de traduction, bibliothèque et observatoire astronomique. Des équipes multilingues traduisent en arabe les œuvres majeures : l'*Almageste* de Ptolémée (traduit par Ḥunayn ibn Isḥāq et révisé par Thābit ibn Qurra), les *Éléments* d'Euclide, la *Physique* et *Du Ciel* d'Aristote. L'arabe devient la langue scientifique internationale du IXᵉ au XIIIᵉ siècle.
 
 
@@ -539,16 +348,18 @@ Ces traductions ne sont pas de simples copies : les traducteurs commentent, crit
 
 ### Les falāsifa : une minorité d'intellectuels urbains
 
+
 Certains intellectuels musulmans, influencés par la *falsafa* (philosophie) grecque, adoptent le modèle sphérique. Al-Kindī (v. 801–873), al-Fārābī (v. 872–950), Ibn Sīnā (Avicenne, 980–1037) et Ibn Rushd (Averroès, 1126–1198) représentent ce courant. Mais un fait crucial est généralement passé sous silence : **ces philosophes restent minoritaires**. Leur influence se limite à l'élite intellectuelle urbaine. La majorité des oulémas (savants religieux) et la totalité du peuple musulman n'adhèrent pas à leurs vues cosmologiques.
 
 
 ### Le rejet par les oulémas : le Coran, la Sunna et le consensus des Salafs
 
+
 La position majoritaire dans le monde musulman classique est le rejet de la cosmologie grecque au nom de la Révélation. Les Compagnons (Ṣaḥāba) et les Successeurs (Tābiʿūn) comprenaient unanimement les descriptions coraniques de la Terre comme désignant une surface plane étendue :
 
 
 وَإِلَى ٱلْأَرْضِ كَيْفَ سُطِحَتْ
-
+**
 
 « Et la terre, comment elle a été étendue (suṭiḥat) ? »
 Sourate Al-Ghashiyah — 88:20
@@ -573,15 +384,18 @@ Peuple musulmanTerre étendue (conception populaire)Très majoritaire
 
 ## V Conclusion : leçons épistémologiques
 
+
 L'examen approfondi des cosmologies antiques révèle plusieurs faits majeurs que le récit scolaire standard occulte systématiquement.
 
 
 ### L'universalité de la Terre plate n'est pas un accident
 
-Toutes les grandes civilisations — Babylone, Égypte, Chine, Mayas, Aztèques, Incas — décrivaient la Terre comme une surface plane. Ces civilisations se sont développées indépendamment, sur des continents séparés, dans des langues et des cultures sans contact les unes avec les autres. Cette convergence universelle ne peut pas être le fruit du hasard ou de l'ignorance : c'est une **inférence raisonnable** basée sur l'observation directe et l'expérience quotidienne. L'horizon est plat. La surface de l'eau est de niveau. Le sol ne bouge pas sous nos pieds.
+
+Toutes les grandes civilisations — Babylone, Égypte, Chine, Mayas, Aztèques, Incas — décrivaient la Terre comme une surface plane. Ces civilisations se sont développées indépendamment, sur des continents séparés, dans des langues et des cultures sans contact les unes avec les autres. Cette convergence universelle ne peut pas être le fruit du hasard ou de l'ignorance : c'est une inférence raisonnable** basée sur l'observation directe et l'expérience quotidienne. L'horizon est plat. La surface de l'eau est de niveau. Le sol ne bouge pas sous nos pieds.
 
 
 ### La sphéricité naît de l'ésotérisme, pas de l'observation
+
 
 La transition vers la Terre sphérique suit un parcours précis et documenté :
 
@@ -610,10 +424,12 @@ Chronologie de la transition
 
 ### L'observation ne dicte pas le modèle
 
+
 Les mêmes observations (lever et coucher du soleil, étoiles, horizon, pluie) peuvent être interprétées dans des cadres cosmologiques différents : Terre plate avec dôme céleste rotatif, Terre sphérique géocentrique (Ptolémée), Terre sphérique héliocentrique (Copernic). L'observation ne dicte pas l'interprétation cosmologique — elle est toujours médiatisée par un cadre théorique, un paradigme, une vision du monde. C'est exactement ce que nous avons établi dans l'article précédent ([Pourquoi tout remettre en question](/le-nexus/)) : sans expérience contrôlée, l'observation reste ambiguë.
 
 
 ### La « vérité scientifique » est culturellement construite
+
 
 Ce qui est accepté comme « vérité scientifique » dépend largement du contexte culturel, religieux et philosophique. En Babylone, en Égypte, en Chine, dans les Amériques : Terre plate, cohérente avec l'expérience directe. En Grèce pythagoricienne : Terre sphérique, cohérente avec la divinisation des astres. En Europe chrétienne : Terre sphérique, cohérente avec la synthèse thomiste. En islam classique : débat permanent entre Révélation et philosophie grecque importée.
 
@@ -677,98 +493,3 @@ Sourate Al-ʿAnkabūt — 29:20
 
 
 — FIN DE L'ARTICLE N2 —
-
-
- 
-
-
-					
-
-.nx-footer{background:#050505;border-top:1px solid #1A1A1A;padding:4rem 2rem 2rem;font-family:'Montserrat',sans-serif}
-.nx-footer__inner{max-width:1100px;margin:0 auto}
-.nx-footer__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
-.nx-footer__brand-name{font-family:'Playfair Display',Georgia,serif;font-size:1.2rem;font-weight:700;color:#D4AF37;margin:0 0 1rem}
-.nx-footer__brand-desc{font-family:'Source Serif 4',Georgia,serif;font-size:.88rem;line-height:1.65;color:#5C5850;margin:0 0 1.5rem}
-.nx-footer__brand-verse{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:.82rem;line-height:1.6;color:rgba(212,175,55,.4)}
-.nx-footer__col-title{font-size:.65rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#9A9589;margin:0 0 1.2rem}
-.nx-footer__links{list-style:none;padding:0;margin:0}
-.nx-footer__links li{margin-bottom:.7rem}
-.nx-footer__links a{font-size:.82rem;color:#5C5850;text-decoration:none;transition:color .3s ease}
-.nx-footer__links a:hover{color:#E8E4DC}
-.nx-footer__sep{height:1px;background:#1A1A1A;margin-bottom:1.5rem}
-.nx-footer__bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-.nx-footer__copy{font-size:.72rem;color:#5C5850}
-.nx-footer__socials{display:flex;gap:.8rem;align-items:center}
-.nx-footer__socials a{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;background:#0A0A0A;border:1px solid #1A1A1A;color:#5C5850;font-size:.75rem;text-decoration:none;transition:all .3s ease}
-.nx-footer__socials a:hover{border-color:rgba(212,175,55,.3);color:#D4AF37;transform:translateY(-2px)}
-@media(max-width:768px){.nx-footer__grid{grid-template-columns:1fr;gap:2rem}.nx-footer{padding:3rem 1.5rem 1.5rem}.nx-footer__bottom{flex-direction:column;align-items:flex-start}}
-
-
- 
- 
-## Terre Étendue Islam
-
- 
- Un examen rigoureux des paradigmes cosmologiques, 
- croisant sources sacrées et observations empiriques.
- 
-
-
- 
- « Et la terre, comment elle a été étendue ? »
-
- — Al-Ghashiyah, 88:20
- 
-
-
- 
- 
-### Explorer
-
- 
-
- - [Le Nexus](/le-nexus/)
-
- - [L'Observatoire](/lobservatoire/)
-
- - [La Bibliothèque](/la-bibliotheque/)
-
- - [Le Lab](/le-lab/)
-
- 
-
- 
- 
-### Ressources
-
- 
-
- - [Glossaire](/glossaire/)
-
- - [Index thématique](/index-thematique/)
-
- - [Méthodologie](/methodologie/)
-
- 
-
- 
- 
-### À propos
-
- 
-
- - [Manifeste](/manifeste/)
-
- - [Éthique intellectuelle](/ethique-intellectuelle/)
-
- - [Contact](/contact/)
-
- 
-
- © 2026 Terre Étendue Islam — Tous droits réservés · [Mentions légales](/mentions-legales/)
-
-
- [▶](https://www.youtube.com/@TERREETENDUE)
- [◉](https://odysee.com/@terreetendue)
- [✈](https://t.me/LATERREETENDUE)
- [♪](https://tiktok.com/@terreetendue1)

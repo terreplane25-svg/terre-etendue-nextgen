@@ -1,105 +1,14 @@
 ---
 title: "L'hypothèse nulle : dynamique et cinématique"
-description: "@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap'); :..."
+description: "Imaginez deux commentateurs sportifs qui décrivent le même match de football. L'un dit : « Le joueur court vers la gauche à 10 km/h. » L'autre dit : « Le terrain glisse vers la droite à 10 km/h sous un joueur immobile...."
 date: "2026-04-29"
 author: "Terre Etendue"
 category: "headquarters"
 tags: ["le-nexus"]
 ---
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
-:root{--bg:#F7F2E8;--bg2:#EDE5D5;--gold:#B8860B;--gold-g:rgba(212,175,55,.12);--t1:#2C1810;--t2:#5C4A3A;--t3:#8A7A6A;--bdr:#DDD5C5;--f1:'Cormorant Garamond',Georgia,serif;--f2:'Outfit',sans-serif;--f3:'Cormorant Garamond',Georgia,serif}
-.n6{background:var(--bg);color:var(--t1);padding:0}
-.n6-h{padding:5rem 2rem 3.5rem;text-align:center;position:relative;overflow:hidden}
-.n6-h::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 30%,rgba(212,175,55,.04),transparent 70%);pointer-events:none}
-.n6-tag{display:inline-block;font-family:var(--f2);font-size:.62rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);background:var(--gold-g);border:1px solid rgba(212,175,55,.2);padding:.3em 1em;border-radius:4px;margin-bottom:1.5rem}
-.n6-title{font-family:var(--f1);font-size:clamp(1.7rem,4.5vw,2.5rem);font-weight:700;color:var(--gold);line-height:1.15;margin:0 0 1rem;max-width:800px;margin-left:auto;margin-right:auto}
-.n6-sub{font-family:var(--f3);font-size:1.02rem;line-height:1.7;color:var(--t2);max-width:650px;margin:0 auto 2rem}
-.n6-meta{max-width:800px;margin:0 auto;padding:1.2em 0;border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);display:flex;flex-wrap:wrap;gap:.5em 2em;font-family:var(--f2);font-size:.75rem;color:var(--t3)}
-.n6-meta dt{font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:.65rem}
-.n6-meta dd{margin:0 0 .6em;color:var(--t2)}
-.n6-lay{display:flex;gap:2.5rem;max-width:1200px;margin:0 auto;padding:2.5rem 2rem 5rem;align-items:flex-start}
-.n6-nav{flex:0 0 255px;position:sticky;top:80px;max-height:calc(100vh - 100px);overflow-y:auto;padding:1.5rem;background:var(--bg2);border:1px solid var(--bdr);border-radius:10px}
-.n6-nav::-webkit-scrollbar{width:3px}.n6-nav::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
-.n6-nav__t{font-family:var(--f2);font-size:.65rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin:0 0 1rem;padding-bottom:.6rem;border-bottom:1px solid var(--bdr)}
-.n6-nav ul{list-style:none;padding:0;margin:0}.n6-nav li{margin-bottom:.35rem}
-.n6-nav a{display:block;font-family:var(--f2);font-size:.76rem;color:var(--t3);text-decoration:none;padding:.4em .8em;border-radius:5px;border-left:2px solid transparent;transition:all .25s ease;line-height:1.35}
-.n6-nav a:hover{color:var(--t1);background:rgba(212,175,55,.06);border-left-color:var(--gold)}
-.n6-nav a.active{color:var(--gold);background:var(--gold-g);border-left-color:var(--gold);font-weight:500}
-.n6-nav .num{font-size:.6rem;font-weight:600;color:var(--gold);margin-right:.4em;opacity:.7}
-.n6-nav__bk{display:block;margin-top:1.2rem;padding:.6em 1em;background:var(--gold);color:#F7F2E8;font-family:var(--f2);font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;text-align:center;border-radius:5px;transition:background .3s ease}
-.n6-nav__bk:hover{background:#D4A017}
-.n6-b{flex:1;min-width:0;max-width:800px;font-family:var(--f3);font-size:clamp(1rem,1.8vw,1.08rem);line-height:1.75;color:var(--t1)}
-.n6-b p{margin-bottom:1.4em;text-align:justify;hyphens:auto}
-.n6-b a{color:var(--gold);text-decoration:underline;text-underline-offset:3px}
-.n6-b h2{font-family:var(--f1);font-size:clamp(1.4rem,3vw,1.85rem);font-weight:700;color:var(--t1);margin:3em 0 .8em;padding-bottom:.4em;border-bottom:1px solid var(--bdr);line-height:1.25;scroll-margin-top:90px}
-.n6-b h3{font-family:var(--f2);font-size:clamp(1rem,1.8vw,1.15rem);font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;margin:2em 0 .6em;line-height:1.35;scroll-margin-top:90px}
-.sn{font-family:var(--f2);font-size:.65rem;font-weight:600;color:var(--gold);background:var(--gold-g);border:1px solid rgba(212,175,55,.2);padding:.2em .6em;border-radius:3px;margin-right:.6em;vertical-align:middle}
-.bq{margin:2em 0;padding:1.5em 2em;background:linear-gradient(135deg,var(--gold-g),transparent 70%);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;font-family:var(--f3);font-style:italic;font-size:1.02em;line-height:1.75;color:var(--t1)}
-.bq cite{display:block;margin-top:.8em;font-size:.78em;font-style:normal;font-family:var(--f2);color:var(--t3)}
-.db{margin:2em 0;padding:1.4em 1.8em;background:var(--bg2);border:1px solid var(--bdr);border-radius:8px}
-.db__l{display:inline-block;font-family:var(--f2);font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);background:var(--gold-g);padding:.2em .7em;border-radius:3px;margin-bottom:.8em}
-.db p{font-size:.92rem;margin-bottom:.8em;text-align:left}
-.kp{margin:1.5em 0;padding:1.2em 1.6em;background:var(--bg2);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;font-family:var(--f2);font-size:.9rem;line-height:1.6;color:var(--t2)}
-.kp strong{color:var(--t1)}
-.tw{margin:2em 0;overflow-x:auto}
-.tb{width:100%;border-collapse:collapse;font-family:var(--f2);font-size:.75rem}
-.tb th{background:var(--bg2);color:var(--gold);font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:.64rem;padding:.6em .7em;text-align:left;border-bottom:1px solid var(--bdr)}
-.tb td{padding:.5em .7em;border-bottom:1px solid var(--bdr);color:var(--t2);vertical-align:top}
-.tb tr:hover td{background:rgba(212,175,55,.03)}
-.n6-refs{margin-top:3em;padding-top:2em;border-top:1px solid var(--bdr)}
-.n6-refs h2{border-bottom:none;padding-bottom:0;font-size:1.3rem}
-.n6-refs ol{padding-left:1.5em;font-family:var(--f2);font-size:.82rem;color:var(--t2);line-height:1.7}
-.n6-refs li{margin-bottom:.6em}
-@media(max-width:900px){.n6-lay{flex-direction:column;padding:1.5rem}.n6-nav{position:static;flex:none;width:100%;max-height:none;margin-bottom:2rem}.n6-h{padding:3.5rem 1.5rem 2.5rem}}
-
-
- Le Nexus — NXS-2026-006
- 
-# L'hypothèse nulle : la dynamique n'ajoute rien à la cinématique
-
- La masse s'annule de toutes les équations du mouvement. La « force gravitationnelle » est un label collé sur une identité cinématique. Le géocentrisme et l'héliocentrisme produisent le même ciel — pas un ciel différent, le même.
-
-
- 
- AuteurTerre Étendue Islam (d'après SpaceAudits / Llamazing)
- DateAvril 2026 — v1.0
- Lecture~40 min
- SourcesBouw 2013 · Bruns 1887 · Poincaré 1890 · Kepler 1619 · Newton 1687 · Cavendish 1798 · De Sitter 1938
- 
-
- 
- 
-## Sommaire
-
- 
-
- - [01 Le problème fondamental](#h-intro)
-
- - [02 Ce que Newton a vraiment écrit](#h-newton)
-
- - [03 La masse s'annule](#h-masse)
-
- - [04 GM = le ratio de Kepler × 4π²](#h-kepler)
-
- - [05 La masse en kg : un artefact](#h-cavendish)
-
- - [06 Le problème des trois corps](#h-trois)
-
- - [07 Le même ciel, des forces différentes](#h-bouw)
-
- - [08 Ce que les physiciens admettent](#h-citations)
-
- - [09 Conclusion](#h-ccl)
-
- - [Références](#h-refs)
-
- 
-
- [← Retour au Nexus](/le-nexus/)
- 
-
 ## 01 Le problème fondamental
+
 
 💡 En termes simples
 
@@ -115,6 +24,7 @@ Cet article démontre que cette prétention est fausse. La dynamique est la cin�
 
 ## 02 Ce que Newton a vraiment écrit : une équation d'équilibre
 
+
 Newton n'a pas écrit F = ma. Il a écrit :
 
 
@@ -129,6 +39,7 @@ La forme moderne **F = ma** réécrit cette équation comme un énoncé causal :
 
 
 ## 03 La masse s'annule : la preuve algébrique
+
 
 L'équation généralisée des forces dans un référentiel en rotation contient quatre termes :
 
@@ -166,7 +77,9 @@ Chaque terme est de la forme **m × a**. Divisez chaque terme par m :
 
 **Le tour de passe-passe :** Considérez la vitesse d'un corps en mouvement circulaire : **v = ωr**. C'est cinématique. Maintenant multipliez les deux côtés par m/m (= 1) : **mv = mωr**. Renommez le côté gauche « p » (quantité de mouvement) : **p = mωr**. Déclarez « dynamique ». Mais m/m = 1. Rien n'a été ajouté. L'équation dynamique contient exactement la même information que l'équation cinématique. La seule différence est un label.
 
+
 ## 04 GM = le ratio de Kepler × 4π²
+
 
 Chaque planète en orbite autour du Soleil partage la même valeur :
 
@@ -188,6 +101,7 @@ Kepler a trouvé ce ratio en 1619 à partir des observations de Brahe. **Pas de 
 
 ### Les trois couches d'interprétation
 
+
 **Couche 1 — Kepler (1619) :** a³/T² = 3,36 × 10¹⁸ m³/s². Des distances et des temps. C'est la mesure brute.
 
 
@@ -199,7 +113,9 @@ Kepler a trouvé ce ratio en 1619 à partir des observations de Brahe. **Pas de 
 
 **Ce que « la masse du Soleil » signifie réellement :** (ratio mesuré dans le ciel) ÷ (boules de plomb dans un laboratoire). Sans G, il n'y a pas de masse. Il y a juste le ratio. Et personne en mécanique orbitale n'utilise jamais M seul — chaque équation utilise GM comme une unité indivisible. La NASA/JPL publie GM à 12+ chiffres significatifs. Ils ne le séparent jamais.
 
+
 ## 05 La masse en kilogrammes : un artefact de laboratoire
+
 
 Pour obtenir la « masse » d'un corps céleste en kilogrammes, il faut diviser GM par G. Mais G est la constante fondamentale la moins bien connue de toute la physique (~5 chiffres significatifs). Les mesures modernes ne s'accordent pas entre elles :
 
@@ -219,6 +135,7 @@ Et surtout : **on ne peut pas obtenir la masse d'une planète à partir de sa pr
 
 ## 06 Le problème des trois corps : là où la dynamique s'effondre
 
+
 💡 En termes simples
 
 
@@ -232,6 +149,7 @@ Cela signifie que la décomposition « la Lune est perturbée par le Soleil de X
 
 
 ## 07 Le même ciel, des forces différentes
+
 
 Gerardus Bouw (2013) effectue un calcul complet de décomposition des forces dans le référentiel géocentrique pour 11 corps célestes. Les résultats sont spectaculaires :
 
@@ -266,6 +184,7 @@ Pendule de Foucaultsin(φ) × 360°/jsin(φ) × 360°/j✓
 
 ## 08 Ce que les physiciens admettent
 
+
 « La lutte, si violente aux premiers jours de la science, entre les vues de Ptolémée et de Copernic serait alors tout à fait dépourvue de sens. L'un ou l'autre système de coordonnées pourrait être utilisé avec une justification égale. Les deux phrases, "le Soleil est au repos et la Terre se déplace" ou "le Soleil se déplace et la Terre est au repos" signifieraient simplement deux conventions différentes. »
 — Albert Einstein et Leopold Infeld, L'Évolution de la physique (1938), p. 212
 « Bien qu'il ne soit pas rare que les gens disent que Copernic a prouvé que Ptolémée avait tort, ce n'est pas vrai. On peut utiliser l'un ou l'autre modèle comme description de l'univers, car nos observations du ciel peuvent être expliquées en supposant soit que la Terre, soit que le Soleil est au repos. »
@@ -281,6 +200,7 @@ Pendule de Foucaultsin(φ) × 360°/jsin(φ) × 360°/j✓
 
 
 ## 09 Conclusion : le commentaire n'est pas le match
+
 
 Résumons ce que cet article a démontré :
 
@@ -306,6 +226,7 @@ Le choix entre « la Terre tourne » et « le ciel tourne » est un choix de **c
 
 « Nous avons montré que la physique de l'univers géocentrique rend parfaitement compte de ce que nous voyons et mesurons de la rotation quotidienne, que cette rotation soit celle de la Terre dans l'univers ou celle de l'univers autour de la Terre. En dernière analyse, les preuves fondées sur des équations dynamiques ne sont des preuves de rien ; et elles ne sont pas non plus des preuves contre l'univers géocentrique. »
 — Gerardus Bouw, Geocentricity (2013), Appendice E, p. 747
+
 
 ## Références
 
