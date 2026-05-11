@@ -91,12 +91,16 @@ function ConcentricOrbit({ radius, speed, color, count }: {
     });
   }, [radius, count]);
 
+  // Objet Three.js Line (pas l'élément SVG)
+  const lineObj = useMemo(() => {
+    const mat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.2 });
+    return new THREE.Line(ringGeometry, mat);
+  }, [ringGeometry, color]);
+
   return (
     <group>
       {/* Ligne de l'orbite */}
-      <line geometry={ringGeometry}>
-        <lineBasicMaterial color={color} transparent opacity={0.2} />
-      </line>
+      <primitive object={lineObj} />
 
       {/* Particules orbitant */}
       <group ref={groupRef}>
@@ -117,7 +121,6 @@ function ConcentricOrbit({ radius, speed, color, count }: {
               color={color}
               anchorX="center"
               anchorY="middle"
-              font="/fonts/arabic.woff"
               fillOpacity={0.7}
             >
               {p.name}
