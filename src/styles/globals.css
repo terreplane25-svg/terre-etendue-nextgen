@@ -168,3 +168,41 @@ body {
 .prose-tei em {
   @apply text-obs-text-primary/80;
 }
+
+/* ═══════════════════════════════════════════
+   Texte arabe dans les articles
+   ═══════════════════════════════════════════ */
+
+.arabic-text {
+  font-family: var(--font-amiri), 'Traditional Arabic', 'Noto Naskh Arabic', serif;
+  font-size: 1.3em;
+  line-height: 2;
+  direction: rtl;
+  display: inline;
+  color: #D4AF37;
+  letter-spacing: 0;
+}
+
+/* Citation contenant du texte arabe */
+.prose-tei blockquote .arabic-text {
+  font-size: 1.4em;
+  display: block;
+  text-align: right;
+  margin-bottom: 0.5rem;
+  color: #E5C458;
+}
+
+/* ═══════════════════════════════════════════
+   Glossaire inline (survol)
+   ═══════════════════════════════════════════ */
+
+.glossary-inline {
+  border-bottom: 1px dashed #D4AF37;
+  cursor: help;
+  transition: color 0.2s;
+}
+
+.glossary-inline:hover {
+  color: #D4AF37;
+}
+

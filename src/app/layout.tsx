@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Montserrat, Source_Serif_4 } from 'next/font/google';
+import { Inter, Montserrat, Source_Serif_4, Amiri } from 'next/font/google';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import '@/styles/globals.css';
@@ -19,6 +19,13 @@ const montserrat = Montserrat({
 const sourceSerif = Source_Serif_4({
   subsets: ['latin'],
   variable: '--font-source-serif',
+  display: 'swap',
+});
+
+const amiri = Amiri({
+  subsets: ['arabic', 'latin'],
+  weight: ['400', '700'],
+  variable: '--font-amiri',
   display: 'swap',
 });
 
@@ -49,7 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="fr"
-      className={`dark ${inter.variable} ${montserrat.variable} ${sourceSerif.variable}`}
+      className={`dark ${inter.variable} ${montserrat.variable} ${sourceSerif.variable} ${amiri.variable}`}
     >
       <body className="bg-obs-dark text-obs-text-primary min-h-screen flex flex-col font-sans antialiased">
         <Navigation />
