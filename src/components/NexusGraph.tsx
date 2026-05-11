@@ -33,7 +33,7 @@ const NODES: Omit<NexusNode, 'x' | 'y' | 'vx' | 'vy'>[] = [
   { id: 'topologie-sacree', label: 'Topologie Sacrée', category: 'library' },
   { id: 'constantes-physiques', label: 'Constantes Physiques', category: 'lab' },
   { id: 'isnads-network', label: 'Réseau des Isnâds', category: 'library' },
-  { id: 'courbure-espace', label: 'Courbure de l'Espace', category: 'observatory' },
+  { id: 'courbure-espace', label: "Courbure de l'Espace", category: 'observatory' },
 ];
 
 const EDGES: NexusEdge[] = [
