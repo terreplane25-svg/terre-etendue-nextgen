@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════
+   TERRE ÉTENDUE ISLAM — Design Tokens CSS
+   ═══════════════════════════════════════════ */
+
+:root {
+  --color-obs-dark: #0A0F14;
+  --color-obs-surface: #161D26;
+  --color-obs-cyan: #00D1FF;
+  --color-obs-gold: #D4AF37;
+  --color-obs-border: #2A3138;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-obs-dark);
+  color: #F5F7FA;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: rgba(0, 209, 255, 0.2);
+  color: #00D1FF;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #161D26; }
+::-webkit-scrollbar-thumb { background: #2A3138; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #00D1FF; }
+
+/* Focus accessible */
+*:focus-visible {
+  outline: 2px solid #00D1FF;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ═══════════════════════════════════════════
+   Composants réutilisables
+   ═══════════════════════════════════════════ */
+
+@layer components {
+  /* Bloc citation divine — bordure dorée */
+  .quote-sacred {
+    @apply pl-6 border-l-2 border-obs-gold my-8 font-serif italic text-obs-text-secondary;
+  }
+
+  /* Bloc citation scientifique — bordure cyan */
+  .quote-science {
+    @apply pl-6 border-l-2 border-obs-cyan my-8 font-mono text-obs-text-secondary;
+  }
+
+  /* Carte pilier générique */
+  .card-surface {
+    @apply bg-obs-surface border border-obs-border rounded-xl transition-all duration-300;
+  }
+
+  .card-surface:hover {
+    @apply border-obs-cyan shadow-obs-cyan;
+  }
+
+  /* Glossaire tooltip */
+  .glossary-term {
+    @apply border-b border-dashed border-obs-gold cursor-help relative;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Prose (articles en Markdown)
+   ═══════════════════════════════════════════ */
+
+.prose-tei {
+  @apply text-obs-text-secondary leading-relaxed font-serif;
+}
+
+.prose-tei h2 {
+  @apply text-obs-text-primary font-display font-bold text-2xl mt-12 mb-4;
+}
+
+.prose-tei h3 {
+  @apply text-obs-text-primary font-display font-semibold text-xl mt-8 mb-3;
+}
+
+.prose-tei h4 {
+  @apply text-obs-text-primary font-display font-medium text-lg mt-6 mb-2;
+}
+
+.prose-tei p {
+  @apply mb-4 leading-relaxed;
+}
+
+.prose-tei a {
+  @apply text-obs-cyan underline underline-offset-4 decoration-obs-cyan/30 hover:decoration-obs-cyan transition-colors;
+}
+
+.prose-tei strong {
+  @apply text-obs-text-primary font-semibold;
+}
+
+.prose-tei blockquote {
+  @apply quote-sacred;
+}
+
+.prose-tei code {
+  @apply bg-obs-surface px-2 py-0.5 rounded text-obs-cyan text-sm font-mono;
+}
+
+.prose-tei pre {
+  @apply bg-obs-surface border border-obs-border rounded-lg p-4 overflow-x-auto my-6;
+}
+
+.prose-tei ul {
+  @apply list-disc pl-6 my-4 space-y-2;
+}
+
+.prose-tei ol {
+  @apply list-decimal pl-6 my-4 space-y-2;
+}
+
+.prose-tei table {
+  @apply w-full my-6 border-collapse;
+}
+
+.prose-tei th {
+  @apply bg-obs-surface text-obs-text-primary font-display text-sm uppercase tracking-wider p-3 text-left border-b border-obs-border;
+}
+
+.prose-tei td {
+  @apply p-3 border-b border-obs-border text-sm;
+}
+
+.prose-tei hr {
+  @apply border-obs-border my-12;
+}
+
+.prose-tei img {
+  @apply rounded-lg my-8;
+}
