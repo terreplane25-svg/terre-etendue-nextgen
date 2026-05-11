@@ -206,3 +206,199 @@ body {
   color: #D4AF37;
 }
 
+/* ═══════════════════════════════════════════
+   Numéros de section
+   ═══════════════════════════════════════════ */
+
+.section-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, rgba(0, 209, 255, 0.15), rgba(0, 209, 255, 0.05));
+  border: 1px solid rgba(0, 209, 255, 0.2);
+  color: #00D1FF;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+  letter-spacing: 0;
+}
+
+.prose-tei h2:has(.section-number) {
+  display: flex;
+  align-items: center;
+}
+
+/* ═══════════════════════════════════════════
+   Boîtes d'information (En termes simples)
+   ═══════════════════════════════════════════ */
+
+.info-box {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.06), rgba(212, 175, 55, 0.02));
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 1rem;
+  padding: 1.5rem 1.75rem;
+  margin: 2rem 0;
+}
+
+.info-box__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.info-box__icon {
+  font-size: 1.1rem;
+}
+
+.info-box__label {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #D4AF37;
+}
+
+.info-box__content {
+  color: rgba(245, 247, 250, 0.75);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.info-box__content p {
+  margin-bottom: 0;
+}
+
+/* ═══════════════════════════════════════════
+   Citations stylisées (guillemets français)
+   ═══════════════════════════════════════════ */
+
+.styled-quote {
+  position: relative;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(212, 175, 55, 0.02));
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-left: 3px solid #D4AF37;
+  border-radius: 0 1rem 1rem 0;
+  padding: 2rem 2rem 1.5rem 2rem;
+  margin: 2.5rem 0;
+  font-style: italic;
+}
+
+.styled-quote::before {
+  content: '\201C';
+  position: absolute;
+  top: -0.5rem;
+  left: 1rem;
+  font-size: 4rem;
+  color: rgba(212, 175, 55, 0.2);
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+.styled-quote__text {
+  color: rgba(245, 247, 250, 0.8);
+  font-size: 1rem;
+  line-height: 1.8;
+  padding-left: 0;
+}
+
+.styled-quote__cite {
+  display: block;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.1);
+  font-style: normal;
+  font-size: 0.8rem;
+  color: rgba(212, 175, 55, 0.7);
+  font-family: var(--font-inter), sans-serif;
+}
+
+/* ═══════════════════════════════════════════
+   Résultats clés / conclusions
+   ═══════════════════════════════════════════ */
+
+.key-result {
+  background: linear-gradient(135deg, rgba(0, 209, 255, 0.06), rgba(0, 209, 255, 0.02));
+  border: 1px solid rgba(0, 209, 255, 0.15);
+  border-left: 3px solid #00D1FF;
+  border-radius: 0 1rem 1rem 0;
+  padding: 1.5rem 1.75rem;
+  margin: 2rem 0;
+}
+
+.key-result__label {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #00D1FF;
+  margin-bottom: 0.75rem;
+}
+
+.key-result p {
+  color: rgba(245, 247, 250, 0.8);
+  margin-bottom: 0;
+}
+
+/* ═══════════════════════════════════════════
+   Protocole / étapes
+   ═══════════════════════════════════════════ */
+
+.protocol-box {
+  background: linear-gradient(135deg, rgba(0, 209, 255, 0.04), transparent);
+  border: 1px solid rgba(0, 209, 255, 0.12);
+  border-radius: 1rem;
+  padding: 1.5rem 1.75rem;
+  margin: 2rem 0;
+}
+
+.protocol-box__header {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #00D1FF;
+  background: rgba(0, 209, 255, 0.1);
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  border-radius: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+/* ═══════════════════════════════════════════
+   Références coraniques et hadiths
+   ═══════════════════════════════════════════ */
+
+.quran-ref {
+  color: #D4AF37;
+  font-weight: 500;
+  font-size: 0.9em;
+}
+
+.quran-ref-short {
+  font-family: var(--font-inter), sans-serif;
+  color: #D4AF37;
+  font-size: 0.8em;
+  font-weight: 600;
+  background: rgba(212, 175, 55, 0.08);
+  padding: 0.1em 0.4em;
+  border-radius: 0.25rem;
+}
+
+.hadith-ref {
+  display: block;
+  margin-top: 0.5rem;
+  font-style: normal;
+  font-size: 0.8rem;
+  color: rgba(212, 175, 55, 0.6);
+  font-family: var(--font-inter), sans-serif;
+}
+
