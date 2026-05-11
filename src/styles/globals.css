@@ -79,22 +79,24 @@ body {
 
 .prose-tei {
   @apply text-obs-text-secondary leading-relaxed font-serif;
+  font-size: 1.075rem;
+  line-height: 1.85;
 }
 
 .prose-tei h2 {
-  @apply text-obs-text-primary font-display font-bold text-2xl mt-12 mb-4;
+  @apply text-obs-text-primary font-display font-bold text-2xl mt-16 mb-6 pb-3 border-b border-obs-border;
 }
 
 .prose-tei h3 {
-  @apply text-obs-text-primary font-display font-semibold text-xl mt-8 mb-3;
+  @apply text-obs-text-primary font-display font-semibold text-xl mt-10 mb-4;
 }
 
 .prose-tei h4 {
-  @apply text-obs-text-primary font-display font-medium text-lg mt-6 mb-2;
+  @apply text-obs-text-primary font-display font-medium text-lg mt-8 mb-3;
 }
 
 .prose-tei p {
-  @apply mb-4 leading-relaxed;
+  @apply mb-5;
 }
 
 .prose-tei a {
@@ -106,7 +108,13 @@ body {
 }
 
 .prose-tei blockquote {
-  @apply quote-sacred;
+  @apply border-l-2 border-obs-gold pl-6 pr-4 py-3 my-8 bg-obs-gold/5 rounded-r-lg;
+  font-style: italic;
+  color: #D4AF37;
+}
+
+.prose-tei blockquote p {
+  @apply mb-2;
 }
 
 .prose-tei code {
@@ -118,29 +126,45 @@ body {
 }
 
 .prose-tei ul {
-  @apply list-disc pl-6 my-4 space-y-2;
+  @apply list-disc pl-6 my-5 space-y-2;
 }
 
 .prose-tei ol {
-  @apply list-decimal pl-6 my-4 space-y-2;
+  @apply list-decimal pl-6 my-5 space-y-2;
+}
+
+.prose-tei li {
+  @apply leading-relaxed;
 }
 
 .prose-tei table {
-  @apply w-full my-6 border-collapse;
+  @apply w-full my-8 border-collapse rounded-lg overflow-hidden;
+}
+
+.prose-tei thead {
+  @apply bg-obs-surface;
 }
 
 .prose-tei th {
-  @apply bg-obs-surface text-obs-text-primary font-display text-sm uppercase tracking-wider p-3 text-left border-b border-obs-border;
+  @apply text-obs-text-primary font-display text-sm uppercase tracking-wider p-3 text-left border-b-2 border-obs-cyan/20;
 }
 
 .prose-tei td {
   @apply p-3 border-b border-obs-border text-sm;
 }
 
+.prose-tei tr:hover td {
+  @apply bg-obs-surface/50;
+}
+
 .prose-tei hr {
-  @apply border-obs-border my-12;
+  @apply border-obs-border my-16;
 }
 
 .prose-tei img {
-  @apply rounded-lg my-8;
+  @apply rounded-lg my-8 border border-obs-border;
+}
+
+.prose-tei em {
+  @apply text-obs-text-primary/80;
 }

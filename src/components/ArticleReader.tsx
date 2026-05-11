@@ -66,10 +66,10 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
 
   // Process le HTML
   const processedHtml = useMemo(() => {
-    let html = injectHeadingIds(article.content);
+    let html = injectHeadingIds(article.htmlContent);
     html = enrichWithGlossary(html);
     return html;
-  }, [article.content]);
+  }, [article.htmlContent]);
 
   const headings = useMemo(() => extractHeadings(processedHtml), [processedHtml]);
 
@@ -97,7 +97,7 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
     month: 'long',
     day: 'numeric',
   });
-  const wordCount = article.content.replace(/<[^>]*>/g, '').split(/\s+/).length;
+  const wordCount = article.htmlContent.replace(/<[^>]*>/g, '').split(/\s+/).length;
   const readingTime = Math.ceil(wordCount / 200);
 
   // Le back href selon la catégorie
