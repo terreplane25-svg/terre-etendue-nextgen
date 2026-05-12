@@ -267,11 +267,56 @@ body {
   letter-spacing: 0.01em;
 }
 
-/* ── Standard Blockquotes ────────────────────────── */
+/* ── Citations (blockquote.tei-citation) ─────────── */
 
-.prose-tei blockquote:not(.tei-quote) {
+.prose-tei blockquote.tei-citation {
+  position: relative;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.07), rgba(212, 175, 55, 0.02));
+  border: 1px solid rgba(212, 175, 55, 0.12);
+  border-left: 3px solid #D4AF37;
+  border-radius: 0 1rem 1rem 0;
+  padding: 2rem 2rem 1.5rem 2rem;
+  margin: 2.5rem 0;
+  font-style: italic;
+}
+
+.prose-tei blockquote.tei-citation::before {
+  content: '\201C';
+  position: absolute;
+  top: 0.25rem;
+  left: 0.75rem;
+  font-size: 3.5rem;
+  color: rgba(212, 175, 55, 0.15);
+  font-family: Georgia, serif;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.prose-tei blockquote.tei-citation p {
+  color: rgba(245, 247, 250, 0.78);
+  font-size: 1rem;
+  line-height: 1.85;
+  margin-bottom: 0;
+  padding-left: 0.25rem;
+}
+
+.prose-tei blockquote.tei-citation cite {
+  display: block;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.08);
+  font-style: normal;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.78rem;
+  color: rgba(212, 175, 55, 0.5);
+  letter-spacing: 0.01em;
+}
+
+/* ── Standard Blockquotes (fallback) ─────────────── */
+
+.prose-tei blockquote:not(.tei-citation) {
   border-left: 2px solid #D4AF37;
-  padding: 1rem 1.5rem;
+  padding: 1.25rem 1.5rem;
   margin: 2rem 0;
   background: rgba(212, 175, 55, 0.04);
   border-radius: 0 0.75rem 0.75rem 0;

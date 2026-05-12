@@ -26,26 +26,30 @@ interface Heading {
 
 // ─── Extraction des headings ─────────────────────
 function extractHeadings(html: string): Heading[] {
-  const regex = /<h([23])[^>]*?(?:id="([^"]*)")?[^>]*>(.*?)<\/h\1>/gi;
+  // Match full h2/h3 tags including all attributes and content
+  const regex = /<h([23])(\s[^>]*)?>(.+?)<\/h\1>/gi;
   const headings: Heading[] = [];
   let match;
   while ((match = regex.exec(html)) !== null) {
     const level = parseInt(match[1]);
+    const attrs = match[2] || '';
     const rawText = match[3];
 
-    // Extract section number from <span class="tei-section-num">XX</span>
-    const numMatch = rawText.match(/class="tei-section-num">(\d+)<\/span>/);
+    // Extract ID from attributes (separate regex, much more reliable)
+    const idMatch = attrs.match(/id="([^"]*)"/);
+
+    // Extract section number
+    const numMatch = rawText.match(/tei-section-num">(\d+)<\/span>/);
     const number = numMatch ? numMatch[1] : '';
 
-    // Clean text: remove all HTML tags
+    // Clean text
     let text = rawText.replace(/<[^>]+>/g, '').trim();
-
-    // If text starts with the number (stuck), remove it
     if (number && text.startsWith(number)) {
       text = text.substring(number.length).trim();
     }
 
-    const id = match[2] || text.toLowerCase()
+    // Use existing ID from HTML, or generate from text as fallback
+    const id = idMatch ? idMatch[1] : text.toLowerCase()
       .replace(/[^a-z0-9\u00e0-\u00ff]+/g, '-')
       .replace(/^-|-$/g, '');
 
