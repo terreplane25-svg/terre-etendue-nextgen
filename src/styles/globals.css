@@ -559,12 +559,31 @@ body {
   letter-spacing: 0;
 }
 
+/* Arabic inside headings — keep proportional, don't blow up */
+.prose-tei h2 .tei-arabic,
+.prose-tei h3 .tei-arabic,
+.prose-tei h4 .tei-arabic {
+  font-size: 0.95em;
+  line-height: inherit;
+  direction: rtl;
+  display: inline;
+}
+
 .tei-quote .tei-arabic {
   font-size: 1.45em;
   display: block;
   text-align: right;
   margin-bottom: 0.5rem;
   color: #E5C458;
+}
+
+/* Arabic inside citations — slightly larger */
+.tei-citation .tei-arabic {
+  font-size: 1.3em;
+  display: block;
+  text-align: right;
+  margin-bottom: 0.5rem;
+  line-height: 2;
 }
 
 /* ── Quran References ────────────────────────────── */
