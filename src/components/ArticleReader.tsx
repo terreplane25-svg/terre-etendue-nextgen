@@ -1,14 +1,14 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Clock, User, ChevronRight, List } from 'lucide-react';
+import { ArrowLeft, Clock, User, ChevronRight, List, X } from 'lucide-react';
 import Link from 'next/link';
 import ViewModeSwitch, { useViewMode } from '@/components/ViewModeSwitch';
-import GlossaryTooltip, { GLOSSARY } from '@/components/GlossaryTooltip';
+import { GLOSSARY } from '@/components/GlossaryTooltip';
 import type { Article } from '@/lib/articles';
 
-// ─── Labels lisibles pour les categories ─────────
+// ─── Labels lisibles ─────────────────────────────
 const CATEGORY_LABELS: Record<string, { label: string; icon: string; color: string }> = {
   headquarters: { label: 'Le Q.G.', icon: '\u{1F9E0}', color: 'cyan' },
   observatory: { label: "L'Observatoire", icon: '\u{1F52D}', color: 'cyan' },
@@ -16,36 +16,61 @@ const CATEGORY_LABELS: Record<string, { label: string; icon: string; color: stri
   lab: { label: 'Le Lab', icon: '\u2697\uFE0F', color: 'cyan' },
 };
 
-// ─── Table des matieres extraite du HTML ──────────
+// ─── Types ───────────────────────────────────────
 interface Heading {
   id: string;
   text: string;
   level: number;
+  number: string;
 }
 
+// ─── Extraction des headings ─────────────────────
 function extractHeadings(html: string): Heading[] {
   const regex = /<h([23])[^>]*?(?:id="([^"]*)")?[^>]*>(.*?)<\/h\1>/gi;
   const headings: Heading[] = [];
   let match;
   while ((match = regex.exec(html)) !== null) {
     const level = parseInt(match[1]);
-    const id = match[2] || match[3].toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-    const text = match[3].replace(/<[^>]*>/g, '');
-    if (text.trim().length > 0) {
-      headings.push({ id, text: text.trim(), level });
+    const rawText = match[3];
+
+    // Extract section number from <span class="tei-section-num">XX</span>
+    const numMatch = rawText.match(/class="tei-section-num">(\d+)<\/span>/);
+    const number = numMatch ? numMatch[1] : '';
+
+    // Clean text: remove all HTML tags
+    let text = rawText.replace(/<[^>]+>/g, '').trim();
+
+    // If text starts with the number (stuck), remove it
+    if (number && text.startsWith(number)) {
+      text = text.substring(number.length).trim();
+    }
+
+    const id = match[2] || text.toLowerCase()
+      .replace(/[^a-z0-9\u00e0-\u00ff]+/g, '-')
+      .replace(/^-|-$/g, '');
+
+    if (text.length > 0) {
+      headings.push({ id, text, level, number });
     }
   }
   return headings;
 }
 
+// ─── Injection d'IDs dans les headings ───────────
 function injectHeadingIds(html: string): string {
   return html.replace(/<h([234])([^>]*)>(.*?)<\/h\1>/gi, (full, level, attrs, content) => {
     if (attrs.includes('id=')) return full;
-    const id = content.replace(/<[^>]*>/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const text = content.replace(/<[^>]+>/g, '').trim();
+    // Remove leading numbers for ID generation
+    const cleanText = text.replace(/^\d+\s*/, '');
+    const id = cleanText.toLowerCase()
+      .replace(/[^a-z0-9\u00e0-\u00ff]+/g, '-')
+      .replace(/^-|-$/g, '');
     return `<h${level}${attrs} id="${id}">${content}</h${level}>`;
   });
 }
 
+// ─── Enrichissement glossaire ────────────────────
 function enrichWithGlossary(html: string): string {
   let result = html;
   for (const [key, entry] of Object.entries(GLOSSARY)) {
@@ -60,14 +85,15 @@ function enrichWithGlossary(html: string): string {
   return result;
 }
 
+// ─── Détection texte arabe ───────────────────────
 function enhanceArabicText(html: string): string {
   return html.replace(
     /([\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF\uFC00-\uFCFF]{3,}(?:\s[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF\uFC00-\uFCFF]+)*)/g,
-    '<span class="arabic-text">$1</span>'
+    '<span class="tei-arabic">$1</span>'
   );
 }
 
-// ─── Composant Principal ──────────────────────────
+// ─── Composant Principal ─────────────────────────
 interface ArticleReaderProps {
   article: Article;
 }
@@ -76,7 +102,9 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
   const { mode } = useViewMode();
   const [activeHeading, setActiveHeading] = useState('');
   const [tocOpen, setTocOpen] = useState(false);
+  const [readProgress, setReadProgress] = useState(0);
 
+  // Process HTML
   const processedHtml = useMemo(() => {
     let html = injectHeadingIds(article.htmlContent);
     html = enrichWithGlossary(html);
@@ -86,6 +114,18 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
 
   const headings = useMemo(() => extractHeadings(processedHtml), [processedHtml]);
 
+  // Reading progress bar
+  useEffect(() => {
+    const onScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setReadProgress(docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Heading intersection observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -95,13 +135,24 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
           }
         }
       },
-      { rootMargin: '-20% 0px -70% 0px' }
+      { rootMargin: '-80px 0px -70% 0px' }
     );
-    const elements = document.querySelectorAll('.prose-tei h2, .prose-tei h3');
+    const elements = document.querySelectorAll('.prose-tei h2[id], .prose-tei h3[id]');
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, [processedHtml]);
 
+  // Smooth scroll to heading
+  const scrollToHeading = useCallback((id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 100;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+      setTocOpen(false);
+    }
+  }, []);
+
+  // Metadata
   const date = new Date(article.date).toLocaleDateString('fr-FR', {
     year: 'numeric',
     month: 'long',
@@ -120,6 +171,15 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
 
   return (
     <div className="min-h-screen pt-24">
+      {/* Reading progress bar */}
+      <div className="fixed top-0 left-0 right-0 z-50 h-[3px] bg-transparent">
+        <motion.div
+          className="h-full bg-gradient-to-r from-obs-cyan to-obs-cyan/60"
+          style={{ width: `${readProgress * 100}%` }}
+          transition={{ duration: 0.1 }}
+        />
+      </div>
+
       {/* Top bar */}
       <div className="max-w-6xl mx-auto px-6 mb-8 flex items-center justify-between">
         <Link
@@ -132,7 +192,7 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
         <div className="flex items-center gap-3">
           {headings.length > 0 && (
             <button
-              onClick={() => setTocOpen(!tocOpen)}
+              onClick={() => setTocOpen(true)}
               className="xl:hidden flex items-center gap-1.5 text-sm text-obs-text-secondary hover:text-obs-cyan transition-colors px-3 py-1.5 rounded-lg border border-obs-border"
             >
               <List size={14} />
@@ -143,30 +203,74 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
         </div>
       </div>
 
-      {/* Mobile TOC dropdown */}
+      {/* Mobile TOC drawer overlay */}
       <AnimatePresence>
         {tocOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="xl:hidden max-w-3xl mx-auto px-6 mb-6 overflow-hidden"
-          >
-            <nav className="bg-obs-surface border border-obs-border rounded-xl p-4 space-y-1">
-              {headings.map((h) => (
-                <a
-                  key={h.id}
-                  href={`#${h.id}`}
-                  onClick={() => setTocOpen(false)}
-                  className={`block text-sm py-1.5 transition-colors ${
-                    h.level > 2 ? 'pl-4 text-xs' : 'font-medium'
-                  } text-obs-text-secondary hover:text-obs-cyan`}
-                >
-                  {h.text}
-                </a>
-              ))}
-            </nav>
-          </motion.div>
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/60 z-40 xl:hidden"
+              onClick={() => setTocOpen(false)}
+            />
+            <motion.div
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 250 }}
+              className="fixed left-0 top-0 bottom-0 w-80 max-w-[85vw] bg-obs-dark border-r border-obs-border z-50 xl:hidden overflow-y-auto"
+            >
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <p className="text-xs font-display font-semibold uppercase tracking-[0.2em] text-obs-text-secondary/50">
+                    Sommaire
+                  </p>
+                  <button
+                    onClick={() => setTocOpen(false)}
+                    className="p-1.5 rounded-lg hover:bg-obs-surface text-obs-text-secondary"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+
+                {/* Progress in drawer */}
+                <div className="mb-6 h-1 bg-obs-surface rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-obs-cyan/50 rounded-full transition-all duration-300"
+                    style={{ width: `${readProgress * 100}%` }}
+                  />
+                </div>
+
+                <nav className="space-y-1">
+                  {headings.map((h) => (
+                    <button
+                      key={h.id}
+                      onClick={() => scrollToHeading(h.id)}
+                      className={`w-full text-left flex items-start gap-2.5 py-2 px-3 rounded-lg transition-all duration-200 ${
+                        h.level > 2 ? 'ml-4' : ''
+                      } ${
+                        activeHeading === h.id
+                          ? 'bg-obs-cyan/10 text-obs-cyan'
+                          : 'text-obs-text-secondary/70 hover:text-obs-text-primary hover:bg-obs-surface/50'
+                      }`}
+                    >
+                      {h.number && h.level === 2 && (
+                        <span className={`text-[0.65rem] font-bold font-mono mt-0.5 flex-shrink-0 w-5 ${
+                          activeHeading === h.id ? 'text-obs-cyan' : 'text-obs-cyan/40'
+                        }`}>
+                          {h.number}
+                        </span>
+                      )}
+                      <span className={`text-sm leading-snug ${h.level > 2 ? 'text-xs' : ''}`}>
+                        {h.text}
+                      </span>
+                    </button>
+                  ))}
+                </nav>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
 
@@ -210,33 +314,55 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
 
       {/* Body */}
       <div className="max-w-6xl mx-auto px-6 flex gap-12 pt-12 pb-20">
-        {/* TOC Sidebar desktop */}
+        {/* Desktop TOC Sidebar */}
         <AnimatePresence>
           {mode === 'study' && headings.length > 0 && (
             <motion.aside
               initial={{ opacity: 0, x: -16 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -16 }}
-              className="hidden xl:block w-60 shrink-0 sticky top-24 self-start max-h-[calc(100vh-8rem)] overflow-y-auto pr-4"
+              className="hidden xl:block w-64 shrink-0 sticky top-24 self-start max-h-[calc(100vh-8rem)] overflow-y-auto"
             >
-              <p className="text-[0.65rem] font-display font-semibold uppercase tracking-[0.2em] text-obs-text-secondary/50 mb-5">
+              <p className="text-[0.6rem] font-display font-semibold uppercase tracking-[0.25em] text-obs-text-secondary/40 mb-4 px-4">
                 Sommaire
               </p>
-              <nav className="space-y-0.5 border-l border-obs-border">
+
+              {/* Mini progress bar */}
+              <div className="mx-4 mb-5 h-[2px] bg-obs-surface rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-obs-cyan/40 rounded-full transition-all duration-300"
+                  style={{ width: `${readProgress * 100}%` }}
+                />
+              </div>
+
+              <nav className="space-y-0.5">
                 {headings.map((h) => (
-                  <a
+                  <button
                     key={h.id}
-                    href={`#${h.id}`}
-                    className={`block text-[0.8rem] leading-snug transition-all duration-200 py-1.5 ${
-                      h.level > 2 ? 'pl-6' : 'pl-4'
+                    onClick={() => scrollToHeading(h.id)}
+                    className={`w-full text-left flex items-start gap-2 py-1.5 px-4 rounded-r-lg transition-all duration-200 border-l-2 ${
+                      h.level > 2 ? 'pl-8' : ''
                     } ${
                       activeHeading === h.id
-                        ? 'text-obs-cyan border-l-2 border-obs-cyan -ml-px font-medium'
-                        : 'text-obs-text-secondary/60 hover:text-obs-text-primary border-l-2 border-transparent -ml-px'
+                        ? 'border-obs-cyan text-obs-cyan bg-obs-cyan/5'
+                        : 'border-transparent text-obs-text-secondary/50 hover:text-obs-text-primary hover:border-obs-border'
                     }`}
                   >
-                    {h.text}
-                  </a>
+                    {h.number && h.level === 2 && (
+                      <span className={`text-[0.6rem] font-bold font-mono mt-[3px] flex-shrink-0 ${
+                        activeHeading === h.id ? 'text-obs-cyan' : 'text-obs-cyan/30'
+                      }`}>
+                        {h.number}
+                      </span>
+                    )}
+                    <span className={`leading-snug ${
+                      h.level > 2 ? 'text-[0.72rem]' : 'text-[0.78rem]'
+                    } ${
+                      activeHeading === h.id ? 'font-medium' : ''
+                    }`}>
+                      {h.text}
+                    </span>
+                  </button>
                 ))}
               </nav>
             </motion.aside>
