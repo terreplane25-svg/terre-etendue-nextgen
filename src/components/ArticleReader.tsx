@@ -178,7 +178,7 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
       {/* Reading progress bar */}
       <div className="fixed top-0 left-0 right-0 z-50 h-[3px] bg-transparent">
         <motion.div
-          className="h-full bg-gradient-to-r from-obs-cyan to-obs-cyan/60"
+          className="h-full bg-gradient-to-r from-accent-cyan to-accent-cyan/60"
           style={{ width: `${readProgress * 100}%` }}
           transition={{ duration: 0.1 }}
         />
@@ -188,7 +188,7 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
       <div className="max-w-6xl mx-auto px-6 mb-8 flex items-center justify-between">
         <Link
           href={backMap[article.category] || '/'}
-          className="inline-flex items-center gap-1.5 text-sm text-obs-text-secondary hover:text-obs-cyan transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm text-[#E8E4DD]/40 hover:text-accent-cyan transition-colors"
         >
           <ArrowLeft size={16} />
           {catInfo.label}
@@ -197,7 +197,7 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
           {headings.length > 0 && (
             <button
               onClick={() => setTocOpen(true)}
-              className="xl:hidden flex items-center gap-1.5 text-sm text-obs-text-secondary hover:text-obs-cyan transition-colors px-3 py-1.5 rounded-lg border border-obs-border"
+              className="xl:hidden flex items-center gap-1.5 text-sm text-[#E8E4DD]/40 hover:text-accent-cyan transition-colors px-3 py-1.5 rounded-lg border border-white/[0.06]"
             >
               <List size={14} />
               Sommaire
@@ -223,25 +223,25 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 250 }}
-              className="fixed left-0 top-0 bottom-0 w-80 max-w-[85vw] bg-obs-dark border-r border-obs-border z-50 xl:hidden overflow-y-auto"
+              className="fixed left-0 top-0 bottom-0 w-80 max-w-[85vw] bg-[#070B10] border-r border-white/[0.06] z-50 xl:hidden overflow-y-auto"
             >
               <div className="p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <p className="text-xs font-display font-semibold uppercase tracking-[0.2em] text-obs-text-secondary/50">
+                  <p className="text-xs font-display font-semibold uppercase tracking-[0.2em] text-[#E8E4DD]/40/50">
                     Sommaire
                   </p>
                   <button
                     onClick={() => setTocOpen(false)}
-                    className="p-1.5 rounded-lg hover:bg-obs-surface text-obs-text-secondary"
+                    className="p-1.5 rounded-lg hover:bg-surface text-[#E8E4DD]/40"
                   >
                     <X size={18} />
                   </button>
                 </div>
 
                 {/* Progress in drawer */}
-                <div className="mb-6 h-1 bg-obs-surface rounded-full overflow-hidden">
+                <div className="mb-6 h-1 bg-surface rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-obs-cyan/50 rounded-full transition-all duration-300"
+                    className="h-full bg-accent-cyan/50 rounded-full transition-all duration-300"
                     style={{ width: `${readProgress * 100}%` }}
                   />
                 </div>
@@ -255,13 +255,13 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
                         h.level > 2 ? 'ml-4' : ''
                       } ${
                         activeHeading === h.id
-                          ? 'bg-obs-cyan/10 text-obs-cyan'
-                          : 'text-obs-text-secondary/70 hover:text-obs-text-primary hover:bg-obs-surface/50'
+                          ? 'bg-accent-cyan/10 text-accent-cyan'
+                          : 'text-[#E8E4DD]/40/70 hover:text-[#E8E4DD] hover:bg-surface/50'
                       }`}
                     >
                       {h.number && h.level === 2 && (
                         <span className={`text-[0.65rem] font-bold font-mono mt-0.5 flex-shrink-0 w-5 ${
-                          activeHeading === h.id ? 'text-obs-cyan' : 'text-obs-cyan/40'
+                          activeHeading === h.id ? 'text-accent-cyan' : 'text-accent-cyan/40'
                         }`}>
                           {h.number}
                         </span>
@@ -282,37 +282,37 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
       <motion.header
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-3xl mx-auto px-6 pb-10 space-y-5 border-b border-obs-border"
+        className="max-w-3xl mx-auto px-6 pb-10 space-y-5 border-b border-white/[0.06]"
       >
         <span className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full font-medium tracking-wide ${
           catInfo.color === 'gold'
-            ? 'bg-obs-gold/10 text-obs-gold'
-            : 'bg-obs-cyan/10 text-obs-cyan'
+            ? 'bg-accent-gold/10 text-accent-gold'
+            : 'bg-accent-cyan/10 text-accent-cyan'
         }`}>
           <span>{catInfo.icon}</span>
           {catInfo.label}
         </span>
 
-        <h1 className="font-display font-bold text-3xl md:text-4xl lg:text-[2.75rem] text-obs-text-primary leading-[1.15]">
+        <h1 className="font-display font-bold text-3xl md:text-4xl lg:text-[2.75rem] text-[#E8E4DD] leading-[1.15]">
           {article.title}
         </h1>
 
         {article.description && (
-          <p className="text-lg text-obs-text-secondary/80 font-serif leading-relaxed">
+          <p className="text-lg text-[#E8E4DD]/40/80 font-serif leading-relaxed">
             {article.description}
           </p>
         )}
 
-        <div className="flex flex-wrap gap-5 text-sm text-obs-text-secondary pt-2">
+        <div className="flex flex-wrap gap-5 text-sm text-[#E8E4DD]/40 pt-2">
           <span className="flex items-center gap-1.5">
-            <Clock size={14} className="text-obs-cyan/60" />
+            <Clock size={14} className="text-accent-cyan/60" />
             {readingTime} min de lecture
           </span>
           <span className="flex items-center gap-1.5">
-            <User size={14} className="text-obs-cyan/60" />
+            <User size={14} className="text-accent-cyan/60" />
             {article.author || 'Collectif TEI'}
           </span>
-          <time dateTime={article.date} className="text-obs-text-secondary/60">{date}</time>
+          <time dateTime={article.date} className="text-[#E8E4DD]/40/60">{date}</time>
         </div>
       </motion.header>
 
@@ -327,14 +327,14 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
               exit={{ opacity: 0, x: -16 }}
               className="hidden xl:block w-64 shrink-0 sticky top-24 self-start max-h-[calc(100vh-8rem)] overflow-y-auto"
             >
-              <p className="text-[0.6rem] font-display font-semibold uppercase tracking-[0.25em] text-obs-text-secondary/40 mb-4 px-4">
+              <p className="text-[0.6rem] font-display font-semibold uppercase tracking-[0.25em] text-[#E8E4DD]/40/40 mb-4 px-4">
                 Sommaire
               </p>
 
               {/* Mini progress bar */}
-              <div className="mx-4 mb-5 h-[2px] bg-obs-surface rounded-full overflow-hidden">
+              <div className="mx-4 mb-5 h-[2px] bg-surface rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-obs-cyan/40 rounded-full transition-all duration-300"
+                  className="h-full bg-accent-cyan/40 rounded-full transition-all duration-300"
                   style={{ width: `${readProgress * 100}%` }}
                 />
               </div>
@@ -348,13 +348,13 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
                       h.level > 2 ? 'pl-8' : ''
                     } ${
                       activeHeading === h.id
-                        ? 'border-obs-cyan text-obs-cyan bg-obs-cyan/5'
-                        : 'border-transparent text-obs-text-secondary/50 hover:text-obs-text-primary hover:border-obs-border'
+                        ? 'border-accent-cyan text-accent-cyan bg-accent-cyan/5'
+                        : 'border-transparent text-[#E8E4DD]/40/50 hover:text-[#E8E4DD] hover:border-white/[0.06]'
                     }`}
                   >
                     {h.number && h.level === 2 && (
                       <span className={`text-[0.6rem] font-bold font-mono mt-[3px] flex-shrink-0 ${
-                        activeHeading === h.id ? 'text-obs-cyan' : 'text-obs-cyan/30'
+                        activeHeading === h.id ? 'text-accent-cyan' : 'text-accent-cyan/30'
                       }`}>
                         {h.number}
                       </span>
@@ -396,11 +396,11 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
                 exit={{ opacity: 0 }}
                 className="space-y-8"
               >
-                <div className="bg-obs-surface border border-obs-cyan/20 rounded-xl p-6 space-y-4">
-                  <h3 className="font-display font-semibold text-obs-cyan flex items-center gap-2">
+                <div className="bg-surface border border-accent-cyan/20 rounded-xl p-6 space-y-4">
+                  <h3 className="font-display font-semibold text-accent-cyan flex items-center gap-2">
                     <ChevronRight size={16} /> Vue Lab
                   </h3>
-                  <p className="text-sm text-obs-text-secondary">
+                  <p className="text-sm text-[#E8E4DD]/40">
                     Titres, citations, tableaux et listes uniquement.
                   </p>
                 </div>
@@ -413,18 +413,18 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
           </AnimatePresence>
 
           {/* Article footer */}
-          <div className="mt-16 pt-8 border-t border-obs-border">
+          <div className="mt-16 pt-8 border-t border-white/[0.06]">
             <div className="flex items-center justify-between">
               <Link
                 href={backMap[article.category] || '/'}
-                className="inline-flex items-center gap-1.5 text-sm text-obs-text-secondary hover:text-obs-cyan transition-colors"
+                className="inline-flex items-center gap-1.5 text-sm text-[#E8E4DD]/40 hover:text-accent-cyan transition-colors"
               >
                 <ArrowLeft size={14} />
                 Retour
               </Link>
               <Link
                 href="/nexus"
-                className="inline-flex items-center gap-1.5 text-sm text-obs-text-secondary hover:text-obs-cyan transition-colors"
+                className="inline-flex items-center gap-1.5 text-sm text-[#E8E4DD]/40 hover:text-accent-cyan transition-colors"
               >
                 Voir dans le Nexus
                 <ChevronRight size={14} />

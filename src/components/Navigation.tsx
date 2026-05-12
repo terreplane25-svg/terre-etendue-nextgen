@@ -1,131 +1,141 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Search, Command } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 
 const NAV_ITEMS = [
-  { label: 'Le Q.G.', href: '/headquarters', icon: '🧠', description: 'Épistémologie' },
-  { label: "L'Observatoire", href: '/observatory', icon: '🔭', description: 'Empirique' },
-  { label: 'La Bibliothèque', href: '/library', icon: '📚', description: 'Sources Sacrées' },
-  { label: 'Le Lab', href: '/lab', icon: '⚗️', description: 'Modélisation' },
-  { label: 'Nexus', href: '/nexus', icon: '🔗', description: 'Graphe de Liens' },
+  { label: 'Q.G.', href: '/headquarters', marker: '01' },
+  { label: 'Observatoire', href: '/observatory', marker: '02' },
+  { label: 'Bibliothèque', href: '/library', marker: '03' },
+  { label: 'Lab', href: '/lab', marker: '04' },
+  { label: 'Nexus', href: '/nexus', marker: '⬡' },
 ];
 
 export default function Navigation() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
 
-  const handleScroll = useCallback(() => {
-    setScrolled(window.scrollY > 40);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
-
-  // Fermer le menu mobile quand on navigue
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
-
   return (
-    <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-obs-dark/85 backdrop-blur-xl border-b border-obs-border'
-          : 'bg-transparent'
-      }`}
-    >
-      <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <span className="text-2xl">⊙</span>
-          <span className="font-display font-bold text-lg text-obs-text-primary group-hover:text-obs-cyan transition-colors">
-            TEI
-          </span>
-        </Link>
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
+          scrolled
+            ? 'bg-[#070B10]/90 backdrop-blur-xl border-b border-white/[0.04]'
+            : 'bg-transparent'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-8 h-8 rounded-lg border border-accent-gold/30 flex items-center justify-center group-hover:border-accent-gold/60 transition-colors">
+              <span className="text-accent-gold font-display text-sm font-bold">T</span>
+            </div>
+            <span className="font-heading text-sm tracking-wide text-[#E8E4DD]/70 group-hover:text-[#E8E4DD] transition-colors hidden sm:block">
+              Terre Étendue
+            </span>
+          </Link>
 
-        {/* Desktop Links */}
-        <div className="hidden lg:flex items-center gap-1">
-          {NAV_ITEMS.map((item) => {
-            const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'bg-obs-cyan/10 text-obs-cyan'
-                    : 'text-obs-text-secondary hover:text-obs-text-primary hover:bg-obs-surface'
-                }`}
-              >
-                <span className="text-base">{item.icon}</span>
-                <span>{item.label}</span>
-              </Link>
-            );
-          })}
-        </div>
-
-        {/* Right Actions */}
-        <div className="flex items-center gap-3">
-          {/* Search Hint (desktop) */}
-          <div className="hidden md:flex items-center gap-2 bg-obs-surface border border-obs-border rounded-lg px-3 py-1.5 text-sm text-obs-text-secondary">
-            <Search size={14} />
-            <span>Rechercher…</span>
-            <kbd className="ml-2 px-1.5 py-0.5 bg-obs-dark rounded text-xs border border-obs-border">
-              <Command size={10} className="inline" />&thinsp;K
-            </kbd>
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-1">
+            {NAV_ITEMS.map((item) => {
+              const isActive = pathname === item.href || pathname?.startsWith(item.href + '/');
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`relative flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm transition-all duration-300 ${
+                    isActive
+                      ? 'text-accent-cyan'
+                      : 'text-[#E8E4DD]/40 hover:text-[#E8E4DD]/70'
+                  }`}
+                >
+                  <span className="font-mono text-[0.6rem] opacity-40">{item.marker}</span>
+                  <span className="font-heading">{item.label}</span>
+                  {isActive && (
+                    <motion.div
+                      layoutId="nav-active"
+                      className="absolute inset-0 bg-accent-cyan/[0.06] border border-accent-cyan/10 rounded-lg"
+                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                    />
+                  )}
+                </Link>
+              );
+            })}
           </div>
 
-          {/* Mobile Toggle */}
+          {/* Mobile burger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 rounded-lg hover:bg-obs-surface transition-colors"
-            aria-label="Menu"
+            className="md:hidden p-2 text-[#E8E4DD]/50 hover:text-[#E8E4DD]"
           >
-            {mobileOpen ? <X size={22} className="text-obs-cyan" /> : <Menu size={22} />}
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </nav>
 
-      {/* Mobile Overlay */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-            className="lg:hidden bg-obs-surface border-t border-obs-border"
-          >
-            <div className="max-w-7xl mx-auto px-6 py-4 space-y-1">
-              {NAV_ITEMS.map((item) => {
-                const isActive = pathname === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                      isActive ? 'bg-obs-cyan/10 text-obs-cyan' : 'hover:bg-obs-dark'
-                    }`}
-                  >
-                    <span className="text-xl">{item.icon}</span>
-                    <div>
-                      <p className="font-medium">{item.label}</p>
-                      <p className="text-xs text-obs-text-secondary">{item.description}</p>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </motion.div>
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/70 z-40 md:hidden"
+              onClick={() => setMobileOpen(false)}
+            />
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 250 }}
+              className="fixed right-0 top-0 bottom-0 w-72 bg-[#0E1319] border-l border-white/[0.04] z-50 md:hidden p-8"
+            >
+              <div className="flex justify-end mb-8">
+                <button onClick={() => setMobileOpen(false)} className="p-2 text-[#E8E4DD]/50">
+                  <X size={20} />
+                </button>
+              </div>
+              <nav className="space-y-2">
+                {NAV_ITEMS.map((item, i) => {
+                  const isActive = pathname === item.href;
+                  return (
+                    <motion.div
+                      key={item.href}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.05 }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                          isActive
+                            ? 'bg-accent-cyan/10 text-accent-cyan'
+                            : 'text-[#E8E4DD]/50 hover:text-[#E8E4DD] hover:bg-white/[0.02]'
+                        }`}
+                      >
+                        <span className="font-mono text-[0.6rem] opacity-40 w-5">{item.marker}</span>
+                        <span className="font-heading">{item.label}</span>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </nav>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }

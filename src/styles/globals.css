@@ -2,280 +2,212 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ═══════════════════════════════════════════
-   TERRE ÉTENDUE ISLAM — Design Tokens CSS
-   ═══════════════════════════════════════════ */
-
-:root {
-  --color-obs-dark: #0A0F14;
-  --color-obs-surface: #161D26;
-  --color-obs-cyan: #00D1FF;
-  --color-obs-gold: #D4AF37;
-  --color-obs-border: #2A3138;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background-color: var(--color-obs-dark);
-  color: #F5F7FA;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-::selection {
-  background-color: rgba(0, 209, 255, 0.2);
-  color: #00D1FF;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #161D26; }
-::-webkit-scrollbar-thumb { background: #2A3138; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #00D1FF; }
-
-/* Focus accessible */
-*:focus-visible {
-  outline: 2px solid #00D1FF;
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-/* ═══════════════════════════════════════════
-   Composants réutilisables
-   ═══════════════════════════════════════════ */
-
-@layer components {
-  /* Bloc citation divine — bordure dorée */
-  .quote-sacred {
-    @apply pl-6 border-l-2 border-obs-gold my-8 font-serif italic text-obs-text-secondary;
-  }
-
-  /* Bloc citation scientifique — bordure cyan */
-  .quote-science {
-    @apply pl-6 border-l-2 border-obs-cyan my-8 font-mono text-obs-text-secondary;
-  }
-
-  /* Carte pilier générique */
-  .card-surface {
-    @apply bg-obs-surface border border-obs-border rounded-xl transition-all duration-300;
-  }
-
-  .card-surface:hover {
-    @apply border-obs-cyan shadow-obs-cyan;
-  }
-
-  /* Glossaire tooltip */
-  .glossary-term {
-    @apply border-b border-dashed border-obs-gold cursor-help relative;
-  }
-}
-
-
-
 /* ═══════════════════════════════════════════════════════════════
-   TERRE ÉTENDUE ISLAM — Article Rendering System
-   Inspired by Stripe Press, Linear, Vercel Blog
+   TERRE ÉTENDUE ISLAM — Design System v2
+   Direction: "Observatoire Cosmique" — Luxury × Art Deco × Islamic Geometry
    ═══════════════════════════════════════════════════════════════ */
 
-/* ── Base Prose ──────────────────────────────────── */
+@layer base {
+  :root {
+    /* Core palette */
+    --void: #070B10;
+    --surface: #0E1319;
+    --surface-raised: #141A23;
+    --border: rgba(255, 255, 255, 0.06);
+    --border-active: rgba(255, 255, 255, 0.12);
+    
+    /* Text */
+    --text-primary: #E8E4DD;
+    --text-secondary: rgba(232, 228, 221, 0.55);
+    --text-muted: rgba(232, 228, 221, 0.3);
+    
+    /* Accents */
+    --cyan: #00B4E6;
+    --cyan-glow: rgba(0, 180, 230, 0.15);
+    --gold: #C9A84C;
+    --gold-glow: rgba(201, 168, 76, 0.12);
+    --emerald: #3DA67A;
+    
+    /* Fonts */
+    --font-display: var(--font-display), 'Playfair Display', Georgia, serif;
+    --font-heading: var(--font-heading), 'Crimson Pro', Georgia, serif;
+    --font-body: var(--font-body), 'Source Serif 4', Georgia, serif;
+    --font-arabic: var(--font-amiri), 'Traditional Arabic', serif;
+    --font-mono: var(--font-mono), 'JetBrains Mono', monospace;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.08) transparent;
+  }
+
+  ::selection {
+    background: rgba(201, 168, 76, 0.25);
+    color: #C9A84C;
+  }
+}
+
+/* ═══ Global Elements ═══════════════════════════════════════ */
+
+@layer components {
+  .font-display { font-family: var(--font-display); }
+  .font-heading { font-family: var(--font-heading); }
+  .font-body { font-family: var(--font-body); }
+  .font-mono { font-family: var(--font-mono); }
+
+  /* Surface cards with subtle border */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+  }
+  
+  .card-hover {
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  }
+  .card-hover:hover {
+    border-color: var(--border-active);
+    box-shadow: 0 0 40px rgba(0, 180, 230, 0.04);
+    transform: translateY(-2px);
+  }
+
+  /* Geometric line decoration */
+  .geo-line {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border-active), transparent);
+  }
+  
+  .geo-line-gold {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201, 168, 76, 0.2), transparent);
+  }
+}
+
+/* ═══ Article Prose ═════════════════════════════════════════ */
 
 .prose-tei {
-  color: rgba(245, 247, 250, 0.72);
-  font-family: var(--font-source-serif), Georgia, serif;
+  font-family: var(--font-body);
+  color: var(--text-primary);
   font-size: 1.1rem;
   line-height: 1.9;
   letter-spacing: 0.005em;
+  opacity: 0.82;
 }
 
-/* ── Headings ────────────────────────────────────── */
-
+/* Headings */
 .prose-tei h2 {
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.6rem;
-  color: #F5F7FA;
-  margin-top: 4rem;
+  font-size: 1.65rem;
+  color: var(--text-primary);
+  opacity: 1;
+  margin-top: 4.5rem;
   margin-bottom: 1.5rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   gap: 0;
-  line-height: 1.3;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
 .prose-tei h3 {
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-heading);
   font-weight: 600;
-  font-size: 1.25rem;
-  color: rgba(245, 247, 250, 0.9);
-  margin-top: 2.5rem;
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  opacity: 0.92;
+  margin-top: 3rem;
   margin-bottom: 1rem;
-  line-height: 1.35;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
 }
 
 .prose-tei h4 {
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-heading);
   font-weight: 600;
-  font-size: 1.05rem;
-  color: rgba(245, 247, 250, 0.85);
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  opacity: 0.88;
   margin-top: 2rem;
   margin-bottom: 0.75rem;
 }
 
-/* ── Section Number Badges ───────────────────────── */
-
+/* Section number badges */
 .tei-section-num {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-width: 2.2rem;
   height: 2.2rem;
-  border-radius: 0.6rem;
-  background: linear-gradient(135deg, rgba(0, 209, 255, 0.12), rgba(0, 209, 255, 0.04));
-  border: 1px solid rgba(0, 209, 255, 0.18);
-  color: #00D1FF;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  background: var(--cyan-glow);
+  border: 1px solid rgba(0, 180, 230, 0.2);
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
   font-weight: 700;
   margin-right: 0.85rem;
   flex-shrink: 0;
-  letter-spacing: 0.02em;
 }
 
-/* ── Paragraphs ──────────────────────────────────── */
+/* Paragraphs */
+.prose-tei p { margin-bottom: 1.5rem; }
+.prose-tei p:last-child { margin-bottom: 0; }
 
-.prose-tei p {
-  margin-bottom: 1.4rem;
-}
-
-.prose-tei p:last-child {
-  margin-bottom: 0;
-}
-
-/* ── Links ───────────────────────────────────────── */
-
+/* Links */
 .prose-tei a {
-  color: #00D1FF;
+  color: var(--cyan);
   text-decoration: underline;
   text-underline-offset: 3px;
-  text-decoration-color: rgba(0, 209, 255, 0.25);
+  text-decoration-color: rgba(0, 180, 230, 0.2);
   transition: text-decoration-color 0.2s;
 }
+.prose-tei a:hover { text-decoration-color: var(--cyan); }
 
-.prose-tei a:hover {
-  text-decoration-color: #00D1FF;
-}
+/* Bold & Italic */
+.prose-tei strong { color: var(--text-primary); opacity: 1; font-weight: 650; }
+.prose-tei em { opacity: 0.85; }
 
-/* ── Bold & Italic ───────────────────────────────── */
-
-.prose-tei strong {
-  color: #F5F7FA;
-  font-weight: 650;
-}
-
-.prose-tei em {
-  color: rgba(245, 247, 250, 0.8);
-  font-style: italic;
-}
-
-/* ── Info Boxes (En termes simples) ──────────────── */
+/* ═══ Info Boxes (En termes simples) ════════════════════════ */
 
 .tei-infobox {
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.06), rgba(212, 175, 55, 0.015));
-  border: 1px solid rgba(212, 175, 55, 0.12);
-  border-radius: 1rem;
+  background: linear-gradient(135deg, rgba(201, 168, 76, 0.06), rgba(201, 168, 76, 0.01));
+  border: 1px solid rgba(201, 168, 76, 0.1);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 1rem 1rem 0;
   padding: 1.75rem 2rem;
   margin: 2.5rem 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.tei-infobox::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 3px;
-  height: 100%;
-  background: linear-gradient(to bottom, #D4AF37, rgba(212, 175, 55, 0.3));
-  border-radius: 3px 0 0 3px;
 }
 
 .tei-infobox-label {
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #D4AF37;
+  color: var(--gold);
   margin-bottom: 0.85rem;
 }
 
 .tei-infobox p {
-  color: rgba(245, 247, 250, 0.7);
+  color: var(--text-primary);
+  opacity: 0.75;
   font-size: 0.98rem;
   line-height: 1.75;
   margin-bottom: 0;
 }
 
-/* ── Styled Quotes (citations «») ───────────────── */
-
-.tei-quote {
-  position: relative;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.06), rgba(212, 175, 55, 0.015));
-  border: 1px solid rgba(212, 175, 55, 0.1);
-  border-left: 3px solid #D4AF37;
-  border-radius: 0 1rem 1rem 0;
-  padding: 2rem 2.25rem;
-  margin: 2.5rem 0;
-  font-style: italic;
-}
-
-.tei-quote::before {
-  content: '“';
-  position: absolute;
-  top: 0.5rem;
-  left: 1rem;
-  font-size: 3.5rem;
-  color: rgba(212, 175, 55, 0.15);
-  font-family: Georgia, serif;
-  line-height: 1;
-  pointer-events: none;
-}
-
-.tei-quote p {
-  color: rgba(245, 247, 250, 0.75);
-  font-size: 1rem;
-  line-height: 1.85;
-  margin-bottom: 0;
-  padding-left: 0.5rem;
-}
-
-.tei-quote cite {
-  display: block;
-  margin-top: 1rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid rgba(212, 175, 55, 0.08);
-  font-style: normal;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.78rem;
-  color: rgba(212, 175, 55, 0.55);
-  letter-spacing: 0.01em;
-}
-
-/* ── Citations (blockquote.tei-citation) ─────────── */
+/* ═══ Citations ═════════════════════════════════════════════ */
 
 .prose-tei blockquote.tei-citation {
   position: relative;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.07), rgba(212, 175, 55, 0.02));
-  border: 1px solid rgba(212, 175, 55, 0.12);
-  border-left: 3px solid #D4AF37;
+  background: linear-gradient(135deg, rgba(201, 168, 76, 0.05), transparent);
+  border: 1px solid rgba(201, 168, 76, 0.08);
+  border-left: 3px solid var(--gold);
   border-radius: 0 1rem 1rem 0;
-  padding: 2rem 2rem 1.5rem 2rem;
+  padding: 2rem 2.25rem;
   margin: 2.5rem 0;
   font-style: italic;
 }
@@ -286,98 +218,45 @@ body {
   top: 0.25rem;
   left: 0.75rem;
   font-size: 3.5rem;
-  color: rgba(212, 175, 55, 0.15);
-  font-family: Georgia, serif;
+  color: rgba(201, 168, 76, 0.12);
+  font-family: 'Playfair Display', Georgia, serif;
   line-height: 1;
   pointer-events: none;
 }
 
 .prose-tei blockquote.tei-citation p {
-  color: rgba(245, 247, 250, 0.78);
+  color: var(--text-primary);
+  opacity: 0.78;
   font-size: 1rem;
   line-height: 1.85;
   margin-bottom: 0;
-  padding-left: 0.25rem;
 }
 
 .prose-tei blockquote.tei-citation cite {
   display: block;
   margin-top: 1rem;
   padding-top: 0.75rem;
-  border-top: 1px solid rgba(212, 175, 55, 0.08);
+  border-top: 1px solid rgba(201, 168, 76, 0.06);
   font-style: normal;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.78rem;
-  color: rgba(212, 175, 55, 0.5);
-  letter-spacing: 0.01em;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: rgba(201, 168, 76, 0.45);
+  letter-spacing: 0.02em;
 }
 
-/* ── Standard Blockquotes (fallback) ─────────────── */
-
+/* Fallback blockquote */
 .prose-tei blockquote:not(.tei-citation) {
-  border-left: 2px solid #D4AF37;
+  border-left: 2px solid var(--gold);
   padding: 1.25rem 1.5rem;
   margin: 2rem 0;
-  background: rgba(212, 175, 55, 0.04);
+  background: rgba(201, 168, 76, 0.03);
   border-radius: 0 0.75rem 0.75rem 0;
   font-style: italic;
-  color: rgba(212, 175, 55, 0.75);
+  color: var(--text-primary);
+  opacity: 0.7;
 }
 
-/* ── Results / Conclusions ───────────────────────── */
-
-.tei-result {
-  background: linear-gradient(135deg, rgba(0, 209, 255, 0.06), rgba(0, 209, 255, 0.015));
-  border: 1px solid rgba(0, 209, 255, 0.12);
-  border-left: 3px solid #00D1FF;
-  border-radius: 0 1rem 1rem 0;
-  padding: 1.5rem 2rem;
-  margin: 2rem 0;
-}
-
-.tei-result--test {
-  border-left-color: #22C55E;
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.06), rgba(34, 197, 94, 0.015));
-  border-color: rgba(34, 197, 94, 0.12);
-}
-
-.tei-result-label {
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #00D1FF;
-  margin-bottom: 0.6rem;
-}
-
-.tei-result--test .tei-result-label {
-  color: #22C55E;
-}
-
-.tei-result p {
-  color: rgba(245, 247, 250, 0.78);
-  margin-bottom: 0;
-}
-
-/* ── Protocol Steps ──────────────────────────────── */
-
-.tei-protocol-label {
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #00D1FF;
-  background: rgba(0, 209, 255, 0.08);
-  border: 1px solid rgba(0, 209, 255, 0.12);
-  display: inline-block;
-  padding: 0.35rem 0.85rem;
-  border-radius: 0.5rem;
-  margin: 1.5rem 0 0.75rem;
-}
-
-/* ── Tables ──────────────────────────────────────── */
+/* ═══ Tables ════════════════════════════════════════════════ */
 
 .prose-tei table {
   width: 100%;
@@ -386,41 +265,35 @@ body {
   border-spacing: 0;
   border-radius: 0.75rem;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
   font-size: 0.88rem;
 }
 
-.prose-tei thead {
-  background: rgba(0, 209, 255, 0.05);
-}
+.prose-tei thead { background: var(--surface); }
 
 .prose-tei th {
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(0, 209, 255, 0.7);
+  color: var(--cyan);
+  opacity: 0.6;
   padding: 0.9rem 1rem;
   text-align: left;
-  border-bottom: 1px solid rgba(0, 209, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 180, 230, 0.08);
 }
 
 .prose-tei td {
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  color: rgba(245, 247, 250, 0.65);
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
 }
 
-.prose-tei tbody tr:last-child td {
-  border-bottom: none;
-}
+.prose-tei tbody tr:last-child td { border-bottom: none; }
+.prose-tei tbody tr:hover td { background: rgba(0, 180, 230, 0.02); }
 
-.prose-tei tbody tr:hover td {
-  background: rgba(0, 209, 255, 0.03);
-}
-
-/* ── Lists ───────────────────────────────────────── */
+/* ═══ Lists ═════════════════════════════════════════════════ */
 
 .prose-tei ul {
   list-style: none;
@@ -440,10 +313,11 @@ body {
   position: absolute;
   left: -1.25rem;
   top: 0.7em;
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
-  background: rgba(0, 209, 255, 0.4);
+  background: var(--gold);
+  opacity: 0.5;
 }
 
 .prose-tei ol {
@@ -466,59 +340,59 @@ body {
   position: absolute;
   left: -2rem;
   top: 0.15em;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
   font-weight: 700;
-  color: #00D1FF;
-  background: rgba(0, 209, 255, 0.08);
+  color: var(--cyan);
+  opacity: 0.6;
+  background: var(--cyan-glow);
   width: 1.4rem;
   height: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.35rem;
+  border-radius: 0.3rem;
 }
 
-/* ── Code ────────────────────────────────────────── */
+/* ═══ Code ══════════════════════════════════════════════════ */
 
 .prose-tei code {
-  background: rgba(0, 209, 255, 0.08);
-  border: 1px solid rgba(0, 209, 255, 0.1);
+  background: var(--cyan-glow);
   padding: 0.15em 0.45em;
-  border-radius: 0.35rem;
-  color: #00D1FF;
+  border-radius: 0.3rem;
+  color: var(--cyan);
   font-size: 0.85em;
-  font-family: var(--font-inter), monospace;
+  font-family: var(--font-mono);
 }
 
 .prose-tei pre {
-  background: #161D26;
-  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 0.75rem;
   padding: 1.25rem 1.5rem;
   overflow-x: auto;
   margin: 2rem 0;
 }
 
-/* ── Horizontal Rule ─────────────────────────────── */
+/* ═══ Horizontal Rule ═══════════════════════════════════════ */
 
 .prose-tei hr {
   border: none;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent);
-  margin: 3.5rem 0;
+  background: linear-gradient(to right, transparent, var(--border-active), transparent);
+  margin: 4rem 0;
 }
 
-/* ── Images ──────────────────────────────────────── */
+/* ═══ Images ════════════════════════════════════════════════ */
 
 .prose-tei img {
   border-radius: 0.75rem;
   margin: 2.5rem 0;
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
   max-width: 100%;
 }
 
-/* ── Definition Lists ────────────────────────────── */
+/* ═══ Definition Lists ══════════════════════════════════════ */
 
 .prose-tei dl {
   display: grid;
@@ -526,58 +400,49 @@ body {
   gap: 0.5rem 1.5rem;
   margin: 2rem 0;
   padding: 1.5rem 2rem;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 0.75rem;
   font-size: 0.9rem;
 }
 
 .prose-tei dt {
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(0, 209, 255, 0.6);
+  color: var(--cyan);
+  opacity: 0.5;
   padding-top: 0.15rem;
 }
 
 .prose-tei dd {
-  color: rgba(245, 247, 250, 0.7);
+  color: var(--text-secondary);
   margin: 0;
 }
 
-/* ── Arabic Text ─────────────────────────────────── */
+/* ═══ Arabic Text ═══════════════════════════════════════════ */
 
 .tei-arabic {
-  font-family: var(--font-amiri), 'Traditional Arabic', serif;
+  font-family: var(--font-arabic);
   font-size: 1.35em;
   line-height: 2.2;
   direction: rtl;
   display: inline;
-  color: #D4AF37;
+  color: var(--gold);
   letter-spacing: 0;
 }
 
-/* Arabic inside headings — keep proportional, don't blow up */
+/* Arabic in headings — proportional */
 .prose-tei h2 .tei-arabic,
 .prose-tei h3 .tei-arabic,
 .prose-tei h4 .tei-arabic {
-  font-size: 0.95em;
+  font-size: 0.92em;
   line-height: inherit;
-  direction: rtl;
-  display: inline;
 }
 
-.tei-quote .tei-arabic {
-  font-size: 1.45em;
-  display: block;
-  text-align: right;
-  margin-bottom: 0.5rem;
-  color: #E5C458;
-}
-
-/* Arabic inside citations — slightly larger */
+/* Arabic in citations */
 .tei-citation .tei-arabic {
   font-size: 1.3em;
   display: block;
@@ -586,34 +451,34 @@ body {
   line-height: 2;
 }
 
-/* ── Quran References ────────────────────────────── */
+/* ═══ Quran References ══════════════════════════════════════ */
 
 .tei-quran-ref {
-  color: #D4AF37;
+  color: var(--gold);
   font-weight: 500;
   font-size: 0.92em;
 }
 
-/* ── Glossary Inline ─────────────────────────────── */
+/* ═══ Glossary Inline ═══════════════════════════════════════ */
 
 .glossary-inline {
-  border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
+  border-bottom: 1px dashed rgba(201, 168, 76, 0.35);
   cursor: help;
   transition: color 0.2s, border-color 0.2s;
 }
 
 .glossary-inline:hover {
-  color: #D4AF37;
-  border-bottom-color: #D4AF37;
+  color: var(--gold);
+  border-bottom-color: var(--gold);
 }
 
-/* ── Cite Elements ───────────────────────────────── */
+/* ═══ Cite Elements ═════════════════════════════════════════ */
 
 .prose-tei cite {
   font-style: normal;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.8rem;
-  color: rgba(212, 175, 55, 0.5);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: rgba(201, 168, 76, 0.4);
   display: block;
   margin-top: 0.5rem;
 }

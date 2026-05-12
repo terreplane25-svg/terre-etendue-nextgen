@@ -28,7 +28,7 @@ export default async function ArticlePage({ params }: PageProps) {
   if (!article) notFound();
 
   return (
-    <main className="min-h-screen bg-obs-dark pt-24 pb-16">
+    <main className="min-h-screen bg-[#070B10] pt-24 pb-16">
       <ArticleReader article={article} />
     </main>
   );

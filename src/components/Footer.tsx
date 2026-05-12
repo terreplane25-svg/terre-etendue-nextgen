@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Mail } from 'lucide-react';
 
 function GithubIcon({ size = 16 }: { size?: number }) {
   return (
@@ -9,91 +8,76 @@ function GithubIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-const SECTIONS = [
-  {
-    title: 'Piliers',
-    links: [
-      { label: 'Le Q.G.', href: '/headquarters' },
-      { label: "L'Observatoire", href: '/observatory' },
-      { label: 'La Bibliothèque', href: '/library' },
-      { label: 'Le Lab', href: '/lab' },
-    ],
-  },
-  {
-    title: 'Explorer',
-    links: [
-      { label: 'Nexus Graph', href: '/nexus' },
-      { label: 'Méthodologie', href: '/about' },
-      { label: 'Glossaire', href: '/glossary' },
-    ],
-  },
-  {
-    title: 'Légal',
-    links: [
-      { label: 'Licence MIT', href: '/license' },
-      { label: 'Confidentialité', href: '/privacy' },
-    ],
-  },
+const PILLARS = [
+  { label: 'Le Q.G.', href: '/headquarters' },
+  { label: "L'Observatoire", href: '/observatory' },
+  { label: 'La Bibliothèque', href: '/library' },
+  { label: 'Le Lab', href: '/lab' },
+  { label: 'Le Nexus', href: '/nexus' },
 ];
 
 export default function Footer() {
   return (
-    <footer className="bg-obs-surface border-t border-obs-border mt-24">
+    <footer className="relative z-10 border-t border-white/[0.04]">
       <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
-          <div className="col-span-2 md:col-span-1 space-y-4">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="text-2xl">⊙</span>
-              <span className="font-display font-bold text-lg">TEI</span>
-            </Link>
-            <p className="text-sm text-obs-text-secondary leading-relaxed">
-              Réconcilier science et spiritualité par la géométrie.
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg border border-accent-gold/30 flex items-center justify-center">
+                <span className="text-accent-gold font-display text-sm font-bold">T</span>
+              </div>
+              <span className="font-heading text-sm text-[#E8E4DD]/50">Terre Étendue Islam</span>
+            </div>
+            <p className="text-[#E8E4DD]/25 text-sm font-body leading-relaxed max-w-xs">
+              Plateforme de recherche académique réconciliant épistémologie, observations empiriques et sources sacrées.
             </p>
-            <div className="flex gap-3 pt-2">
+          </div>
+
+          {/* Navigation */}
+          <div>
+            <p className="font-mono text-label uppercase text-[#E8E4DD]/20 mb-5">Piliers</p>
+            <nav className="space-y-2.5">
+              {PILLARS.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="block text-sm text-[#E8E4DD]/30 hover:text-[#E8E4DD]/60 transition-colors font-heading"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Links */}
+          <div>
+            <p className="font-mono text-label uppercase text-[#E8E4DD]/20 mb-5">Liens</p>
+            <div className="space-y-2.5">
               <a
                 href="https://github.com/terreplane25-svg/terre-etendue-nextgen"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-obs-dark hover:bg-obs-cyan/10 hover:text-obs-cyan transition-colors"
-                aria-label="GitHub"
+                className="flex items-center gap-2 text-sm text-[#E8E4DD]/30 hover:text-[#E8E4DD]/60 transition-colors font-heading"
               >
-                <GithubIcon size={16} />
+                <GithubIcon size={14} />
+                GitHub
               </a>
               <a
                 href="mailto:contact@terretendue.com"
-                className="p-2 rounded-lg bg-obs-dark hover:bg-obs-cyan/10 hover:text-obs-cyan transition-colors"
-                aria-label="Email"
+                className="block text-sm text-[#E8E4DD]/30 hover:text-[#E8E4DD]/60 transition-colors font-heading"
               >
-                <Mail size={16} />
+                Contact
               </a>
             </div>
           </div>
-
-          {SECTIONS.map((section) => (
-            <div key={section.title} className="space-y-3">
-              <h4 className="text-xs font-display font-semibold uppercase tracking-widest text-obs-text-secondary">
-                {section.title}
-              </h4>
-              <ul className="space-y-2">
-                {section.links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-obs-text-secondary hover:text-obs-cyan transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
         </div>
 
-        <div className="border-t border-obs-border mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-obs-text-secondary gap-2">
-          <p>&copy; {new Date().getFullYear()} Terre Étendue Islam. MIT License.</p>
-          <p className="text-obs-text-secondary/60">Crafted with precision & intention</p>
+        <div className="geo-line mt-12 mb-8" />
+
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[#E8E4DD]/15 text-xs font-mono">
+          <span>&copy; {new Date().getFullYear()} Terre Étendue Islam</span>
+          <span>Next.js &middot; Vercel &middot; Open Source</span>
         </div>
       </div>
     </footer>

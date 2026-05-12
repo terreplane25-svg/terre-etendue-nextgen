@@ -80,8 +80,8 @@ export default function GlossaryTooltip({ term, children }: GlossaryTooltipProps
     return <span>{children}</span>;
   }
 
-  const accentClass = entry.domain === 'religion' ? 'border-obs-gold' : 'border-obs-cyan';
-  const dotColor = entry.domain === 'religion' ? 'bg-obs-gold' : 'bg-obs-cyan';
+  const accentClass = entry.domain === 'religion' ? 'border-accent-gold' : 'border-accent-cyan';
+  const dotColor = entry.domain === 'religion' ? 'bg-accent-gold' : 'bg-accent-cyan';
 
   return (
     <span
@@ -106,24 +106,24 @@ export default function GlossaryTooltip({ term, children }: GlossaryTooltipProps
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: position === 'top' ? 8 : -8, scale: 0.96 }}
             transition={{ duration: 0.15, ease: 'easeOut' }}
-            className={`absolute z-50 w-72 p-4 bg-obs-surface border ${accentClass} rounded-lg shadow-xl ${
+            className={`absolute z-50 w-72 p-4 bg-surface border ${accentClass} rounded-lg shadow-xl ${
               position === 'top' ? 'bottom-full mb-2' : 'top-full mt-2'
             } left-1/2 -translate-x-1/2`}
           >
             {/* Header */}
             <div className="flex items-center gap-2 mb-2">
               <span className={`w-2 h-2 rounded-full ${dotColor}`} />
-              <h4 className="font-display font-semibold text-sm text-obs-text-primary">{entry.title}</h4>
+              <h4 className="font-display font-semibold text-sm text-[#E8E4DD]">{entry.title}</h4>
             </div>
 
             {/* Definition */}
-            <p className="text-xs text-obs-text-secondary leading-relaxed">{entry.definition}</p>
+            <p className="text-xs text-[#E8E4DD]/40 leading-relaxed">{entry.definition}</p>
 
             {/* Domain Badge */}
-            <div className="mt-3 pt-2 border-t border-obs-border">
+            <div className="mt-3 pt-2 border-t border-white/[0.06]">
               <span
                 className={`text-xs uppercase tracking-widest font-medium ${
-                  entry.domain === 'religion' ? 'text-obs-gold' : 'text-obs-cyan'
+                  entry.domain === 'religion' ? 'text-accent-gold' : 'text-accent-cyan'
                 }`}
               >
                 {entry.domain === 'religion' ? '📚 Sources Sacrées' : '⚗️ Science'}

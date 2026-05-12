@@ -323,7 +323,7 @@ export default function NexusGraph() {
       <canvas
         ref={canvasRef}
         style={{ width: dimensions.w, height: dimensions.h }}
-        className="w-full rounded-xl border border-obs-border bg-obs-dark"
+        className="w-full rounded-xl border border-white/[0.06] bg-[#070B10]"
         onMouseMove={handleMouseMove}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
@@ -336,7 +336,7 @@ export default function NexusGraph() {
       {/* Légende */}
       <div className="absolute bottom-4 left-4 flex flex-wrap gap-3">
         {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
-          <div key={key} className="flex items-center gap-1.5 text-xs text-obs-text-secondary">
+          <div key={key} className="flex items-center gap-1.5 text-xs text-[#E8E4DD]/40">
             <span
               className="w-2.5 h-2.5 rounded-full"
               style={{ backgroundColor: CATEGORY_COLORS[key] }}
@@ -351,7 +351,7 @@ export default function NexusGraph() {
         <motion.div
           initial={{ opacity: 0, y: 4 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute top-4 right-4 bg-obs-surface border border-obs-border rounded-lg p-4 shadow-xl max-w-xs"
+          className="absolute top-4 right-4 bg-surface border border-white/[0.06] rounded-lg p-4 shadow-xl max-w-xs"
         >
           <div className="flex items-center gap-2 mb-1">
             <span
@@ -360,17 +360,17 @@ export default function NexusGraph() {
             />
             <h4 className="font-display font-semibold text-sm">{hovered.label}</h4>
           </div>
-          <p className="text-xs text-obs-text-secondary">
+          <p className="text-xs text-[#E8E4DD]/40">
             {CATEGORY_LABELS[hovered.category]} · Cliquez pour ouvrir l'article
           </p>
-          <p className="text-xs text-obs-text-secondary mt-1">
+          <p className="text-xs text-[#E8E4DD]/40 mt-1">
             {EDGES.filter((e) => e.source === hovered.id || e.target === hovered.id).length} connexions
           </p>
         </motion.div>
       )}
 
       {/* Instructions */}
-      <div className="absolute bottom-4 right-4 text-xs text-obs-text-secondary/60">
+      <div className="absolute bottom-4 right-4 text-xs text-[#E8E4DD]/40/60">
         Glisser les nœuds · Survoler pour explorer
       </div>
     </div>
