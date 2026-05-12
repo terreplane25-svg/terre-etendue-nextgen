@@ -6,7 +6,6 @@ import { ArrowLeft, Clock, User, ChevronRight, List } from 'lucide-react';
 import Link from 'next/link';
 import ViewModeSwitch, { useViewMode } from '@/components/ViewModeSwitch';
 import GlossaryTooltip, { GLOSSARY } from '@/components/GlossaryTooltip';
-import { postProcessArticleHtml } from '@/lib/postprocess';
 import type { Article } from '@/lib/articles';
 
 // ─── Labels lisibles pour les categories ─────────
@@ -80,7 +79,6 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
 
   const processedHtml = useMemo(() => {
     let html = injectHeadingIds(article.htmlContent);
-    html = postProcessArticleHtml(html);
     html = enrichWithGlossary(html);
     html = enhanceArabicText(html);
     return html;
