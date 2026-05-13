@@ -20,10 +20,10 @@ export default function PillarClient({ articles }: { articles: ArticleMeta[] }) 
             <span className="text-[9px] tracking-[0.2em] text-[#00C8FF]/50 uppercase" style={{fontFamily: "Orbitron, sans-serif"}}>Pilier 02</span>
           </div>
           <h1 className="text-2xl md:text-3xl font-bold text-[#C8D8E8] mb-2" style={{fontFamily: "Orbitron, sans-serif"}}>
-            L\u2019OBSERVATOIRE
+            L’OBSERVATOIRE
           </h1>
           <p className="text-sm text-[#C8D8E8]/30 max-w-xl leading-relaxed mb-8" style={{fontFamily: "Rajdhani, sans-serif"}}>
-            Donn\u00e9es brutes, observations astronomiques, mesures g\u00e9od\u00e9siques.
+            Données brutes, observations astronomiques, mesures géodésiques.
           </p>
         </motion.div>
 
@@ -42,7 +42,7 @@ export default function PillarClient({ articles }: { articles: ArticleMeta[] }) 
 
         <div className="space-y-2">
           {filtered.length === 0 ? (
-            <p className="text-[#C8D8E8]/15 italic text-sm">Aucun article trouv\u00e9.</p>
+            <p className="text-[#C8D8E8]/15 italic text-sm">Aucun article trouvé.</p>
           ) : (
             filtered.map((article, i) => (
               <motion.div

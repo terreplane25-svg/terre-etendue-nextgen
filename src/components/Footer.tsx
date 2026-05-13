@@ -50,6 +50,7 @@ export default function Footer() {
               { label: 'Biblio', href: '/library' },
               { label: 'Lab', href: '/lab' },
               { label: 'Nexus', href: '/nexus' },
+              { label: 'À propos', href: '/about' },
             ].map((item) => (
               <Link
                 key={item.href}

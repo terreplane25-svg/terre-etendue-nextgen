@@ -12,7 +12,7 @@ import type { Article } from '@/lib/articles';
 const CATEGORY_LABELS: Record<string, { label: string; icon: string; color: string }> = {
   headquarters: { label: 'Le Q.G.', icon: '\u{1F9E0}', color: 'cyan' },
   observatory: { label: "L'Observatoire", icon: '\u{1F52D}', color: 'cyan' },
-  library: { label: 'La Biblioth\u00e8que', icon: '\u{1F4DA}', color: 'gold' },
+  library: { label: 'La Bibliothèque', icon: '\u{1F4DA}', color: 'gold' },
   lab: { label: 'Le Lab', icon: '\u2697\uFE0F', color: 'cyan' },
 };
 
@@ -50,7 +50,7 @@ function extractHeadings(html: string): Heading[] {
 
     // Use existing ID from HTML, or generate from text as fallback
     const id = idMatch ? idMatch[1] : text.toLowerCase()
-      .replace(/[^a-z0-9\u00e0-\u00ff]+/g, '-')
+      .replace(/[^a-z0-9à-\u00ff]+/g, '-')
       .replace(/^-|-$/g, '');
 
     if (text.length > 0) {
@@ -68,7 +68,7 @@ function injectHeadingIds(html: string): string {
     // Remove leading numbers for ID generation
     const cleanText = text.replace(/^\d+\s*/, '');
     const id = cleanText.toLowerCase()
-      .replace(/[^a-z0-9\u00e0-\u00ff]+/g, '-')
+      .replace(/[^a-z0-9à-\u00ff]+/g, '-')
       .replace(/^-|-$/g, '');
     return `<h${level}${attrs} id="${id}">${content}</h${level}>`;
   });

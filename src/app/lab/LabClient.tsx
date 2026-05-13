@@ -16,7 +16,7 @@ const TawhidSimulation = dynamic(() => import("@/components/TawhidSimulation"), 
 });
 
 const sims = [
-  { id: "tawhid", title: "ORBITES DU TAWHID", desc: "Les attributs divins en orbite autour de l\u2019Essence." },
+  { id: "tawhid", title: "ORBITES DU TAWHID", desc: "Les attributs divins en orbite autour de l’Essence." },
   { id: "geodesic", title: "GEODESIQUES", desc: "Lignes geodesiques sur differentes courbures. A venir.", disabled: true },
   { id: "fractal", title: "FRACTALES", desc: "Structures auto-similaires dans les sourates. A venir.", disabled: true },
 ];

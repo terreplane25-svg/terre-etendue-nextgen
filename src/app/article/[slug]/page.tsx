@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps) {
   const article = await getArticle(slug);
   if (!article) return { title: "Article introuvable" };
   return {
-    title: article.title + " \u2014 Terre Etendue Islam",
+    title: article.title + " — Terre Etendue Islam",
     description: article.description,
   };
 }

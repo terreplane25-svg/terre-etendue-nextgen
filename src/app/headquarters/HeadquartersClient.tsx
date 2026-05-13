@@ -23,7 +23,7 @@ export default function PillarClient({ articles }: { articles: ArticleMeta[] }) 
             LE Q.G.
           </h1>
           <p className="text-sm text-[#C8D8E8]/30 max-w-xl leading-relaxed mb-8" style={{fontFamily: "Rajdhani, sans-serif"}}>
-            Fondements m\u00e9thodologiques. Comment articuler science et sources sacr\u00e9es sans confondre les registres.
+            Fondements méthodologiques. Comment articuler science et sources sacrées sans confondre les registres.
           </p>
         </motion.div>
 
@@ -42,7 +42,7 @@ export default function PillarClient({ articles }: { articles: ArticleMeta[] }) 
 
         <div className="space-y-2">
           {filtered.length === 0 ? (
-            <p className="text-[#C8D8E8]/15 italic text-sm">Aucun article trouv\u00e9.</p>
+            <p className="text-[#C8D8E8]/15 italic text-sm">Aucun article trouvé.</p>
           ) : (
             filtered.map((article, i) => (
               <motion.div
