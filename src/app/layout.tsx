@@ -63,11 +63,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="fixed inset-0 pointer-events-none z-0 opacity-100" style={{
           backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(0,200,255,0.03) 59px, rgba(0,200,255,0.03) 60px), repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(0,200,255,0.03) 59px, rgba(0,200,255,0.03) 60px)'
         }} />
-        
-        {/* Scanline */}
-        <div className="fixed top-0 left-0 right-0 h-[2px] z-[60] pointer-events-none animate-[scan_4s_linear_infinite]" style={{
-          background: 'linear-gradient(90deg, transparent, rgba(0,200,255,0.2), transparent)'
-        }} />
 
         <Navigation />
         <main className="flex-1 relative z-10">{children}</main>

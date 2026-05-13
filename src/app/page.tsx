@@ -10,13 +10,6 @@ const PILLARS = [
   { num: '04', title: 'Le Lab', tag: 'Modélisation', tagColor: 'cyan', desc: 'Simulations 3D, modèles géométriques, visualisations.', href: '/lab' },
 ];
 
-const STATS = [
-  { label: 'Articles', value: '29', sub: '4 piliers', color: 'text-[#00C8FF]' },
-  { label: 'Observations', value: '11K', sub: 'points de données', color: 'text-[#00C8FF]' },
-  { label: 'Sources sacrées', value: '450+', sub: 'réf. coraniques', color: 'text-[#D4A843]' },
-  { label: 'Modèles', value: '3', sub: 'simulations 3D', color: 'text-[#00C8FF]' },
-];
-
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
@@ -27,6 +20,10 @@ const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
 export default function HomePage() {
   return (
     <div className="min-h-screen">
+      {/* Scanline - homepage only */}
+      <div className="fixed top-0 left-0 right-0 h-[2px] z-[60] pointer-events-none animate-[scan_4s_linear_infinite]" style={{
+        background: 'linear-gradient(90deg, transparent, rgba(0,200,255,0.2), transparent)'
+      }} />
       {/* Hero */}
       <section className="relative max-w-[960px] mx-auto px-6 pt-28 pb-16">
         {/* Corner marks */}
@@ -60,26 +57,6 @@ export default function HomePage() {
             <Link href="/library" className="hud-btn hud-btn-gold">BIBLIOTHÈQUE</Link>
           </motion.div>
         </motion.div>
-      </section>
-
-      {/* Stats row */}
-      <section className="max-w-[960px] mx-auto px-6 pb-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {STATS.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.06 }}
-              viewport={{ once: true }}
-              className="hud-panel hud-panel-glow p-4"
-            >
-              <p className="hud-label text-[#C8D8E8]/25 mb-1">{stat.label}</p>
-              <p className={`text-3xl font-bold ${stat.color}`} style={{fontFamily: 'Orbitron, sans-serif'}}>{stat.value}</p>
-              <p className="text-[10px] text-[#C8D8E8]/20 mt-1" style={{fontFamily: 'Share Tech Mono, monospace'}}>{stat.sub}</p>
-            </motion.div>
-          ))}
-        </div>
       </section>
 
       {/* Divider */}

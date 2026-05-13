@@ -81,10 +81,51 @@ export function getArticlesByCategory(category: string): ArticleMeta[] {
 
 export function searchArticles(query: string): ArticleMeta[] {
   const q = query.toLowerCase();
-  return getAllArticles().filter(
-    (a) =>
-      a.title.toLowerCase().includes(q) ||
-      a.description.toLowerCase().includes(q) ||
-      a.tags.some((t) => t.toLowerCase().includes(q))
-  );
+  
+  if (!fs.existsSync(articlesDirectory)) return [];
+  
+  const fileNames = fs.readdirSync(articlesDirectory).filter(f => f.endsWith('.json'));
+  
+  const scored: { meta: ArticleMeta; score: number }[] = [];
+  
+  for (const fileName of fileNames) {
+    const slug = fileName.replace('.json', '');
+    const fullPath = path.join(articlesDirectory, fileName);
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const data = JSON.parse(fileContents);
+    
+    let score = 0;
+    
+    // Title match = highest priority
+    if (data.title?.toLowerCase().includes(q)) score += 10;
+    
+    // Description match
+    if (data.description?.toLowerCase().includes(q)) score += 5;
+    
+    // Tags match
+    if (data.tags?.some((t: string) => t.toLowerCase().includes(q))) score += 3;
+    
+    // Body content match (strip HTML)
+    const bodyText = (data.htmlBody || '').replace(/<[^>]+>/g, '').toLowerCase();
+    if (bodyText.includes(q)) score += 1;
+    
+    if (score > 0) {
+      scored.push({
+        meta: {
+          slug,
+          title: data.title || slug,
+          description: data.description || '',
+          date: data.date || '',
+          author: data.author || 'Terre Etendue',
+          category: data.category || 'headquarters',
+          tags: data.tags || [],
+        },
+        score,
+      });
+    }
+  }
+  
+  return scored
+    .sort((a, b) => b.score - a.score)
+    .map((s) => s.meta);
 }

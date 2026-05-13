@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
+import SearchCommand from '@/components/SearchCommand';
 
 const NAV_ITEMS = [
   { label: 'Q.G.', href: '/headquarters', num: '01' },
@@ -71,13 +72,12 @@ export default function Navigation() {
             })}
           </div>
 
-          {/* Status + mobile burger */}
-          <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-3">
-              <div className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#00E87B] shadow-[0_0_6px_#00E87B] animate-[pulse-dot_2s_ease-in-out_infinite]" />
-                <span className="text-[10px] text-[#C8D8E8]/20" style={{fontFamily: 'Share Tech Mono, monospace'}}>ONLINE</span>
-              </div>
+          {/* Search + Status + mobile burger */}
+          <div className="flex items-center gap-3">
+            <SearchCommand />
+            <div className="hidden sm:flex items-center gap-1.5">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#00E87B] shadow-[0_0_6px_#00E87B] animate-[pulse-dot_2s_ease-in-out_infinite]" />
+              <span className="text-[10px] text-[#C8D8E8]/20" style={{fontFamily: 'Share Tech Mono, monospace'}}>ONLINE</span>
             </div>
             <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-1.5 text-[#C8D8E8]/40">
               {mobileOpen ? <X size={18} /> : <Menu size={18} />}
