@@ -80,8 +80,8 @@ export default function GlossaryTooltip({ term, children }: GlossaryTooltipProps
     return <span>{children}</span>;
   }
 
-  const accentClass = entry.domain === 'religion' ? 'border-accent-gold' : 'border-accent-cyan';
-  const dotColor = entry.domain === 'religion' ? 'bg-accent-gold' : 'bg-accent-cyan';
+  const accentClass = entry.domain === 'religion' ? 'border-[#D4A843]' : 'border-[#00C8FF]';
+  const dotColor = entry.domain === 'religion' ? 'bg-[#D4A843]' : 'bg-[#00C8FF]';
 
   return (
     <span
@@ -123,7 +123,7 @@ export default function GlossaryTooltip({ term, children }: GlossaryTooltipProps
             <div className="mt-3 pt-2 border-t border-white/[0.06]">
               <span
                 className={`text-xs uppercase tracking-widest font-medium ${
-                  entry.domain === 'religion' ? 'text-accent-gold' : 'text-accent-cyan'
+                  entry.domain === 'religion' ? 'text-[#D4A843]' : 'text-[#00C8FF]'
                 }`}
               >
                 {entry.domain === 'religion' ? '📚 Sources Sacrées' : '⚗️ Science'}

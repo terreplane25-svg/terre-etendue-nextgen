@@ -7,11 +7,11 @@ import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 
 const NAV_ITEMS = [
-  { label: 'Q.G.', href: '/headquarters', marker: '01' },
-  { label: 'Observatoire', href: '/observatory', marker: '02' },
-  { label: 'Bibliothèque', href: '/library', marker: '03' },
-  { label: 'Lab', href: '/lab', marker: '04' },
-  { label: 'Nexus', href: '/nexus', marker: '⬡' },
+  { label: 'Q.G.', href: '/headquarters', num: '01' },
+  { label: 'OBS', href: '/observatory', num: '02' },
+  { label: 'BIBLIO', href: '/library', num: '03' },
+  { label: 'LAB', href: '/lab', num: '04' },
+  { label: 'NEXUS', href: '/nexus', num: '\u2B21' },
 ];
 
 export default function Navigation() {
@@ -20,32 +20,33 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
-          scrolled
-            ? 'bg-[#070B10]/90 backdrop-blur-xl border-b border-white/[0.04]'
-            : 'bg-transparent'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 border-b ${
+        scrolled
+          ? 'bg-[#0A1020]/95 backdrop-blur-md border-[rgba(0,200,255,0.08)]'
+          : 'bg-[#0A1020] border-[rgba(0,200,255,0.08)]'
+      }`}>
+        <div className="max-w-[960px] mx-auto px-6 h-12 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-lg border border-accent-gold/30 flex items-center justify-center group-hover:border-accent-gold/60 transition-colors">
-              <span className="text-accent-gold font-display text-sm font-bold">T</span>
+            <div className="relative w-7 h-7 flex items-center justify-center">
+              <svg viewBox="0 0 30 30" fill="none" className="absolute inset-0 w-full h-full">
+                <polygon points="15,2 27,9 27,21 15,28 3,21 3,9" stroke="rgba(0,200,255,0.3)" strokeWidth="1" fill="rgba(0,200,255,0.04)" className="group-hover:stroke-[rgba(0,200,255,0.6)] transition-all" />
+              </svg>
+              <span className="relative z-10 text-[11px] font-bold text-[#00C8FF]" style={{fontFamily: 'Orbitron, sans-serif'}}>TEI</span>
             </div>
-            <span className="font-heading text-sm tracking-wide text-[#E8E4DD]/70 group-hover:text-[#E8E4DD] transition-colors hidden sm:block">
-              Terre Étendue
+            <span className="hidden sm:block text-xs tracking-[0.15em] text-[#C8D8E8]/40" style={{fontFamily: 'Orbitron, sans-serif'}}>
+              TERRE ÉTENDUE
             </span>
           </Link>
 
-          {/* Desktop Nav */}
+          {/* Desktop nav tabs */}
           <div className="hidden md:flex items-center gap-1">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname === item.href || pathname?.startsWith(item.href + '/');
@@ -53,33 +54,35 @@ export default function Navigation() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm transition-all duration-300 ${
+                  className={`text-[9px] tracking-[0.12em] px-4 py-1.5 transition-all relative ${
                     isActive
-                      ? 'text-accent-cyan'
-                      : 'text-[#E8E4DD]/40 hover:text-[#E8E4DD]/70'
+                      ? 'text-[#00C8FF] bg-[rgba(0,200,255,0.08)] border border-[rgba(0,200,255,0.2)]'
+                      : 'text-[#C8D8E8]/25 hover:text-[#C8D8E8]/50 border border-transparent'
                   }`}
+                  style={{
+                    fontFamily: 'Orbitron, sans-serif',
+                    clipPath: 'polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%)',
+                  }}
                 >
-                  <span className="font-mono text-[0.6rem] opacity-40">{item.marker}</span>
-                  <span className="font-heading">{item.label}</span>
-                  {isActive && (
-                    <motion.div
-                      layoutId="nav-active"
-                      className="absolute inset-0 bg-accent-cyan/[0.06] border border-accent-cyan/10 rounded-lg"
-                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-                    />
-                  )}
+                  <span className="opacity-30 mr-1">{item.num}</span>
+                  {item.label}
                 </Link>
               );
             })}
           </div>
 
-          {/* Mobile burger */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 text-[#E8E4DD]/50 hover:text-[#E8E4DD]"
-          >
-            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          {/* Status + mobile burger */}
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:flex items-center gap-3">
+              <div className="flex items-center gap-1.5">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#00E87B] shadow-[0_0_6px_#00E87B] animate-[pulse-dot_2s_ease-in-out_infinite]" />
+                <span className="text-[10px] text-[#C8D8E8]/20" style={{fontFamily: 'Share Tech Mono, monospace'}}>ONLINE</span>
+              </div>
+            </div>
+            <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-1.5 text-[#C8D8E8]/40">
+              {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -91,7 +94,7 @@ export default function Navigation() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/70 z-40 md:hidden"
+              className="fixed inset-0 bg-black/80 z-40 md:hidden"
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
@@ -99,34 +102,25 @@ export default function Navigation() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 250 }}
-              className="fixed right-0 top-0 bottom-0 w-72 bg-[#0E1319] border-l border-white/[0.04] z-50 md:hidden p-8"
+              className="fixed right-0 top-0 bottom-0 w-64 bg-[#0A1020] border-l border-[rgba(0,200,255,0.08)] z-50 md:hidden p-6"
             >
               <div className="flex justify-end mb-8">
-                <button onClick={() => setMobileOpen(false)} className="p-2 text-[#E8E4DD]/50">
-                  <X size={20} />
-                </button>
+                <button onClick={() => setMobileOpen(false)} className="p-1.5 text-[#C8D8E8]/40"><X size={18} /></button>
               </div>
-              <nav className="space-y-2">
+              <nav className="space-y-1">
                 {NAV_ITEMS.map((item, i) => {
                   const isActive = pathname === item.href;
                   return (
-                    <motion.div
-                      key={item.href}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.05 }}
-                    >
+                    <motion.div key={item.href} initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}>
                       <Link
                         href={item.href}
                         onClick={() => setMobileOpen(false)}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                          isActive
-                            ? 'bg-accent-cyan/10 text-accent-cyan'
-                            : 'text-[#E8E4DD]/50 hover:text-[#E8E4DD] hover:bg-white/[0.02]'
+                        className={`flex items-center gap-3 px-4 py-3 text-sm transition-colors ${
+                          isActive ? 'bg-[rgba(0,200,255,0.08)] text-[#00C8FF]' : 'text-[#C8D8E8]/35 hover:text-[#C8D8E8]/60'
                         }`}
+                        style={{ fontFamily: 'Orbitron, sans-serif', fontSize: '10px', letterSpacing: '0.1em' }}
                       >
-                        <span className="font-mono text-[0.6rem] opacity-40 w-5">{item.marker}</span>
-                        <span className="font-heading">{item.label}</span>
+                        <span className="opacity-30 w-5">{item.num}</span>{item.label}
                       </Link>
                     </motion.div>
                   );

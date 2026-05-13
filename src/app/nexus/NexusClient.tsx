@@ -1,15 +1,14 @@
 "use client";
-
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 
 const NexusGraph = dynamic(() => import("@/components/NexusGraph"), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-[600px] card flex items-center justify-center">
+    <div className="w-full h-[600px] hud-panel flex items-center justify-center">
       <div className="text-center">
-        <div className="w-6 h-6 border-2 border-accent-cyan border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-[#E8E4DD]/25 text-sm font-mono">Initialisation du graphe...</p>
+        <div className="w-5 h-5 border-2 border-[#00C8FF] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+        <p className="text-[10px] text-[#C8D8E8]/20" style={{fontFamily:'Share Tech Mono,monospace'}}>INITIALIZING GRAPH...</p>
       </div>
     </div>
   ),
@@ -17,33 +16,23 @@ const NexusGraph = dynamic(() => import("@/components/NexusGraph"), {
 
 export default function NexusClient() {
   return (
-    <div className="min-h-screen pt-24 pb-16">
-      <div className="max-w-6xl mx-auto px-6">
-        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="flex items-center gap-4 mb-4">
-            <span className="font-mono text-label uppercase text-accent-cyan/50">Graphe</span>
-            <div className="h-px flex-1 bg-white/[0.04]" />
+    <div className="min-h-screen pt-20 pb-16">
+      <div className="max-w-[960px] mx-auto px-6">
+        <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }}>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-[2px] bg-[#00C8FF] shadow-[0_0_8px_rgba(0,200,255,0.4)]" />
+            <span className="text-[9px] tracking-[0.2em] text-[#00C8FF]/50 uppercase" style={{fontFamily:'Orbitron,sans-serif'}}>Graphe</span>
           </div>
-          <h1 className="font-display text-title-lg font-bold text-[#E8E4DD] mb-4">
-            Le Nexus
-          </h1>
-          <p className="text-[#E8E4DD]/35 text-lg max-w-2xl font-body leading-relaxed mb-10">
-            Chaque point est un concept ou un article. Chaque lien une connexion intellectuelle.
+          <h1 className="text-2xl md:text-3xl font-bold text-[#C8D8E8] mb-3" style={{fontFamily:'Orbitron,sans-serif'}}>LE NEXUS</h1>
+          <p className="text-sm text-[#C8D8E8]/30 max-w-xl mb-8" style={{fontFamily:'Rajdhani,sans-serif'}}>
+            Chaque point est un concept. Chaque lien une connexion intellectuelle.
           </p>
         </motion.div>
-
         <NexusGraph />
-
-        <div className="mt-8 flex flex-wrap gap-6">
-          {[
-            { label: "Épistémologie", color: "bg-purple-500" },
-            { label: "Empirique", color: "bg-accent-cyan" },
-            { label: "Sources sacrées", color: "bg-accent-gold" },
-            { label: "Modélisation", color: "bg-accent-emerald" },
-          ].map((cat) => (
-            <div key={cat.label} className="flex items-center gap-2 text-xs text-[#E8E4DD]/30 font-mono">
-              <div className={`w-2.5 h-2.5 rounded-full ${cat.color}`} />
-              {cat.label}
+        <div className="mt-6 flex flex-wrap gap-5">
+          {[{l:"Épistémologie",c:"bg-purple-500"},{l:"Empirique",c:"bg-[#00C8FF]"},{l:"Sources sacrées",c:"bg-[#D4A843]"},{l:"Modélisation",c:"bg-emerald-500"}].map((cat) => (
+            <div key={cat.l} className="flex items-center gap-2 text-[10px] text-[#C8D8E8]/20" style={{fontFamily:'Share Tech Mono,monospace'}}>
+              <div className={`w-2 h-2 rounded-full ${cat.c}`} />{cat.l}
             </div>
           ))}
         </div>

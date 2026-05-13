@@ -5,11 +5,6 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import type { ArticleMeta } from "@/lib/articles";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] } }),
-};
-
 export default function PillarClient({ articles }: { articles: ArticleMeta[] }) {
   const [search, setSearch] = useState("");
   const filtered = search
@@ -17,51 +12,54 @@ export default function PillarClient({ articles }: { articles: ArticleMeta[] }) 
     : articles;
 
   return (
-    <div className="min-h-screen pt-24 pb-16">
-      <div className="max-w-5xl mx-auto px-6">
-        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <div className="flex items-center gap-4 mb-4">
-            <span className="font-mono text-label uppercase text-accent-gold/50">Pilier 03</span>
-            <div className="h-px flex-1 bg-white/[0.04]" />
+    <div className="min-h-screen pt-20 pb-16">
+      <div className="max-w-[960px] mx-auto px-6">
+        <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }}>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-[2px] bg-[#00C8FF] shadow-[0_0_8px_rgba(0,200,255,0.4)]" />
+            <span className="text-[9px] tracking-[0.2em] text-[#00C8FF]/50 uppercase" style={{fontFamily: "Orbitron, sans-serif"}}>Pilier 03</span>
           </div>
-          <h1 className="font-display text-title-lg font-bold text-[#E8E4DD] mb-3">
-            La Biblioth\u00e8que <span className="text-accent-gold">&mdash;</span> <span className="text-[#E8E4DD]/50 font-heading font-normal text-2xl">Sources Sacr\u00e9es</span>
+          <h1 className="text-2xl md:text-3xl font-bold text-[#C8D8E8] mb-2" style={{fontFamily: "Orbitron, sans-serif"}}>
+            LA BIBLIOTH\u00c8QUE
           </h1>
-          <p className="text-[#E8E4DD]/35 text-lg max-w-2xl font-body leading-relaxed mb-10">
-            Coran, hadiths, ouvrages classiques du Kal\u00e2m. Chaque source contextualis\u00e9e et reli\u00e9e aux mod\u00e8les du Lab.
+          <p className="text-sm text-[#C8D8E8]/30 max-w-xl leading-relaxed mb-8" style={{fontFamily: "Rajdhani, sans-serif"}}>
+            Coran, hadiths, ouvrages classiques du Kal\u00e2m. Chaque source contextualis\u00e9e.
           </p>
         </motion.div>
 
-        <div className="mb-8">
+        <div className="mb-6">
           <input
             type="text"
             placeholder="Rechercher..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full max-w-sm px-4 py-2.5 rounded-lg bg-surface border border-white/[0.06] text-[#E8E4DD] placeholder:text-[#E8E4DD]/20 focus:border-accent-gold/30 focus:outline-none focus:ring-1 focus:ring-accent-gold/10 transition-colors font-body text-sm"
+            className="w-full max-w-sm px-4 py-2 bg-[#0D1528] border border-[rgba(0,200,255,0.08)] text-[#C8D8E8] placeholder:text-[#C8D8E8]/15 focus:border-[rgba(0,200,255,0.2)] focus:outline-none transition-colors text-sm"
+            style={{fontFamily: "Share Tech Mono, monospace", fontSize: "12px"}}
           />
         </div>
 
-        <div className="geo-line mb-8" />
+        <div className="hud-divider mb-6" />
 
-        <div className="space-y-3">
+        <div className="space-y-2">
           {filtered.length === 0 ? (
-            <p className="text-[#E8E4DD]/20 italic font-body">Aucun article trouv\u00e9.</p>
+            <p className="text-[#C8D8E8]/15 italic text-sm">Aucun article trouv\u00e9.</p>
           ) : (
             filtered.map((article, i) => (
-              <motion.div key={article.slug} custom={i} initial="hidden" animate="visible" variants={fadeUp}>
-                <Link
-                  href={`/article/${article.slug}`}
-                  className="block group card card-hover p-5"
-                >
+              <motion.div
+                key={article.slug}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.04 }}
+              >
+                <Link href={`/article/${article.slug}`} className="block hud-card p-5 group">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-heading text-base font-semibold text-[#E8E4DD]/80 group-hover:text-accent-gold transition-colors truncate">
+                      <h3 className="text-sm font-semibold text-[#C8D8E8]/70 group-hover:text-[#00C8FF] transition-colors truncate" style={{fontFamily: "Rajdhani, sans-serif"}}>
                         {article.title}
                       </h3>
-                      <p className="text-[#E8E4DD]/25 text-sm mt-1.5 font-body line-clamp-2">{article.description}</p>
+                      <p className="text-[12px] text-[#C8D8E8]/20 mt-1 line-clamp-2" style={{fontFamily: "Rajdhani, sans-serif"}}>{article.description}</p>
                     </div>
-                    <span className="font-mono text-[0.6rem] text-[#E8E4DD]/15 mt-1 flex-shrink-0">
+                    <span className="text-[10px] text-[#C8D8E8]/10 mt-0.5 flex-shrink-0" style={{fontFamily: "Share Tech Mono, monospace"}}>
                       {new Date(article.date).toLocaleDateString("fr-FR", { month: "short", year: "numeric" })}
                     </span>
                   </div>

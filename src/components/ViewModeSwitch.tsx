@@ -24,18 +24,18 @@ export default function ViewModeSwitch() {
   const { mode, set } = useViewMode();
 
   return (
-    <div className="inline-flex items-center bg-surface border border-white/[0.06] rounded-lg p-1">
+    <div className="inline-flex items-center bg-[#0D1528] border border-white/[0.06] rounded-lg p-1">
       <button
         onClick={() => set('study')}
         className={`relative flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-          mode === 'study' ? 'text-[#E8E4DD]-primary' : 'text-[#E8E4DD]-secondary hover:text-[#E8E4DD]-primary'
+          mode === 'study' ? 'text-[#C8D8E8]-primary' : 'text-[#C8D8E8]-secondary hover:text-[#C8D8E8]-primary'
         }`}
         aria-label="Mode Étude"
       >
         {mode === 'study' && (
           <motion.div
             layoutId="viewmode-bg"
-            className="absolute inset-0 bg-accent-cyan/10 border border-accent-cyan/30 rounded-md"
+            className="absolute inset-0 bg-[#00C8FF]/10 border border-[#00C8FF]/30 rounded-md"
             transition={{ type: 'spring', stiffness: 500, damping: 30 }}
           />
         )}
@@ -46,14 +46,14 @@ export default function ViewModeSwitch() {
       <button
         onClick={() => set('lab')}
         className={`relative flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-          mode === 'lab' ? 'text-[#E8E4DD]-primary' : 'text-[#E8E4DD]-secondary hover:text-[#E8E4DD]-primary'
+          mode === 'lab' ? 'text-[#C8D8E8]-primary' : 'text-[#C8D8E8]-secondary hover:text-[#C8D8E8]-primary'
         }`}
         aria-label="Mode Lab"
       >
         {mode === 'lab' && (
           <motion.div
             layoutId="viewmode-bg"
-            className="absolute inset-0 bg-accent-gold/10 border border-accent-gold/30 rounded-md"
+            className="absolute inset-0 bg-[#D4A843]/10 border border-[#D4A843]/30 rounded-md"
             transition={{ type: 'spring', stiffness: 500, damping: 30 }}
           />
         )}

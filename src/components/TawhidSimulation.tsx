@@ -178,7 +178,7 @@ function SimulationControls({ orbits, setOrbits, speed, setSpeed }: SimulationCo
           step={1}
           value={orbits}
           onChange={(e) => setOrbits(Number(e.target.value))}
-          className="w-full h-1 bg-white/[0.06] rounded-lg appearance-none cursor-pointer accent-accent-gold"
+          className="w-full h-1 bg-white/[0.06] rounded-lg appearance-none cursor-pointer accent-[#D4A843]"
         />
       </div>
 
@@ -193,7 +193,7 @@ function SimulationControls({ orbits, setOrbits, speed, setSpeed }: SimulationCo
           step={0.1}
           value={speed}
           onChange={(e) => setSpeed(Number(e.target.value))}
-          className="w-full h-1 bg-white/[0.06] rounded-lg appearance-none cursor-pointer accent-accent-cyan"
+          className="w-full h-1 bg-white/[0.06] rounded-lg appearance-none cursor-pointer accent-[#00C8FF]"
         />
       </div>
     </div>

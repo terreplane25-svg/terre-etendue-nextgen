@@ -13,7 +13,7 @@ interface PillarCardProps {
 }
 
 export default function PillarCard({ title, subtitle, description, href, accent, stats }: PillarCardProps) {
-  const accentColor = accent === 'gold' ? 'accent-gold' : 'accent-cyan';
+  const accentColor = accent === 'gold' ? '[#D4A843]' : '[#00C8FF]';
 
   return (
     <Link href={href} className="block group">
