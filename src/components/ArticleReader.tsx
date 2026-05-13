@@ -77,12 +77,26 @@ function injectHeadingIds(html: string): string {
 // ─── Enrichissement glossaire ────────────────────
 function enrichWithGlossary(html: string): string {
   let result = html;
-  for (const [key, entry] of Object.entries(GLOSSARY)) {
-    const pattern = new RegExp(`(?<![<\\/a-z])\\b(${key}|${entry.title.split(' ')[0]})\\b(?![^<]*>)`, 'gi');
-    let replaced = false;
+  
+  // Sort terms by length (longest first) to avoid partial matches
+  const sortedTerms = Object.entries(GLOSSARY).sort((a, b) => b[0].length - a[0].length);
+  
+  for (const [key, entry] of sortedTerms) {
+    // Build pattern: match the key or the title, case-insensitive
+    // Avoid matching inside HTML tags or attributes
+    const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const pattern = new RegExp(
+      `(?<![<\\/\\w-])\\b(${escapedKey})\\b(?![^<]*>)(?![^<]*<\\/a>)`,
+      'gi'
+    );
+    
+    let count = 0;
+    const maxOccurrences = 2; // Mark first 2 occurrences
+    
     result = result.replace(pattern, (match) => {
-      if (replaced) return match;
-      replaced = true;
+      if (count >= maxOccurrences) return match;
+      // Don't replace if already inside a glossary span or link
+      count++;
       return `<span class="glossary-inline" data-term="${key}">${match}</span>`;
     });
   }
