@@ -33,39 +33,39 @@ export default function Navigation() {
           ? 'bg-[#0A1020]/95 backdrop-blur-md border-[rgba(0,200,255,0.08)]'
           : 'bg-[#0A1020] border-[rgba(0,200,255,0.08)]'
       }`}>
-        <div className="max-w-[960px] mx-auto px-6 h-12 flex items-center justify-between">
+        <div className="max-w-[1100px] mx-auto px-6 h-14 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-7 h-7 flex items-center justify-center">
+            <div className="relative w-9 h-9 flex items-center justify-center">
               <svg viewBox="0 0 30 30" fill="none" className="absolute inset-0 w-full h-full">
-                <polygon points="15,2 27,9 27,21 15,28 3,21 3,9" stroke="rgba(0,200,255,0.3)" strokeWidth="1" fill="rgba(0,200,255,0.04)" className="group-hover:stroke-[rgba(0,200,255,0.6)] transition-all" />
+                <polygon points="15,2 27,9 27,21 15,28 3,21 3,9" stroke="rgba(0,200,255,0.35)" strokeWidth="1.2" fill="rgba(0,200,255,0.05)" className="group-hover:stroke-[rgba(0,200,255,0.7)] transition-all" />
               </svg>
-              <span className="relative z-10 text-[11px] font-bold text-[#00C8FF]" style={{fontFamily: 'Orbitron, sans-serif'}}>TEI</span>
+              <span className="relative z-10 text-[12px] font-bold text-[#00C8FF]" style={{fontFamily: 'Orbitron, sans-serif'}}>TEI</span>
             </div>
-            <span className="hidden sm:block text-xs tracking-[0.15em] text-[#C8D8E8]/40" style={{fontFamily: 'Orbitron, sans-serif'}}>
+            <span className="hidden lg:block text-[13px] tracking-[0.12em] text-[#C8D8E8]/50" style={{fontFamily: 'Orbitron, sans-serif'}}>
               TERRE ÉTENDUE
             </span>
           </Link>
 
           {/* Desktop nav tabs */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-1.5">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname === item.href || pathname?.startsWith(item.href + '/');
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`text-[9px] tracking-[0.12em] px-4 py-1.5 transition-all relative ${
+                  className={`text-[11px] tracking-[0.1em] px-5 py-2 transition-all relative ${
                     isActive
-                      ? 'text-[#00C8FF] bg-[rgba(0,200,255,0.08)] border border-[rgba(0,200,255,0.2)]'
-                      : 'text-[#C8D8E8]/25 hover:text-[#C8D8E8]/50 border border-transparent'
+                      ? 'text-[#00C8FF] bg-[rgba(0,200,255,0.1)] border border-[rgba(0,200,255,0.25)]'
+                      : 'text-[#C8D8E8]/40 hover:text-[#C8D8E8]/70 border border-transparent'
                   }`}
                   style={{
                     fontFamily: 'Orbitron, sans-serif',
                     clipPath: 'polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%)',
                   }}
                 >
-                  <span className="opacity-30 mr-1">{item.num}</span>
+                  <span className="opacity-40 mr-1.5">{item.num}</span>
                   {item.label}
                 </Link>
               );
@@ -73,14 +73,14 @@ export default function Navigation() {
           </div>
 
           {/* Search + Status + mobile burger */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <SearchCommand />
-            <div className="hidden sm:flex items-center gap-1.5">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#00E87B] shadow-[0_0_6px_#00E87B] animate-[pulse-dot_2s_ease-in-out_infinite]" />
-              <span className="text-[10px] text-[#C8D8E8]/20" style={{fontFamily: 'Share Tech Mono, monospace'}}>ONLINE</span>
+            <div className="hidden sm:flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-[#00E87B] shadow-[0_0_8px_#00E87B] animate-[pulse-dot_2s_ease-in-out_infinite]" />
+              <span className="text-[11px] text-[#C8D8E8]/30" style={{fontFamily: 'Share Tech Mono, monospace'}}>ONLINE</span>
             </div>
-            <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-1.5 text-[#C8D8E8]/40">
-              {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+            <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-1.5 text-[#C8D8E8]/50">
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>

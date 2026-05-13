@@ -79,12 +79,12 @@ export default function SearchCommand() {
       {/* Trigger button */}
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 px-3 py-1.5 text-[10px] text-[#C8D8E8]/20 hover:text-[#C8D8E8]/40 border border-[rgba(0,200,255,0.06)] hover:border-[rgba(0,200,255,0.15)] transition-all"
+        className="flex items-center gap-2.5 px-4 py-2 text-[11px] text-[#C8D8E8]/30 hover:text-[#C8D8E8]/50 border border-[rgba(0,200,255,0.08)] hover:border-[rgba(0,200,255,0.2)] transition-all rounded-sm"
         style={{ fontFamily: 'Share Tech Mono, monospace' }}
       >
-        <Search size={12} />
+        <Search size={14} />
         <span className="hidden sm:inline">RECHERCHER</span>
-        <kbd className="hidden sm:inline text-[8px] ml-2 px-1.5 py-0.5 border border-[rgba(0,200,255,0.1)] text-[#C8D8E8]/15">
+        <kbd className="hidden sm:inline text-[9px] ml-1.5 px-1.5 py-0.5 border border-[rgba(0,200,255,0.12)] text-[#C8D8E8]/20 rounded-sm">
           ⌘K
         </kbd>
       </button>
