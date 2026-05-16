@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { FontOrbitron } from '@/components/FontWrappers';
 
 // ─── Image Component ──────────────────────────────
 interface TeiImageProps {
@@ -33,7 +34,7 @@ export function TeiImage({ src, alt, caption, wide }: TeiImageProps) {
           <div className="w-full h-48 flex items-center justify-center">
             <div className="text-center">
               <div className="font-mono text-[9px] text-cyan-500/30 tracking-widest mb-2">MEDIA_PENDING</div>
-              <p className="text-[12px] text-slate-500 max-w-xs px-4" style={{fontFamily: 'Rajdhani, sans-serif'}}>{alt}</p>
+              <p className="text-[12px] text-slate-500 max-w-xs px-4 font-rajdhani">{alt}</p>
             </div>
           </div>
         )}
@@ -48,7 +49,7 @@ export function TeiImage({ src, alt, caption, wide }: TeiImageProps) {
       {caption && (
         <figcaption className="mt-3 px-1 flex items-start gap-2">
           <span className="font-mono text-[8px] text-cyan-500/40 tracking-widest mt-0.5 flex-shrink-0">FIG.</span>
-          <span className="text-[12px] text-slate-400 leading-relaxed" style={{fontFamily: 'Rajdhani, sans-serif'}}>
+          <span className="text-[12px] text-slate-400 leading-relaxed font-rajdhani">
             {caption}
           </span>
         </figcaption>
@@ -81,7 +82,7 @@ export function TeiVideo({ src, caption, poster }: TeiVideoProps) {
       {caption && (
         <figcaption className="mt-3 px-1 flex items-start gap-2">
           <span className="font-mono text-[8px] text-cyan-500/40 tracking-widest mt-0.5 flex-shrink-0">VID.</span>
-          <span className="text-[12px] text-slate-400 leading-relaxed" style={{fontFamily: 'Rajdhani, sans-serif'}}>
+          <span className="text-[12px] text-slate-400 leading-relaxed font-rajdhani">
             {caption}
           </span>
         </figcaption>
@@ -124,10 +125,10 @@ export function TeiDataVisualizer({ type, title, description }: TeiDataVisualize
           <div className="font-mono text-[9px] text-cyan-500/40 tracking-[0.3em]">
             {typeLabels[type] || 'VISUALIZATION'} // RENDER_PENDING
           </div>
-          <h4 className="text-lg text-slate-200" style={{fontFamily: 'Orbitron, monospace', fontSize: '14px'}}>
+          <h4 className="text-lg text-slate-200 font-orbitron" style={{fontSize: '14px'}}>
             {title}
           </h4>
-          <p className="text-[12px] text-slate-500 max-w-md mx-auto leading-relaxed" style={{fontFamily: 'Rajdhani, sans-serif'}}>
+          <p className="text-[12px] text-slate-500 max-w-md mx-auto leading-relaxed font-rajdhani">
             {description}
           </p>
           <div className="flex items-center justify-center gap-2 pt-2">

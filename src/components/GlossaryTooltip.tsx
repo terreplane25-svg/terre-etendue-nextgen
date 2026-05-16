@@ -272,12 +272,11 @@ export default function GlossaryTooltip({ term, children }: TooltipProps) {
           <div className="p-4">
             {/* Header */}
             <div className="flex items-center justify-between mb-2">
-              <h4 className="text-sm font-semibold text-[#C8D8E8]" style={{ fontFamily: 'Rajdhani, sans-serif' }}>
+              <h4 className="text-sm font-semibold text-[#C8D8E8] font-rajdhani">
                 {entry.title}
               </h4>
               <span
-                className={`text-[7px] tracking-[0.15em] px-2 py-0.5 ${domain.bg} ${domain.border} border ${domain.color}`}
-                style={{ fontFamily: 'Share Tech Mono, monospace' }}
+                className={`text-[7px] tracking-[0.15em] px-2 py-0.5 ${domain.bg} ${domain.border} border ${domain.color} font-tech-mono`}
               >
                 {domain.label}
               </span>
@@ -285,13 +284,13 @@ export default function GlossaryTooltip({ term, children }: TooltipProps) {
 
             {/* Arabic */}
             {entry.arabic && (
-              <p className="text-[#D4A843] text-lg mb-2" style={{ fontFamily: 'var(--font-amiri), Amiri, serif', direction: 'rtl' }}>
+              <p className="text-[#D4A843] text-lg mb-2 font-arabic" style={{ direction: 'rtl' }}>
                 {entry.arabic}
               </p>
             )}
 
             {/* Definition */}
-            <p className="text-[12px] text-[#C8D8E8]/50 leading-relaxed" style={{ fontFamily: 'Rajdhani, sans-serif' }}>
+            <p className="text-[12px] text-[#C8D8E8]/50 leading-relaxed font-rajdhani">
               {entry.definition}
             </p>
 
@@ -300,7 +299,7 @@ export default function GlossaryTooltip({ term, children }: TooltipProps) {
               <a
                 href={`/article/${entry.seeAlso}`}
                 className="block mt-3 pt-2 border-t border-[rgba(0,200,255,0.06)] text-[10px] text-[#00C8FF]/40 hover:text-[#00C8FF]/70 transition-colors"
-                style={{ fontFamily: 'Share Tech Mono, monospace', letterSpacing: '0.1em' }}
+                style={{letterSpacing: '0.1em' }}
               >
                 → VOIR L&apos;ARTICLE
               </a>

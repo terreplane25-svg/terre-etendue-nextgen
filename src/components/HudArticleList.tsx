@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Clock, Layers, Terminal, Compass, BookOpen, FlaskConical, Brain } from 'lucide-react';
+import { FontOrbitron } from '@/components/FontWrappers';
 import type { ArticleMeta } from '@/lib/articles';
 
 // Pillar config
@@ -87,10 +88,10 @@ export default function HudArticleList({ articles, category }: Props) {
           <div className={`flex items-center gap-2 ${accentText} font-mono text-xs tracking-[0.3em] uppercase mb-2`}>
             {config.icon} PILIER {config.num} // COMMAND_CENTER
           </div>
-          <h1 className="text-3xl md:text-5xl uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-cyan-500" style={{fontFamily: 'Orbitron, monospace'}}>
+          <h1 className="text-3xl md:text-5xl uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-cyan-500 font-orbitron">
             {config.title}
           </h1>
-          <p className="text-slate-400 text-sm italic mt-2" style={{fontFamily: 'Source Serif 4, Georgia, serif'}}>
+          <p className="text-slate-400 text-sm italic mt-2 font-body">
             {config.subtitle}
           </p>
         </div>
@@ -144,10 +145,10 @@ export default function HudArticleList({ articles, category }: Props) {
               </div>
 
               <div className="max-w-3xl my-4">
-                <h2 className={`text-2xl md:text-4xl uppercase text-white group-hover:${config.accent === 'gold' ? 'text-amber-400' : 'text-cyan-400'} transition-colors duration-300`} style={{fontFamily: 'Orbitron, monospace'}}>
+                <h2 className={`text-2xl md:text-4xl uppercase text-white group-hover:${config.accent === 'gold' ? 'text-amber-400' : 'text-cyan-400'} transition-colors duration-300 font-orbitron`}>
                   {featured.title}
                 </h2>
-                <p className="text-slate-300 text-base md:text-lg leading-relaxed mt-4 opacity-90 line-clamp-3" style={{fontFamily: 'Source Serif 4, Georgia, serif'}}>
+                <p className="text-slate-300 text-base md:text-lg leading-relaxed mt-4 opacity-90 line-clamp-3 font-body">
                   {featured.description}
                 </p>
               </div>
@@ -187,11 +188,11 @@ export default function HudArticleList({ articles, category }: Props) {
                     </span>
                   </div>
 
-                  <h3 className="text-xl uppercase text-slate-100 group-hover:text-cyan-400 transition-colors duration-200 line-clamp-2" style={{fontFamily: 'Orbitron, monospace', fontSize: '16px'}}>
+                  <h3 className="text-xl uppercase text-slate-100 group-hover:text-cyan-400 transition-colors duration-200 line-clamp-2 font-orbitron" style={{fontSize: '16px'}}>
                     {article.title}
                   </h3>
 
-                  <p className="text-slate-400 text-sm leading-relaxed mt-3 line-clamp-3 opacity-80 group-hover:opacity-100 transition-opacity" style={{fontFamily: 'Source Serif 4, Georgia, serif'}}>
+                  <p className="text-slate-400 text-sm leading-relaxed mt-3 line-clamp-3 opacity-80 group-hover:opacity-100 transition-opacity font-body">
                     {article.description}
                   </p>
                 </div>

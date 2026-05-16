@@ -1,28 +1,8 @@
 import type { Metadata, Viewport } from 'next';
-import { Rajdhani, Source_Serif_4, Amiri } from 'next/font/google';
+import { fontVariables } from '@/lib/fonts';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import '@/styles/globals.css';
-
-const rajdhani = Rajdhani({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-raj',
-  display: 'swap',
-});
-
-const sourceSerif = Source_Serif_4({
-  subsets: ['latin'],
-  variable: '--font-body',
-  display: 'swap',
-});
-
-const amiri = Amiri({
-  subsets: ['arabic', 'latin'],
-  weight: ['400', '700'],
-  variable: '--font-amiri',
-  display: 'swap',
-});
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -52,11 +32,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${rajdhani.variable} ${sourceSerif.variable} ${amiri.variable}`}>
+    <html lang="fr" className={fontVariables}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
       </head>
       <body className="bg-[#050A12] text-[#C8D8E8] min-h-screen flex flex-col antialiased">
         {/* Grid overlay */}

@@ -6,6 +6,7 @@ import { ArrowLeft, Clock, User, ChevronRight, List, X } from 'lucide-react';
 import Link from 'next/link';
 import ViewModeSwitch, { useViewMode } from '@/components/ViewModeSwitch';
 import { GLOSSARY } from '@/components/GlossaryTooltip';
+import { FontOrbitron, FontTechMono } from '@/components/FontWrappers';
 import type { Article } from '@/lib/articles';
 
 // ─── Labels lisibles ─────────────────────────────
@@ -298,20 +299,20 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
         animate={{ opacity: 1, y: 0 }}
         className="max-w-4xl mx-auto px-8 lg:px-12 pb-12 space-y-6 border-b border-white/[0.06]"
       >
-        <span className={`inline-flex items-center gap-2 text-[11px] px-4 py-2 font-medium tracking-widest ${
+        <span className={`inline-flex items-center gap-2 text-[11px] px-4 py-2 font-medium tracking-widest font-tech-mono ${
           catInfo.color === 'gold'
             ? 'bg-[#D4A843]/10 text-[#D4A843]'
             : 'bg-[#00C8FF]/10 text-[#00C8FF]'
-        }`} style={{fontFamily: 'Share Tech Mono, monospace', letterSpacing: '0.15em'}}>
+        }`} style={{letterSpacing: '0.15em'}}>
           <span>{catInfo.icon}</span>
           {catInfo.label}
         </span>
 
-        <h1 className="font-bold text-[clamp(1.8rem,4vw,2.8rem)] text-[#C8D8E8] leading-[1.15]" style={{fontFamily: 'Orbitron, sans-serif'}}>
+        <h1 className="font-bold text-[clamp(1.8rem,4vw,2.8rem)] text-[#C8D8E8] leading-[1.15] font-orbitron">
           {article.title}
         </h1>
 
-        <div className="flex flex-wrap gap-6 text-[13px] text-[#C8D8E8]/30 pt-2" style={{fontFamily: 'Share Tech Mono, monospace'}}>
+        <div className="flex flex-wrap gap-6 text-[13px] text-[#C8D8E8]/30 pt-2 font-tech-mono">
           <span className="flex items-center gap-2">
             <Clock size={14} className="text-[#00C8FF]/50" />
             {readingTime} MIN
@@ -335,7 +336,7 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
               exit={{ opacity: 0, x: -16 }}
               className="hidden xl:block fixed left-8 top-24 w-64 max-h-[calc(100vh-8rem)] overflow-y-auto z-20"
             >
-              <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#C8D8E8]/25 mb-5 px-5" style={{fontFamily: 'Orbitron, sans-serif'}}>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#C8D8E8]/25 mb-5 px-5 font-orbitron">
                 Sommaire
               </p>
 
@@ -361,9 +362,9 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
                     }`}
                   >
                     {h.number && h.level === 2 && (
-                      <span className={`text-[10px] font-bold mt-[2px] flex-shrink-0 ${
+                      <span className={`text-[10px] font-bold mt-[2px] flex-shrink-0 font-tech-mono ${
                         activeHeading === h.id ? 'text-[#00C8FF]' : 'text-[#00C8FF]/25'
-                      }`} style={{fontFamily: 'Share Tech Mono, monospace'}}>
+                      }`}>
                         {h.number}
                       </span>
                     )}
@@ -371,7 +372,7 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
                       h.level > 2 ? 'text-[13px]' : 'text-[14px]'
                     } ${
                       activeHeading === h.id ? 'font-medium' : ''
-                    }`} style={{fontFamily: 'Rajdhani, sans-serif'}}>
+                    } font-rajdhani`}>
                       {h.text}
                     </span>
                   </button>

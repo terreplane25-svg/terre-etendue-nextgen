@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import SearchCommand from '@/components/SearchCommand';
+import { FontOrbitron, FontTechMono } from '@/components/FontWrappers';
 
 const NAV_ITEMS = [
   { label: 'Q.G.', href: '/headquarters', num: '01' },
@@ -40,11 +41,11 @@ export default function Navigation() {
               <svg viewBox="0 0 30 30" fill="none" className="absolute inset-0 w-full h-full">
                 <polygon points="15,2 27,9 27,21 15,28 3,21 3,9" stroke="rgba(0,200,255,0.35)" strokeWidth="1.2" fill="rgba(0,200,255,0.05)" className="group-hover:stroke-[rgba(0,200,255,0.7)] transition-all" />
               </svg>
-              <span className="relative z-10 text-[12px] font-bold text-[#00C8FF]" style={{fontFamily: 'Orbitron, sans-serif'}}>TEI</span>
+              <FontOrbitron className="relative z-10 text-[12px] font-bold text-[#00C8FF]">TEI</FontOrbitron>
             </div>
-            <span className="hidden lg:block text-[13px] tracking-[0.12em] text-[#C8D8E8]/50" style={{fontFamily: 'Orbitron, sans-serif'}}>
+            <FontOrbitron className="hidden lg:block text-[13px] tracking-[0.12em] text-[#C8D8E8]/50">
               TERRE ÉTENDUE
-            </span>
+            </FontOrbitron>
           </Link>
 
           {/* Desktop nav tabs */}
@@ -55,13 +56,12 @@ export default function Navigation() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`text-[11px] tracking-[0.1em] px-5 py-2 transition-all relative ${
+                  className={`text-[11px] tracking-[0.1em] px-5 py-2 transition-all relative font-orbitron ${
                     isActive
                       ? 'text-[#00C8FF] bg-[rgba(0,200,255,0.1)] border border-[rgba(0,200,255,0.25)]'
                       : 'text-[#C8D8E8]/40 hover:text-[#C8D8E8]/70 border border-transparent'
                   }`}
                   style={{
-                    fontFamily: 'Orbitron, sans-serif',
                     clipPath: 'polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%)',
                   }}
                 >
@@ -77,7 +77,7 @@ export default function Navigation() {
             <SearchCommand />
             <div className="hidden sm:flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-[#00E87B] shadow-[0_0_8px_#00E87B] animate-[pulse-dot_2s_ease-in-out_infinite]" />
-              <span className="text-[11px] text-[#C8D8E8]/30" style={{fontFamily: 'Share Tech Mono, monospace'}}>ONLINE</span>
+              <FontTechMono className="text-[11px] text-[#C8D8E8]/30">ONLINE</FontTechMono>
             </div>
             <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-1.5 text-[#C8D8E8]/50">
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -118,7 +118,7 @@ export default function Navigation() {
                         className={`flex items-center gap-3 px-4 py-3 text-sm transition-colors ${
                           isActive ? 'bg-[rgba(0,200,255,0.08)] text-[#00C8FF]' : 'text-[#C8D8E8]/35 hover:text-[#C8D8E8]/60'
                         }`}
-                        style={{ fontFamily: 'Orbitron, sans-serif', fontSize: '10px', letterSpacing: '0.1em' }}
+                        style={{fontSize: '10px', letterSpacing: '0.1em' }}
                       >
                         <span className="opacity-30 w-5">{item.num}</span>{item.label}
                       </Link>

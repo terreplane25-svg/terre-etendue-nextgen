@@ -79,8 +79,7 @@ export default function SearchCommand() {
       {/* Trigger button */}
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2.5 px-4 py-2 text-[11px] text-[#C8D8E8]/30 hover:text-[#C8D8E8]/50 border border-[rgba(0,200,255,0.08)] hover:border-[rgba(0,200,255,0.2)] transition-all rounded-sm"
-        style={{ fontFamily: 'Share Tech Mono, monospace' }}
+        className="flex items-center gap-2.5 px-4 py-2 text-[11px] text-[#C8D8E8]/30 hover:text-[#C8D8E8]/50 border border-[rgba(0,200,255,0.08)] hover:border-[rgba(0,200,255,0.2)] transition-all rounded-sm font-tech-mono"
       >
         <Search size={14} />
         <span className="hidden sm:inline">RECHERCHER</span>
@@ -117,8 +116,7 @@ export default function SearchCommand() {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Rechercher dans les articles..."
-                    className="flex-1 bg-transparent py-4 text-[#C8D8E8] placeholder:text-[#C8D8E8]/15 text-sm focus:outline-none"
-                    style={{ fontFamily: 'Rajdhani, sans-serif' }}
+                    className="flex-1 bg-transparent py-4 text-[#C8D8E8] placeholder:text-[#C8D8E8]/15 text-sm focus:outline-none font-rajdhani"
                   />
                   {loading && <Loader2 size={14} className="text-[#00C8FF]/40 animate-spin" />}
                   <button onClick={() => setOpen(false)} className="text-[#C8D8E8]/20 hover:text-[#C8D8E8]/40">
@@ -130,7 +128,7 @@ export default function SearchCommand() {
                 <div className="max-h-[50vh] overflow-y-auto">
                   {query.length < 2 && (
                     <div className="p-6 text-center">
-                      <p className="text-[11px] text-[#C8D8E8]/15" style={{ fontFamily: 'Share Tech Mono, monospace' }}>
+                      <p className="text-[11px] text-[#C8D8E8]/15 font-tech-mono">
                         TAPEZ AU MOINS 2 CARACTÈRES
                       </p>
                     </div>
@@ -138,7 +136,7 @@ export default function SearchCommand() {
 
                   {query.length >= 2 && !loading && results.length === 0 && (
                     <div className="p-6 text-center">
-                      <p className="text-[11px] text-[#C8D8E8]/20" style={{ fontFamily: 'Share Tech Mono, monospace' }}>
+                      <p className="text-[11px] text-[#C8D8E8]/20 font-tech-mono">
                         AUCUN RÉSULTAT POUR &quot;{query}&quot;
                       </p>
                     </div>
@@ -157,15 +155,15 @@ export default function SearchCommand() {
                             ? 'text-[#D4A843]/50 bg-[rgba(212,168,67,0.08)]'
                             : 'text-[#00C8FF]/40 bg-[rgba(0,200,255,0.06)]'
                         }`}
-                        style={{ fontFamily: 'Share Tech Mono, monospace', letterSpacing: '0.12em' }}
+                        style={{letterSpacing: '0.12em' }}
                       >
                         {catLabels[r.category] || 'Q.G.'}
                       </span>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm text-[#C8D8E8]/60 group-hover:text-[#00C8FF] transition-colors truncate" style={{ fontFamily: 'Rajdhani, sans-serif' }}>
+                        <p className="text-sm text-[#C8D8E8]/60 group-hover:text-[#00C8FF] transition-colors truncate font-rajdhani">
                           {r.title}
                         </p>
-                        <p className="text-[11px] text-[#C8D8E8]/15 mt-0.5 line-clamp-1" style={{ fontFamily: 'Rajdhani, sans-serif' }}>
+                        <p className="text-[11px] text-[#C8D8E8]/15 mt-0.5 line-clamp-1 font-rajdhani">
                           {r.excerpt}
                         </p>
                       </div>

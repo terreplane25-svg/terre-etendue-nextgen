@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { FontOrbitron, FontTechMono } from '@/components/FontWrappers';
 
 function GithubIcon({ size = 14 }: { size?: number }) {
   return (
@@ -23,8 +24,8 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px border-b border-[rgba(0,200,255,0.06)]">
           {STATS.map((stat) => (
             <div key={stat.label} className="py-5 px-4 text-center">
-              <p className={`text-xl font-bold ${stat.color}`} style={{fontFamily: 'Orbitron, sans-serif'}}>{stat.value}</p>
-              <p className="text-[9px] text-[#C8D8E8]/20 mt-1 tracking-[0.15em] uppercase" style={{fontFamily: 'Share Tech Mono, monospace'}}>{stat.label}</p>
+              <p className={`text-xl font-bold ${stat.color} font-orbitron`}>{stat.value}</p>
+              <p className="text-[9px] text-[#C8D8E8]/20 mt-1 tracking-[0.15em] uppercase font-tech-mono">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -36,11 +37,11 @@ export default function Footer() {
               <svg viewBox="0 0 30 30" fill="none" className="absolute inset-0 w-full h-full">
                 <polygon points="15,2 27,9 27,21 15,28 3,21 3,9" stroke="rgba(0,200,255,0.2)" strokeWidth="1" fill="rgba(0,200,255,0.03)" />
               </svg>
-              <span className="relative z-10 text-[8px] font-bold text-[#00C8FF]" style={{fontFamily:'Orbitron,sans-serif'}}>TEI</span>
+              <FontOrbitron className="relative z-10 text-[8px] font-bold text-[#00C8FF]">TEI</FontOrbitron>
             </div>
-            <span className="text-[10px] text-[#C8D8E8]/20" style={{fontFamily:'Share Tech Mono,monospace'}}>
+            <FontTechMono className="text-[10px] text-[#C8D8E8]/20">
               &copy; {new Date().getFullYear()} TERRE ÉTENDUE ISLAM
-            </span>
+            </FontTechMono>
           </div>
 
           <div className="flex items-center gap-6">
@@ -55,8 +56,8 @@ export default function Footer() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-[10px] text-[#C8D8E8]/15 hover:text-[#C8D8E8]/40 transition-colors"
-                style={{fontFamily:'Orbitron,sans-serif', letterSpacing: '0.1em'}}
+                className="text-[10px] text-[#C8D8E8]/15 hover:text-[#C8D8E8]/40 transition-colors font-orbitron"
+                style={{letterSpacing: '0.1em'}}
               >
                 {item.label}
               </Link>

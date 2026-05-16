@@ -8,7 +8,7 @@ const NexusGraph = dynamic(() => import("@/components/NexusGraph"), {
     <div className="w-full h-[600px] hud-panel flex items-center justify-center">
       <div className="text-center">
         <div className="w-5 h-5 border-2 border-[#00C8FF] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-[10px] text-[#C8D8E8]/20" style={{fontFamily:'Share Tech Mono,monospace'}}>INITIALIZING GRAPH...</p>
+        <p className="text-[10px] text-[#C8D8E8]/20 font-tech-mono">INITIALIZING GRAPH...</p>
       </div>
     </div>
   ),
@@ -21,17 +21,17 @@ export default function NexusClient() {
         <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }}>
           <div className="flex items-center gap-3 mb-4">
             <div className="w-8 h-[2px] bg-[#00C8FF] shadow-[0_0_8px_rgba(0,200,255,0.4)]" />
-            <span className="text-[9px] tracking-[0.2em] text-[#00C8FF]/50 uppercase" style={{fontFamily:'Orbitron,sans-serif'}}>Graphe</span>
+            <span className="text-[9px] tracking-[0.2em] text-[#00C8FF]/50 uppercase font-orbitron">Graphe</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold text-[#C8D8E8] mb-3" style={{fontFamily:'Orbitron,sans-serif'}}>LE NEXUS</h1>
-          <p className="text-sm text-[#C8D8E8]/30 max-w-xl mb-8" style={{fontFamily:'Rajdhani,sans-serif'}}>
+          <h1 className="text-2xl md:text-3xl font-bold text-[#C8D8E8] mb-3 font-orbitron">LE NEXUS</h1>
+          <p className="text-sm text-[#C8D8E8]/30 max-w-xl mb-8 font-rajdhani">
             Chaque point est un concept. Chaque lien une connexion intellectuelle.
           </p>
         </motion.div>
         <NexusGraph />
         <div className="mt-6 flex flex-wrap gap-5">
           {[{l:"Épistémologie",c:"bg-purple-500"},{l:"Empirique",c:"bg-[#00C8FF]"},{l:"Sources sacrées",c:"bg-[#D4A843]"},{l:"Modélisation",c:"bg-emerald-500"}].map((cat) => (
-            <div key={cat.l} className="flex items-center gap-2 text-[10px] text-[#C8D8E8]/20" style={{fontFamily:'Share Tech Mono,monospace'}}>
+            <div key={cat.l} className="flex items-center gap-2 text-[10px] text-[#C8D8E8]/20 font-tech-mono">
               <div className={`w-2 h-2 rounded-full ${cat.c}`} />{cat.l}
             </div>
           ))}
