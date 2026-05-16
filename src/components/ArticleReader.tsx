@@ -311,12 +311,6 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
           {article.title}
         </h1>
 
-        {article.description && (
-          <p className="text-[18px] text-[#C8D8E8]/45 leading-[1.8]" style={{fontFamily: 'Rajdhani, sans-serif'}}>
-            {article.description}
-          </p>
-        )}
-
         <div className="flex flex-wrap gap-6 text-[13px] text-[#C8D8E8]/30 pt-2" style={{fontFamily: 'Share Tech Mono, monospace'}}>
           <span className="flex items-center gap-2">
             <Clock size={14} className="text-[#00C8FF]/50" />
@@ -331,15 +325,15 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
       </motion.header>
 
       {/* Body */}
-      <div className="max-w-[1200px] mx-auto px-8 lg:px-12 flex gap-16 xl:gap-24 pt-14 pb-24">
-        {/* Desktop TOC Sidebar */}
+      <div className="relative max-w-[1400px] mx-auto px-8 lg:px-12 pt-14 pb-24">
+        {/* Desktop TOC Sidebar - fixed to left */}
         <AnimatePresence>
           {mode === 'study' && headings.length > 0 && (
             <motion.aside
               initial={{ opacity: 0, x: -16 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -16 }}
-              className="hidden xl:block w-72 shrink-0 sticky top-24 self-start max-h-[calc(100vh-8rem)] overflow-y-auto"
+              className="hidden xl:block fixed left-8 top-24 w-64 max-h-[calc(100vh-8rem)] overflow-y-auto z-20"
             >
               <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#C8D8E8]/25 mb-5 px-5" style={{fontFamily: 'Orbitron, sans-serif'}}>
                 Sommaire
@@ -387,10 +381,10 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
           )}
         </AnimatePresence>
 
-        {/* Article Content */}
+        {/* Article Content - centered */}
         <motion.article
           layout
-          className={`flex-1 min-w-0 ${mode === 'lab' ? 'max-w-5xl mx-auto' : 'max-w-[720px]'}`}
+          className={`mx-auto ${mode === 'lab' ? 'max-w-[800px]' : 'max-w-[720px]'}`}
         >
           <AnimatePresence mode="wait">
             {mode === 'study' ? (
