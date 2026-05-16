@@ -2,7 +2,7 @@ import { getArticlesByCategory } from "@/lib/articles";
 import LibraryClient from "./LibraryClient";
 
 export const metadata = {
-  title: "La Bibliothèque — Sources Sacrées | Terre Étendue Islam",
+  title: "La Bibliothèque — Sources Sacrées",
   description: "Sources coraniques, hadiths, travaux classiques et références théologiques.",
 };
 

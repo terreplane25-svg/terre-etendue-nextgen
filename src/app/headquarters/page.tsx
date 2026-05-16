@@ -2,7 +2,7 @@ import { getArticlesByCategory } from "@/lib/articles";
 import HeadquartersClient from "./HeadquartersClient";
 
 export const metadata = {
-  title: "Le Q.G. — Épistémologie | Terre Étendue Islam",
+  title: "Le Q.G. — Épistémologie",
   description: "Fondements méthodologiques, cadre de pensée et philosophie de la recherche.",
 };
 

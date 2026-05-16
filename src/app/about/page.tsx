@@ -2,7 +2,7 @@ import { getArticle } from '@/lib/articles';
 import AboutClient from './AboutClient';
 
 export const metadata = {
-  title: 'À propos — Terre Étendue Islam',
+  title: 'À propos',
   description: 'Manifeste, méthodologie et éthique intellectuelle de la plateforme.',
 };
 

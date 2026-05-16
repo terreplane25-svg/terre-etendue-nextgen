@@ -3,13 +3,33 @@ import path from 'path';
 
 const articlesDirectory = path.join(process.cwd(), 'content/articles');
 
+/**
+ * QW2: Sanitize article descriptions — strip CSS artifacts from Elementor migration.
+ * Catches patterns like .nx-nav{width:100%;...} that leaked into descriptions.
+ */
+function sanitizeDescription(raw: string): string {
+  if (!raw) return '';
+  let clean = raw;
+  // Strip CSS rule blocks: .class{...} or tag{...}
+  clean = clean.replace(/[.#]?[\w-]+\{[^}]*\}/g, '');
+  // Strip @import, @font-face
+  clean = clean.replace(/@[\w-]+[^;]*;/g, '');
+  // Strip remaining CSS-like artifacts: property:value pairs outside tags
+  clean = clean.replace(/[\w-]+:\s*[^;{}"']+;/g, '');
+  // Collapse whitespace
+  clean = clean.replace(/\s{2,}/g, ' ').trim();
+  // If description is now too short or empty, return fallback
+  if (clean.length < 20) return '';
+  return clean;
+}
+
 export interface ArticleMeta {
   slug: string;
   title: string;
   description: string;
   date: string;
   author: string;
-  category: 'headquarters' | 'observatory' | 'library' | 'lab';
+  category: 'headquarters' | 'observatory' | 'library' | 'lab' | 'meta';
   tags: string[];
 }
 
@@ -28,7 +48,7 @@ function readArticleFile(fileName: string): ArticleMeta | null {
     return {
       slug,
       title: data.title || slug,
-      description: data.description || '',
+      description: sanitizeDescription(data.description || ''),
       date: data.date || '',
       author: data.author || 'Terre Etendue',
       category: data.category || 'headquarters',
@@ -62,7 +82,7 @@ export async function getArticle(slug: string): Promise<Article | null> {
     return {
       slug,
       title: data.title || slug,
-      description: data.description || '',
+      description: sanitizeDescription(data.description || ''),
       date: data.date || '',
       author: data.author || 'Terre Etendue',
       category: data.category || 'headquarters',
@@ -114,7 +134,7 @@ export function searchArticles(query: string): ArticleMeta[] {
         meta: {
           slug,
           title: data.title || slug,
-          description: data.description || '',
+          description: sanitizeDescription(data.description || ''),
           date: data.date || '',
           author: data.author || 'Terre Etendue',
           category: data.category || 'headquarters',
