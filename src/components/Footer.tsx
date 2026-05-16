@@ -18,7 +18,7 @@ const STATS = [
 export default function Footer() {
   return (
     <footer className="relative z-10 border-t border-[rgba(0,200,255,0.06)] bg-[#0A1020]">
-      <div className="max-w-[960px] mx-auto px-6">
+      <div className="max-w-[1200px] mx-auto px-6">
         {/* Stats bar */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px border-b border-[rgba(0,200,255,0.06)]">
           {STATS.map((stat) => (

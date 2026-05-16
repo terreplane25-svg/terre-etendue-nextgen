@@ -25,7 +25,7 @@ export default function HomePage() {
         background: 'linear-gradient(90deg, transparent, rgba(0,200,255,0.2), transparent)'
       }} />
       {/* Hero */}
-      <section className="relative max-w-[960px] mx-auto px-6 pt-28 pb-16">
+      <section className="relative max-w-[1200px] mx-auto px-6 pt-28 pb-16">
         {/* Corner marks */}
         <div className="absolute top-20 left-4 right-4 bottom-8 pointer-events-none">
           <div className="absolute top-0 left-0 w-5 h-5 border-t border-l border-[rgba(0,200,255,0.15)]" />
@@ -60,10 +60,10 @@ export default function HomePage() {
       </section>
 
       {/* Divider */}
-      <div className="max-w-[960px] mx-auto px-6"><div className="hud-divider" /></div>
+      <div className="max-w-[1200px] mx-auto px-6"><div className="hud-divider" /></div>
 
       {/* Pillars */}
-      <section className="max-w-[960px] mx-auto px-6 py-12">
+      <section className="max-w-[1200px] mx-auto px-6 py-12">
         <div className="hud-section-label mb-8"><span>Architecture du système</span></div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -91,7 +91,7 @@ export default function HomePage() {
       </section>
 
       {/* Nexus CTA */}
-      <section className="max-w-[960px] mx-auto px-6 pb-16">
+      <section className="max-w-[1200px] mx-auto px-6 pb-16">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}

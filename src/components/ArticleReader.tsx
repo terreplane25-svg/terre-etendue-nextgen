@@ -296,42 +296,42 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
       <motion.header
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-3xl mx-auto px-6 pb-10 space-y-5 border-b border-white/[0.06]"
+        className="max-w-4xl mx-auto px-8 lg:px-12 pb-12 space-y-6 border-b border-white/[0.06]"
       >
-        <span className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full font-medium tracking-wide ${
+        <span className={`inline-flex items-center gap-2 text-[11px] px-4 py-2 font-medium tracking-widest ${
           catInfo.color === 'gold'
             ? 'bg-[#D4A843]/10 text-[#D4A843]'
             : 'bg-[#00C8FF]/10 text-[#00C8FF]'
-        }`}>
+        }`} style={{fontFamily: 'Share Tech Mono, monospace', letterSpacing: '0.15em'}}>
           <span>{catInfo.icon}</span>
           {catInfo.label}
         </span>
 
-        <h1 className="font-['Orbitron',sans-serif] font-bold text-3xl md:text-4xl lg:text-[2.75rem] text-[#C8D8E8] leading-[1.15]">
+        <h1 className="font-bold text-[clamp(1.8rem,4vw,2.8rem)] text-[#C8D8E8] leading-[1.15]" style={{fontFamily: 'Orbitron, sans-serif'}}>
           {article.title}
         </h1>
 
         {article.description && (
-          <p className="text-lg text-[#C8D8E8]/40/80 font-serif leading-relaxed">
+          <p className="text-[18px] text-[#C8D8E8]/45 leading-[1.8]" style={{fontFamily: 'Rajdhani, sans-serif'}}>
             {article.description}
           </p>
         )}
 
-        <div className="flex flex-wrap gap-5 text-sm text-[#C8D8E8]/40 pt-2">
-          <span className="flex items-center gap-1.5">
-            <Clock size={14} className="text-[#00C8FF]/60" />
-            {readingTime} min de lecture
+        <div className="flex flex-wrap gap-6 text-[13px] text-[#C8D8E8]/30 pt-2" style={{fontFamily: 'Share Tech Mono, monospace'}}>
+          <span className="flex items-center gap-2">
+            <Clock size={14} className="text-[#00C8FF]/50" />
+            {readingTime} MIN
           </span>
-          <span className="flex items-center gap-1.5">
-            <User size={14} className="text-[#00C8FF]/60" />
+          <span className="flex items-center gap-2">
+            <User size={14} className="text-[#00C8FF]/50" />
             {article.author || 'Collectif TEI'}
           </span>
-          <time dateTime={article.date} className="text-[#C8D8E8]/40/60">{date}</time>
+          <time dateTime={article.date} className="text-[#C8D8E8]/20">{date}</time>
         </div>
       </motion.header>
 
       {/* Body */}
-      <div className="max-w-6xl mx-auto px-6 flex gap-12 pt-12 pb-20">
+      <div className="max-w-[1200px] mx-auto px-8 lg:px-12 flex gap-16 xl:gap-24 pt-14 pb-24">
         {/* Desktop TOC Sidebar */}
         <AnimatePresence>
           {mode === 'study' && headings.length > 0 && (
@@ -339,45 +339,45 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
               initial={{ opacity: 0, x: -16 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -16 }}
-              className="hidden xl:block w-64 shrink-0 sticky top-24 self-start max-h-[calc(100vh-8rem)] overflow-y-auto"
+              className="hidden xl:block w-72 shrink-0 sticky top-24 self-start max-h-[calc(100vh-8rem)] overflow-y-auto"
             >
-              <p className="text-[0.6rem] font-['Orbitron',sans-serif] font-semibold uppercase tracking-[0.25em] text-[#C8D8E8]/40/40 mb-4 px-4">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#C8D8E8]/25 mb-5 px-5" style={{fontFamily: 'Orbitron, sans-serif'}}>
                 Sommaire
               </p>
 
               {/* Mini progress bar */}
-              <div className="mx-4 mb-5 h-[2px] bg-[#0D1528] rounded-full overflow-hidden">
+              <div className="mx-5 mb-6 h-[2px] bg-[#0D1528] rounded-full overflow-hidden">
                 <div
                   className="h-full bg-[#00C8FF]/40 rounded-full transition-all duration-300"
                   style={{ width: `${readProgress * 100}%` }}
                 />
               </div>
 
-              <nav className="space-y-0.5">
+              <nav className="space-y-1">
                 {headings.map((h) => (
                   <button
                     key={h.id}
                     onClick={() => scrollToHeading(h.id)}
-                    className={`w-full text-left flex items-start gap-2 py-1.5 px-4 rounded-r-lg transition-all duration-200 border-l-2 ${
-                      h.level > 2 ? 'pl-8' : ''
+                    className={`w-full text-left flex items-start gap-2.5 py-2.5 px-5 rounded-r-lg transition-all duration-200 border-l-2 ${
+                      h.level > 2 ? 'pl-10' : ''
                     } ${
                       activeHeading === h.id
                         ? 'border-[#00C8FF] text-[#00C8FF] bg-[#00C8FF]/5'
-                        : 'border-transparent text-[#C8D8E8]/40/50 hover:text-[#C8D8E8] hover:border-white/[0.06]'
+                        : 'border-transparent text-[#C8D8E8]/35 hover:text-[#C8D8E8]/60 hover:border-white/[0.06]'
                     }`}
                   >
                     {h.number && h.level === 2 && (
-                      <span className={`text-[0.6rem] font-bold font-mono mt-[3px] flex-shrink-0 ${
-                        activeHeading === h.id ? 'text-[#00C8FF]' : 'text-[#00C8FF]/30'
-                      }`}>
+                      <span className={`text-[10px] font-bold mt-[2px] flex-shrink-0 ${
+                        activeHeading === h.id ? 'text-[#00C8FF]' : 'text-[#00C8FF]/25'
+                      }`} style={{fontFamily: 'Share Tech Mono, monospace'}}>
                         {h.number}
                       </span>
                     )}
                     <span className={`leading-snug ${
-                      h.level > 2 ? 'text-[0.72rem]' : 'text-[0.78rem]'
+                      h.level > 2 ? 'text-[13px]' : 'text-[14px]'
                     } ${
                       activeHeading === h.id ? 'font-medium' : ''
-                    }`}>
+                    }`} style={{fontFamily: 'Rajdhani, sans-serif'}}>
                       {h.text}
                     </span>
                   </button>
@@ -390,7 +390,7 @@ export default function ArticleReader({ article }: ArticleReaderProps) {
         {/* Article Content */}
         <motion.article
           layout
-          className={`flex-1 min-w-0 ${mode === 'lab' ? 'max-w-4xl mx-auto' : 'max-w-3xl'}`}
+          className={`flex-1 min-w-0 ${mode === 'lab' ? 'max-w-5xl mx-auto' : 'max-w-[720px]'}`}
         >
           <AnimatePresence mode="wait">
             {mode === 'study' ? (

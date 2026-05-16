@@ -17,7 +17,7 @@ const NexusGraph = dynamic(() => import("@/components/NexusGraph"), {
 export default function NexusClient() {
   return (
     <div className="min-h-screen pt-20 pb-16">
-      <div className="max-w-[960px] mx-auto px-6">
+      <div className="max-w-[1200px] mx-auto px-6">
         <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }}>
           <div className="flex items-center gap-3 mb-4">
             <div className="w-8 h-[2px] bg-[#00C8FF] shadow-[0_0_8px_rgba(0,200,255,0.4)]" />

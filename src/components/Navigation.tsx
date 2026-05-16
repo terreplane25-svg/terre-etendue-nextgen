@@ -33,7 +33,7 @@ export default function Navigation() {
           ? 'bg-[#0A1020]/95 backdrop-blur-md border-[rgba(0,200,255,0.08)]'
           : 'bg-[#0A1020] border-[rgba(0,200,255,0.08)]'
       }`}>
-        <div className="max-w-[1100px] mx-auto px-6 h-14 flex items-center justify-between">
+        <div className="w-full px-8 lg:px-12 h-16 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-9 h-9 flex items-center justify-center">
