@@ -39,7 +39,7 @@ export default function Navigation() {
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-9 h-9 flex items-center justify-center">
               <svg viewBox="0 0 30 30" fill="none" className="absolute inset-0 w-full h-full">
-                <polygon points="15,2 27,9 27,21 15,28 3,21 3,9" stroke="rgba(0,200,255,0.35)" strokeWidth="1.2" fill="rgba(0,200,255,0.05)" className="group-hover:stroke-[rgba(0,200,255,0.7)] transition-all" />
+                <circle cx="15" cy="15" r="13" stroke="rgba(0,200,255,0.35)" strokeWidth="1.2" fill="rgba(0,200,255,0.05)" className="group-hover:stroke-[rgba(0,200,255,0.7)] transition-all" />
               </svg>
               <FontOrbitron className="relative z-10 text-[12px] font-bold text-[#00C8FF]">TEI</FontOrbitron>
             </div>
@@ -65,7 +65,7 @@ export default function Navigation() {
                     clipPath: 'polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%)',
                   }}
                 >
-                  <span className="opacity-40 mr-1.5">{item.num}</span>
+                  <span className="text-[#00C8FF]/70 mr-1.5 font-tech-mono">{item.num}</span>
                   {item.label}
                 </Link>
               );
@@ -77,7 +77,7 @@ export default function Navigation() {
             <SearchCommand />
             <div className="hidden sm:flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-[#00E87B] shadow-[0_0_8px_#00E87B] animate-[pulse-dot_2s_ease-in-out_infinite]" />
-              <FontTechMono className="text-[11px] text-[#C8D8E8]/30">ONLINE</FontTechMono>
+              <FontTechMono className="text-[11px] text-[#C8D8E8]/30">EN LIGNE</FontTechMono>
             </div>
             <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-1.5 text-[#C8D8E8]/50">
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -120,7 +120,7 @@ export default function Navigation() {
                         }`}
                         style={{fontSize: '10px', letterSpacing: '0.1em' }}
                       >
-                        <span className="opacity-30 w-5">{item.num}</span>{item.label}
+                        <span className="text-[#00C8FF]/60 w-5 font-tech-mono">{item.num}</span>{item.label}
                       </Link>
                     </motion.div>
                   );

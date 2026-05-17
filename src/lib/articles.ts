@@ -31,6 +31,8 @@ export interface ArticleMeta {
   author: string;
   category: 'headquarters' | 'observatory' | 'library' | 'lab' | 'meta';
   tags: string[];
+  pinned?: boolean;
+  readTime?: number; // minutes, calculated from htmlBody
 }
 
 export interface Article extends ArticleMeta {
@@ -45,6 +47,10 @@ function readArticleFile(fileName: string): ArticleMeta | null {
 
   if (fileName.endsWith('.json')) {
     const data = JSON.parse(fileContents);
+    // Calculate read time from actual htmlBody content
+    const bodyText = (data.htmlBody || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    const wordCount = bodyText.split(/\s+/).filter((w: string) => w.length > 0).length;
+    const readTime = Math.max(2, Math.ceil(wordCount / 200)); // 200 words/min average
     return {
       slug,
       title: data.title || slug,
@@ -53,6 +59,8 @@ function readArticleFile(fileName: string): ArticleMeta | null {
       author: data.author || 'Terre Etendue',
       category: data.category || 'headquarters',
       tags: data.tags || [],
+      pinned: data.pinned || false,
+      readTime,
     };
   }
 
@@ -70,7 +78,13 @@ export function getAllArticles(): ArticleMeta[] {
     .map((fileName) => readArticleFile(fileName))
     .filter((a): a is ArticleMeta => a !== null);
 
-  return articles.sort((a, b) => (a.date > b.date ? -1 : 1));
+  return articles.sort((a, b) => {
+    // Pinned articles first
+    if (a.pinned && !b.pinned) return -1;
+    if (!a.pinned && b.pinned) return 1;
+    // Then by date descending
+    return a.date > b.date ? -1 : 1;
+  });
 }
 
 export async function getArticle(slug: string): Promise<Article | null> {

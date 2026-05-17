@@ -6,9 +6,10 @@ interface Props {
   manifeste: string;
   methodologie: string;
   ethique: string;
+  etatDesLieux: string;
 }
 
-export default function AboutClient({ manifeste, methodologie, ethique }: Props) {
+export default function AboutClient({ manifeste, methodologie, ethique, etatDesLieux }: Props) {
   return (
     <div className="min-h-screen pt-20 pb-16">
       <div className="max-w-[720px] mx-auto px-6">
@@ -42,6 +43,17 @@ export default function AboutClient({ manifeste, methodologie, ethique }: Props)
             MÉTHODOLOGIE
           </h2>
           <div className="prose-tei" dangerouslySetInnerHTML={{ __html: methodologie }} />
+        </section>
+
+        <div className="hud-divider mb-16" />
+
+        {/* État des lieux */}
+        <section className="mb-16">
+          <h2 className="text-lg font-semibold text-[#00C8FF] mb-6 flex items-center gap-3 font-orbitron" style={{fontSize: '14px', letterSpacing: '0.1em'}}>
+            <span className="w-6 h-[1px] bg-[#00C8FF]/30" />
+            ÉTAT DES LIEUX
+          </h2>
+          <div className="prose-tei" dangerouslySetInnerHTML={{ __html: etatDesLieux }} />
         </section>
 
         <div className="hud-divider mb-16" />

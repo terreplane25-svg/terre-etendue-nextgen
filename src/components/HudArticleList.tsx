@@ -19,7 +19,7 @@ interface PillarConfig {
 const PILLAR_CONFIGS: Record<string, PillarConfig> = {
   headquarters: {
     num: '01',
-    code: 'EPISTEMO',
+    code: 'ÉPISTÉMO',
     title: "Le Q.G.",
     subtitle: "Fondements méthodologiques, cadre de pensée et philosophie de la recherche.",
     accent: 'cyan',
@@ -27,7 +27,7 @@ const PILLAR_CONFIGS: Record<string, PillarConfig> = {
   },
   observatory: {
     num: '02',
-    code: 'EMPIRICAL',
+    code: 'EMPIRIQUE',
     title: "L'Observatoire",
     subtitle: "Données brutes, observations astronomiques, mesures géodésiques.",
     accent: 'cyan',
@@ -35,7 +35,7 @@ const PILLAR_CONFIGS: Record<string, PillarConfig> = {
   },
   library: {
     num: '03',
-    code: 'SACRED_SRC',
+    code: 'SOURCES',
     title: "La Bibliothèque",
     subtitle: "Coran, hadiths, exégèses classiques. Le socle textuel.",
     accent: 'gold',
@@ -43,7 +43,7 @@ const PILLAR_CONFIGS: Record<string, PillarConfig> = {
   },
   lab: {
     num: '04',
-    code: 'MODELING',
+    code: 'MODÉLI.',
     title: "Le Lab",
     subtitle: "Simulations 3D, modèles géométriques, visualisations interactives.",
     accent: 'cyan',
@@ -56,9 +56,8 @@ interface Props {
   category: string;
 }
 
-function estimateReadTime(desc: string): string {
-  const words = desc.split(/\s+/).length;
-  return `${Math.max(3, Math.ceil(words / 30))} min`;
+function formatReadTime(article: ArticleMeta): string {
+  return `${article.readTime || 3} min`;
 }
 
 export default function HudArticleList({ articles, category }: Props) {
@@ -86,7 +85,7 @@ export default function HudArticleList({ articles, category }: Props) {
       <div className="w-full border-b border-cyan-900/40 pb-6 mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
           <div className={`flex items-center gap-2 ${accentText} font-mono text-xs tracking-[0.3em] uppercase mb-2`}>
-            {config.icon} PILIER {config.num} // COMMAND_CENTER
+            {config.icon} PILIER {config.num} // CENTRE_COMMANDE
           </div>
           <h1 className="text-3xl md:text-5xl uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-cyan-500 font-orbitron">
             {config.title}
@@ -96,8 +95,8 @@ export default function HudArticleList({ articles, category }: Props) {
           </p>
         </div>
         <div className="font-mono text-xs text-right text-cyan-700 hidden md:block">
-          <div>SYS_STATUS: ACTIVE</div>
-          <div>DATABASE_INDEXED: {articles.length}_NODES</div>
+          <div>ÉTAT_SYS: ACTIF</div>
+          <div>BASE_INDEXÉE: {articles.length}_NŒUDS</div>
         </div>
       </div>
 
@@ -105,7 +104,7 @@ export default function HudArticleList({ articles, category }: Props) {
       <div className="max-w-[1800px] mx-auto mb-8">
         <input
           type="text"
-          placeholder="FILTER_QUERY..."
+          placeholder="RECHERCHER..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="w-full max-w-sm px-4 py-2 bg-[#0A1220] border border-slate-800 text-slate-300 placeholder:text-slate-600 focus:border-cyan-500/40 focus:outline-none transition-colors font-mono text-xs tracking-wider"
@@ -116,7 +115,7 @@ export default function HudArticleList({ articles, category }: Props) {
       <div className="w-full max-w-[1800px] mx-auto space-y-8">
 
         {filtered.length === 0 && (
-          <p className="text-slate-500 font-mono text-sm">NO_RESULTS // QUERY_EMPTY</p>
+          <p className="text-slate-500 font-mono text-sm">AUCUN_RÉSULTAT // REQUÊTE_VIDE</p>
         )}
 
         {/* Featured Card */}
@@ -137,10 +136,10 @@ export default function HudArticleList({ articles, category }: Props) {
             <div className="relative z-10 flex flex-col justify-between h-full gap-6">
               <div className="flex justify-between items-start">
                 <span className={`font-mono text-xs px-2 py-1 ${accentBg} border rounded tracking-widest`}>
-                  TEI-{config.num}.01 // CORE_FOCUS
+                  TEI-{config.num}.01 // LECTURE_CLÉ
                 </span>
                 <span className="font-mono text-xs text-amber-500 tracking-widest uppercase animate-pulse">
-                  ⚡ Lecture Prioritaire
+                  ⚡ Lecture prioritaire
                 </span>
               </div>
 
@@ -154,7 +153,7 @@ export default function HudArticleList({ articles, category }: Props) {
               </div>
 
               <div className="flex flex-wrap items-center gap-6 border-t border-slate-800/60 pt-4 font-mono text-xs text-slate-400">
-                <span className="flex items-center gap-1.5"><Clock className="w-4 h-4 text-cyan-500" /> {estimateReadTime(featured.description)}</span>
+                <span className="flex items-center gap-1.5"><Clock className="w-4 h-4 text-cyan-500" /> {formatReadTime(featured)}</span>
                 <span className="flex items-center gap-1.5"><Layers className="w-4 h-4 text-cyan-500" /> {config.code}</span>
                 <span className="ml-auto text-slate-500">
                   {new Date(featured.date).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}
@@ -175,7 +174,7 @@ export default function HudArticleList({ articles, category }: Props) {
               >
                 {/* HUD micro detail */}
                 <div className="absolute top-2 right-2 font-mono text-[9px] text-cyan-800 opacity-0 group-hover:opacity-100 transition-opacity">
-                  + SYS_INDEX_{config.num}.{String(i + 2).padStart(2, '0')}
+                  + INDEX_{config.num}.{String(i + 2).padStart(2, '0')}
                 </div>
 
                 <div>
@@ -199,13 +198,13 @@ export default function HudArticleList({ articles, category }: Props) {
 
                 <div className="flex items-center gap-4 mt-6 pt-3 border-t border-slate-800/40 font-mono text-xs text-slate-500">
                   <span className="flex items-center gap-1 group-hover:text-slate-300 transition-colors">
-                    <Clock className="w-3.5 h-3.5" /> {estimateReadTime(article.description)}
+                    <Clock className="w-3.5 h-3.5" /> {formatReadTime(article)}
                   </span>
                   <span className="flex items-center gap-1">
                     <Terminal className="w-3.5 h-3.5" /> {config.code}
                   </span>
                   <span className="ml-auto flex items-center gap-1 text-cyan-600 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all">
-                    <span className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity tracking-widest">ACCESS</span> →
+                    <span className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity tracking-widest">ACCÈS</span> →
                   </span>
                 </div>
               </Link>
