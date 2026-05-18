@@ -1,119 +1,101 @@
-// ─── Calculs astronomiques simplifiés ───────────────
-// Positions réelles des astres basées sur les éphémérides
-// Toutes les positions sont le point subsolaire / sublunaire (zénith)
-// exprimé en (latitude, longitude) sur la Terre
-
 /**
- * Déclinaison solaire : oscille entre +23.44° (solstice juin) et -23.44° (solstice déc)
- * C'est la latitude du point subsolaire
+ * Calculs astronomiques basés sur astronomy-engine
+ * Positions précises offline pour tous les corps célestes
  */
-export function getSunDeclination(dayOfYear: number): number {
-  // Formule de Spencer simplifiée
-  const B = ((dayOfYear - 81) / 365) * 2 * Math.PI;
-  return 23.44 * Math.sin(B);
-}
+import * as Astronomy from 'astronomy-engine';
 
-/**
- * Longitude subsolaire : dépend de l'heure UTC
- * Le soleil est au méridien 0° à 12:00 UTC, puis recule de 15°/heure
- */
-export function getSunLongitude(hoursUTC: number): number {
-  return ((12 - hoursUTC) / 24) * 360;
-}
-
-/**
- * Déclinaison lunaire : oscille entre ±28.5° sur un cycle de ~27.3 jours
- * Simplifié — en réalité c'est plus complexe (nutation etc.)
- */
-export function getMoonDeclination(dayOfYear: number): number {
-  const lunarCycle = 27.3; // jours (sidéral)
-  const phase = ((dayOfYear % lunarCycle) / lunarCycle) * 2 * Math.PI;
-  return 28.5 * Math.sin(phase);
-}
-
-/**
- * Longitude sublunaire : la Lune fait un tour en ~24h 50min
- * Donc elle retarde de ~13.17° par jour par rapport au Soleil
- */
-export function getMoonLongitude(hoursUTC: number, dayOfYear: number): number {
-  const baseLng = ((12 - hoursUTC) / 24) * 360;
-  const dailyLag = 13.17; // degrés de retard par jour
-  return baseLng - (dayOfYear * dailyLag) % 360;
-}
-
-/**
- * Phase lunaire (0-1) : 0 = nouvelle lune, 0.5 = pleine lune
- */
-export function getMoonPhase(dayOfYear: number): number {
-  const synodicPeriod = 29.53; // jours
-  // Nouvelle lune de référence : ~6 janvier
-  const daysSinceNewMoon = (dayOfYear - 6 + 365) % synodicPeriod;
-  return daysSinceNewMoon / synodicPeriod;
-}
-
-/**
- * Positions des planètes visibles (simplifié)
- * Retourne la déclinaison et l'ascension droite approximatives
- */
-interface PlanetPosition {
+export interface CelestialPosition {
   name: string;
   color: string;
-  lat: number;  // déclinaison → latitude subplanétaire
-  lng: number;  // heure angle → longitude
-  size: number; // taille visuelle relative
-}
-
-export function getPlanetPositions(dayOfYear: number, hoursUTC: number): PlanetPosition[] {
-  // Périodes synodiques simplifiées et déclinaisons moyennes
-  const t = dayOfYear + hoursUTC / 24;
-  
-  return [
-    {
-      name: 'Vénus',
-      color: '#E8C060',
-      lat: 15 * Math.sin((t / 224.7) * 2 * Math.PI + 1.2),
-      lng: getSunLongitude(hoursUTC) + 45 * Math.sin((t / 584) * 2 * Math.PI),
-      size: 0.18,
-    },
-    {
-      name: 'Mars',
-      color: '#CC6644',
-      lat: 20 * Math.sin((t / 687) * 2 * Math.PI + 0.5),
-      lng: ((12 - hoursUTC) / 24) * 360 - (t * 0.524) % 360,
-      size: 0.12,
-    },
-    {
-      name: 'Jupiter',
-      color: '#C8A060',
-      lat: 3 * Math.sin((t / 4333) * 2 * Math.PI),
-      lng: ((12 - hoursUTC) / 24) * 360 - (t * 0.083) % 360,
-      size: 0.22,
-    },
-    {
-      name: 'Saturne',
-      color: '#D4B878',
-      lat: 5 * Math.sin((t / 10759) * 2 * Math.PI),
-      lng: ((12 - hoursUTC) / 24) * 360 - (t * 0.033) % 360,
-      size: 0.16,
-    },
-    {
-      name: 'Mercure',
-      color: '#A0A0A0',
-      lat: 7 * Math.sin((t / 88) * 2 * Math.PI + 2.0),
-      lng: getSunLongitude(hoursUTC) + 25 * Math.sin((t / 116) * 2 * Math.PI),
-      size: 0.08,
-    },
-  ];
+  lat: number;    // Déclinaison = latitude subplanétaire
+  lng: number;    // Heure angle → longitude subplanétaire
+  size: number;   // Taille visuelle relative
+  altitude?: number; // Altitude en degrés (pour observateur)
 }
 
 /**
- * Convertir lat/lng en position sur le disque plat (projection azimutale équidistante)
- * Retourne [x, z] en unités Three.js
+ * Calcule la longitude subsolaire/sublunaire/subplanétaire
+ * RA (ascension droite en heures) + heure sidérale → longitude
+ */
+function raToSubLongitude(raHours: number, date: Date): number {
+  // Heure sidérale de Greenwich (GMST)
+  const jd = Astronomy.MakeTime(date);
+  // Approximation du GMST
+  const T = (jd.ut) / 36525;
+  const gmst = 280.46061837 + 360.98564736629 * jd.ut + 0.000387933 * T * T;
+  const gmstNorm = ((gmst % 360) + 360) % 360;
+  
+  const raDeg = raHours * 15; // RA en degrés
+  let lng = raDeg - gmstNorm;
+  // Normaliser entre -180 et 180
+  lng = ((lng + 180) % 360 + 360) % 360 - 180;
+  return lng;
+}
+
+/**
+ * Obtient les positions de tous les corps célestes pour une date donnée
+ */
+export function getAllPositions(date: Date): {
+  sun: CelestialPosition;
+  moon: CelestialPosition;
+  planets: CelestialPosition[];
+  moonPhaseAngle: number;
+  moonIllumination: number;
+} {
+  const obs = new Astronomy.Observer(0, 0, 0);
+  
+  // Soleil
+  const sunEq = Astronomy.Equator(Astronomy.Body.Sun, date, obs, true, true);
+  const sunLng = raToSubLongitude(sunEq.ra, date);
+  
+  // Lune
+  const moonEq = Astronomy.Equator(Astronomy.Body.Moon, date, obs, true, true);
+  const moonLng = raToSubLongitude(moonEq.ra, date);
+  const moonPhaseAngle = Astronomy.MoonPhase(date);
+  // Illumination
+  let moonIll: number;
+  try {
+    const illum = Astronomy.Illumination(Astronomy.Body.Moon, date);
+    moonIll = illum.phase_fraction * 100;
+  } catch {
+    moonIll = (1 - Math.cos(moonPhaseAngle * Math.PI / 180)) / 2 * 100;
+  }
+  
+  // Planètes
+  const planetDefs: { body: Astronomy.Body; name: string; color: string; size: number }[] = [
+    { body: Astronomy.Body.Mercury, name: 'Mercure', color: '#A0A0A0', size: 0.06 },
+    { body: Astronomy.Body.Venus,   name: 'Vénus',   color: '#E8C060', size: 0.10 },
+    { body: Astronomy.Body.Mars,    name: 'Mars',    color: '#CC6644', size: 0.08 },
+    { body: Astronomy.Body.Jupiter, name: 'Jupiter', color: '#C8A060', size: 0.14 },
+    { body: Astronomy.Body.Saturn,  name: 'Saturne', color: '#D4B878', size: 0.11 },
+  ];
+  
+  const planets: CelestialPosition[] = planetDefs.map(p => {
+    const eq = Astronomy.Equator(p.body, date, obs, true, true);
+    return {
+      name: p.name,
+      color: p.color,
+      lat: eq.dec,
+      lng: raToSubLongitude(eq.ra, date),
+      size: p.size,
+    };
+  });
+  
+  return {
+    sun: { name: 'Soleil', color: '#FFD040', lat: sunEq.dec, lng: sunLng, size: 0.22 },
+    moon: { name: 'Lune', color: '#C8C8D0', lat: moonEq.dec, lng: moonLng, size: 0.12 },
+    planets,
+    moonPhaseAngle,
+    moonIllumination: moonIll,
+  };
+}
+
+/**
+ * Convertit lat/lng en position sur le disque AE (Three.js)
+ * Pôle Nord au centre, Antarctique en bordure
  */
 export function latLngToFlatDisc(lat: number, lng: number, discRadius: number): [number, number] {
-  const latRad = (lat * Math.PI) / 180;
   const lngRad = (lng * Math.PI) / 180;
-  // En projection AE, la distance au centre = (90° - lat) / 180° × diamètre
   const r = ((90 - lat) / 180) * discRadius;
   const x = Math.sin(lngRad) * r;
   const z = -Math.cos(lngRad) * r;
@@ -121,13 +103,13 @@ export function latLngToFlatDisc(lat: number, lng: number, discRadius: number): 
 }
 
 /**
- * Obtenir la date courante décomposée
+ * Date formatée pour l'affichage
  */
-export function getCurrentTimeInfo() {
-  const now = new Date();
-  const start = new Date(now.getFullYear(), 0, 0);
-  const diff = now.getTime() - start.getTime();
-  const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hoursUTC = now.getUTCHours() + now.getUTCMinutes() / 60;
-  return { dayOfYear, hoursUTC, now };
+export function formatSimDate(date: Date): string {
+  const d = date.getDate().toString().padStart(2, '0');
+  const m = (date.getMonth() + 1).toString().padStart(2, '0');
+  const y = date.getFullYear();
+  const h = date.getUTCHours().toString().padStart(2, '0');
+  const min = date.getUTCMinutes().toString().padStart(2, '0');
+  return `${d}/${m}/${y} ${h}:${min} UTC`;
 }

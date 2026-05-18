@@ -5,10 +5,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Line, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import {
-  getSunDeclination, getSunLongitude,
-  getMoonDeclination, getMoonLongitude, getMoonPhase,
-  getPlanetPositions, latLngToFlatDisc,
-  getCurrentTimeInfo,
+  getAllPositions, latLngToFlatDisc, formatSimDate,
 } from './celestialCalc';
 
 // ─── Types & Config ─────────────────────────────────
@@ -214,40 +211,35 @@ function GeoScene({ speed, showLabels }: { speed: number; showLabels: boolean })
 
 // ═══════════════════════════════════════════════════
 // SCENE 3 : TERRE PLANE (inspiré Flat Earth App)
+// Texture carte AE + astronomy-engine + slider temporel
 // ═══════════════════════════════════════════════════
 
-// (FlatEarthDisc intégré directement dans FlatScene)
-
-// Ellipse geometry intégrée inline dans FlatScene
-
-function FlatScene({ speed, showLabels, simTime }: {
-  speed: number; showLabels: boolean; simTime: { dayOfYear: number; hoursUTC: number };
+function FlatScene({ speed, showLabels, simDate }: {
+  speed: number; showLabels: boolean; simDate: Date;
 }) {
   const sunRef = useRef<THREE.Group>(null);
   const moonRef = useRef<THREE.Group>(null);
   const spotRef = useRef<THREE.SpotLight>(null);
   const planetRefsFlat = useRef<(THREE.Group | null)[]>([]);
   const timeOffset = useRef(0);
+  const mapTexture = useMemo(() => new THREE.TextureLoader().load('/textures/flat-earth-ae-map.png'), []);
 
-  const DISC_R = 5.5;
+  const DISC_R = 5.8;
   const SUN_H = 3.5;
   const MOON_H = 3.0;
 
   useFrame(({ clock }) => {
     const dt = clock.getDelta() * speed;
     timeOffset.current += dt;
-    const offsetHours = timeOffset.current * 0.5; // 1s réel ≈ 0.5h sim
+    // 1 seconde réelle ≈ 30 minutes simulées à vitesse ×1
+    const offsetMs = timeOffset.current * 30 * 60 * 1000;
+    const currentDate = new Date(simDate.getTime() + offsetMs);
 
-    const day = simTime.dayOfYear;
-    const h = (simTime.hoursUTC + offsetHours) % 24;
+    const positions = getAllPositions(currentDate);
 
     // Soleil
-    const sunLat = getSunDeclination(day);
-    const sunLng = getSunLongitude(h);
-    const [sx, sz] = latLngToFlatDisc(sunLat, sunLng, DISC_R);
-    if (sunRef.current) {
-      sunRef.current.position.set(sx, SUN_H, sz);
-    }
+    const [sx, sz] = latLngToFlatDisc(positions.sun.lat, positions.sun.lng, DISC_R);
+    if (sunRef.current) sunRef.current.position.set(sx, SUN_H, sz);
     if (spotRef.current) {
       spotRef.current.position.set(sx, SUN_H, sz);
       spotRef.current.target.position.set(sx * 0.7, 0, sz * 0.7);
@@ -255,70 +247,34 @@ function FlatScene({ speed, showLabels, simTime }: {
     }
 
     // Lune
-    const moonLat = getMoonDeclination(day);
-    const moonLng = getMoonLongitude(h, day);
-    const [mx, mz] = latLngToFlatDisc(moonLat, moonLng, DISC_R);
-    if (moonRef.current) {
-      moonRef.current.position.set(mx, MOON_H, mz);
-    }
+    const [mx, mz] = latLngToFlatDisc(positions.moon.lat, positions.moon.lng, DISC_R);
+    if (moonRef.current) moonRef.current.position.set(mx, MOON_H, mz);
 
     // Planètes
-    const planets = getPlanetPositions(day, h);
-    planets.forEach((p, i) => {
+    positions.planets.forEach((p, i) => {
       const ref = planetRefsFlat.current[i];
       if (!ref) return;
       const [px, pz] = latLngToFlatDisc(p.lat, p.lng, DISC_R);
-      const ph = 3.2 + i * 0.15;
-      ref.position.set(px, ph, pz);
+      ref.position.set(px, 3.2 + i * 0.15, pz);
     });
   });
 
-  const planets = getPlanetPositions(simTime.dayOfYear, simTime.hoursUTC);
+  // Positions initiales pour créer les refs planètes
+  const initialPositions = useMemo(() => getAllPositions(simDate), [simDate]);
 
   return (
     <group>
       <ambientLight intensity={0.06} />
 
-      {/* Disque terrestre */}
-      <group>
-        {/* Océan */}
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.05, 0]}>
-          <circleGeometry args={[6.2, 64]} />
-          <meshStandardMaterial color="#0a2a4a" roughness={0.6} />
-        </mesh>
-        {/* Anneau glacé */}
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.04, 0]}>
-          <ringGeometry args={[5.6, 6.3, 64]} />
-          <meshStandardMaterial color="#c8dce8" roughness={0.3} />
-        </mesh>
-        {/* Pôle Nord */}
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.02, 0]}>
-          <circleGeometry args={[0.2, 16]} />
-          <meshStandardMaterial color="#e0e8f0" roughness={0.3} />
-        </mesh>
-        {/* Continents simplifiés */}
-        {[
-          [-1.8, -1.5, 0.65, 0.75, '#3a6a30'],
-          [-1.2, 1.2, 0.3, 0.72, '#4a7a3a'],
-          [1.2, -0.8, 0.85, 0.65, '#4a7030'],
-          [1.5, 1.5, 0.42, 0.5, '#5a7a2a'],
-          [3.2, 1.5, 0.3, 0.22, '#7a8a40'],
-        ].map(([x, z, rx, rz, c], i) => {
-          const shape = new THREE.Shape();
-          for (let j = 0; j <= 24; j++) {
-            const a = (j / 24) * Math.PI * 2;
-            const px = Math.cos(a) * (rx as number);
-            const py = Math.sin(a) * (rz as number);
-            j === 0 ? shape.moveTo(px, py) : shape.lineTo(px, py);
-          }
-          return (
-            <mesh key={i} rotation={[-Math.PI / 2, 0, 0]} position={[x as number, -0.01, z as number]}>
-              <shapeGeometry args={[shape]} />
-              <meshStandardMaterial color={c as string} roughness={0.7} />
-            </mesh>
-          );
-        })}
-      </group>
+      {/* Disque terrestre avec texture carte AE */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.02, 0]}>
+        <circleGeometry args={[DISC_R, 128]} />
+        <meshStandardMaterial
+          map={mapTexture}
+          roughness={0.7}
+          transparent
+        />
+      </mesh>
 
       {/* Soleil */}
       <group ref={sunRef} position={[0, SUN_H, 0]}>
@@ -334,7 +290,7 @@ function FlatScene({ speed, showLabels, simTime }: {
         <Label text="Soleil ☉" color={SUN_COLOR} show={showLabels} />
       </group>
 
-      {/* Spotlight jour/nuit */}
+      {/* Spotlight jour/nuit — cône lumineux */}
       <spotLight
         ref={spotRef}
         intensity={4}
@@ -349,23 +305,23 @@ function FlatScene({ speed, showLabels, simTime }: {
       <group ref={moonRef} position={[0, MOON_H, 0]}>
         <mesh>
           <sphereGeometry args={[0.12, 24, 24]} />
-          <meshStandardMaterial color={MOON_COLOR} roughness={0.3} />
+          <meshStandardMaterial color={MOON_COLOR} roughness={0.3} emissive={MOON_COLOR} emissiveIntensity={0.15} />
         </mesh>
         <Label text="Lune ☾" color={MOON_COLOR} show={showLabels} />
       </group>
 
       {/* Planètes */}
-      {planets.map((p, i) => (
+      {initialPositions.planets.map((p, i) => (
         <group key={p.name} ref={el => { planetRefsFlat.current[i] = el; }}>
           <mesh>
-            <sphereGeometry args={[p.size * 0.4, 16, 16]} />
-            <meshStandardMaterial color={p.color} emissive={p.color} emissiveIntensity={0.3} roughness={0.5} />
+            <sphereGeometry args={[p.size, 16, 16]} />
+            <meshStandardMaterial color={p.color} emissive={p.color} emissiveIntensity={0.4} roughness={0.5} />
           </mesh>
           <Label text={p.name} color={p.color} show={showLabels} />
         </group>
       ))}
 
-      {/* Orbites en hauteur (tropiques) */}
+      {/* Tropiques (cercles en hauteur) */}
       {[1.5, 2.2, 2.8, 3.5].map((r, i) => (
         <group key={`or-${i}`} position={[0, SUN_H, 0]}>
           <OrbitRing radius={r} color="#FFD040" opacity={0.04} />
@@ -374,8 +330,8 @@ function FlatScene({ speed, showLabels, simTime }: {
 
       {/* Dôme céleste */}
       <mesh>
-        <sphereGeometry args={[8.5, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2]} />
-        <meshBasicMaterial color="#060818" transparent opacity={0.2} side={THREE.BackSide} />
+        <sphereGeometry args={[9, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2]} />
+        <meshBasicMaterial color="#060818" transparent opacity={0.15} side={THREE.BackSide} />
       </mesh>
 
       {/* Étoiles */}
@@ -384,7 +340,7 @@ function FlatScene({ speed, showLabels, simTime }: {
         for (let i = 0; i < 300; i++) {
           const theta = Math.random() * Math.PI * 2;
           const phi = Math.random() * Math.PI * 0.48;
-          const r = 8.2;
+          const r = 8.5;
           const pos: [number, number, number] = [
             Math.sin(phi) * Math.cos(theta) * r,
             Math.cos(phi) * r,
@@ -411,16 +367,23 @@ export default function GeoHelioSim() {
   const [speed, setSpeed] = useState(1);
   const [showLabels, setShowLabels] = useState(true);
 
-  const [simTime, setSimTime] = useState(() => getCurrentTimeInfo());
+  // Slider temporel pour Terre Plane (heures depuis maintenant)
+  const [timeOffsetHours, setTimeOffsetHours] = useState(0);
+  const simDate = useMemo(() => {
+    const d = new Date();
+    d.setTime(d.getTime() + timeOffsetHours * 60 * 60 * 1000);
+    return d;
+  }, [timeOffsetHours]);
 
-  // Pour Terre Plane : afficher la date/heure simulée
-  const moonPhase = getMoonPhase(simTime.dayOfYear);
-  const phasePercent = (moonPhase * 100).toFixed(1);
+  const flatPositions = useMemo(() => {
+    if (mode !== 'flat') return null;
+    return getAllPositions(simDate);
+  }, [mode, simDate]);
 
   const modeConfig = {
     helio: { label: 'HÉLIOCENTRIQUE', color: '#00C8FF', cam: [0, 12, 8] as [number, number, number], desc: 'Centre : Soleil — Terre en orbite' },
     geo:   { label: 'GÉOCENTRIQUE',   color: '#D4A843', cam: [0, 12, 8] as [number, number, number], desc: 'Centre : Terre — tous les astres en orbite' },
-    flat:  { label: 'TERRE PLANE',    color: '#00E87B', cam: [6, 7, 6] as [number, number, number],  desc: 'Disque terrestre — astres au-dessus (positions réelles)' },
+    flat:  { label: 'TERRE PLANE',    color: '#00E87B', cam: [6, 7, 6] as [number, number, number],  desc: 'Disque terrestre — astres au-dessus (éphémérides réelles)' },
   };
   const cfg = modeConfig[mode];
 
@@ -447,13 +410,34 @@ export default function GeoHelioSim() {
           <input type="range" min={0.1} max={5} step={0.1} value={speed}
             onChange={(e) => setSpeed(parseFloat(e.target.value))}
             className="w-16 md:w-20 accent-[#00C8FF]" />
-          <span className="text-[8px] font-tech-mono text-[#00C8FF]">×{speed.toFixed(1)}</span>
+          <span className="text-[8px] font-tech-mono text-[#00C8FF]">&times;{speed.toFixed(1)}</span>
         </div>
 
         <button onClick={() => setShowLabels(!showLabels)}
           className={`px-3 py-1 text-[8px] font-tech-mono border ${showLabels ? 'border-slate-600 text-slate-400' : 'border-slate-800 text-slate-600'}`}
         >NOMS: {showLabels ? 'ON' : 'OFF'}</button>
       </div>
+
+      {/* Slider temporel — mode Terre Plane */}
+      {mode === 'flat' && (
+        <div className="flex items-center gap-3 mb-3 border border-slate-800/40 bg-[#0A1020] p-3">
+          <span className="text-[8px] font-tech-mono text-[#D4A843]/60 tracking-widest whitespace-nowrap">TEMPS</span>
+          <input
+            type="range" min={-168} max={168} step={1} value={timeOffsetHours}
+            onChange={(e) => setTimeOffsetHours(parseInt(e.target.value))}
+            className="flex-1 accent-[#D4A843]"
+          />
+          <div className="text-right min-w-[120px]">
+            <div className="text-[10px] font-tech-mono text-[#D4A843]">{formatSimDate(simDate)}</div>
+            <div className="text-[8px] font-tech-mono text-slate-600">
+              {timeOffsetHours === 0 ? 'MAINTENANT' : `${timeOffsetHours > 0 ? '+' : ''}${timeOffsetHours}h`}
+            </div>
+          </div>
+          <button onClick={() => setTimeOffsetHours(0)}
+            className="px-2 py-1 text-[7px] font-tech-mono border border-slate-700 text-slate-500 hover:text-[#D4A843] hover:border-[#D4A843]/40"
+          >NOW</button>
+        </div>
+      )}
 
       {/* Canvas 3D */}
       <div className="w-full h-[55vh] md:h-[70vh] border border-slate-800/50 bg-[#030810] relative overflow-hidden">
@@ -470,11 +454,13 @@ export default function GeoHelioSim() {
           <div className="text-[8px] font-tech-mono text-slate-600 mt-1">{cfg.desc}</div>
         </div>
 
-        {mode === 'flat' && (
+        {mode === 'flat' && flatPositions && (
           <div className="absolute top-3 right-3 z-10 text-right">
-            <div className="text-[8px] font-tech-mono text-[#D4A843]/60">PHASE LUNAIRE : {phasePercent}%</div>
+            <div className="text-[8px] font-tech-mono text-[#D4A843]/60">
+              ☾ PHASE : {flatPositions.moonIllumination.toFixed(1)}%
+            </div>
             <div className="text-[8px] font-tech-mono text-slate-600">
-              Jour {simTime.dayOfYear} — {simTime.hoursUTC.toFixed(1)}h UTC
+              ☉ Déc: {flatPositions.sun.lat.toFixed(1)}° | ☾ Déc: {flatPositions.moon.lat.toFixed(1)}°
             </div>
           </div>
         )}
@@ -485,7 +471,7 @@ export default function GeoHelioSim() {
 
           {mode === 'helio' && <HelioScene speed={speed} showLabels={showLabels} />}
           {mode === 'geo' && <GeoScene speed={speed} showLabels={showLabels} />}
-          {mode === 'flat' && <FlatScene speed={speed} showLabels={showLabels} simTime={simTime} />}
+          {mode === 'flat' && <FlatScene speed={speed} showLabels={showLabels} simDate={simDate} />}
 
           <OrbitControls enablePan={false} minDistance={4} maxDistance={25}
             maxPolarAngle={mode === 'flat' ? Math.PI * 0.48 : Math.PI * 0.85} />
@@ -498,15 +484,15 @@ export default function GeoHelioSim() {
           ANALYSE // {cfg.label}
         </div>
         <p className="text-[13px] text-[#C8D8E8]/60 font-rajdhani leading-relaxed">
-          {mode === 'helio' && "Modèle héliocentrique (Copernic, 1543) : la Terre orbite autour du Soleil. Les mêmes mouvements apparents — phases, rétrogradations, saisons — sont observés depuis la Terre. Ce modèle est cinématiquement équivalent au modèle géocentrique."}
-          {mode === 'geo' && "Modèle géocentrique pur (Ptolémée) : la Terre est au centre de l\u2019univers. Tous les astres — Soleil, Lune, planètes — orbitent autour d\u2019elle. Les épicycles (cercles sur cercles) reproduisent les mouvements rétrogrades observés. Ce modèle a servi la navigation et l\u2019astronomie pendant 1\u2009400 ans."}
-          {mode === 'flat' && "Modèle Terre plane (MGPP) : le disque terrestre est stationnaire sous un dôme céleste. Le Soleil et la Lune circulent au-dessus à quelques milliers de km, créant le cycle jour/nuit par déplacement de leur cône lumineux. Les positions affichées sont calculées à partir des éphémérides astronomiques réelles (déclinaison, longitude), projetées sur la carte azimutale équidistante."}
+          {mode === 'helio' && "Mod\u00e8le h\u00e9liocentrique (Copernic, 1543) : la Terre orbite autour du Soleil. Les m\u00eames mouvements apparents \u2014 phases, r\u00e9trogradations, saisons \u2014 sont observ\u00e9s depuis la Terre. Ce mod\u00e8le est cin\u00e9matiquement \u00e9quivalent au mod\u00e8le g\u00e9ocentrique."}
+          {mode === 'geo' && "Mod\u00e8le g\u00e9ocentrique pur (Ptol\u00e9m\u00e9e) : la Terre est au centre de l\u2019univers. Tous les astres \u2014 Soleil, Lune, plan\u00e8tes \u2014 orbitent autour d\u2019elle. Les \u00e9picycles (cercles sur cercles) reproduisent les mouvements r\u00e9trogrades observ\u00e9s. Ce mod\u00e8le a servi la navigation et l\u2019astronomie pendant 1\u2009400 ans."}
+          {mode === 'flat' && "Mod\u00e8le Terre plane (MGPP) : le disque terrestre est stationnaire sous un d\u00f4me c\u00e9leste. Le Soleil et la Lune circulent au-dessus \u00e0 quelques milliers de km. Les positions sont calcul\u00e9es avec la biblioth\u00e8que Astronomy Engine (\u00e9ph\u00e9m\u00e9rides pr\u00e9cises), puis projet\u00e9es sur la carte azimutale \u00e9quidistante. Le slider temporel permet de voyager \u00b1 7 jours."}
         </p>
         <div className="flex flex-wrap items-center gap-3 mt-3 pt-3 border-t border-slate-800/30">
           <span className="text-[8px] font-tech-mono text-slate-600">ARTICLES :</span>
-          <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[9px] font-tech-mono text-[#00C8FF]/50 hover:text-[#00C8FF] transition-colors">L&apos;hypothèse nulle →</a>
-          <a href="/article/200-ans-de-resultats-nuls-darago-a-einstein" className="text-[9px] font-tech-mono text-[#00C8FF]/50 hover:text-[#00C8FF] transition-colors">200 ans de résultats nuls →</a>
-          {mode === 'flat' && <a href="/article/le-modele-geocentrique-a-plans-paralleles-mgpp" className="text-[9px] font-tech-mono text-[#00E87B]/50 hover:text-[#00E87B] transition-colors">Le MGPP →</a>}
+          <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[9px] font-tech-mono text-[#00C8FF]/50 hover:text-[#00C8FF] transition-colors">L&apos;hypothèse nulle &rarr;</a>
+          <a href="/article/200-ans-de-resultats-nuls-darago-a-einstein" className="text-[9px] font-tech-mono text-[#00C8FF]/50 hover:text-[#00C8FF] transition-colors">200 ans de r&eacute;sultats nuls &rarr;</a>
+          {mode === 'flat' && <a href="/article/le-modele-geocentrique-a-plans-paralleles-mgpp" className="text-[9px] font-tech-mono text-[#00E87B]/50 hover:text-[#00E87B] transition-colors">Le MGPP &rarr;</a>}
         </div>
       </div>
     </div>
