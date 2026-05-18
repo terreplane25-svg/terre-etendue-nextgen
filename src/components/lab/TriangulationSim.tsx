@@ -98,7 +98,7 @@ function TriangulationScene({
           <coneGeometry args={[0.08, 0.2, 4]} />
           <meshBasicMaterial color="#00C8FF" />
         </mesh>
-        <Text position={[0, -0.3, 0]} fontSize={0.12} color="#00C8FF" anchorX="center" font="/fonts/Rajdhani-Medium.ttf">
+        <Text position={[0, -0.3, 0]} fontSize={0.12} color="#00C8FF" anchorX="center">
           Station A
         </Text>
         <Text position={[0, -0.5, 0]} fontSize={0.08} color="#00C8FF" anchorX="center">
@@ -112,7 +112,7 @@ function TriangulationScene({
           <coneGeometry args={[0.08, 0.2, 4]} />
           <meshBasicMaterial color="#00E87B" />
         </mesh>
-        <Text position={[0, -0.3, 0]} fontSize={0.12} color="#00E87B" anchorX="center" font="/fonts/Rajdhani-Medium.ttf">
+        <Text position={[0, -0.3, 0]} fontSize={0.12} color="#00E87B" anchorX="center">
           Station B
         </Text>
         <Text position={[0, -0.5, 0]} fontSize={0.08} color="#00E87B" anchorX="center">

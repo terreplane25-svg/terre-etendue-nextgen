@@ -86,7 +86,7 @@ function Observer({ position, color, label }: {
         fontSize={0.08}
         color={color}
         anchorX="center"
-        font="/fonts/Rajdhani-Medium.ttf"
+       
       >
         {label}
       </Text>
@@ -157,7 +157,7 @@ function VisibilityScene({ distance, height, targetHeight }: {
         <Text position={[0.3, -curveDropScaled / 2, 0]} fontSize={0.07} color="#FF4444" anchorX="left">
           {curvatureDrop >= 1 ? `↓ ${curvatureDrop.toFixed(1)} km` : `↓ ${(curvatureDrop * 1000).toFixed(1)} m`}
         </Text>
-        <Text position={[0, 3.5, 0]} fontSize={0.12} color="#00C8FF" anchorX="center" font="/fonts/Rajdhani-Medium.ttf">
+        <Text position={[0, 3.5, 0]} fontSize={0.12} color="#00C8FF" anchorX="center">
           MODÈLE GLOBE (R = 6 371 km)
         </Text>
       </group>
@@ -172,7 +172,7 @@ function VisibilityScene({ distance, height, targetHeight }: {
           to={[halfD, flatTargetY, 0]}
           color="#00E87B"
         />
-        <Text position={[0, 1.5, 0]} fontSize={0.12} color="#D4A843" anchorX="center" font="/fonts/Rajdhani-Medium.ttf">
+        <Text position={[0, 1.5, 0]} fontSize={0.12} color="#D4A843" anchorX="center">
           MODÈLE PLAN
         </Text>
       </group>

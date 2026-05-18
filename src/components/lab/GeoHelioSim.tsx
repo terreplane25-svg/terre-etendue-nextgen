@@ -67,7 +67,7 @@ function CelestialBody({
           color="#C8D8E8"
           anchorX="center"
           anchorY="bottom"
-          font="/fonts/Rajdhani-Medium.ttf"
+         
         >
           {label}
         </Text>

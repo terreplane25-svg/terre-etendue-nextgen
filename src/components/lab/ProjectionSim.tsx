@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
+import { CONTINENTS } from './continentData';
 
 // ─── Types ──────────────────────────────────────────
 type ProjectionType = 'mercator' | 'azimuthal' | 'equirectangular';
@@ -53,17 +54,16 @@ function toRadians(deg: number): number {
 
 function mercatorProject(lat: number, lng: number, width: number, height: number): [number, number] {
   const x = ((lng + 180) / 360) * width;
-  const latRad = toRadians(lat);
+  const latRad = toRadians(Math.max(-85, Math.min(85, lat)));
   const mercN = Math.log(Math.tan(Math.PI / 4 + latRad / 2));
   const y = height / 2 - (mercN * width) / (2 * Math.PI);
   return [x, Math.max(0, Math.min(height, y))];
 }
 
 function azimuthalProject(lat: number, lng: number, width: number, height: number): [number, number] {
-  // Azimutale équidistante centrée sur le pôle Nord
   const latRad = toRadians(lat);
   const lngRad = toRadians(lng);
-  const r = (Math.PI / 2 - latRad) / Math.PI; // 0 au pôle, 1 à l'équateur
+  const r = (Math.PI / 2 - latRad) / Math.PI;
   const cx = width / 2;
   const cy = height / 2;
   const maxR = Math.min(width, height) * 0.45;
@@ -86,8 +86,8 @@ function project(type: ProjectionType, lat: number, lng: number, w: number, h: n
   }
 }
 
-// ─── Génération de la route (great circle interpolé) ─
-function interpolateGreatCircle(from: GeoPoint, to: GeoPoint, segments: number = 50): GeoPoint[] {
+// ─── Great Circle interpolation ─────────────────────
+function interpolateGreatCircle(from: GeoPoint, to: GeoPoint, segments: number = 60): GeoPoint[] {
   const lat1 = toRadians(from.lat);
   const lng1 = toRadians(from.lng);
   const lat2 = toRadians(to.lat);
@@ -127,61 +127,64 @@ function MapView({
   width: number; 
   height: number; 
 }) {
-  // Grille de latitude/longitude
+  // Grille lat/lng
   const gridLines = useMemo(() => {
     const lines: string[] = [];
-    // Latitudes
     for (let lat = -80; lat <= 80; lat += 20) {
       const pts: string[] = [];
-      for (let lng = -180; lng <= 180; lng += 5) {
+      for (let lng = -180; lng <= 180; lng += 3) {
         const [x, y] = project(projection, lat, lng, width, height);
-        pts.push(`${x},${y}`);
+        pts.push(`${x.toFixed(1)},${y.toFixed(1)}`);
       }
       lines.push(pts.join(' '));
     }
-    // Longitudes
     for (let lng = -180; lng < 180; lng += 30) {
       const pts: string[] = [];
-      for (let lat = -80; lat <= 80; lat += 5) {
+      for (let lat = -85; lat <= 85; lat += 3) {
         const [x, y] = project(projection, lat, lng, width, height);
-        pts.push(`${x},${y}`);
+        pts.push(`${x.toFixed(1)},${y.toFixed(1)}`);
       }
       lines.push(pts.join(' '));
     }
     return lines;
   }, [projection, width, height]);
 
-  // Contours continentaux simplifiés (points clés)
-  const continentOutlines = useMemo(() => {
-    // Points simplifiés des continents principaux
-    const continents: { points: [number, number][]; name: string }[] = [
-      { name: 'Afrique', points: [[-5,37],[10,32],[32,31],[42,12],[50,2],[40,-15],[35,-34],[18,-35],[12,-17],[8,5],[-17,15],[-5,37]] },
-      { name: 'Europe', points: [[-10,36],[0,43],[5,47],[15,54],[30,60],[40,55],[28,41],[20,38],[0,36],[-10,36]] },
-      { name: 'Asie', points: [[30,60],[50,55],[70,55],[90,45],[100,35],[120,30],[140,35],[145,45],[160,60],[180,65],[170,55],[130,50],[105,20],[80,8],[65,25],[40,55],[30,60]] },
-      { name: 'AmériqueN', points: [[-170,65],[-140,60],[-125,50],[-120,35],[-105,25],[-90,18],[-85,10],[-80,25],[-75,45],[-60,50],[-55,48],[-65,60],[-95,70],[-170,65]] },
-      { name: 'AmériqueS', points: [[-80,10],[-75,0],[-70,-15],[-68,-23],[-65,-55],[-72,-50],[-75,-40],[-80,-5],[-80,10]] },
-      { name: 'Australie', points: [[115,-35],[130,-15],[145,-15],[153,-28],[150,-38],[130,-35],[115,-35]] },
-    ];
-
-    return continents.map((c) => {
-      const pts = c.points.map(([lng, lat]) => {
-        const [x, y] = project(projection, lat, lng, width, height);
-        return `${x},${y}`;
-      });
-      return pts.join(' ');
-    });
+  // Continents depuis les données détaillées
+  const continentPaths = useMemo(() => {
+    return CONTINENTS.flatMap((continent) =>
+      continent.paths.map((path) => {
+        const pts = path.map(([lng, lat]) => {
+          const [x, y] = project(projection, lat, lng, width, height);
+          return `${x.toFixed(1)},${y.toFixed(1)}`;
+        });
+        return pts.join(' ');
+      })
+    );
   }, [projection, width, height]);
 
   return (
-    <svg width={width} height={height} className="bg-[#030810]">
+    <svg 
+      viewBox={`0 0 ${width} ${height}`} 
+      className="w-full h-auto bg-[#030810]"
+      preserveAspectRatio="xMidYMid meet"
+    >
       {/* Grille */}
       {gridLines.map((pts, i) => (
-        <polyline key={`grid-${i}`} points={pts} fill="none" stroke="#00C8FF" strokeWidth={0.5} opacity={0.08} />
+        <polyline key={`grid-${i}`} points={pts} fill="none" stroke="#00C8FF" strokeWidth={0.5} opacity={0.06} />
       ))}
 
-      {/* Continents */}
-      {continentOutlines.map((pts, i) => (
-        <polyline key={`cont-${i}`} points={pts} fill="#0D1528" stroke="#00C8FF" strokeWidth={1} opacity={0.3} />
+      {/* Continents — fill + stroke */}
+      {continentPaths.map((pts, i) => (
+        <polygon 
+          key={`cont-${i}`} 
+          points={pts} 
+          fill="#0D1528" 
+          fillOpacity={0.8}
+          stroke="#00C8FF" 
+          strokeWidth={0.8} 
+          opacity={0.5}
+          strokeLinejoin="round"
+        />
       ))}
 
       {/* Routes */}
@@ -192,13 +195,15 @@ function MapView({
         
         gcPoints.forEach((pt) => {
           const [x, y] = project(projection, pt.lat, pt.lng, width, height);
-          // Détecter les sauts de bord (wrapping)
-          if (Math.abs(x - prevX) > width * 0.5 && prevX !== 0) {
+          if (Math.abs(x - prevX) > width * 0.4 && prevX !== 0) {
             pathParts.push([]);
           }
-          pathParts[pathParts.length - 1].push(`${x},${y}`);
+          pathParts[pathParts.length - 1].push(`${x.toFixed(1)},${y.toFixed(1)}`);
           prevX = x;
         });
+
+        const [fx, fy] = project(projection, route.from.lat, route.from.lng, width, height);
+        const [tx, ty] = project(projection, route.to.lat, route.to.lng, width, height);
 
         return (
           <g key={`route-${ri}`}>
@@ -209,29 +214,23 @@ function MapView({
                 fill="none"
                 stroke={route.color}
                 strokeWidth={2}
-                opacity={0.8}
+                opacity={0.85}
                 strokeLinecap="round"
+                strokeLinejoin="round"
               />
             ))}
-            {/* Labels */}
-            {(() => {
-              const [fx, fy] = project(projection, route.from.lat, route.from.lng, width, height);
-              const [tx, ty] = project(projection, route.to.lat, route.to.lng, width, height);
-              return (
-                <>
-                  <circle cx={fx} cy={fy} r={4} fill={route.color} />
-                  <text x={fx + 8} y={fy + 3} fill={route.color} fontSize={9} fontFamily="monospace">{route.from.label}</text>
-                  <circle cx={tx} cy={ty} r={4} fill={route.color} />
-                  <text x={tx + 8} y={ty + 3} fill={route.color} fontSize={9} fontFamily="monospace">{route.to.label}</text>
-                </>
-              );
-            })()}
+            <circle cx={fx} cy={fy} r={4} fill={route.color} />
+            <circle cx={fx} cy={fy} r={8} fill={route.color} fillOpacity={0.15} />
+            <text x={fx + 10} y={fy + 4} fill={route.color} fontSize={10} fontFamily="monospace" opacity={0.9}>{route.from.label}</text>
+            <circle cx={tx} cy={ty} r={4} fill={route.color} />
+            <circle cx={tx} cy={ty} r={8} fill={route.color} fillOpacity={0.15} />
+            <text x={tx + 10} y={ty + 4} fill={route.color} fontSize={10} fontFamily="monospace" opacity={0.9}>{route.to.label}</text>
           </g>
         );
       })}
 
       {/* Projection label */}
-      <text x={10} y={20} fill="#C8D8E8" fillOpacity={0.3} fontSize={10} fontFamily="monospace">
+      <text x={12} y={20} fill="#C8D8E8" fillOpacity={0.35} fontSize={11} fontFamily="monospace" letterSpacing="0.1em">
         {projection === 'mercator' ? 'MERCATOR (1569)' : projection === 'azimuthal' ? 'AZIMUTALE ÉQUIDISTANTE' : 'ÉQUIRECTANGULAIRE'}
       </text>
     </svg>
@@ -254,6 +253,9 @@ export default function ProjectionSim() {
       return next;
     });
   };
+
+  const svgW = 900;
+  const svgH = projection === 'azimuthal' ? 700 : 500;
 
   return (
     <div className="w-full">
@@ -297,7 +299,7 @@ export default function ProjectionSim() {
               onClick={() => toggleRoute(i)}
               className={`px-3 py-1 text-[8px] font-tech-mono border transition-all ${
                 selectedRoutes.has(i)
-                  ? 'border-opacity-60 bg-opacity-10'
+                  ? ''
                   : 'border-slate-800 text-slate-600 opacity-40'
               }`}
               style={{
@@ -323,8 +325,8 @@ export default function ProjectionSim() {
           projection={projection}
           routes={activeRoutes}
           showRoutes={showRoutes}
-          width={800}
-          height={projection === 'azimuthal' ? 600 : 450}
+          width={svgW}
+          height={svgH}
         />
       </div>
 
@@ -334,9 +336,9 @@ export default function ProjectionSim() {
           ANALYSE // DISTORSIONS DE PROJECTION
         </div>
         <p className="text-[13px] text-[#C8D8E8]/60 font-rajdhani leading-relaxed">
-          {projection === 'mercator' && "La projection de Mercator (1569) conserve les angles mais déforme les aires : le Groenland paraît aussi grand que l'Afrique (x14 en réalité). Les routes great-circle apparaissent courbes — ce qui trompe sur les distances réelles."}
-          {projection === 'azimuthal' && "La projection azimutale équidistante, centrée sur le pôle Nord, préserve les distances depuis le centre. C'est la projection utilisée par le logo de l'ONU et par l'OACI pour la navigation polaire. Les routes aériennes y apparaissent plus rectilignes qu'en Mercator."}
-          {projection === 'equirectangular' && "La projection équirectangulaire est la plus simple (latitude/longitude → x/y). Elle ne conserve ni les angles ni les aires, mais rend visible la vraie répartition des masses continentales. Les routes great-circle y sont courbées."}
+          {projection === 'mercator' && "La projection de Mercator (1569) conserve les angles mais déforme les aires : le Groenland paraît aussi grand que l\u2019Afrique (×14 en réalité). Les routes great-circle apparaissent courbes — ce qui trompe sur les distances réelles."}
+          {projection === 'azimuthal' && "La projection azimutale équidistante, centrée sur le pôle Nord, préserve les distances depuis le centre. C\u2019est la projection utilisée par le logo de l\u2019ONU et par l\u2019OACI pour la navigation polaire. Les routes aériennes y apparaissent différemment qu\u2019en Mercator."}
+          {projection === 'equirectangular' && "La projection équirectangulaire est la plus simple (latitude/longitude → x/y). Elle ne conserve ni les angles ni les aires, mais rend visible la vraie répartition des masses continentales."}
         </p>
         <div className="flex items-center gap-4 mt-3 pt-3 border-t border-slate-800/30">
           <span className="text-[8px] font-tech-mono text-slate-600">ARTICLE LIÉ :</span>
