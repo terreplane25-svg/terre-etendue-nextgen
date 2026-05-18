@@ -5,7 +5,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Line, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import {
-  getAllPositions, latLngToFlatDisc, formatSimDate,
+  getAllPositions, latLngToFlatDisc,
 } from './celestialCalc';
 
 // ─── Types & Config ─────────────────────────────────
@@ -264,7 +264,7 @@ function FlatScene({ speed, showLabels, simDate }: {
 
   return (
     <group>
-      <ambientLight intensity={0.06} />
+      <ambientLight intensity={0.02} />
 
       {/* Disque terrestre avec texture carte AE */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.02, 0]}>
@@ -286,18 +286,18 @@ function FlatScene({ speed, showLabels, simDate }: {
           <sphereGeometry args={[0.5, 16, 16]} />
           <meshBasicMaterial color={SUN_COLOR} transparent opacity={0.08} />
         </mesh>
-        <pointLight intensity={1.5} color={SUN_COLOR} distance={8} />
+        <pointLight intensity={3} color={SUN_COLOR} distance={10} />
         <Label text="Soleil ☉" color={SUN_COLOR} show={showLabels} />
       </group>
 
-      {/* Spotlight jour/nuit — cône lumineux */}
+      {/* Spotlight jour/nuit — cône lumineux principal */}
       <spotLight
         ref={spotRef}
-        intensity={4}
-        color="#FFF5D0"
-        distance={10}
-        angle={Math.PI / 3}
-        penumbra={0.7}
+        intensity={8}
+        color="#FFF8E0"
+        distance={12}
+        angle={Math.PI / 2.8}
+        penumbra={0.5}
         position={[0, SUN_H, 0]}
       />
 
@@ -328,33 +328,11 @@ function FlatScene({ speed, showLabels, simDate }: {
         </group>
       ))}
 
-      {/* Dôme céleste */}
+      {/* Dôme céleste (sans étoiles) */}
       <mesh>
         <sphereGeometry args={[9, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2]} />
-        <meshBasicMaterial color="#060818" transparent opacity={0.15} side={THREE.BackSide} />
+        <meshBasicMaterial color="#050A12" transparent opacity={0.3} side={THREE.BackSide} />
       </mesh>
-
-      {/* Étoiles */}
-      {useMemo(() => {
-        const stars: React.ReactNode[] = [];
-        for (let i = 0; i < 300; i++) {
-          const theta = Math.random() * Math.PI * 2;
-          const phi = Math.random() * Math.PI * 0.48;
-          const r = 8.5;
-          const pos: [number, number, number] = [
-            Math.sin(phi) * Math.cos(theta) * r,
-            Math.cos(phi) * r,
-            Math.sin(phi) * Math.sin(theta) * r,
-          ];
-          stars.push(
-            <mesh key={i} position={pos}>
-              <sphereGeometry args={[0.015 + Math.random() * 0.01, 4, 4]} />
-              <meshBasicMaterial color="#ffffff" transparent opacity={0.3 + Math.random() * 0.5} />
-            </mesh>
-          );
-        }
-        return stars;
-      }, [])}
     </group>
   );
 }
@@ -367,13 +345,9 @@ export default function GeoHelioSim() {
   const [speed, setSpeed] = useState(1);
   const [showLabels, setShowLabels] = useState(true);
 
-  // Slider temporel pour Terre Plane (heures depuis maintenant)
-  const [timeOffsetHours, setTimeOffsetHours] = useState(0);
-  const simDate = useMemo(() => {
-    const d = new Date();
-    d.setTime(d.getTime() + timeOffsetHours * 60 * 60 * 1000);
-    return d;
-  }, [timeOffsetHours]);
+  // Play/Pause pour l'animation Terre Plane
+  const [isPlaying, setIsPlaying] = useState(true);
+  const simDate = useMemo(() => new Date(), []);
 
   const flatPositions = useMemo(() => {
     if (mode !== 'flat') return null;
@@ -418,24 +392,23 @@ export default function GeoHelioSim() {
         >NOMS: {showLabels ? 'ON' : 'OFF'}</button>
       </div>
 
-      {/* Slider temporel — mode Terre Plane */}
+      {/* Play/Pause — mode Terre Plane */}
       {mode === 'flat' && (
-        <div className="flex items-center gap-3 mb-3 border border-slate-800/40 bg-[#0A1020] p-3">
-          <span className="text-[8px] font-tech-mono text-[#D4A843]/60 tracking-widest whitespace-nowrap">TEMPS</span>
-          <input
-            type="range" min={-168} max={168} step={1} value={timeOffsetHours}
-            onChange={(e) => setTimeOffsetHours(parseInt(e.target.value))}
-            className="flex-1 accent-[#D4A843]"
-          />
-          <div className="text-right min-w-[120px]">
-            <div className="text-[10px] font-tech-mono text-[#D4A843]">{formatSimDate(simDate)}</div>
-            <div className="text-[8px] font-tech-mono text-slate-600">
-              {timeOffsetHours === 0 ? 'MAINTENANT' : `${timeOffsetHours > 0 ? '+' : ''}${timeOffsetHours}h`}
-            </div>
-          </div>
-          <button onClick={() => setTimeOffsetHours(0)}
-            className="px-2 py-1 text-[7px] font-tech-mono border border-slate-700 text-slate-500 hover:text-[#D4A843] hover:border-[#D4A843]/40"
-          >NOW</button>
+        <div className="flex items-center gap-3 mb-3">
+          <button
+            onClick={() => setIsPlaying(!isPlaying)}
+            className="px-4 py-2 text-[9px] font-tech-mono tracking-widest border transition-all"
+            style={{
+              borderColor: isPlaying ? '#00E87B99' : '#D4A84399',
+              backgroundColor: isPlaying ? '#00E87B1a' : '#D4A8431a',
+              color: isPlaying ? '#00E87B' : '#D4A843',
+            }}
+          >
+            {isPlaying ? '⏸ PAUSE' : '▶ LECTURE'}
+          </button>
+          <span className="text-[8px] font-tech-mono text-slate-500">
+            {isPlaying ? 'Animation en cours — 1s ≈ 30 min' : 'Animation en pause'}
+          </span>
         </div>
       )}
 
@@ -471,7 +444,7 @@ export default function GeoHelioSim() {
 
           {mode === 'helio' && <HelioScene speed={speed} showLabels={showLabels} />}
           {mode === 'geo' && <GeoScene speed={speed} showLabels={showLabels} />}
-          {mode === 'flat' && <FlatScene speed={speed} showLabels={showLabels} simDate={simDate} />}
+          {mode === 'flat' && <FlatScene speed={isPlaying ? speed : 0} showLabels={showLabels} simDate={simDate} />}
 
           <OrbitControls enablePan={false} minDistance={4} maxDistance={25}
             maxPolarAngle={mode === 'flat' ? Math.PI * 0.48 : Math.PI * 0.85} />
