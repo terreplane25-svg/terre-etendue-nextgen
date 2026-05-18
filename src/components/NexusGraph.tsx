@@ -22,7 +22,7 @@ interface NexusEdge {
 
 // ─── Données du graphe ────────────────────────────
 const NODES: Omit<NexusNode, 'x' | 'y' | 'vx' | 'vy'>[] = [
-  { id: 'tawhid-geo', label: 'Géométrie du Tawhid', category: 'library' },
+  { id: 'hypothese-nulle', label: 'Hypothèse Nulle', category: 'headquarters' },
   { id: 'singularite', label: 'Singularité Quantique', category: 'lab' },
   { id: 'geodesique-terre', label: 'Géodésiques Terrestres', category: 'observatory' },
   { id: 'epistemologie-islam', label: 'Épistémologie Islamique', category: 'headquarters' },
@@ -37,9 +37,9 @@ const NODES: Omit<NexusNode, 'x' | 'y' | 'vx' | 'vy'>[] = [
 ];
 
 const EDGES: NexusEdge[] = [
-  { source: 'tawhid-geo', target: 'singularite', strength: 0.9 },
-  { source: 'tawhid-geo', target: 'fractales-coran', strength: 0.8 },
-  { source: 'tawhid-geo', target: 'epistemologie-islam', strength: 0.7 },
+  { source: 'hypothese-nulle', target: 'singularite', strength: 0.9 },
+  { source: 'hypothese-nulle', target: 'fractales-coran', strength: 0.8 },
+  { source: 'hypothese-nulle', target: 'epistemologie-islam', strength: 0.7 },
   { source: 'singularite', target: 'modele-orbital', strength: 0.85 },
   { source: 'singularite', target: 'constantes-physiques', strength: 0.7 },
   { source: 'geodesique-terre', target: 'observations-terrain', strength: 0.9 },
