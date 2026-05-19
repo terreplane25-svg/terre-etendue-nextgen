@@ -59,9 +59,10 @@ function ClassicScene({speed,showLabels}:{speed:number;showLabels:boolean}){
   </group>;
 }
 
-// ═══ VORTEX — traînées hélicoïdales visibles ═══
+// ═══ VORTEX — fond qui suit, orbites elliptiques, traînée lumineuse ═══
 function VortexScene({speed,showLabels}:{speed:number;showLabels:boolean}){
   const groupRef=useRef<THREE.Group>(null);
+  const bgRef=useRef<THREE.Mesh>(null);
   const refs=useRef<(THREE.Group|null)[]>([]);
   const moonRef=useRef<THREE.Group>(null);
   const sunRef=useRef<THREE.Group>(null);
@@ -69,19 +70,27 @@ function VortexScene({speed,showLabels}:{speed:number;showLabels:boolean}){
   const [pTrails, setPTrails]=useState<[number,number,number][][]>(PLANETS.map(()=>[]));
   const frameCount=useRef(0);
 
+  // Excentricités réelles simplifiées
+  const ecc = [0.206, 0.007, 0.017, 0.093, 0.049]; // Mercure, Vénus, Terre, Mars, Jupiter
+
   useFrame(({clock})=>{
     const t=clock.getElapsedTime()*speed*0.15;
     const galV = 2.0;
     const z = t * galV;
 
     if(sunRef.current) sunRef.current.position.set(0, 0, z);
+    
+    // Fond d'espace suit le déplacement
+    if(bgRef.current) bgRef.current.position.set(0, 0, z);
 
-    const newPTrails = [...pTrails];
     PLANETS.forEach((p,i)=>{
       const g=refs.current[i];if(!g)return;
       const a=(t*2/p.period)*Math.PI*2;
-      const x = Math.cos(a)*p.r;
-      const y = Math.sin(a)*p.r;
+      const e = ecc[i];
+      // Orbite elliptique: r = a(1-e²)/(1+e·cos(θ))
+      const rEllip = p.r * (1 - e*e) / (1 + e * Math.cos(a));
+      const x = Math.cos(a) * rEllip;
+      const y = Math.sin(a) * rEllip;
       g.position.set(x, y, z);
     });
 
@@ -93,15 +102,15 @@ function VortexScene({speed,showLabels}:{speed:number;showLabels:boolean}){
 
     if(groupRef.current) groupRef.current.position.z = -z;
 
-    // Update trails every 3 frames for performance
     frameCount.current++;
     if(frameCount.current%3===0){
-      setSunTrail(prev=>{const n=[...prev,[0,0,z] as [number,number,number]];return n.length>150?n.slice(-150):n;});
+      // Traînée soleil — plus longue (300 points)
+      setSunTrail(prev=>{const n=[...prev,[0,0,z] as [number,number,number]];return n.length>300?n.slice(-300):n;});
       setPTrails(prev=>prev.map((trail,i)=>{
         const g=refs.current[i];if(!g)return trail;
         const p=g.position;
         const n=[...trail,[p.x,p.y,p.z] as [number,number,number]];
-        return n.length>150?n.slice(-150):n;
+        return n.length>300?n.slice(-300):n;
       }));
     }
   });
@@ -109,17 +118,20 @@ function VortexScene({speed,showLabels}:{speed:number;showLabels:boolean}){
   const spaceTex = useMemo(()=>new THREE.TextureLoader().load('/textures/space-bg.jpg'),[]);
 
   return <group ref={groupRef}>
-    {/* Fond d'espace */}
-    <mesh><sphereGeometry args={[80,32,32]}/><meshBasicMaterial map={spaceTex} side={THREE.BackSide}/></mesh>
+    {/* Fond d'espace — suit le système */}
+    <mesh ref={bgRef}><sphereGeometry args={[60,32,32]}/><meshBasicMaterial map={spaceTex} side={THREE.BackSide}/></mesh>
 
-    {/* Traînée Soleil */}
-    {sunTrail.length>1 && <Line points={sunTrail.map(p=>new THREE.Vector3(...p))} color={SUN_C} opacity={0.5} transparent lineWidth={1.5}/>}
+    {/* Traînée Soleil — luminescente */}
+    {sunTrail.length>1 && <>
+      <Line points={sunTrail.map(p=>new THREE.Vector3(...p))} color={SUN_C} opacity={0.6} transparent lineWidth={2}/>
+      <Line points={sunTrail.map(p=>new THREE.Vector3(p[0],p[1],p[2]))} color="#FFFFFF" opacity={0.15} transparent lineWidth={4}/>
+    </>}
 
     {/* Soleil */}
     <group ref={sunRef}>
       <mesh><sphereGeometry args={[0.4,32,32]}/><meshStandardMaterial color={SUN_C} emissive={SUN_C} emissiveIntensity={1.5}/></mesh>
-      <mesh><sphereGeometry args={[0.8,16,16]}/><meshBasicMaterial color={SUN_C} transparent opacity={0.08}/></mesh>
-      <pointLight intensity={2} color={SUN_C} distance={20}/>
+      <mesh><sphereGeometry args={[1.0,16,16]}/><meshBasicMaterial color={SUN_C} transparent opacity={0.05}/></mesh>
+      <pointLight intensity={3} color={SUN_C} distance={25}/>
       <Label text="Soleil" color={SUN_C} show={showLabels}/>
     </group>
 

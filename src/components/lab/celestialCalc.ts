@@ -95,7 +95,9 @@ export function getAllPositions(date: Date): {
  * Pôle Nord au centre, Antarctique en bordure
  */
 export function latLngToFlatDisc(lat: number, lng: number, discRadius: number): [number, number] {
-  const lngRad = (lng * Math.PI) / 180;
+  // Offset calibré sur l'image satellite AE (128°)
+  const AE_OFFSET = 128;
+  const lngRad = ((lng + AE_OFFSET) * Math.PI) / 180;
   const r = ((90 - lat) / 180) * discRadius;
   const x = Math.sin(lngRad) * r;
   const z = -Math.cos(lngRad) * r;
