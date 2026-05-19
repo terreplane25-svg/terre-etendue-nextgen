@@ -70,8 +70,8 @@ function FlatScene({ speed, showLabels, isPlaying }: {
 
   return (
     <group>
-      {/* Lumière ambiante douce */}
-      <ambientLight intensity={0.35} />
+      {/* Lumière ambiante très faible */}
+      <ambientLight intensity={0.15} />
 
       {/* Disque terrestre — texture satellite AE */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
@@ -79,10 +79,16 @@ function FlatScene({ speed, showLabels, isPlaying }: {
         <meshBasicMaterial map={mapTexture} />
       </mesh>
 
-      {/* Zone éclairée — disque doré semi-transparent */}
+      {/* Masque nuit — disque sombre couvrant toute la carte */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.005, 0]}>
+        <circleGeometry args={[DISC_R + 0.1, 128]} />
+        <meshBasicMaterial color="#000008" transparent opacity={0.65} />
+      </mesh>
+
+      {/* Zone éclairée — disque lumineux qui suit le Soleil, par-dessus le masque nuit */}
       <mesh ref={dayZoneRef} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.01, 0]}>
-        <circleGeometry args={[DISC_R * 0.55, 64]} />
-        <meshBasicMaterial color="#FFE880" transparent opacity={0.12} />
+        <circleGeometry args={[DISC_R * 0.48, 64]} />
+        <meshBasicMaterial map={mapTexture} />
       </mesh>
 
       {/* Soleil */}

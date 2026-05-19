@@ -1,7 +1,7 @@
 'use client';
 import React, { useRef, useState, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Line, Html } from '@react-three/drei';
+import { OrbitControls, Line, Html, Stars } from '@react-three/drei';
 import * as THREE from 'three';
 
 type Mode = 'classic' | 'vortex';
@@ -59,33 +59,30 @@ function ClassicScene({speed,showLabels}:{speed:number;showLabels:boolean}){
   </group>;
 }
 
-// ═══ VORTEX — système solaire en déplacement galactique ═══
+// ═══ VORTEX — traînées hélicoïdales visibles ═══
 function VortexScene({speed,showLabels}:{speed:number;showLabels:boolean}){
   const groupRef=useRef<THREE.Group>(null);
   const refs=useRef<(THREE.Group|null)[]>([]);
   const moonRef=useRef<THREE.Group>(null);
   const sunRef=useRef<THREE.Group>(null);
-  const trailsRef=useRef<THREE.Vector3[][]>(PLANETS.map(()=>[]));
+  const [sunTrail, setSunTrail]=useState<[number,number,number][]>([]);
+  const [pTrails, setPTrails]=useState<[number,number,number][][]>(PLANETS.map(()=>[]));
+  const frameCount=useRef(0);
 
   useFrame(({clock})=>{
     const t=clock.getElapsedTime()*speed*0.15;
-    // Le système solaire avance le long de l'axe Z (direction galactique)
-    const galacticSpeed = 2.0;
-    const zOffset = t * galacticSpeed;
+    const galV = 2.0;
+    const z = t * galV;
 
-    if(sunRef.current) sunRef.current.position.set(0, 0, zOffset);
+    if(sunRef.current) sunRef.current.position.set(0, 0, z);
 
+    const newPTrails = [...pTrails];
     PLANETS.forEach((p,i)=>{
       const g=refs.current[i];if(!g)return;
       const a=(t*2/p.period)*Math.PI*2;
       const x = Math.cos(a)*p.r;
       const y = Math.sin(a)*p.r;
-      g.position.set(x, y, zOffset);
-
-      // Trail (traînée hélicoïdale)
-      const trail = trailsRef.current[i];
-      trail.push(new THREE.Vector3(x, y, zOffset));
-      if(trail.length > 150) trail.shift();
+      g.position.set(x, y, z);
     });
 
     if(moonRef.current&&refs.current[2]){
@@ -94,36 +91,53 @@ function VortexScene({speed,showLabels}:{speed:number;showLabels:boolean}){
       moonRef.current.position.set(e.x+Math.cos(ma)*0.4, e.y+Math.sin(ma)*0.4, e.z);
     }
 
-    // Caméra suit le groupe
-    if(groupRef.current) groupRef.current.position.z = -zOffset;
+    if(groupRef.current) groupRef.current.position.z = -z;
+
+    // Update trails every 3 frames for performance
+    frameCount.current++;
+    if(frameCount.current%3===0){
+      setSunTrail(prev=>{const n=[...prev,[0,0,z] as [number,number,number]];return n.length>150?n.slice(-150):n;});
+      setPTrails(prev=>prev.map((trail,i)=>{
+        const g=refs.current[i];if(!g)return trail;
+        const p=g.position;
+        const n=[...trail,[p.x,p.y,p.z] as [number,number,number]];
+        return n.length>150?n.slice(-150):n;
+      }));
+    }
   });
 
+  const spaceTex = useMemo(()=>new THREE.TextureLoader().load('/textures/space-bg.jpg'),[]);
+
   return <group ref={groupRef}>
+    {/* Fond d'espace */}
+    <mesh><sphereGeometry args={[80,32,32]}/><meshBasicMaterial map={spaceTex} side={THREE.BackSide}/></mesh>
+
+    {/* Traînée Soleil */}
+    {sunTrail.length>1 && <Line points={sunTrail.map(p=>new THREE.Vector3(...p))} color={SUN_C} opacity={0.5} transparent lineWidth={1.5}/>}
+
     {/* Soleil */}
     <group ref={sunRef}>
       <mesh><sphereGeometry args={[0.4,32,32]}/><meshStandardMaterial color={SUN_C} emissive={SUN_C} emissiveIntensity={1.5}/></mesh>
-      <mesh><sphereGeometry args={[0.8,16,16]}/><meshBasicMaterial color={SUN_C} transparent opacity={0.06}/></mesh>
+      <mesh><sphereGeometry args={[0.8,16,16]}/><meshBasicMaterial color={SUN_C} transparent opacity={0.08}/></mesh>
       <pointLight intensity={2} color={SUN_C} distance={20}/>
       <Label text="Soleil" color={SUN_C} show={showLabels}/>
     </group>
 
     {/* Planètes + traînées */}
     {PLANETS.map((p,i)=>(
-      <group key={p.name}>
+      <React.Fragment key={p.name}>
+        {pTrails[i].length>1 && <Line points={pTrails[i].map(pt=>new THREE.Vector3(...pt))} color={p.color} opacity={0.35} transparent lineWidth={1}/>}
         <group ref={el=>{refs.current[i]=el;}}>
-          <mesh><sphereGeometry args={[p.size,20,20]}/><meshStandardMaterial color={p.color} emissive={p.color} emissiveIntensity={0.2} roughness={0.6}/></mesh>
+          <mesh><sphereGeometry args={[p.size,20,20]}/><meshStandardMaterial color={p.color} emissive={p.color} emissiveIntensity={0.3} roughness={0.6}/></mesh>
           <Label text={p.name} color={p.color} show={showLabels}/>
         </group>
-      </group>
+      </React.Fragment>
     ))}
 
     {/* Lune */}
     <group ref={moonRef}>
       <mesh><sphereGeometry args={[0.04,16,16]}/><meshStandardMaterial color="#C8C8D0" roughness={0.4}/></mesh>
     </group>
-
-    {/* Direction de déplacement */}
-    <Line points={[new THREE.Vector3(0,0,-50), new THREE.Vector3(0,0,50)]} color="#00C8FF" opacity={0.05} transparent lineWidth={0.5}/>
   </group>;
 }
 
@@ -136,16 +150,13 @@ export default function GeoHelioSim(){
   return <div className="w-full">
     <div className="flex flex-wrap items-center gap-2 mb-3">
       <div className="flex gap-1">
-        <button onClick={()=>setMode('classic')}
-          className="px-3 md:px-4 py-2 text-[8px] md:text-[9px] font-orbitron tracking-widest border transition-all"
-          style={{clipPath:'polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)',
-            borderColor:mode==='classic'?'#00C8FF99':'#334155',backgroundColor:mode==='classic'?'#00C8FF1a':'transparent',color:mode==='classic'?'#00C8FF':'#64748b'}}
-        >CLASSIQUE</button>
-        <button onClick={()=>setMode('vortex')}
-          className="px-3 md:px-4 py-2 text-[8px] md:text-[9px] font-orbitron tracking-widest border transition-all"
-          style={{clipPath:'polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)',
-            borderColor:mode==='vortex'?'#D4A84399':'#334155',backgroundColor:mode==='vortex'?'#D4A8431a':'transparent',color:mode==='vortex'?'#D4A843':'#64748b'}}
-        >VORTEX GALACTIQUE</button>
+        {([['classic','CLASSIQUE','#00C8FF'],['vortex','VORTEX GALACTIQUE','#D4A843']] as const).map(([id,lbl,col])=>(
+          <button key={id} onClick={()=>setMode(id as Mode)}
+            className="px-3 md:px-4 py-2 text-[8px] md:text-[9px] font-orbitron tracking-widest border transition-all"
+            style={{clipPath:'polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)',
+              borderColor:mode===id?col+'99':'#334155',backgroundColor:mode===id?col+'1a':'transparent',color:mode===id?col:'#64748b'}}
+          >{lbl}</button>
+        ))}
       </div>
       <div className="flex items-center gap-2 ml-auto">
         <span className="text-[8px] font-tech-mono text-slate-500">VIT.</span>
@@ -166,7 +177,7 @@ export default function GeoHelioSim(){
           ◉ {mode==='classic'?'HÉLIOCENTRIQUE CLASSIQUE':'VORTEX GALACTIQUE'}
         </div>
         <div className="text-[8px] font-tech-mono text-slate-600 mt-1">
-          {mode==='classic'?'Soleil fixe — planètes en orbite circulaire':'Système solaire en déplacement à ~828 000 km/h'}
+          {mode==='classic'?'Soleil fixe — planètes en orbite':'Le système solaire fonce à ~828 000 km/h dans la galaxie'}
         </div>
       </div>
       <Canvas camera={{position:mode==='classic'?[0,12,8]:[8,6,4],fov:50}} key={mode}>
@@ -179,13 +190,12 @@ export default function GeoHelioSim(){
     <div className="mt-3 border border-slate-800/50 bg-[#0A1020] p-4">
       <p className="text-[13px] text-[#C8D8E8]/60 font-rajdhani leading-relaxed">
         {mode==='classic'
-          ?"Modèle héliocentrique classique (Copernic, 1543). Le Soleil est immobile au centre, les planètes orbitent autour de lui. Chaque planète a sa propre période orbitale. Ce modèle est cinématiquement équivalent au modèle géocentrique."
-          :"Le Soleil n\u2019est pas fixe — il voyage à ~828 000 km/h autour du centre de la Voie Lactée. Les planètes ne forment pas un manège fixe mais un convoi en forme de vortex hélicoïdal. Le système solaire est une escadrille en déplacement, chaque planète traçant une spirale dans l\u2019espace."}
+          ?"Modèle héliocentrique classique. Le Soleil est au centre, les planètes orbitent. Chaque planète a sa propre période."
+          :"Le Soleil n\u2019est pas fixe \u2014 il voyage à ~828 000 km/h dans la Voie Lactée. Les planètes tracent des spirales hélicoïdales (vortex). Les traînées colorées montrent la trajectoire réelle de chaque planète dans l\u2019espace galactique."}
       </p>
       <div className="flex flex-wrap items-center gap-3 mt-3 pt-3 border-t border-slate-800/30">
         <span className="text-[8px] font-tech-mono text-slate-600">ARTICLES :</span>
         <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[9px] font-tech-mono text-[#00C8FF]/50 hover:text-[#00C8FF]">L&apos;hypothèse nulle →</a>
-        <a href="/article/200-ans-de-resultats-nuls-darago-a-einstein" className="text-[9px] font-tech-mono text-[#00C8FF]/50 hover:text-[#00C8FF]">200 ans de résultats nuls →</a>
       </div>
     </div>
   </div>;
