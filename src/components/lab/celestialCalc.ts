@@ -99,8 +99,9 @@ export function latLngToFlatDisc(lat: number, lng: number, discRadius: number): 
   const AE_OFFSET = 128;
   const lngRad = ((lng + AE_OFFSET) * Math.PI) / 180;
   const r = ((90 - lat) / 180) * discRadius;
-  const x = Math.sin(lngRad) * r;
-  const z = -Math.cos(lngRad) * r;
+  // Inverser x pour corriger le sens de rotation (horaire vu du dessus)
+  const x = -Math.sin(lngRad) * r;
+  const z = Math.cos(lngRad) * r;
   return [x, z];
 }
 

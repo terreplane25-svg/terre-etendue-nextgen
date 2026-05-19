@@ -67,7 +67,7 @@ export default function ProjectionSim(){
     let loaded=0;
     const check=()=>{loaded++;if(loaded===2)setImgCache({...imgs});};
     const m=new Image();m.crossOrigin='anonymous';m.onload=()=>{imgs['mercator']=m;check();};m.src='/textures/mercator-map.jpg';
-    const a=new Image();a.crossOrigin='anonymous';a.onload=()=>{imgs['azimuthal']=a;check();};a.src='/textures/ae-map.jpg';
+    const a=new Image();a.crossOrigin='anonymous';a.onload=()=>{imgs['azimuthal']=a;check();};a.src='/textures/ae-map-routes.jpg';
   },[]);
 
   const draw=useCallback(()=>{
@@ -77,22 +77,22 @@ export default function ProjectionSim(){
     const ctx=cv.getContext('2d');if(!ctx)return;
     ctx.fillStyle='#050A12';ctx.fillRect(0,0,W,H);
     ctx.drawImage(img,0,0,W,H);
-    if(!showRoutes)return;
+    if(!showRoutes || projection==='azimuthal') return;
 
     activeRoutes.forEach(route=>{
-      const pts=projection==='azimuthal'?[route.from,route.to]:greatCircle(route.from,route.to);
+      const pts=greatCircle(route.from,route.to);
       ctx.strokeStyle=route.color;ctx.lineWidth=3;ctx.lineJoin='round';ctx.lineCap='round';ctx.setLineDash([]);
       ctx.beginPath();let started=false;let prevX=0;
       pts.forEach(pt=>{
-        const [x,y]=proj(projection,pt.lat,pt.lng,W,H);
+        const [x,y]=mercProj(pt.lat,pt.lng,W,H);
         if(!started){ctx.moveTo(x,y);started=true;prevX=x;return;}
         if(Math.abs(x-prevX)>W*0.4){ctx.moveTo(x,y);}else{ctx.lineTo(x,y);}
         prevX=x;
       });
       ctx.stroke();
 
-      const [fx,fy]=proj(projection,route.from.lat,route.from.lng,W,H);
-      const [tx,ty]=proj(projection,route.to.lat,route.to.lng,W,H);
+      const [fx,fy]=mercProj(route.from.lat,route.from.lng,W,H);
+      const [tx,ty]=mercProj(route.to.lat,route.to.lng,W,H);
       [{x:fx,y:fy,l:route.from.label},{x:tx,y:ty,l:route.to.label}].forEach(({x,y,l})=>{
         ctx.fillStyle=route.color;ctx.beginPath();ctx.arc(x,y,6,0,Math.PI*2);ctx.fill();
         ctx.globalAlpha=0.2;ctx.beginPath();ctx.arc(x,y,12,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
