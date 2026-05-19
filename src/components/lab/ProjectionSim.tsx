@@ -1,5 +1,5 @@
 'use client';
-import { useState, useMemo, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 
 type Proj = 'mercator' | 'azimuthal';
 
@@ -15,7 +15,6 @@ const ROUTES: Route[] = [
 
 function toRad(d:number){return d*Math.PI/180;}
 
-// Mercator
 function mercProj(lat:number,lng:number,w:number,h:number):[number,number]{
   const x=((lng+180)/360)*w;
   const lr=toRad(Math.max(-85,Math.min(85,lat)));
@@ -23,23 +22,19 @@ function mercProj(lat:number,lng:number,w:number,h:number):[number,number]{
   return [x,Math.max(0,Math.min(h,y))];
 }
 
-// Azimutale equidistante (pôle Nord)
 function aeProj(lat:number,lng:number,w:number,h:number):[number,number]{
-  const lr=toRad(lng), r=((90-lat)/180), cx=w/2, cy=h/2, mr=Math.min(w,h)*0.45;
-  return [cx+Math.sin(lr)*r*mr, cy-Math.cos(lr)*r*mr];
+  const lr=toRad(lng);
+  const r=((90-lat)/180);
+  const cx=w/2, cy=h/2;
+  const maxR=Math.min(w,h)*0.47;
+  return [cx+Math.sin(lr)*r*maxR, cy-Math.cos(lr)*r*maxR];
 }
 
 function proj(t:Proj,lat:number,lng:number,w:number,h:number):[number,number]{
   return t==='mercator'?mercProj(lat,lng,w,h):aeProj(lat,lng,w,h);
 }
 
-// Great circle pour Mercator, LIGNE DROITE pour AE
-function interpolate(from:GeoPoint,to:GeoPoint,type:Proj,segs=60):GeoPoint[]{
-  if(type==='azimuthal'){
-    // Lignes droites sur AE — pas d'interpolation great circle
-    return [from, to];
-  }
-  // Great circle pour Mercator
+function greatCircle(from:GeoPoint,to:GeoPoint,segs=60):GeoPoint[]{
   const lat1=toRad(from.lat),lng1=toRad(from.lng),lat2=toRad(to.lat),lng2=toRad(to.lng);
   const d=2*Math.asin(Math.sqrt(Math.sin((lat2-lat1)/2)**2+Math.cos(lat1)*Math.cos(lat2)*Math.sin((lng2-lng1)/2)**2));
   if(d<0.0001)return[from,to];
@@ -55,88 +50,106 @@ function interpolate(from:GeoPoint,to:GeoPoint,type:Proj,segs=60):GeoPoint[]{
   return pts;
 }
 
-function MapView({projection,routes,showRoutes,width,height}:{
-  projection:Proj; routes:Route[]; showRoutes:boolean; width:number; height:number;
-}){
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imgRef = useRef<HTMLImageElement|null>(null);
-  const [imgLoaded, setImgLoaded] = useState(false);
-
-  const texSrc = projection==='mercator'?'/textures/mercator-map.jpg':'/textures/ae-map.jpg';
-
-  useEffect(()=>{
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = ()=>{ imgRef.current = img; setImgLoaded(true); };
-    img.src = texSrc;
-  },[texSrc]);
-
-  useEffect(()=>{
-    const cv = canvasRef.current;
-    const img = imgRef.current;
-    if(!cv||!img||!imgLoaded) return;
-    const ctx = cv.getContext('2d');
-    if(!ctx) return;
-
-    ctx.clearRect(0,0,width,height);
-    ctx.drawImage(img, 0, 0, width, height);
-
-    // Routes
-    if(showRoutes){
-      routes.forEach(route=>{
-        const pts = interpolate(route.from, route.to, projection);
-        // Dessiner
-        ctx.strokeStyle = route.color;
-        ctx.lineWidth = 2.5;
-        ctx.setLineDash([]);
-        ctx.beginPath();
-        let prevX = 0;
-        let started = false;
-        pts.forEach(pt=>{
-          const [x,y] = proj(projection, pt.lat, pt.lng, width, height);
-          if(!started){ctx.moveTo(x,y);started=true;prevX=x;return;}
-          if(Math.abs(x-prevX)>width*0.4){ctx.moveTo(x,y);}
-          else{ctx.lineTo(x,y);}
-          prevX=x;
-        });
-        ctx.stroke();
-
-        // Points de départ/arrivée
-        const [fx,fy]=proj(projection, route.from.lat, route.from.lng, width, height);
-        const [tx,ty]=proj(projection, route.to.lat, route.to.lng, width, height);
-
-        [
-          {x:fx,y:fy,l:route.from.label},
-          {x:tx,y:ty,l:route.to.label},
-        ].forEach(({x,y,l})=>{
-          ctx.fillStyle=route.color;
-          ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fill();
-          ctx.beginPath();ctx.arc(x,y,10,0,Math.PI*2);
-          ctx.fillStyle=route.color+'30';ctx.fill();
-          ctx.fillStyle=route.color;
-          ctx.font='11px monospace';
-          ctx.fillText(l, x+12, y+4);
-        });
-      });
-    }
-
-    // Label projection
-    ctx.fillStyle='rgba(200,216,232,0.4)';
-    ctx.font='12px monospace';
-    ctx.fillText(projection==='mercator'?'MERCATOR':'AZIMUTALE ÉQUIDISTANTE', 12, 22);
-  },[projection,routes,showRoutes,width,height,imgLoaded]);
-
-  return <canvas ref={canvasRef} width={width} height={height}
-    className="w-full h-auto" style={{imageRendering:'auto'}} />;
-}
-
 export default function ProjectionSim(){
   const [projection,setProjection]=useState<Proj>('mercator');
   const [showRoutes,setShowRoutes]=useState(true);
   const [selected,setSelected]=useState<Set<number>>(new Set([0,1,2,3]));
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [imgCache, setImgCache] = useState<Record<string, HTMLImageElement>>({});
+
   const activeRoutes = ROUTES.filter((_,i)=>selected.has(i));
   const toggle=(i:number)=>{setSelected(p=>{const n=new Set(p);n.has(i)?n.delete(i):n.add(i);return n;});};
-  const W=900, H=projection==='azimuthal'?900:600;
+
+  // Précharger les deux images au montage
+  useEffect(()=>{
+    const imgs: Record<string, HTMLImageElement> = {};
+    let loaded = 0;
+    const check = ()=>{ loaded++; if(loaded===2) setImgCache({...imgs}); };
+    
+    const m = new Image();
+    m.crossOrigin='anonymous';
+    m.onload=()=>{imgs['mercator']=m; check();};
+    m.src='/textures/mercator-map.jpg';
+
+    const a = new Image();
+    a.crossOrigin='anonymous';
+    a.onload=()=>{imgs['azimuthal']=a; check();};
+    a.src='/textures/ae-map.jpg';
+  },[]);
+
+  const W = 1200;
+  const H = projection==='azimuthal' ? 1200 : 750;
+
+  // Redessiner à chaque changement
+  const draw = useCallback(()=>{
+    const cv = canvasRef.current;
+    const img = imgCache[projection];
+    if(!cv||!img) return;
+
+    cv.width = W;
+    cv.height = H;
+    const ctx = cv.getContext('2d');
+    if(!ctx) return;
+
+    ctx.clearRect(0,0,W,H);
+    
+    // Fond sombre
+    ctx.fillStyle='#050A12';
+    ctx.fillRect(0,0,W,H);
+    
+    // Dessiner l'image de la carte
+    ctx.drawImage(img, 0, 0, W, H);
+
+    if(!showRoutes) return;
+
+    // Dessiner les routes
+    activeRoutes.forEach(route=>{
+      // AE = lignes droites, Mercator = great circle
+      const pts = projection==='azimuthal'
+        ? [route.from, route.to]
+        : greatCircle(route.from, route.to);
+
+      ctx.strokeStyle = route.color;
+      ctx.lineWidth = 3;
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+      ctx.setLineDash([]);
+      ctx.beginPath();
+      let started = false;
+      let prevX = 0;
+      pts.forEach(pt=>{
+        const [x,y] = proj(projection, pt.lat, pt.lng, W, H);
+        if(!started){ctx.moveTo(x,y);started=true;prevX=x;return;}
+        if(Math.abs(x-prevX)>W*0.4){ctx.moveTo(x,y);}
+        else{ctx.lineTo(x,y);}
+        prevX=x;
+      });
+      ctx.stroke();
+
+      // Points + labels
+      const [fx,fy]=proj(projection, route.from.lat, route.from.lng, W, H);
+      const [tx,ty]=proj(projection, route.to.lat, route.to.lng, W, H);
+
+      [{x:fx,y:fy,l:route.from.label},{x:tx,y:ty,l:route.to.label}].forEach(({x,y,l})=>{
+        ctx.fillStyle=route.color;
+        ctx.beginPath();ctx.arc(x,y,6,0,Math.PI*2);ctx.fill();
+        ctx.globalAlpha=0.2;
+        ctx.beginPath();ctx.arc(x,y,12,0,Math.PI*2);ctx.fill();
+        ctx.globalAlpha=1;
+        ctx.font='bold 13px monospace';
+        ctx.fillStyle=route.color;
+        ctx.fillText(l, x+14, y+5);
+      });
+    });
+
+    // Label projection
+    ctx.fillStyle='rgba(200,216,232,0.4)';
+    ctx.font='14px monospace';
+    ctx.letterSpacing='0.15em';
+    ctx.fillText(projection==='mercator'?'MERCATOR':'AZIMUTALE ÉQUIDISTANTE', 14, 26);
+  },[projection, activeRoutes, showRoutes, imgCache, W, H]);
+
+  useEffect(()=>{ draw(); },[draw]);
 
   return <div className="w-full">
     <div className="flex flex-wrap items-center gap-2 mb-4">
@@ -158,18 +171,18 @@ export default function ProjectionSim(){
         >{r.label}</button>
       ))}
     </div>}
-    <div className="w-full border border-slate-800/50 relative overflow-hidden">
+    <div className="w-full border border-slate-800/50 relative overflow-hidden bg-[#050A12]">
       <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[#00C8FF]/30 z-10"/>
       <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[#00C8FF]/30 z-10"/>
       <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[#00C8FF]/30 z-10"/>
       <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-[#00C8FF]/30 z-10"/>
-      <MapView projection={projection} routes={activeRoutes} showRoutes={showRoutes} width={W} height={H} />
+      <canvas ref={canvasRef} width={W} height={H} className="w-full h-auto" />
     </div>
     <div className="mt-4 border border-slate-800/50 bg-[#0A1020] p-4">
       <p className="text-[13px] text-[#C8D8E8]/60 font-rajdhani leading-relaxed">
         {projection==='mercator'
-          ?"Mercator (1569) conserve les angles mais déforme les aires. Le Groenland paraît aussi grand que l\u2019Afrique (×14 en réalité). Les routes great-circle apparaissent courbes."
-          :"L\u2019azimutale équidistante, centrée sur le pôle Nord, préserve les distances depuis le centre. Les routes aériennes y apparaissent en lignes droites — ce qui correspond au plus court chemin sur cette projection."}
+          ?"Mercator (1569) conserve les angles mais déforme les aires. Les routes great-circle (plus court chemin sur un globe) apparaissent courbes."
+          :"L\u2019azimutale équidistante préserve les distances depuis le pôle Nord. Les routes aériennes apparaissent en lignes droites \u2014 c\u2019est le plus court chemin sur cette projection."}
       </p>
       <div className="flex items-center gap-4 mt-3 pt-3 border-t border-slate-800/30">
         <span className="text-[8px] font-tech-mono text-slate-600">ARTICLE :</span>
