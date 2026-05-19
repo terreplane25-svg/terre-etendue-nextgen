@@ -96,12 +96,12 @@ export function getAllPositions(date: Date): {
  */
 export function latLngToFlatDisc(lat: number, lng: number, discRadius: number): [number, number] {
   // Offset calibré sur l'image satellite AE (128°)
+  // Longitude inversée pour que le mouvement soit HORAIRE vu du dessus (pôle Nord)
   const AE_OFFSET = 128;
-  const lngRad = ((lng + AE_OFFSET) * Math.PI) / 180;
+  const lngRad = ((-lng + AE_OFFSET) * Math.PI) / 180;
   const r = ((90 - lat) / 180) * discRadius;
-  // Inverser x pour corriger le sens de rotation (horaire vu du dessus)
-  const x = -Math.sin(lngRad) * r;
-  const z = Math.cos(lngRad) * r;
+  const x = Math.sin(lngRad) * r;
+  const z = -Math.cos(lngRad) * r;
   return [x, z];
 }
 
