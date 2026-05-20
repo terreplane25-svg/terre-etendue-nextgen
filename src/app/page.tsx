@@ -53,8 +53,8 @@ export default function HomePage() {
           </motion.p>
 
           <motion.div variants={fadeUp} className="flex flex-wrap gap-3">
-            <Link href="/nexus" className="hud-btn">EXPLORER LE NEXUS →</Link>
-            <Link href="/library" className="hud-btn hud-btn-gold">BIBLIOTHÈQUE</Link>
+            <Link href="/library" className="hud-btn hud-btn-gold">BIBLIOTHÈQUE →</Link>
+            <Link href="/lab" className="hud-btn">LE LAB →</Link>
           </motion.div>
         </motion.div>
       </section>
