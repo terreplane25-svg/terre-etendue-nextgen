@@ -191,15 +191,27 @@ export default function CurvatureCalc(){
       </div>
     </div>
 
-    {/* Cas réels */}
-    <div className="flex flex-wrap gap-2 mb-5">
-      <span className="text-[11px] font-tech-mono text-slate-500 self-center">CAS RÉELS :</span>
-      {PRESETS.map(p=>(
-        <button key={p.label} onClick={()=>{setDist(p.d);setObsM(p.oh);setTgtM(p.th);setK(p.k);}}
-          title={p.desc}
-          className="px-4 py-2 text-[11px] font-tech-mono border border-slate-600 text-slate-300 hover:border-[#00C8FF]/50 hover:text-[#00C8FF] transition-all"
-        >{p.label}</button>
-      ))}
+    {/* Cas réels — avec détails */}
+    <div className="mb-5">
+      <div className="text-[11px] font-tech-mono text-slate-500 mb-3">CAS RÉELS DOCUMENTÉS :</div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
+        {PRESETS.map(p=>{
+          const fmtH = (m:number) => m>=1000 ? `${(m/1000).toFixed(1)} km` : `${m} m`;
+          return (
+            <button key={p.label} onClick={()=>{setDist(p.d);setObsM(p.oh);setTgtM(p.th);setK(p.k);}}
+              className="border border-slate-700 bg-[#0A1020] p-3 text-left hover:border-[#00C8FF]/50 transition-all group"
+            >
+              <div className="text-[12px] font-tech-mono text-slate-200 group-hover:text-[#00C8FF] mb-2 font-bold">{p.label}</div>
+              <div className="text-[10px] font-tech-mono text-slate-500 space-y-0.5">
+                <div>Distance : <span className="text-[#00C8FF]/70">{p.d} km</span></div>
+                <div>Observateur : <span className="text-[#00C8FF]/70">{fmtH(p.oh)}</span></div>
+                <div>Cible : <span className="text-[#00C8FF]/70">{fmtH(p.th)}</span></div>
+                <div>Réfraction : <span className="text-[#D4A843]/70">k = {p.k}</span></div>
+              </div>
+            </button>
+          );
+        })}
+      </div>
     </div>
 
     {/* Canvas 3D */}
