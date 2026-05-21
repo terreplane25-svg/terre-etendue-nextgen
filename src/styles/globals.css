@@ -8,7 +8,8 @@
    ═══════════════════════════════════════════════════════════════ */
 
 @layer base {
-  :root {
+  /* ═══ MODE SOMBRE (défaut) ═══ */
+  :root, [data-theme="dark"] {
     --void: #050A12;
     --hull: #0A1020;
     --panel: #0D1528;
@@ -27,10 +28,42 @@
     --text-30: rgba(200, 216, 232, 0.3);
     --text-15: rgba(200, 216, 232, 0.15);
     --green: #00E87B;
+    color-scheme: dark;
   }
 
-  * { scrollbar-width: thin; scrollbar-color: rgba(0,200,255,0.1) transparent; }
-  ::selection { background: rgba(0, 200, 255, 0.2); color: var(--cyan); }
+  /* ═══ MODE CLAIR ═══ */
+  [data-theme="light"] {
+    --void: #F4F1EB;
+    --hull: #EDE8E0;
+    --panel: #FFFFFF;
+    --panel-edge: rgba(0, 100, 140, 0.10);
+    --cyan: #0088AA;
+    --cyan-50: rgba(0, 136, 170, 0.5);
+    --cyan-20: rgba(0, 136, 170, 0.2);
+    --cyan-08: rgba(0, 136, 170, 0.06);
+    --cyan-04: rgba(0, 136, 170, 0.03);
+    --gold: #9A7B2F;
+    --gold-50: rgba(154, 123, 47, 0.5);
+    --gold-20: rgba(154, 123, 47, 0.2);
+    --gold-08: rgba(154, 123, 47, 0.06);
+    --text: #1A1A2E;
+    --text-60: rgba(26, 26, 46, 0.65);
+    --text-30: rgba(26, 26, 46, 0.35);
+    --text-15: rgba(26, 26, 46, 0.12);
+    --green: #00995A;
+    color-scheme: light;
+  }
+
+  /* Transition globale pour le changement de thème */
+  html { transition: background-color 0.4s ease; }
+  body { background: var(--void); color: var(--text); transition: background-color 0.4s ease, color 0.3s ease; }
+  [data-theme="light"] body { background: var(--void); color: var(--text); }
+
+  /* Mode clair — ajustements spécifiques */
+  [data-theme="light"] .hud-card,
+  [data-theme="light"] .hud-panel { box-shadow: 0 1px 12px rgba(0,0,0,0.04); }
+  [data-theme="light"] ::selection { background: rgba(0,136,170,0.15); color: var(--cyan); }
+  [data-theme="light"] * { scrollbar-color: rgba(0,100,140,0.12) transparent; }
 
   @keyframes scan {
     0% { top: 0; opacity: 0; }

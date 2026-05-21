@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import SearchCommand from '@/components/SearchCommand';
+import ThemeToggle from '@/components/ThemeToggle';
 import { FontOrbitron, FontTechMono } from '@/components/FontWrappers';
 
 const NAV_ITEMS = [
@@ -75,6 +76,7 @@ export default function Navigation() {
           {/* Search + Status + mobile burger */}
           <div className="flex items-center gap-4">
             <SearchCommand />
+            <ThemeToggle />
             <div className="hidden sm:flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-[#00E87B] shadow-[0_0_8px_#00E87B] animate-[pulse-dot_2s_ease-in-out_infinite]" />
               <FontTechMono className="text-[11px] text-[#C8D8E8]/30">EN LIGNE</FontTechMono>
