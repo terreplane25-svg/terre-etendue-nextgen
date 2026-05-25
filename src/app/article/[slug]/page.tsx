@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getArticle, getAllArticles } from "@/lib/articles";
 import ArticleReader from "@/components/ArticleReader";
+import RelatedArticles from "@/components/RelatedArticles";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -11,13 +12,50 @@ export async function generateStaticParams() {
   return articles.map((article) => ({ slug: article.slug }));
 }
 
+const SITE_URL = 'https://terre-etendue-islam.fr';
+
+const CATEGORY_LABELS: Record<string, string> = {
+  headquarters: 'Le Q.G. — Épistémologie',
+  observatory: "L'Observatoire — Empirique",
+  library: 'La Bibliothèque — Sources Sacrées',
+  lab: 'Le Lab — Modélisation',
+  meta: 'À propos',
+};
+
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
   const article = await getArticle(slug);
   if (!article) return { title: "Article introuvable" };
+
+  const categoryLabel = CATEGORY_LABELS[article.category] || article.category;
+
   return {
     title: article.title,
     description: article.description,
+    keywords: article.tags?.join(', '),
+    authors: [{ name: article.author || 'Collectif TEI' }],
+    openGraph: {
+      title: article.title,
+      description: article.description,
+      url: `${SITE_URL}/article/${slug}`,
+      siteName: 'Terre Étendue Islam',
+      locale: 'fr_FR',
+      type: 'article',
+      publishedTime: article.date,
+      authors: [article.author || 'Collectif TEI'],
+      tags: article.tags,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: article.description,
+    },
+    alternates: {
+      canonical: `${SITE_URL}/article/${slug}`,
+    },
+    other: {
+      'article:section': categoryLabel,
+    },
   };
 }
 
@@ -27,9 +65,37 @@ export default async function ArticlePage({ params }: PageProps) {
 
   if (!article) notFound();
 
+  const allArticles = getAllArticles().map(a => ({
+    slug: a.slug,
+    title: a.title,
+    description: a.description || '',
+    category: a.category,
+    tags: a.tags || [],
+  }));
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description: article.description,
+    datePublished: article.date,
+    author: { '@type': 'Organization', name: article.author || 'Collectif TEI' },
+    publisher: { '@type': 'Organization', name: 'Terre Étendue Islam' },
+    url: `${SITE_URL}/article/${slug}`,
+    mainEntityOfPage: `${SITE_URL}/article/${slug}`,
+  };
+
   return (
-    <main className="min-h-screen bg-[#050A12] pt-24 pb-16">
+    <main className="min-h-screen bg-[var(--void)] pt-24 pb-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <ArticleReader article={article} />
+      <div className="max-w-[800px] mx-auto px-6">
+        <RelatedArticles
+          currentSlug={slug}
+          currentTags={article.tags || []}
+          allArticles={allArticles}
+        />
+      </div>
     </main>
   );
 }
