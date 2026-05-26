@@ -641,6 +641,89 @@ blockquote.tei-note {
   margin: 28px 0;
 }
 
+.prose-tei figure {
+  margin: 32px 0;
+  padding: 0;
+}
+
+.prose-tei figure img {
+  margin: 0;
+  width: 100%;
+}
+
+.prose-tei figcaption {
+  font-family: var(--font-tech-mono), monospace;
+  font-size: 0.72em;
+  letter-spacing: 0.04em;
+  color: var(--text-40);
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-left: 2px solid var(--cyan-15);
+  line-height: 1.6;
+}
+
+/* Timeline visual */
+.tei-timeline {
+  position: relative;
+  padding-left: 28px;
+  margin: 24px 0;
+}
+
+.tei-timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--cyan-15), var(--gold-15), var(--cyan-15));
+}
+
+.tei-timeline-item {
+  position: relative;
+  padding: 12px 0 20px 20px;
+}
+
+.tei-timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 16px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--cyan);
+  background: var(--void);
+}
+
+.tei-timeline-item.gold::before {
+  border-color: var(--gold);
+}
+
+.tei-timeline-date {
+  font-family: var(--font-tech-mono), monospace;
+  font-size: 0.75em;
+  color: var(--cyan);
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.tei-timeline-item.gold .tei-timeline-date {
+  color: var(--gold);
+}
+
+.tei-timeline-title {
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.tei-timeline-desc {
+  font-size: 0.9em;
+  color: var(--text-60);
+  line-height: 1.7;
+}
+
 /* Arabic text */
 .tei-arabic {
   font-family: var(--font-amiri), 'Traditional Arabic', serif;
