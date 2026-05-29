@@ -109,7 +109,7 @@ export default function ProjectionSim(){
     <div className="flex flex-wrap items-center gap-2 mb-4">
       {(['mercator','azimuthal'] as const).map(p=>(
         <button key={p} onClick={()=>setProjection(p)}
-          className={`px-4 py-2 text-[9px] font-orbitron tracking-widest border transition-all ${projection===p?'border-[#00C8FF]/60 bg-[#00C8FF]/10 text-[#00C8FF]':'border-slate-700 text-slate-500 hover:border-slate-500'}`}
+          className={`px-4 py-2 text-[9px] font-orbitron tracking-widest border transition-all ${projection===p?'border-[var(--cyan-50)] bg-[var(--cyan-08)] text-[var(--cyan)]':'border-slate-700 text-slate-500 hover:border-slate-500'}`}
           style={{clipPath:'polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)'}}
         >{p==='mercator'?'MERCATOR':'AZIMUTALE ÉQ.'}</button>
       ))}
@@ -125,22 +125,22 @@ export default function ProjectionSim(){
         >{r.label}</button>
       ))}
     </div>}
-    <div className="w-full border border-slate-800/50 relative overflow-hidden bg-[#050A12]">
-      <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[#00C8FF]/30 z-10"/>
-      <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[#00C8FF]/30 z-10"/>
-      <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[#00C8FF]/30 z-10"/>
-      <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-[#00C8FF]/30 z-10"/>
+    <div className="w-full border border-slate-800/50 relative overflow-hidden bg-[var(--void)]">
+      <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[var(--cyan-20)] z-10"/>
+      <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[var(--cyan-20)] z-10"/>
+      <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[var(--cyan-20)] z-10"/>
+      <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-[var(--cyan-20)] z-10"/>
       <canvas ref={canvasRef} width={W} height={H} className="w-full h-auto"/>
     </div>
-    <div className="mt-4 border border-slate-800/50 bg-[#0A1020] p-4">
-      <p className="text-[13px] text-[#C8D8E8]/60 font-rajdhani leading-relaxed">
+    <div className="mt-4 border border-slate-800/50 bg-[var(--hull)] p-4">
+      <p className="text-[13px] text-[var(--text-60)] font-rajdhani leading-relaxed">
         {projection==='mercator'
           ?"Mercator (1569) conserve les angles mais déforme les aires. Les routes great-circle apparaissent courbes."
           :"L\u2019azimutale équidistante préserve les distances depuis le pôle Nord. Les lignes droites sur cette carte représentent le plus court chemin."}
       </p>
       <div className="flex items-center gap-4 mt-3 pt-3 border-t border-slate-800/30">
         <span className="text-[8px] font-tech-mono text-slate-600">ARTICLE :</span>
-        <a href="/article/cartes-routes-boussoles-et-le-mystere-antarctique" className="text-[9px] font-tech-mono text-[#00C8FF]/50 hover:text-[#00C8FF]">Cartes, routes, boussoles →</a>
+        <a href="/article/cartes-routes-boussoles-et-le-mystere-antarctique" className="text-[9px] font-tech-mono text-[var(--cyan)]/50 hover:text-[var(--cyan)]">Cartes, routes, boussoles →</a>
       </div>
     </div>
   </div>;

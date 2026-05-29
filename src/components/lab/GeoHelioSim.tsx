@@ -172,20 +172,20 @@ export default function GeoHelioSim(){
       </div>
       <div className="flex items-center gap-2 ml-auto">
         <span className="text-[8px] font-tech-mono text-slate-500">VIT.</span>
-        <input type="range" min={0.1} max={5} step={0.1} value={speed} onChange={e=>setSpeed(+e.target.value)} className="w-16 md:w-20 accent-[#00C8FF]"/>
-        <span className="text-[8px] font-tech-mono text-[#00C8FF]">&times;{speed.toFixed(1)}</span>
+        <input type="range" min={0.1} max={5} step={0.1} value={speed} onChange={e=>setSpeed(+e.target.value)} className="w-16 md:w-20 accent-[var(--cyan)]"/>
+        <span className="text-[8px] font-tech-mono text-[var(--cyan)]">&times;{speed.toFixed(1)}</span>
       </div>
       <button onClick={()=>setShowLabels(!showLabels)}
         className={`px-3 py-1 text-[8px] font-tech-mono border ${showLabels?'border-slate-600 text-slate-400':'border-slate-800 text-slate-600'}`}
       >NOMS: {showLabels?'ON':'OFF'}</button>
     </div>
     <div className="w-full h-[55vh] md:h-[70vh] border border-slate-800/50 bg-[#030810] relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[#00C8FF]/30 z-10"/>
-      <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[#00C8FF]/30 z-10"/>
-      <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[#00C8FF]/30 z-10"/>
-      <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-[#00C8FF]/30 z-10"/>
+      <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[var(--cyan-20)] z-10"/>
+      <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[var(--cyan-20)] z-10"/>
+      <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[var(--cyan-20)] z-10"/>
+      <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-[var(--cyan-20)] z-10"/>
       <div className="absolute top-3 left-3 z-10">
-        <div className="text-[9px] font-tech-mono tracking-widest" style={{color:mode==='classic'?'#00C8FF99':'#D4A84399'}}>
+        <div className="text-[9px] font-tech-mono tracking-widest" style={{color:mode==='classic'?'var(--cyan)':'var(--gold)',opacity:0.6}}>
           ◉ {mode==='classic'?'HÉLIOCENTRIQUE CLASSIQUE':'VORTEX GALACTIQUE'}
         </div>
         <div className="text-[8px] font-tech-mono text-slate-600 mt-1">
@@ -199,15 +199,15 @@ export default function GeoHelioSim(){
         <OrbitControls enablePan={mode==='vortex'} minDistance={4} maxDistance={25}/>
       </Canvas>
     </div>
-    <div className="mt-3 border border-slate-800/50 bg-[#0A1020] p-4">
-      <p className="text-[13px] text-[#C8D8E8]/60 font-rajdhani leading-relaxed">
+    <div className="mt-3 border border-slate-800/50 bg-[var(--hull)] p-4">
+      <p className="text-[13px] text-[var(--text-60)] font-rajdhani leading-relaxed">
         {mode==='classic'
           ?"Modèle héliocentrique classique. Le Soleil est au centre, les planètes orbitent. Chaque planète a sa propre période."
           :"Le Soleil n\u2019est pas fixe \u2014 il voyage à ~828 000 km/h dans la Voie Lactée. Les planètes tracent des spirales hélicoïdales (vortex). Les traînées colorées montrent la trajectoire réelle de chaque planète dans l\u2019espace galactique."}
       </p>
       <div className="flex flex-wrap items-center gap-3 mt-3 pt-3 border-t border-slate-800/30">
         <span className="text-[8px] font-tech-mono text-slate-600">ARTICLES :</span>
-        <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[9px] font-tech-mono text-[#00C8FF]/50 hover:text-[#00C8FF]">L&apos;hypothèse nulle →</a>
+        <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[9px] font-tech-mono text-[var(--cyan)]/50 hover:text-[var(--cyan)]">L&apos;hypothèse nulle →</a>
       </div>
     </div>
   </div>;

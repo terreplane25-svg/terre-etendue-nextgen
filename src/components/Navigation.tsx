@@ -32,8 +32,8 @@ export default function Navigation() {
     <>
       <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 border-b ${
         scrolled
-          ? 'bg-[#0A1020]/95 backdrop-blur-md border-[rgba(0,200,255,0.08)]'
-          : 'bg-[#0A1020] border-[rgba(0,200,255,0.08)]'
+          ? 'bg-[var(--hull)]/95 backdrop-blur-md border-[rgba(0,200,255,0.08)]'
+          : 'bg-[var(--hull)] border-[rgba(0,200,255,0.08)]'
       }`}>
         <div className="w-full px-8 lg:px-12 h-16 flex items-center justify-between">
           {/* Logo */}
@@ -42,9 +42,9 @@ export default function Navigation() {
               <svg viewBox="0 0 30 30" fill="none" className="absolute inset-0 w-full h-full">
                 <circle cx="15" cy="15" r="13" stroke="rgba(0,200,255,0.35)" strokeWidth="1.2" fill="rgba(0,200,255,0.05)" className="group-hover:stroke-[rgba(0,200,255,0.7)] transition-all" />
               </svg>
-              <FontOrbitron className="relative z-10 text-[12px] font-bold text-[#00C8FF]">TEI</FontOrbitron>
+              <FontOrbitron className="relative z-10 text-[12px] font-bold text-[var(--cyan)]">TEI</FontOrbitron>
             </div>
-            <FontOrbitron className="hidden lg:block text-[13px] tracking-[0.12em] text-[#C8D8E8]/50">
+            <FontOrbitron className="hidden lg:block text-[13px] tracking-[0.12em] text-[var(--text)]/50">
               TERRE ÉTENDUE
             </FontOrbitron>
           </Link>
@@ -59,14 +59,14 @@ export default function Navigation() {
                   href={item.href}
                   className={`text-[11px] tracking-[0.1em] px-5 py-2 transition-all relative font-orbitron ${
                     isActive
-                      ? 'text-[#00C8FF] bg-[rgba(0,200,255,0.1)] border border-[rgba(0,200,255,0.25)]'
-                      : 'text-[#C8D8E8]/40 hover:text-[#C8D8E8]/70 border border-transparent'
+                      ? 'text-[var(--cyan)] bg-[rgba(0,200,255,0.1)] border border-[rgba(0,200,255,0.25)]'
+                      : 'text-[var(--text)]/40 hover:text-[var(--text)]/70 border border-transparent'
                   }`}
                   style={{
                     clipPath: 'polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%)',
                   }}
                 >
-                  <span className="text-[#00C8FF]/70 mr-1.5 font-tech-mono">{item.num}</span>
+                  <span className="text-[var(--cyan)]/70 mr-1.5 font-tech-mono">{item.num}</span>
                   {item.label}
                 </Link>
               );
@@ -78,10 +78,10 @@ export default function Navigation() {
             <SearchCommand />
             <ThemeToggle />
             <div className="hidden sm:flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-[#00E87B] shadow-[0_0_8px_#00E87B] animate-[pulse-dot_2s_ease-in-out_infinite]" />
-              <FontTechMono className="text-[11px] text-[#C8D8E8]/30">EN LIGNE</FontTechMono>
+              <div className="w-2 h-2 rounded-full bg-[var(--green)] shadow-[0_0_8px_var(--green)] animate-[pulse-dot_2s_ease-in-out_infinite]" />
+              <FontTechMono className="text-[11px] text-[var(--text)]/30">EN LIGNE</FontTechMono>
             </div>
-            <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-1.5 text-[#C8D8E8]/50">
+            <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-1.5 text-[var(--text)]/50">
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
@@ -104,10 +104,10 @@ export default function Navigation() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 250 }}
-              className="fixed right-0 top-0 bottom-0 w-64 bg-[#0A1020] border-l border-[rgba(0,200,255,0.08)] z-50 md:hidden p-6"
+              className="fixed right-0 top-0 bottom-0 w-64 bg-[var(--hull)] border-l border-[rgba(0,200,255,0.08)] z-50 md:hidden p-6"
             >
               <div className="flex justify-end mb-8">
-                <button onClick={() => setMobileOpen(false)} className="p-1.5 text-[#C8D8E8]/40"><X size={18} /></button>
+                <button onClick={() => setMobileOpen(false)} className="p-1.5 text-[var(--text)]/40"><X size={18} /></button>
               </div>
               <nav className="space-y-1">
                 {NAV_ITEMS.map((item, i) => {
@@ -118,11 +118,11 @@ export default function Navigation() {
                         href={item.href}
                         onClick={() => setMobileOpen(false)}
                         className={`flex items-center gap-3 px-4 py-3 text-sm transition-colors ${
-                          isActive ? 'bg-[rgba(0,200,255,0.08)] text-[#00C8FF]' : 'text-[#C8D8E8]/35 hover:text-[#C8D8E8]/60'
+                          isActive ? 'bg-[rgba(0,200,255,0.08)] text-[var(--cyan)]' : 'text-[var(--text)]/35 hover:text-[var(--text)]/60'
                         }`}
                         style={{fontSize: '10px', letterSpacing: '0.1em' }}
                       >
-                        <span className="text-[#00C8FF]/60 w-5 font-tech-mono">{item.num}</span>{item.label}
+                        <span className="text-[var(--cyan)]/60 w-5 font-tech-mono">{item.num}</span>{item.label}
                       </Link>
                     </motion.div>
                   );

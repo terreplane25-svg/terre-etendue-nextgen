@@ -57,7 +57,7 @@ function highlightText(text: string, query: string): React.ReactNode {
   const parts = text.split(regex);
   return parts.map((part, i) =>
     regex.test(part) ? (
-      <mark key={i} className="bg-[#00C8FF]/20 text-[#00C8FF] rounded-sm px-0.5">{part}</mark>
+      <mark key={i} className="bg-[var(--cyan)]/20 text-[var(--cyan)] rounded-sm px-0.5">{part}</mark>
     ) : (
       part
     )
@@ -201,11 +201,11 @@ export default function SearchCommand() {
       {/* ── Trigger Button ──────────────────────────────────────────── */}
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2.5 px-4 py-2 text-[11px] text-[#C8D8E8]/30 hover:text-[#C8D8E8]/50 border border-[rgba(0,200,255,0.08)] hover:border-[rgba(0,200,255,0.2)] transition-all rounded-sm font-tech-mono group"
+        className="flex items-center gap-2.5 px-4 py-2 text-[11px] text-[var(--text)]/30 hover:text-[var(--text)]/50 border border-[rgba(0,200,255,0.08)] hover:border-[rgba(0,200,255,0.2)] transition-all rounded-sm font-tech-mono group"
       >
-        <Search size={14} className="group-hover:text-[#00C8FF]/60 transition-colors" />
+        <Search size={14} className="group-hover:text-[var(--cyan)]/60 transition-colors" />
         <span className="hidden sm:inline">RECHERCHER</span>
-        <kbd className="hidden sm:inline text-[9px] ml-1.5 px-1.5 py-0.5 border border-[rgba(0,200,255,0.12)] text-[#C8D8E8]/20 rounded-sm">
+        <kbd className="hidden sm:inline text-[9px] ml-1.5 px-1.5 py-0.5 border border-[rgba(0,200,255,0.12)] text-[var(--text)]/20 rounded-sm">
           ⌘K
         </kbd>
       </button>
@@ -246,21 +246,21 @@ export default function SearchCommand() {
 
                 {/* ── Search Input ──────────────────────────────────── */}
                 <div className="relative flex items-center gap-3 px-5 border-b border-[rgba(0,200,255,0.08)]">
-                  <Search size={18} className="text-[#00C8FF]/50 flex-shrink-0" />
+                  <Search size={18} className="text-[var(--cyan)]/50 flex-shrink-0" />
                   <input
                     ref={inputRef}
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Rechercher dans les articles..."
-                    className="flex-1 bg-transparent py-4 text-[#C8D8E8] placeholder:text-[#C8D8E8]/20 text-sm focus:outline-none font-rajdhani tracking-wide"
+                    className="flex-1 bg-transparent py-4 text-[var(--text)] placeholder:text-[var(--text)]/20 text-sm focus:outline-none font-rajdhani tracking-wide"
                   />
                   {loading && (
-                    <Loader2 size={14} className="text-[#00C8FF]/50 animate-spin flex-shrink-0" />
+                    <Loader2 size={14} className="text-[var(--cyan)]/50 animate-spin flex-shrink-0" />
                   )}
                   <button
                     onClick={() => setOpen(false)}
-                    className="text-[#C8D8E8]/20 hover:text-[#C8D8E8]/50 transition-colors p-1"
+                    className="text-[var(--text)]/20 hover:text-[var(--text)]/50 transition-colors p-1"
                   >
                     <X size={16} />
                   </button>
@@ -268,7 +268,7 @@ export default function SearchCommand() {
 
                 {/* ── Category Filters ──────────────────────────────── */}
                 <div className="flex items-center gap-2 px-5 py-2.5 border-b border-[rgba(0,200,255,0.06)]">
-                  <span className="text-[9px] text-[#C8D8E8]/20 tracking-[0.15em] uppercase font-tech-mono mr-1">
+                  <span className="text-[9px] text-[var(--text)]/20 tracking-[0.15em] uppercase font-tech-mono mr-1">
                     FILTRES
                   </span>
                   {CATEGORIES.map((cat) => {
@@ -292,7 +292,7 @@ export default function SearchCommand() {
 
                   {/* Result count + timing */}
                   {query.length >= 2 && !loading && (
-                    <span className="ml-auto text-[9px] text-[#C8D8E8]/15 font-tech-mono tracking-wider">
+                    <span className="ml-auto text-[9px] text-[var(--text)]/15 font-tech-mono tracking-wider">
                       {searchMeta.count} résultat{searchMeta.count !== 1 ? 's' : ''} · {searchMeta.totalMs}ms
                     </span>
                   )}
@@ -304,9 +304,9 @@ export default function SearchCommand() {
                   {query.length < 2 && (
                     <div className="p-10 text-center">
                       <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-[rgba(0,200,255,0.08)] mb-4">
-                        <Search size={20} className="text-[#00C8FF]/20" />
+                        <Search size={20} className="text-[var(--cyan)]/20" />
                       </div>
-                      <p className="text-[11px] text-[#C8D8E8]/15 font-tech-mono tracking-[0.1em]">
+                      <p className="text-[11px] text-[var(--text)]/15 font-tech-mono tracking-[0.1em]">
                         TAPEZ AU MOINS 2 CARACTÈRES
                       </p>
                     </div>
@@ -316,9 +316,9 @@ export default function SearchCommand() {
                   {query.length >= 2 && !loading && results.length === 0 && (
                     <div className="p-10 text-center">
                       <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-[rgba(200,216,232,0.06)] mb-4">
-                        <X size={20} className="text-[#C8D8E8]/15" />
+                        <X size={20} className="text-[var(--text)]/15" />
                       </div>
-                      <p className="text-[11px] text-[#C8D8E8]/20 font-tech-mono tracking-[0.1em]">
+                      <p className="text-[11px] text-[var(--text)]/20 font-tech-mono tracking-[0.1em]">
                         AUCUN RÉSULTAT POUR &quot;{query}&quot;
                       </p>
                     </div>
@@ -368,13 +368,13 @@ export default function SearchCommand() {
                         <div className="flex-1 min-w-0">
                           {/* Title */}
                           <p className={`text-sm font-rajdhani truncate transition-colors ${
-                            isSelected ? 'text-[#00C8FF]' : 'text-[#C8D8E8]/60 group-hover:text-[#C8D8E8]/80'
+                            isSelected ? 'text-[var(--cyan)]' : 'text-[var(--text)]/60 group-hover:text-[var(--text)]/80'
                           }`}>
                             {highlightText(r.title, query)}
                           </p>
 
                           {/* Description */}
-                          <p className="text-[11px] text-[#C8D8E8]/20 mt-0.5 line-clamp-1 font-rajdhani">
+                          <p className="text-[11px] text-[var(--text)]/20 mt-0.5 line-clamp-1 font-rajdhani">
                             {highlightText(r.description.substring(0, 140), query)}
                           </p>
 
@@ -384,7 +384,7 @@ export default function SearchCommand() {
                             {r.tags && r.tags.slice(0, 3).map((tag) => (
                               <span
                                 key={tag}
-                                className="inline-flex items-center gap-1 text-[8px] text-[#C8D8E8]/15 font-tech-mono"
+                                className="inline-flex items-center gap-1 text-[8px] text-[var(--text)]/15 font-tech-mono"
                               >
                                 <Tag size={7} className="opacity-50" />
                                 {tag}
@@ -393,7 +393,7 @@ export default function SearchCommand() {
 
                             {/* Date */}
                             {r.date && (
-                              <span className="inline-flex items-center gap-1 text-[8px] text-[#C8D8E8]/12 font-tech-mono">
+                              <span className="inline-flex items-center gap-1 text-[8px] text-[var(--text)]/12 font-tech-mono">
                                 <Calendar size={7} className="opacity-50" />
                                 {formatDate(r.date)}
                               </span>
@@ -401,7 +401,7 @@ export default function SearchCommand() {
 
                             {/* Read time */}
                             {r.readTime && (
-                              <span className="inline-flex items-center gap-1 text-[8px] text-[#C8D8E8]/12 font-tech-mono">
+                              <span className="inline-flex items-center gap-1 text-[8px] text-[var(--text)]/12 font-tech-mono">
                                 <Clock size={7} className="opacity-50" />
                                 {r.readTime} min
                               </span>
@@ -411,7 +411,7 @@ export default function SearchCommand() {
 
                         {/* Score bar */}
                         <div className="flex flex-col items-end gap-1 flex-shrink-0 mt-1">
-                          <span className="text-[8px] text-[#C8D8E8]/15 font-tech-mono">
+                          <span className="text-[8px] text-[var(--text)]/15 font-tech-mono">
                             {r.score}%
                           </span>
                           <div className="w-14 h-[3px] bg-[rgba(0,200,255,0.06)] rounded-full overflow-hidden">
@@ -430,8 +430,8 @@ export default function SearchCommand() {
                             size={10}
                             className={`mt-0.5 transition-all ${
                               isSelected
-                                ? 'text-[#00C8FF]/50 translate-x-0'
-                                : 'text-[#C8D8E8]/10 -translate-x-1'
+                                ? 'text-[var(--cyan)]/50 translate-x-0'
+                                : 'text-[var(--text)]/10 -translate-x-1'
                             }`}
                           />
                         </div>
@@ -443,20 +443,20 @@ export default function SearchCommand() {
                 {/* ── Footer: keyboard shortcuts ───────────────────── */}
                 <div className="flex items-center justify-between px-5 py-2.5 border-t border-[rgba(0,200,255,0.06)] bg-[rgba(0,0,0,0.15)]">
                   <div className="flex items-center gap-4">
-                    <span className="inline-flex items-center gap-1.5 text-[9px] text-[#C8D8E8]/15 font-tech-mono">
+                    <span className="inline-flex items-center gap-1.5 text-[9px] text-[var(--text)]/15 font-tech-mono">
                       <kbd className="px-1 py-0.5 border border-[rgba(0,200,255,0.1)] rounded-sm text-[8px]">↑↓</kbd>
                       Naviguer
                     </span>
-                    <span className="inline-flex items-center gap-1.5 text-[9px] text-[#C8D8E8]/15 font-tech-mono">
+                    <span className="inline-flex items-center gap-1.5 text-[9px] text-[var(--text)]/15 font-tech-mono">
                       <kbd className="px-1 py-0.5 border border-[rgba(0,200,255,0.1)] rounded-sm text-[8px]">⏎</kbd>
                       Ouvrir
                     </span>
-                    <span className="inline-flex items-center gap-1.5 text-[9px] text-[#C8D8E8]/15 font-tech-mono">
+                    <span className="inline-flex items-center gap-1.5 text-[9px] text-[var(--text)]/15 font-tech-mono">
                       <kbd className="px-1 py-0.5 border border-[rgba(0,200,255,0.1)] rounded-sm text-[8px]">Tab</kbd>
                       Filtres
                     </span>
                   </div>
-                  <span className="inline-flex items-center gap-1.5 text-[9px] text-[#C8D8E8]/15 font-tech-mono">
+                  <span className="inline-flex items-center gap-1.5 text-[9px] text-[var(--text)]/15 font-tech-mono">
                     <kbd className="px-1 py-0.5 border border-[rgba(0,200,255,0.1)] rounded-sm text-[8px]">Esc</kbd>
                     Fermer
                   </span>

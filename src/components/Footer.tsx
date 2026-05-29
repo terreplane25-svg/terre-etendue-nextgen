@@ -30,7 +30,7 @@ export default function Footer() {
           {STATS.map((stat) => (
             <div key={stat.label} className="py-5 px-4 text-center">
               <p className={`text-xl font-bold ${stat.color} font-orbitron`}>{stat.value}</p>
-              <p className="text-[9px] text-[#C8D8E8]/20 mt-1 tracking-[0.15em] uppercase font-tech-mono">{stat.label}</p>
+              <p className="text-[9px] text-[var(--text-15)] mt-1 tracking-[0.15em] uppercase font-tech-mono">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -42,9 +42,9 @@ export default function Footer() {
               <svg viewBox="0 0 30 30" fill="none" className="absolute inset-0 w-full h-full">
                 <polygon points="15,2 27,9 27,21 15,28 3,21 3,9" stroke="rgba(0,200,255,0.2)" strokeWidth="1" fill="rgba(0,200,255,0.03)" />
               </svg>
-              <FontOrbitron className="relative z-10 text-[8px] font-bold text-[#00C8FF]">TEI</FontOrbitron>
+              <FontOrbitron className="relative z-10 text-[8px] font-bold text-[var(--cyan)]">TEI</FontOrbitron>
             </div>
-            <FontTechMono className="text-[10px] text-[#C8D8E8]/20">
+            <FontTechMono className="text-[10px] text-[var(--text-15)]">
               &copy; {new Date().getFullYear()} TERRE ÉTENDUE ISLAM
             </FontTechMono>
           </div>
@@ -61,7 +61,7 @@ export default function Footer() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-[10px] text-[#C8D8E8]/15 hover:text-[#C8D8E8]/40 transition-colors font-orbitron"
+                className="text-[10px] text-[var(--text-15)] hover:text-[var(--text-30)] transition-colors font-orbitron"
                 style={{letterSpacing: '0.1em'}}
               >
                 {item.label}
@@ -73,7 +73,7 @@ export default function Footer() {
             href="https://github.com/terreplane25-svg/terre-etendue-nextgen"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#C8D8E8]/15 hover:text-[#C8D8E8]/40 transition-colors"
+            className="text-[var(--text-15)] hover:text-[var(--text-30)] transition-colors"
           >
             <GithubIcon />
           </a>
