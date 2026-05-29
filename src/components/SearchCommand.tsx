@@ -201,7 +201,7 @@ export default function SearchCommand() {
       {/* ── Trigger Button ──────────────────────────────────────────── */}
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2.5 px-4 py-2 text-[11px] text-[var(--text)]/30 hover:text-[var(--text)]/50 border border-[rgba(0,200,255,0.08)] hover:border-[rgba(0,200,255,0.2)] transition-all rounded-sm font-tech-mono group"
+        className="flex items-center gap-2.5 px-4 py-2 text-[11px] text-[var(--text)]/30 hover:text-[var(--text)]/50 border border-[var(--panel-edge)] hover:border-[rgba(0,200,255,0.2)] transition-all rounded-sm font-tech-mono group"
       >
         <Search size={14} className="group-hover:text-[var(--cyan)]/60 transition-colors" />
         <span className="hidden sm:inline">RECHERCHER</span>
@@ -233,7 +233,7 @@ export default function SearchCommand() {
               className="fixed top-[12%] left-1/2 -translate-x-1/2 w-[92vw] max-w-[660px] z-50"
               onKeyDown={handleKeyDown}
             >
-              <div className="bg-[#0B1425] border border-[rgba(0,200,255,0.15)] shadow-[0_0_80px_rgba(0,200,255,0.06),0_20px_60px_rgba(0,0,0,0.5)] overflow-hidden rounded-sm">
+              <div className="bg-[var(--panel)] border border-[var(--panel-edge)] shadow-lg overflow-hidden rounded-sm">
 
                 {/* ── Scan line effect ──────────────────────────────── */}
                 <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-sm">
@@ -245,7 +245,7 @@ export default function SearchCommand() {
                 </div>
 
                 {/* ── Search Input ──────────────────────────────────── */}
-                <div className="relative flex items-center gap-3 px-5 border-b border-[rgba(0,200,255,0.08)]">
+                <div className="relative flex items-center gap-3 px-5 border-b border-[var(--panel-edge)]">
                   <Search size={18} className="text-[var(--cyan)]/50 flex-shrink-0" />
                   <input
                     ref={inputRef}
@@ -303,7 +303,7 @@ export default function SearchCommand() {
                   {/* Empty state: waiting for input */}
                   {query.length < 2 && (
                     <div className="p-10 text-center">
-                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-[rgba(0,200,255,0.08)] mb-4">
+                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-[var(--panel-edge)] mb-4">
                         <Search size={20} className="text-[var(--cyan)]/20" />
                       </div>
                       <p className="text-[11px] text-[var(--text)]/15 font-tech-mono tracking-[0.1em]">

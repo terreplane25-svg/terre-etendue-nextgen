@@ -74,12 +74,12 @@ export default function HudArticleList({ articles, category }: Props) {
   const [featured, ...rest] = filtered;
 
   const accentBorder = config.accent === 'gold' ? 'border-amber-500/30' : 'border-cyan-500/30';
-  const accentHover = config.accent === 'gold' ? 'hover:border-amber-500/60' : 'hover:border-cyan-500/40';
+  const accentHover = config.accent === 'gold' ? 'hover:border-amber-500/60' : 'hover:border-[var(--cyan-50)]';
   const accentText = config.accent === 'gold' ? 'text-amber-500' : 'text-cyan-400';
-  const accentBg = config.accent === 'gold' ? 'bg-amber-950/80 border-amber-500/40 text-amber-400' : 'bg-cyan-950/80 border-cyan-500/40 text-cyan-400';
+  const accentBg = config.accent === 'gold' ? 'bg-amber-950/80 border-amber-500/40 text-amber-400' : 'bg-cyan-950/80 border-[var(--cyan-50)] text-cyan-400';
 
   return (
-    <div className="w-full min-h-screen bg-[#050A12] text-slate-100 p-6 md:p-12 pt-20 md:pt-24">
+    <div className="w-full min-h-screen bg-[var(--void)] text-[var(--text)] p-6 md:p-12 pt-20 md:pt-24">
 
       {/* HUD Header */}
       <div className="w-full border-b border-cyan-900/40 pb-6 mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
@@ -107,7 +107,7 @@ export default function HudArticleList({ articles, category }: Props) {
           placeholder="RECHERCHER..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full max-w-sm px-4 py-2 bg-[#0A1220] border border-slate-800 text-slate-300 placeholder:text-slate-600 focus:border-cyan-500/40 focus:outline-none transition-colors font-mono text-xs tracking-wider"
+          className="w-full max-w-sm px-4 py-2 bg-[var(--hull)] border border-[var(--panel-edge)] text-[var(--text-60)] placeholder:text-[var(--text-30)] focus:border-[var(--cyan-50)] focus:outline-none transition-colors font-mono text-xs tracking-wider"
         />
       </div>
 
@@ -115,7 +115,7 @@ export default function HudArticleList({ articles, category }: Props) {
       <div className="w-full max-w-[1800px] mx-auto space-y-8">
 
         {filtered.length === 0 && (
-          <p className="text-slate-500 font-mono text-sm">AUCUN_RÉSULTAT // REQUÊTE_VIDE</p>
+          <p className="text-[var(--text-30)] font-mono text-sm">AUCUN_RÉSULTAT // REQUÊTE_VIDE</p>
         )}
 
         {/* Featured Card */}
@@ -147,15 +147,15 @@ export default function HudArticleList({ articles, category }: Props) {
                 <h2 className={`text-2xl md:text-4xl uppercase text-white group-hover:${config.accent === 'gold' ? 'text-amber-400' : 'text-cyan-400'} transition-colors duration-300 font-orbitron`}>
                   {featured.title}
                 </h2>
-                <p className="text-slate-300 text-base md:text-lg leading-relaxed mt-4 opacity-90 line-clamp-3 font-body">
+                <p className="text-[var(--text-60)] text-base md:text-lg leading-relaxed mt-4 opacity-90 line-clamp-3 font-body">
                   {featured.description}
                 </p>
               </div>
 
-              <div className="flex flex-wrap items-center gap-6 border-t border-slate-800/60 pt-4 font-mono text-xs text-slate-400">
+              <div className="flex flex-wrap items-center gap-6 border-t border-[var(--panel-edge)]/60 pt-4 font-mono text-xs text-slate-400">
                 <span className="flex items-center gap-1.5"><Clock className="w-4 h-4 text-cyan-500" /> {formatReadTime(featured)}</span>
                 <span className="flex items-center gap-1.5"><Layers className="w-4 h-4 text-cyan-500" /> {config.code}</span>
-                <span className="ml-auto text-slate-500">
+                <span className="ml-auto text-[var(--text-30)]">
                   {new Date(featured.date).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}
                 </span>
               </div>
@@ -170,7 +170,7 @@ export default function HudArticleList({ articles, category }: Props) {
               <Link
                 key={article.slug}
                 href={`/article/${article.slug}`}
-                className="group relative bg-[#070F1C] border border-slate-800 rounded-lg p-6 flex flex-col justify-between min-h-[240px] transition-all duration-300 hover:bg-[#0A1526] hover:border-cyan-500/40"
+                className="group relative bg-[var(--panel)] border border-[var(--panel-edge)] rounded-lg p-6 flex flex-col justify-between min-h-[240px] transition-all duration-300 hover:bg-[var(--panel)] hover:border-[var(--cyan-50)]"
               >
                 {/* HUD micro detail */}
                 <div className="absolute top-2 right-2 font-mono text-[9px] text-cyan-800 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -182,12 +182,12 @@ export default function HudArticleList({ articles, category }: Props) {
                     <span className={`font-mono text-[11px] ${accentText} tracking-wider`}>
                       [TEI-{config.num}.{String(i + 2).padStart(2, '0')}]
                     </span>
-                    <span className="font-mono text-[10px] text-slate-500">
+                    <span className="font-mono text-[10px] text-[var(--text-30)]">
                       {new Date(article.date).toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })}
                     </span>
                   </div>
 
-                  <h3 className="text-xl uppercase text-slate-100 group-hover:text-cyan-400 transition-colors duration-200 line-clamp-2 font-orbitron" style={{fontSize: '16px'}}>
+                  <h3 className="text-xl uppercase text-[var(--text)] group-hover:text-cyan-400 transition-colors duration-200 line-clamp-2 font-orbitron" style={{fontSize: '16px'}}>
                     {article.title}
                   </h3>
 
@@ -196,8 +196,8 @@ export default function HudArticleList({ articles, category }: Props) {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-4 mt-6 pt-3 border-t border-slate-800/40 font-mono text-xs text-slate-500">
-                  <span className="flex items-center gap-1 group-hover:text-slate-300 transition-colors">
+                <div className="flex items-center gap-4 mt-6 pt-3 border-t border-[var(--panel-edge)] font-mono text-xs text-[var(--text-30)]">
+                  <span className="flex items-center gap-1 group-hover:text-[var(--text-60)] transition-colors">
                     <Clock className="w-3.5 h-3.5" /> {formatReadTime(article)}
                   </span>
                   <span className="flex items-center gap-1">

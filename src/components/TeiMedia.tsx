@@ -17,7 +17,7 @@ export function TeiImage({ src, alt, caption, wide }: TeiImageProps) {
 
   return (
     <figure className={`my-10 ${wide ? 'mx-[-2rem]' : ''}`}>
-      <div className="relative border border-[rgba(0,200,255,0.08)] rounded overflow-hidden bg-[#0A1220]">
+      <div className="relative border border-[var(--panel-edge)] rounded overflow-hidden bg-[var(--hull)]">
         {/* Corner marks */}
         <div className="absolute top-0 left-0 w-2.5 h-2.5 border-t border-l border-cyan-400/30 z-10" />
         <div className="absolute bottom-0 right-0 w-2.5 h-2.5 border-b border-r border-cyan-400/30 z-10" />
@@ -68,7 +68,7 @@ interface TeiVideoProps {
 export function TeiVideo({ src, caption, poster }: TeiVideoProps) {
   return (
     <figure className="my-10">
-      <div className="relative border border-[rgba(0,200,255,0.08)] rounded overflow-hidden bg-[#0A1220]">
+      <div className="relative border border-[var(--panel-edge)] rounded overflow-hidden bg-[var(--hull)]">
         <div className="absolute top-0 left-0 w-2.5 h-2.5 border-t border-l border-cyan-400/30 z-10" />
         <div className="absolute bottom-0 right-0 w-2.5 h-2.5 border-b border-r border-cyan-400/30 z-10" />
         <video

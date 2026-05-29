@@ -36,10 +36,10 @@
     --void: #F4F1EB;
     --hull: #EDE8E0;
     --panel: #FFFFFF;
-    --panel-edge: rgba(0, 100, 140, 0.10);
+    --panel-edge: rgba(0, 100, 140, 0.18);
     --cyan: #0088AA;
-    --cyan-50: rgba(0, 136, 170, 0.5);
-    --cyan-20: rgba(0, 136, 170, 0.2);
+    --cyan-50: rgba(0, 136, 170, 0.6);
+    --cyan-20: rgba(0, 136, 170, 0.3);
     --cyan-08: rgba(0, 136, 170, 0.06);
     --cyan-04: rgba(0, 136, 170, 0.03);
     --gold: #9A7B2F;
@@ -47,9 +47,9 @@
     --gold-20: rgba(154, 123, 47, 0.2);
     --gold-08: rgba(154, 123, 47, 0.06);
     --text: #1A1A2E;
-    --text-60: rgba(26, 26, 46, 0.65);
-    --text-30: rgba(26, 26, 46, 0.35);
-    --text-15: rgba(26, 26, 46, 0.12);
+    --text-60: rgba(26, 26, 46, 0.75);
+    --text-30: rgba(26, 26, 46, 0.50);
+    --text-15: rgba(26, 26, 46, 0.25);
     --green: #00995A;
     color-scheme: light;
   }

@@ -15,20 +15,20 @@ export default function AboutClient({ manifeste, methodologie, ethique, etatDesL
       <div className="max-w-[720px] mx-auto px-6">
         <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }}>
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-[2px] bg-[#D4A843] shadow-[0_0_8px_rgba(212,168,67,0.4)]" />
-            <span className="text-[9px] tracking-[0.2em] text-[#D4A843]/50 uppercase font-orbitron">
+            <div className="w-8 h-[2px] bg-[var(--gold)] shadow-[0_0_8px_var(--gold-20)]" />
+            <span className="text-[9px] tracking-[0.2em] text-[var(--gold-50)] uppercase font-orbitron">
               À propos
             </span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold text-[#C8D8E8] mb-10 font-orbitron">
+          <h1 className="text-2xl md:text-3xl font-bold text-[var(--text)] mb-10 font-orbitron">
             TERRE ÉTENDUE ISLAM
           </h1>
         </motion.div>
 
         {/* Manifeste */}
         <section className="mb-16">
-          <h2 className="text-lg font-semibold text-[#D4A843] mb-6 flex items-center gap-3 font-orbitron" style={{fontSize: '14px', letterSpacing: '0.1em'}}>
-            <span className="w-6 h-[1px] bg-[#D4A843]/30" />
+          <h2 className="text-lg font-semibold text-[var(--gold)] mb-6 flex items-center gap-3 font-orbitron" style={{fontSize: '14px', letterSpacing: '0.1em'}}>
+            <span className="w-6 h-[1px] bg-[var(--gold)]/30" />
             MANIFESTE
           </h2>
           <div className="prose-tei" dangerouslySetInnerHTML={{ __html: manifeste }} />
@@ -38,8 +38,8 @@ export default function AboutClient({ manifeste, methodologie, ethique, etatDesL
 
         {/* Méthodologie */}
         <section className="mb-16">
-          <h2 className="text-lg font-semibold text-[#00C8FF] mb-6 flex items-center gap-3 font-orbitron" style={{fontSize: '14px', letterSpacing: '0.1em'}}>
-            <span className="w-6 h-[1px] bg-[#00C8FF]/30" />
+          <h2 className="text-lg font-semibold text-[var(--cyan)] mb-6 flex items-center gap-3 font-orbitron" style={{fontSize: '14px', letterSpacing: '0.1em'}}>
+            <span className="w-6 h-[1px] bg-[var(--cyan-20)]" />
             MÉTHODOLOGIE
           </h2>
           <div className="prose-tei" dangerouslySetInnerHTML={{ __html: methodologie }} />
@@ -49,8 +49,8 @@ export default function AboutClient({ manifeste, methodologie, ethique, etatDesL
 
         {/* État des lieux */}
         <section className="mb-16">
-          <h2 className="text-lg font-semibold text-[#00C8FF] mb-6 flex items-center gap-3 font-orbitron" style={{fontSize: '14px', letterSpacing: '0.1em'}}>
-            <span className="w-6 h-[1px] bg-[#00C8FF]/30" />
+          <h2 className="text-lg font-semibold text-[var(--cyan)] mb-6 flex items-center gap-3 font-orbitron" style={{fontSize: '14px', letterSpacing: '0.1em'}}>
+            <span className="w-6 h-[1px] bg-[var(--cyan-20)]" />
             ÉTAT DES LIEUX
           </h2>
           <div className="prose-tei" dangerouslySetInnerHTML={{ __html: etatDesLieux }} />
@@ -60,8 +60,8 @@ export default function AboutClient({ manifeste, methodologie, ethique, etatDesL
 
         {/* Éthique */}
         <section>
-          <h2 className="text-lg font-semibold text-[#00E87B] mb-6 flex items-center gap-3 font-orbitron" style={{fontSize: '14px', letterSpacing: '0.1em'}}>
-            <span className="w-6 h-[1px] bg-[#00E87B]/30" />
+          <h2 className="text-lg font-semibold text-[var(--green)] mb-6 flex items-center gap-3 font-orbitron" style={{fontSize: '14px', letterSpacing: '0.1em'}}>
+            <span className="w-6 h-[1px] bg-[var(--green)]/30" />
             ÉTHIQUE INTELLECTUELLE
           </h2>
           <div className="prose-tei" dangerouslySetInnerHTML={{ __html: ethique }} />

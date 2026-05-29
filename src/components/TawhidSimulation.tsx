@@ -162,13 +162,13 @@ interface SimulationControlsProps {
 
 function SimulationControls({ orbits, setOrbits, speed, setSpeed }: SimulationControlsProps) {
   return (
-    <div className="absolute top-4 left-4 bg-surface/90 backdrop-blur border border-white/[0.06] rounded-lg p-4 space-y-4 z-10">
-      <h4 className="font-display font-semibold text-xs uppercase tracking-widest text-[#E8E4DD]/40">
+    <div className="absolute top-4 left-4 bg-surface/90 backdrop-blur border border-[var(--panel-edge)] rounded-lg p-4 space-y-4 z-10">
+      <h4 className="font-display font-semibold text-xs uppercase tracking-widest text-[var(--text-30)]">
         Paramètres
       </h4>
 
       <div className="space-y-2">
-        <label className="flex items-center justify-between text-xs text-[#E8E4DD]/40">
+        <label className="flex items-center justify-between text-xs text-[var(--text-30)]">
           <span>Orbites : {orbits}</span>
         </label>
         <input
@@ -183,7 +183,7 @@ function SimulationControls({ orbits, setOrbits, speed, setSpeed }: SimulationCo
       </div>
 
       <div className="space-y-2">
-        <label className="flex items-center justify-between text-xs text-[#E8E4DD]/40">
+        <label className="flex items-center justify-between text-xs text-[var(--text-30)]">
           <span>Vitesse : {speed.toFixed(1)}×</span>
         </label>
         <input
@@ -215,7 +215,7 @@ export default function TawhidSimulation() {
   }, [orbits, speed]);
 
   return (
-    <div className="relative w-full h-[500px] rounded-xl overflow-hidden border border-white/[0.06] bg-[#070B10]">
+    <div className="relative w-full h-[500px] rounded-xl overflow-hidden border border-[var(--panel-edge)] bg-[var(--void)]">
       <SimulationControls orbits={orbits} setOrbits={setOrbits} speed={speed} setSpeed={setSpeed} />
 
       <Canvas camera={{ position: [0, 8, 12], fov: 45 }}>
@@ -247,7 +247,7 @@ export default function TawhidSimulation() {
       </Canvas>
 
       {/* Overlay */}
-      <div className="absolute bottom-4 right-4 text-xs text-[#E8E4DD]/40/60 pointer-events-none">
+      <div className="absolute bottom-4 right-4 text-xs text-[var(--text-30)]/60 pointer-events-none">
         Souris : Rotation · Molette : Zoom · Sliders : Paramètres
       </div>
     </div>

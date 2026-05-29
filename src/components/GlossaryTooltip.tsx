@@ -214,10 +214,10 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
 
 // ─── Domain labels and colors ─────────────────────
 const DOMAIN_STYLES: Record<string, { label: string; color: string; bg: string; border: string }> = {
-  religion: { label: 'SACRÉ', color: 'text-[#D4A843]', bg: 'bg-[rgba(212,168,67,0.08)]', border: 'border-[rgba(212,168,67,0.15)]' },
-  science: { label: 'SCIENCE', color: 'text-[#00C8FF]', bg: 'bg-[rgba(0,200,255,0.06)]', border: 'border-[rgba(0,200,255,0.12)]' },
-  method: { label: 'MÉTHODE', color: 'text-[#00E87B]', bg: 'bg-[rgba(0,232,123,0.06)]', border: 'border-[rgba(0,232,123,0.12)]' },
-  history: { label: 'HISTOIRE', color: 'text-[#C8D8E8]/50', bg: 'bg-[rgba(200,216,232,0.04)]', border: 'border-[rgba(200,216,232,0.08)]' },
+  religion: { label: 'SACRÉ', color: 'text-[var(--gold)]', bg: 'bg-[rgba(212,168,67,0.08)]', border: 'border-[rgba(212,168,67,0.15)]' },
+  science: { label: 'SCIENCE', color: 'text-[var(--cyan)]', bg: 'bg-[rgba(0,200,255,0.06)]', border: 'border-[var(--panel-edge)]' },
+  method: { label: 'MÉTHODE', color: 'text-[var(--green)]', bg: 'bg-[rgba(0,232,123,0.06)]', border: 'border-[rgba(0,232,123,0.12)]' },
+  history: { label: 'HISTOIRE', color: 'text-[var(--text)]/50', bg: 'bg-[rgba(200,216,232,0.04)]', border: 'border-[rgba(200,216,232,0.08)]' },
 };
 
 // ─── Tooltip Component ────────────────────────────
@@ -263,16 +263,16 @@ export default function GlossaryTooltip({ term, children }: TooltipProps) {
 
       {visible && (
         <div
-          className="fixed z-[80] w-[320px] bg-[#0D1528] border border-[rgba(0,200,255,0.12)] shadow-[0_0_40px_rgba(0,0,0,0.5)] p-0 overflow-hidden"
+          className="fixed z-[80] w-[320px] bg-[var(--panel)] border border-[var(--panel-edge)] shadow-lg p-0 overflow-hidden"
           style={{ top: pos.top, left: pos.left, position: 'absolute' }}
         >
           {/* Top accent line */}
-          <div className={`h-[2px] ${entry.domain === 'religion' ? 'bg-[#D4A843]' : entry.domain === 'science' ? 'bg-[#00C8FF]' : entry.domain === 'method' ? 'bg-[#00E87B]' : 'bg-[#C8D8E8]/20'}`} />
+          <div className={`h-[2px] ${entry.domain === 'religion' ? 'bg-[var(--gold)]' : entry.domain === 'science' ? 'bg-[var(--cyan)]' : entry.domain === 'method' ? 'bg-[var(--green)]' : 'bg-[var(--text-15)]'}`} />
 
           <div className="p-4">
             {/* Header */}
             <div className="flex items-center justify-between mb-2">
-              <h4 className="text-sm font-semibold text-[#C8D8E8] font-rajdhani">
+              <h4 className="text-sm font-semibold text-[var(--text)] font-rajdhani">
                 {entry.title}
               </h4>
               <span
@@ -284,13 +284,13 @@ export default function GlossaryTooltip({ term, children }: TooltipProps) {
 
             {/* Arabic */}
             {entry.arabic && (
-              <p className="text-[#D4A843] text-lg mb-2 font-arabic" style={{ direction: 'rtl' }}>
+              <p className="text-[var(--gold)] text-lg mb-2 font-arabic" style={{ direction: 'rtl' }}>
                 {entry.arabic}
               </p>
             )}
 
             {/* Definition */}
-            <p className="text-[12px] text-[#C8D8E8]/50 leading-relaxed font-rajdhani">
+            <p className="text-[12px] text-[var(--text)]/50 leading-relaxed font-rajdhani">
               {entry.definition}
             </p>
 
@@ -298,7 +298,7 @@ export default function GlossaryTooltip({ term, children }: TooltipProps) {
             {entry.seeAlso && (
               <a
                 href={`/article/${entry.seeAlso}`}
-                className="block mt-3 pt-2 border-t border-[rgba(0,200,255,0.06)] text-[10px] text-[#00C8FF]/40 hover:text-[#00C8FF]/70 transition-colors"
+                className="block mt-3 pt-2 border-t border-[var(--panel-edge)] text-[10px] text-[var(--cyan)]/40 hover:text-[var(--cyan)]/70 transition-colors"
                 style={{letterSpacing: '0.1em' }}
               >
                 → VOIR L&apos;ARTICLE

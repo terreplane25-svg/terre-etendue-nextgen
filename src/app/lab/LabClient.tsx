@@ -15,10 +15,10 @@ const GeoHelioSim = dynamic(() => import("@/components/lab/GeoHelioSim"), {
 
 function SimLoader() {
   return (
-    <div className="w-full h-[500px] border border-slate-800/50 bg-[#030810] flex items-center justify-center">
+    <div className="w-full h-[500px] border border-[var(--panel-edge)] bg-[var(--void)] flex items-center justify-center">
       <div className="text-center">
-        <div className="w-5 h-5 border-2 border-[#00C8FF] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-[11px] text-[#C8D8E8]/20 font-tech-mono">CHARGEMENT...</p>
+        <div className="w-5 h-5 border-2 border-[var(--cyan)] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+        <p className="text-[11px] text-[var(--text)]/20 font-tech-mono">CHARGEMENT...</p>
       </div>
     </div>
   );
@@ -54,13 +54,13 @@ export default function LabClient() {
       <div className="max-w-[1600px] mx-auto px-4 md:px-6">
         <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }}>
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-[2px] bg-[#00C8FF] shadow-[0_0_8px_rgba(0,200,255,0.4)]" />
-            <span className="text-[10px] tracking-[0.2em] text-[#00C8FF]/50 uppercase font-orbitron">
+            <div className="w-8 h-[2px] bg-[var(--cyan)] shadow-[0_0_8px_var(--cyan-20)]" />
+            <span className="text-[10px] tracking-[0.2em] text-[var(--cyan)]/50 uppercase font-orbitron">
               Pilier 04 // Modélisation
             </span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold text-[#C8D8E8] mb-2 font-orbitron">LE LAB</h1>
-          <p className="text-[14px] text-[#C8D8E8]/30 font-rajdhani mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-[var(--text)] mb-2 font-orbitron">LE LAB</h1>
+          <p className="text-[14px] text-[var(--text)]/30 font-rajdhani mb-8">
             Simulations interactives dérivées des données et analyses des articles.
           </p>
         </motion.div>
@@ -70,8 +70,8 @@ export default function LabClient() {
             <button key={s.id} onClick={() => setActive(s.id)}
               className={`text-[10px] px-5 py-2.5 font-orbitron tracking-wider border whitespace-nowrap transition-all ${
                 active === s.id
-                  ? "border-[#00C8FF]/50 bg-[#00C8FF]/10 text-[#00C8FF]"
-                  : "border-slate-700 text-slate-500 hover:border-slate-500 hover:text-slate-300"
+                  ? "border-[var(--cyan)]/50 bg-[var(--cyan)]/10 text-[var(--cyan)]"
+                  : "border-[var(--panel-edge)] text-[var(--text-30)] hover:border-[var(--text-30)] hover:text-[var(--text-60)]"
               }`}
               style={{ clipPath: "polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%)" }}
             >{s.title}</button>
@@ -84,16 +84,16 @@ export default function LabClient() {
           {active === "helio" && <GeoHelioSim />}
         </motion.div>
 
-        <div className="mt-6 border border-slate-800/40 bg-[#0A1020] p-5">
+        <div className="mt-6 border border-[var(--panel-edge)] bg-[var(--hull)] p-5">
           <div className="flex items-center gap-3 mb-2">
-            <div className="text-[10px] font-tech-mono text-[#00C8FF]/30 tracking-widest">SIM_{active.toUpperCase()}</div>
+            <div className="text-[10px] font-tech-mono text-[var(--cyan)]/30 tracking-widest">SIM_{active.toUpperCase()}</div>
             <div className="flex-1 h-px bg-slate-800/40" />
           </div>
-          <p className="text-[14px] text-[#C8D8E8]/40 font-rajdhani leading-relaxed">{sim.desc}</p>
-          <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-slate-800/20">
-            <span className="text-[10px] font-tech-mono text-slate-600">BASÉ SUR :</span>
+          <p className="text-[14px] text-[var(--text)]/40 font-rajdhani leading-relaxed">{sim.desc}</p>
+          <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-[var(--panel-edge)]/20">
+            <span className="text-[10px] font-tech-mono text-[var(--text-30)]">BASÉ SUR :</span>
             {sim.articles.map((a) => (
-              <span key={a} className="text-[10px] font-tech-mono text-[#00C8FF]/40 px-2 py-0.5 border border-slate-800/30">{a}</span>
+              <span key={a} className="text-[10px] font-tech-mono text-[var(--cyan)]/40 px-2 py-0.5 border border-[var(--panel-edge)]/30">{a}</span>
             ))}
           </div>
         </div>

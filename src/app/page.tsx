@@ -34,20 +34,20 @@ export default function HomePage() {
 
         <motion.div variants={stagger} initial="hidden" animate="show" className="relative z-10">
           <motion.div variants={fadeUp} className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-[2px] bg-[#00C8FF] shadow-[0_0_10px_rgba(0,200,255,0.5)]" />
-            <span className="text-[9px] tracking-[0.25em] text-[#00C8FF] uppercase font-orbitron">
+            <div className="w-8 h-[2px] bg-[var(--cyan)] shadow-[0_0_10px_var(--cyan-20)]" />
+            <span className="text-[9px] tracking-[0.25em] text-[var(--cyan)] uppercase font-orbitron">
               Plateforme de recherche académique
             </span>
           </motion.div>
 
           <motion.h1 variants={fadeUp} className="text-[clamp(2.5rem,7vw,3.5rem)] font-bold leading-[1.1] tracking-tight mb-6 font-orbitron">
-            <span className="text-[#C8D8E8]">TERRE </span>
-            <span className="text-[#00C8FF]" style={{textShadow: '0 0 30px rgba(0,200,255,0.2)'}}>ÉTENDUE</span>
+            <span className="text-[var(--text)]">TERRE </span>
+            <span className="text-[var(--cyan)]" style={{textShadow: '0 0 30px rgba(0,200,255,0.2)'}}>ÉTENDUE</span>
             <br />
-            <span className="text-[#D4A843]" style={{textShadow: '0 0 30px rgba(212,168,67,0.2)'}}>ISLAM</span>
+            <span className="text-[var(--gold)]" style={{textShadow: '0 0 30px rgba(212,168,67,0.2)'}}>ISLAM</span>
           </motion.h1>
 
-          <motion.p variants={fadeUp} className="text-base text-[#C8D8E8]/45 max-w-lg leading-[1.8] mb-8 font-rajdhani">
+          <motion.p variants={fadeUp} className="text-base text-[var(--text)]/45 max-w-lg leading-[1.8] mb-8 font-rajdhani">
             Réconcilier l&apos;épistémologie, les observations empiriques, les sources sacrées
             islamiques et la modélisation géométrique.
           </motion.p>
@@ -78,12 +78,12 @@ export default function HomePage() {
               <Link href={p.href} className={`block hud-card ${p.tagColor === 'gold' ? 'hud-card-gold' : ''} p-6`}>
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="text-[9px] text-[#C8D8E8]/20 font-tech-mono">{p.num}</span>
+                    <span className="text-[9px] text-[var(--text)]/20 font-tech-mono">{p.num}</span>
                     <h3 className="text-sm font-semibold font-orbitron">{p.title}</h3>
                   </div>
-                  <span className={`hud-label ${p.tagColor === 'gold' ? 'text-[#D4A843]/40' : 'text-[#00C8FF]/30'}`}>{p.tag}</span>
+                  <span className={`hud-label ${p.tagColor === 'gold' ? 'text-[var(--gold)]/40' : 'text-[var(--cyan)]/30'}`}>{p.tag}</span>
                 </div>
-                <p className="text-[13px] text-[#C8D8E8]/25 leading-relaxed font-rajdhani">{p.desc}</p>
+                <p className="text-[13px] text-[var(--text)]/25 leading-relaxed font-rajdhani">{p.desc}</p>
               </Link>
             </motion.div>
           ))}
@@ -101,9 +101,9 @@ export default function HomePage() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] rounded-full border border-[rgba(0,200,255,0.04)] pointer-events-none" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140px] h-[140px] rounded-full border border-[rgba(212,168,67,0.04)] pointer-events-none" />
           <div className="relative z-10">
-            <p className="hud-label text-[#00C8FF]/30 mb-4">Graphe de connaissances</p>
-            <h2 className="text-2xl font-bold text-[#C8D8E8] mb-3 font-orbitron">NEXUS</h2>
-            <p className="text-sm text-[#C8D8E8]/25 max-w-md mx-auto mb-6 font-rajdhani">
+            <p className="hud-label text-[var(--cyan)]/30 mb-4">Graphe de connaissances</p>
+            <h2 className="text-2xl font-bold text-[var(--text)] mb-3 font-orbitron">NEXUS</h2>
+            <p className="text-sm text-[var(--text)]/25 max-w-md mx-auto mb-6 font-rajdhani">
               Chaque article est un nœud. Chaque connexion conceptuelle est visible.
             </p>
             <Link href="/nexus" className="hud-btn inline-block">OUVRIR LE NEXUS →</Link>
