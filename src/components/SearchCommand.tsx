@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, Loader2, ArrowRight, Clock, Tag, Calendar } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 // ── Types ─────────────────────────────────────────────────────────────────
 
@@ -27,17 +28,17 @@ interface SearchResponse {
 // ── Constants ─────────────────────────────────────────────────────────────
 
 const CATEGORIES = [
-  { key: 'headquarters', label: 'Q.G.', color: '#00C8FF' },
-  { key: 'observatory', label: 'OBS', color: '#00C8FF' },
-  { key: 'library', label: 'BIBLIO', color: '#D4A843' },
-  { key: 'lab', label: 'LAB', color: '#00C8FF' },
+  { key: 'headquarters', label: 'Q.G.', color: '#0088AA' },
+  { key: 'observatory', label: 'OBS', color: '#0088AA' },
+  { key: 'library', label: 'BIBLIO', color: '#9A7B2F' },
+  { key: 'lab', label: 'LAB', color: '#0088AA' },
 ] as const;
 
 const catColorMap: Record<string, string> = {
-  headquarters: '#00C8FF',
-  observatory: '#00C8FF',
-  library: '#D4A843',
-  lab: '#00C8FF',
+  headquarters: '#0088AA',
+  observatory: '#0088AA',
+  library: '#9A7B2F',
+  lab: '#0088AA',
   meta: '#888',
 };
 
@@ -74,6 +75,7 @@ export default function SearchCommand() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [activeCategories, setActiveCategories] = useState<string[]>([]);
   const [searchMeta, setSearchMeta] = useState<{ count: number; totalMs: number }>({ count: 0, totalMs: 0 });
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
 
@@ -95,14 +97,17 @@ export default function SearchCommand() {
   // ── Focus input on open, reset on close ───────────────────────────────
   useEffect(() => {
     if (open) {
+      document.body.style.overflow = 'hidden';
       setTimeout(() => inputRef.current?.focus(), 100);
     } else {
+      document.body.style.overflow = '';
       setQuery('');
       setResults([]);
       setSelectedIndex(0);
       setActiveCategories([]);
       setSearchMeta({ count: 0, totalMs: 0 });
     }
+    return () => { document.body.style.overflow = ''; };
   }, [open]);
 
   // ── Search API call ───────────────────────────────────────────────────
@@ -146,7 +151,7 @@ export default function SearchCommand() {
       const selected = results[selectedIndex];
       if (selected) {
         setOpen(false);
-        window.location.href = `/article/${selected.slug}`;
+        router.push(`/article/${selected.slug}`);
       }
     } else if (e.key === 'Tab') {
       e.preventDefault();
@@ -201,11 +206,11 @@ export default function SearchCommand() {
       {/* ── Trigger Button ──────────────────────────────────────────── */}
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2.5 px-4 py-2 text-[11px] text-[var(--text)]/30 hover:text-[var(--text)]/50 border border-[var(--panel-edge)] hover:border-[rgba(0,200,255,0.2)] transition-all rounded-sm font-tech-mono group"
+        className="flex items-center gap-2.5 px-4 py-2 text-[11px] text-[var(--text)]/30 hover:text-[var(--text)]/50 border border-[var(--panel-edge)] hover:border-[var(--cyan-20)] transition-all rounded-sm font-tech-mono group"
       >
         <Search size={14} className="group-hover:text-[var(--cyan)]/60 transition-colors" />
         <span className="hidden sm:inline">RECHERCHER</span>
-        <kbd className="hidden sm:inline text-[9px] ml-1.5 px-1.5 py-0.5 border border-[rgba(0,200,255,0.12)] text-[var(--text)]/20 rounded-sm">
+        <kbd className="hidden sm:inline text-[9px] ml-1.5 px-1.5 py-0.5 border border-[var(--panel-edge)] text-[var(--text)]/20 rounded-sm">
           ⌘K
         </kbd>
       </button>
@@ -220,7 +225,7 @@ export default function SearchCommand() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
+              className="fixed inset-0 bg-black/70 dark:bg-black/80 backdrop-blur-sm z-50"
               onClick={() => setOpen(false)}
             />
 
@@ -239,7 +244,7 @@ export default function SearchCommand() {
                 <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-sm">
                   <div className="absolute inset-0 opacity-[0.02]"
                     style={{
-                      backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,200,255,0.1) 2px, rgba(0,200,255,0.1) 4px)',
+                      backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, var(--panel-edge) 2px, var(--panel-edge) 4px)',
                     }}
                   />
                 </div>
@@ -267,7 +272,7 @@ export default function SearchCommand() {
                 </div>
 
                 {/* ── Category Filters ──────────────────────────────── */}
-                <div className="flex items-center gap-2 px-5 py-2.5 border-b border-[rgba(0,200,255,0.06)]">
+                <div className="flex items-center gap-2 px-5 py-2.5 border-b border-[var(--panel-edge)]">
                   <span className="text-[9px] text-[var(--text)]/20 tracking-[0.15em] uppercase font-tech-mono mr-1">
                     FILTRES
                   </span>
@@ -281,7 +286,7 @@ export default function SearchCommand() {
                         style={{
                           color: isActive ? cat.color : 'rgba(200, 216, 232, 0.25)',
                           backgroundColor: isActive ? `${cat.color}15` : 'transparent',
-                          border: `1px solid ${isActive ? `${cat.color}40` : 'rgba(0,200,255,0.06)'}`,
+                          border: `1px solid ${isActive ? `${cat.color}40` : 'var(--panel-edge)'}`,
                           boxShadow: isActive ? `0 0 12px ${cat.color}10` : 'none',
                         }}
                       >
@@ -315,7 +320,7 @@ export default function SearchCommand() {
                   {/* No results */}
                   {query.length >= 2 && !loading && results.length === 0 && (
                     <div className="p-10 text-center">
-                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-[rgba(200,216,232,0.06)] mb-4">
+                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-[var(--panel-edge)] mb-4">
                         <X size={20} className="text-[var(--text)]/15" />
                       </div>
                       <p className="text-[11px] text-[var(--text)]/20 font-tech-mono tracking-[0.1em]">
@@ -327,7 +332,7 @@ export default function SearchCommand() {
                   {/* Result items */}
                   {results.map((r, i) => {
                     const isSelected = i === selectedIndex;
-                    const catColor = catColorMap[r.category] || '#00C8FF';
+                    const catColor = catColorMap[r.category] || '#0088AA';
 
                     return (
                       <Link
@@ -336,10 +341,10 @@ export default function SearchCommand() {
                         onClick={() => setOpen(false)}
                         data-index={i}
                         onMouseEnter={() => setSelectedIndex(i)}
-                        className={`group flex items-start gap-4 px-5 py-3.5 transition-all border-b border-[rgba(0,200,255,0.03)] relative ${
+                        className={`group flex items-start gap-4 px-5 py-3.5 transition-all border-b border-[var(--cyan-08)] relative ${
                           isSelected
-                            ? 'bg-[rgba(0,200,255,0.06)]'
-                            : 'hover:bg-[rgba(0,200,255,0.03)]'
+                            ? 'bg-[var(--panel-edge)]'
+                            : 'hover:bg-[var(--cyan-08)]'
                         }`}
                       >
                         {/* Selected indicator */}
@@ -414,7 +419,7 @@ export default function SearchCommand() {
                           <span className="text-[8px] text-[var(--text)]/15 font-tech-mono">
                             {r.score}%
                           </span>
-                          <div className="w-14 h-[3px] bg-[rgba(0,200,255,0.06)] rounded-full overflow-hidden">
+                          <div className="w-14 h-[3px] bg-[var(--panel-edge)] rounded-full overflow-hidden">
                             <motion.div
                               initial={{ width: 0 }}
                               animate={{ width: `${r.score}%` }}
@@ -441,23 +446,23 @@ export default function SearchCommand() {
                 </div>
 
                 {/* ── Footer: keyboard shortcuts ───────────────────── */}
-                <div className="flex items-center justify-between px-5 py-2.5 border-t border-[rgba(0,200,255,0.06)] bg-[rgba(0,0,0,0.15)]">
+                <div className="flex items-center justify-between px-5 py-2.5 border-t border-[var(--panel-edge)] bg-[var(--void)]">
                   <div className="flex items-center gap-4">
                     <span className="inline-flex items-center gap-1.5 text-[9px] text-[var(--text)]/15 font-tech-mono">
-                      <kbd className="px-1 py-0.5 border border-[rgba(0,200,255,0.1)] rounded-sm text-[8px]">↑↓</kbd>
+                      <kbd className="px-1 py-0.5 border border-[var(--panel-edge)] rounded-sm text-[8px]">↑↓</kbd>
                       Naviguer
                     </span>
                     <span className="inline-flex items-center gap-1.5 text-[9px] text-[var(--text)]/15 font-tech-mono">
-                      <kbd className="px-1 py-0.5 border border-[rgba(0,200,255,0.1)] rounded-sm text-[8px]">⏎</kbd>
+                      <kbd className="px-1 py-0.5 border border-[var(--panel-edge)] rounded-sm text-[8px]">⏎</kbd>
                       Ouvrir
                     </span>
                     <span className="inline-flex items-center gap-1.5 text-[9px] text-[var(--text)]/15 font-tech-mono">
-                      <kbd className="px-1 py-0.5 border border-[rgba(0,200,255,0.1)] rounded-sm text-[8px]">Tab</kbd>
+                      <kbd className="px-1 py-0.5 border border-[var(--panel-edge)] rounded-sm text-[8px]">Tab</kbd>
                       Filtres
                     </span>
                   </div>
                   <span className="inline-flex items-center gap-1.5 text-[9px] text-[var(--text)]/15 font-tech-mono">
-                    <kbd className="px-1 py-0.5 border border-[rgba(0,200,255,0.1)] rounded-sm text-[8px]">Esc</kbd>
+                    <kbd className="px-1 py-0.5 border border-[var(--panel-edge)] rounded-sm text-[8px]">Esc</kbd>
                     Fermer
                   </span>
                 </div>
