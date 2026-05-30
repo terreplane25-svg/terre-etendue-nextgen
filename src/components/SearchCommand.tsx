@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, Loader2, ArrowRight, Clock, Tag, Calendar } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -86,7 +85,7 @@ export default function SearchCommand() {
         setOpen((prev) => !prev);
       }
       if (e.key === 'Escape') {
-        setOpen(false);
+        closeModal();
       }
     };
     window.addEventListener('keydown', handler);
@@ -94,19 +93,38 @@ export default function SearchCommand() {
   }, []);
 
   // ── Focus input on open, reset on close ───────────────────────────────
+  // Fonction de fermeture explicite — restaure TOUJOURS le body
+  const closeModal = useCallback(() => {
+    document.body.style.overflow = '';
+    document.body.style.pointerEvents = '';
+    setOpen(false);
+    setQuery('');
+    setResults([]);
+    setSelectedIndex(0);
+    setActiveCategories([]);
+    setSearchMeta({ count: 0, totalMs: 0 });
+  }, []);
+
+  // Fonction navigation — ferme puis navigue
+  const navigateTo = useCallback((slug: string) => {
+    document.body.style.overflow = '';
+    document.body.style.pointerEvents = '';
+    setOpen(false);
+    // Petit délai pour laisser React démonter le modal
+    setTimeout(() => {
+      router.push(`/article/${slug}`);
+    }, 50);
+  }, [router]);
+
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden';
       setTimeout(() => inputRef.current?.focus(), 100);
-    } else {
-      document.body.style.overflow = '';
-      setQuery('');
-      setResults([]);
-      setSelectedIndex(0);
-      setActiveCategories([]);
-      setSearchMeta({ count: 0, totalMs: 0 });
     }
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.pointerEvents = '';
+    };
   }, [open]);
 
   // ── Search API call ───────────────────────────────────────────────────
@@ -149,8 +167,7 @@ export default function SearchCommand() {
       e.preventDefault();
       const selected = results[selectedIndex];
       if (selected) {
-        setOpen(false);
-        router.push(`/article/${selected.slug}`);
+        navigateTo(selected.slug);
       }
     } else if (e.key === 'Tab') {
       e.preventDefault();
@@ -215,25 +232,16 @@ export default function SearchCommand() {
       </button>
 
       {/* ── Modal ───────────────────────────────────────────────────── */}
-      <AnimatePresence>
-        {open && (
+      {open && (
           <>
             {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/70 dark:bg-black/80 backdrop-blur-sm z-50"
-              onClick={() => setOpen(false)}
+            <div
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50"
+              onClick={closeModal}
             />
 
             {/* Modal container */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: -20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -20 }}
-              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            <div
               className="fixed top-[12%] left-1/2 -translate-x-1/2 w-[92vw] max-w-[660px] z-50"
               onKeyDown={handleKeyDown}
             >
@@ -263,7 +271,7 @@ export default function SearchCommand() {
                     <Loader2 size={14} className="text-[var(--cyan)]/50 animate-spin flex-shrink-0" />
                   )}
                   <button
-                    onClick={() => setOpen(false)}
+                    onClick={closeModal}
                     className="text-[var(--text)]/20 hover:text-[var(--text)]/50 transition-colors p-1"
                   >
                     <X size={16} />
@@ -340,7 +348,7 @@ export default function SearchCommand() {
                         tabIndex={-1}
                         data-index={i}
                         onMouseEnter={() => setSelectedIndex(i)}
-                        onClick={() => { setOpen(false); router.push(`/article/${r.slug}`); }}
+                        onClick={() => navigateTo(r.slug)}
                         className={`group flex items-start gap-4 px-5 py-3.5 transition-all border-b border-[var(--cyan-08)] relative cursor-pointer ${
                           isSelected
                             ? 'bg-[var(--panel-edge)]'
@@ -349,11 +357,9 @@ export default function SearchCommand() {
                       >
                         {/* Selected indicator */}
                         {isSelected && (
-                          <motion.div
-                            layoutId="search-selected"
+                          <div
                             className="absolute left-0 top-0 bottom-0 w-[2px]"
                             style={{ backgroundColor: catColor }}
-                            transition={{ duration: 0.15 }}
                           />
                         )}
 
@@ -420,12 +426,10 @@ export default function SearchCommand() {
                             {r.score}%
                           </span>
                           <div className="w-14 h-[3px] bg-[var(--panel-edge)] rounded-full overflow-hidden">
-                            <motion.div
-                              initial={{ width: 0 }}
-                              animate={{ width: `${r.score}%` }}
-                              transition={{ duration: 0.5, delay: i * 0.05 }}
+                            <div
                               className="h-full rounded-full"
                               style={{
+                                width: `${r.score}%`,
                                 background: `linear-gradient(90deg, ${catColor}60, ${catColor})`,
                                 boxShadow: `0 0 6px ${catColor}40`,
                               }}
@@ -467,10 +471,9 @@ export default function SearchCommand() {
                   </span>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </>
         )}
-      </AnimatePresence>
     </>
   );
 }
