@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+
 import Link from 'next/link';
 import { Clock, Layers, Terminal, Compass, BookOpen, FlaskConical, Brain } from 'lucide-react';
 import { FontOrbitron } from '@/components/FontWrappers';
@@ -61,17 +61,9 @@ function formatReadTime(article: ArticleMeta): string {
 }
 
 export default function HudArticleList({ articles, category }: Props) {
-  const [search, setSearch] = useState('');
   const config = PILLAR_CONFIGS[category] || PILLAR_CONFIGS.headquarters;
 
-  const filtered = search
-    ? articles.filter(a =>
-        a.title.toLowerCase().includes(search.toLowerCase()) ||
-        a.description.toLowerCase().includes(search.toLowerCase())
-      )
-    : articles;
-
-  const [featured, ...rest] = filtered;
+  const [featured, ...rest] = articles;
 
   const accentBorder = config.accent === 'gold' ? 'border-[var(--gold-20)]' : 'border-[var(--cyan-20)]';
   const accentHover = config.accent === 'gold' ? 'hover:border-[var(--gold-50)]' : 'hover:border-[var(--cyan-50)]';
@@ -100,23 +92,8 @@ export default function HudArticleList({ articles, category }: Props) {
         </div>
       </div>
 
-      {/* Search */}
-      <div className="max-w-[1800px] mx-auto mb-8">
-        <input
-          type="text"
-          placeholder="RECHERCHER..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full max-w-sm px-4 py-2 bg-[var(--hull)] border border-[var(--panel-edge)] text-[var(--text-60)] placeholder:text-[var(--text-30)] focus:border-[var(--cyan-50)] focus:outline-none transition-colors font-mono text-xs tracking-wider"
-        />
-      </div>
-
       {/* Article Grid */}
       <div className="w-full max-w-[1800px] mx-auto space-y-8">
-
-        {filtered.length === 0 && (
-          <p className="text-[var(--text-30)] font-mono text-sm">AUCUN_RÉSULTAT // REQUÊTE_VIDE</p>
-        )}
 
         {/* Featured Card */}
         {featured && (
