@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, Loader2, ArrowRight, Clock, Tag, Calendar } from 'lucide-react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 // ── Types ─────────────────────────────────────────────────────────────────
@@ -335,13 +334,14 @@ export default function SearchCommand() {
                     const catColor = catColorMap[r.category] || '#0088AA';
 
                     return (
-                      <Link
+                      <div
                         key={r.slug}
-                        href={`/article/${r.slug}`}
-                        onClick={() => setOpen(false)}
+                        role="button"
+                        tabIndex={-1}
                         data-index={i}
                         onMouseEnter={() => setSelectedIndex(i)}
-                        className={`group flex items-start gap-4 px-5 py-3.5 transition-all border-b border-[var(--cyan-08)] relative ${
+                        onClick={() => { setOpen(false); router.push(`/article/${r.slug}`); }}
+                        className={`group flex items-start gap-4 px-5 py-3.5 transition-all border-b border-[var(--cyan-08)] relative cursor-pointer ${
                           isSelected
                             ? 'bg-[var(--panel-edge)]'
                             : 'hover:bg-[var(--cyan-08)]'
@@ -440,7 +440,7 @@ export default function SearchCommand() {
                             }`}
                           />
                         </div>
-                      </Link>
+                      </div>
                     );
                   })}
                 </div>
