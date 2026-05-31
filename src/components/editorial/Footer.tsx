@@ -3,8 +3,6 @@ import { editorial } from "@/lib/editorial-tokens";
 
 export default function Footer() {
   const articles = getAllArticles();
-  const totalChars = articles.reduce((sum, a) => sum + (a.content?.length || 0), 0);
-  const formattedChars = new Intl.NumberFormat("fr-FR").format(totalChars);
 
   return (
     <footer
@@ -16,7 +14,6 @@ export default function Footer() {
     >
       <div className="max-w-7xl mx-auto px-6 md:px-10 py-12 md:py-14">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
-          {/* Left */}
           <div>
             <div
               className="text-[10px] font-semibold tracking-[0.2em] mb-2"
@@ -34,20 +31,16 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Right — Dynamic stats */}
           <div className="text-right">
             <div
               className="text-[11px] leading-[1.8]"
               style={{ fontFamily: editorial.fontMono, color: editorial.inkGhost }}
             >
-              {articles.length} publications · {formattedChars} caractères
-              <br />
-              450+ sources primaires · 3 modèles 3D
+              {articles.length} publications · 450+ sources primaires · 3 modèles 3D
             </div>
           </div>
         </div>
 
-        {/* Bottom rule + copyright */}
         <div
           className="mt-10 pt-6 text-[11px]"
           style={{

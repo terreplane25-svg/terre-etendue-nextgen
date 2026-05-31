@@ -1,4 +1,4 @@
-import { getAllArticles } from "@/lib/articles";
+import { getArticlesByCategory } from "@/lib/articles";
 import EditorialArticleList from "@/components/editorial/EditorialArticleList";
 import type { Metadata } from "next";
 
@@ -9,18 +9,17 @@ export const metadata: Metadata = {
 };
 
 export default function HeadquartersPage() {
-  const allArticles = getAllArticles();
-  const articles = allArticles.filter((a: any) => a.pillar === "headquarters");
+  const articles = getArticlesByCategory("headquarters");
 
-  const formatted = articles.map((a: any, i: number) => ({
+  const formatted = articles.map((a, i) => ({
     slug: a.slug,
     title: a.title,
     description: a.description || "",
-    type: a.type || "Publication",
-    charCount: a.content?.length || 0,
-    citations: a.citations || 0,
+    type: "Publication",
+    charCount: 0,
+    citations: 0,
     pinned: a.pinned || false,
-    order: a.order || i + 1,
+    order: i + 1,
   }));
 
   return (
