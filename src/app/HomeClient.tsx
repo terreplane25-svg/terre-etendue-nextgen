@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { editorial } from "@/lib/editorial-tokens";
 import ScrollReveal from "@/components/editorial/ScrollReveal";
@@ -35,7 +36,7 @@ function GeometricBg() {
 }
 
 // ─── Pillar icon SVGs ───
-const pillarIcons: Record<string, JSX.Element> = {
+const pillarIcons: Record<string, React.ReactNode> = {
   headquarters: (
     <svg width="48" height="48" viewBox="0 0 48 48" className="opacity-60">
       <circle cx="24" cy="24" r="18" fill="none" stroke={editorial.ink} strokeWidth="0.8" />

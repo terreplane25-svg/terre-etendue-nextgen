@@ -1,4 +1,4 @@
-import { getArticlesByPillar } from "@/lib/articles";
+import { getAllArticles } from "@/lib/articles";
 import EditorialArticleList from "@/components/editorial/EditorialArticleList";
 import type { Metadata } from "next";
 
@@ -9,9 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default function HeadquartersPage() {
-  const articles = getArticlesByPillar("headquarters");
+  const allArticles = getAllArticles();
+  const articles = allArticles.filter((a: any) => a.pillar === "headquarters");
 
-  const formatted = articles.map((a, i) => ({
+  const formatted = articles.map((a: any, i: number) => ({
     slug: a.slug,
     title: a.title,
     description: a.description || "",
