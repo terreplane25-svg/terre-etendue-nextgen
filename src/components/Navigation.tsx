@@ -13,6 +13,7 @@ const NAV_ITEMS = [
   { label: 'Q.G.', href: '/headquarters', num: '01' },
   { label: 'OBS', href: '/observatory', num: '02' },
   { label: 'BIBLIO', href: '/library', num: '03' },
+  { label: 'EXP', href: '/experiences', num: '05' },
   { label: 'LAB', href: '/lab', num: '04' },
   { label: 'NEXUS', href: '/nexus', num: '\u2B21' },
 ];
