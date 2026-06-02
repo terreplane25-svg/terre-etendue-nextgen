@@ -1,103 +1,98 @@
-"use client";
-import { useState } from "react";
-import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
+'use client';
 
-const FlatEarthSim = dynamic(() => import("@/components/lab/FlatEarthSim"), {
-  ssr: false, loading: () => <SimLoader />,
-});
-const CurvatureCalc = dynamic(() => import("@/components/lab/CurvatureCalc"), {
-  ssr: false, loading: () => <SimLoader />,
-});
-const GeoHelioSim = dynamic(() => import("@/components/lab/GeoHelioSim"), {
-  ssr: false, loading: () => <SimLoader />,
-});
+import React from 'react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { dash } from '@/lib/design-tokens';
 
-function SimLoader() {
-  return (
-    <div className="w-full h-[500px] border border-[var(--panel-edge)] bg-[var(--void)] flex items-center justify-center">
-      <div className="text-center">
-        <div className="w-5 h-5 border-2 border-[var(--cyan)] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-[11px] text-[var(--text)]/20 font-tech-mono">CHARGEMENT...</p>
-      </div>
-    </div>
-  );
-}
+interface A { slug: string; title: string; description: string; tags: string[]; pinned: boolean; readTime: number; }
 
-const SIMS = [
-  {
-    id: "flat",
-    title: "TERRE ÉTENDUE",
-    desc: "Le disque terrestre vu du dessus. Soleil, Lune et planètes circulant au-dessus — positions calculées avec Astronomy Engine (éphémérides précises).",
-    articles: ["Le MGPP", "Le théodolite céleste"],
-  },
-  {
-    id: "curvature",
-    title: "COURBURE VS PLAN",
-    desc: "Calculateur de visibilité avec réfraction atmosphérique intégrée. Formules exactes (Pythagore). Compare globe et plan avec les cas réels documentés.",
-    articles: ["L'eau ne ment pas", "Ce qu'on voit", "L'horizon"],
-  },
-  {
-    id: "helio",
-    title: "HÉLIOCENTRIQUE",
-    desc: "Le Soleil au centre, les planètes en orbite. Deux modes : le manège classique et le vortex galactique — le système solaire en déplacement.",
-    articles: ["L'hypothèse nulle", "200 ans de résultats nuls"],
-  },
+const TOOLS = [
+  { label: 'Calculateur de courbure', desc: 'Calculez la courbure théorique pour n\'importe quelle distance', icon: '📐', color: dash.opal },
+  { label: 'Dôme céleste 3D', desc: 'Modèle interactif du ciel observable depuis une Terre étendue', icon: '🌐', color: dash.cyan },
+  { label: 'Simulateur optique', desc: 'Perspective, réfraction et limites angulaires en temps réel', icon: '🔭', color: dash.lavender },
 ];
 
-export default function LabClient() {
-  const [active, setActive] = useState("flat");
-  const sim = SIMS.find((s) => s.id === active)!;
-
+export default function LabClient({ articles }: { articles: A[] }) {
   return (
-    <div className="min-h-screen pt-20 pb-16">
-      <div className="max-w-[1600px] mx-auto px-4 md:px-6">
-        <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-[2px] bg-[var(--cyan)] shadow-[0_0_8px_var(--cyan-20)]" />
-            <span className="text-[10px] tracking-[0.2em] text-[var(--cyan)]/50 uppercase font-orbitron">
-              Pilier 04 // Modélisation
-            </span>
-          </div>
-          <h1 className="text-2xl md:text-3xl font-bold text-[var(--text)] mb-2 font-orbitron">LE LAB</h1>
-          <p className="text-[14px] text-[var(--text)]/30 font-rajdhani mb-8">
-            Simulations interactives dérivées des données et analyses des articles.
-          </p>
-        </motion.div>
+    <div style={{ maxWidth: 900, margin: '0 auto', padding: '32px 24px 64px' }}>
 
-        <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
-          {SIMS.map((s) => (
-            <button key={s.id} onClick={() => setActive(s.id)}
-              className={`text-[10px] px-5 py-2.5 font-orbitron tracking-wider border whitespace-nowrap transition-all ${
-                active === s.id
-                  ? "border-[var(--cyan)]/50 bg-[var(--cyan)]/10 text-[var(--cyan)]"
-                  : "border-[var(--panel-edge)] text-[var(--text-30)] hover:border-[var(--text-30)] hover:text-[var(--text-60)]"
-              }`}
-              style={{ clipPath: "polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%)" }}
-            >{s.title}</button>
-          ))}
+      {/* Header */}
+      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 32 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, color: dash.opal, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 6, fontFamily: dash.fontMono }}>
+          04 · Lab
         </div>
+        <h1 style={{ fontSize: 28, fontWeight: 800, color: dash.ink, marginBottom: 4 }}>Le Lab</h1>
+        <p style={{ fontSize: 14, color: dash.inkMuted }}>
+          Modélisation 3D, simulateurs interactifs et outils de calcul
+        </p>
+      </motion.div>
 
-        <motion.div key={active} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-          {active === "flat" && <FlatEarthSim />}
-          {active === "curvature" && <CurvatureCalc />}
-          {active === "helio" && <GeoHelioSim />}
-        </motion.div>
+      {/* ═══ TOOLS GRID ═══ */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 16, marginBottom: 36 }}>
+        {TOOLS.map((tool, i) => (
+          <motion.div key={tool.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 + i * 0.08 }}>
+            <div className="dash-card" style={{ padding: '24px 22px', cursor: 'pointer' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                <div style={{
+                  width: 40, height: 40, borderRadius: 10,
+                  background: tool.color + '15', display: 'flex',
+                  alignItems: 'center', justifyContent: 'center', fontSize: 20,
+                }}>{tool.icon}</div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: dash.ink }}>{tool.label}</div>
+              </div>
+              <div style={{ fontSize: 13, color: dash.inkMuted, lineHeight: 1.5 }}>{tool.desc}</div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
 
-        <div className="mt-6 border border-[var(--panel-edge)] bg-[var(--hull)] p-5">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="text-[10px] font-tech-mono text-[var(--cyan)]/30 tracking-widest">SIM_{active.toUpperCase()}</div>
-            <div className="flex-1 h-px bg-slate-800/40" />
-          </div>
-          <p className="text-[14px] text-[var(--text)]/40 font-rajdhani leading-relaxed">{sim.desc}</p>
-          <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-[var(--panel-edge)]/20">
-            <span className="text-[10px] font-tech-mono text-[var(--text-30)]">BASÉ SUR :</span>
-            {sim.articles.map((a) => (
-              <span key={a} className="text-[10px] font-tech-mono text-[var(--cyan)]/40 px-2 py-0.5 border border-[var(--panel-edge)]/30">{a}</span>
+      {/* ═══ ARTICLES ═══ */}
+      {articles.length > 0 && (
+        <>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
+            <h2 style={{ fontSize: 15, fontWeight: 750, color: dash.ink, marginBottom: 14 }}>
+              Publications du Lab
+            </h2>
+          </motion.div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {articles.map((a, i) => (
+              <motion.div key={a.slug} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.45 + i * 0.03 }}>
+                <Link href={`/article/${a.slug}`} className="dash-card-sm" style={{
+                  display: 'flex', alignItems: 'center', gap: 14, padding: '14px 18px', cursor: 'pointer',
+                }}>
+                  <span className="badge" style={{ background: dash.opalSoft, color: dash.opal }}>LAB</span>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: dash.ink, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {a.title}
+                    </div>
+                  </div>
+                  <span style={{ fontSize: 12, color: dash.inkGhost, fontFamily: dash.fontMono }}>{a.readTime}m</span>
+                </Link>
+              </motion.div>
             ))}
           </div>
-        </div>
-      </div>
+        </>
+      )}
+
+      {articles.length === 0 && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
+          <div className="dash-card" style={{
+            padding: '40px 24px', textAlign: 'center',
+          }}>
+            <div style={{ fontSize: 32, opacity: 0.3, marginBottom: 12 }}>△</div>
+            <div style={{ fontSize: 14, color: dash.inkMuted }}>
+              Les simulateurs 3D interactifs arrivent bientôt.
+            </div>
+            <div style={{ fontSize: 12, color: dash.inkGhost, marginTop: 8 }}>
+              Calculateur de courbure · Dôme céleste · Simulateur optique
+            </div>
+          </div>
+        </motion.div>
+      )}
     </div>
   );
 }
