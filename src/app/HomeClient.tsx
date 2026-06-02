@@ -39,8 +39,8 @@ function KPI({ label, value, sub, color, spark, delay }: { label: string; value:
 }
 
 // ── Category route ──
-function catRoute(c: string) {
-  return ({ headquarters: '/headquarters', observatory: '/observatory', library: '/library', lab: '/lab', meta: '/about' })[c] || '/observatory';
+function catRoute(_c: string) {
+  return '/article';
 }
 
 export default function HomeClient({ counts, recent }: HomeProps) {

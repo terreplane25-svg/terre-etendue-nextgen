@@ -17,7 +17,7 @@ export default function HeadquartersClient({ articles }: { articles: A[] }) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {articles.map((a, i) => (
           <motion.div key={a.slug} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
-            <Link href={`/headquarters/${a.slug}`} className="dash-card-sm" style={{
+            <Link href={`/article/${a.slug}`} className="dash-card-sm" style={{
               display: 'flex', alignItems: 'center', gap: 14, padding: '14px 18px', cursor: 'pointer',
             }}>
               <span className="badge" style={{ background: dash.lavenderSoft, color: dash.lavender }}>QG</span>

@@ -69,7 +69,7 @@ export default function ObservatoryClient({ articles }: { articles: ArticleEntry
               const isExp = a.tags.includes('physique-naturelle');
               return (
                 <motion.div key={a.slug} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03, duration: 0.3 }}>
-                  <Link href={`/observatory/${a.slug}`} className="dash-card-sm" style={{
+                  <Link href={`/article/${a.slug}`} className="dash-card-sm" style={{
                     display: 'flex', alignItems: 'center', gap: 14, padding: '14px 18px',
                     cursor: 'pointer', transition: 'all 0.2s',
                   }}>

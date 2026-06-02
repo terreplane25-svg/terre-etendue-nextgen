@@ -186,7 +186,7 @@ export default function ExperiencesClient({
                     transition={{ duration: 0.4, delay: i * 0.05 }}
                   >
                     <Link
-                      href={`${getCategoryRoute(article.category)}/${article.slug}`}
+                      href={`/article/${article.slug}`}
                       className="block p-5 rounded-lg border border-white/10 hover:border-white/20 transition-all duration-200 hover:bg-white/[0.03] group no-underline"
                     >
                       <div className="flex items-start justify-between gap-3 mb-2">
@@ -292,7 +292,7 @@ export default function ExperiencesClient({
                             transition={{ duration: 0.4, delay: i * 0.05 }}
                           >
                             <Link
-                              href={`/observatory/${article.slug}`}
+                              href={`/article/${article.slug}`}
                               className="block p-5 rounded-lg border border-white/10 hover:border-white/20 transition-all duration-200 hover:bg-white/[0.03] group no-underline"
                             >
                               <div className="flex items-start justify-between gap-3 mb-2">
@@ -339,7 +339,7 @@ export default function ExperiencesClient({
                       transition={{ duration: 0.4, delay: i * 0.05 }}
                     >
                       <Link
-                        href={`/observatory/${article.slug}`}
+                        href={`/article/${article.slug}`}
                         className="block p-5 rounded-lg border border-white/10 hover:border-white/20 transition-all duration-200 hover:bg-white/[0.03] group no-underline"
                       >
                         <div className="flex items-start justify-between gap-3 mb-2">
