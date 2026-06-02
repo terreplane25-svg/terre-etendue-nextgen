@@ -1,447 +1,163 @@
 'use client';
 
-import { useEffect, useState, useMemo, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Clock, User, ChevronRight, List, X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import ViewModeSwitch, { useViewMode } from '@/components/ViewModeSwitch';
-import { GLOSSARY } from '@/components/GlossaryTooltip';
-import { FontOrbitron, FontTechMono } from '@/components/FontWrappers';
-import type { Article } from '@/lib/articles';
+import { motion } from 'framer-motion';
+import { dash } from '@/lib/design-tokens';
 
-// ─── Labels lisibles ─────────────────────────────
-const CATEGORY_LABELS: Record<string, { label: string; icon: string; color: string }> = {
-  headquarters: { label: 'Le Q.G.', icon: '\u{1F9E0}', color: 'cyan' },
-  observatory: { label: "L'Observatoire", icon: '\u{1F52D}', color: 'cyan' },
-  library: { label: 'La Bibliothèque', icon: '\u{1F4DA}', color: 'gold' },
-  lab: { label: 'Le Lab', icon: '\u2697\uFE0F', color: 'cyan' },
+interface ArticleReaderProps {
+  title: string;
+  description?: string;
+  content: string;
+  category: string;
+  tags?: string[];
+  readTime?: number;
+  date?: string;
+  author?: string;
+}
+
+function extractTOC(html: string) {
+  const regex = /<h2[^>]*id="([^"]*)"[^>]*>(.*?)<\/h2>/gi;
+  const items: { id: string; text: string }[] = [];
+  let m;
+  while ((m = regex.exec(html)) !== null) {
+    const text = m[2].replace(/<[^>]+>/g, '').replace(/\d{2}\s*/, '').trim();
+    if (text) items.push({ id: m[1], text });
+  }
+  return items;
+}
+
+const SECTION_ICONS: Record<string, string> = {
+  'ce-quon-observe': '👁',
+  'experience': '🧪',
+  'materiel': '🧫',
+  'protocole': '📋',
+  'resultat': '✅',
+  'pourquoi': '⚙',
+  'ce-que-ca-change': '→',
+  'synthese': '📊',
+  'references': '📚',
+  'refraction': '🔍',
+  'mirages': '🌫',
 };
 
-// ─── Types ───────────────────────────────────────
-interface Heading {
-  id: string;
-  text: string;
-  level: number;
-  number: string;
-}
-
-// ─── Extraction des headings ─────────────────────
-function extractHeadings(html: string): Heading[] {
-  // Match full h2/h3 tags including all attributes and content
-  const regex = /<h([23])(\s[^>]*)?>(.+?)<\/h\1>/gi;
-  const headings: Heading[] = [];
-  let match;
-  while ((match = regex.exec(html)) !== null) {
-    const level = parseInt(match[1]);
-    const attrs = match[2] || '';
-    const rawText = match[3];
-
-    // Extract ID from attributes (separate regex, much more reliable)
-    const idMatch = attrs.match(/id="([^"]*)"/);
-
-    // Extract section number
-    const numMatch = rawText.match(/tei-section-num">(\d+)<\/span>/);
-    const number = numMatch ? numMatch[1] : '';
-
-    // Clean text
-    let text = rawText.replace(/<[^>]+>/g, '').trim();
-    if (number && text.startsWith(number)) {
-      text = text.substring(number.length).trim();
-    }
-
-    // Use existing ID from HTML, or generate from text as fallback
-    const id = idMatch ? idMatch[1] : text.toLowerCase()
-      .replace(/[^a-z0-9à-\u00ff]+/g, '-')
-      .replace(/^-|-$/g, '');
-
-    if (text.length > 0) {
-      headings.push({ id, text, level, number });
-    }
+function getIcon(id: string) {
+  for (const [key, icon] of Object.entries(SECTION_ICONS)) {
+    if (id.toLowerCase().includes(key)) return icon;
   }
-  return headings;
+  return '○';
 }
 
-// ─── Injection d'IDs dans les headings ───────────
-function injectHeadingIds(html: string): string {
-  return html.replace(/<h([234])([^>]*)>(.*?)<\/h\1>/gi, (full, level, attrs, content) => {
-    if (attrs.includes('id=')) return full;
-    const text = content.replace(/<[^>]+>/g, '').trim();
-    // Remove leading numbers for ID generation
-    const cleanText = text.replace(/^\d+\s*/, '');
-    const id = cleanText.toLowerCase()
-      .replace(/[^a-z0-9à-\u00ff]+/g, '-')
-      .replace(/^-|-$/g, '');
-    return `<h${level}${attrs} id="${id}">${content}</h${level}>`;
-  });
-}
+export default function ArticleReader({ title, description, content, category, tags, readTime, date, author }: ArticleReaderProps) {
+  const toc = extractTOC(content);
+  const [activeId, setActiveId] = useState(toc[0]?.id || '');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
 
-// ─── Enrichissement glossaire ────────────────────
-function enrichWithGlossary(html: string): string {
-  let result = html;
-  
-  // Sort terms by length (longest first) to avoid partial matches
-  const sortedTerms = Object.entries(GLOSSARY).sort((a, b) => b[0].length - a[0].length);
-  
-  for (const [key, entry] of sortedTerms) {
-    // Build pattern: match the key or the title, case-insensitive
-    // Avoid matching inside HTML tags or attributes
-    const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const pattern = new RegExp(
-      `(?<![<\\/\\w-])\\b(${escapedKey})\\b(?![^<]*>)(?![^<]*<\\/a>)`,
-      'gi'
-    );
-    
-    let count = 0;
-    const maxOccurrences = 2; // Mark first 2 occurrences
-    
-    result = result.replace(pattern, (match) => {
-      if (count >= maxOccurrences) return match;
-      // Don't replace if already inside a glossary span or link
-      count++;
-      return `<span class="glossary-inline" data-term="${key}">${match}</span>`;
-    });
-  }
-  return result;
-}
-
-// ─── Détection texte arabe ───────────────────────
-function enhanceArabicText(html: string): string {
-  return html.replace(
-    /([\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF\uFC00-\uFCFF]{3,}(?:\s[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF\uFC00-\uFCFF]+)*)/g,
-    '<span class="tei-arabic">$1</span>'
-  );
-}
-
-// ─── Composant Principal ─────────────────────────
-interface ArticleReaderProps {
-  article: Article;
-}
-
-export default function ArticleReader({ article }: ArticleReaderProps) {
-  const { mode } = useViewMode();
-  const [activeHeading, setActiveHeading] = useState('');
-  const [tocOpen, setTocOpen] = useState(false);
-  const [readProgress, setReadProgress] = useState(0);
-
-  // Process HTML
-  const processedHtml = useMemo(() => {
-    let html = injectHeadingIds(article.htmlContent);
-    html = enrichWithGlossary(html);
-    html = enhanceArabicText(html);
-    return html;
-  }, [article.htmlContent]);
-
-  const headings = useMemo(() => extractHeadings(processedHtml), [processedHtml]);
-
-  // Reading progress bar
-  useEffect(() => {
-    const onScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      setReadProgress(docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  // Heading intersection observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            setActiveHeading(entry.target.id);
+            setActiveId(entry.target.id);
           }
         }
       },
-      { rootMargin: '-80px 0px -70% 0px' }
+      { rootMargin: '-80px 0px -60% 0px' }
     );
-    const elements = document.querySelectorAll('.prose-tei h2[id], .prose-tei h3[id]');
-    elements.forEach((el) => observer.observe(el));
+    const headings = contentRef.current?.querySelectorAll('h2[id]');
+    headings?.forEach(h => observer.observe(h));
     return () => observer.disconnect();
-  }, [processedHtml]);
+  }, [content]);
 
-  // Smooth scroll to heading
-  const scrollToHeading = useCallback((id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      const y = el.getBoundingClientRect().top + window.scrollY - 100;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-      setTocOpen(false);
-    }
-  }, []);
-
-  // Metadata
-  const date = new Date(article.date).toLocaleDateString('fr-FR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-  const wordCount = article.htmlContent.replace(/<[^>]*>/g, '').split(/\s+/).length;
-  const readingTime = Math.ceil(wordCount / 200);
-  const catInfo = CATEGORY_LABELS[article.category] || CATEGORY_LABELS.headquarters;
-
-  const backMap: Record<string, string> = {
-    headquarters: '/headquarters',
-    observatory: '/observatory',
-    library: '/library',
-    lab: '/lab',
-  };
+  const catLabel = ({ headquarters: 'Q.G.', observatory: 'OBS', library: 'BIBLIO', lab: 'LAB' })[category] || 'TEI';
 
   return (
-    <div className="min-h-screen pt-24">
-      {/* Reading progress bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 h-[3px] bg-transparent">
-        <motion.div
-          className="h-full bg-gradient-to-r from-[var(--cyan)] to-[var(--cyan-50)]"
-          style={{ width: `${readProgress * 100}%` }}
-          transition={{ duration: 0.1 }}
-        />
-      </div>
-
-      {/* Top bar */}
-      <div className="max-w-6xl mx-auto px-6 mb-8 flex items-center justify-between">
-        <Link
-          href={backMap[article.category] || '/'}
-          className="inline-flex items-center gap-1.5 text-sm text-[var(--text)]/40 hover:text-[var(--cyan)] transition-colors"
-        >
-          <ArrowLeft size={16} />
-          {catInfo.label}
-        </Link>
-        <div className="flex items-center gap-3">
-          {headings.length > 0 && (
-            <button
-              onClick={() => setTocOpen(true)}
-              className="xl:hidden flex items-center gap-1.5 text-sm text-[var(--text)]/40 hover:text-[var(--cyan)] transition-colors px-3 py-1.5 rounded-lg border border-[var(--panel-edge)]"
-            >
-              <List size={14} />
-              Sommaire
-            </button>
-          )}
-          <ViewModeSwitch />
-        </div>
-      </div>
-
-      {/* Mobile TOC drawer overlay */}
-      <AnimatePresence>
-        {tocOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/60 z-40 xl:hidden"
-              onClick={() => setTocOpen(false)}
-            />
-            <motion.div
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 250 }}
-              className="fixed left-0 top-0 bottom-0 w-80 max-w-[85vw] bg-[var(--void)] border-r border-[var(--panel-edge)] z-50 xl:hidden overflow-y-auto"
-            >
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <p className="text-xs font-['Orbitron',sans-serif] font-semibold uppercase tracking-[0.2em] text-[var(--text)]/40/50">
-                    Sommaire
-                  </p>
-                  <button
-                    onClick={() => setTocOpen(false)}
-                    className="p-1.5 rounded-lg hover:bg-[var(--panel)] text-[var(--text)]/40"
-                  >
-                    <X size={18} />
-                  </button>
-                </div>
-
-                {/* Progress in drawer */}
-                <div className="mb-6 h-1 bg-[var(--panel)] rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-[var(--cyan)]/50 rounded-full transition-all duration-300"
-                    style={{ width: `${readProgress * 100}%` }}
-                  />
-                </div>
-
-                <nav className="space-y-1">
-                  {headings.map((h) => (
-                    <button
-                      key={h.id}
-                      onClick={() => scrollToHeading(h.id)}
-                      className={`w-full text-left flex items-start gap-2.5 py-2 px-3 rounded-lg transition-all duration-200 ${
-                        h.level > 2 ? 'ml-4' : ''
-                      } ${
-                        activeHeading === h.id
-                          ? 'bg-[var(--cyan)]/10 text-[var(--cyan)]'
-                          : 'text-[var(--text)]/40/70 hover:text-[var(--text)] hover:bg-[var(--panel)]/50'
-                      }`}
-                    >
-                      {h.number && h.level === 2 && (
-                        <span className={`text-[0.65rem] font-bold font-mono mt-0.5 flex-shrink-0 w-5 ${
-                          activeHeading === h.id ? 'text-[var(--cyan)]' : 'text-[var(--cyan)]/40'
-                        }`}>
-                          {h.number}
-                        </span>
-                      )}
-                      <span className={`text-sm leading-snug ${h.level > 2 ? 'text-xs' : ''}`}>
-                        {h.text}
-                      </span>
-                    </button>
-                  ))}
-                </nav>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-
-      {/* Header */}
-      <motion.header
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="max-w-4xl mx-auto px-8 lg:px-12 pb-12 space-y-6 border-b border-[var(--panel-edge)]"
-      >
-        <span className={`inline-flex items-center gap-2 text-[11px] px-4 py-2 font-medium tracking-widest font-tech-mono ${
-          catInfo.color === 'gold'
-            ? 'bg-[var(--gold)]/10 text-[var(--gold)]'
-            : 'bg-[var(--cyan)]/10 text-[var(--cyan)]'
-        }`} style={{letterSpacing: '0.15em'}}>
-          <span>{catInfo.icon}</span>
-          {catInfo.label}
-        </span>
-
-        <h1 className="font-bold text-[clamp(1.8rem,4vw,2.8rem)] text-[var(--text)] leading-[1.15] font-orbitron">
-          {article.title}
-        </h1>
-
-        <div className="flex flex-wrap gap-6 text-[13px] text-[var(--text)]/30 pt-2 font-tech-mono">
-          <span className="flex items-center gap-2">
-            <Clock size={14} className="text-[var(--cyan)]/50" />
-            {readingTime} MIN
-          </span>
-          <span className="flex items-center gap-2">
-            <User size={14} className="text-[var(--cyan)]/50" />
-            {article.author || 'Collectif TEI'}
-          </span>
-          <time dateTime={article.date} className="text-[var(--text)]/20">{date}</time>
-        </div>
-      </motion.header>
-
-      {/* Body */}
-      <div className="relative max-w-[1400px] mx-auto px-8 lg:px-12 pt-14 pb-24">
-        {/* Desktop TOC Sidebar - fixed to left */}
-        <AnimatePresence>
-          {mode === 'study' && headings.length > 0 && (
-            <motion.aside
-              initial={{ opacity: 0, x: -16 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -16 }}
-              className="hidden xl:block fixed left-8 top-24 w-64 max-h-[calc(100vh-8rem)] overflow-y-auto z-20"
-            >
-              <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--text)]/25 mb-5 px-5 font-orbitron">
-                Sommaire
-              </p>
-
-              {/* Mini progress bar */}
-              <div className="mx-5 mb-6 h-[2px] bg-[var(--panel)] rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-[var(--cyan)]/40 rounded-full transition-all duration-300"
-                  style={{ width: `${readProgress * 100}%` }}
-                />
-              </div>
-
-              <nav className="space-y-1">
-                {headings.map((h) => (
-                  <button
-                    key={h.id}
-                    onClick={() => scrollToHeading(h.id)}
-                    className={`w-full text-left flex items-start gap-2.5 py-2.5 px-5 rounded-r-lg transition-all duration-200 border-l-2 ${
-                      h.level > 2 ? 'pl-10' : ''
-                    } ${
-                      activeHeading === h.id
-                        ? 'border-[var(--cyan)] text-[var(--cyan)] bg-[var(--cyan)]/5'
-                        : 'border-transparent text-[var(--text)]/35 hover:text-[var(--text)]/60 hover:border-[var(--panel-edge)]'
-                    }`}
-                  >
-                    {h.number && h.level === 2 && (
-                      <span className={`text-[10px] font-bold mt-[2px] flex-shrink-0 font-tech-mono ${
-                        activeHeading === h.id ? 'text-[var(--cyan)]' : 'text-[var(--cyan)]/25'
-                      }`}>
-                        {h.number}
-                      </span>
-                    )}
-                    <span className={`leading-snug ${
-                      h.level > 2 ? 'text-[13px]' : 'text-[14px]'
-                    } ${
-                      activeHeading === h.id ? 'font-medium' : ''
-                    } font-rajdhani`}>
-                      {h.text}
-                    </span>
-                  </button>
-                ))}
-              </nav>
-            </motion.aside>
-          )}
-        </AnimatePresence>
-
-        {/* Article Content - centered */}
-        <motion.article
-          layout
-          className={`mx-auto ${mode === 'lab' ? 'max-w-[800px]' : 'max-w-[720px]'}`}
-        >
-          <AnimatePresence mode="wait">
-            {mode === 'study' ? (
-              <motion.div
-                key="study"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="prose-tei"
-                dangerouslySetInnerHTML={{ __html: processedHtml }}
-              />
-            ) : (
-              <motion.div
-                key="lab"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="space-y-8"
-              >
-                <div className="bg-[var(--panel)] border border-[var(--cyan)]/20 rounded-xl p-6 space-y-4">
-                  <h3 className="font-['Orbitron',sans-serif] font-semibold text-[var(--cyan)] flex items-center gap-2">
-                    <ChevronRight size={16} /> Vue Lab
-                  </h3>
-                  <p className="text-sm text-[var(--text)]/40">
-                    Titres, citations, tableaux et listes uniquement.
-                  </p>
-                </div>
-                <div
-                  className="prose-tei [&>p]:hidden [&>h2]:block [&>h3]:block [&>blockquote]:block [&>table]:block [&>ul]:block [&>ol]:block [&>pre]:block"
-                  dangerouslySetInnerHTML={{ __html: processedHtml }}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Article footer */}
-          <div className="mt-16 pt-8 border-t border-[var(--panel-edge)]">
-            <div className="flex items-center justify-between">
-              <Link
-                href={backMap[article.category] || '/'}
-                className="inline-flex items-center gap-1.5 text-sm text-[var(--text)]/40 hover:text-[var(--cyan)] transition-colors"
-              >
-                <ArrowLeft size={14} />
-                Retour
-              </Link>
-              <Link
-                href="/nexus"
-                className="inline-flex items-center gap-1.5 text-sm text-[var(--text)]/40 hover:text-[var(--cyan)] transition-colors"
-              >
-                Voir dans le Nexus
-                <ChevronRight size={14} />
-              </Link>
+    <div style={{ display: 'flex', minHeight: '100vh' }}>
+      {/* ═══ SIDEBAR ═══ */}
+      <aside className="hidden lg:flex" style={{
+        width: 260, flexShrink: 0, background: dash.card,
+        borderRight: `1px solid ${dash.borderSoft}`,
+        padding: '28px 0', position: 'sticky', top: 56, height: 'calc(100vh - 56px)',
+        flexDirection: 'column',
+      }}>
+        <div style={{ padding: '0 20px 20px', borderBottom: `1px solid ${dash.borderSoft}` }}>
+          <span className="badge" style={{
+            background: category === 'observatory' ? dash.cyanSoft : dash.lavenderSoft,
+            color: category === 'observatory' ? dash.cyan : dash.lavender,
+          }}>{catLabel}</span>
+          <h2 style={{ fontSize: 15, fontWeight: 750, color: dash.ink, marginTop: 10, lineHeight: 1.35 }}>{title}</h2>
+          {readTime && (
+            <div style={{ fontSize: 11, color: dash.inkGhost, marginTop: 8, fontFamily: dash.fontMono }}>
+              {readTime} min de lecture
             </div>
+          )}
+        </div>
+
+        <nav style={{ flex: 1, padding: '12px 0', overflowY: 'auto' }}>
+          {toc.map(item => (
+            <a key={item.id} href={`#${item.id}`} style={{
+              display: 'flex', alignItems: 'center', gap: 10,
+              padding: '9px 20px', fontSize: 12,
+              fontWeight: activeId === item.id ? 700 : 500,
+              color: activeId === item.id ? dash.ink : dash.inkMuted,
+              background: activeId === item.id ? dash.bg : 'transparent',
+              borderLeft: activeId === item.id ? `3px solid ${dash.lavender}` : '3px solid transparent',
+              transition: 'all 0.15s', textDecoration: 'none',
+            }}>
+              <span style={{ fontSize: 13, opacity: 0.5, width: 18, textAlign: 'center' as const }}>{getIcon(item.id)}</span>
+              <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{item.text}</span>
+            </a>
+          ))}
+        </nav>
+
+        <div style={{ padding: '14px 20px', borderTop: `1px solid ${dash.borderSoft}` }}>
+          <Link href={`/${category === 'headquarters' ? 'headquarters' : category === 'library' ? 'library' : 'observatory'}`} style={{
+            fontSize: 12, color: dash.inkMuted, display: 'flex', alignItems: 'center', gap: 6,
+          }}>
+            ← Retour à l&apos;index
+          </Link>
+        </div>
+      </aside>
+
+      {/* ═══ MOBILE TOC BUTTON ═══ */}
+      <button className="lg:hidden" onClick={() => setSidebarOpen(!sidebarOpen)} style={{
+        position: 'fixed', bottom: 20, right: 20, zIndex: 40,
+        width: 48, height: 48, borderRadius: 14,
+        background: dash.ink, color: '#fff', border: 'none',
+        boxShadow: dash.shadowMd, cursor: 'pointer',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontSize: 18,
+      }}>☰</button>
+
+      {/* ═══ CONTENT ═══ */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        style={{ flex: 1, padding: '36px 24px 64px', maxWidth: 800, margin: '0 auto' }}
+      >
+        <div className="dash-card" style={{ padding: '44px 48px', marginBottom: 24 }}>
+          {/* Header */}
+          <div style={{ marginBottom: 32 }}>
+            <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' as const }}>
+              {tags?.slice(0, 4).map(t => (
+                <span key={t} className="badge" style={{ background: dash.bg, color: dash.inkMuted }}>{t}</span>
+              ))}
+            </div>
+            <h1 style={{ fontSize: 28, fontWeight: 800, color: dash.ink, lineHeight: 1.3, marginBottom: 8 }}>{title}</h1>
+            {description && <p style={{ fontSize: 15, color: dash.inkMuted, lineHeight: 1.6 }}>{description}</p>}
+            {(date || author) && (
+              <div style={{ fontSize: 12, color: dash.inkGhost, marginTop: 12, fontFamily: dash.fontMono }}>
+                {date && <span>{new Date(date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}</span>}
+                {author && <span> · {author}</span>}
+              </div>
+            )}
           </div>
-        </motion.article>
-      </div>
+
+          {/* Article body */}
+          <div ref={contentRef} className="prose-dash" dangerouslySetInnerHTML={{ __html: content }} />
+        </div>
+      </motion.div>
     </div>
   );
 }

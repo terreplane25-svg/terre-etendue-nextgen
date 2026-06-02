@@ -1,326 +1,141 @@
-"use client";
+'use client';
 
-import React from "react";
-import Link from "next/link";
-import { editorial } from "@/lib/editorial-tokens";
-import ScrollReveal from "@/components/editorial/ScrollReveal";
+import React from 'react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { dash, PILLARS, TAG_COLORS } from '@/lib/design-tokens';
 
-// ─── Geometric Islamic-inspired background pattern ───
-function GeometricBg() {
+interface HomeProps {
+  counts: { total: number; headquarters: number; observatory: number; library: number; lab: number; experiments: number };
+  recent: { slug: string; title: string; category: string; tags: string[]; pinned: boolean; readTime: number }[];
+}
+
+// ── Sparkline ──
+function Spark({ data, color }: { data: number[]; color: string }) {
+  const max = Math.max(...data), min = Math.min(...data), r = max - min || 1;
+  const pts = data.map((v, i) => `${(i / (data.length - 1)) * 80},${26 - ((v - min) / r) * 22 - 2}`).join(' ');
+  return <svg width={80} height={28} viewBox="0 0 80 28"><polyline points={pts} fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>;
+}
+
+// ── KPI Card ──
+function KPI({ label, value, sub, color, spark, delay }: { label: string; value: string; sub: string; color: string; spark: number[]; delay: number }) {
   return (
-    <svg
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{ opacity: 0.025 }}
-      viewBox="0 0 800 600"
-      preserveAspectRatio="xMidYMid slice"
+    <motion.div
+      initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay }}
+      className="dash-card" style={{ padding: '20px 22px' }}
     >
-      {[0, 1, 2, 3, 4, 5].map((i) =>
-        [0, 1, 2, 3].map((j) => {
-          const cx = 100 + i * 130;
-          const cy = 80 + j * 150;
-          return (
-            <g key={`${i}-${j}`}>
-              <polygon
-                points={`${cx},${cy - 40} ${cx + 35},${cy - 20} ${cx + 35},${cy + 20} ${cx},${cy + 40} ${cx - 35},${cy + 20} ${cx - 35},${cy - 20}`}
-                fill="none"
-                stroke={editorial.ink}
-                strokeWidth="0.5"
-              />
-              <circle cx={cx} cy={cy} r="12" fill="none" stroke={editorial.ink} strokeWidth="0.3" />
-            </g>
-          );
-        })
-      )}
-    </svg>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+        <div style={{ width: 8, height: 8, borderRadius: '50%', background: color, opacity: 0.7 }} />
+        <span style={{ fontSize: 11, fontWeight: 600, color: dash.inkMuted, letterSpacing: '0.06em', textTransform: 'uppercase' as const }}>{label}</span>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+        <span style={{ fontSize: 30, fontWeight: 800, color: dash.ink, lineHeight: 1 }}>{value}</span>
+        <Spark data={spark} color={color} />
+      </div>
+      <span style={{ fontSize: 12, color: dash.inkGhost, marginTop: 4, display: 'block' }}>{sub}</span>
+    </motion.div>
   );
 }
 
-// ─── Pillar icon SVGs ───
-const pillarIcons: Record<string, React.ReactNode> = {
-  headquarters: (
-    <svg width="48" height="48" viewBox="0 0 48 48" className="opacity-60">
-      <circle cx="24" cy="24" r="18" fill="none" stroke={editorial.ink} strokeWidth="0.8" />
-      <circle cx="24" cy="24" r="10" fill="none" stroke={editorial.ink} strokeWidth="0.5" />
-      <line x1="6" y1="24" x2="42" y2="24" stroke={editorial.ink} strokeWidth="0.3" />
-      <line x1="24" y1="6" x2="24" y2="42" stroke={editorial.ink} strokeWidth="0.3" />
-    </svg>
-  ),
-  observatory: (
-    <svg width="48" height="48" viewBox="0 0 48 48" className="opacity-60">
-      <line x1="4" y1="42" x2="44" y2="42" stroke={editorial.green} strokeWidth="0.8" />
-      <line x1="4" y1="42" x2="4" y2="6" stroke={editorial.green} strokeWidth="0.8" />
-      <polyline points="4,36 12,30 20,32 28,18 36,22 44,10" fill="none" stroke={editorial.green} strokeWidth="1.2" />
-    </svg>
-  ),
-  library: (
-    <svg width="48" height="48" viewBox="0 0 48 48" className="opacity-60">
-      <rect x="10" y="4" width="28" height="40" rx="1" fill="none" stroke={editorial.bronze} strokeWidth="0.8" />
-      <line x1="16" y1="14" x2="32" y2="14" stroke={editorial.bronze} strokeWidth="0.4" />
-      <line x1="16" y1="20" x2="32" y2="20" stroke={editorial.bronze} strokeWidth="0.4" />
-      <line x1="16" y1="26" x2="28" y2="26" stroke={editorial.bronze} strokeWidth="0.4" />
-      <line x1="16" y1="32" x2="32" y2="32" stroke={editorial.bronze} strokeWidth="0.4" />
-      <circle cx="24" cy="8" r="1.5" fill={editorial.bronze} opacity="0.4" />
-    </svg>
-  ),
-  lab: (
-    <svg width="48" height="48" viewBox="0 0 48 48" className="opacity-60">
-      <ellipse cx="24" cy="30" rx="18" ry="8" fill="none" stroke={editorial.indigo} strokeWidth="0.8" />
-      <ellipse cx="24" cy="24" rx="18" ry="8" fill="none" stroke={editorial.indigo} strokeWidth="0.5" />
-      <ellipse cx="24" cy="18" rx="18" ry="8" fill="none" stroke={editorial.indigo} strokeWidth="0.5" />
-    </svg>
-  ),
-};
-
-const pillars = [
-  {
-    slug: "headquarters" as const,
-    num: "I",
-    title: "Le Quartier Général",
-    sub: "Épistémologie & Méthode",
-    desc: "Quinze études fondatrices — de la chronologie du modèle héliocentrique aux failles méthodologiques des preuves classiques de la rotondité. L'hypothèse nulle, le mythe d'Ératosthène, la gravité réexaminée.",
-    href: "/headquarters",
-  },
-  {
-    slug: "observatory" as const,
-    num: "II",
-    title: "L'Observatoire",
-    sub: "Données Empiriques",
-    desc: "Quatorze rapports d'observation — l'horizon et la réfraction, le Bedford Level, le pendule de Foucault, les anomalies lunaires, les distances cosmiques. Chaque fait est sourcé, chiffré, vérifié.",
-    href: "/observatory",
-  },
-  {
-    slug: "library" as const,
-    num: "III",
-    title: "La Bibliothèque",
-    sub: "Sources Sacrées",
-    desc: "Dix analyses textuelles du Coran, de la Sunna et du patrimoine savant islamique. Les versets cosmologiques, le consensus historique et les figures clés de la tradition.",
-    href: "/library",
-  },
-  {
-    slug: "lab" as const,
-    num: "IV",
-    title: "Le Laboratoire",
-    sub: "Modélisation 3D",
-    desc: "Trois simulations interactives — le modèle de la Terre Étendue, le calculateur de courbure et réfraction, et la comparaison géocentrique/héliocentrique.",
-    href: "/lab",
-  },
-];
-
-interface HomeClientProps {
-  articleCount: number;
-  pillarCounts: Record<string, number>;
+// ── Category route ──
+function catRoute(c: string) {
+  return ({ headquarters: '/headquarters', observatory: '/observatory', library: '/library', lab: '/lab', meta: '/about' })[c] || '/observatory';
 }
 
-export default function HomeClient({ articleCount, pillarCounts }: HomeClientProps) {
+export default function HomeClient({ counts, recent }: HomeProps) {
   return (
-    <div>
-      {/* ═══════ HERO ═══════ */}
-      <section
-        className="relative overflow-hidden px-6 md:px-12 pt-20 md:pt-28 pb-16 md:pb-20"
-        style={{ background: `linear-gradient(180deg, ${editorial.bg} 0%, ${editorial.bgWarm} 100%)` }}
-      >
-        <GeometricBg />
-        <div className="relative max-w-[800px] mx-auto text-center">
-          {/* Volume label */}
-          <div className="animate-fade-up">
-            <span
-              className="text-[10px] font-semibold tracking-[0.22em] uppercase"
-              style={{ fontFamily: editorial.fontLabel, color: editorial.bronze }}
-            >
-              Revue de Cosmologie Indépendante · Vol. I · 2026
-            </span>
-          </div>
+    <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 24px 64px' }}>
 
-          {/* Title */}
-          <div className="animate-fade-up-delay-1">
-            <h1
-              className="mt-5 leading-[1.08] tracking-tight"
-              style={{ fontFamily: editorial.fontDisplay }}
-            >
-              <span className="block text-5xl md:text-7xl font-medium" style={{ color: editorial.ink }}>
-                Terre Étendue
-              </span>
-              <span
-                className="block text-5xl md:text-7xl font-light italic"
-                style={{ color: editorial.ink }}
-              >
-                Islam
-              </span>
-            </h1>
-          </div>
-
-          {/* Accent rule */}
-          <div className="animate-fade-up-delay-2 flex justify-center my-7">
-            <div className="w-[60px] h-[2px] rounded-full" style={{ background: editorial.bronze }} />
-          </div>
-
-          {/* Subtitle */}
-          <div className="animate-fade-up-delay-2">
-            <p
-              className="text-lg md:text-[19px] font-light leading-[1.8] max-w-[580px] mx-auto"
-              style={{ fontFamily: editorial.fontBody, color: editorial.inkSoft }}
-            >
-              Plateforme de recherche dédiée à l'examen critique du modèle
-              cosmologique standard à la lumière des données empiriques,
-              de l'épistémologie et des sources sacrées de l'Islam.
-            </p>
-          </div>
-
-          {/* Stats bar */}
-          <div className="animate-fade-up-delay-4 flex justify-center gap-12 md:gap-14 mt-12">
-            {[
-              { n: String(articleCount), l: "Publications" },
-              { n: "111", l: "Citations" },
-              { n: "450+", l: "Sources" },
-              { n: "3", l: "Modèles 3D" },
-            ].map((s) => (
-              <div key={s.l} className="text-center">
-                <div
-                  className="text-3xl md:text-4xl font-semibold"
-                  style={{ fontFamily: editorial.fontDisplay, color: editorial.ink }}
-                >
-                  {s.n}
-                </div>
-                <div
-                  className="text-[9px] font-semibold tracking-[0.18em] mt-1 uppercase"
-                  style={{ fontFamily: editorial.fontLabel, color: editorial.inkGhost }}
-                >
-                  {s.l}
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* ═══ HEADER ═══ */}
+      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+        style={{ marginBottom: 32 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, color: dash.lavender, letterSpacing: '0.1em', textTransform: 'uppercase' as const, marginBottom: 8, fontFamily: dash.fontMono }}>
+          Tableau de bord
         </div>
-      </section>
+        <h1 style={{ fontSize: 32, fontWeight: 800, color: dash.ink, marginBottom: 6, lineHeight: 1.2 }}>
+          Terre Étendue Islam
+        </h1>
+        <p style={{ fontSize: 15, color: dash.inkMuted, maxWidth: 500 }}>
+          Revue indépendante de cosmologie · Examen critique · Données empiriques · Sources sacrées
+        </p>
+      </motion.div>
 
-      {/* ═══════ BISMILLAH DIVIDER ═══════ */}
-      <div className="text-center py-10" style={{ background: editorial.bg }}>
-        <span
-          className="text-3xl opacity-40"
-          style={{ fontFamily: editorial.fontArabic, color: editorial.bronzeL }}
-        >
-          ﷽
-        </span>
+      {/* ═══ KPI ROW ═══ */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16, marginBottom: 36 }}>
+        <KPI label="Publications" value={String(counts.total)} sub={`+${counts.experiments} expériences`} color={dash.lavender} spark={[8, 12, 18, 25, 35, 48, counts.total]} delay={0.1} />
+        <KPI label="Sources" value="450+" sub="primaires vérifiées" color={dash.saffron} spark={[40, 80, 150, 250, 350, 420, 450]} delay={0.15} />
+        <KPI label="Observations" value="11K" sub="données empiriques" color={dash.opal} spark={[2, 3, 5, 6, 8, 10, 11]} delay={0.2} />
+        <KPI label="Modèles 3D" value="3" sub="simulateurs interactifs" color={dash.cyan} spark={[0, 0, 1, 1, 2, 3, 3]} delay={0.25} />
       </div>
 
-      {/* ═══════ PILLAR SECTIONS ═══════ */}
-      <section className="max-w-[1000px] mx-auto px-6 md:px-12 pb-20">
-        {pillars.map((p, i) => (
-          <ScrollReveal key={p.slug} delay={i * 60}>
-            <Link href={p.href} className="no-underline block group">
-              <div
-                className="grid grid-cols-1 md:grid-cols-[56px_1fr_80px] gap-4 md:gap-8 py-12 md:py-14 transition-colors duration-300 group-hover:bg-black/[0.015]"
-                style={{
-                  borderTop:
-                    i === 0
-                      ? `2px solid ${editorial.ink}`
-                      : `1px solid ${editorial.ruleFaint}`,
-                }}
-              >
-                {/* Numeral */}
-                <div className="hidden md:block pt-1.5">
-                  <span
-                    className="text-3xl font-light italic"
-                    style={{
-                      fontFamily: editorial.fontDisplay,
-                      color: editorial.ruleFaint,
-                    }}
-                  >
-                    {p.num}
-                  </span>
-                </div>
+      {/* ═══ BENTO GRID — PILIERS ═══ */}
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.3 }}>
+        <h2 style={{ fontSize: 18, fontWeight: 750, color: dash.ink, marginBottom: 16 }}>Les piliers</h2>
+      </motion.div>
 
-                {/* Content */}
-                <div>
-                  <span
-                    className="md:hidden text-sm font-light italic mr-3"
-                    style={{ fontFamily: editorial.fontDisplay, color: editorial.ruleFaint }}
-                  >
-                    {p.num}
-                  </span>
-                  <h2
-                    className="inline md:block text-2xl md:text-[32px] font-medium leading-tight mb-1"
-                    style={{ fontFamily: editorial.fontDisplay, color: editorial.ink }}
-                  >
-                    {p.title}
-                  </h2>
-                  <div
-                    className="text-[10px] font-semibold tracking-[0.18em] uppercase mb-4"
-                    style={{
-                      fontFamily: editorial.fontLabel,
-                      color: editorial.pillarColors[p.slug],
-                    }}
-                  >
-                    {p.sub}
-                  </div>
-                  <p
-                    className="text-base font-light leading-[1.8] max-w-[540px]"
-                    style={{ fontFamily: editorial.fontBody, color: editorial.inkMuted }}
-                  >
-                    {p.desc}
-                  </p>
-                  <span
-                    className="inline-block mt-4 text-[11px]"
-                    style={{ fontFamily: editorial.fontMono, color: editorial.inkGhost }}
-                  >
-                    {pillarCounts[p.slug] || "—"} publications →
-                  </span>
-                </div>
-
-                {/* Icon */}
-                <div className="hidden md:flex items-center justify-center">
-                  {pillarIcons[p.slug]}
-                </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16, marginBottom: 40 }}>
+        {PILLARS.map((p, i) => (
+          <motion.div
+            key={p.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.35 + i * 0.06 }}
+          >
+            <Link href={p.href} className="dash-card" style={{
+              display: 'flex', flexDirection: 'column', gap: 12,
+              padding: '26px 24px', cursor: 'pointer',
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: 28, opacity: 0.45 }}>{p.icon}</span>
+                <span className="badge" style={{ background: p.colorSoft, color: p.color }}>{p.num}</span>
+              </div>
+              <div>
+                <div style={{ fontSize: 16, fontWeight: 750, color: dash.ink, marginBottom: 3 }}>{p.name}</div>
+                <div style={{ fontSize: 13, color: dash.inkMuted }}>{p.sub}</div>
+              </div>
+              <div style={{ fontSize: 12, color: dash.inkGhost, marginTop: 'auto' }}>
+                {p.id === 'headquarters' ? counts.headquarters :
+                 p.id === 'observatory' ? counts.observatory :
+                 p.id === 'library' ? counts.library :
+                 p.id === 'lab' ? counts.lab :
+                 counts.experiments} publications
               </div>
             </Link>
-          </ScrollReveal>
+          </motion.div>
         ))}
-      </section>
+      </div>
 
-      {/* ═══════ FEATURED ARTICLE (inverse) ═══════ */}
-      <ScrollReveal>
-        <section
-          className="px-6 md:px-12 py-16 md:py-20"
-          style={{ background: editorial.ink }}
-        >
-          <div className="max-w-[720px] mx-auto">
-            <span
-              className="block text-[10px] font-semibold tracking-[0.22em] uppercase mb-4"
-              style={{ fontFamily: editorial.fontLabel, color: editorial.bronzeL }}
+      {/* ═══ RECENT ARTICLES ═══ */}
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.6 }}>
+        <h2 style={{ fontSize: 18, fontWeight: 750, color: dash.ink, marginBottom: 16 }}>Publications récentes</h2>
+      </motion.div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {recent.map((a, i) => {
+          const tc = TAG_COLORS[a.tags?.[0]] || { bg: dash.borderSoft, color: dash.inkMuted };
+          return (
+            <motion.div key={a.slug}
+              initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.35, delay: 0.65 + i * 0.04 }}
             >
-              Lecture Recommandée
-            </span>
-            <h2
-              className="text-3xl md:text-[38px] font-medium leading-[1.2] mb-5"
-              style={{ fontFamily: editorial.fontDisplay, color: editorial.bgWarm }}
-            >
-              L'horizon, la perspective et la réfraction
-            </h2>
-            <p
-              className="text-base md:text-[17px] font-light leading-[1.8] max-w-[560px] mb-7"
-              style={{
-                fontFamily: editorial.fontBody,
-                color: "rgba(237,232,224,0.7)",
-              }}
-            >
-              L'article le plus complet de l'Observatoire — dix planches d'audit
-              optique, les calculs de courbure théorique confrontés aux observations
-              réelles, et l'héritage oublié d'Ibn al-Haytham.
-            </p>
-            <Link
-              href="/observatory/lhorizon-la-perspective-et-la-refraction"
-              className="inline-block no-underline text-[10px] font-semibold tracking-[0.2em] px-7 py-3 transition-all duration-300 hover:bg-[#C49B30] hover:text-[#0C0A09]"
-              style={{
-                fontFamily: editorial.fontLabel,
-                border: `1px solid ${editorial.bronzeL}`,
-                color: editorial.bronzeL,
-              }}
-            >
-              LIRE L'ARTICLE
-            </Link>
-          </div>
-        </section>
-      </ScrollReveal>
+              <Link href={`${catRoute(a.category)}/${a.slug}`} className="dash-card-sm" style={{
+                display: 'flex', alignItems: 'center', gap: 14, padding: '12px 18px',
+                cursor: 'pointer', transition: 'all 0.2s',
+              }}>
+                {a.pinned && <span style={{ color: dash.saffron, fontSize: 14 }}>★</span>}
+                <span style={{ flex: 1, fontSize: 14, fontWeight: 600, color: dash.ink, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>
+                  {a.title}
+                </span>
+                {a.tags?.slice(0, 1).map(t => (
+                  <span key={t} className="badge" style={{ background: tc.bg, color: tc.color, fontSize: 10 }}>{t}</span>
+                ))}
+                <span style={{ fontSize: 12, color: dash.inkGhost, fontFamily: dash.fontMono, whiteSpace: 'nowrap' as const }}>{a.readTime} min</span>
+              </Link>
+            </motion.div>
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -1,41 +1,20 @@
-import type { Metadata } from "next";
-import "@/styles/globals.css";
-import Navigation from "@/components/editorial/Navigation";
-import Footer from "@/components/editorial/Footer";
+import type { Metadata } from 'next';
+import '@/styles/globals.css';
+import DashboardNav from '@/components/DashboardNav';
+import DashboardFooter from '@/components/DashboardFooter';
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://terre-etendue-islam.fr"),
-  title: {
-    default: "Terre Étendue Islam — Revue de Cosmologie Indépendante",
-    template: "%s | Terre Étendue Islam",
-  },
-  description:
-    "Plateforme de recherche dédiée à l'examen critique du modèle cosmologique standard à la lumière des données empiriques, de l'épistémologie et des sources sacrées de l'Islam.",
-  openGraph: {
-    type: "website",
-    locale: "fr_FR",
-    siteName: "Terre Étendue Islam",
-  },
-  twitter: {
-    card: "summary_large_image",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  title: { default: 'Terre Étendue Islam', template: '%s — TEI' },
+  description: 'Revue indépendante de cosmologie. Examen critique, données empiriques, sources sacrées.',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className="scroll-smooth">
-      <body className="min-h-screen flex flex-col" style={{ background: "#FAFAF8" }}>
-        <Navigation />
-        <main className="flex-1">{children}</main>
-        <Footer />
+    <html lang="fr">
+      <body style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <DashboardNav />
+        <main style={{ flex: 1 }}>{children}</main>
+        <DashboardFooter />
       </body>
     </html>
   );
