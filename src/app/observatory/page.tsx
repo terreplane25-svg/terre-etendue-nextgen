@@ -4,13 +4,18 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: "L'Observatoire — Données empiriques",
-  description: 'Publications de données empiriques, analyses optiques et expériences de physique naturelle.',
+  description: 'Publications analytiques : données empiriques, analyses optiques, observations documentées.',
 };
 
 export default function ObservatoryPage() {
-  const articles = getArticlesByCategory('observatory') as any[];
+  const allObs = getArticlesByCategory('observatory') as any[];
 
-  const formatted = articles.map((a: any) => ({
+  // Exclure les fiches expériences (elles vivent dans /experiences)
+  const analysisArticles = allObs.filter(
+    (a: any) => !a.tags?.includes('physique-naturelle')
+  );
+
+  const formatted = analysisArticles.map((a: any) => ({
     slug: a.slug,
     title: a.title,
     description: a.description || '',

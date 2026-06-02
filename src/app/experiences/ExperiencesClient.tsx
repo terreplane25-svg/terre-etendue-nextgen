@@ -1,403 +1,160 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { dash, TAG_COLORS } from "@/lib/design-tokens";
 
 interface ArticleEntry {
-  slug: string;
-  title: string;
-  description: string;
-  category: string;
-  tags: string[];
-  pinned: boolean;
-  readTime: number;
+  slug: string; title: string; description: string;
+  category: string; tags: string[]; pinned: boolean; readTime: number;
 }
 
-interface ExperiencesClientProps {
-  historical: ArticleEntry[];
-  demonstrations: ArticleEntry[];
-}
-
-// ─── Famille groupings for demonstrations ───
-const FAMILLES: { id: string; label: string; icon: string; tags: string[] }[] = [
-  {
-    id: "fluides",
-    label: "Mécanique des fluides & matière",
-    icon: "💧",
-    tags: ["densité", "pression", "masse", "vide", "mécanique-des-fluides", "états-de-la-matière", "pression-réduite", "cloche-à-vide"],
-  },
-  {
-    id: "optique",
-    label: "Optique & perspective",
-    icon: "🔭",
-    tags: ["perspective", "angle-visuel", "taille-apparente", "point-de-fuite", "diffusion-rayleigh"],
-  },
-  {
-    id: "oeil",
-    label: "L'œil humain",
-    icon: "👁",
-    tags: ["champ-visuel", "stéréoscopie", "accommodation", "persistance-rétinienne", "cristallin", "œil-humain"],
-  },
-  {
-    id: "forces",
-    label: "Forces & interactions",
-    icon: "⚡",
-    tags: ["action-réaction", "magnétisme", "électromagnétisme", "charge-électrique", "électricité-statique"],
-  },
+const FAMILLES = [
+  { id: "fluides", label: "Fluides & matière", icon: "💧",
+    tags: ["densité", "pression", "masse", "vide", "mécanique-des-fluides", "états-de-la-matière", "pression-réduite", "cloche-à-vide"] },
+  { id: "optique", label: "Optique & perspective", icon: "🔭",
+    tags: ["perspective", "angle-visuel", "taille-apparente", "point-de-fuite", "diffusion-rayleigh"] },
+  { id: "oeil", label: "L'œil humain", icon: "👁",
+    tags: ["champ-visuel", "stéréoscopie", "accommodation", "persistance-rétinienne", "cristallin", "œil-humain"] },
+  { id: "forces", label: "Forces & interactions", icon: "⚡",
+    tags: ["action-réaction", "magnétisme", "électromagnétisme", "charge-électrique", "électricité-statique"] },
 ];
 
-function getFamille(article: ArticleEntry): string {
-  for (const f of FAMILLES) {
-    if (article.tags.some((t) => f.tags.includes(t))) return f.id;
-  }
+function getFamille(a: ArticleEntry): string {
+  for (const f of FAMILLES) { if (a.tags.some(t => f.tags.includes(t))) return f.id; }
   return "other";
 }
 
-// ─── Category route mapping ───
-function getCategoryRoute(category: string): string {
-  const routes: Record<string, string> = {
-    headquarters: "/headquarters",
-    observatory: "/observatory",
-    library: "/library",
-    lab: "/lab",
-    meta: "/about",
-  };
-  return routes[category] || "/observatory";
-}
+// Cross-links: experiment → related analysis
+const CROSS_LINKS: Record<string, { slug: string; label: string }> = {
+  "densite-et-flottabilite": { slug: "pourquoi-les-choses-montent-et-descendent", label: "Voir l'analyse complète" },
+  "la-pression-atmospherique": { slug: "pression-lumiere-halos-rayons-et-ondes", label: "Voir l'analyse complète" },
+  "la-perspective-lineaire": { slug: "lhorizon-la-perspective-et-la-refraction", label: "Voir l'analyse optique" },
+  "diminution-angulaire-taille-apparente": { slug: "ce-quon-voit-quand-on-ne-devrait-plus-voir", label: "Voir les observations" },
+  "la-perspective-atmospherique": { slug: "lhorizon-la-perspective-et-la-refraction", label: "Voir l'analyse optique" },
+  "magnetisme-et-electromagnetisme": { slug: "cartes-routes-boussoles-et-le-mystere-antarctique", label: "Voir l'analyse géographique" },
+};
 
-export default function ExperiencesClient({
-  historical,
-  demonstrations,
-}: ExperiencesClientProps) {
-  const [activeTab, setActiveTab] = useState<"all" | "historical" | "demos">("all");
-  const [activeFamille, setActiveFamille] = useState<string | null>(null);
+export default function ExperiencesClient({ historical, demonstrations }: { historical: ArticleEntry[]; demonstrations: ArticleEntry[] }) {
+  const [tab, setTab] = useState<"all" | "demos" | "historical">("all");
+  const [famille, setFamille] = useState<string | null>(null);
 
-  const filteredDemos = activeFamille
-    ? demonstrations.filter((a) => getFamille(a) === activeFamille)
+  const filteredDemos = famille
+    ? demonstrations.filter(a => getFamille(a) === famille)
     : demonstrations;
 
   return (
-    <div className="min-h-screen">
-      {/* ═══════ HERO ═══════ */}
-      <section className="relative overflow-hidden px-6 md:px-12 pt-16 md:pt-24 pb-12 md:pb-16">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <p className="text-xs font-mono tracking-[0.2em] uppercase opacity-50 mb-4">
-              Pilier V · Physique Naturelle
-            </p>
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-              Laboratoire de Physique Naturelle
-            </h1>
-            <p className="text-lg md:text-xl opacity-70 leading-relaxed max-w-2xl mb-8">
-              Comprendre les phénomènes physiques par l'expérience directe.
-              Retracements historiques des grandes expériences et démonstrations
-              pédagogiques reproductibles chez vous.
-            </p>
-          </motion.div>
+    <div style={{ maxWidth: 1000, margin: "0 auto", padding: "32px 24px 64px" }}>
 
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex gap-8 md:gap-12 text-sm font-mono"
-          >
-            <div>
-              <span className="text-2xl font-bold block">{historical.length}</span>
-              <span className="opacity-50 text-xs tracking-wider">RETRACEMENTS</span>
-            </div>
-            <div>
-              <span className="text-2xl font-bold block">{demonstrations.length}</span>
-              <span className="opacity-50 text-xs tracking-wider">DÉMONSTRATIONS</span>
-            </div>
-            <div>
-              <span className="text-2xl font-bold block">34+</span>
-              <span className="opacity-50 text-xs tracking-wider">PROTOCOLES</span>
-            </div>
-            <div>
-              <span className="text-2xl font-bold block">4</span>
-              <span className="opacity-50 text-xs tracking-wider">FAMILLES</span>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* Header */}
+      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 28 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, color: dash.rose, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 6, fontFamily: dash.fontMono }}>05 · Expériences</div>
+        <h1 style={{ fontSize: 28, fontWeight: 800, color: dash.ink, marginBottom: 4 }}>Laboratoire de Physique Naturelle</h1>
+        <p style={{ fontSize: 14, color: dash.inkMuted }}>
+          {demonstrations.length} démonstrations reproductibles · {historical.length} retracements historiques · 34+ protocoles
+        </p>
+      </motion.div>
 
-      {/* ═══════ TABS ═══════ */}
-      <section className="px-6 md:px-12 mb-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex gap-2 border-b border-white/10 pb-0">
-            {[
-              { id: "all" as const, label: "Tout" },
-              { id: "historical" as const, label: "Retracement historique" },
-              { id: "demos" as const, label: "Comprendre par l'expérience" },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => { setActiveTab(tab.id); setActiveFamille(null); }}
-                className={`px-4 py-3 text-sm font-medium transition-all duration-200 border-b-2 -mb-[1px] ${
-                  activeTab === tab.id
-                    ? "border-current opacity-100"
-                    : "border-transparent opacity-50 hover:opacity-75"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Tabs */}
+      <div style={{ display: "flex", gap: 4, marginBottom: 24, borderBottom: `1px solid ${dash.border}`, paddingBottom: 0 }}>
+        {([
+          { id: "all" as const, label: "Tout" },
+          { id: "demos" as const, label: "Comprendre par l'expérience" },
+          { id: "historical" as const, label: "Retracement historique" },
+        ]).map(t => (
+          <button key={t.id} onClick={() => { setTab(t.id); setFamille(null); }} style={{
+            padding: "8px 16px", fontSize: 13, fontWeight: 600, fontFamily: dash.fontMain,
+            border: "none", background: "none", cursor: "pointer",
+            color: tab === t.id ? dash.ink : dash.inkMuted,
+            borderBottom: tab === t.id ? `2px solid ${dash.ink}` : "2px solid transparent",
+            marginBottom: -1, transition: "all 0.2s",
+          }}>{t.label}</button>
+        ))}
+      </div>
 
-      {/* ═══════ SECTION 1: RETRACEMENT HISTORIQUE ═══════ */}
+      {/* ═══ DEMONSTRATIONS ═══ */}
       <AnimatePresence mode="wait">
-        {(activeTab === "all" || activeTab === "historical") && (
-          <motion.section
-            key="historical"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.3 }}
-            className="px-6 md:px-12 mb-16"
-          >
-            <div className="max-w-4xl mx-auto">
-              {activeTab === "all" && (
-                <div className="mb-8">
-                  <h2 className="text-xl md:text-2xl font-bold mb-2">
-                    📜 Retracement historique
-                  </h2>
-                  <p className="opacity-60 text-sm max-w-xl">
-                    Les grandes expériences qui ont jalonné le débat cosmologique :
-                    de Rowbotham (1838) à Michelson-Morley (1887), en passant par
-                    Foucault (1851) et Airy (1871).
-                  </p>
-                </div>
-              )}
+        {(tab === "all" || tab === "demos") && (
+          <motion.div key="demos" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ marginBottom: 40 }}>
+            {tab === "all" && <h2 style={{ fontSize: 17, fontWeight: 750, color: dash.ink, marginBottom: 16 }}>🔬 Comprendre par l'expérience</h2>}
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {historical.map((article, i) => (
-                  <motion.div
-                    key={article.slug}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: i * 0.05 }}
-                  >
-                    <Link
-                      href={`/article/${article.slug}`}
-                      className="block p-5 rounded-lg border border-white/10 hover:border-white/20 transition-all duration-200 hover:bg-white/[0.03] group no-underline"
-                    >
-                      <div className="flex items-start justify-between gap-3 mb-2">
-                        <span className="text-xs font-mono opacity-40 tracking-wider uppercase">
-                          {article.category === "headquarters" ? "QG" : "OBS"}
-                        </span>
-                        <span className="text-xs font-mono opacity-30">
-                          {article.readTime} min
-                        </span>
-                      </div>
-                      <h3 className="text-base font-semibold leading-snug mb-2 group-hover:opacity-100 opacity-90 transition-opacity">
-                        {article.title}
-                      </h3>
-                      {article.description && (
-                        <p className="text-sm opacity-50 line-clamp-2 leading-relaxed">
-                          {article.description}
-                        </p>
-                      )}
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
+            {/* Famille filters */}
+            <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 20 }}>
+              <button onClick={() => setFamille(null)} style={{
+                padding: "5px 12px", borderRadius: 8, fontSize: 12, fontWeight: 600, fontFamily: dash.fontMain,
+                border: `1px solid ${!famille ? dash.ink : dash.border}`,
+                background: !famille ? dash.ink : dash.card, color: !famille ? "#fff" : dash.inkMuted, cursor: "pointer",
+              }}>Toutes</button>
+              {FAMILLES.map(f => (
+                <button key={f.id} onClick={() => setFamille(f.id === famille ? null : f.id)} style={{
+                  padding: "5px 12px", borderRadius: 8, fontSize: 12, fontWeight: 600, fontFamily: dash.fontMain,
+                  border: `1px solid ${famille === f.id ? dash.ink : dash.border}`,
+                  background: famille === f.id ? dash.ink : dash.card, color: famille === f.id ? "#fff" : dash.inkMuted, cursor: "pointer",
+                }}>{f.icon} {f.label}</button>
+              ))}
             </div>
-          </motion.section>
-        )}
-      </AnimatePresence>
 
-      {/* ═══════ SECTION 2: DÉMONSTRATIONS ═══════ */}
-      <AnimatePresence mode="wait">
-        {(activeTab === "all" || activeTab === "demos") && (
-          <motion.section
-            key="demos"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.3 }}
-            className="px-6 md:px-12 mb-16"
-          >
-            <div className="max-w-4xl mx-auto">
-              {activeTab === "all" && (
-                <div className="mb-8 pt-8 border-t border-white/10">
-                  <h2 className="text-xl md:text-2xl font-bold mb-2">
-                    🔬 Comprendre par l'expérience
-                  </h2>
-                  <p className="opacity-60 text-sm max-w-xl">
-                    Fiches pédagogiques avec protocoles reproductibles chez vous.
-                    Chaque expérience démontre un phénomène physique fondamental et
-                    le relie aux analyses du site.
-                  </p>
-                </div>
-              )}
-
-              {/* Famille filters */}
-              <div className="flex flex-wrap gap-2 mb-8">
-                <button
-                  onClick={() => setActiveFamille(null)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 border ${
-                    activeFamille === null
-                      ? "border-white/40 opacity-100"
-                      : "border-white/10 opacity-50 hover:opacity-75"
-                  }`}
-                >
-                  Toutes les familles
-                </button>
-                {FAMILLES.map((f) => (
-                  <button
-                    key={f.id}
-                    onClick={() => setActiveFamille(f.id === activeFamille ? null : f.id)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 border ${
-                      activeFamille === f.id
-                        ? "border-white/40 opacity-100"
-                        : "border-white/10 opacity-50 hover:opacity-75"
-                    }`}
-                  >
-                    {f.icon} {f.label}
-                  </button>
-                ))}
-              </div>
-
-              {/* Grouped by famille */}
-              {activeFamille === null ? (
-                // Show all, grouped
-                FAMILLES.map((famille) => {
-                  const familleArticles = demonstrations.filter(
-                    (a) => getFamille(a) === famille.id
-                  );
-                  if (familleArticles.length === 0) return null;
-                  return (
-                    <div key={famille.id} className="mb-12">
-                      <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                        <span>{famille.icon}</span>
-                        <span>{famille.label}</span>
-                        <span className="text-xs font-mono opacity-30 ml-2">
-                          {familleArticles.length} fiches
-                        </span>
-                      </h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {familleArticles.map((article, i) => (
-                          <motion.div
-                            key={article.slug}
-                            initial={{ opacity: 0, y: 16 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: i * 0.05 }}
-                          >
-                            <Link
-                              href={`/article/${article.slug}`}
-                              className="block p-5 rounded-lg border border-white/10 hover:border-white/20 transition-all duration-200 hover:bg-white/[0.03] group no-underline"
-                            >
-                              <div className="flex items-start justify-between gap-3 mb-2">
-                                <div className="flex gap-2 flex-wrap">
-                                  {article.tags
-                                    .filter((t) => t !== "expériences" && t !== "physique-naturelle")
-                                    .slice(0, 3)
-                                    .map((tag) => (
-                                      <span
-                                        key={tag}
-                                        className="text-[10px] font-mono opacity-30 px-1.5 py-0.5 rounded border border-white/10"
-                                      >
-                                        {tag}
-                                      </span>
-                                    ))}
-                                </div>
-                                <span className="text-xs font-mono opacity-30 whitespace-nowrap">
-                                  {article.readTime} min
-                                </span>
-                              </div>
-                              <h4 className="text-base font-semibold leading-snug mb-2 group-hover:opacity-100 opacity-90 transition-opacity">
-                                {article.title}
-                              </h4>
-                              {article.description && (
-                                <p className="text-sm opacity-50 line-clamp-2 leading-relaxed">
-                                  {article.description}
-                                </p>
-                              )}
-                            </Link>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })
-              ) : (
-                // Show filtered famille
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {filteredDemos.map((article, i) => (
-                    <motion.div
-                      key={article.slug}
-                      initial={{ opacity: 0, y: 16 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: i * 0.05 }}
-                    >
-                      <Link
-                        href={`/article/${article.slug}`}
-                        className="block p-5 rounded-lg border border-white/10 hover:border-white/20 transition-all duration-200 hover:bg-white/[0.03] group no-underline"
-                      >
-                        <div className="flex items-start justify-between gap-3 mb-2">
-                          <div className="flex gap-2 flex-wrap">
-                            {article.tags
-                              .filter((t) => t !== "expériences" && t !== "physique-naturelle")
-                              .slice(0, 3)
-                              .map((tag) => (
-                                <span
-                                  key={tag}
-                                  className="text-[10px] font-mono opacity-30 px-1.5 py-0.5 rounded border border-white/10"
-                                >
-                                  {tag}
-                                </span>
-                              ))}
-                          </div>
-                          <span className="text-xs font-mono opacity-30 whitespace-nowrap">
-                            {article.readTime} min
-                          </span>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {filteredDemos.map((a, i) => {
+                const cross = CROSS_LINKS[a.slug];
+                return (
+                  <motion.div key={a.slug} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
+                    <div className="dash-card-sm" style={{ padding: "14px 18px" }}>
+                      <Link href={`/article/${a.slug}`} style={{ display: "flex", alignItems: "center", gap: 14, cursor: "pointer" }}>
+                        <span className="badge" style={{ background: dash.opalSoft, color: dash.opal, minWidth: 40, textAlign: "center" }}>EXP</span>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{ fontSize: 14, fontWeight: 600, color: dash.ink, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{a.title}</div>
+                          {a.description && <div style={{ fontSize: 12, color: dash.inkGhost, marginTop: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{a.description}</div>}
                         </div>
-                        <h4 className="text-base font-semibold leading-snug mb-2 group-hover:opacity-100 opacity-90 transition-opacity">
-                          {article.title}
-                        </h4>
-                        {article.description && (
-                          <p className="text-sm opacity-50 line-clamp-2 leading-relaxed">
-                            {article.description}
-                          </p>
-                        )}
+                        <span style={{ fontSize: 12, color: dash.inkGhost, fontFamily: dash.fontMono }}>{a.readTime}m</span>
                       </Link>
-                    </motion.div>
-                  ))}
-                </div>
-              )}
+                      {cross && (
+                        <div style={{ marginTop: 8, paddingTop: 8, borderTop: `1px solid ${dash.borderSoft}` }}>
+                          <Link href={`/article/${cross.slug}`} style={{ fontSize: 11, color: dash.lavender, fontWeight: 600 }}>
+                            ↗ {cross.label}
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
-          </motion.section>
+          </motion.div>
         )}
       </AnimatePresence>
 
-      {/* ═══════ YOUTUBE CHANNEL CALLOUT ═══════ */}
-      <section className="px-6 md:px-12 mb-16">
-        <div className="max-w-4xl mx-auto">
-          <div className="p-6 rounded-lg border border-white/10 bg-white/[0.02]">
-            <p className="text-sm font-medium mb-2">📺 Chaîne recommandée</p>
-            <p className="text-sm opacity-60 mb-3">
-              Le Lab&apos;O Sciences propose de nombreuses démonstrations
-              en vidéo couvrant la plupart des phénomènes abordés ici.
-            </p>
-            <a
-              href="https://www.youtube.com/@lelabosciences2216"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block text-sm font-mono opacity-70 hover:opacity-100 transition-opacity"
-            >
-              youtube.com/@lelabosciences2216 →
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* ═══ HISTORICAL ═══ */}
+      <AnimatePresence mode="wait">
+        {(tab === "all" || tab === "historical") && (
+          <motion.div key="hist" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+            {tab === "all" && <h2 style={{ fontSize: 17, fontWeight: 750, color: dash.ink, marginBottom: 16 }}>📜 Retracement historique</h2>}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 12 }}>
+              {historical.map((a, i) => (
+                <motion.div key={a.slug} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}>
+                  <Link href={`/article/${a.slug}`} className="dash-card-sm" style={{ display: "block", padding: "16px 18px", cursor: "pointer" }}>
+                    <span className="badge" style={{ background: dash.lavenderSoft, color: dash.lavender, marginBottom: 8, display: "inline-block" }}>OBS</span>
+                    <div style={{ fontSize: 14, fontWeight: 650, color: dash.ink, marginBottom: 4, lineHeight: 1.35 }}>{a.title}</div>
+                    <div style={{ fontSize: 12, color: dash.inkGhost }}>{a.readTime} min</div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* YouTube callout */}
+            <div className="dash-card" style={{ marginTop: 24, padding: "18px 22px", display: "flex", alignItems: "center", gap: 14 }}>
+              <span style={{ fontSize: 24 }}>📺</span>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 650, color: dash.ink }}>Chaîne recommandée</div>
+                <div style={{ fontSize: 12, color: dash.inkMuted }}>Le Lab&apos;O Sciences — démonstrations en vidéo</div>
+              </div>
+              <a href="https://www.youtube.com/@lelabosciences2216" target="_blank" rel="noopener noreferrer"
+                style={{ marginLeft: "auto", fontSize: 12, fontWeight: 600, color: dash.lavender }}>Voir →</a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
