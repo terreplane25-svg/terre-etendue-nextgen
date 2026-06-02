@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { dash, TAG_COLORS } from '@/lib/design-tokens';
+import { dash } from '@/lib/design-tokens';
 import { getArticleImage } from '@/lib/article-images';
+import PageHero from '@/components/PageHero';
 
 interface A { slug: string; title: string; description: string; tags: string[]; pinned: boolean; readTime: number; }
-
 const EXP_LINKS: Record<string, { slug: string; label: string }> = {
   "pourquoi-les-choses-montent-et-descendent": { slug: "densite-et-flottabilite", label: "Fiche expérience : densité" },
   "pression-lumiere-halos-rayons-et-ondes": { slug: "la-pression-atmospherique", label: "Fiche expérience : pression" },
@@ -17,53 +17,42 @@ const EXP_LINKS: Record<string, { slug: string; label: string }> = {
 
 export default function ObservatoryClient({ articles }: { articles: A[] }) {
   const [filter, setFilter] = useState('all');
-  const filtered = filter === 'all' ? articles : filter === 'pinned' ? articles.filter(a => a.pinned) : articles.filter(a => a.tags.includes(filter));
+  const filtered = filter === 'all' ? articles : filter === 'pinned' ? articles.filter(a => a.pinned) : articles;
 
   return (
-    <div style={{ maxWidth: 960, margin: '0 auto', padding: '32px 24px 64px' }}>
-      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 28 }}>
-        <div style={{ fontSize: 11, fontWeight: 700, color: dash.cyan, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 6, fontFamily: dash.fontMono }}>02 · Observatoire</div>
-        <h1 style={{ fontSize: 28, fontWeight: 800, color: dash.ink, marginBottom: 4 }}>L&apos;Observatoire</h1>
-        <p style={{ fontSize: 14, color: dash.inkMuted }}>{articles.length} analyses · <Link href="/experiences" style={{ color: dash.opal, fontWeight: 600 }}>Voir les fiches expériences →</Link></p>
-      </motion.div>
-
-      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 24 }}>
-        {[{ id: 'all', label: 'Tout' }, { id: 'pinned', label: '★ Épinglés' }].map(f => (
-          <button key={f.id} onClick={() => setFilter(f.id)} style={{
-            padding: '6px 14px', borderRadius: 8, fontSize: 12, fontWeight: 600, fontFamily: dash.fontMain,
-            border: `1px solid ${filter === f.id ? dash.ink : dash.border}`,
-            background: filter === f.id ? dash.ink : dash.card, color: filter === f.id ? '#fff' : dash.inkMuted, cursor: 'pointer',
-          }}>{f.label}</button>
-        ))}
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        {filtered.map((a, i) => {
-          const exp = EXP_LINKS[a.slug];
-          return (
-            <motion.div key={a.slug} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
-              <div className="dash-card" style={{ overflow: 'hidden' }}>
-                <Link href={`/article/${a.slug}`} style={{ display: 'flex', cursor: 'pointer' }}>
-                  <div style={{ width: 140, minHeight: 100, flexShrink: 0, overflow: 'hidden' }}>
-                    <img src={getArticleImage(a.slug)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
-                  </div>
-                  <div style={{ padding: '14px 20px', flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 15, fontWeight: 700, color: dash.ink, marginBottom: 4, lineHeight: 1.3 }}>
-                      {a.pinned && <span style={{ color: dash.saffron, marginRight: 6 }}>★</span>}{a.title}
+    <div>
+      <PageHero num="02 · Observatoire" title="L'Observatoire" subtitle={`${articles.length} analyses · Données empiriques`} color={dash.cyan} image="https://images.unsplash.com/photo-1507400492013-162706c8c05e?w=1400&h=400&fit=crop&crop=bottom" />
+      <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 64px' }}>
+        <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
+          <Link href="/experiences" style={{ fontSize: 13, fontWeight: 600, color: dash.opal, padding: '6px 14px', borderRadius: 8, background: dash.opalSoft }}>Voir les fiches expériences →</Link>
+        </div>
+        <div style={{ display: 'flex', gap: 6, marginBottom: 24 }}>
+          {[{ id: 'all', l: 'Tout' }, { id: 'pinned', l: '★ Épinglés' }].map(f => (
+            <button key={f.id} onClick={() => setFilter(f.id)} style={{ padding: '7px 16px', borderRadius: 8, fontSize: 13, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${filter === f.id ? dash.ink : dash.border}`, background: filter === f.id ? dash.ink : dash.card, color: filter === f.id ? '#fff' : dash.inkMuted, cursor: 'pointer' }}>{f.l}</button>
+          ))}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          {filtered.map((a, i) => {
+            const exp = EXP_LINKS[a.slug];
+            return (
+              <motion.div key={a.slug} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
+                <div className="dash-card" style={{ overflow: 'hidden' }}>
+                  <Link href={`/article/${a.slug}`} style={{ display: 'flex', cursor: 'pointer' }}>
+                    <div style={{ width: 180, minHeight: 140, flexShrink: 0, overflow: 'hidden' }}>
+                      <img src={getArticleImage(a.slug)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
                     </div>
-                    <div style={{ fontSize: 11, color: dash.inkGhost, marginBottom: 6, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
-                    {a.description && <div style={{ fontSize: 13, color: dash.inkMuted, lineHeight: 1.5, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as any }}>{a.description}</div>}
-                  </div>
-                </Link>
-                {exp && (
-                  <div style={{ padding: '8px 20px 12px', borderTop: `1px solid ${dash.borderSoft}` }}>
-                    <Link href={`/article/${exp.slug}`} style={{ fontSize: 11, color: dash.opal, fontWeight: 600 }}>🧪 {exp.label}</Link>
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          );
-        })}
+                    <div style={{ padding: '18px 24px', flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: 17, fontWeight: 700, color: dash.ink, marginBottom: 6, lineHeight: 1.35 }}>{a.pinned && <span style={{ color: dash.saffron, marginRight: 6 }}>★</span>}{a.title}</div>
+                      <div style={{ fontSize: 12, color: dash.inkGhost, marginBottom: 8, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
+                      {a.description && <div style={{ fontSize: 14, color: dash.inkMuted, lineHeight: 1.55, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as any }}>{a.description}</div>}
+                    </div>
+                  </Link>
+                  {exp && <div style={{ padding: '10px 24px 14px', borderTop: `1px solid ${dash.borderSoft}` }}><Link href={`/article/${exp.slug}`} style={{ fontSize: 12, color: dash.opal, fontWeight: 600 }}>🧪 {exp.label}</Link></div>}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

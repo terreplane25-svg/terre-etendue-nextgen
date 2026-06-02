@@ -56,20 +56,20 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
                 <button key={f.id} onClick={() => setFam(f.id === fam ? null : f.id)} style={{ padding: "5px 12px", borderRadius: 8, fontSize: 12, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${fam === f.id ? dash.ink : dash.border}`, background: fam === f.id ? dash.ink : dash.card, color: fam === f.id ? "#fff" : dash.inkMuted, cursor: "pointer" }}>{f.icon} {f.label}</button>
               ))}
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               {fd.map((a, i) => {
                 const cr = CROSS[a.slug];
                 return (
                   <motion.div key={a.slug} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
                     <div className="dash-card" style={{ overflow: "hidden" }}>
                       <Link href={`/article/${a.slug}`} style={{ display: "flex", cursor: "pointer" }}>
-                        <div style={{ width: 140, minHeight: 100, flexShrink: 0, overflow: "hidden" }}>
+                        <div style={{ width: 180, minHeight: 140, flexShrink: 0, overflow: "hidden" }}>
                           <img src={getArticleImage(a.slug)} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
                         </div>
-                        <div style={{ padding: "14px 20px", flex: 1, minWidth: 0 }}>
-                          <div style={{ fontSize: 15, fontWeight: 700, color: dash.ink, marginBottom: 4, lineHeight: 1.3 }}>{a.title}</div>
+                        <div style={{ padding: "18px 24px", flex: 1, minWidth: 0 }}>
+                          <div style={{ fontSize: 17, fontWeight: 700, color: dash.ink, marginBottom: 4, lineHeight: 1.3 }}>{a.title}</div>
                           <div style={{ fontSize: 11, color: dash.inkGhost, marginBottom: 6, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
-                          {a.description && <div style={{ fontSize: 13, color: dash.inkMuted, lineHeight: 1.5, overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as any }}>{a.description}</div>}
+                          {a.description && <div style={{ fontSize: 14, color: dash.inkMuted, lineHeight: 1.5, overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as any }}>{a.description}</div>}
                         </div>
                       </Link>
                       {cr && <div style={{ padding: "8px 20px 12px", borderTop: `1px solid ${dash.borderSoft}` }}><Link href={`/article/${cr.slug}`} style={{ fontSize: 11, color: dash.lavender, fontWeight: 600 }}>↗ {cr.label}</Link></div>}
@@ -86,17 +86,17 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
         {(tab === "all" || tab === "hist") && (
           <motion.div key="h" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             {tab === "all" && <h2 style={{ fontSize: 17, fontWeight: 750, color: dash.ink, marginBottom: 16 }}>📜 Retracement historique</h2>}
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               {historical.map((a, i) => (
                 <motion.div key={a.slug} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}>
                   <Link href={`/article/${a.slug}`} className="dash-card" style={{ display: "flex", overflow: "hidden", cursor: "pointer" }}>
-                    <div style={{ width: 140, minHeight: 100, flexShrink: 0, overflow: "hidden" }}>
+                    <div style={{ width: 180, minHeight: 140, flexShrink: 0, overflow: "hidden" }}>
                       <img src={getArticleImage(a.slug)} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
                     </div>
-                    <div style={{ padding: "14px 20px", flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: 15, fontWeight: 700, color: dash.ink, marginBottom: 4, lineHeight: 1.3 }}>{a.title}</div>
+                    <div style={{ padding: "18px 24px", flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: 17, fontWeight: 700, color: dash.ink, marginBottom: 4, lineHeight: 1.3 }}>{a.title}</div>
                       <div style={{ fontSize: 11, color: dash.inkGhost, marginBottom: 6, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
-                      {a.description && <div style={{ fontSize: 13, color: dash.inkMuted, lineHeight: 1.5, overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as any }}>{a.description}</div>}
+                      {a.description && <div style={{ fontSize: 14, color: dash.inkMuted, lineHeight: 1.5, overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as any }}>{a.description}</div>}
                     </div>
                   </Link>
                 </motion.div>
