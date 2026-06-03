@@ -49,10 +49,10 @@ export default function HomeClient({ counts, recent }: HomeProps) {
         style={{ position: 'relative', overflow: 'hidden', height: 380, display: 'flex', alignItems: 'flex-end', marginBottom: 36 }}>
         <img src="https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/04/fond_horizon.jpg"
           alt="Horizon" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 60%' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(244,245,247,0.95) 0%, rgba(244,245,247,0.35) 45%, rgba(0,0,0,0.05) 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(244,245,247,0.85) 0%, transparent 40%)' }} />
         <div style={{ position: 'relative', maxWidth: 1200, margin: '0 auto', padding: '0 24px 40px', width: '100%' }}>
           <div style={{ fontSize: 12, fontWeight: 700, color: dash.lavender, letterSpacing: '0.12em', textTransform: 'uppercase' as const, marginBottom: 10, fontFamily: dash.fontMono }}>Tableau de bord</div>
-          <h1 style={{ fontSize: 38, fontWeight: 800, color: dash.ink, marginBottom: 8, lineHeight: 1.15 }}>Terre Étendue Islam</h1>
+          <h1 style={{ fontSize: 38, fontWeight: 800, color: dash.ink, textShadow: '0 1px 8px rgba(255,255,255,0.6)', marginBottom: 8, lineHeight: 1.15 }}>Terre Étendue Islam</h1>
           <p style={{ fontSize: 16, color: dash.inkSoft, maxWidth: 500 }}>Revue indépendante de cosmologie · Examen critique · Données empiriques · Sources sacrées</p>
         </div>
       </motion.section>
