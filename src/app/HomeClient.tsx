@@ -15,10 +15,10 @@ function Spark({ data, color }: { data: number[]; color: string }) {
 }
 
 const PILLARS = [
-  { id: 'headquarters', name: 'Le Quartier Général', sub: 'Épistémologie & Méthode', num: '01', c: C.lavender, href: '/headquarters', img: 'https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/04/livres_ia.jpg' },
+  { id: 'headquarters', name: 'Le Centre de Recherche', sub: 'Épistémologie & Méthode', num: '01', c: C.lavender, href: '/headquarters', img: 'https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/04/livres_ia.jpg' },
   { id: 'observatory', name: "L'Observatoire", sub: 'Données empiriques', num: '02', c: C.cyan, href: '/observatory', img: 'https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/04/imgage_accueil.png' },
   { id: 'library', name: 'La Bibliothèque', sub: 'Sources sacrées', num: '03', c: C.saffron, href: '/library', img: 'https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/06/architecture-brutaliste-batiment-marais-scaled.jpg' },
-  { id: 'lab', name: 'Le Lab', sub: 'Modélisation 3D', num: '04', c: C.opal, href: '/lab', img: 'https://green-gnat-134443.hostingersite.com/wp-content/uploads/2025/10/cropped-entete-logo-e1760704486721.png' },
+  { id: 'lab', name: 'Outils & Simulateurs', sub: 'Modélisation & Calcul', num: '04', c: C.opal, href: '/lab', img: 'https://green-gnat-134443.hostingersite.com/wp-content/uploads/2025/10/cropped-entete-logo-e1760704486721.png' },
   { id: 'experiences', name: 'Les Expériences', sub: 'Physique naturelle', num: '05', c: C.rose, href: '/experiences', img: 'https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/06/tanrica-medical-laboratory-9839358_1920.png' },
 ];
 

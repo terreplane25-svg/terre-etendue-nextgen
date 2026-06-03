@@ -11,7 +11,7 @@ interface A { slug: string; title: string; description: string; tags: string[]; 
 export default function HeadquartersClient({ articles }: { articles: A[] }) {
   return (
     <div>
-      <PageHero title="Le Quartier Général" subtitle={`${articles.length} publications · Épistémologie et méthode`} color={dash.lavender} image="https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/04/livres_ia.jpg" />
+      <PageHero title="Le Centre de Recherche" subtitle={`${articles.length} publications · Épistémologie et méthode`} color={dash.lavender} image="https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/04/livres_ia.jpg" />
       <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 64px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           {articles.map((a, i) => (

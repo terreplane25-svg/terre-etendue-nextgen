@@ -54,10 +54,10 @@ export const dash = {
 
 // ── Pillar definitions ──
 export const PILLARS = [
-  { id: "headquarters", num: "01", name: "Le Quartier Général", sub: "Épistémologie & Méthode", icon: "◎", color: dash.lavender, colorSoft: dash.lavenderSoft, href: "/headquarters" },
+  { id: "headquarters", num: "01", name: "Le Centre de Recherche", sub: "Épistémologie & Méthode", icon: "◎", color: dash.lavender, colorSoft: dash.lavenderSoft, href: "/headquarters" },
   { id: "observatory", num: "02", name: "L'Observatoire", sub: "Données empiriques", icon: "◉", color: dash.cyan, colorSoft: dash.cyanSoft, href: "/observatory" },
   { id: "library", num: "03", name: "La Bibliothèque", sub: "Sources sacrées & historiques", icon: "▣", color: dash.saffron, colorSoft: dash.saffronSoft, href: "/library" },
-  { id: "lab", num: "04", name: "Le Lab", sub: "Modélisation 3D", icon: "△", color: dash.opal, colorSoft: dash.opalSoft, href: "/lab" },
+  { id: "lab", num: "04", name: "Outils & Simulateurs", sub: "Modélisation & Calcul", icon: "△", color: dash.opal, colorSoft: dash.opalSoft, href: "/lab" },
   { id: "experiences", num: "05", name: "Les Expériences", sub: "Physique naturelle", icon: "⬡", color: dash.rose, colorSoft: dash.roseSoft, href: "/experiences" },
 ] as const;
 

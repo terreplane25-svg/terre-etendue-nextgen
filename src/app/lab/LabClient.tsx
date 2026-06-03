@@ -19,7 +19,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
   const filtered = articles.filter(a => !EXCLUDED_PATTERNS.some(p => a.slug.includes(p)));
   return (
     <div>
-      <PageHero title="Le Lab" subtitle="Modélisation 3D, simulateurs et outils de calcul" color={dash.opal} image="https://green-gnat-134443.hostingersite.com/wp-content/uploads/2025/10/cropped-entete-logo-e1760704486721.png" />
+      <PageHero title="Outils & Simulateurs" subtitle="Modélisation 3D, simulateurs et outils de calcul" color={dash.opal} image="https://green-gnat-134443.hostingersite.com/wp-content/uploads/2025/10/cropped-entete-logo-e1760704486721.png" />
       <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 64px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: 18, marginBottom: 40 }}>
           {TOOLS.map((t, i) => (

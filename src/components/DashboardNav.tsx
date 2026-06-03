@@ -7,10 +7,10 @@ import { Menu, X, Search } from 'lucide-react';
 
 const BEZ = 'cubic-bezier(0.32, 0.72, 0, 1)';
 const LINKS = [
-  { label: 'Quartier Général', href: '/headquarters', num: '01', color: '#7C6FC4' },
+  { label: 'Centre de Recherche', href: '/headquarters', num: '01', color: '#7C6FC4' },
   { label: 'Observatoire', href: '/observatory', num: '02', color: '#3580C0' },
   { label: 'Bibliothèque', href: '/library', num: '03', color: '#C48A2E' },
-  { label: 'Lab', href: '/lab', num: '04', color: '#3A8F6E' },
+  { label: 'Outils', href: '/lab', num: '04', color: '#3A8F6E' },
   { label: 'Expériences', href: '/experiences', num: '05', color: '#B85460' },
 ];
 
