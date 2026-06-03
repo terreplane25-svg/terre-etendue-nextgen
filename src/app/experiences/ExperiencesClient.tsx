@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { dash } from "@/lib/design-tokens";
+import PageHero from "@/components/PageHero";
 import { getArticleImage } from "@/lib/article-images";
 
 interface AE { slug: string; title: string; description: string; category: string; tags: string[]; pinned: boolean; readTime: number; }
@@ -30,12 +31,10 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
   const fd = fam ? demonstrations.filter(a => getFam(a) === fam) : demonstrations;
 
   return (
-    <div style={{ maxWidth: 960, margin: "0 auto", padding: "32px 24px 64px" }}>
-      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 28 }}>
-        <div style={{ fontSize: 11, fontWeight: 700, color: dash.rose, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 6, fontFamily: dash.fontMono }}>05 · Expériences</div>
-        <h1 style={{ fontSize: 28, fontWeight: 800, color: dash.ink, marginBottom: 4 }}>Laboratoire de Physique Naturelle</h1>
-        <p style={{ fontSize: 14, color: dash.inkMuted }}>{demonstrations.length} démonstrations · {historical.length} retracements historiques</p>
-      </motion.div>
+    <div>
+      <PageHero title="Laboratoire de Physique Naturelle" subtitle={`${demonstrations.length} démonstrations · ${historical.length} retracements historiques`} color={dash.rose} image="https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/06/tanrica-medical-laboratory-9839358_1920.png" />
+      <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px 64px" }}>
+      
 
       <div style={{ display: "flex", gap: 4, marginBottom: 24, borderBottom: `1px solid ${dash.border}` }}>
         {([{ id: "all" as const, l: "Tout" }, { id: "demos" as const, l: "Démonstrations" }, { id: "hist" as const, l: "Historique" }]).map(t => (
@@ -110,6 +109,7 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
     </div>
   );
 }

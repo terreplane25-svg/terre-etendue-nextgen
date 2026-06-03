@@ -11,7 +11,7 @@ interface A { slug: string; title: string; description: string; tags: string[]; 
 export default function LibraryClient({ priority, articles }: { priority: A[]; articles: A[] }) {
   return (
     <div>
-      <PageHero num="03 · Bibliothèque" title="La Bibliothèque" subtitle={`${priority.length + articles.length} publications · Sources sacrées et textes historiques`} color={dash.saffron} image="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=1400&h=400&fit=crop" />
+      <PageHero title="La Bibliothèque" subtitle={`${priority.length + articles.length} publications · Sources sacrées et textes historiques`} color={dash.saffron} image="https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/06/architecture-brutaliste-batiment-marais-scaled.jpg" />
       <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 64px' }}>
         {priority.length > 0 && (
           <div style={{ marginBottom: 40 }}>

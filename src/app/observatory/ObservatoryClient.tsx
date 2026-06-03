@@ -21,7 +21,7 @@ export default function ObservatoryClient({ articles }: { articles: A[] }) {
 
   return (
     <div>
-      <PageHero num="02 · Observatoire" title="L'Observatoire" subtitle={`${articles.length} analyses · Données empiriques`} color={dash.cyan} image="https://images.unsplash.com/photo-1507400492013-162706c8c05e?w=1400&h=400&fit=crop&crop=bottom" />
+      <PageHero title="L'Observatoire" subtitle={`${articles.length} analyses · Données empiriques`} color={dash.cyan} image="https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/04/imgage_accueil.png" />
       <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 64px' }}>
         <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
           <Link href="/experiences" style={{ fontSize: 13, fontWeight: 600, color: dash.opal, padding: '6px 14px', borderRadius: 8, background: dash.opalSoft }}>Voir les fiches expériences →</Link>
