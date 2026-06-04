@@ -1,9 +1,7 @@
 import { getAllArticles } from '@/lib/articles';
 import HomeClient from './HomeClient';
 
-const EXCLUDE_FROM_RECENT = [
-  'le-mouvement-zetetique-150-ans-de-resistance',
-];
+const EXCLUDE = ['le-mouvement-zetetique-150-ans-de-resistance'];
 
 export default function HomePage() {
   const articles = getAllArticles() as any[];
@@ -15,13 +13,17 @@ export default function HomePage() {
     lab: articles.filter(a => a.category === 'lab').length,
     experiments: articles.filter(a => a.tags?.includes('physique-naturelle')).length,
   };
-  const recent = articles
-    .filter(a => !EXCLUDE_FROM_RECENT.includes(a.slug))
-    .slice(0, 6)
-    .map(a => ({
-      slug: a.slug, title: a.title, category: a.category,
-      tags: a.tags || [], pinned: a.pinned || false, readTime: a.readTime || 5,
-      date: a.date || '', description: a.description || '',
-    }));
-  return <HomeClient counts={counts} recent={recent} />;
+
+  const obsArticles = articles.filter(a => a.category === 'observatory' && !a.tags?.includes('physique-naturelle')).slice(0, 6);
+  const expArticles = articles.filter(a => a.tags?.includes('physique-naturelle')).slice(0, 6);
+  const libArticles = articles.filter(a => a.category === 'library').slice(0, 6);
+
+  const mapA = (a: any) => ({ id: a.slug, title: a.title, description: a.description || '', href: `/article/${a.slug}`, image: '' });
+
+  return <HomeClient
+    counts={counts}
+    obsArticles={obsArticles.map(mapA)}
+    expArticles={expArticles.map(mapA)}
+    libArticles={libArticles.map(mapA)}
+  />;
 }
