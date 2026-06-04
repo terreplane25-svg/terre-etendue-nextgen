@@ -6,6 +6,7 @@ import Pill from '@/components/ui/Pill';
 import { Gallery4 } from '@/components/ui/gallery4';
 import DisplayCards from '@/components/ui/display-cards';
 import { getArticleImage } from '@/lib/article-images';
+import OceanScene from '@/components/ui/ocean-scene';
 
 const C = { lavender: '#7C6FC4', saffron: '#C48A2E', opal: '#3A8F6E', cyan: '#3580C0', rose: '#B85460' };
 const BEZ = 'cubic-bezier(0.32, 0.72, 0, 1)';
@@ -42,12 +43,6 @@ function Hero({ onDone }: { onDone: () => void }) {
   const w = 340 + p * 1200;
   const h = 400 + p * 420;
   const tx = p * 130;
-  const zoom = 1 + p * 4;
-
-  // Lighthouse/ship reveal parameters
-  const objectOpacity = Math.max(0, (p - 0.25) / 0.75); // starts appearing at 25% scroll
-  const objectScale = 0.15 + p * 0.85; // grows from tiny to full
-  const lensOpacity = p < 0.85 ? Math.min(1, p * 2) * (1 - Math.max(0, (p - 0.7) / 0.3)) : 0;
 
   return (
     <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', background: '#060a10' }}>
@@ -70,103 +65,20 @@ function Hero({ onDone }: { onDone: () => void }) {
         boxShadow: `0 0 ${30 + p * 50}px rgba(0,0,0,0.5)`,
         border: `${2 - p * 1.5}px solid rgba(255,255,255,${0.15 - p * 0.1})`,
       }}>
-        {/* Ocean/horizon that zooms */}
-        <div style={{
-          width: '100%', height: '100%', position: 'absolute', inset: 0,
-          backgroundImage: 'url(https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/06/horizon_mer.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: `center ${58 - p * 15}%`,
-          transform: `scale(${zoom})`,
-          transformOrigin: 'center 58%',
-        }} />
-
-        {/* Dark overlay that fades */}
-        <div style={{ position: 'absolute', inset: 0, background: `rgba(6,10,16,${0.5 - p * 0.4})` }} />
-
-        {/* ═══ THE REVEAL: Lighthouse/ship SVG that appears with zoom ═══ */}
-        <div style={{
-          position: 'absolute',
-          top: '38%', left: '50%',
-          transform: `translate(-50%, -50%) scale(${objectScale})`,
-          opacity: objectOpacity,
-          transition: 'none',
-          filter: `blur(${Math.max(0, (1 - p) * 3)}px)`,
-        }}>
-          <svg width="120" height="200" viewBox="0 0 120 200" fill="none">
-            {/* Lighthouse body */}
-            <rect x="42" y="40" width="36" height="130" rx="2" fill="#E8E0D0" stroke="#8A857D" strokeWidth="1"/>
-            <rect x="38" y="40" width="44" height="12" rx="1" fill="#C45E6A" opacity="0.8"/>
-            <rect x="38" y="72" width="44" height="8" rx="1" fill="#C45E6A" opacity="0.6"/>
-            <rect x="38" y="100" width="44" height="8" rx="1" fill="#C45E6A" opacity="0.6"/>
-            <rect x="38" y="128" width="44" height="8" rx="1" fill="#C45E6A" opacity="0.4"/>
-            {/* Lighthouse top */}
-            <rect x="45" y="20" width="30" height="20" rx="2" fill="#1A1D23"/>
-            <rect x="48" y="22" width="24" height="16" rx="1" fill="#FFD700" opacity={0.5 + p * 0.5}/>
-            {/* Light beam */}
-            <path d={`M60 30 L${10 + p * 20} ${-20 - p * 30} L${110 - p * 20} ${-20 - p * 30} Z`} fill="#FFD700" opacity={p * 0.25}/>
-            {/* Lighthouse cap */}
-            <polygon points="40,20 60,5 80,20" fill="#3D3A35"/>
-            {/* Base / rocks */}
-            <ellipse cx="60" cy="172" rx="50" ry="12" fill="#5A5448" opacity="0.6"/>
-            <rect x="30" y="160" width="60" height="14" rx="3" fill="#8A857D"/>
-            {/* Water line */}
-            <path d="M0 175 Q20 170, 40 175 Q60 180, 80 175 Q100 170, 120 175" stroke="#3580C0" strokeWidth="2" fill="none" opacity="0.4"/>
-            <path d="M0 182 Q30 177, 60 182 Q90 187, 120 182" stroke="#3580C0" strokeWidth="1.5" fill="none" opacity="0.3"/>
-          </svg>
-        </div>
-
-        {/* Zoom level indicator */}
-        <div style={{
-          position: 'absolute', bottom: 16, right: 20,
-          fontFamily: "'JetBrains Mono', monospace",
-          fontSize: 12, color: 'rgba(255,255,255,0.5)',
-          opacity: p > 0.05 ? 1 : 0,
-        }}>
-          ×{zoom.toFixed(1)}
-        </div>
-
-        {/* Magnifying lens overlay */}
-        {lensOpacity > 0 && (
-          <div style={{
-            position: 'absolute', inset: 0,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            opacity: lensOpacity,
-            pointerEvents: 'none',
-          }}>
-            <div style={{
-              width: 90 + p * 250, height: 90 + p * 250,
-              border: '1.5px solid rgba(255,255,255,0.2)',
-              borderRadius: '50%',
-            }}>
-              {/* Crosshair */}
-              <div style={{ position: 'absolute', top: '50%', left: '25%', right: '25%', height: 1, background: 'rgba(255,255,255,0.12)' }} />
-              <div style={{ position: 'absolute', left: '50%', top: '25%', bottom: '25%', width: 1, background: 'rgba(255,255,255,0.12)' }} />
-            </div>
-          </div>
-        )}
-
-        {/* Text labels that appear during zoom */}
-        {p > 0.15 && p < 0.6 && (
-          <div style={{
-            position: 'absolute', bottom: 50, left: '50%', transform: 'translateX(-50%)',
-            textAlign: 'center', opacity: Math.min(1, (p - 0.15) * 4) * (1 - Math.max(0, (p - 0.45) / 0.15)),
-          }}>
-            <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.08em' }}>
-              Le phare a « disparu » sous l&apos;horizon...
-            </p>
-          </div>
-        )}
-        {p > 0.65 && (
-          <div style={{
-            position: 'absolute', bottom: 50, left: '50%', transform: 'translateX(-50%)',
-            textAlign: 'center', opacity: Math.min(1, (p - 0.65) * 4),
-          }}>
-            <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.8)', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.06em', fontWeight: 600 }}>
-              Un zoom suffisant le ramène.
-            </p>
-          </div>
-        )}
+        <OceanScene progress={p} />
       </div>
+
+      {/* Narrative text */}
+      {p > 0.08 && p < 0.45 && (
+        <div style={{ position: 'absolute', bottom: 75, left: '50%', transform: 'translateX(-50%)', zIndex: 10, textAlign: 'center', opacity: Math.min(1, (p - 0.08) * 5) * (1 - Math.max(0, (p - 0.32) / 0.13)) }}>
+          <p style={{ fontSize: 14, color: 'rgba(240,237,230,0.55)', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.06em' }}>Le navire a « disparu » sous l&apos;horizon...</p>
+        </div>
+      )}
+      {p > 0.55 && (
+        <div style={{ position: 'absolute', bottom: 75, left: '50%', transform: 'translateX(-50%)', zIndex: 10, textAlign: 'center', opacity: Math.min(1, (p - 0.55) * 3) }}>
+          <p style={{ fontSize: 15, color: 'rgba(240,237,230,0.85)', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.05em', fontWeight: 600 }}>Un zoom suffisant le ramène. Toujours.</p>
+        </div>
+      )}
 
       {/* Split title */}
       <div style={{ position: 'relative', zIndex: 10, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
