@@ -1,92 +1,105 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Search } from 'lucide-react';
+import { Search, Menu, X } from 'lucide-react';
 
-const BEZ = 'cubic-bezier(0.32, 0.72, 0, 1)';
-const LINKS = [
-  { label: 'Centre de Recherche', href: '/headquarters', num: '01', color: '#7C6FC4' },
-  { label: 'Observatoire', href: '/observatory', num: '02', color: '#3580C0' },
-  { label: 'Bibliothèque', href: '/library', num: '03', color: '#C48A2E' },
-  { label: 'Outils', href: '/lab', num: '04', color: '#3A8F6E' },
-  { label: 'Expériences', href: '/experiences', num: '05', color: '#B85460' },
+const SECTIONS = [
+  { label: 'Centre de Recherche', href: '/headquarters', color: '#7C6FC4',
+    subs: ['Épistémologie', 'Méthode zététique', 'Remise en question'] },
+  { label: 'Observatoire', href: '/observatory', color: '#3580C0',
+    subs: ['Optique', 'Horizon', 'Perspective', 'Visibilité', 'Mécanique'] },
+  { label: 'Bibliothèque', href: '/library', color: '#C48A2E',
+    subs: ['Coran & Sunna', 'Textes historiques', 'Cosmographie'] },
+  { label: 'Outils', href: '/lab', color: '#3A8F6E', subs: [] },
+  { label: 'Expériences', href: '/experiences', color: '#B85460',
+    subs: ['Fluides & matière', 'Optique & perspective', 'Œil humain', 'Forces'] },
 ];
 
 export default function DashboardNav() {
   const pathname = usePathname();
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', fn, { passive: true });
-    return () => window.removeEventListener('scroll', fn);
-  }, []);
 
   return (
     <>
-      <nav style={{
-        position: 'fixed', top: scrolled ? 12 : 20, left: '50%', transform: 'translateX(-50%)',
-        zIndex: 40, display: 'flex', alignItems: 'center', gap: 4,
-        padding: '6px 8px 6px 22px', borderRadius: 99, maxWidth: 'calc(100vw - 32px)',
-        background: scrolled ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.65)',
-        backdropFilter: 'blur(24px) saturate(1.8)',
-        border: '1px solid rgba(20,18,16,0.06)',
-        boxShadow: scrolled ? '0 4px 28px rgba(0,0,0,0.06)' : '0 2px 12px rgba(0,0,0,0.02)',
-        transition: `all 0.7s ${BEZ}`,
-      }}>
-        <Link href="/" style={{ fontSize: 15, fontWeight: 800, marginRight: 14, letterSpacing: '-0.01em', whiteSpace: 'nowrap' }}>
-          Terre Étendue <span style={{ color: '#7C6FC4', fontWeight: 600 }}>Islam</span>
-        </Link>
-        <div className="hidden md:flex" style={{ alignItems: 'center', gap: 2 }}>
-          {LINKS.map(l => {
-            const active = pathname === l.href || pathname?.startsWith(l.href + '/');
-            return (
-              <Link key={l.href} href={l.href} style={{
-                padding: '7px 13px', borderRadius: 99, fontSize: 12, fontWeight: 600,
-                background: active ? l.color + '12' : 'transparent',
-                color: active ? l.color : '#8A857D',
-                transition: `all 0.4s ${BEZ}`, whiteSpace: 'nowrap',
-              }}>{l.label}</Link>
-            );
-          })}
+      <header style={{ background: '#fff', borderBottom: '1px solid #eee' }}>
+        {/* Top bar */}
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '14px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Link href="/" style={{ fontSize: 22, fontWeight: 800, color: '#141210', letterSpacing: '-0.02em', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+            Terre Étendue <span style={{ color: '#7C6FC4', fontWeight: 700 }}>Islam</span>
+          </Link>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div className="hidden sm:flex" style={{ alignItems: 'center', gap: 8, padding: '7px 14px', borderRadius: 6, border: '1px solid #e5e5e5', fontSize: 14, color: '#999' }}>
+              <Search size={15} /><span>Rechercher...</span>
+            </div>
+          </div>
         </div>
-        <div className="hidden sm:flex" style={{
-          padding: '6px 13px', borderRadius: 99, background: 'rgba(20,18,16,0.04)',
-          fontSize: 12, color: '#BAB5AC', alignItems: 'center', gap: 5, cursor: 'pointer', marginLeft: 6,
-        }}><Search size={12} /><span>Rechercher</span></div>
-        <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden"
-          style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#8A857D', padding: 6, marginLeft: 4 }}>
-          {mobileOpen ? <X size={18} /> : <Menu size={18} />}
-        </button>
-      </nav>
 
-      <AnimatePresence>
-        {mobileOpen && (
-          <>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.25)', backdropFilter: 'blur(8px)', zIndex: 50 }}
-              className="md:hidden" onClick={() => setMobileOpen(false)} />
-            <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 28, stiffness: 280 }}
-              style={{ position: 'fixed', right: 0, top: 0, bottom: 0, width: 280, background: '#fff', zIndex: 55, padding: 28 }} className="md:hidden">
-              <button onClick={() => setMobileOpen(false)} style={{ float: 'right', background: 'none', border: 'none', cursor: 'pointer', color: '#BAB5AC' }}><X size={18} /></button>
-              <nav style={{ marginTop: 48, display: 'flex', flexDirection: 'column', gap: 4 }}>
-                {LINKS.map((l, i) => (
-                  <motion.div key={l.href} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}>
-                    <Link href={l.href} onClick={() => setMobileOpen(false)} style={{
-                      display: 'block', padding: '10px 14px', borderRadius: 12, fontSize: 14, fontWeight: 600,
-                      color: pathname === l.href ? l.color : '#8A857D',
-                      background: pathname === l.href ? l.color + '0A' : 'transparent',
-                    }}>{l.label}</Link>
-                  </motion.div>
-                ))}
-              </nav>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+        {/* Nav bar */}
+        <div style={{ borderTop: '1px solid #eee' }}>
+          <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div className="hidden md:flex" style={{ alignItems: 'center', gap: 0 }}>
+              {SECTIONS.map(s => {
+                const active = pathname === s.href || pathname?.startsWith(s.href + '/');
+                return (
+                  <div key={s.href} style={{ position: 'relative' }}
+                    onMouseEnter={() => s.subs.length > 0 ? setOpenMenu(s.href) : null}
+                    onMouseLeave={() => setOpenMenu(null)}>
+                    <Link href={s.href} style={{
+                      display: 'flex', alignItems: 'center', gap: 4,
+                      padding: '14px 18px', fontSize: 14, fontWeight: 600,
+                      color: active ? s.color : '#3D3A35',
+                      borderBottom: active ? `3px solid ${s.color}` : '3px solid transparent',
+                      fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    }}>
+                      {s.label}
+                      {s.subs.length > 0 && <span style={{ fontSize: 10, opacity: 0.5 }}>▼</span>}
+                    </Link>
+
+                    {/* Dropdown */}
+                    {openMenu === s.href && s.subs.length > 0 && (
+                      <div style={{
+                        position: 'absolute', top: '100%', left: 0, zIndex: 50,
+                        background: '#fff', border: '1px solid #eee', borderRadius: 8,
+                        padding: '12px 0', minWidth: 220, boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
+                      }}>
+                        {s.subs.map(sub => (
+                          <div key={sub} style={{
+                            padding: '8px 20px', fontSize: 14, color: '#3D3A35', cursor: 'pointer',
+                          }}
+                          onMouseOver={e => (e.currentTarget.style.background = '#f8f8f8')}
+                          onMouseOut={e => (e.currentTarget.style.background = 'transparent')}>
+                            {sub}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)}
+              style={{ padding: '12px 0', background: 'none', border: 'none', cursor: 'pointer', color: '#3D3A35' }}>
+              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+          {/* Accent line */}
+          <div style={{ height: 3, background: '#7C6FC4' }} />
+        </div>
+      </header>
+
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div className="md:hidden" style={{ background: '#fff', borderBottom: '1px solid #eee', padding: '12px 24px' }}>
+          {SECTIONS.map(s => (
+            <Link key={s.href} href={s.href} onClick={() => setMobileOpen(false)}
+              style={{ display: 'block', padding: '10px 0', fontSize: 15, fontWeight: 600, color: '#3D3A35', borderBottom: '1px solid #f5f5f5' }}>
+              {s.label}
+            </Link>
+          ))}
+        </div>
+      )}
     </>
   );
 }
