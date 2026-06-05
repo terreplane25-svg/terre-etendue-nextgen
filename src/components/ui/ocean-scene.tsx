@@ -2,14 +2,14 @@
 
 import React from 'react';
 
-const SHIP = 'https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/06/bateau_horizon.png';
+const SHIP = 'https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/06/bateau_horizon-removebg-preview.png';
 const OCEAN = 'https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/06/mer_horizon.png';
 
 interface Props { shipScale: number; showVignette: boolean; zoomLevel: number; }
 
 export default function OceanScene({ shipScale, showVignette, zoomLevel }: Props) {
   const shipOpacity = Math.min(1, shipScale * 10);
-  const shipBlur = Math.max(0, (0.35 - shipScale) * 6);
+  const shipBlur = Math.max(0, (0.3 - shipScale) * 5);
   const shipW = 25 + shipScale * 550;
   const shipH = shipW * 1.15;
 
@@ -21,20 +21,17 @@ export default function OceanScene({ shipScale, showVignette, zoomLevel }: Props
         objectFit: 'cover', objectPosition: 'center 50%',
       }} />
 
-      {/* Ship — positioned ON the water line */}
+      {/* Ship — transparent PNG, no blend mode, no color filter, original colors */}
       {shipScale > 0.003 && (
         <div style={{
           position: 'absolute',
-          /* Ship waterline anchored to horizon (~47% from top in the ocean photo) */
-          top: '47%',
+          top: '57.25%',
           left: '50%',
-          /* Transform: center horizontally, anchor bottom of ship to horizon */
           transform: 'translate(-50%, -100%)',
           width: shipW,
           height: shipH,
           opacity: shipOpacity,
-          filter: `blur(${shipBlur}px) contrast(2.2) saturate(2.5) brightness(0.65)`,
-          mixBlendMode: 'screen' as React.CSSProperties['mixBlendMode'],
+          filter: shipBlur > 0.1 ? `blur(${shipBlur}px)` : 'none',
           pointerEvents: 'none',
           transition: 'none',
         }}>
@@ -50,7 +47,7 @@ export default function OceanScene({ shipScale, showVignette, zoomLevel }: Props
       {showVignette && (
         <div style={{
           position: 'absolute', inset: 0, pointerEvents: 'none',
-          background: `radial-gradient(circle at 50% 47%, transparent ${30 + zoomLevel * 28}%, rgba(0,0,0,${0.25 + zoomLevel * 0.3}) ${60 + zoomLevel * 18}%, rgba(0,0,0,0.8) 100%)`,
+          background: `radial-gradient(circle at 50% 57%, transparent ${30 + zoomLevel * 28}%, rgba(0,0,0,${0.25 + zoomLevel * 0.3}) ${60 + zoomLevel * 18}%, rgba(0,0,0,0.8) 100%)`,
           opacity: Math.min(0.85, zoomLevel * 1.1),
         }} />
       )}
@@ -58,7 +55,7 @@ export default function OceanScene({ shipScale, showVignette, zoomLevel }: Props
       {/* Crosshair */}
       {showVignette && zoomLevel > 0.08 && zoomLevel < 0.85 && (
         <div style={{
-          position: 'absolute', top: '47%', left: '50%',
+          position: 'absolute', top: '57.25%', left: '50%',
           transform: 'translate(-50%, -50%)', pointerEvents: 'none',
           opacity: Math.min(0.15, (zoomLevel - 0.08) * 0.5) * (1 - Math.max(0, (zoomLevel - 0.7) / 0.15)),
         }}>
