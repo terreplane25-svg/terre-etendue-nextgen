@@ -8,10 +8,10 @@ const OCEAN = 'https://green-gnat-134443.hostingersite.com/wp-content/uploads/20
 interface Props { shipScale: number; showVignette: boolean; zoomLevel: number; }
 
 export default function OceanScene({ shipScale, showVignette, zoomLevel }: Props) {
-  const shipOpacity = Math.min(1, shipScale * 8);
-  const shipBlur = Math.max(0, (0.4 - shipScale) * 5);
-  const shipW = 30 + shipScale * 600;
-  const shipH = shipW * 1.1;
+  const shipOpacity = Math.min(1, shipScale * 10);
+  const shipBlur = Math.max(0, (0.35 - shipScale) * 6);
+  const shipW = 25 + shipScale * 550;
+  const shipH = shipW * 1.15;
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
@@ -21,23 +21,27 @@ export default function OceanScene({ shipScale, showVignette, zoomLevel }: Props
         objectFit: 'cover', objectPosition: 'center 50%',
       }} />
 
-      {/* Ship — black bg removed via mix-blend-mode: screen */}
+      {/* Ship — positioned ON the water line */}
       {shipScale > 0.003 && (
         <div style={{
           position: 'absolute',
-          bottom: '42%',
+          /* Ship waterline anchored to horizon (~47% from top in the ocean photo) */
+          top: '47%',
           left: '50%',
-          transform: 'translateX(-50%)',
-          width: shipW, height: shipH,
-          mixBlendMode: 'screen' as any,
+          /* Transform: center horizontally, anchor bottom of ship to horizon */
+          transform: 'translate(-50%, -100%)',
+          width: shipW,
+          height: shipH,
           opacity: shipOpacity,
-          filter: `blur(${shipBlur}px)`,
-          transition: 'none',
+          filter: `blur(${shipBlur}px) contrast(2.2) saturate(2.5) brightness(0.65)`,
+          mixBlendMode: 'screen' as React.CSSProperties['mixBlendMode'],
           pointerEvents: 'none',
+          transition: 'none',
         }}>
           <img src={SHIP} alt="" style={{
             width: '100%', height: '100%',
             objectFit: 'contain',
+            objectPosition: 'center bottom',
           }} />
         </div>
       )}
@@ -46,33 +50,33 @@ export default function OceanScene({ shipScale, showVignette, zoomLevel }: Props
       {showVignette && (
         <div style={{
           position: 'absolute', inset: 0, pointerEvents: 'none',
-          background: `radial-gradient(circle at 50% 50%, transparent ${35 + zoomLevel * 25}%, rgba(0,0,0,${0.3 + zoomLevel * 0.25}) ${65 + zoomLevel * 15}%, rgba(0,0,0,0.75) 100%)`,
-          opacity: Math.min(0.85, zoomLevel * 1.2),
+          background: `radial-gradient(circle at 50% 47%, transparent ${30 + zoomLevel * 28}%, rgba(0,0,0,${0.25 + zoomLevel * 0.3}) ${60 + zoomLevel * 18}%, rgba(0,0,0,0.8) 100%)`,
+          opacity: Math.min(0.85, zoomLevel * 1.1),
         }} />
       )}
 
       {/* Crosshair */}
-      {showVignette && zoomLevel > 0.05 && (
+      {showVignette && zoomLevel > 0.08 && zoomLevel < 0.85 && (
         <div style={{
-          position: 'absolute', top: '50%', left: '50%',
+          position: 'absolute', top: '47%', left: '50%',
           transform: 'translate(-50%, -50%)', pointerEvents: 'none',
-          opacity: Math.min(0.18, zoomLevel * 0.3) * (1 - Math.max(0, (zoomLevel - 0.7) / 0.3)),
+          opacity: Math.min(0.15, (zoomLevel - 0.08) * 0.5) * (1 - Math.max(0, (zoomLevel - 0.7) / 0.15)),
         }}>
           <div style={{
-            width: 80 + zoomLevel * 140, height: 80 + zoomLevel * 140,
-            border: '1px solid rgba(255,255,255,0.5)', borderRadius: '50%', position: 'relative',
+            width: 70 + zoomLevel * 150, height: 70 + zoomLevel * 150,
+            border: '1px solid rgba(255,255,255,0.45)', borderRadius: '50%', position: 'relative',
           }}>
-            <div style={{ position: 'absolute', top: '50%', left: '10%', right: '10%', height: 1, background: 'rgba(255,255,255,0.4)' }} />
-            <div style={{ position: 'absolute', left: '50%', top: '10%', bottom: '10%', width: 1, background: 'rgba(255,255,255,0.4)' }} />
+            <div style={{ position: 'absolute', top: '50%', left: '15%', right: '15%', height: 1, background: 'rgba(255,255,255,0.35)' }} />
+            <div style={{ position: 'absolute', left: '50%', top: '15%', bottom: '15%', width: 1, background: 'rgba(255,255,255,0.35)' }} />
           </div>
         </div>
       )}
 
       {/* Zoom indicator */}
-      {zoomLevel > 0.02 && (
+      {zoomLevel > 0.03 && (
         <div style={{
           position: 'absolute', bottom: 16, right: 20,
-          fontSize: 13, color: 'rgba(255,255,255,0.3)',
+          fontSize: 13, color: 'rgba(255,255,255,0.35)',
           fontFamily: "'JetBrains Mono', monospace",
         }}>×{(1 + zoomLevel * 24).toFixed(0)}</div>
       )}

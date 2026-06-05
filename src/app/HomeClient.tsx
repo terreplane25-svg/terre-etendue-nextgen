@@ -46,12 +46,12 @@ function Hero({ onSiteReady }: { onSiteReady: () => void }) {
   // Phase 1: auto-recede 6.5s
   useEffect(() => {
     const start = Date.now();
-    const dur = 6500;
+    const dur = 10000;
     const anim = () => {
       const t = Math.min((Date.now() - start) / dur, 1);
       setRecedeP(1 - Math.pow(1 - t, 2.5));
       if (t < 1) animRef.current = requestAnimationFrame(anim);
-      else setTimeout(() => setPhase('prompt'), 800);
+      else setTimeout(() => setPhase('prompt'), 1000);
     };
     animRef.current = requestAnimationFrame(anim);
     return () => cancelAnimationFrame(animRef.current);
@@ -63,7 +63,7 @@ function Hero({ onSiteReady }: { onSiteReady: () => void }) {
     const wheel = (e: WheelEvent) => {
       e.preventDefault();
       if (phase === 'revealed' && zoomP >= 1 && e.deltaY > 0) { setPhase('site'); onSiteReady(); return; }
-      const next = Math.min(Math.max(zoomP + e.deltaY * 0.0008, 0), 1);
+      const next = Math.min(Math.max(zoomP + e.deltaY * 0.0005, 0), 1);
       setZoomP(next);
       if (next > 0.01 && phase === 'prompt') setPhase('zoom');
       if (next >= 1 && phase !== 'revealed') setPhase('revealed');
@@ -74,7 +74,7 @@ function Hero({ onSiteReady }: { onSiteReady: () => void }) {
       if (!touchY) return; e.preventDefault();
       const dy = touchY - e.touches[0].clientY;
       if (phase === 'revealed' && zoomP >= 1 && dy > 20) { setPhase('site'); onSiteReady(); return; }
-      const next = Math.min(Math.max(zoomP + dy * 0.004, 0), 1);
+      const next = Math.min(Math.max(zoomP + dy * 0.0025, 0), 1);
       setZoomP(next);
       if (next > 0.01 && phase === 'prompt') setPhase('zoom');
       if (next >= 1 && phase !== 'revealed') setPhase('revealed');
@@ -89,7 +89,7 @@ function Hero({ onSiteReady }: { onSiteReady: () => void }) {
     return () => { window.removeEventListener('wheel', wheel); window.removeEventListener('touchstart', ts); window.removeEventListener('touchmove', tm); window.removeEventListener('scroll', sc); };
   }, [phase, zoomP, touchY, onSiteReady]);
 
-  const shipScale = phase === 'recede' ? Math.pow(1 - recedeP, 2) * 0.7 : Math.pow(zoomP, 1.2);
+  const shipScale = phase === 'recede' ? Math.pow(1 - recedeP, 1.8) * 0.8 : Math.pow(zoomP, 1.2);
   const isSite = phase === 'site';
 
   return (
