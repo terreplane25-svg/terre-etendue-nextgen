@@ -91,3 +91,65 @@ a { color: inherit; text-decoration: none; }
 }
 .dash-card-sm:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
 .dash-card-sm > * { background: #FFFFFF; border-radius: 16px; overflow: hidden; }
+
+/* ═══ ARTICLE CONTENT OVERRIDES ═══ */
+/* Force light backgrounds on all article content sections */
+.prose-dash div[style*="background"],
+.prose-dash section[style*="background"] {
+  border-radius: 16px !important;
+}
+
+/* SVG diagrams — force clean rendering */
+.prose-dash svg {
+  background: #fff !important;
+  border: 1px solid rgba(20,18,16,0.06) !important;
+  border-radius: 16px !important;
+  padding: 16px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03) !important;
+}
+
+/* Override any dark inline backgrounds from old HUD theme */
+.prose-dash [style*="#050A12"],
+.prose-dash [style*="#0A1020"],
+.prose-dash [style*="#0D1528"],
+.prose-dash [style*="rgb(5"],
+.prose-dash [style*="rgb(10"],
+.prose-dash [style*="rgb(13"] {
+  background-color: #F5F3EE !important;
+  color: #141210 !important;
+}
+
+/* Override cyan/gold text colors from HUD theme */
+.prose-dash [style*="#00C8FF"] { color: #3580C0 !important; }
+.prose-dash [style*="#D4A843"] { color: #C48A2E !important; }
+.prose-dash [style*="#C8D8E8"] { color: #3D3A35 !important; }
+
+/* Tables inside articles */
+.prose-dash table {
+  background: #fff !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+}
+.prose-dash th {
+  background: #F5F3EE !important;
+  color: #141210 !important;
+}
+.prose-dash td {
+  color: #3D3A35 !important;
+}
+
+/* Blockquotes / special sections in articles */
+.prose-dash blockquote {
+  background: #F5F3EE !important;
+  border-left: 3px solid #7C6FC4 !important;
+  border-radius: 16px !important;
+  color: #3D3A35 !important;
+}
+
+/* YouTube embeds */
+.prose-dash .video-container,
+.prose-dash .tei-media {
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  margin: 24px 0 !important;
+}
