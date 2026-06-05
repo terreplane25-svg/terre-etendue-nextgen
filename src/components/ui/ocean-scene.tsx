@@ -25,7 +25,7 @@ export default function OceanScene({ shipScale, showVignette, zoomLevel }: Props
       {shipScale > 0.003 && (
         <div style={{
           position: 'absolute',
-          top: '57.25%',
+          top: '59%',
           left: '50%',
           transform: 'translate(-50%, -100%)',
           width: shipW,
@@ -47,7 +47,7 @@ export default function OceanScene({ shipScale, showVignette, zoomLevel }: Props
       {showVignette && (
         <div style={{
           position: 'absolute', inset: 0, pointerEvents: 'none',
-          background: `radial-gradient(circle at 50% 57%, transparent ${30 + zoomLevel * 28}%, rgba(0,0,0,${0.25 + zoomLevel * 0.3}) ${60 + zoomLevel * 18}%, rgba(0,0,0,0.8) 100%)`,
+          background: `radial-gradient(circle at 50% 59%, transparent ${30 + zoomLevel * 28}%, rgba(0,0,0,${0.25 + zoomLevel * 0.3}) ${60 + zoomLevel * 18}%, rgba(0,0,0,0.8) 100%)`,
           opacity: Math.min(0.85, zoomLevel * 1.1),
         }} />
       )}
@@ -55,7 +55,7 @@ export default function OceanScene({ shipScale, showVignette, zoomLevel }: Props
       {/* Crosshair */}
       {showVignette && zoomLevel > 0.08 && zoomLevel < 0.85 && (
         <div style={{
-          position: 'absolute', top: '57.25%', left: '50%',
+          position: 'absolute', top: '59%', left: '50%',
           transform: 'translate(-50%, -50%)', pointerEvents: 'none',
           opacity: Math.min(0.15, (zoomLevel - 0.08) * 0.5) * (1 - Math.max(0, (zoomLevel - 0.7) / 0.15)),
         }}>
