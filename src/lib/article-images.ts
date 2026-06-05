@@ -5,9 +5,9 @@
 
 const IMG: Record<string, string> = {
   // ── Observatory: Analysis ──
-  "lhorizon-la-perspective-et-la-refraction": "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=600&h=400&fit=crop",
-  "ce-quon-voit-quand-on-ne-devrait-plus-voir": "https://images.unsplash.com/photo-1507400492013-162706c8c05e?w=600&h=400&fit=crop",
-  "leau-ne-ment-pas": "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=600&h=400&fit=crop",
+  "lhorizon-la-perspective-et-la-refraction": "https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/04/horizon.jpg",
+  "ce-quon-voit-quand-on-ne-devrait-plus-voir": "https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/06/structure_cache_1.jpg",
+  "leau-ne-ment-pas": "https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/05/ea.png",
   "le-pendule-de-foucault-une-preuve-contestee": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&h=400&fit=crop",
   "les-horloges-atomiques-ne-prouvent-rien": "https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?w=600&h=400&fit=crop",
   "pourquoi-les-choses-montent-et-descendent": "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&h=400&fit=crop",
