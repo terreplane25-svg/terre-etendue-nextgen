@@ -81,7 +81,7 @@ function Hero({ onSiteReady }: { onSiteReady: () => void }) {
       if (next < 0.95 && phase === 'revealed') setPhase('zoom');
       setTouchY(e.touches[0].clientY);
     };
-    const sc = () => { if (phase !== 'site') window.scrollTo(0, 0); };
+    const sc = () => { window.scrollTo(0, 0); };
     window.addEventListener('wheel', wheel, { passive: false });
     window.addEventListener('touchstart', ts, { passive: false });
     window.addEventListener('touchmove', tm, { passive: false });
