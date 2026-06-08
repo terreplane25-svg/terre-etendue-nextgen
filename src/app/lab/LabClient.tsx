@@ -11,7 +11,6 @@ import ScrollReveal from '@/components/ui/ScrollReveal';
 const CurvatureCalc = dynamic(() => import('@/components/lab/CurvatureCalc'), { ssr: false });
 const FlatEarthSim = dynamic(() => import('@/components/lab/FlatEarthSim'), { ssr: false });
 const GeoHelioSim = dynamic(() => import('@/components/lab/GeoHelioSim'), { ssr: false });
-const ProjectionSim = dynamic(() => import('@/components/lab/ProjectionSim'), { ssr: false });
 
 interface A { slug: string; title: string; description: string; tags: string[]; pinned: boolean; readTime: number; }
 
@@ -42,15 +41,6 @@ const TOOLS = [
     color: dash.cyan,
     colorSoft: dash.cyanSoft,
     tags: ['3D', 'planètes', 'orbites'],
-  },
-  {
-    id: 'projection',
-    label: 'Projections Cartographiques',
-    desc: "Comparaison Mercator vs Azimutale Équidistante. Tracés great-circle et distances géodésiques sur routes réelles.",
-    icon: '🌍',
-    color: dash.lavender,
-    colorSoft: dash.lavenderSoft,
-    tags: ['cartes', 'routes', 'projections'],
   },
 ];
 
@@ -143,7 +133,6 @@ export default function LabClient({ articles }: { articles: A[] }) {
       case 'curvature': return <CurvatureCalc />;
       case 'flat': return <FlatEarthSim />;
       case 'geo': return <GeoHelioSim />;
-      case 'projection': return <ProjectionSim />;
       default: return null;
     }
   };
@@ -271,7 +260,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
 
               {/* Simulator body */}
               <div style={{
-                background: activeTool === 'curvature' || activeTool === 'flat' || activeTool === 'geo' || activeTool === 'projection'
+                background: activeTool === 'curvature' || activeTool === 'flat' || activeTool === 'geo'
                   ? '#080E1A' : dash.card,
                 borderRadius: '0 0 16px 16px',
                 padding: 20,
