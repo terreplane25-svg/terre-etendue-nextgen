@@ -86,7 +86,7 @@ export default async function ArticlePage({ params }: PageProps) {
   };
 
   return (
-    <main className="min-h-screen bg-[var(--void)] pt-24 pb-16">
+    <main className="min-h-screen pt-24 pb-16" style={{ background: '#FAFAF6' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <ArticleReader article={article} />
       <div className="max-w-[800px] mx-auto px-6">
