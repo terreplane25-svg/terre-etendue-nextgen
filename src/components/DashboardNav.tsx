@@ -2,7 +2,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Search, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import SearchCommand from '@/components/SearchCommand';
 
 const SECTIONS = [
   { label: 'Centre de Recherche', href: '/headquarters', color: '#7C6FC4',
@@ -30,8 +31,11 @@ export default function DashboardNav() {
             Terre Étendue <span style={{ color: '#7C6FC4', fontWeight: 700 }}>Islam</span>
           </Link>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div className="hidden sm:flex" style={{ alignItems: 'center', gap: 8, padding: '7px 14px', borderRadius: 6, border: '1px solid #e5e5e5', fontSize: 14, color: '#999' }}>
-              <Search size={15} /><span>Rechercher...</span>
+            <div className="hidden sm:block">
+              <SearchCommand inline />
+            </div>
+            <div className="sm:hidden">
+              <SearchCommand />
             </div>
           </div>
         </div>

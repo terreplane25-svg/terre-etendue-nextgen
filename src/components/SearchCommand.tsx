@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Search, X, Loader2, ArrowRight, Clock, Tag, Calendar } from 'lucide-react';
+import { Search, X, Loader2, ArrowRight, Clock, Tag } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-
-// ── Types ─────────────────────────────────────────────────────────────────
+import { motion, AnimatePresence } from 'framer-motion';
+import { dash, PILLARS } from '@/lib/design-tokens';
 
 interface SearchResult {
   title: string;
@@ -23,97 +23,61 @@ interface SearchResponse {
   count: number;
 }
 
-// ── Constants ─────────────────────────────────────────────────────────────
-
-const CATEGORIES = [
-  { key: 'headquarters', label: 'Q.G.', color: '#0088AA' },
-  { key: 'observatory', label: 'OBS', color: '#0088AA' },
-  { key: 'library', label: 'BIBLIO', color: '#9A7B2F' },
-  { key: 'lab', label: 'LAB', color: '#0088AA' },
-] as const;
-
-const catColorMap: Record<string, string> = {
-  headquarters: '#0088AA',
-  observatory: '#0088AA',
-  library: '#9A7B2F',
-  lab: '#0088AA',
-  meta: '#888',
-};
-
-const catLabelMap: Record<string, string> = {
-  headquarters: 'Q.G.',
-  observatory: 'OBS',
-  library: 'BIBLIO',
-  lab: 'LAB',
-  meta: 'META',
-};
-
-// ── Highlight helper ──────────────────────────────────────────────────────
+const catMeta: Record<string, { label: string; color: string }> = {};
+for (const p of PILLARS) {
+  catMeta[p.id] = { label: p.name.replace(/^(Le |La |L'|Les )/, ''), color: p.color };
+}
+catMeta.meta = { label: 'Meta', color: dash.inkMuted };
 
 function highlightText(text: string, query: string): React.ReactNode {
   if (!query || query.length < 2) return text;
-  const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`(${escaped})`, 'gi');
   const parts = text.split(regex);
   return parts.map((part, i) =>
-    regex.test(part) ? (
-      <mark key={i} className="bg-[var(--cyan)]/20 text-[var(--cyan)] rounded-sm px-0.5">{part}</mark>
-    ) : (
-      part
-    )
+    regex.test(part)
+      ? <mark key={i} style={{ background: dash.lavenderSoft, color: dash.lavender, borderRadius: 2, padding: '0 2px' }}>{part}</mark>
+      : part
   );
 }
 
-// ── Component ─────────────────────────────────────────────────────────────
-
-export default function SearchCommand() {
+export default function SearchCommand({ inline }: { inline?: boolean }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [activeCategories, setActiveCategories] = useState<string[]>([]);
-  const [searchMeta, setSearchMeta] = useState<{ count: number; totalMs: number }>({ count: 0, totalMs: 0 });
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [meta, setMeta] = useState({ count: 0, totalMs: 0 });
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
 
-  // ── Keyboard shortcut: Cmd+K / Ctrl+K ─────────────────────────────────
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        setOpen((prev) => !prev);
-      }
-      if (e.key === 'Escape') {
-        closeModal();
+        setOpen(prev => !prev);
       }
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, []);
 
-  // ── Focus input on open, reset on close ───────────────────────────────
-  // Fonction de fermeture explicite — restaure TOUJOURS le body
   const closeModal = useCallback(() => {
     document.body.style.overflow = '';
-    document.body.style.pointerEvents = '';
     setOpen(false);
     setQuery('');
     setResults([]);
     setSelectedIndex(0);
-    setActiveCategories([]);
-    setSearchMeta({ count: 0, totalMs: 0 });
+    setActiveCategory(null);
+    setMeta({ count: 0, totalMs: 0 });
   }, []);
 
-  // Fonction navigation — ferme puis navigue
   const navigateTo = useCallback((slug: string) => {
     document.body.style.overflow = '';
-    document.body.style.pointerEvents = '';
     setOpen(false);
-    // Petit délai pour laisser React démonter le modal
-    setTimeout(() => {
-      router.push(`/article/${slug}`);
-    }, 50);
+    setTimeout(() => router.push(`/article/${slug}`), 50);
   }, [router]);
 
   useEffect(() => {
@@ -121,359 +85,339 @@ export default function SearchCommand() {
       document.body.style.overflow = 'hidden';
       setTimeout(() => inputRef.current?.focus(), 100);
     }
-    return () => {
-      document.body.style.overflow = '';
-      document.body.style.pointerEvents = '';
-    };
+    return () => { document.body.style.overflow = ''; };
   }, [open]);
 
-  // ── Search API call ───────────────────────────────────────────────────
-  const doSearch = useCallback(async (q: string, cats: string[]) => {
+  const doSearch = useCallback(async (q: string, cat: string | null) => {
     if (q.length < 2) {
       setResults([]);
-      setSearchMeta({ count: 0, totalMs: 0 });
+      setMeta({ count: 0, totalMs: 0 });
       return;
     }
     setLoading(true);
     try {
-      const catParam = cats.length > 0 ? `&categories=${cats.join(',')}` : '';
+      const catParam = cat ? `&categories=${cat}` : '';
       const res = await fetch(`/api/search?q=${encodeURIComponent(q)}${catParam}`);
       const data: SearchResponse = await res.json();
       setResults(data.results || []);
-      setSearchMeta({ count: data.count || 0, totalMs: data.totalMs || 0 });
+      setMeta({ count: data.count || 0, totalMs: data.totalMs || 0 });
       setSelectedIndex(0);
     } catch {
       setResults([]);
-      setSearchMeta({ count: 0, totalMs: 0 });
+      setMeta({ count: 0, totalMs: 0 });
     }
     setLoading(false);
   }, []);
 
-  // ── Debounced search on query or category change ──────────────────────
   useEffect(() => {
-    const timeout = setTimeout(() => doSearch(query, activeCategories), 200);
-    return () => clearTimeout(timeout);
-  }, [query, activeCategories, doSearch]);
+    const t = setTimeout(() => doSearch(query, activeCategory), 200);
+    return () => clearTimeout(t);
+  }, [query, activeCategory, doSearch]);
 
-  // ── Keyboard navigation inside results ────────────────────────────────
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      setSelectedIndex((prev) => Math.min(prev + 1, results.length - 1));
+      setSelectedIndex(prev => Math.min(prev + 1, results.length - 1));
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      setSelectedIndex((prev) => Math.max(prev - 1, 0));
-    } else if (e.key === 'Enter' && results.length > 0) {
+      setSelectedIndex(prev => Math.max(prev - 1, 0));
+    } else if (e.key === 'Enter' && results[selectedIndex]) {
       e.preventDefault();
-      const selected = results[selectedIndex];
-      if (selected) {
-        navigateTo(selected.slug);
-      }
-    } else if (e.key === 'Tab') {
-      e.preventDefault();
-      // Cycle through category filters
-      const allKeys: string[] = CATEGORIES.map(c => c.key);
-      if (activeCategories.length === 0) {
-        setActiveCategories([allKeys[0]]);
-      } else {
-        const lastActive = activeCategories[activeCategories.length - 1];
-        const idx = allKeys.indexOf(lastActive);
-        const nextIdx = (idx + 1) % allKeys.length;
-        if (nextIdx === 0) {
-          setActiveCategories([]);
-        } else {
-          setActiveCategories([allKeys[nextIdx]]);
-        }
-      }
+      navigateTo(results[selectedIndex].slug);
+    } else if (e.key === 'Escape') {
+      closeModal();
     }
-  }, [results, selectedIndex, activeCategories]);
+  }, [results, selectedIndex, navigateTo, closeModal]);
 
-  // ── Scroll selected result into view ──────────────────────────────────
   useEffect(() => {
     if (resultsRef.current) {
-      const selectedEl = resultsRef.current.querySelector(`[data-index="${selectedIndex}"]`);
-      selectedEl?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      const el = resultsRef.current.querySelector(`[data-index="${selectedIndex}"]`);
+      el?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
   }, [selectedIndex]);
 
-  // ── Toggle category filter ────────────────────────────────────────────
   const toggleCategory = (key: string) => {
-    setActiveCategories((prev) =>
-      prev.includes(key) ? prev.filter((c) => c !== key) : [...prev, key]
-    );
-  };
-
-  // ── Format date ───────────────────────────────────────────────────────
-  const formatDate = (dateStr: string) => {
-    if (!dateStr) return '';
-    try {
-      return new Date(dateStr).toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-      });
-    } catch {
-      return dateStr;
-    }
+    setActiveCategory(prev => prev === key ? null : key);
   };
 
   return (
     <>
-      {/* ── Trigger Button ──────────────────────────────────────────── */}
-      <button
-        onClick={() => setOpen(true)}
-        className="flex items-center gap-2.5 px-4 py-2 text-[11px] text-[var(--text)]/30 hover:text-[var(--text)]/50 border border-[var(--panel-edge)] hover:border-[var(--cyan-20)] transition-all rounded-sm font-tech-mono group"
-      >
-        <Search size={14} className="group-hover:text-[var(--cyan)]/60 transition-colors" />
-        <span className="hidden sm:inline">RECHERCHER</span>
-        <kbd className="hidden sm:inline text-[9px] ml-1.5 px-1.5 py-0.5 border border-[var(--panel-edge)] text-[var(--text)]/20 rounded-sm">
-          ⌘K
-        </kbd>
-      </button>
+      {inline ? (
+        <div
+          onClick={() => setOpen(true)}
+          style={{
+            display: 'flex', alignItems: 'center', gap: 8,
+            padding: '7px 14px', borderRadius: 6,
+            border: `1px solid ${dash.border}`,
+            fontSize: 14, color: dash.inkGhost, cursor: 'pointer',
+            transition: 'border-color 0.2s',
+          }}
+          onMouseOver={e => (e.currentTarget.style.borderColor = dash.lavender)}
+          onMouseOut={e => (e.currentTarget.style.borderColor = dash.border)}
+        >
+          <Search size={15} />
+          <span>Rechercher...</span>
+          <kbd style={{
+            marginLeft: 'auto', fontSize: 11, padding: '1px 6px',
+            border: `1px solid ${dash.border}`, borderRadius: 4,
+            color: dash.inkGhost, fontFamily: dash.fontMono,
+          }}>
+            Ctrl+K
+          </kbd>
+        </div>
+      ) : (
+        <button
+          onClick={() => setOpen(true)}
+          style={{
+            display: 'flex', alignItems: 'center', gap: 6,
+            padding: '6px 12px', border: `1px solid ${dash.border}`,
+            borderRadius: 6, background: 'transparent',
+            fontSize: 13, color: dash.inkMuted, cursor: 'pointer',
+          }}
+        >
+          <Search size={14} />
+          <span className="hidden sm:inline">Rechercher</span>
+        </button>
+      )}
 
-      {/* ── Modal ───────────────────────────────────────────────────── */}
-      {open && (
+      <AnimatePresence>
+        {open && (
           <>
-            {/* Backdrop */}
-            <div
-              className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50"
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              style={{
+                position: 'fixed', inset: 0, zIndex: 100,
+                background: 'rgba(20, 18, 16, 0.4)',
+                backdropFilter: 'blur(4px)',
+              }}
               onClick={closeModal}
             />
 
-            {/* Modal container */}
-            <div
-              className="fixed top-[12%] left-1/2 -translate-x-1/2 w-[92vw] max-w-[660px] z-50"
+            <motion.div
+              initial={{ opacity: 0, y: -10, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.98 }}
+              transition={{ duration: 0.2, ease: [0.32, 0.72, 0, 1] }}
+              style={{
+                position: 'fixed', top: '12%', left: '50%',
+                transform: 'translateX(-50%)',
+                width: '92vw', maxWidth: 640, zIndex: 101,
+              }}
               onKeyDown={handleKeyDown}
             >
-              <div className="bg-[var(--panel)] border border-[var(--panel-edge)] shadow-lg overflow-hidden rounded-sm">
-
-                {/* ── Scan line effect ──────────────────────────────── */}
-                <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-sm">
-                  <div className="absolute inset-0 opacity-[0.02]"
-                    style={{
-                      backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, var(--panel-edge) 2px, var(--panel-edge) 4px)',
-                    }}
-                  />
-                </div>
-
-                {/* ── Search Input ──────────────────────────────────── */}
-                <div className="relative flex items-center gap-3 px-5 border-b border-[var(--panel-edge)]">
-                  <Search size={18} className="text-[var(--cyan)]/50 flex-shrink-0" />
+              <div style={{
+                background: '#fff',
+                border: `1px solid ${dash.border}`,
+                borderRadius: 12,
+                boxShadow: '0 16px 64px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.06)',
+                overflow: 'hidden',
+              }}>
+                {/* Input */}
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: 12,
+                  padding: '14px 20px',
+                  borderBottom: `1px solid ${dash.borderSoft}`,
+                }}>
+                  <Search size={18} style={{ color: dash.lavender, flexShrink: 0 }} />
                   <input
                     ref={inputRef}
                     type="text"
                     value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Rechercher dans les articles..."
-                    className="flex-1 bg-transparent py-4 text-[var(--text)] placeholder:text-[var(--text)]/20 text-sm focus:outline-none font-rajdhani tracking-wide"
+                    onChange={e => setQuery(e.target.value)}
+                    placeholder="Rechercher un article, un sujet..."
+                    style={{
+                      flex: 1, border: 'none', outline: 'none',
+                      fontSize: 15, color: dash.ink, background: 'transparent',
+                      fontFamily: dash.fontMain,
+                    }}
                   />
-                  {loading && (
-                    <Loader2 size={14} className="text-[var(--cyan)]/50 animate-spin flex-shrink-0" />
-                  )}
-                  <button
-                    onClick={closeModal}
-                    className="text-[var(--text)]/20 hover:text-[var(--text)]/50 transition-colors p-1"
-                  >
+                  {loading && <Loader2 size={16} style={{ color: dash.lavender, animation: 'spin 1s linear infinite' }} />}
+                  <button onClick={closeModal} style={{
+                    border: 'none', background: 'none', cursor: 'pointer',
+                    padding: 4, color: dash.inkGhost,
+                  }}>
                     <X size={16} />
                   </button>
                 </div>
 
-                {/* ── Category Filters ──────────────────────────────── */}
-                <div className="flex items-center gap-2 px-5 py-2.5 border-b border-[var(--panel-edge)]">
-                  <span className="text-[9px] text-[var(--text)]/20 tracking-[0.15em] uppercase font-tech-mono mr-1">
-                    FILTRES
-                  </span>
-                  {CATEGORIES.map((cat) => {
-                    const isActive = activeCategories.includes(cat.key);
+                {/* Category filters */}
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: 6,
+                  padding: '10px 20px',
+                  borderBottom: `1px solid ${dash.borderSoft}`,
+                  flexWrap: 'wrap',
+                }}>
+                  <span style={{ fontSize: 11, color: dash.inkGhost, fontWeight: 600, marginRight: 4 }}>FILTRES</span>
+                  {PILLARS.map(p => {
+                    const active = activeCategory === p.id;
                     return (
-                      <button
-                        key={cat.key}
-                        onClick={() => toggleCategory(cat.key)}
-                        className="relative text-[9px] tracking-[0.1em] px-2.5 py-1 transition-all font-tech-mono rounded-sm"
-                        style={{
-                          color: isActive ? cat.color : 'rgba(200, 216, 232, 0.25)',
-                          backgroundColor: isActive ? `${cat.color}15` : 'transparent',
-                          border: `1px solid ${isActive ? `${cat.color}40` : 'var(--panel-edge)'}`,
-                          boxShadow: isActive ? `0 0 12px ${cat.color}10` : 'none',
-                        }}
-                      >
-                        {cat.label}
+                      <button key={p.id} onClick={() => toggleCategory(p.id)} style={{
+                        fontSize: 11, fontWeight: 600, padding: '3px 10px',
+                        borderRadius: 4,
+                        border: `1px solid ${active ? p.color : dash.border}`,
+                        background: active ? p.colorSoft : 'transparent',
+                        color: active ? p.color : dash.inkMuted,
+                        cursor: 'pointer', transition: 'all 0.15s',
+                      }}>
+                        {p.icon} {p.name.replace(/^(Le |La |L'|Les )/, '')}
                       </button>
                     );
                   })}
-
-                  {/* Result count + timing */}
                   {query.length >= 2 && !loading && (
-                    <span className="ml-auto text-[9px] text-[var(--text)]/15 font-tech-mono tracking-wider">
-                      {searchMeta.count} résultat{searchMeta.count !== 1 ? 's' : ''} · {searchMeta.totalMs}ms
+                    <span style={{ marginLeft: 'auto', fontSize: 11, color: dash.inkGhost, fontFamily: dash.fontMono }}>
+                      {meta.count} résultat{meta.count !== 1 ? 's' : ''} · {meta.totalMs}ms
                     </span>
                   )}
                 </div>
 
-                {/* ── Results ───────────────────────────────────────── */}
-                <div ref={resultsRef} className="max-h-[55vh] overflow-y-auto scrollbar-thin">
-                  {/* Empty state: waiting for input */}
+                {/* Results */}
+                <div ref={resultsRef} style={{ maxHeight: '50vh', overflowY: 'auto' }}>
                   {query.length < 2 && (
-                    <div className="p-10 text-center">
-                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-[var(--panel-edge)] mb-4">
-                        <Search size={20} className="text-[var(--cyan)]/20" />
+                    <div style={{ padding: '48px 20px', textAlign: 'center' }}>
+                      <div style={{
+                        width: 48, height: 48, borderRadius: '50%',
+                        border: `1px solid ${dash.border}`,
+                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                        marginBottom: 12,
+                      }}>
+                        <Search size={20} style={{ color: dash.inkGhost }} />
                       </div>
-                      <p className="text-[11px] text-[var(--text)]/15 font-tech-mono tracking-[0.1em]">
-                        TAPEZ AU MOINS 2 CARACTÈRES
-                      </p>
+                      <p style={{ fontSize: 13, color: dash.inkGhost }}>Tapez au moins 2 caractères</p>
                     </div>
                   )}
 
-                  {/* No results */}
                   {query.length >= 2 && !loading && results.length === 0 && (
-                    <div className="p-10 text-center">
-                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-[var(--panel-edge)] mb-4">
-                        <X size={20} className="text-[var(--text)]/15" />
-                      </div>
-                      <p className="text-[11px] text-[var(--text)]/20 font-tech-mono tracking-[0.1em]">
-                        AUCUN RÉSULTAT POUR &quot;{query}&quot;
+                    <div style={{ padding: '48px 20px', textAlign: 'center' }}>
+                      <p style={{ fontSize: 13, color: dash.inkMuted }}>
+                        Aucun résultat pour &laquo; {query} &raquo;
                       </p>
                     </div>
                   )}
 
-                  {/* Result items */}
                   {results.map((r, i) => {
                     const isSelected = i === selectedIndex;
-                    const catColor = catColorMap[r.category] || '#0088AA';
-
+                    const cm = catMeta[r.category] || { label: 'Article', color: dash.lavender };
                     return (
                       <div
                         key={r.slug}
+                        data-index={i}
                         role="button"
                         tabIndex={-1}
-                        data-index={i}
                         onMouseEnter={() => setSelectedIndex(i)}
                         onClick={() => navigateTo(r.slug)}
-                        className={`group flex items-start gap-4 px-5 py-3.5 transition-all border-b border-[var(--cyan-08)] relative cursor-pointer ${
-                          isSelected
-                            ? 'bg-[var(--panel-edge)]'
-                            : 'hover:bg-[var(--cyan-08)]'
-                        }`}
+                        style={{
+                          display: 'flex', alignItems: 'flex-start', gap: 14,
+                          padding: '12px 20px',
+                          borderBottom: `1px solid ${dash.borderSoft}`,
+                          cursor: 'pointer',
+                          background: isSelected ? dash.bg : 'transparent',
+                          borderLeft: isSelected ? `3px solid ${cm.color}` : '3px solid transparent',
+                          transition: 'background 0.1s',
+                        }}
                       >
-                        {/* Selected indicator */}
-                        {isSelected && (
-                          <div
-                            className="absolute left-0 top-0 bottom-0 w-[2px]"
-                            style={{ backgroundColor: catColor }}
-                          />
-                        )}
-
-                        {/* Category badge */}
-                        <span
-                          className="text-[8px] mt-1.5 px-2 py-0.5 flex-shrink-0 tracking-[0.12em] font-tech-mono rounded-sm"
-                          style={{
-                            color: `${catColor}90`,
-                            backgroundColor: `${catColor}10`,
-                            border: `1px solid ${catColor}20`,
-                          }}
-                        >
-                          {catLabelMap[r.category] || 'Q.G.'}
+                        <span style={{
+                          fontSize: 10, fontWeight: 700, padding: '2px 8px',
+                          borderRadius: 4, flexShrink: 0, marginTop: 3,
+                          background: cm.color + '12', color: cm.color,
+                          border: `1px solid ${cm.color}25`,
+                        }}>
+                          {cm.label.slice(0, 12).toUpperCase()}
                         </span>
 
-                        {/* Content */}
-                        <div className="flex-1 min-w-0">
-                          {/* Title */}
-                          <p className={`text-sm font-rajdhani truncate transition-colors ${
-                            isSelected ? 'text-[var(--cyan)]' : 'text-[var(--text)]/60 group-hover:text-[var(--text)]/80'
-                          }`}>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{
+                            fontSize: 14, fontWeight: 600,
+                            color: isSelected ? cm.color : dash.ink,
+                            lineHeight: 1.35,
+                            whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+                          }}>
                             {highlightText(r.title, query)}
-                          </p>
-
-                          {/* Description */}
-                          <p className="text-[11px] text-[var(--text)]/20 mt-0.5 line-clamp-1 font-rajdhani">
-                            {highlightText(r.description.substring(0, 140), query)}
-                          </p>
-
-                          {/* Tags + meta row */}
-                          <div className="flex items-center gap-3 mt-1.5 flex-wrap">
-                            {/* Tags */}
-                            {r.tags && r.tags.slice(0, 3).map((tag) => (
-                              <span
-                                key={tag}
-                                className="inline-flex items-center gap-1 text-[8px] text-[var(--text)]/15 font-tech-mono"
-                              >
-                                <Tag size={7} className="opacity-50" />
-                                {tag}
+                          </div>
+                          {r.description && (
+                            <div style={{
+                              fontSize: 12, color: dash.inkMuted, marginTop: 2,
+                              lineHeight: 1.4,
+                              display: '-webkit-box', WebkitLineClamp: 1,
+                              WebkitBoxOrient: 'vertical', overflow: 'hidden',
+                            }}>
+                              {highlightText(r.description.slice(0, 140), query)}
+                            </div>
+                          )}
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 4, flexWrap: 'wrap' }}>
+                            {r.tags?.slice(0, 3).map(tag => (
+                              <span key={tag} style={{
+                                display: 'inline-flex', alignItems: 'center', gap: 3,
+                                fontSize: 10, color: dash.inkGhost,
+                              }}>
+                                <Tag size={8} /> {tag}
                               </span>
                             ))}
-
-                            {/* Date */}
-                            {r.date && (
-                              <span className="inline-flex items-center gap-1 text-[8px] text-[var(--text)]/12 font-tech-mono">
-                                <Calendar size={7} className="opacity-50" />
-                                {formatDate(r.date)}
-                              </span>
-                            )}
-
-                            {/* Read time */}
                             {r.readTime && (
-                              <span className="inline-flex items-center gap-1 text-[8px] text-[var(--text)]/12 font-tech-mono">
-                                <Clock size={7} className="opacity-50" />
-                                {r.readTime} min
+                              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 3, fontSize: 10, color: dash.inkGhost }}>
+                                <Clock size={8} /> {r.readTime} min
                               </span>
                             )}
                           </div>
                         </div>
 
-                        {/* Score bar */}
-                        <div className="flex flex-col items-end gap-1 flex-shrink-0 mt-1">
-                          <span className="text-[8px] text-[var(--text)]/15 font-tech-mono">
-                            {r.score}%
-                          </span>
-                          <div className="w-14 h-[3px] bg-[var(--panel-edge)] rounded-full overflow-hidden">
-                            <div
-                              className="h-full rounded-full"
-                              style={{
-                                width: `${r.score}%`,
-                                background: `linear-gradient(90deg, ${catColor}60, ${catColor})`,
-                                boxShadow: `0 0 6px ${catColor}40`,
-                              }}
-                            />
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4, flexShrink: 0, marginTop: 2 }}>
+                          <span style={{ fontSize: 10, color: dash.inkGhost, fontFamily: dash.fontMono }}>{r.score}%</span>
+                          <div style={{ width: 48, height: 3, background: dash.borderSoft, borderRadius: 2, overflow: 'hidden' }}>
+                            <div style={{
+                              height: '100%', borderRadius: 2,
+                              width: `${r.score}%`,
+                              background: cm.color,
+                            }} />
                           </div>
-                          <ArrowRight
-                            size={10}
-                            className={`mt-0.5 transition-all ${
-                              isSelected
-                                ? 'text-[var(--cyan)]/50 translate-x-0'
-                                : 'text-[var(--text)]/10 -translate-x-1'
-                            }`}
-                          />
+                          <ArrowRight size={10} style={{
+                            color: isSelected ? cm.color : dash.inkGhost,
+                            transition: 'color 0.15s',
+                          }} />
                         </div>
                       </div>
                     );
                   })}
                 </div>
 
-                {/* ── Footer: keyboard shortcuts ───────────────────── */}
-                <div className="flex items-center justify-between px-5 py-2.5 border-t border-[var(--panel-edge)] bg-[var(--void)]">
-                  <div className="flex items-center gap-4">
-                    <span className="inline-flex items-center gap-1.5 text-[9px] text-[var(--text)]/15 font-tech-mono">
-                      <kbd className="px-1 py-0.5 border border-[var(--panel-edge)] rounded-sm text-[8px]">↑↓</kbd>
-                      Naviguer
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 text-[9px] text-[var(--text)]/15 font-tech-mono">
-                      <kbd className="px-1 py-0.5 border border-[var(--panel-edge)] rounded-sm text-[8px]">⏎</kbd>
-                      Ouvrir
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 text-[9px] text-[var(--text)]/15 font-tech-mono">
-                      <kbd className="px-1 py-0.5 border border-[var(--panel-edge)] rounded-sm text-[8px]">Tab</kbd>
-                      Filtres
-                    </span>
+                {/* Footer */}
+                <div style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '8px 20px',
+                  borderTop: `1px solid ${dash.borderSoft}`,
+                  background: dash.bg,
+                }}>
+                  <div style={{ display: 'flex', gap: 16 }}>
+                    {[
+                      { keys: '↑↓', label: 'Naviguer' },
+                      { keys: '⏎', label: 'Ouvrir' },
+                    ].map(s => (
+                      <span key={s.label} style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, color: dash.inkGhost }}>
+                        <kbd style={{
+                          padding: '1px 5px', fontSize: 10,
+                          border: `1px solid ${dash.border}`, borderRadius: 3,
+                          fontFamily: dash.fontMono,
+                        }}>{s.keys}</kbd>
+                        {s.label}
+                      </span>
+                    ))}
                   </div>
-                  <span className="inline-flex items-center gap-1.5 text-[9px] text-[var(--text)]/15 font-tech-mono">
-                    <kbd className="px-1 py-0.5 border border-[var(--panel-edge)] rounded-sm text-[8px]">Esc</kbd>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, color: dash.inkGhost }}>
+                    <kbd style={{
+                      padding: '1px 5px', fontSize: 10,
+                      border: `1px solid ${dash.border}`, borderRadius: 3,
+                      fontFamily: dash.fontMono,
+                    }}>Esc</kbd>
                     Fermer
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </>
         )}
+      </AnimatePresence>
     </>
   );
 }
