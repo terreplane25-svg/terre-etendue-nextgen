@@ -29,47 +29,7 @@ export default function HomeClient({ articles }: { articles: A[] }) {
   return (
     <div style={{ maxWidth: 1200, margin: '0 auto', padding: '24px 24px 80px', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
 
-      {/* ═══ HERO GRID ═══ */}
-      <div className="home-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 24, marginBottom: 48 }}>
-
-        {/* Featured article — large */}
-        {featured && (
-          <Link href={`/article/${featured.slug}`} style={{ position: 'relative', borderRadius: 8, overflow: 'hidden', display: 'block', minHeight: 280 }}>
-            <img src={getArticleImage(featured.slug)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 60%)' }} />
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '28px 24px' }}>
-              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)', marginBottom: 8 }}>
-                {featured.date && new Date(featured.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })} | {featured.readTime} min
-              </div>
-              <h2 style={{ fontSize: 22, fontWeight: 700, color: '#fff', lineHeight: 1.3, marginBottom: 8 }}>{featured.title}</h2>
-              <p className="hidden sm:block" style={{ fontSize: 14, color: 'rgba(255,255,255,0.8)', lineHeight: 1.5 }}>{featured.description}</p>
-            </div>
-          </Link>
-        )}
-
-        {/* Medium articles — stacked */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          {medium.map(a => (
-            <Link key={a.slug} href={`/article/${a.slug}`} style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 20, borderBottom: '1px solid #eee' }}>
-              <img src={getArticleImage(a.slug)} alt="" style={{ width: '100%', height: 120, objectFit: 'cover', borderRadius: 6 }} />
-              <div style={{ fontSize: 11, color: '#999' }}>{a.date && new Date(a.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })} | {a.readTime} min</div>
-              <h3 style={{ fontSize: 16, fontWeight: 700, color: '#141210', lineHeight: 1.35 }}>{a.title}</h3>
-            </Link>
-          ))}
-        </div>
-
-        {/* Sidebar — text only */}
-        <div className="hidden lg:flex" style={{ flexDirection: 'column', gap: 0 }}>
-          {sidebar.map(a => (
-            <Link key={a.slug} href={`/article/${a.slug}`} style={{ display: 'block', padding: '14px 0', borderBottom: '1px solid #eee' }}>
-              <div style={{ fontSize: 11, color: '#999', marginBottom: 4 }}>{a.date && new Date(a.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })} | {a.readTime} min</div>
-              <h4 style={{ fontSize: 14, fontWeight: 700, color: '#141210', lineHeight: 1.35 }}>{a.title}</h4>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      {/* ═══ TEXTES FONDATEURS — Islam ═══ */}
+      {/* ═══ TEXTES FONDATEURS — tout en haut ═══ */}
       {islamicArticles.length > 0 && (
         <div style={{ marginBottom: 48 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
@@ -80,7 +40,7 @@ export default function HomeClient({ articles }: { articles: A[] }) {
             </div>
           </div>
 
-          {/* First 2 articles — large cards with image */}
+          {/* 2 premiers articles — grandes cartes avec image */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, marginBottom: 16 }}>
             {islamicArticles.slice(0, 2).map(a => (
               <Link key={a.slug} href={`/article/${a.slug}`} style={{
@@ -102,7 +62,7 @@ export default function HomeClient({ articles }: { articles: A[] }) {
             ))}
           </div>
 
-          {/* Rest — compact list */}
+          {/* Reste — liste compacte */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 10 }}>
             {islamicArticles.slice(2).map(a => (
               <Link key={a.slug} href={`/article/${a.slug}`} style={{
@@ -127,7 +87,45 @@ export default function HomeClient({ articles }: { articles: A[] }) {
         </div>
       )}
 
-      {/* ═══ LATEST ═══ */}
+      {/* ═══ À LA UNE ═══ */}
+      <div className="home-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 24, marginBottom: 48 }}>
+
+        {/* Article principal */}
+        {featured && (
+          <Link href={`/article/${featured.slug}`} style={{ position: 'relative', borderRadius: 8, overflow: 'hidden', display: 'block', minHeight: 280 }}>
+            <img src={getArticleImage(featured.slug)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 60%)' }} />
+            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '28px 24px' }}>
+              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)', marginBottom: 8 }}>
+                {featured.date && new Date(featured.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })} | {featured.readTime} min
+              </div>
+              <h2 style={{ fontSize: 22, fontWeight: 700, color: '#fff', lineHeight: 1.3, marginBottom: 8 }}>{featured.title}</h2>
+              <p className="hidden sm:block" style={{ fontSize: 14, color: 'rgba(255,255,255,0.8)', lineHeight: 1.5 }}>{featured.description}</p>
+            </div>
+          </Link>
+        )}
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+          {medium.map(a => (
+            <Link key={a.slug} href={`/article/${a.slug}`} style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 20, borderBottom: '1px solid #eee' }}>
+              <img src={getArticleImage(a.slug)} alt="" style={{ width: '100%', height: 120, objectFit: 'cover', borderRadius: 6 }} />
+              <div style={{ fontSize: 11, color: '#999' }}>{a.date && new Date(a.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })} | {a.readTime} min</div>
+              <h3 style={{ fontSize: 16, fontWeight: 700, color: '#141210', lineHeight: 1.35 }}>{a.title}</h3>
+            </Link>
+          ))}
+        </div>
+
+        <div className="hidden lg:flex" style={{ flexDirection: 'column', gap: 0 }}>
+          {sidebar.map(a => (
+            <Link key={a.slug} href={`/article/${a.slug}`} style={{ display: 'block', padding: '14px 0', borderBottom: '1px solid #eee' }}>
+              <div style={{ fontSize: 11, color: '#999', marginBottom: 4 }}>{a.date && new Date(a.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })} | {a.readTime} min</div>
+              <h4 style={{ fontSize: 14, fontWeight: 700, color: '#141210', lineHeight: 1.35 }}>{a.title}</h4>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* ═══ DERNIÈRES PUBLICATIONS ═══ */}
       <h2 style={{ fontSize: 28, fontWeight: 800, color: '#141210', marginBottom: 20, paddingBottom: 12, borderBottom: '3px solid #7C6FC4', display: 'inline-block' }}>Dernières publications</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
         {latest.map(a => (
