@@ -235,7 +235,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
         <ScrollReveal delay={100}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
             gap: 10,
             marginBottom: 20,
           }}>
@@ -252,7 +252,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
         <ScrollReveal delay={160}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
             gap: 10,
             marginBottom: 28,
           }}>

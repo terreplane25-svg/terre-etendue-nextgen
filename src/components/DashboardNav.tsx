@@ -6,20 +6,17 @@ import { Menu, X } from 'lucide-react';
 import SearchCommand from '@/components/SearchCommand';
 
 const SECTIONS = [
-  { label: 'Centre de Recherche', href: '/headquarters', color: '#7C6FC4',
-    subs: ['Épistémologie', 'Méthode zététique', 'Remise en question'] },
-  { label: 'Observatoire', href: '/observatory', color: '#3580C0',
-    subs: ['Optique', 'Horizon', 'Perspective', 'Visibilité', 'Mécanique'] },
-  { label: 'Bibliothèque', href: '/library', color: '#C48A2E',
-    subs: ['Coran & Sunna', 'Textes historiques', 'Cosmographie'] },
-  { label: 'Outils', href: '/lab', color: '#3A8F6E', subs: [] },
-  { label: 'Expériences', href: '/experiences', color: '#B85460',
-    subs: ['Fluides & matière', 'Optique & perspective', 'Œil humain', 'Forces'] },
+  { label: 'Centre de Recherche', href: '/headquarters', color: '#7C6FC4' },
+  { label: 'Observatoire', href: '/observatory', color: '#3580C0' },
+  { label: 'Bibliothèque', href: '/library', color: '#C48A2E' },
+  { label: 'Outils', href: '/lab', color: '#3A8F6E' },
+  { label: 'Expériences', href: '/experiences', color: '#B85460' },
+  { label: 'Nexus', href: '/nexus', color: '#7C6FC4' },
+  { label: 'À propos', href: '/about', color: '#8A857D' },
 ];
 
 export default function DashboardNav() {
   const pathname = usePathname();
-  const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -47,39 +44,15 @@ export default function DashboardNav() {
               {SECTIONS.map(s => {
                 const active = pathname === s.href || pathname?.startsWith(s.href + '/');
                 return (
-                  <div key={s.href} style={{ position: 'relative' }}
-                    onMouseEnter={() => s.subs.length > 0 ? setOpenMenu(s.href) : null}
-                    onMouseLeave={() => setOpenMenu(null)}>
-                    <Link href={s.href} style={{
-                      display: 'flex', alignItems: 'center', gap: 4,
-                      padding: '14px 18px', fontSize: 14, fontWeight: 600,
-                      color: active ? s.color : '#3D3A35',
-                      borderBottom: active ? `3px solid ${s.color}` : '3px solid transparent',
-                      fontFamily: "'Plus Jakarta Sans', sans-serif",
-                    }}>
-                      {s.label}
-                      {s.subs.length > 0 && <span style={{ fontSize: 10, opacity: 0.5 }}>▼</span>}
-                    </Link>
-
-                    {/* Dropdown */}
-                    {openMenu === s.href && s.subs.length > 0 && (
-                      <div style={{
-                        position: 'absolute', top: '100%', left: 0, zIndex: 50,
-                        background: '#fff', border: '1px solid #eee', borderRadius: 8,
-                        padding: '12px 0', minWidth: 220, boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
-                      }}>
-                        {s.subs.map(sub => (
-                          <div key={sub} style={{
-                            padding: '8px 20px', fontSize: 14, color: '#3D3A35', cursor: 'pointer',
-                          }}
-                          onMouseOver={e => (e.currentTarget.style.background = '#f8f8f8')}
-                          onMouseOut={e => (e.currentTarget.style.background = 'transparent')}>
-                            {sub}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                  <Link key={s.href} href={s.href} style={{
+                    display: 'flex', alignItems: 'center',
+                    padding: '14px 18px', fontSize: 14, fontWeight: 600,
+                    color: active ? s.color : '#3D3A35',
+                    borderBottom: active ? `3px solid ${s.color}` : '3px solid transparent',
+                    fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  }}>
+                    {s.label}
+                  </Link>
                 );
               })}
             </div>
