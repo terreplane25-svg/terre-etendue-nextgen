@@ -147,3 +147,26 @@ a { color: inherit; text-decoration: none; }
   overflow: hidden !important;
   margin: 24px 0 !important;
 }
+
+/* ═══ SVG LIGHTBOX ═══ */
+.svg-lightbox-content svg {
+  background: #fff !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  max-width: none !important;
+  display: block !important;
+}
+
+/* SVG hover hint in articles */
+.prose-dash svg {
+  cursor: zoom-in;
+  transition: box-shadow 0.2s ease;
+}
+.prose-dash svg:hover {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08) !important;
+}
