@@ -33,8 +33,9 @@ function SvgLightbox({ svgHtml, onClose }: { svgHtml: string; onClose: () => voi
         style={{
           background: '#fff',
           borderRadius: 6,
-          padding: 20,
-          maxWidth: '95vw',
+          padding: 24,
+          width: '92vw',
+          maxWidth: 1200,
           maxHeight: '92vh',
           overflow: 'auto',
           cursor: 'default',
@@ -45,19 +46,18 @@ function SvgLightbox({ svgHtml, onClose }: { svgHtml: string; onClose: () => voi
         <button
           onClick={onClose}
           style={{
-            position: 'absolute', top: 10, right: 10,
-            width: 32, height: 32, borderRadius: 4,
+            position: 'sticky', top: 0, float: 'right',
+            width: 36, height: 36, borderRadius: 4,
             border: '1px solid #ddd', background: '#fff',
-            color: '#666', fontSize: 16, cursor: 'pointer',
+            color: '#666', fontSize: 18, cursor: 'pointer',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            zIndex: 1,
+            zIndex: 1, marginBottom: -36,
           }}
         >
           ✕
         </button>
         <div
           dangerouslySetInnerHTML={{ __html: svgHtml }}
-          style={{ minWidth: 600, maxWidth: '90vw' }}
           className="svg-lightbox-content"
         />
       </div>
@@ -106,16 +106,9 @@ export default function ArticleReader(props: ArticleReaderProps) {
 
       const fn = () => {
         const clone = svg.cloneNode(true) as SVGSVGElement;
-        clone.style.cursor = 'default';
-        clone.style.width = '100%';
-        clone.style.height = 'auto';
-        clone.style.maxWidth = 'none';
-        clone.style.background = '#fff';
-        clone.style.border = 'none';
-        clone.style.boxShadow = 'none';
-        clone.style.padding = '0';
-        clone.style.margin = '0';
-        clone.style.display = 'block';
+        clone.removeAttribute('width');
+        clone.removeAttribute('height');
+        clone.style.cssText = 'width:100%;height:auto;max-width:none;display:block;background:transparent;border:none;box-shadow:none;padding:0;margin:0;cursor:default;';
         setLightboxSvg(clone.outerHTML);
       };
       svg.addEventListener('click', fn);

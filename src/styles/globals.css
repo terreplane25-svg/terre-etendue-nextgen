@@ -150,7 +150,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ═══ SVG LIGHTBOX ═══ */
 .svg-lightbox-content svg {
-  background: #fff !important;
+  background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
@@ -158,6 +158,7 @@ a { color: inherit; text-decoration: none; }
   border-radius: 0 !important;
   width: 100% !important;
   height: auto !important;
+  min-height: 300px;
   max-width: none !important;
   display: block !important;
 }
