@@ -11,6 +11,10 @@ import ScrollReveal from '@/components/ui/ScrollReveal';
 const CurvatureCalc = dynamic(() => import('@/components/lab/CurvatureCalc'), { ssr: false });
 const FlatEarthSim = dynamic(() => import('@/components/lab/FlatEarthSim'), { ssr: false });
 const GeoHelioSim = dynamic(() => import('@/components/lab/GeoHelioSim'), { ssr: false });
+const PerspectiveSim = dynamic(() => import('@/components/lab/PerspectiveSim'), { ssr: false });
+const DensitySim = dynamic(() => import('@/components/lab/DensitySim'), { ssr: false });
+const VisualFieldSim = dynamic(() => import('@/components/lab/VisualFieldSim'), { ssr: false });
+const LaserLakeSim = dynamic(() => import('@/components/lab/LaserLakeSim'), { ssr: false });
 
 interface A { slug: string; title: string; description: string; tags: string[]; pinned: boolean; readTime: number; }
 
@@ -18,16 +22,52 @@ const TOOLS = [
   {
     id: 'curvature',
     label: 'Calculateur de Courbure',
-    desc: "Calculez la courbure théorique pour n'importe quelle distance avec ou sans réfraction atmosphérique. Comparez les modèles globe et plan.",
+    desc: "Calculez la courbure théorique avec réfraction. Graphique interactif, 6 cas réels documentés, export des résultats.",
     icon: '📐',
     color: dash.opal,
     colorSoft: dash.opalSoft,
-    tags: ['courbure', 'réfraction', 'horizon'],
+    tags: ['courbure', 'réfraction', 'graphique'],
+  },
+  {
+    id: 'perspective',
+    label: 'Perspective vs Courbure',
+    desc: "Comparez la disparition par perspective (point de fuite) et par courbure (occultation). Deux modèles côte à côte.",
+    icon: '👁️',
+    color: dash.lavender,
+    colorSoft: dash.lavenderSoft,
+    tags: ['perspective', 'point de fuite', '3D'],
+  },
+  {
+    id: 'density',
+    label: 'Simulateur de Densité',
+    desc: "Colonne de fluides interactive. Lâchez des objets et observez la flottabilité par densité relative.",
+    icon: '⚗️',
+    color: dash.opal,
+    colorSoft: dash.opalSoft,
+    tags: ['densité', 'flottabilité', 'Archimède'],
+  },
+  {
+    id: 'visualfield',
+    label: 'Champ Visuel & Résolution',
+    desc: "Calculez la taille angulaire d'un objet et la distance maximale de résolution de l'œil humain (1 arc-minute).",
+    icon: '🔬',
+    color: dash.rose,
+    colorSoft: dash.roseSoft,
+    tags: ['vision', 'arc-minute', 'résolution'],
+  },
+  {
+    id: 'laser',
+    label: 'Laser sur Lac',
+    desc: "Simulation des expériences laser sur eau calme. Comparez trajectoire droite (plan) vs écart de courbure (globe).",
+    icon: '🔴',
+    color: dash.rose,
+    colorSoft: dash.roseSoft,
+    tags: ['laser', 'eau', 'courbure'],
   },
   {
     id: 'flat',
     label: 'Terre Plane — Vue du Dessus',
-    desc: "Carte azimutale équidistante avec Soleil et Lune en mouvement. Éphémérides réelles calculées par Astronomy Engine.",
+    desc: "Carte azimutale avec Soleil et Lune. Éphémérides réelles, tropiques, saisons et date en temps réel.",
     icon: '🗺️',
     color: dash.saffron,
     colorSoft: dash.saffronSoft,
@@ -36,7 +76,7 @@ const TOOLS = [
   {
     id: 'geo',
     label: 'Modèle Planétaire',
-    desc: "Système solaire en 3D : mode héliocentrique classique ou vortex galactique. Orbites elliptiques et traînées lumineuses.",
+    desc: "8 planètes avec orbites réelles, anneaux de Saturne, vitesses orbitales. Mode classique ou vortex galactique.",
     icon: '🪐',
     color: dash.cyan,
     colorSoft: dash.cyanSoft,
@@ -131,6 +171,10 @@ export default function LabClient({ articles }: { articles: A[] }) {
   const renderSimulator = () => {
     switch (activeTool) {
       case 'curvature': return <CurvatureCalc />;
+      case 'perspective': return <PerspectiveSim />;
+      case 'density': return <DensitySim />;
+      case 'visualfield': return <VisualFieldSim />;
+      case 'laser': return <LaserLakeSim />;
       case 'flat': return <FlatEarthSim />;
       case 'geo': return <GeoHelioSim />;
       default: return null;
@@ -138,12 +182,13 @@ export default function LabClient({ articles }: { articles: A[] }) {
   };
 
   const activeToolData = TOOLS.find(t => t.id === activeTool);
+  const isDarkBg = ['curvature', 'flat', 'geo', 'perspective', 'density', 'visualfield', 'laser'].includes(activeTool || '');
 
   return (
     <div>
       <PageHero
         title="Outils & Simulateurs"
-        subtitle="Modélisation 3D, simulateurs interactifs et outils de calcul"
+        subtitle="7 simulateurs interactifs — modélisation 3D, calcul et visualisation"
         color={dash.opal}
         image="https://green-gnat-134443.hostingersite.com/wp-content/uploads/2025/10/cropped-entete-logo-e1760704486721.png"
       />
@@ -260,8 +305,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
 
               {/* Simulator body */}
               <div style={{
-                background: activeTool === 'curvature' || activeTool === 'flat' || activeTool === 'geo'
-                  ? '#080E1A' : dash.card,
+                background: isDarkBg ? '#080E1A' : dash.card,
                 borderRadius: '0 0 16px 16px',
                 padding: 20,
                 border: `1px solid ${dash.border}`,
