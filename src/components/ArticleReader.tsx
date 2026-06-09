@@ -80,44 +80,48 @@ export default function ArticleReader(props: ArticleReaderProps) {
 
   const contentRef = useRef<HTMLDivElement>(null);
   const [lightboxSvg, setLightboxSvg] = useState<string | null>(null);
+  const hintsAdded = useRef(false);
 
   const closeLightbox = useCallback(() => setLightboxSvg(null), []);
 
   useEffect(() => {
-    if (!contentRef.current) return;
-    const svgs = contentRef.current.querySelectorAll('svg');
-    const handlers: Array<{ el: SVGSVGElement; fn: () => void }> = [];
+    const container = contentRef.current;
+    if (!container) return;
 
-    svgs.forEach(svg => {
-      svg.style.cursor = 'zoom-in';
-      svg.setAttribute('title', 'Cliquez pour agrandir');
+    if (!hintsAdded.current) {
+      hintsAdded.current = true;
+      container.querySelectorAll('svg').forEach(svg => {
+        svg.style.cursor = 'zoom-in';
+        svg.setAttribute('title', 'Cliquez pour agrandir');
+        const hint = document.createElement('div');
+        hint.className = 'svg-zoom-hint';
+        hint.style.cssText = 'position:absolute;bottom:6px;right:8px;font-size:9px;font-family:monospace;color:#8A857D;opacity:0;transition:opacity 0.2s;pointer-events:none;background:rgba(255,255,255,0.85);padding:1px 5px;border-radius:2px;';
+        hint.textContent = '⤢ Agrandir';
+        const wrapper = svg.parentElement;
+        if (wrapper) {
+          wrapper.style.position = 'relative';
+          wrapper.appendChild(hint);
+          svg.addEventListener('mouseenter', () => { hint.style.opacity = '1'; });
+          svg.addEventListener('mouseleave', () => { hint.style.opacity = '0'; });
+        }
+      });
+    }
 
-      const hint = document.createElement('div');
-      hint.style.cssText = 'position:absolute;bottom:6px;right:8px;font-size:9px;font-family:monospace;color:#8A857D;opacity:0;transition:opacity 0.2s;pointer-events:none;background:rgba(255,255,255,0.85);padding:1px 5px;border-radius:2px;';
-      hint.textContent = '⤢ Agrandir';
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as Element;
+      const svg = target.closest('svg');
+      if (!svg || !container.contains(svg)) return;
 
-      const wrapper = svg.parentElement;
-      if (wrapper) {
-        wrapper.style.position = 'relative';
-        wrapper.appendChild(hint);
-        svg.addEventListener('mouseenter', () => { hint.style.opacity = '1'; });
-        svg.addEventListener('mouseleave', () => { hint.style.opacity = '0'; });
-      }
-
-      const fn = () => {
-        const clone = svg.cloneNode(true) as SVGSVGElement;
-        clone.removeAttribute('width');
-        clone.removeAttribute('height');
-        clone.style.cssText = 'width:100%;height:auto;max-width:none;display:block;background:transparent;border:none;box-shadow:none;padding:0;margin:0;cursor:default;';
-        setLightboxSvg(clone.outerHTML);
-      };
-      svg.addEventListener('click', fn);
-      handlers.push({ el: svg, fn });
-    });
-
-    return () => {
-      handlers.forEach(({ el, fn }) => el.removeEventListener('click', fn));
+      e.stopPropagation();
+      const clone = svg.cloneNode(true) as SVGSVGElement;
+      clone.removeAttribute('width');
+      clone.removeAttribute('height');
+      clone.style.cssText = 'width:100%;height:auto;max-width:none;display:block;background:transparent;border:none;box-shadow:none;padding:0;margin:0;cursor:default;';
+      setLightboxSvg(clone.outerHTML);
     };
+
+    container.addEventListener('click', handleClick);
+    return () => container.removeEventListener('click', handleClick);
   }, [content]);
 
   return (
