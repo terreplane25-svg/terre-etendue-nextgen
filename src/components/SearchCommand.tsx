@@ -175,8 +175,7 @@ export default function SearchCommand({ inline }: { inline?: boolean }) {
             fontSize: 13, color: dash.inkMuted, cursor: 'pointer',
           }}
         >
-          <Search size={14} />
-          <span className="hidden sm:inline">Rechercher</span>
+          <Search size={16} />
         </button>
       )}
 
@@ -202,9 +201,9 @@ export default function SearchCommand({ inline }: { inline?: boolean }) {
               exit={{ opacity: 0, y: -10, scale: 0.98 }}
               transition={{ duration: 0.2, ease: [0.32, 0.72, 0, 1] }}
               style={{
-                position: 'fixed', top: '12%', left: '50%',
+                position: 'fixed', top: '8%', left: '50%',
                 transform: 'translateX(-50%)',
-                width: '92vw', maxWidth: 640, zIndex: 101,
+                width: '94vw', maxWidth: 640, zIndex: 101,
               }}
               onKeyDown={handleKeyDown}
             >
