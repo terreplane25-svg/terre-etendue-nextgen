@@ -201,8 +201,9 @@ export default function SearchCommand({ inline }: { inline?: boolean }) {
               exit={{ opacity: 0, y: -10, scale: 0.98 }}
               transition={{ duration: 0.2, ease: [0.32, 0.72, 0, 1] }}
               style={{
-                position: 'fixed', top: '8%', left: '50%',
-                transform: 'translateX(-50%)',
+                position: 'fixed', top: '8%',
+                left: 0, right: 0,
+                margin: '0 auto',
                 width: '94vw', maxWidth: 640, zIndex: 101,
               }}
               onKeyDown={handleKeyDown}

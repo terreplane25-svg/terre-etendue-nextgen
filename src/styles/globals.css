@@ -148,6 +148,17 @@ a { color: inherit; text-decoration: none; }
   margin: 24px 0 !important;
 }
 
+/* ═══ SECTION NUMBERS in article headings ═══ */
+.prose-dash .tei-section-num {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--lavender);
+  font-family: var(--font-mono);
+  margin-bottom: 4px;
+}
+
 /* ═══ HOME — responsive ═══ */
 @media (min-width: 768px) { .home-hero-grid { grid-template-columns: 1fr 340px !important; } }
 @media (min-width: 1024px) { .home-hero-grid { grid-template-columns: 1fr 340px 220px !important; } }
