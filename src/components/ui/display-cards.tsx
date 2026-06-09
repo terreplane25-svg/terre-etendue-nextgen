@@ -23,7 +23,7 @@ function DisplayCard({ title, description, date, color, icon, offsetX = 0, offse
       position: 'relative', width: 350, height: 145,
       background: hov ? '#fff' : '#F5F3EE',
       border: `1.5px solid ${hov ? color + '40' : 'rgba(20,18,16,0.06)'}`,
-      borderRadius: 18, padding: '18px 22px',
+      borderRadius: 6, padding: '18px 22px',
       transition: `all 0.6s ${BEZ}`, cursor: 'pointer',
       boxShadow: hov ? `0 14px 44px ${color}18` : '0 2px 8px rgba(0,0,0,0.03)',
       display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
@@ -36,7 +36,7 @@ function DisplayCard({ title, description, date, color, icon, offsetX = 0, offse
       </div>
       <p style={{ fontSize: 13, color: '#3D3A35', position: 'relative', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{description}</p>
       <p style={{ fontSize: 11, color: '#BAB5AC', position: 'relative' }}>{date}</p>
-      {!hov && <div style={{ position: 'absolute', inset: 0, borderRadius: 18, background: 'rgba(250,250,246,0.35)', pointerEvents: 'none', transition: `opacity 0.5s ${BEZ}` }} />}
+      {!hov && <div style={{ position: 'absolute', inset: 0, borderRadius: 6, background: 'rgba(250,250,246,0.35)', pointerEvents: 'none', transition: `opacity 0.5s ${BEZ}` }} />}
     </div>
   );
 }

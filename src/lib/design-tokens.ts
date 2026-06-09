@@ -42,9 +42,9 @@ export const dash = {
   shadowLg: "0 4px 12px rgba(0,0,0,0.05), 0 16px 40px rgba(0,0,0,0.08)",
 
   // ── Radii ──
-  radius: "16px",
-  radiusSm: "10px",
-  radiusXs: "6px",
+  radius: "6px",
+  radiusSm: "4px",
+  radiusXs: "2px",
 
   // ── Fonts ──
   fontMain: "'Plus Jakarta Sans', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif",

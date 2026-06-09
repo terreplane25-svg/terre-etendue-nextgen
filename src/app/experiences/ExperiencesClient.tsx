@@ -50,9 +50,9 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
           <motion.div key="d" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ marginBottom: 40 }}>
             {tab === "all" && <h2 style={{ fontSize: 17, fontWeight: 750, color: dash.ink, marginBottom: 16 }}>🔬 Démonstrations</h2>}
             <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 20 }}>
-              <button onClick={() => setFam(null)} style={{ padding: "5px 12px", borderRadius: 8, fontSize: 12, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${!fam ? dash.ink : dash.border}`, background: !fam ? dash.ink : dash.card, color: !fam ? "#fff" : dash.inkMuted, cursor: "pointer" }}>Toutes</button>
+              <button onClick={() => setFam(null)} style={{ padding: "5px 12px", borderRadius: 4, fontSize: 12, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${!fam ? dash.ink : dash.border}`, background: !fam ? dash.ink : dash.card, color: !fam ? "#fff" : dash.inkMuted, cursor: "pointer" }}>Toutes</button>
               {FAMILLES.map(f => (
-                <button key={f.id} onClick={() => setFam(f.id === fam ? null : f.id)} style={{ padding: "5px 12px", borderRadius: 8, fontSize: 12, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${fam === f.id ? dash.ink : dash.border}`, background: fam === f.id ? dash.ink : dash.card, color: fam === f.id ? "#fff" : dash.inkMuted, cursor: "pointer" }}>{f.icon} {f.label}</button>
+                <button key={f.id} onClick={() => setFam(f.id === fam ? null : f.id)} style={{ padding: "5px 12px", borderRadius: 4, fontSize: 12, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${fam === f.id ? dash.ink : dash.border}`, background: fam === f.id ? dash.ink : dash.card, color: fam === f.id ? "#fff" : dash.inkMuted, cursor: "pointer" }}>{f.icon} {f.label}</button>
               ))}
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>

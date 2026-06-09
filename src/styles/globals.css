@@ -40,24 +40,24 @@ a { color: inherit; text-decoration: none; }
 .prose-dash a:hover { text-decoration-color: var(--lavender); }
 .prose-dash ul, .prose-dash ol { margin: 0.8em 0 1.2em 1.2em; }
 .prose-dash li { margin-bottom: 0.4em; }
-.prose-dash svg { display: block; margin: 28px auto; max-width: 100%; border-radius: 16px; }
-.prose-dash iframe[src*="youtube"] { border-radius: 16px !important; }
+.prose-dash svg { display: block; margin: 28px auto; max-width: 100%; border-radius: 6px; }
+.prose-dash iframe[src*="youtube"] { border-radius: 6px !important; }
 
 /* Tables */
-.prose-dash table, .tei-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 1.5em 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+.prose-dash table, .tei-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 1.5em 0; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
 .prose-dash th, .tei-table th { background: var(--cream); font-weight: 700; color: var(--ink); padding: 10px 14px; text-align: left; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
 .prose-dash td, .tei-table td { padding: 10px 14px; border-top: 1px solid var(--border); color: var(--ink-soft); }
 
 /* Widget blocks */
-.tei-data { background: #3580C00A; border: 1px solid #3580C015; border-radius: 16px; padding: 18px 22px; margin: 1.2em 0; }
+.tei-data { background: #3580C00A; border: 1px solid #3580C015; border-radius: 6px; padding: 18px 22px; margin: 1.2em 0; }
 .tei-data small { display: block; font-size: 11px; font-weight: 700; color: var(--cyan); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
 .tei-data p { font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); margin: 0; line-height: 1.7; }
 
 /* Quranic */
-.tei-quran { background: #A6851C0A; border-left: 3px solid var(--gold); border-radius: 16px; padding: 20px 24px; margin: 1.5em 0; font-family: var(--font-arabic); direction: rtl; text-align: right; font-size: 18px; line-height: 2; }
+.tei-quran { background: #A6851C0A; border-left: 3px solid var(--gold); border-radius: 6px; padding: 20px 24px; margin: 1.5em 0; font-family: var(--font-arabic); direction: rtl; text-align: right; font-size: 18px; line-height: 2; }
 
 /* Blockquotes */
-.prose-dash blockquote { background: var(--cream); border-left: 3px solid var(--lavender); border-radius: 16px; padding: 18px 22px; margin: 1.5em 0; font-style: italic; }
+.prose-dash blockquote { background: var(--cream); border-left: 3px solid var(--lavender); border-radius: 6px; padding: 18px 22px; margin: 1.5em 0; font-style: italic; }
 
 @media (max-width: 768px) {
   .prose-dash { font-size: 15px; }
@@ -68,42 +68,42 @@ a { color: inherit; text-decoration: none; }
 .dash-card, .bezel-card {
   background: #F5F3EE;
   border: 1px solid rgba(20,18,16,0.06);
-  border-radius: 24px;
-  padding: 6px;
-  transition: all 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+  border-radius: 8px;
+  padding: 4px;
+  transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
 }
 .dash-card:hover, .bezel-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
 }
 .dash-card > *, .bezel-card > * {
   background: #FFFFFF;
-  border-radius: 20px;
+  border-radius: 6px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03), inset 0 1px 1px rgba(255,255,255,0.6);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
 }
 .dash-card-sm {
   background: #F5F3EE;
   border: 1px solid rgba(20,18,16,0.06);
-  border-radius: 20px;
-  padding: 5px;
-  transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  border-radius: 6px;
+  padding: 3px;
+  transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1);
 }
-.dash-card-sm:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
-.dash-card-sm > * { background: #FFFFFF; border-radius: 16px; overflow: hidden; }
+.dash-card-sm:hover { transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.dash-card-sm > * { background: #FFFFFF; border-radius: 4px; overflow: hidden; }
 
 /* ═══ ARTICLE CONTENT OVERRIDES ═══ */
 /* Force light backgrounds on all article content sections */
 .prose-dash div[style*="background"],
 .prose-dash section[style*="background"] {
-  border-radius: 16px !important;
+  border-radius: 6px !important;
 }
 
 /* SVG diagrams — force clean rendering */
 .prose-dash svg {
   background: #fff !important;
   border: 1px solid rgba(20,18,16,0.06) !important;
-  border-radius: 16px !important;
+  border-radius: 6px !important;
   padding: 16px !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.03) !important;
 }
@@ -127,7 +127,7 @@ a { color: inherit; text-decoration: none; }
 /* Tables inside articles */
 .prose-dash table {
   background: #fff !important;
-  border-radius: 12px !important;
+  border-radius: 6px !important;
   overflow: hidden !important;
 }
 .prose-dash th {
@@ -142,14 +142,14 @@ a { color: inherit; text-decoration: none; }
 .prose-dash blockquote {
   background: #F5F3EE !important;
   border-left: 3px solid #7C6FC4 !important;
-  border-radius: 16px !important;
+  border-radius: 6px !important;
   color: #3D3A35 !important;
 }
 
 /* YouTube embeds */
 .prose-dash .video-container,
 .prose-dash .tei-media {
-  border-radius: 16px !important;
+  border-radius: 6px !important;
   overflow: hidden !important;
   margin: 24px 0 !important;
 }

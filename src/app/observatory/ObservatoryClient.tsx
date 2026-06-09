@@ -24,11 +24,11 @@ export default function ObservatoryClient({ articles }: { articles: A[] }) {
       <PageHero title="L'Observatoire" subtitle={`${articles.length} analyses · Données empiriques`} color={dash.cyan} image="https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/04/imgage_accueil.png" />
       <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 64px' }}>
         <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
-          <Link href="/experiences" style={{ fontSize: 13, fontWeight: 600, color: dash.opal, padding: '6px 14px', borderRadius: 8, background: dash.opalSoft }}>Voir les fiches expériences →</Link>
+          <Link href="/experiences" style={{ fontSize: 13, fontWeight: 600, color: dash.opal, padding: '6px 14px', borderRadius: 4, background: dash.opalSoft }}>Voir les fiches expériences →</Link>
         </div>
         <div style={{ display: 'flex', gap: 6, marginBottom: 24 }}>
           {[{ id: 'all', l: 'Tout' }, { id: 'pinned', l: '★ Épinglés' }].map(f => (
-            <button key={f.id} onClick={() => setFilter(f.id)} style={{ padding: '7px 16px', borderRadius: 8, fontSize: 13, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${filter === f.id ? dash.ink : dash.border}`, background: filter === f.id ? dash.ink : dash.card, color: filter === f.id ? '#fff' : dash.inkMuted, cursor: 'pointer' }}>{f.l}</button>
+            <button key={f.id} onClick={() => setFilter(f.id)} style={{ padding: '7px 16px', borderRadius: 4, fontSize: 13, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${filter === f.id ? dash.ink : dash.border}`, background: filter === f.id ? dash.ink : dash.card, color: filter === f.id ? '#fff' : dash.inkMuted, cursor: 'pointer' }}>{f.l}</button>
           ))}
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>

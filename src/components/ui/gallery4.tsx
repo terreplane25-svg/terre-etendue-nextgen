@@ -40,14 +40,14 @@ export function Gallery4({ title, description, items, color = '#7C6FC4' }: Galle
           </div>
           <div style={{ display: 'flex', gap: 8 }}>
             <button onClick={() => scroll(-1)} disabled={idx === 0} style={{
-              width: 40, height: 40, borderRadius: 10, border: '1px solid #F5F3EE',
+              width: 40, height: 40, borderRadius: 6, border: '1px solid #F5F3EE',
               background: '#fff', cursor: 'pointer', fontSize: 18,
               color: idx === 0 ? '#BAB5AC' : '#141210',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontFamily: 'system-ui',
             }}>←</button>
             <button onClick={() => scroll(1)} disabled={idx >= items.length - 2} style={{
-              width: 40, height: 40, borderRadius: 10, border: '1px solid #F5F3EE',
+              width: 40, height: 40, borderRadius: 6, border: '1px solid #F5F3EE',
               background: '#fff', cursor: 'pointer', fontSize: 18,
               color: idx >= items.length - 2 ? '#BAB5AC' : '#141210',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -63,11 +63,11 @@ export function Gallery4({ title, description, items, color = '#7C6FC4' }: Galle
         {items.map((item) => (
           <Link key={item.id} href={item.href} style={{
             minWidth: 340, maxWidth: 360, flexShrink: 0, scrollSnapAlign: 'start',
-            borderRadius: 24, overflow: 'hidden', position: 'relative', height: 440,
+            borderRadius: 8, overflow: 'hidden', position: 'relative', height: 440,
             cursor: 'pointer', background: '#F5F3EE', border: '1px solid rgba(20,18,16,0.06)', padding: 6,
             display: 'block',
           }}>
-            <div style={{ borderRadius: 20, overflow: 'hidden', height: '100%', position: 'relative' }}>
+            <div style={{ borderRadius: 6, overflow: 'hidden', height: '100%', position: 'relative' }}>
               <img src={item.image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(20,18,16,0.88) 0%, rgba(20,18,16,0.3) 40%, transparent 70%)' }} />
               <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px 22px' }}>

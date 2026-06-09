@@ -18,7 +18,7 @@ export default function BezelCard({ children, style = {}, hover = true }: Props)
       style={{
         background: '#F5F3EE',
         border: '1px solid rgba(20,18,16,0.06)',
-        borderRadius: 24,
+        borderRadius: 8,
         padding: 6,
         transition: `all 0.6s ${BEZ}`,
         transform: hov && hover ? 'translateY(-2px) scale(1.003)' : 'translateY(0) scale(1)',
@@ -27,7 +27,7 @@ export default function BezelCard({ children, style = {}, hover = true }: Props)
     >
       <div style={{
         background: '#FFFFFF',
-        borderRadius: 20,
+        borderRadius: 6,
         overflow: 'hidden',
         boxShadow: hov
           ? '0 8px 32px rgba(0,0,0,0.06), inset 0 1px 1px rgba(255,255,255,0.8)'
