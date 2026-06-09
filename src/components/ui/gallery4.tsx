@@ -63,8 +63,8 @@ export function Gallery4({ title, description, items, color = '#7C6FC4' }: Galle
         {items.map((item) => (
           <Link key={item.id} href={item.href} style={{
             minWidth: 340, maxWidth: 360, flexShrink: 0, scrollSnapAlign: 'start',
-            borderRadius: 8, overflow: 'hidden', position: 'relative', height: 440,
-            cursor: 'pointer', background: '#F5F3EE', border: '1px solid rgba(20,18,16,0.06)', padding: 6,
+            borderRadius: 6, overflow: 'hidden', position: 'relative', height: 440,
+            cursor: 'pointer', background: '#FFFFFF', border: '1px solid rgba(20,18,16,0.08)',
             display: 'block',
           }}>
             <div style={{ borderRadius: 6, overflow: 'hidden', height: '100%', position: 'relative' }}>
