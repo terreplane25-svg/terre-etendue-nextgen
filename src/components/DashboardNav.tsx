@@ -87,19 +87,26 @@ export default function DashboardNav() {
         transform: visible ? 'translateY(0)' : 'translateY(-100%)',
         transition: 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)',
       }}>
-        {/* Single bar: logo + nav + search */}
-        <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 20px', display: 'flex', alignItems: 'center', gap: 0 }}>
-          {/* Logo */}
-          <Link href="/" style={{
-            fontSize: 20, fontWeight: 800, color: '#111', letterSpacing: '-0.02em',
-            whiteSpace: 'nowrap', marginRight: 20, padding: '12px 0',
-            flexShrink: 0,
-          }}>
-            Terre Étendue <span style={{ color: '#3D9E7C', fontWeight: 800 }}>Islam</span>
+        <div style={{ maxWidth: 1360, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center' }}>
+
+          {/* Logo — far left */}
+          <Link href="/" style={{ flexShrink: 0, marginRight: 40, padding: '8px 0' }}>
+            <div style={{
+              fontSize: 27, fontWeight: 900, color: '#0A0A0A', letterSpacing: '-0.03em',
+              lineHeight: 1.1, fontFamily: "'Plus Jakarta Sans', sans-serif",
+            }}>
+              Terre Étendue <span style={{ color: '#2B9E6E', fontWeight: 900 }}>Islam</span>
+            </div>
+            <div style={{
+              fontSize: 10.5, color: '#9BA0A8', letterSpacing: '0.03em',
+              marginTop: 1, fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 500,
+            }}>
+              Explorer la création, honorer la Révélation
+            </div>
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex" style={{ alignItems: 'center', gap: 0, flex: 1, minWidth: 0 }}>
+          {/* Desktop nav — center */}
+          <nav className="hidden lg:flex" style={{ alignItems: 'center', gap: 0, flex: 1, justifyContent: 'center', minWidth: 0 }}>
             {SECTIONS.map(s => {
               const active = pathname === s.href || pathname?.startsWith(s.href + '/');
               return (
@@ -118,12 +125,14 @@ export default function DashboardNav() {
                 >
                   <Link href={s.href} style={{
                     display: 'flex', alignItems: 'center', gap: 4,
-                    padding: '14px 11px',
-                    fontSize: 14, fontWeight: 600,
-                    color: active ? s.color : '#1A1D23',
+                    padding: '16px 12px',
+                    fontSize: 14.5, fontWeight: 750,
+                    color: active ? s.color : '#0D0D0D',
                     borderBottom: active ? `3px solid ${s.color}` : '3px solid transparent',
                     transition: 'color 0.15s',
                     whiteSpace: 'nowrap',
+                    letterSpacing: '-0.01em',
+                    fontFamily: "'Plus Jakarta Sans', sans-serif",
                   }}>
                     {s.label}
                     {s.subs.length > 0 && <ChevronDown size={12} style={{ opacity: 0.4 }} />}
@@ -155,22 +164,21 @@ export default function DashboardNav() {
             })}
           </nav>
 
-          {/* Search — pushed to the right */}
-          <div style={{ marginLeft: 'auto', flexShrink: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
+          {/* Search + mobile hamburger — right */}
+          <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: 8, marginLeft: 'auto' }}>
             <div className="hidden sm:block">
               <SearchCommand inline />
             </div>
             <div className="sm:hidden">
               <SearchCommand />
             </div>
+            <button className="lg:hidden" onClick={() => setMobileOpen(!mobileOpen)}
+              style={{ padding: '10px 0 10px 10px', background: 'none', border: 'none', cursor: 'pointer', color: '#0D0D0D' }}>
+              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
-
-          {/* Mobile hamburger */}
-          <button className="lg:hidden" onClick={() => setMobileOpen(!mobileOpen)}
-            style={{ padding: '12px 0 12px 12px', background: 'none', border: 'none', cursor: 'pointer', color: '#1A1D23' }}>
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
+
         {/* Accent line */}
         <div style={{ height: 3, background: 'linear-gradient(90deg, #D4943A, #8B7EC8, #3B8FD4, #C45E6A, #3D9E7C)' }} />
       </header>
@@ -179,14 +187,14 @@ export default function DashboardNav() {
       {mobileOpen && (
         <div className="lg:hidden" style={{
           position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 89,
-          background: '#fff', overflowY: 'auto', paddingTop: 60,
+          background: '#fff', overflowY: 'auto', paddingTop: 70,
         }}>
           <div style={{ padding: '12px 24px' }}>
             {SECTIONS.map(s => (
               <div key={s.href} style={{ borderBottom: '1px solid #F0F1F3' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <Link href={s.href} onClick={() => setMobileOpen(false)}
-                    style={{ display: 'block', padding: '14px 0', fontSize: 17, fontWeight: 700, color: '#1A1D23', flex: 1 }}>
+                    style={{ display: 'block', padding: '14px 0', fontSize: 17, fontWeight: 750, color: '#0D0D0D', flex: 1 }}>
                     {s.label}
                   </Link>
                   {s.subs.length > 0 && (
