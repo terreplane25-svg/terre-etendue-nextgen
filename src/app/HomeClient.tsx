@@ -108,7 +108,7 @@ export default function HomeClient({ articles }: { articles: A[] }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           {medium.map(a => (
             <Link key={a.slug} href={`/article/${a.slug}`} style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 20, borderBottom: '1px solid #eee' }}>
-              <img src={getArticleImage(a.slug)} alt="" style={{ width: '100%', height: 120, objectFit: 'cover', borderRadius: 6 }} />
+              <img src={getArticleImage(a.slug)} alt="" loading="lazy" style={{ width: '100%', height: 120, objectFit: 'cover', borderRadius: 6 }} />
               <div style={{ fontSize: 11, color: '#999' }}>{a.date && new Date(a.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })} | {a.readTime} min</div>
               <h3 style={{ fontSize: 16, fontWeight: 700, color: '#141210', lineHeight: 1.35 }}>{a.title}</h3>
             </Link>
@@ -130,7 +130,7 @@ export default function HomeClient({ articles }: { articles: A[] }) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
         {latest.map(a => (
           <Link key={a.slug} href={`/article/${a.slug}`} className="home-latest-item" style={{ display: 'flex', gap: 16, padding: '20px 0', borderBottom: '1px solid #eee', alignItems: 'flex-start' }}>
-            <img src={getArticleImage(a.slug)} alt="" className="home-latest-img" style={{ width: 160, height: 100, objectFit: 'cover', borderRadius: 6, flexShrink: 0 }} />
+            <img src={getArticleImage(a.slug)} alt="" loading="lazy" className="home-latest-img" style={{ width: 160, height: 100, objectFit: 'cover', borderRadius: 6, flexShrink: 0 }} />
             <div style={{ flex: 1, minWidth: 0 }}>
               <span style={{ fontSize: 11, fontWeight: 700, color: CAT_COLOR[a.category] || '#999', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 {CAT_LABEL[a.category] || a.category}

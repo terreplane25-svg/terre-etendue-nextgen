@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getArticle, getAllArticles } from "@/lib/articles";
+import { getArticleImage } from "@/lib/article-images";
 import ArticleReader from "@/components/ArticleReader";
 import RelatedArticles from "@/components/RelatedArticles";
 
@@ -44,11 +45,13 @@ export async function generateMetadata({ params }: PageProps) {
       publishedTime: article.date,
       authors: [article.author || 'Collectif TEI'],
       tags: article.tags,
+      images: [{ url: getArticleImage(slug), width: 600, height: 400 }],
     },
     twitter: {
       card: 'summary_large_image',
       title: article.title,
       description: article.description,
+      images: [getArticleImage(slug)],
     },
     alternates: {
       canonical: `${SITE_URL}/article/${slug}`,
@@ -86,7 +89,7 @@ export default async function ArticlePage({ params }: PageProps) {
   };
 
   return (
-    <main className="min-h-screen pt-24 pb-16" style={{ background: '#FAFAF6' }}>
+    <main className="min-h-screen pt-24 pb-16" style={{ background: 'var(--bg)' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <ArticleReader article={article} />
       <div className="max-w-[800px] mx-auto px-6">

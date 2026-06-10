@@ -1,24 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&family=JetBrains+Mono:wght@400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --bg: #FAFAF6;
-  --cream: #F5F3EE;
+  --bg: #F4F5F7;
+  --cream: #F8F7F5;
   --card: #FFFFFF;
-  --ink: #141210;
-  --ink-soft: #3D3A35;
-  --ink-muted: #8A857D;
-  --ink-ghost: #BAB5AC;
-  --border: rgba(20,18,16,0.06);
-  --lavender: #7C6FC4;
-  --saffron: #C48A2E;
-  --opal: #3A8F6E;
-  --cyan: #3580C0;
-  --rose: #B85460;
-  --gold: #A6851C;
+  --ink: #1A1D23;
+  --ink-soft: #4A4E57;
+  --ink-muted: #8B8F96;
+  --ink-ghost: #B8BBC2;
+  --border: #E8EAED;
+  --border-soft: #F0F1F3;
+  --lavender: #8B7EC8;
+  --saffron: #D4943A;
+  --opal: #3D9E7C;
+  --cyan: #3B8FD4;
+  --rose: #C45E6A;
+  --gold: #B8941F;
   --bez: cubic-bezier(0.32, 0.72, 0, 1);
   --font-main: 'Plus Jakarta Sans', 'DM Sans', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
@@ -109,14 +108,14 @@ a { color: inherit; text-decoration: none; }
 .prose-dash [style*="rgb(5"],
 .prose-dash [style*="rgb(10"],
 .prose-dash [style*="rgb(13"] {
-  background-color: #F5F3EE !important;
-  color: #141210 !important;
+  background-color: var(--cream) !important;
+  color: var(--ink) !important;
 }
 
 /* Override cyan/gold text colors from HUD theme */
-.prose-dash [style*="#00C8FF"] { color: #3580C0 !important; }
-.prose-dash [style*="#D4A843"] { color: #C48A2E !important; }
-.prose-dash [style*="#C8D8E8"] { color: #3D3A35 !important; }
+.prose-dash [style*="#00C8FF"] { color: var(--cyan) !important; }
+.prose-dash [style*="#D4A843"] { color: var(--saffron) !important; }
+.prose-dash [style*="#C8D8E8"] { color: var(--ink-soft) !important; }
 
 /* Tables inside articles */
 .prose-dash table {
@@ -125,19 +124,19 @@ a { color: inherit; text-decoration: none; }
   overflow: hidden !important;
 }
 .prose-dash th {
-  background: #F5F3EE !important;
-  color: #141210 !important;
+  background: var(--cream) !important;
+  color: var(--ink) !important;
 }
 .prose-dash td {
-  color: #3D3A35 !important;
+  color: var(--ink-soft) !important;
 }
 
 /* Blockquotes / special sections in articles */
 .prose-dash blockquote {
-  background: #F5F3EE !important;
-  border-left: 3px solid #7C6FC4 !important;
+  background: var(--cream) !important;
+  border-left: 3px solid var(--lavender) !important;
   border-radius: 6px !important;
-  color: #3D3A35 !important;
+  color: var(--ink-soft) !important;
 }
 
 /* YouTube embeds */
