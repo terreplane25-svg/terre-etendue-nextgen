@@ -8,8 +8,8 @@ import PageHero from '@/components/PageHero';
 
 interface A { slug: string; title: string; description: string; tags: string[]; pinned: boolean; readTime: number; }
 const EXP_LINKS: Record<string, { slug: string; label: string }> = {
-  "pourquoi-les-choses-montent-et-descendent": { slug: "densite-et-flottabilite", label: "Fiche expérience : densité" },
-  "pression-lumiere-halos-rayons-et-ondes": { slug: "la-pression-atmospherique", label: "Fiche expérience : pression" },
+  "pourquoi-les-choses-montent-et-descendent": { slug: "densite-pourquoi-les-choses-montent-et-descendent", label: "Fiche expérience : densité" },
+  "pression-lumiere-halos-rayons-et-ondes": { slug: "la-pression-atmospherique-un-ocean-d-air-invisible", label: "Fiche expérience : pression" },
   "lhorizon-la-perspective-et-la-refraction": { slug: "la-perspective-lineaire", label: "Fiche expérience : perspective" },
   "ce-quon-voit-quand-on-ne-devrait-plus-voir": { slug: "diminution-angulaire-taille-apparente", label: "Fiche expérience : angle visuel" },
   "cartes-routes-boussoles-et-le-mystere-antarctique": { slug: "magnetisme-et-electromagnetisme", label: "Fiche expérience : magnétisme" },

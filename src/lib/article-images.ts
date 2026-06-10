@@ -19,14 +19,14 @@ const IMG: Record<string, string> = {
   "les-telescopes-et-la-courbure-terrestre": `${HOSTINGER}/2026/06/Y4koCE7VcDdtZKbRf3b9Q8.jpg`,
   "lespace-une-frontiere-infranchissable": `${HOSTINGER}/2026/06/frontiere_atmosphere_espace.jpg`,
   "cartes-routes-boussoles-et-le-mystere-antarctique": `${HOSTINGER}/2026/04/boussole.png`,
-  "la-lune-fonction-et-anomalies": `${UNSPLASH}/photo-1522030299830-16b8d3d049fe?w=600&h=400&fit=crop`,
+  "la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas": `${UNSPLASH}/photo-1522030299830-16b8d3d049fe?w=600&h=400&fit=crop`,
   "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre": `${UNSPLASH}/photo-1419242902214-272b3f66ee7a?w=600&h=400&fit=crop`,
   "le-pole-sud-nexiste-pas": `${UNSPLASH}/photo-1489549132488-d00b7eee80f1?w=600&h=400&fit=crop`,
   "le-theodolite-celeste": `${UNSPLASH}/photo-1507400492013-162706c8c05e?w=600&h=400&fit=crop`,
 
   // ── Experiments ──
-  "densite-et-flottabilite": `${UNSPLASH}/photo-1558618666-fcd25c85f82e?w=600&h=400&fit=crop`,
-  "la-pression-atmospherique": `${UNSPLASH}/photo-1534088568595-a066f410bcda?w=600&h=400&fit=crop`,
+  "densite-pourquoi-les-choses-montent-et-descendent": `${UNSPLASH}/photo-1558618666-fcd25c85f82e?w=600&h=400&fit=crop`,
+  "la-pression-atmospherique-un-ocean-d-air-invisible": `${UNSPLASH}/photo-1534088568595-a066f410bcda?w=600&h=400&fit=crop`,
   "masse-et-volume": `${UNSPLASH}/photo-1532094349884-543bc11b234d?w=600&h=400&fit=crop`,
   "experiences-sous-pression-reduite": `${UNSPLASH}/photo-1567427018141-0584cfcbf1b8?w=600&h=400&fit=crop`,
   "la-perspective-lineaire": `${UNSPLASH}/photo-1473654729523-203e25dfda10?w=600&h=400&fit=crop`,

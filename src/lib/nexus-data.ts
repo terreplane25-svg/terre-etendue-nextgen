@@ -196,7 +196,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
-    "id": "la-gravite-70-theories-et-aucune-certitude",
+    "id": "la-gravite-70-theories-et-aucune-preuve",
     "title": "La gravité : 70 théories et aucune certitude",
     "category": "headquarters",
     "pillar": "Q.G.",
@@ -580,7 +580,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     ]
   },
   {
-    "source": "la-gravite-70-theories-et-aucune-certitude",
+    "source": "la-gravite-70-theories-et-aucune-preuve",
     "target": "pourquoi-tout-remettre-en-question",
     "score": 223.6,
     "strength": "strong",
@@ -602,7 +602,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     ]
   },
   {
-    "source": "la-gravite-70-theories-et-aucune-certitude",
+    "source": "la-gravite-70-theories-et-aucune-preuve",
     "target": "le-modele-geocentrique-a-plans-paralleles-mgpp",
     "score": 216,
     "strength": "strong",
@@ -635,7 +635,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     ]
   },
   {
-    "source": "la-gravite-70-theories-et-aucune-certitude",
+    "source": "la-gravite-70-theories-et-aucune-preuve",
     "target": "lhypothese-nulle-dynamique-et-cinematique",
     "score": 202.8,
     "strength": "strong",
@@ -647,7 +647,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "etat-des-lieux-ou-en-sommes-nous",
-    "target": "la-gravite-70-theories-et-aucune-certitude",
+    "target": "la-gravite-70-theories-et-aucune-preuve",
     "score": 200.2,
     "strength": "strong",
     "sharedDomains": [
