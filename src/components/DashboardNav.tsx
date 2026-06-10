@@ -1,31 +1,96 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import SearchCommand from '@/components/SearchCommand';
 
 const SECTIONS = [
-  { label: 'Centre de Recherche', href: '/headquarters', color: '#7C6FC4' },
-  { label: 'Observatoire', href: '/observatory', color: '#3580C0' },
-  { label: 'Bibliothèque', href: '/library', color: '#C48A2E' },
-  { label: 'Outils', href: '/lab', color: '#3A8F6E' },
-  { label: 'Expériences', href: '/experiences', color: '#B85460' },
-  { label: 'Nexus', href: '/nexus', color: '#7C6FC4' },
-  { label: 'À propos', href: '/about', color: '#8A857D' },
+  {
+    label: 'Bibliothèque', href: '/library', color: '#D4943A',
+    subs: [
+      { label: '📖 Coran & Sunna', href: '/library?filter=coran' },
+      { label: '🕌 Textes historiques', href: '/library?filter=historique' },
+      { label: '🌍 Cosmographie', href: '/library?filter=cosmographie' },
+    ],
+  },
+  {
+    label: 'Centre de Recherche', href: '/headquarters', color: '#8B7EC8',
+    subs: [
+      { label: '🧠 Épistémologie', href: '/headquarters?filter=epistemologie' },
+      { label: '🔬 Méthode zététique', href: '/headquarters?filter=zetetique' },
+      { label: '❓ Remise en question', href: '/headquarters?filter=question' },
+    ],
+  },
+  {
+    label: 'Observatoire', href: '/observatory', color: '#3B8FD4',
+    subs: [
+      { label: '🔭 Optique & horizon', href: '/observatory?filter=optique' },
+      { label: '🌊 Hydrologie', href: '/observatory?filter=hydrologie' },
+      { label: '🌙 Astronomie', href: '/observatory?filter=astronomie' },
+    ],
+  },
+  {
+    label: 'Expériences', href: '/experiences', color: '#C45E6A',
+    subs: [
+      { label: '💧 Fluides & matière', href: '/experiences?filter=fluides' },
+      { label: '🔭 Optique & perspective', href: '/experiences?filter=optique' },
+      { label: '👁 L\'œil humain', href: '/experiences?filter=oeil' },
+      { label: '⚡ Forces & interactions', href: '/experiences?filter=forces' },
+    ],
+  },
+  {
+    label: 'Outils et Simulateurs', href: '/lab', color: '#3D9E7C',
+    subs: [],
+  },
+  {
+    label: 'À propos', href: '/about', color: '#8B8F96',
+    subs: [],
+  },
 ];
 
 export default function DashboardNav() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const [visible, setVisible] = useState(true);
+  const lastScrollY = useRef(0);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y < 80) {
+        setVisible(true);
+      } else if (y > lastScrollY.current + 5) {
+        setVisible(false);
+      } else if (y < lastScrollY.current - 5) {
+        setVisible(true);
+      }
+      lastScrollY.current = y;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
 
   return (
     <>
-      <header style={{ background: '#fff', borderBottom: '1px solid #eee' }}>
-        {/* Top bar */}
+      <header style={{
+        position: 'sticky', top: 0, zIndex: 90,
+        background: '#fff',
+        borderBottom: '1px solid #E8EAED',
+        transform: visible ? 'translateY(0)' : 'translateY(-100%)',
+        transition: 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)',
+      }}>
+        {/* Top bar — logo + search */}
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '14px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Link href="/" style={{ fontSize: 22, fontWeight: 800, color: '#141210', letterSpacing: '-0.02em', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-            Terre Étendue <span style={{ color: '#7C6FC4', fontWeight: 700 }}>Islam</span>
+          <Link href="/" style={{ fontSize: 24, fontWeight: 800, color: '#1A1D23', letterSpacing: '-0.02em' }}>
+            Terre Étendue <span style={{ color: '#8B7EC8', fontWeight: 700 }}>Islam</span>
           </Link>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div className="hidden sm:block">
@@ -38,43 +103,114 @@ export default function DashboardNav() {
         </div>
 
         {/* Nav bar */}
-        <div style={{ borderTop: '1px solid #eee' }}>
+        <div style={{ borderTop: '1px solid #E8EAED' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div className="hidden md:flex" style={{ alignItems: 'center', gap: 0 }}>
+            {/* Desktop nav */}
+            <nav className="hidden lg:flex" style={{ alignItems: 'center', gap: 0 }}>
               {SECTIONS.map(s => {
                 const active = pathname === s.href || pathname?.startsWith(s.href + '/');
                 return (
-                  <Link key={s.href} href={s.href} style={{
-                    display: 'flex', alignItems: 'center',
-                    padding: '14px 18px', fontSize: 14, fontWeight: 600,
-                    color: active ? s.color : '#3D3A35',
-                    borderBottom: active ? `3px solid ${s.color}` : '3px solid transparent',
-                    fontFamily: "'Plus Jakarta Sans', sans-serif",
-                  }}>
-                    {s.label}
-                  </Link>
+                  <div
+                    key={s.href}
+                    style={{ position: 'relative' }}
+                    onMouseEnter={() => {
+                      if (s.subs.length > 0) {
+                        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+                        setOpenDropdown(s.href);
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      timeoutRef.current = setTimeout(() => setOpenDropdown(null), 150);
+                    }}
+                  >
+                    <Link href={s.href} style={{
+                      display: 'flex', alignItems: 'center', gap: 5,
+                      padding: '14px 14px',
+                      fontSize: 15, fontWeight: 600,
+                      color: active ? s.color : '#4A4E57',
+                      borderBottom: active ? `3px solid ${s.color}` : '3px solid transparent',
+                      transition: 'color 0.15s',
+                      whiteSpace: 'nowrap',
+                    }}>
+                      {s.label}
+                      {s.subs.length > 0 && <ChevronDown size={13} style={{ opacity: 0.5 }} />}
+                    </Link>
+
+                    {/* Dropdown */}
+                    {openDropdown === s.href && s.subs.length > 0 && (
+                      <div style={{
+                        position: 'absolute', top: '100%', left: 0, zIndex: 100,
+                        background: '#fff', border: '1px solid #E8EAED', borderRadius: 10,
+                        padding: '8px 0', minWidth: 240,
+                        boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
+                        animation: 'fadeIn 0.15s ease',
+                      }}>
+                        {s.subs.map(sub => (
+                          <Link key={sub.href} href={sub.href} style={{
+                            display: 'block', padding: '10px 20px',
+                            fontSize: 14, fontWeight: 500, color: '#4A4E57',
+                            transition: 'background 0.1s',
+                          }}
+                          onMouseOver={e => { e.currentTarget.style.background = '#F4F5F7'; e.currentTarget.style.color = s.color; }}
+                          onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#4A4E57'; }}>
+                            {sub.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 );
               })}
-            </div>
-            <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)}
-              style={{ padding: '12px 0', background: 'none', border: 'none', cursor: 'pointer', color: '#3D3A35' }}>
-              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            </nav>
+
+            {/* Mobile hamburger */}
+            <button className="lg:hidden" onClick={() => setMobileOpen(!mobileOpen)}
+              style={{ padding: '12px 0', background: 'none', border: 'none', cursor: 'pointer', color: '#4A4E57' }}>
+              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
           {/* Accent line */}
-          <div style={{ height: 3, background: '#7C6FC4' }} />
+          <div style={{ height: 3, background: 'linear-gradient(90deg, #D4943A, #8B7EC8, #3B8FD4, #C45E6A, #3D9E7C)' }} />
         </div>
       </header>
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden" style={{ background: '#fff', borderBottom: '1px solid #eee', padding: '12px 24px' }}>
-          {SECTIONS.map(s => (
-            <Link key={s.href} href={s.href} onClick={() => setMobileOpen(false)}
-              style={{ display: 'block', padding: '10px 0', fontSize: 15, fontWeight: 600, color: '#3D3A35', borderBottom: '1px solid #f5f5f5' }}>
-              {s.label}
-            </Link>
-          ))}
+        <div className="lg:hidden" style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 89,
+          background: '#fff', overflowY: 'auto', paddingTop: 120,
+        }}>
+          <div style={{ padding: '12px 24px' }}>
+            {SECTIONS.map(s => (
+              <div key={s.href} style={{ borderBottom: '1px solid #F0F1F3' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <Link href={s.href} onClick={() => setMobileOpen(false)}
+                    style={{ display: 'block', padding: '14px 0', fontSize: 17, fontWeight: 700, color: '#1A1D23', flex: 1 }}>
+                    {s.label}
+                  </Link>
+                  {s.subs.length > 0 && (
+                    <button onClick={() => setMobileExpanded(mobileExpanded === s.href ? null : s.href)}
+                      style={{ padding: 8, background: 'none', border: 'none', cursor: 'pointer', color: '#8B8F96' }}>
+                      <ChevronDown size={18} style={{
+                        transform: mobileExpanded === s.href ? 'rotate(180deg)' : 'rotate(0)',
+                        transition: 'transform 0.2s',
+                      }} />
+                    </button>
+                  )}
+                </div>
+                {mobileExpanded === s.href && s.subs.length > 0 && (
+                  <div style={{ paddingBottom: 8 }}>
+                    {s.subs.map(sub => (
+                      <Link key={sub.href} href={sub.href} onClick={() => setMobileOpen(false)}
+                        style={{ display: 'block', padding: '8px 0 8px 16px', fontSize: 15, color: '#4A4E57' }}>
+                        {sub.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </>

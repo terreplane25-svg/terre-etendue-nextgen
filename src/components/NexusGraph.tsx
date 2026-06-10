@@ -1,167 +1,118 @@
 'use client';
 
 import { useRef, useEffect, useState, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { NEXUS_NODES, NEXUS_LINKS, type NexusNodeData, type NexusLinkData } from '@/lib/nexus-data';
 
-// ─── Types ────────────────────────────────────────
-interface NexusNode {
-  id: string;
-  label: string;
-  category: 'headquarters' | 'observatory' | 'library' | 'lab';
-  x: number;
-  y: number;
+interface Node extends NexusNodeData {
+  px: number;
+  py: number;
   vx: number;
   vy: number;
 }
 
-interface NexusEdge {
-  source: string;
-  target: string;
-  strength: number; // 0–1
-}
-
-// ─── Données du graphe ────────────────────────────
-const NODES: Omit<NexusNode, 'x' | 'y' | 'vx' | 'vy'>[] = [
-  { id: 'hypothese-nulle', label: 'Hypothèse Nulle', category: 'headquarters' },
-  { id: 'singularite', label: 'Singularité Quantique', category: 'lab' },
-  { id: 'geodesique-terre', label: 'Géodésiques Terrestres', category: 'observatory' },
-  { id: 'epistemologie-islam', label: 'Épistémologie Islamique', category: 'headquarters' },
-  { id: 'fractales-coran', label: 'Fractales Coraniques', category: 'library' },
-  { id: 'modele-orbital', label: 'Modèle Orbital', category: 'lab' },
-  { id: 'observations-terrain', label: 'Observations de Terrain', category: 'observatory' },
-  { id: 'kalaam-moderne', label: 'Kalâm Moderne', category: 'headquarters' },
-  { id: 'topologie-sacree', label: 'Topologie Sacrée', category: 'library' },
-  { id: 'constantes-physiques', label: 'Constantes Physiques', category: 'lab' },
-  { id: 'isnads-network', label: 'Réseau des Isnâds', category: 'library' },
-  { id: 'courbure-espace', label: "Courbure de l'Espace", category: 'observatory' },
-];
-
-const EDGES: NexusEdge[] = [
-  { source: 'hypothese-nulle', target: 'singularite', strength: 0.9 },
-  { source: 'hypothese-nulle', target: 'fractales-coran', strength: 0.8 },
-  { source: 'hypothese-nulle', target: 'epistemologie-islam', strength: 0.7 },
-  { source: 'singularite', target: 'modele-orbital', strength: 0.85 },
-  { source: 'singularite', target: 'constantes-physiques', strength: 0.7 },
-  { source: 'geodesique-terre', target: 'observations-terrain', strength: 0.9 },
-  { source: 'geodesique-terre', target: 'courbure-espace', strength: 0.8 },
-  { source: 'epistemologie-islam', target: 'kalaam-moderne', strength: 0.9 },
-  { source: 'epistemologie-islam', target: 'topologie-sacree', strength: 0.6 },
-  { source: 'fractales-coran', target: 'topologie-sacree', strength: 0.75 },
-  { source: 'fractales-coran', target: 'isnads-network', strength: 0.5 },
-  { source: 'modele-orbital', target: 'geodesique-terre', strength: 0.6 },
-  { source: 'kalaam-moderne', target: 'singularite', strength: 0.55 },
-  { source: 'constantes-physiques', target: 'courbure-espace', strength: 0.7 },
-  { source: 'isnads-network', target: 'epistemologie-islam', strength: 0.65 },
-  { source: 'topologie-sacree', target: 'courbure-espace', strength: 0.5 },
-];
-
-const CATEGORY_COLORS: Record<string, string> = {
-  headquarters: '#00D1FF',
-  observatory: '#00D1FF',
-  library: '#D4AF37',
-  lab: '#D4AF37',
+const CAT_COLORS: Record<string, string> = {
+  headquarters: '#8B7EC8',
+  observatory: '#3B8FD4',
+  library: '#D4943A',
+  lab: '#3D9E7C',
 };
 
-const CATEGORY_LABELS: Record<string, string> = {
-  headquarters: '🧠 Q.G.',
-  observatory: '🔭 Observatoire',
-  library: '📚 Bibliothèque',
-  lab: '⚗️ Lab',
+const CAT_LABELS: Record<string, string> = {
+  headquarters: 'Centre de Recherche',
+  observatory: 'Observatoire',
+  library: 'Bibliothèque',
+  lab: 'Outils',
 };
 
-// ─── Simulation de forces simple (pas de D3) ─────
-function initNodes(width: number, height: number): NexusNode[] {
-  return NODES.map((n, i) => ({
-    ...n,
-    x: width / 2 + Math.cos((i / NODES.length) * Math.PI * 2) * Math.min(width, height) * 0.3,
-    y: height / 2 + Math.sin((i / NODES.length) * Math.PI * 2) * Math.min(width, height) * 0.3,
-    vx: 0,
-    vy: 0,
-  }));
+function initNodes(data: NexusNodeData[], w: number, h: number): Node[] {
+  const cx = w / 2, cy = h / 2;
+  return data.map((n, i) => {
+    const angle = (i / data.length) * Math.PI * 2;
+    const r = Math.min(w, h) * 0.32;
+    return {
+      ...n,
+      px: cx + Math.cos(angle) * r + (Math.random() - 0.5) * 40,
+      py: cy + Math.sin(angle) * r + (Math.random() - 0.5) * 40,
+      vx: 0, vy: 0,
+    };
+  });
 }
 
-function simulate(nodes: NexusNode[], edges: NexusEdge[], width: number, height: number) {
-  const nodeMap = new Map(nodes.map((n) => [n.id, n]));
-  const cx = width / 2;
-  const cy = height / 2;
+function simulate(nodes: Node[], links: NexusLinkData[], w: number, h: number) {
+  const map = new Map(nodes.map(n => [n.id, n]));
+  const cx = w / 2, cy = h / 2;
 
-  // Répulsion entre nœuds
   for (let i = 0; i < nodes.length; i++) {
     for (let j = i + 1; j < nodes.length; j++) {
-      const a = nodes[i];
-      const b = nodes[j];
-      let dx = b.x - a.x;
-      let dy = b.y - a.y;
+      const a = nodes[i], b = nodes[j];
+      let dx = b.px - a.px, dy = b.py - a.py;
       const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-      const force = 800 / (dist * dist);
+      const force = 1200 / (dist * dist);
       dx = (dx / dist) * force;
       dy = (dy / dist) * force;
-      a.vx -= dx;
-      a.vy -= dy;
-      b.vx += dx;
-      b.vy += dy;
+      a.vx -= dx; a.vy -= dy;
+      b.vx += dx; b.vy += dy;
     }
   }
 
-  // Attraction sur les arêtes
-  for (const edge of edges) {
-    const a = nodeMap.get(edge.source);
-    const b = nodeMap.get(edge.target);
+  for (const link of links) {
+    const a = map.get(link.source), b = map.get(link.target);
     if (!a || !b) continue;
-    const dx = b.x - a.x;
-    const dy = b.y - a.y;
+    const dx = b.px - a.px, dy = b.py - a.py;
     const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-    const force = (dist - 120) * 0.005 * edge.strength;
-    const fx = (dx / dist) * force;
-    const fy = (dy / dist) * force;
-    a.vx += fx;
-    a.vy += fy;
-    b.vx -= fx;
-    b.vy -= fy;
+    const str = link.strength === 'strong' ? 0.008 : link.strength === 'medium' ? 0.005 : 0.003;
+    const force = (dist - 140) * str;
+    const fx = (dx / dist) * force, fy = (dy / dist) * force;
+    a.vx += fx; a.vy += fy;
+    b.vx -= fx; b.vy -= fy;
   }
 
-  // Gravité vers le centre
   for (const n of nodes) {
-    n.vx += (cx - n.x) * 0.002;
-    n.vy += (cy - n.y) * 0.002;
-  }
-
-  // Appliquer vitesse avec friction
-  for (const n of nodes) {
-    n.vx *= 0.85;
-    n.vy *= 0.85;
-    n.x += n.vx;
-    n.y += n.vy;
-    // Contraindre aux bords
-    n.x = Math.max(60, Math.min(width - 60, n.x));
-    n.y = Math.max(40, Math.min(height - 40, n.y));
+    n.vx += (cx - n.px) * 0.003;
+    n.vy += (cy - n.py) * 0.003;
+    n.vx *= 0.82; n.vy *= 0.82;
+    n.px += n.vx; n.py += n.vy;
+    n.px = Math.max(80, Math.min(w - 80, n.px));
+    n.py = Math.max(50, Math.min(h - 50, n.py));
   }
 }
 
-// ─── Composant Principal ──────────────────────────
-export default function NexusGraph() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const nodesRef = useRef<NexusNode[]>([]);
-  const [hovered, setHovered] = useState<NexusNode | null>(null);
-  const [dimensions, setDimensions] = useState({ w: 900, h: 600 });
-  const animRef = useRef<number>(0);
-  const dragRef = useRef<{ node: NexusNode | null; offsetX: number; offsetY: number }>({
-    node: null,
-    offsetX: 0,
-    offsetY: 0,
-  });
+interface Props {
+  mini?: boolean;
+  highlightSlug?: string;
+}
 
-  // Init
+export default function NexusGraph({ mini, highlightSlug }: Props) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const nodesRef = useRef<Node[]>([]);
+  const [hovered, setHovered] = useState<Node | null>(null);
+  const [dims, setDims] = useState({ w: 900, h: mini ? 300 : 600 });
+  const animRef = useRef<number>(0);
+  const router = useRouter();
+  const dragRef = useRef<{ node: Node | null; ox: number; oy: number }>({ node: null, ox: 0, oy: 0 });
+
+  const filteredLinks = mini && highlightSlug
+    ? NEXUS_LINKS.filter(l => l.source === highlightSlug || l.target === highlightSlug)
+    : NEXUS_LINKS;
+
+  const filteredNodeIds = mini && highlightSlug
+    ? new Set([highlightSlug, ...filteredLinks.map(l => l.source), ...filteredLinks.map(l => l.target)])
+    : null;
+
+  const nodeData = filteredNodeIds
+    ? NEXUS_NODES.filter(n => filteredNodeIds.has(n.id))
+    : NEXUS_NODES;
+
   useEffect(() => {
     const container = canvasRef.current?.parentElement;
     if (!container) return;
     const w = container.clientWidth;
-    const h = Math.max(500, Math.min(700, window.innerHeight * 0.65));
-    setDimensions({ w, h });
-    nodesRef.current = initNodes(w, h);
-  }, []);
+    const h = mini ? 280 : Math.max(480, Math.min(650, window.innerHeight * 0.6));
+    setDims({ w, h });
+    nodesRef.current = initNodes(nodeData, w, h);
+  }, [nodeData.length, mini]);
 
-  // Animation loop
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -169,210 +120,178 @@ export default function NexusGraph() {
     if (!ctx) return;
 
     const dpr = window.devicePixelRatio || 1;
-    canvas.width = dimensions.w * dpr;
-    canvas.height = dimensions.h * dpr;
+    canvas.width = dims.w * dpr;
+    canvas.height = dims.h * dpr;
     ctx.scale(dpr, dpr);
 
     let running = true;
 
     function draw() {
       if (!running || !ctx) return;
-
       const nodes = nodesRef.current;
-      const { w, h } = dimensions;
+      simulate(nodes, filteredLinks, dims.w, dims.h);
+      ctx.clearRect(0, 0, dims.w, dims.h);
 
-      // Simuler
-      simulate(nodes, EDGES, w, h);
+      const map = new Map(nodes.map(n => [n.id, n]));
 
-      // Clear
-      ctx.clearRect(0, 0, w, h);
-
-      const nodeMap = new Map(nodes.map((n) => [n.id, n]));
-
-      // Dessiner les arêtes
-      for (const edge of EDGES) {
-        const a = nodeMap.get(edge.source);
-        const b = nodeMap.get(edge.target);
+      for (const link of filteredLinks) {
+        const a = map.get(link.source), b = map.get(link.target);
         if (!a || !b) continue;
-
-        const isHighlighted =
-          hovered && (hovered.id === edge.source || hovered.id === edge.target);
-
+        const isHL = hovered && (hovered.id === link.source || hovered.id === link.target);
+        const isArticle = highlightSlug && (link.source === highlightSlug || link.target === highlightSlug);
         ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.strokeStyle = isHighlighted
-          ? `rgba(0, 209, 255, ${0.4 + edge.strength * 0.4})`
-          : `rgba(42, 49, 56, ${0.3 + edge.strength * 0.3})`;
-        ctx.lineWidth = isHighlighted ? 2 : 1;
+        ctx.moveTo(a.px, a.py);
+        ctx.lineTo(b.px, b.py);
+        ctx.strokeStyle = isHL
+          ? `rgba(139, 126, 200, 0.6)`
+          : isArticle
+          ? `rgba(139, 126, 200, 0.3)`
+          : `rgba(200, 200, 200, ${link.strength === 'strong' ? 0.4 : link.strength === 'medium' ? 0.25 : 0.15})`;
+        ctx.lineWidth = isHL ? 2.5 : isArticle ? 2 : 1;
         ctx.stroke();
       }
 
-      // Dessiner les nœuds
       for (const node of nodes) {
-        const color = CATEGORY_COLORS[node.category];
+        const color = CAT_COLORS[node.category] || '#8B8F96';
         const isHovered = hovered?.id === node.id;
-        const isConnected =
-          hovered &&
-          EDGES.some(
-            (e) =>
-              (e.source === hovered.id && e.target === node.id) ||
-              (e.target === hovered.id && e.source === node.id)
-          );
-        const radius = isHovered ? 10 : isConnected ? 8 : 6;
-        const alpha = hovered ? (isHovered || isConnected ? 1 : 0.3) : 0.9;
+        const isHighlight = node.id === highlightSlug;
+        const isConnected = hovered && filteredLinks.some(
+          e => (e.source === hovered.id && e.target === node.id) || (e.target === hovered.id && e.source === node.id)
+        );
+        const radius = isHovered ? 10 : isHighlight ? 9 : isConnected ? 7 : 5;
+        const alpha = hovered ? (isHovered || isConnected ? 1 : 0.25) : isHighlight ? 1 : 0.8;
 
-        // Glow
-        if (isHovered) {
+        if (isHovered || isHighlight) {
           ctx.beginPath();
-          ctx.arc(node.x, node.y, 18, 0, Math.PI * 2);
-          ctx.fillStyle = color.replace(')', ', 0.12)').replace('rgb', 'rgba');
+          ctx.arc(node.px, node.py, radius + 8, 0, Math.PI * 2);
+          ctx.fillStyle = color + '18';
           ctx.fill();
         }
 
-        // Dot
         ctx.beginPath();
-        ctx.arc(node.x, node.y, radius, 0, Math.PI * 2);
+        ctx.arc(node.px, node.py, radius, 0, Math.PI * 2);
         ctx.fillStyle = color;
         ctx.globalAlpha = alpha;
         ctx.fill();
         ctx.globalAlpha = 1;
 
-        // Label
-        ctx.font = `${isHovered ? '600' : '400'} ${isHovered ? '13' : '11'}px var(--font-inter), system-ui, sans-serif`;
-        ctx.fillStyle = isHovered
-          ? '#F5F7FA'
-          : hovered && !isConnected
-          ? 'rgba(176, 184, 193, 0.3)'
-          : '#B0B8C1';
+        const fontSize = mini ? (isHovered ? 11 : 9) : (isHovered ? 13 : 11);
+        ctx.font = `${isHovered || isHighlight ? '600' : '400'} ${fontSize}px system-ui, sans-serif`;
+        ctx.fillStyle = isHovered ? '#1A1D23' : hovered && !isConnected ? '#B8BBC2' : '#4A4E57';
         ctx.textAlign = 'center';
-        ctx.fillText(node.label, node.x, node.y - radius - 6);
+
+        const label = node.title.length > 30 ? node.title.slice(0, 28) + '…' : node.title;
+        ctx.fillText(label, node.px, node.py - radius - 6);
       }
 
       animRef.current = requestAnimationFrame(draw);
     }
 
     draw();
-    return () => {
-      running = false;
-      cancelAnimationFrame(animRef.current);
-    };
-  }, [dimensions, hovered]);
+    return () => { running = false; cancelAnimationFrame(animRef.current); };
+  }, [dims, hovered, filteredLinks, highlightSlug, mini]);
 
-  // Mouse interactions
-  const getNodeAt = useCallback(
-    (mx: number, my: number): NexusNode | null => {
-      for (const n of nodesRef.current) {
-        const dx = mx - n.x;
-        const dy = my - n.y;
-        if (dx * dx + dy * dy < 20 * 20) return n;
-      }
-      return null;
-    },
-    []
-  );
-
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLCanvasElement>) => {
-      const rect = canvasRef.current?.getBoundingClientRect();
-      if (!rect) return;
-      const mx = e.clientX - rect.left;
-      const my = e.clientY - rect.top;
-
-      // Dragging
-      if (dragRef.current.node) {
-        dragRef.current.node.x = mx - dragRef.current.offsetX;
-        dragRef.current.node.y = my - dragRef.current.offsetY;
-        dragRef.current.node.vx = 0;
-        dragRef.current.node.vy = 0;
-        return;
-      }
-
-      const node = getNodeAt(mx, my);
-      setHovered(node);
-
-      if (canvasRef.current) {
-        canvasRef.current.style.cursor = node ? 'grab' : 'default';
-      }
-    },
-    [getNodeAt]
-  );
-
-  const handleMouseDown = useCallback(
-    (e: React.MouseEvent<HTMLCanvasElement>) => {
-      const rect = canvasRef.current?.getBoundingClientRect();
-      if (!rect) return;
-      const mx = e.clientX - rect.left;
-      const my = e.clientY - rect.top;
-      const node = getNodeAt(mx, my);
-      if (node) {
-        dragRef.current = { node, offsetX: mx - node.x, offsetY: my - node.y };
-        if (canvasRef.current) canvasRef.current.style.cursor = 'grabbing';
-      }
-    },
-    [getNodeAt]
-  );
-
-  const handleMouseUp = useCallback(() => {
-    dragRef.current = { node: null, offsetX: 0, offsetY: 0 };
-    if (canvasRef.current) canvasRef.current.style.cursor = 'default';
+  const getNodeAt = useCallback((mx: number, my: number): Node | null => {
+    for (const n of nodesRef.current) {
+      const dx = mx - n.px, dy = my - n.py;
+      if (dx * dx + dy * dy < 20 * 20) return n;
+    }
+    return null;
   }, []);
 
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+    if (dragRef.current.node) {
+      dragRef.current.node.px = mx - dragRef.current.ox;
+      dragRef.current.node.py = my - dragRef.current.oy;
+      dragRef.current.node.vx = 0;
+      dragRef.current.node.vy = 0;
+      return;
+    }
+    const node = getNodeAt(mx, my);
+    setHovered(node);
+    if (canvasRef.current) canvasRef.current.style.cursor = node ? 'pointer' : 'default';
+  }, [getNodeAt]);
+
+  const handleMouseDown = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+    const node = getNodeAt(mx, my);
+    if (node) {
+      dragRef.current = { node, ox: mx - node.px, oy: my - node.py };
+      if (canvasRef.current) canvasRef.current.style.cursor = 'grabbing';
+    }
+  }, [getNodeAt]);
+
+  const handleMouseUp = useCallback(() => {
+    if (dragRef.current.node && hovered && dragRef.current.node.id === hovered.id) {
+      const moved = Math.abs(dragRef.current.ox) + Math.abs(dragRef.current.oy);
+      if (moved < 5) {
+        router.push(`/article/${hovered.id}`);
+      }
+    }
+    dragRef.current = { node: null, ox: 0, oy: 0 };
+    if (canvasRef.current) canvasRef.current.style.cursor = 'default';
+  }, [hovered, router]);
+
+  const handleClick = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+    const node = getNodeAt(mx, my);
+    if (node) router.push(`/article/${node.id}`);
+  }, [getNodeAt, router]);
+
   return (
-    <div className="relative w-full">
+    <div style={{ position: 'relative', width: '100%' }}>
       <canvas
         ref={canvasRef}
-        style={{ width: dimensions.w, height: dimensions.h }}
-        className="w-full rounded-xl border border-white/[0.06] bg-[var(--void)]"
+        style={{ width: dims.w, height: dims.h, borderRadius: mini ? 8 : 12, border: '1px solid #E8EAED', background: '#FAFBFC' }}
         onMouseMove={handleMouseMove}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
-        onMouseLeave={() => {
-          setHovered(null);
-          handleMouseUp();
-        }}
+        onClick={handleClick}
+        onMouseLeave={() => { setHovered(null); dragRef.current = { node: null, ox: 0, oy: 0 }; }}
       />
-
-      {/* Légende */}
-      <div className="absolute bottom-4 left-4 flex flex-wrap gap-3">
-        {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
-          <div key={key} className="flex items-center gap-1.5 text-xs text-[var(--text)]/40">
-            <span
-              className="w-2.5 h-2.5 rounded-full"
-              style={{ backgroundColor: CATEGORY_COLORS[key] }}
-            />
-            <span>{label}</span>
-          </div>
-        ))}
-      </div>
 
       {/* Tooltip */}
       {hovered && (
-        <motion.div
-          initial={{ opacity: 0, y: 4 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="absolute top-4 right-4 bg-surface border border-white/[0.06] rounded-lg p-4 shadow-xl max-w-xs"
-        >
-          <div className="flex items-center gap-2 mb-1">
-            <span
-              className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: CATEGORY_COLORS[hovered.category] }}
-            />
-            <h4 className="font-display font-semibold text-sm">{hovered.label}</h4>
+        <div style={{
+          position: 'absolute', top: 12, right: 12,
+          background: '#fff', border: '1px solid #E8EAED', borderRadius: 10,
+          padding: '12px 16px', boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+          maxWidth: 260, pointerEvents: 'none',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+            <span style={{ width: 10, height: 10, borderRadius: '50%', background: CAT_COLORS[hovered.category] }} />
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#1A1D23' }}>{hovered.title}</span>
           </div>
-          <p className="text-xs text-[var(--text)]/40">
-            {CATEGORY_LABELS[hovered.category]} · Cliquez pour ouvrir l'article
-          </p>
-          <p className="text-xs text-[var(--text)]/40 mt-1">
-            {EDGES.filter((e) => e.source === hovered.id || e.target === hovered.id).length} connexions
-          </p>
-        </motion.div>
+          <div style={{ fontSize: 11, color: '#8B8F96' }}>
+            {CAT_LABELS[hovered.category]} · {filteredLinks.filter(e => e.source === hovered.id || e.target === hovered.id).length} connexions
+          </div>
+          <div style={{ fontSize: 10, color: '#B8BBC2', marginTop: 4 }}>
+            Cliquez pour ouvrir l&apos;article →
+          </div>
+        </div>
       )}
 
-      {/* Instructions */}
-      <div className="absolute bottom-4 right-4 text-xs text-[var(--text)]/40/60">
-        Glisser les nœuds · Survoler pour explorer
-      </div>
+      {/* Legend */}
+      {!mini && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, marginTop: 12 }}>
+          {Object.entries(CAT_LABELS).map(([key, label]) => (
+            <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: '#8B8F96' }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: CAT_COLORS[key] }} />
+              {label}
+            </div>
+          ))}
+          <span style={{ marginLeft: 'auto', fontSize: 11, color: '#B8BBC2' }}>
+            Glissez les nœuds · Cliquez pour ouvrir
+          </span>
+        </div>
+      )}
     </div>
   );
 }

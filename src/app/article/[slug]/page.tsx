@@ -3,6 +3,7 @@ import { getArticle, getAllArticles } from "@/lib/articles";
 import { getArticleImage } from "@/lib/article-images";
 import ArticleReader from "@/components/ArticleReader";
 import RelatedArticles from "@/components/RelatedArticles";
+import ArticleNexusMini from "@/components/ArticleNexusMini";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -91,13 +92,20 @@ export default async function ArticlePage({ params }: PageProps) {
   return (
     <main className="min-h-screen pt-24 pb-16" style={{ background: 'var(--bg)' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <ArticleReader article={article} />
-      <div className="max-w-[800px] mx-auto px-6">
-        <RelatedArticles
-          currentSlug={slug}
-          currentTags={article.tags || []}
-          allArticles={allArticles}
-        />
+      <div className="article-layout" style={{ display: 'grid', gridTemplateColumns: '1fr', maxWidth: 1200, margin: '0 auto', gap: 32, padding: '0 24px' }}>
+        <div>
+          <ArticleReader article={article} />
+          <div className="max-w-[800px] mx-auto px-6">
+            <RelatedArticles
+              currentSlug={slug}
+              currentTags={article.tags || []}
+              allArticles={allArticles}
+            />
+          </div>
+        </div>
+        <aside className="hidden lg:block">
+          <ArticleNexusMini slug={slug} />
+        </aside>
       </div>
     </main>
   );

@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 interface Props {
   manifeste: string;
   methodologie: string;
@@ -9,97 +7,46 @@ interface Props {
   etatDesLieux: string;
 }
 
+const SECTIONS_DATA = [
+  { key: 'manifeste', title: 'MANIFESTE', color: '#D4943A' },
+  { key: 'methodologie', title: 'MÉTHODOLOGIE', color: '#3B8FD4' },
+  { key: 'etatDesLieux', title: 'ÉTAT DES LIEUX', color: '#3B8FD4' },
+  { key: 'ethique', title: 'ÉTHIQUE INTELLECTUELLE', color: '#3D9E7C' },
+] as const;
+
 export default function AboutClient({ manifeste, methodologie, ethique, etatDesLieux }: Props) {
+  const content: Record<string, string> = { manifeste, methodologie, ethique, etatDesLieux };
+
   return (
-    <div className="min-h-screen pt-20 pb-16" style={{ background: '#FAFAF6', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-      <div className="max-w-[720px] mx-auto px-6">
-        <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-[2px]" style={{ background: '#C48A2E' }} />
-            <span
-              className="text-[9px] tracking-[0.2em] uppercase"
-              style={{ color: '#8A857D', fontWeight: 600, letterSpacing: '0.2em' }}
-            >
-              À propos
-            </span>
+    <div style={{ minHeight: '100vh', padding: '40px 0 80px' }}>
+      <div style={{ maxWidth: 720, margin: '0 auto', padding: '0 24px' }}>
+        <div style={{ marginBottom: 40 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+            <div style={{ width: 4, height: 28, background: '#8B8F96', borderRadius: 2 }} />
+            <span style={{ fontSize: 11, fontWeight: 700, color: '#8B8F96', letterSpacing: '0.15em', textTransform: 'uppercase' as const }}>À propos</span>
           </div>
-          <h1
-            className="text-2xl md:text-3xl font-bold mb-10"
-            style={{ color: '#141210', fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-          >
-            TERRE ÉTENDUE ISLAM
-          </h1>
-        </motion.div>
+          <h1 style={{ fontSize: 28, fontWeight: 800, color: '#1A1D23', letterSpacing: '-0.02em' }}>Terre Étendue Islam</h1>
+        </div>
 
-        {/* Manifeste */}
-        <section className="mb-16">
-          <h2
-            className="text-lg font-semibold mb-6 flex items-center gap-3"
-            style={{ color: '#C48A2E', fontSize: '14px', letterSpacing: '0.1em', fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-          >
-            <span className="w-6 h-[1px]" style={{ background: 'rgba(196,138,46,0.3)' }} />
-            MANIFESTE
-          </h2>
-          <div
-            className="leading-relaxed text-[15px]"
-            style={{ color: '#3D3A35', lineHeight: 1.8 }}
-            dangerouslySetInnerHTML={{ __html: manifeste }}
-          />
-        </section>
-
-        <div className="mb-16 h-[1px]" style={{ background: 'rgba(20,18,16,0.06)' }} />
-
-        {/* Méthodologie */}
-        <section className="mb-16">
-          <h2
-            className="text-lg font-semibold mb-6 flex items-center gap-3"
-            style={{ color: '#3580C0', fontSize: '14px', letterSpacing: '0.1em', fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-          >
-            <span className="w-6 h-[1px]" style={{ background: 'rgba(53,128,192,0.2)' }} />
-            MÉTHODOLOGIE
-          </h2>
-          <div
-            className="leading-relaxed text-[15px]"
-            style={{ color: '#3D3A35', lineHeight: 1.8 }}
-            dangerouslySetInnerHTML={{ __html: methodologie }}
-          />
-        </section>
-
-        <div className="mb-16 h-[1px]" style={{ background: 'rgba(20,18,16,0.06)' }} />
-
-        {/* État des lieux */}
-        <section className="mb-16">
-          <h2
-            className="text-lg font-semibold mb-6 flex items-center gap-3"
-            style={{ color: '#3580C0', fontSize: '14px', letterSpacing: '0.1em', fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-          >
-            <span className="w-6 h-[1px]" style={{ background: 'rgba(53,128,192,0.2)' }} />
-            ÉTAT DES LIEUX
-          </h2>
-          <div
-            className="leading-relaxed text-[15px]"
-            style={{ color: '#3D3A35', lineHeight: 1.8 }}
-            dangerouslySetInnerHTML={{ __html: etatDesLieux }}
-          />
-        </section>
-
-        <div className="mb-16 h-[1px]" style={{ background: 'rgba(20,18,16,0.06)' }} />
-
-        {/* Éthique */}
-        <section>
-          <h2
-            className="text-lg font-semibold mb-6 flex items-center gap-3"
-            style={{ color: '#3A8F6E', fontSize: '14px', letterSpacing: '0.1em', fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-          >
-            <span className="w-6 h-[1px]" style={{ background: 'rgba(58,143,110,0.3)' }} />
-            ÉTHIQUE INTELLECTUELLE
-          </h2>
-          <div
-            className="leading-relaxed text-[15px]"
-            style={{ color: '#3D3A35', lineHeight: 1.8 }}
-            dangerouslySetInnerHTML={{ __html: ethique }}
-          />
-        </section>
+        {SECTIONS_DATA.map((section, i) => (
+          <div key={section.key}>
+            {i > 0 && <div style={{ height: 1, background: '#E8EAED', margin: '48px 0' }} />}
+            <section style={{ marginBottom: 48 }}>
+              <h2 style={{
+                display: 'flex', alignItems: 'center', gap: 12,
+                fontSize: 14, fontWeight: 700, color: section.color,
+                letterSpacing: '0.1em', marginBottom: 24,
+              }}>
+                <span style={{ width: 24, height: 1, background: section.color, opacity: 0.3 }} />
+                {section.title}
+              </h2>
+              <div
+                className="prose-dash"
+                dangerouslySetInnerHTML={{ __html: content[section.key] }}
+              />
+            </section>
+          </div>
+        ))}
       </div>
     </div>
   );
