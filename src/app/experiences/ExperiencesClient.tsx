@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { dash } from "@/lib/design-tokens";
-import PageHero from "@/components/PageHero";
+import SectionHeader from "@/components/SectionHeader";
 import { getArticleImage } from "@/lib/article-images";
 
 interface AE { slug: string; title: string; description: string; category: string; tags: string[]; pinned: boolean; readTime: number; }
@@ -37,7 +37,7 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
 
   return (
     <div>
-      <PageHero title="Laboratoire de Physique Naturelle" subtitle={`${demonstrations.length} démonstrations · ${historical.length} retracements historiques`} color={dash.rose} image="https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/06/tanrica-medical-laboratory-9839358_1920.png" />
+      <SectionHeader pillar="EXP" pillarNum="05" subtitle="Physique naturelle" title="Laboratoire de Physique Naturelle" color={dash.rose} count={demonstrations.length + historical.length} countLabel="fiches — démonstrations et retracements historiques" />
       <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px 64px" }}>
 
       <div style={{ display: "flex", gap: 4, marginBottom: 24, borderBottom: `1px solid ${dash.border}` }}>

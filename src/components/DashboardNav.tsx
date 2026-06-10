@@ -40,7 +40,7 @@ const SECTIONS = [
     ],
   },
   {
-    label: 'Outils et Simulateurs', href: '/lab', color: '#3D9E7C',
+    label: 'Outils', href: '/lab', color: '#3D9E7C',
     subs: [],
   },
   {
@@ -87,12 +87,76 @@ export default function DashboardNav() {
         transform: visible ? 'translateY(0)' : 'translateY(-100%)',
         transition: 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)',
       }}>
-        {/* Top bar — logo + search */}
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '14px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Link href="/" style={{ fontSize: 24, fontWeight: 800, color: '#1A1D23', letterSpacing: '-0.02em' }}>
-            Terre Étendue <span style={{ color: '#8B7EC8', fontWeight: 700 }}>Islam</span>
+        {/* Single bar: logo + nav + search */}
+        <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 20px', display: 'flex', alignItems: 'center', gap: 0 }}>
+          {/* Logo */}
+          <Link href="/" style={{
+            fontSize: 20, fontWeight: 800, color: '#111', letterSpacing: '-0.02em',
+            whiteSpace: 'nowrap', marginRight: 20, padding: '12px 0',
+            flexShrink: 0,
+          }}>
+            Terre Étendue <span style={{ color: '#3D9E7C', fontWeight: 800 }}>Islam</span>
           </Link>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+
+          {/* Desktop nav */}
+          <nav className="hidden lg:flex" style={{ alignItems: 'center', gap: 0, flex: 1, minWidth: 0 }}>
+            {SECTIONS.map(s => {
+              const active = pathname === s.href || pathname?.startsWith(s.href + '/');
+              return (
+                <div
+                  key={s.href}
+                  style={{ position: 'relative' }}
+                  onMouseEnter={() => {
+                    if (s.subs.length > 0) {
+                      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+                      setOpenDropdown(s.href);
+                    }
+                  }}
+                  onMouseLeave={() => {
+                    timeoutRef.current = setTimeout(() => setOpenDropdown(null), 150);
+                  }}
+                >
+                  <Link href={s.href} style={{
+                    display: 'flex', alignItems: 'center', gap: 4,
+                    padding: '14px 11px',
+                    fontSize: 14, fontWeight: 600,
+                    color: active ? s.color : '#1A1D23',
+                    borderBottom: active ? `3px solid ${s.color}` : '3px solid transparent',
+                    transition: 'color 0.15s',
+                    whiteSpace: 'nowrap',
+                  }}>
+                    {s.label}
+                    {s.subs.length > 0 && <ChevronDown size={12} style={{ opacity: 0.4 }} />}
+                  </Link>
+
+                  {openDropdown === s.href && s.subs.length > 0 && (
+                    <div style={{
+                      position: 'absolute', top: '100%', left: 0, zIndex: 100,
+                      background: '#fff', border: '1px solid #E8EAED', borderRadius: 10,
+                      padding: '8px 0', minWidth: 240,
+                      boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
+                      animation: 'fadeIn 0.15s ease',
+                    }}>
+                      {s.subs.map(sub => (
+                        <Link key={sub.href} href={sub.href} style={{
+                          display: 'block', padding: '10px 20px',
+                          fontSize: 14, fontWeight: 500, color: '#1A1D23',
+                          transition: 'background 0.1s',
+                        }}
+                        onMouseOver={e => { e.currentTarget.style.background = '#F4F5F7'; e.currentTarget.style.color = s.color; }}
+                        onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#1A1D23'; }}>
+                          {sub.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </nav>
+
+          {/* Search — pushed to the right */}
+          <div style={{ marginLeft: 'auto', flexShrink: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
             <div className="hidden sm:block">
               <SearchCommand inline />
             </div>
@@ -100,85 +164,22 @@ export default function DashboardNav() {
               <SearchCommand />
             </div>
           </div>
+
+          {/* Mobile hamburger */}
+          <button className="lg:hidden" onClick={() => setMobileOpen(!mobileOpen)}
+            style={{ padding: '12px 0 12px 12px', background: 'none', border: 'none', cursor: 'pointer', color: '#1A1D23' }}>
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
-
-        {/* Nav bar */}
-        <div style={{ borderTop: '1px solid #E8EAED' }}>
-          <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            {/* Desktop nav */}
-            <nav className="hidden lg:flex" style={{ alignItems: 'center', gap: 0 }}>
-              {SECTIONS.map(s => {
-                const active = pathname === s.href || pathname?.startsWith(s.href + '/');
-                return (
-                  <div
-                    key={s.href}
-                    style={{ position: 'relative' }}
-                    onMouseEnter={() => {
-                      if (s.subs.length > 0) {
-                        if (timeoutRef.current) clearTimeout(timeoutRef.current);
-                        setOpenDropdown(s.href);
-                      }
-                    }}
-                    onMouseLeave={() => {
-                      timeoutRef.current = setTimeout(() => setOpenDropdown(null), 150);
-                    }}
-                  >
-                    <Link href={s.href} style={{
-                      display: 'flex', alignItems: 'center', gap: 5,
-                      padding: '14px 14px',
-                      fontSize: 15, fontWeight: 600,
-                      color: active ? s.color : '#4A4E57',
-                      borderBottom: active ? `3px solid ${s.color}` : '3px solid transparent',
-                      transition: 'color 0.15s',
-                      whiteSpace: 'nowrap',
-                    }}>
-                      {s.label}
-                      {s.subs.length > 0 && <ChevronDown size={13} style={{ opacity: 0.5 }} />}
-                    </Link>
-
-                    {/* Dropdown */}
-                    {openDropdown === s.href && s.subs.length > 0 && (
-                      <div style={{
-                        position: 'absolute', top: '100%', left: 0, zIndex: 100,
-                        background: '#fff', border: '1px solid #E8EAED', borderRadius: 10,
-                        padding: '8px 0', minWidth: 240,
-                        boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
-                        animation: 'fadeIn 0.15s ease',
-                      }}>
-                        {s.subs.map(sub => (
-                          <Link key={sub.href} href={sub.href} style={{
-                            display: 'block', padding: '10px 20px',
-                            fontSize: 14, fontWeight: 500, color: '#4A4E57',
-                            transition: 'background 0.1s',
-                          }}
-                          onMouseOver={e => { e.currentTarget.style.background = '#F4F5F7'; e.currentTarget.style.color = s.color; }}
-                          onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#4A4E57'; }}>
-                            {sub.label}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </nav>
-
-            {/* Mobile hamburger */}
-            <button className="lg:hidden" onClick={() => setMobileOpen(!mobileOpen)}
-              style={{ padding: '12px 0', background: 'none', border: 'none', cursor: 'pointer', color: '#4A4E57' }}>
-              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-          {/* Accent line */}
-          <div style={{ height: 3, background: 'linear-gradient(90deg, #D4943A, #8B7EC8, #3B8FD4, #C45E6A, #3D9E7C)' }} />
-        </div>
+        {/* Accent line */}
+        <div style={{ height: 3, background: 'linear-gradient(90deg, #D4943A, #8B7EC8, #3B8FD4, #C45E6A, #3D9E7C)' }} />
       </header>
 
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="lg:hidden" style={{
           position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 89,
-          background: '#fff', overflowY: 'auto', paddingTop: 120,
+          background: '#fff', overflowY: 'auto', paddingTop: 60,
         }}>
           <div style={{ padding: '12px 24px' }}>
             {SECTIONS.map(s => (
@@ -202,7 +203,7 @@ export default function DashboardNav() {
                   <div style={{ paddingBottom: 8 }}>
                     {s.subs.map(sub => (
                       <Link key={sub.href} href={sub.href} onClick={() => setMobileOpen(false)}
-                        style={{ display: 'block', padding: '8px 0 8px 16px', fontSize: 15, color: '#4A4E57' }}>
+                        style={{ display: 'block', padding: '8px 0 8px 16px', fontSize: 15, color: '#1A1D23' }}>
                         {sub.label}
                       </Link>
                     ))}

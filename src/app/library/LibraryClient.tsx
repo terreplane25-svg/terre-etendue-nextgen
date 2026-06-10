@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { dash } from '@/lib/design-tokens';
 import { getArticleImage } from '@/lib/article-images';
-import PageHero from '@/components/PageHero';
+import SectionHeader from '@/components/SectionHeader';
 
 interface A { slug: string; title: string; description: string; tags: string[]; pinned: boolean; readTime: number; }
 
@@ -49,7 +49,7 @@ export default function LibraryClient({ priority, articles }: { priority: A[]; a
 
   return (
     <div>
-      <PageHero title="La Bibliothèque" subtitle={`${allArticles.length} publications · Sources sacrées et textes historiques`} color={dash.saffron} image="https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/06/architecture-brutaliste-batiment-marais-scaled.jpg" />
+      <SectionHeader pillar="BIBLIO" pillarNum="03" subtitle="Sources sacrées" title="La Bibliothèque" color={dash.saffron} count={allArticles.length} countLabel="publications — Coran, Sunna, textes historiques et cosmographie" />
       <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 64px' }}>
 
         {/* Section filters */}

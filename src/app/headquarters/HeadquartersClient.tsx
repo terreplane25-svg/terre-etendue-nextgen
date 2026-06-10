@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { dash } from '@/lib/design-tokens';
 import { getArticleImage } from '@/lib/article-images';
-import PageHero from '@/components/PageHero';
+import SectionHeader from '@/components/SectionHeader';
 
 interface A { slug: string; title: string; description: string; tags: string[]; pinned: boolean; readTime: number; }
 
@@ -51,7 +51,7 @@ export default function HeadquartersClient({ articles }: { articles: A[] }) {
 
   return (
     <div>
-      <PageHero title="Le Centre de Recherche" subtitle={`${articles.length} publications · Épistémologie et méthode`} color={dash.lavender} image="https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/04/livres_ia.jpg" />
+      <SectionHeader pillar="Q.G." pillarNum="01" subtitle="Épistémologie & méthode" title="Le Centre de Recherche" color={dash.lavender} count={articles.length} countLabel="publications — épistémologie, zététique et remise en question" />
       <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 64px' }}>
 
         {/* Section filters */}

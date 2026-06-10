@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { dash } from '@/lib/design-tokens';
 import { getArticleImage } from '@/lib/article-images';
-import PageHero from '@/components/PageHero';
+import SectionHeader from '@/components/SectionHeader';
 
 interface A { slug: string; title: string; description: string; tags: string[]; pinned: boolean; readTime: number; }
 
@@ -59,7 +59,7 @@ export default function ObservatoryClient({ articles }: { articles: A[] }) {
 
   return (
     <div>
-      <PageHero title="L'Observatoire" subtitle={`${articles.length} analyses · Données empiriques`} color={dash.cyan} image="https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/04/imgage_accueil.png" />
+      <SectionHeader pillar="OBS" pillarNum="02" subtitle="Données empiriques" title="L'Observatoire" color={dash.cyan} count={articles.length} countLabel="analyses — observations, optique, hydrologie et astronomie" />
       <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 64px' }}>
         <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
           <Link href="/experiences" style={{ fontSize: 13, fontWeight: 600, color: dash.opal, padding: '6px 14px', borderRadius: 6, background: `${dash.opal}10` }}>
