@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getAllArticles } from "@/lib/articles";
 import ExperiencesClient from "./ExperiencesClient";
 import type { Metadata } from "next";
@@ -7,7 +8,6 @@ export const metadata: Metadata = {
   description: "Démonstrations pédagogiques reproductibles et retracement historique des grandes expériences.",
 };
 
-// Articles historiques (slugs connus)
 const HISTORICAL_SLUGS = [
   "leau-ne-ment-pas",
   "le-pendule-de-foucault-une-preuve-contestee",
@@ -38,5 +38,9 @@ export default function ExperiencesPage() {
       category: a.category, tags: a.tags || [], pinned: a.pinned || false, readTime: a.readTime || 5,
     }));
 
-  return <ExperiencesClient historical={historical} demonstrations={demonstrations} />;
+  return (
+    <Suspense>
+      <ExperiencesClient historical={historical} demonstrations={demonstrations} />
+    </Suspense>
+  );
 }

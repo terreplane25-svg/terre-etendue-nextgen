@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { getArticlesByCategory } from '@/lib/articles';
 import LibraryClient from './LibraryClient';
 import type { Metadata } from 'next';
@@ -14,7 +15,7 @@ const PRIORITY_SLUGS = [
 
 export default function LibraryPage() {
   const articles = getArticlesByCategory('library') as any[];
-  
+
   const priority = articles
     .filter((a: any) => PRIORITY_SLUGS.includes(a.slug))
     .map((a: any) => ({
@@ -29,5 +30,9 @@ export default function LibraryPage() {
       tags: a.tags || [], pinned: a.pinned || false, readTime: a.readTime || 5,
     }));
 
-  return <LibraryClient priority={priority} articles={others} />;
+  return (
+    <Suspense>
+      <LibraryClient priority={priority} articles={others} />
+    </Suspense>
+  );
 }

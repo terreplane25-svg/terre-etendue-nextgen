@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { dash } from "@/lib/design-tokens";
 import PageHero from "@/components/PageHero";
@@ -17,7 +18,9 @@ const FAMILLES = [
 function getFam(a: AE) { for (const f of FAMILLES) { if (a.tags.some(t => f.tags.includes(t))) return f.id; } return "other"; }
 
 const CROSS: Record<string, { slug: string; label: string }> = {
+  "densite-et-flottabilite": { slug: "pourquoi-les-choses-montent-et-descendent", label: "Analyse complète" },
   "densite-pourquoi-les-choses-montent-et-descendent": { slug: "pourquoi-les-choses-montent-et-descendent", label: "Analyse complète" },
+  "la-pression-atmospherique": { slug: "pression-lumiere-halos-rayons-et-ondes", label: "Analyse complète" },
   "la-pression-atmospherique-un-ocean-d-air-invisible": { slug: "pression-lumiere-halos-rayons-et-ondes", label: "Analyse complète" },
   "la-perspective-lineaire": { slug: "lhorizon-la-perspective-et-la-refraction", label: "Analyse optique" },
   "diminution-angulaire-taille-apparente": { slug: "ce-quon-voit-quand-on-ne-devrait-plus-voir", label: "Observations" },
@@ -26,15 +29,16 @@ const CROSS: Record<string, { slug: string; label: string }> = {
 };
 
 export default function ExperiencesClient({ historical, demonstrations }: { historical: AE[]; demonstrations: AE[] }) {
+  const searchParams = useSearchParams();
+  const initialFilter = searchParams.get('filter');
   const [tab, setTab] = useState<"all"|"demos"|"hist">("all");
-  const [fam, setFam] = useState<string|null>(null);
+  const [fam, setFam] = useState<string|null>(initialFilter);
   const fd = fam ? demonstrations.filter(a => getFam(a) === fam) : demonstrations;
 
   return (
     <div>
       <PageHero title="Laboratoire de Physique Naturelle" subtitle={`${demonstrations.length} démonstrations · ${historical.length} retracements historiques`} color={dash.rose} image="https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/06/tanrica-medical-laboratory-9839358_1920.png" />
       <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px 64px" }}>
-      
 
       <div style={{ display: "flex", gap: 4, marginBottom: 24, borderBottom: `1px solid ${dash.border}` }}>
         {([{ id: "all" as const, l: "Tout" }, { id: "demos" as const, l: "Démonstrations" }, { id: "hist" as const, l: "Historique" }]).map(t => (
@@ -50,14 +54,15 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
           <motion.div key="d" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ marginBottom: 40 }}>
             {tab === "all" && <h2 style={{ fontSize: 17, fontWeight: 750, color: dash.ink, marginBottom: 16 }}>🔬 Démonstrations</h2>}
             <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 20 }}>
-              <button onClick={() => setFam(null)} style={{ padding: "5px 12px", borderRadius: 4, fontSize: 12, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${!fam ? dash.ink : dash.border}`, background: !fam ? dash.ink : dash.card, color: !fam ? "#fff" : dash.inkMuted, cursor: "pointer" }}>Toutes</button>
+              <button onClick={() => setFam(null)} style={{ padding: "5px 12px", borderRadius: 6, fontSize: 12, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${!fam ? dash.rose : dash.border}`, background: !fam ? dash.rose : dash.card, color: !fam ? "#fff" : dash.inkMuted, cursor: "pointer" }}>Toutes</button>
               {FAMILLES.map(f => (
-                <button key={f.id} onClick={() => setFam(f.id === fam ? null : f.id)} style={{ padding: "5px 12px", borderRadius: 4, fontSize: 12, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${fam === f.id ? dash.ink : dash.border}`, background: fam === f.id ? dash.ink : dash.card, color: fam === f.id ? "#fff" : dash.inkMuted, cursor: "pointer" }}>{f.icon} {f.label}</button>
+                <button key={f.id} onClick={() => setFam(f.id === fam ? null : f.id)} style={{ padding: "5px 12px", borderRadius: 6, fontSize: 12, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${fam === f.id ? dash.rose : dash.border}`, background: fam === f.id ? dash.rose : dash.card, color: fam === f.id ? "#fff" : dash.inkMuted, cursor: "pointer" }}>{f.icon} {f.label}</button>
               ))}
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               {fd.map((a, i) => {
                 const cr = CROSS[a.slug];
+                const famille = FAMILLES.find(f => f.id === getFam(a));
                 return (
                   <motion.div key={a.slug} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
                     <div className="dash-card" style={{ overflow: "hidden" }}>
@@ -66,9 +71,14 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
                           <img src={getArticleImage(a.slug)} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
                         </div>
                         <div style={{ padding: "18px 24px", flex: 1, minWidth: 0 }}>
+                          {famille && !fam && (
+                            <div style={{ fontSize: 11, fontWeight: 700, color: dash.rose, marginBottom: 4, letterSpacing: '0.04em' }}>
+                              {famille.icon} {famille.label}
+                            </div>
+                          )}
                           <div style={{ fontSize: 17, fontWeight: 700, color: dash.ink, marginBottom: 4, lineHeight: 1.3 }}>{a.title}</div>
                           <div style={{ fontSize: 11, color: dash.inkGhost, marginBottom: 6, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
-                          {a.description && <div style={{ fontSize: 14, color: dash.inkMuted, lineHeight: 1.5, overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as any }}>{a.description}</div>}
+                          {a.description && <div style={{ fontSize: 14, color: dash.inkMuted, lineHeight: 1.5, overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as never }}>{a.description}</div>}
                         </div>
                       </Link>
                       {cr && <div style={{ padding: "8px 20px 12px", borderTop: `1px solid ${dash.borderSoft}` }}><Link href={`/article/${cr.slug}`} style={{ fontSize: 11, color: dash.lavender, fontWeight: 600 }}>↗ {cr.label}</Link></div>}
@@ -95,7 +105,7 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
                     <div style={{ padding: "18px 24px", flex: 1, minWidth: 0 }}>
                       <div style={{ fontSize: 17, fontWeight: 700, color: dash.ink, marginBottom: 4, lineHeight: 1.3 }}>{a.title}</div>
                       <div style={{ fontSize: 11, color: dash.inkGhost, marginBottom: 6, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
-                      {a.description && <div style={{ fontSize: 14, color: dash.inkMuted, lineHeight: 1.5, overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as any }}>{a.description}</div>}
+                      {a.description && <div style={{ fontSize: 14, color: dash.inkMuted, lineHeight: 1.5, overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as never }}>{a.description}</div>}
                     </div>
                   </Link>
                 </motion.div>

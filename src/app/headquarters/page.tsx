@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { getArticlesByCategory } from '@/lib/articles';
 import type { Metadata } from 'next';
 import HeadquartersClient from './HeadquartersClient';
@@ -12,5 +13,9 @@ export default function HeadquartersPage() {
     slug: a.slug, title: a.title, description: a.description || '',
     tags: a.tags || [], pinned: a.pinned || false, readTime: a.readTime || 5,
   }));
-  return <HeadquartersClient articles={formatted} />;
+  return (
+    <Suspense>
+      <HeadquartersClient articles={formatted} />
+    </Suspense>
+  );
 }

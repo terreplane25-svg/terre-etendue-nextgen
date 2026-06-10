@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { getArticlesByCategory } from '@/lib/articles';
 import ObservatoryClient from './ObservatoryClient';
 import type { Metadata } from 'next';
@@ -10,7 +11,6 @@ export const metadata: Metadata = {
 export default function ObservatoryPage() {
   const allObs = getArticlesByCategory('observatory') as any[];
 
-  // Exclure les fiches expériences (elles vivent dans /experiences)
   const analysisArticles = allObs.filter(
     (a: any) => !a.tags?.includes('physique-naturelle')
   );
@@ -24,5 +24,9 @@ export default function ObservatoryPage() {
     readTime: a.readTime || 5,
   }));
 
-  return <ObservatoryClient articles={formatted} />;
+  return (
+    <Suspense>
+      <ObservatoryClient articles={formatted} />
+    </Suspense>
+  );
 }
