@@ -19,12 +19,21 @@ interface A { slug: string; title: string; description: string; tags: string[]; 
 
 const TOOLS = [
   {
+    id: 'flat',
+    label: 'Carte Azimutale',
+    desc: "Carte azimutale avec dôme céleste, éphémérides, terminateur, phases lunaires, boussole et géolocalisation.",
+    icon: '🗺️',
+    color: '#D4943A',
+    num: '01',
+    tags: ['3D', 'dôme', 'éphémérides', 'carte'],
+  },
+  {
     id: 'curvature',
     label: 'Calculateur de Courbure',
     desc: "Courbure théorique avec réfraction. Graphique interactif, 6 cas réels, export.",
     icon: '📐',
     color: '#3D9E7C',
-    num: '01',
+    num: '02',
     tags: ['courbure', 'réfraction', 'graphique'],
   },
   {
@@ -33,7 +42,7 @@ const TOOLS = [
     desc: "Disparition par perspective vs occultation par courbure. Deux modèles côte à côte.",
     icon: '👁️',
     color: '#8B7EC8',
-    num: '02',
+    num: '03',
     tags: ['perspective', 'point de fuite', '3D'],
   },
   {
@@ -42,7 +51,7 @@ const TOOLS = [
     desc: "Colonne de fluides interactive. Lâchez des objets, observez la flottabilité.",
     icon: '⚗️',
     color: '#3D9E7C',
-    num: '03',
+    num: '04',
     tags: ['densité', 'flottabilité', 'Archimède'],
   },
   {
@@ -51,7 +60,7 @@ const TOOLS = [
     desc: "Taille angulaire et distance maximale de résolution de l'œil humain.",
     icon: '🔬',
     color: '#C45E6A',
-    num: '04',
+    num: '05',
     tags: ['vision', 'arc-minute', 'résolution'],
   },
   {
@@ -60,17 +69,8 @@ const TOOLS = [
     desc: "Expériences laser sur eau calme. Trajectoire droite vs écart de courbure.",
     icon: '🔴',
     color: '#C45E6A',
-    num: '05',
-    tags: ['laser', 'eau', 'courbure'],
-  },
-  {
-    id: 'flat',
-    label: 'Carte Azimutale',
-    desc: "Carte avec Soleil et Lune. Éphémérides réelles, tropiques, saisons.",
-    icon: '🗺️',
-    color: '#D4943A',
     num: '06',
-    tags: ['3D', 'carte', 'éphémérides'],
+    tags: ['laser', 'eau', 'courbure'],
   },
   {
     id: 'geo',

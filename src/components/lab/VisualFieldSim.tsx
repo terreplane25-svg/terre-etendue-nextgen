@@ -299,7 +299,7 @@ export default function VisualFieldSim() {
 
     <div className="mt-4 border border-[#C45E6A]/20 bg-[#0A1020] p-4">
       <div className="text-[11px] font-tech-mono text-[#C45E6A]/60 mb-2">LA RÉSOLUTION ANGULAIRE</div>
-      <p className="text-[12px] text-[#C8D8E8]/50 font-rajdhani leading-relaxed">
+      <p className="text-[12px] text-[#C8D8E8]/80 font-rajdhani leading-relaxed">
         L&apos;œil humain a une résolution d&apos;environ 1 arc-minute (1/60°). Un objet dont la taille angulaire passe sous ce seuil
         devient invisible — non pas parce qu&apos;il « disparaît derrière la courbure », mais parce que l&apos;œil ne peut plus le résoudre.
         C&apos;est la limite de diffraction de la pupille (~2-5 mm). Un zoom optique (jumelles, télescope) réduit le seuil et ramène l&apos;objet en vue.
@@ -308,9 +308,9 @@ export default function VisualFieldSim() {
     </div>
 
     <div className="mt-4 border-t border-slate-800/30 pt-4 flex flex-wrap items-center gap-5">
-      <span className="text-[11px] font-tech-mono text-slate-500">ARTICLES :</span>
-      <a href="/article/loeil-humain-la-machine-a-voir-qui-faconne-notre-realite" className="text-[12px] font-tech-mono text-[#00C8FF]/60 hover:text-[#00C8FF]">L&apos;œil humain →</a>
-      <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[12px] font-tech-mono text-[#00C8FF]/60 hover:text-[#00C8FF]">L&apos;hypothèse nulle →</a>
+      <span className="text-[11px] font-tech-mono text-slate-400">ARTICLES :</span>
+      <a href="/article/loeil-humain-la-machine-a-voir-qui-faconne-notre-realite" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;œil humain →</a>
+      <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;hypothèse nulle →</a>
     </div>
   </div>;
 }

@@ -254,7 +254,7 @@ export default function DensitySim() {
 
     <div className="mt-4 border border-[#00E87B]/20 bg-[#0A1020] p-4">
       <div className="text-[11px] font-tech-mono text-[#00E87B]/60 mb-2">DENSITÉ VS GRAVITÉ</div>
-      <p className="text-[12px] text-[#C8D8E8]/50 font-rajdhani leading-relaxed">
+      <p className="text-[12px] text-[#C8D8E8]/80 font-rajdhani leading-relaxed">
         La « gravité » newtonienne attire tout vers le centre. Mais l&apos;observation montre que les objets s&apos;ordonnent par densité relative :
         le mercure coule sous l&apos;eau, l&apos;huile flotte dessus, l&apos;hélium monte dans l&apos;air.
         Chaque chose trouve son niveau naturel — c&apos;est le principe de flottabilité (Archimède), qui n&apos;a besoin que d&apos;un milieu plus dense en dessous.
@@ -262,9 +262,9 @@ export default function DensitySim() {
     </div>
 
     <div className="mt-4 border-t border-slate-800/30 pt-4 flex flex-wrap items-center gap-5">
-      <span className="text-[11px] font-tech-mono text-slate-500">ARTICLES :</span>
-      <a href="/article/la-pression-atmospherique-un-ocean-d-air-invisible" className="text-[12px] font-tech-mono text-[#00C8FF]/60 hover:text-[#00C8FF]">L&apos;océan d&apos;air invisible →</a>
-      <a href="/article/la-gravite-70-theories-et-aucune-preuve" className="text-[12px] font-tech-mono text-[#00C8FF]/60 hover:text-[#00C8FF]">La gravité : 70 théories →</a>
+      <span className="text-[11px] font-tech-mono text-slate-400">ARTICLES :</span>
+      <a href="/article/la-pression-atmospherique-un-ocean-d-air-invisible" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;océan d&apos;air invisible →</a>
+      <a href="/article/la-gravite-70-theories-et-aucune-preuve" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">La gravité : 70 théories →</a>
     </div>
   </div>;
 }

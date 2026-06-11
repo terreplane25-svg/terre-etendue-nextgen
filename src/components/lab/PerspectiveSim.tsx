@@ -294,7 +294,7 @@ export default function PerspectiveSim() {
 
     <div className="mt-4 border border-[#D4A843]/20 bg-[#0A1020] p-4">
       <div className="text-[11px] font-tech-mono text-[#D4A843]/60 mb-2">PERSPECTIVE VS COURBURE</div>
-      <p className="text-[12px] text-[#C8D8E8]/50 font-rajdhani leading-relaxed">
+      <p className="text-[12px] text-[#C8D8E8]/80 font-rajdhani leading-relaxed">
         Sur un plan, un objet ne disparaît jamais « par le bas » — il rétrécit vers le point de fuite jusqu&apos;à devenir trop petit pour l&apos;œil (limite ~1 arc-minute).
         Sur un globe, la courbure cache progressivement le bas de l&apos;objet, même s&apos;il est assez grand pour être résolu.
         Ce simulateur compare les deux mécanismes : la perspective (réduction angulaire) et la courbure (occultation physique).
@@ -302,9 +302,9 @@ export default function PerspectiveSim() {
     </div>
 
     <div className="mt-4 border-t border-slate-800/30 pt-4 flex flex-wrap items-center gap-5">
-      <span className="text-[11px] font-tech-mono text-slate-500">ARTICLES :</span>
-      <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[12px] font-tech-mono text-[#00C8FF]/60 hover:text-[#00C8FF]">L&apos;hypothèse nulle →</a>
-      <a href="/article/loeil-humain-la-machine-a-voir-qui-faconne-notre-realite" className="text-[12px] font-tech-mono text-[#00C8FF]/60 hover:text-[#00C8FF]">L&apos;œil humain →</a>
+      <span className="text-[11px] font-tech-mono text-slate-400">ARTICLES :</span>
+      <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;hypothèse nulle →</a>
+      <a href="/article/loeil-humain-la-machine-a-voir-qui-faconne-notre-realite" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;œil humain →</a>
     </div>
   </div>;
 }

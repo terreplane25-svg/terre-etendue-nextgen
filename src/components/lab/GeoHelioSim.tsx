@@ -283,15 +283,15 @@ export default function GeoHelioSim(){
     )}
 
     <div className="mt-3 border border-slate-800/50 bg-[var(--hull)] p-4">
-      <p className="text-[13px] text-[var(--text-60)] font-rajdhani leading-relaxed">
+      <p className="text-[13px] text-[#C8D8E8]/80 font-rajdhani leading-relaxed">
         {mode==='classic'
           ?"Modèle héliocentrique classique. Le Soleil est au centre, 8 planètes orbitent avec leurs périodes réelles et excentricités. Saturne possède ses anneaux caractéristiques."
           :"Le Soleil n’est pas fixe — il voyage à ~828 000 km/h dans la Voie Lactée. Les planètes tracent des spirales hélicoïdales (vortex). Les traînées colorées montrent la trajectoire réelle de chaque planète dans l’espace galactique."}
       </p>
       <div className="flex flex-wrap items-center gap-3 mt-3 pt-3 border-t border-slate-800/30">
-        <span className="text-[8px] font-tech-mono text-slate-600">ARTICLES :</span>
-        <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[9px] font-tech-mono text-[var(--cyan)]/50 hover:text-[var(--cyan)]">L&apos;hypothèse nulle →</a>
-        <a href="/article/200-ans-de-resultats-nuls-darago-a-einstein" className="text-[9px] font-tech-mono text-[var(--cyan)]/50 hover:text-[var(--cyan)]">200 ans de résultats nuls →</a>
+        <span className="text-[8px] font-tech-mono text-slate-400">ARTICLES :</span>
+        <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[9px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;hypothèse nulle →</a>
+        <a href="/article/200-ans-de-resultats-nuls-darago-a-einstein" className="text-[9px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">200 ans de résultats nuls →</a>
       </div>
     </div>
   </div>;

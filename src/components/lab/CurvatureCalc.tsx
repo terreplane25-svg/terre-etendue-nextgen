@@ -423,7 +423,7 @@ export default function CurvatureCalc(){
 
     <div className="mt-4 border border-[#D4A843]/20 bg-[#0A1020] p-4">
       <div className="text-[11px] font-tech-mono text-[#D4A843]/60 mb-2">À PROPOS DE LA RÉFRACTION</div>
-      <p className="text-[12px] text-[#C8D8E8]/50 font-rajdhani leading-relaxed">
+      <p className="text-[12px] text-[#C8D8E8]/80 font-rajdhani leading-relaxed">
         La réfraction atmosphérique courbe les rayons lumineux vers le sol (l&apos;air dense au sol a un indice plus élevé).
         L&apos;effet est modélisé par un rayon terrestre effectif R&apos; = R/(1−k).
         En conditions standard (k≈0.143), l&apos;horizon recule de ~8%.
@@ -434,10 +434,10 @@ export default function CurvatureCalc(){
     </div>
 
     <div className="mt-4 border-t border-slate-800/30 pt-4 flex flex-wrap items-center gap-5">
-      <span className="text-[11px] font-tech-mono text-slate-500">ARTICLES :</span>
-      <a href="/article/leau-ne-ment-pas" className="text-[12px] font-tech-mono text-[#00C8FF]/60 hover:text-[#00C8FF]">L&apos;eau ne ment pas →</a>
-      <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[12px] font-tech-mono text-[#00C8FF]/60 hover:text-[#00C8FF]">L&apos;hypothèse nulle →</a>
-      <a href="/article/loeil-humain-la-machine-a-voir-qui-faconne-notre-realite" className="text-[12px] font-tech-mono text-[#00C8FF]/60 hover:text-[#00C8FF]">L&apos;œil humain →</a>
+      <span className="text-[11px] font-tech-mono text-slate-400">ARTICLES :</span>
+      <a href="/article/leau-ne-ment-pas" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;eau ne ment pas →</a>
+      <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;hypothèse nulle →</a>
+      <a href="/article/loeil-humain-la-machine-a-voir-qui-faconne-notre-realite" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;œil humain →</a>
     </div>
   </div>;
 }

@@ -379,7 +379,7 @@ export default function LaserLakeSim() {
 
     <div className="mt-4 border border-[#FF4444]/20 bg-[#0A1020] p-4">
       <div className="text-[11px] font-tech-mono text-[#FF4444]/60 mb-2">L&apos;EXPÉRIENCE LASER SUR LAC</div>
-      <p className="text-[12px] text-[#C8D8E8]/50 font-rajdhani leading-relaxed">
+      <p className="text-[12px] text-[#C8D8E8]/80 font-rajdhani leading-relaxed">
         Un laser placé à basse altitude au-dessus d&apos;une surface d&apos;eau calme devrait, sur un globe de 6 371 km de rayon,
         s&apos;éloigner progressivement de la surface. Sur {dist} km, l&apos;écart géométrique attendu est de {(maxBulge * 1000).toFixed(1)} m.
         La réfraction atmosphérique courbe le rayon vers la surface et réduit cet écart à {(maxBulgeRefracted * 1000).toFixed(1)} m
@@ -390,9 +390,9 @@ export default function LaserLakeSim() {
     </div>
 
     <div className="mt-4 border-t border-slate-800/30 pt-4 flex flex-wrap items-center gap-5">
-      <span className="text-[11px] font-tech-mono text-slate-500">ARTICLES :</span>
-      <a href="/article/leau-ne-ment-pas" className="text-[12px] font-tech-mono text-[#00C8FF]/60 hover:text-[#00C8FF]">L&apos;eau ne ment pas →</a>
-      <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[12px] font-tech-mono text-[#00C8FF]/60 hover:text-[#00C8FF]">L&apos;hypothèse nulle →</a>
+      <span className="text-[11px] font-tech-mono text-slate-400">ARTICLES :</span>
+      <a href="/article/leau-ne-ment-pas" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;eau ne ment pas →</a>
+      <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;hypothèse nulle →</a>
     </div>
   </div>;
 }

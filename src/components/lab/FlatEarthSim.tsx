@@ -707,13 +707,13 @@ export default function FlatEarthSim(){
       )}
     </div>
     <div className="mt-3 border border-slate-800/50 bg-[var(--hull)] p-4">
-      <p className="text-[13px] text-[var(--text-60)] font-rajdhani leading-relaxed">
+      <p className="text-[13px] text-[#C8D8E8]/80 font-rajdhani leading-relaxed">
         Modèle Terre plane : carte azimutale équidistante satellite. Le Soleil circule au-dessus du disque — la zone éclairée suit sa position avec les trois bandes crépusculaires (civile −6°, nautique −12°, astronomique −18°). Réglez la date et l&apos;heure pour explorer les éphémérides : positions du Soleil, de la Lune (avec sa phase) et des cinq planètes visibles, avec leur altitude vue depuis {observer.name} (▲ au-dessus de l&apos;horizon, ▼ en dessous). Le marqueur vert indique l&apos;observateur — utilisez 📍 MA POSITION pour le placer chez vous (le trait pointe vers le Nord, c&apos;est-à-dire le centre du disque). La boussole donne les azimuts du Soleil et de la Lune depuis ce point. Le mode ⛰ DÔME place la caméra au sol, à la position de l&apos;observateur : glissez pour balayer le ciel — chaque astre y est placé à son altitude et azimut réels, avec lueur crépusculaire vers le Soleil couchant et étoiles la nuit.
       </p>
       <div className="flex flex-wrap items-center gap-3 mt-3 pt-3 border-t border-slate-800/30">
-        <span className="text-[8px] font-tech-mono text-slate-600">ARTICLES :</span>
-        <a href="/article/le-modele-geocentrique-a-plans-paralleles-mgpp" className="text-[9px] font-tech-mono text-[var(--cyan)]/50 hover:text-[var(--cyan)]">Le MGPP →</a>
-        <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[9px] font-tech-mono text-[var(--cyan)]/50 hover:text-[var(--cyan)]">L&apos;hypothèse nulle →</a>
+        <span className="text-[8px] font-tech-mono text-slate-400">ARTICLES :</span>
+        <a href="/article/le-modele-geocentrique-a-plans-paralleles-mgpp" className="text-[9px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">Le MGPP →</a>
+        <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[9px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;hypothèse nulle →</a>
       </div>
     </div>
   </div>;
