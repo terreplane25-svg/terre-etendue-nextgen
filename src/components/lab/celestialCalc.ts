@@ -18,15 +18,13 @@ export interface CelestialPosition {
  * RA (ascension droite en heures) + heure sidérale → longitude
  */
 function raToSubLongitude(raHours: number, date: Date): number {
-  // Heure sidérale de Greenwich (GMST)
-  const jd = Astronomy.MakeTime(date);
-  // Approximation du GMST
-  const T = (jd.ut) / 36525;
-  const gmst = 280.46061837 + 360.98564736629 * jd.ut + 0.000387933 * T * T;
-  const gmstNorm = ((gmst % 360) + 360) % 360;
-  
+  // Heure sidérale apparente de Greenwich via astronomy-engine
+  // (précision arc-seconde, inclut nutation — remplace l'approximation polynomiale)
+  const gastHours = Astronomy.SiderealTime(date);
+  const gastDeg = gastHours * 15;
+
   const raDeg = raHours * 15; // RA en degrés
-  let lng = raDeg - gmstNorm;
+  let lng = raDeg - gastDeg;
   // Normaliser entre -180 et 180
   lng = ((lng + 180) % 360 + 360) % 360 - 180;
   return lng;

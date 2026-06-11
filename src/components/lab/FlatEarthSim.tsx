@@ -16,15 +16,21 @@ function Label({ text, color='#C8D8E8', show=true }:{ text:string; color?:string
   </Html>;
 }
 
-function EarthDisc({ sunPos }:{ sunPos:[number,number] }) {
+function EarthDisc({ sunLatLng }:{ sunLatLng:[number,number] }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const mapTex = useMemo(()=>new THREE.TextureLoader().load('/textures/ae-map.jpg'),[]);
 
+  // Terminateur réaliste : pour chaque fragment, on retrouve (lat, lng) depuis la
+  // projection azimutale, puis on calcule le cosinus de l'angle zénithal solaire :
+  // cos(Z) = sin(φ)·sin(φ☉) + cos(φ)·cos(φ☉)·cos(λ − λ☉).
+  // Le terminateur est la courbe cos(Z) = 0 (grand cercle à 90° du point subsolaire),
+  // avec une bande crépusculaire douce autour.
   const shader = useMemo(()=>({
     uniforms: {
       uMap: { value: mapTex },
-      uSunPos: { value: new THREE.Vector2(sunPos[0], sunPos[1]) },
-      uRadius: { value: DISC_R * 0.48 },
+      uSunLat: { value: sunLatLng[0] * Math.PI / 180 },
+      uSunLng: { value: sunLatLng[1] * Math.PI / 180 },
+      uDiscR: { value: DISC_R },
     },
     vertexShader: `
       varying vec2 vUv;
@@ -37,26 +43,43 @@ function EarthDisc({ sunPos }:{ sunPos:[number,number] }) {
     `,
     fragmentShader: `
       uniform sampler2D uMap;
-      uniform vec2 uSunPos;
-      uniform float uRadius;
+      uniform float uSunLat;
+      uniform float uSunLng;
+      uniform float uDiscR;
       varying vec2 vUv;
       varying vec3 vPos;
+      const float PI = 3.14159265358979;
+      const float AE_OFFSET = 128.0;
       void main(){
         vec4 texColor = texture2D(uMap, vUv);
-        float dist = distance(vPos.xy, uSunPos);
-        float light = 1.0 - smoothstep(uRadius * 0.6, uRadius * 1.1, dist);
+        // Projection azimutale inverse : position locale → (lat, lng)
+        float r = length(vPos.xy);
+        float lat = (90.0 - (r / uDiscR) * 180.0) * PI / 180.0;
+        // géométrie locale (x,y) → monde (x,-y) après rotation -90° sur X ;
+        // latLngToFlatDisc : x=sin(a)·r, z=-cos(a)·r avec a=(-lng+offset)
+        float a = atan(vPos.x, vPos.y);
+        float lng = (AE_OFFSET - a * 180.0 / PI) * PI / 180.0;
+        // Angle zénithal solaire sphérique
+        float cosZ = sin(lat) * sin(uSunLat) + cos(lat) * cos(uSunLat) * cos(lng - uSunLng);
+        // Bande crépusculaire : ±0.08 autour de cos(Z)=0 (≈ ±4.6° de zénith)
+        float light = smoothstep(-0.08, 0.08, cosZ);
         float brightness = mix(0.08, 1.0, light);
         gl_FragColor = vec4(texColor.rgb * brightness, texColor.a);
       }
     `,
-  }),[mapTex, sunPos]);
+  // uniforms mis à jour impérativement dans le useEffect ci-dessous
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }),[mapTex]);
 
   useEffect(()=>{
     if(meshRef.current){
       const mat = meshRef.current.material as THREE.ShaderMaterial;
-      if(mat.uniforms) mat.uniforms.uSunPos.value.set(sunPos[0], sunPos[1]);
+      if(mat.uniforms){
+        mat.uniforms.uSunLat.value = sunLatLng[0] * Math.PI / 180;
+        mat.uniforms.uSunLng.value = sunLatLng[1] * Math.PI / 180;
+      }
     }
-  },[sunPos]);
+  },[sunLatLng]);
 
   return (
     <mesh ref={meshRef} rotation={[-Math.PI/2, 0, 0]}>
@@ -103,7 +126,10 @@ function FlatScene({ speed, showLabels, isPlaying, showTropics, onDateUpdate }:{
   const moonRef = useRef<THREE.Group>(null);
   const planetRefs = useRef<(THREE.Group|null)[]>([]);
   const timeOffset = useRef(0);
-  const [sunXZ, setSunXZ] = useState<[number,number]>([0,0]);
+  const [sunLatLng, setSunLatLng] = useState<[number,number]>(() => {
+    const p = getAllPositions(new Date());
+    return [p.sun.lat, p.sun.lng];
+  });
   const frameCount = useRef(0);
 
   const SUN_H = 0.3;
@@ -119,7 +145,7 @@ function FlatScene({ speed, showLabels, isPlaying, showTropics, onDateUpdate }:{
 
     const [sx,sz] = latLngToFlatDisc(pos.sun.lat, pos.sun.lng, DISC_R);
     if(sunRef.current) sunRef.current.position.set(sx, SUN_H, sz);
-    setSunXZ([sx, -sz]);
+    setSunLatLng([pos.sun.lat, pos.sun.lng]);
 
     const [mx,mz] = latLngToFlatDisc(pos.moon.lat, pos.moon.lng, DISC_R);
     if(moonRef.current) moonRef.current.position.set(mx, MOON_H, mz);
@@ -140,7 +166,7 @@ function FlatScene({ speed, showLabels, isPlaying, showTropics, onDateUpdate }:{
   return (
     <group>
       <ambientLight intensity={0.1} />
-      <EarthDisc sunPos={sunXZ} />
+      <EarthDisc sunLatLng={sunLatLng} />
       {showTropics && <TropicCircles />}
 
       <group ref={sunRef} position={[0,SUN_H,0]}>

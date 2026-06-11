@@ -8,6 +8,23 @@ const R_EARTH = 6371;
 
 function Reff(k:number):number{ return R_EARTH / (1 - k); }
 
+/** Pression de vapeur saturante (formule de Magnus), en hPa. */
+function satVaporPressure(tempC: number): number {
+  return 6.112 * Math.exp(17.67 * tempC / (tempC + 243.5));
+}
+
+/** Coefficient de réfraction k depuis les conditions atmosphériques.
+ *  Formule géodésique : k ≈ 503·P_eff/T² · (0.0342 + dT/dh)
+ *  avec T en Kelvin, dT/dh en °C/m. L'humidité réduit légèrement la
+ *  réfractivité optique : P_eff = P − 0.13·e (e = pression de vapeur). */
+function refractionK(tempC: number, gradCPerKm: number, rhPercent: number, pressureHpa = 1013): number {
+  const T = tempC + 273.15;
+  const e = (rhPercent / 100) * satVaporPressure(tempC);
+  const pEff = pressureHpa - 0.13 * e;
+  const k = 503 * pEff / (T * T) * (0.0342 + gradCPerKm / 1000);
+  return Math.max(0, Math.min(0.99, k));
+}
+
 function horizonDist(h:number, k:number):number{
   const r = Reff(k);
   return Math.sqrt((r+h)**2 - r**2);
@@ -198,6 +215,11 @@ export default function CurvatureCalc(){
   const [tgtM,setTgtM]=useState(4102);
   const [k,setK]=useState(0.143);
   const [copied,setCopied]=useState(false);
+  const [tempC,setTempC]=useState(15);
+  const [gradC,setGradC]=useState(-6.5);
+  const [rh,setRh]=useState(50);
+
+  const kAtm = refractionK(tempC, gradC, rh);
 
   const oh=obsM/1000,th=tgtM/1000;
   const hidden=hiddenH(dist,oh,k);
@@ -254,6 +276,47 @@ export default function CurvatureCalc(){
         <span className="text-[10px] font-tech-mono text-slate-600 self-center ml-2">
           R&apos; = {Math.round(Reff(k))} km {k>0.01 ? `(×${(Reff(k)/R_EARTH).toFixed(2)})` : ''}
         </span>
+      </div>
+
+      {/* Mode atmosphérique : k calculé depuis T°, gradient et humidité */}
+      <div className="mt-4 pt-4 border-t border-[#D4A843]/20">
+        <div className="text-[10px] font-tech-mono text-[#D4A843]/70 tracking-widest mb-3">
+          MODE ATMOSPHÉRIQUE — k = 503·P_eff/T² · (0.0342 + ΔT/Δh)
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="flex items-center gap-3">
+            <label className="text-[10px] font-tech-mono text-slate-400 w-24">TEMPÉRATURE</label>
+            <input type="range" min={-10} max={40} step={0.5} value={tempC}
+              onChange={e=>setTempC(+e.target.value)} className="flex-1 accent-[#D4A843] h-2"/>
+            <span className="text-[11px] font-tech-mono text-[#D4A843] w-14 text-right">{tempC.toFixed(1)}°C</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <label className="text-[10px] font-tech-mono text-slate-400 w-24">ΔT/Δh</label>
+            <input type="range" min={-10} max={15} step={0.1} value={gradC}
+              onChange={e=>setGradC(+e.target.value)} className="flex-1 accent-[#D4A843] h-2"/>
+            <span className="text-[11px] font-tech-mono text-[#D4A843] w-20 text-right">{gradC.toFixed(1)} °C/km</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <label className="text-[10px] font-tech-mono text-slate-400 w-24">HUMIDITÉ</label>
+            <input type="range" min={0} max={100} step={1} value={rh}
+              onChange={e=>setRh(+e.target.value)} className="flex-1 accent-[#00C8FF] h-2"/>
+            <span className="text-[11px] font-tech-mono text-[#00C8FF] w-14 text-right">{rh}%</span>
+          </div>
+        </div>
+        <div className="flex flex-wrap items-center gap-3 mt-3">
+          <span className="text-[11px] font-tech-mono text-slate-300">
+            k atmosphérique = <span className="text-[#D4A843] font-bold">{kAtm.toFixed(3)}</span>
+          </span>
+          <button onClick={()=>setK(Math.round(kAtm*1000)/1000)}
+            className="px-4 py-1.5 text-[10px] font-tech-mono border border-[#D4A843]/60 text-[#D4A843] bg-[#D4A843]/10 hover:bg-[#D4A843]/20 transition-all">
+            → APPLIQUER CE k
+          </button>
+          <button onClick={()=>{setTempC(15);setGradC(-6.5);setRh(50);}} className="px-3 py-1.5 text-[9px] font-tech-mono border border-slate-600 text-slate-400 hover:text-white">Standard</button>
+          <button onClick={()=>{setTempC(8);setGradC(5);setRh(85);}} className="px-3 py-1.5 text-[9px] font-tech-mono border border-amber-700/40 text-amber-400 hover:bg-amber-400/10">Inversion sur mer froide</button>
+          <span className="text-[9px] font-tech-mono text-slate-600">
+            (l&apos;humidité a un effet optique faible : −0.13·e sur la pression effective)
+          </span>
+        </div>
       </div>
     </div>
 
