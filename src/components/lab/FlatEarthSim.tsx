@@ -3,7 +3,7 @@ import React, { useRef, useState, useMemo, useEffect, useCallback } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Html, Line, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
-import { getAllPositions, latLngToFlatDisc, flatDiscToLatLng, moonPhaseName, DEFAULT_OBSERVER, PRESET_CITIES, haversineKm, centralAngleDeg, greatCirclePoints, bennettRefractionArcmin, nextEclipses, gnomonShadow, type CelestialPosition, type ObserverLocation } from './celestialCalc';
+import { getAllPositions, latLngToFlatDisc, flatDiscToLatLng, moonPhaseName, DEFAULT_OBSERVER, PRESET_CITIES, haversineKm, centralAngleDeg, greatCirclePoints, bennettRefractionArcmin, nextEclipses, gnomonShadow, getStarPositions, BRIGHT_STARS, type CelestialPosition, type ObserverLocation, type StarPosition } from './celestialCalc';
 
 const SUN_C = '#FFD040';
 const MOON_C = '#C8C8D0';
@@ -134,6 +134,24 @@ function TropicCircles() {
 }
 
 /**
+ * Cercle de trajectoire quotidienne : sur le disque AE, un astre de déclinaison δ
+ * parcourt en 24 h le cercle de latitude δ. En accélérant le temps sur une année,
+ * le cercle solaire migre entre les deux tropiques — la « spirale solaire ».
+ */
+function DailyPathCircle({ lat, color, dashed=false }:{ lat:number; color:string; dashed?:boolean }) {
+  const pts = useMemo(()=>{
+    const r = ((90 - lat) / 180) * DISC_R;
+    const arr: THREE.Vector3[] = [];
+    for (let i = 0; i <= 128; i++) {
+      const a = (i / 128) * Math.PI * 2;
+      arr.push(new THREE.Vector3(Math.cos(a) * r, 0.02, Math.sin(a) * r));
+    }
+    return arr;
+  },[lat]);
+  return <Line points={pts} color={color} opacity={dashed?0.3:0.5} transparent lineWidth={dashed?1:1.5} dashed={dashed} dashSize={0.15} gapSize={0.1} />;
+}
+
+/**
  * Marqueur de l'observateur sur le disque : anneau + point verts.
  * Un trait court indique la direction du Nord (vers le centre du disque).
  */
@@ -240,8 +258,8 @@ function ClickableDisc({ onMapClick }:{ onMapClick:(lat:number,lng:number)=>void
   );
 }
 
-function FlatScene({ speed, showLabels, isPlaying, showTropics, dateRef, observer, onMapClick, onPosUpdate, distPoints, showGnomon, showRefraction }:{
-  speed:number; showLabels:boolean; isPlaying:boolean; showTropics:boolean;
+function FlatScene({ speed, showLabels, isPlaying, showTropics, showPaths, dateRef, observer, onMapClick, onPosUpdate, distPoints, showGnomon, showRefraction }:{
+  speed:number; showLabels:boolean; isPlaying:boolean; showTropics:boolean; showPaths:boolean;
   dateRef: React.MutableRefObject<Date>;
   observer: ObserverLocation;
   onMapClick:(lat:number,lng:number)=>void;
@@ -315,6 +333,10 @@ function FlatScene({ speed, showLabels, isPlaying, showTropics, dateRef, observe
       <EarthDisc sunLatLng={sunLatLng} />
       <ClickableDisc onMapClick={onMapClick} />
       {showTropics && <TropicCircles />}
+      {showPaths && <>
+        <DailyPathCircle lat={sunLatLng[0]} color={SUN_C} />
+        <DailyPathCircle lat={posData.moon.lat} color={MOON_C} dashed />
+      </>}
       <ObserverPin observer={observer} show={showLabels} />
 
       <group ref={sunRef} position={[initPos.sun[0],SUN_H,initPos.sun[1]]}>
@@ -417,9 +439,11 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
   const planetRefs = useRef<(THREE.Group|null)[]>([]);
   const skyMatRef = useRef<THREE.ShaderMaterial>(null);
   const starsMatRef = useRef<THREE.PointsMaterial>(null);
+  const realStarsMatRef = useRef<THREE.PointsMaterial>(null);
   const lastMs = useRef(0);
   const frameCount = useRef(0);
   const [posData, setPosData] = useState<PosData>(() => getAllPositions(dateRef.current, observer));
+  const [starData, setStarData] = useState<StarPosition[]>(() => getStarPositions(dateRef.current, observer));
 
   useEffect(()=>{ lastMs.current = 0; },[observer]);
 
@@ -469,6 +493,13 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
     return g;
   },[]);
 
+  // Vraies étoiles nommées : positions mises à jour à chaque changement de date
+  const realStarGeom = useMemo(()=>{
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(BRIGHT_STARS.length*3),3));
+    return g;
+  },[]);
+
   useFrame(()=>{
     if (isPlaying) {
       const dtMs = 0.016 * speed * 30 * 60 * 1000;
@@ -490,15 +521,25 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
       if(ref && p.altitude !== undefined) ref.position.set(...altAzToVec(p.altitude, p.azimuth!, DOME_R*0.9));
     });
 
+    // Étoiles réelles : équatorial → horizontal via le temps sidéral
+    const stars = getStarPositions(dateRef.current, observer);
+    const attr = realStarGeom.getAttribute('position') as THREE.BufferAttribute;
+    stars.forEach((s,i)=>{
+      if (s.altitude < -1) { attr.setXYZ(i, 0, -200, 0); return; }
+      const [x,y,z] = altAzToVec(s.altitude, s.azimuth, DOME_R*0.97);
+      attr.setXYZ(i, x, y, z);
+    });
+    attr.needsUpdate = true;
+
     const sunDir = altAzToVec(pos.sun.altitude ?? 0, pos.sun.azimuth ?? 0, 1);
     if (skyMatRef.current) skyMatRef.current.uniforms.uSunDir.value.set(...sunDir);
-    if (starsMatRef.current) {
-      const day = THREE.MathUtils.smoothstep(sunDir[1], -0.12, 0.12);
-      starsMatRef.current.opacity = (1 - day) * 0.9;
-    }
+    const day = THREE.MathUtils.smoothstep(sunDir[1], -0.12, 0.12);
+    if (starsMatRef.current) starsMatRef.current.opacity = (1 - day) * 0.9;
+    if (realStarsMatRef.current) realStarsMatRef.current.opacity = (1 - day);
 
     if (!isPlaying || frameCount.current % 20 === 0) {
       setPosData(pos);
+      setStarData(stars);
       onPosUpdate(dateRef.current, pos);
     }
   });
@@ -531,6 +572,16 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
       <points geometry={starGeom}>
         <pointsMaterial ref={starsMatRef} color="#FFFFFF" size={0.22} sizeAttenuation transparent opacity={0} depthWrite={false} />
       </points>
+      {/* Catalogue des 50 étoiles les plus brillantes, à leur vraie position alt/az */}
+      <points geometry={realStarGeom}>
+        <pointsMaterial ref={realStarsMatRef} color="#E8F0FF" size={0.55} sizeAttenuation transparent opacity={0} depthWrite={false} />
+      </points>
+      {showLabels && (posData.sun.altitude ?? 0) < -6 &&
+        starData.filter(s => (s.mag <= 1.0 || s.name === 'Polaris') && s.altitude > 3).map(s => (
+          <group key={s.name} position={altAzToVec(s.altitude, s.azimuth, DOME_R*0.97)}>
+            <Label text={s.name} color="#A8C0E8" show />
+          </group>
+        ))}
 
       {/* Sol */}
       <mesh rotation={[-Math.PI/2,0,0]} position={[0,-0.02,0]}>
@@ -645,6 +696,7 @@ export default function FlatEarthSim(){
   const [showLabels,setShowLabels]=useState(true);
   const [isPlaying,setIsPlaying]=useState(true);
   const [showTropics,setShowTropics]=useState(false);
+  const [showPaths,setShowPaths]=useState(false);
   const dateRef = useRef(new Date());
   const [simDate,setSimDate]=useState(()=>dateRef.current);
   const [posData,setPosData]=useState<PosData|null>(null);
@@ -762,10 +814,13 @@ export default function FlatEarthSim(){
       {viewMode==='map' && <button onClick={()=>setShowTropics(!showTropics)}
         className={`px-3 py-1 text-[8px] font-tech-mono border ${showTropics?'border-[#D4A843]/50 text-[#D4A843]':'border-slate-800 text-slate-600'}`}
       >TROPIQUES: {showTropics?'ON':'OFF'}</button>}
+      {viewMode==='map' && <button onClick={()=>setShowPaths(!showPaths)}
+        className={`px-3 py-1 text-[8px] font-tech-mono border ${showPaths?'border-[#FFD040]/50 text-[#FFD040]':'border-slate-800 text-slate-600'}`}
+      >TRAJECTOIRES: {showPaths?'ON':'OFF'}</button>}
       <div className="flex items-center gap-2 ml-auto">
         <span className="text-[8px] font-tech-mono text-slate-500">VIT.</span>
         <input type="range" min={0.1} max={5} step={0.1} value={speed} onChange={e=>setSpeed(+e.target.value)} className="w-16 md:w-20 accent-[var(--cyan)]"/>
-        <span className="text-[8px] font-tech-mono text-[var(--cyan)]">&times;{speed.toFixed(1)}</span>
+        <span className="text-[8px] font-tech-mono text-[var(--cyan)]">&times;{speed>=10?speed.toFixed(0):speed.toFixed(1)}</span>
       </div>
       <button onClick={()=>setShowLabels(!showLabels)}
         className={`px-3 py-1 text-[8px] font-tech-mono border ${showLabels?'border-slate-600 text-slate-400':'border-slate-800 text-slate-600'}`}
@@ -787,6 +842,16 @@ export default function FlatEarthSim(){
       <button onClick={()=>setShowEclipses(!showEclipses)}
         className={`px-2.5 py-1 text-[8px] font-tech-mono border ${showEclipses?'border-[#C45E6A]/60 text-[#C45E6A] bg-[#C45E6A]/10':'border-slate-800 text-slate-600 hover:text-slate-400'}`}
       >◑ ÉCLIPSES</button>
+      <span className="text-[7px] font-tech-mono text-slate-700 tracking-widest ml-3 mr-1">DÉMOS</span>
+      <button onClick={()=>{ setViewMode('map'); setShowPaths(true); setIsPlaying(true); setSpeed(2); }}
+        className="px-2.5 py-1 text-[8px] font-tech-mono border border-slate-800 text-slate-500 hover:text-[#FFD040] hover:border-[#FFD040]/50"
+      >☀ JOURNÉE 24H</button>
+      <button onClick={()=>{ setViewMode('map'); setShowPaths(true); setIsPlaying(true); setSpeed(600); }}
+        className="px-2.5 py-1 text-[8px] font-tech-mono border border-slate-800 text-slate-500 hover:text-[#FFD040] hover:border-[#FFD040]/50"
+      >🌀 ANNÉE — SPIRALE SOLAIRE</button>
+      <button onClick={()=>{ setViewMode('dome'); setIsPlaying(true); setSpeed(2); }}
+        className="px-2.5 py-1 text-[8px] font-tech-mono border border-slate-800 text-slate-500 hover:text-[#A8C0E8] hover:border-[#A8C0E8]/50"
+      >✦ NUIT ÉTOILÉE</button>
     </div>
 
     {/* Contrôles date/heure */}
@@ -940,7 +1005,7 @@ export default function FlatEarthSim(){
       </div>}
       {viewMode==='map' ? (
         <Canvas key="map" camera={{position:[0,12,0.1],fov:50}}>
-          <FlatScene speed={speed} showLabels={showLabels} isPlaying={isPlaying} showTropics={showTropics} dateRef={dateRef} observer={observer} onMapClick={handleMapClick} onPosUpdate={onPosUpdate} distPoints={distPoints.length>0?distPoints:null} showGnomon={showGnomon} showRefraction={showRefraction}/>
+          <FlatScene speed={speed} showLabels={showLabels} isPlaying={isPlaying} showTropics={showTropics} showPaths={showPaths} dateRef={dateRef} observer={observer} onMapClick={handleMapClick} onPosUpdate={onPosUpdate} distPoints={distPoints.length>0?distPoints:null} showGnomon={showGnomon} showRefraction={showRefraction}/>
           <OrbitControls enablePan={false} minDistance={6} maxDistance={20} minPolarAngle={0} maxPolarAngle={Math.PI*0.3}/>
         </Canvas>
       ) : (
@@ -954,7 +1019,7 @@ export default function FlatEarthSim(){
     </div>
     <div className="mt-3 border border-slate-800/50 bg-[var(--hull)] p-4">
       <p className="text-[13px] text-[#C8D8E8]/80 font-rajdhani leading-relaxed">
-        Modèle cinématique : carte azimutale équidistante, éphémérides géocentriques (Astronomy Engine). 📏 DISTANCE : cliquez deux points pour mesurer la distance en km, degrés d&apos;arc et milles nautiques (théorème de l&apos;angle central). ☀ GNOMON : simulation de la méthode historique de l&apos;ombre (dynastie Tang, ratio hauteur/ombre = tan(altitude solaire), unité Lee). ◎ RÉFRACTION : anneaux de Bennett autour de chaque astre montrant l&apos;écart position réelle vs apparente. ◑ ÉCLIPSES : prochaines éclipses solaires et lunaires calculées via éléments besséliens (polynômes sur plan fondamental — pas de rayon terrestre nécessaire). ⛰ DÔME : caméra au sol, chaque astre à son altitude/azimut réels. Toutes les positions sont purement cinématiques : position dans le temps, sans assertion dynamique (gravité, masse).
+        Modèle cinématique : carte azimutale équidistante, éphémérides géocentriques (Astronomy Engine). 📏 DISTANCE : cliquez deux points pour mesurer la distance en km, degrés d&apos;arc et milles nautiques (théorème de l&apos;angle central). ☀ GNOMON : simulation de la méthode historique de l&apos;ombre (dynastie Tang, ratio hauteur/ombre = tan(altitude solaire), unité Lee). ◎ RÉFRACTION : anneaux de Bennett autour de chaque astre montrant l&apos;écart position réelle vs apparente. ◑ ÉCLIPSES : prochaines éclipses solaires et lunaires calculées via éléments besséliens (polynômes sur plan fondamental — pas de rayon terrestre nécessaire). ⛰ DÔME : caméra au sol, chaque astre à son altitude/azimut réels, plus les 50 étoiles les plus brillantes du ciel (Sirius, Véga, Polaris…) calculées via le temps sidéral — leurs noms s&apos;affichent la nuit. TRAJECTOIRES : cercle quotidien du Soleil et de la Lune sur le disque ; la démo 🌀 ANNÉE révèle la spirale solaire entre les deux tropiques. Toutes les positions sont purement cinématiques : position dans le temps, sans assertion dynamique (gravité, masse). Concepts de visualisation inspirés du <em>Conceptual Flat Earth Model</em> (Alan Space Audits).
       </p>
       <div className="flex flex-wrap items-center gap-3 mt-3 pt-3 border-t border-slate-800/30">
         <span className="text-[8px] font-tech-mono text-slate-400">ARTICLES :</span>

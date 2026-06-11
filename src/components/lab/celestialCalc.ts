@@ -244,6 +244,90 @@ export function nextEclipses(date: Date): {
   return { solarDate, solarType, lunarDate, lunarType };
 }
 
+/**
+ * Catalogue des 50 étoiles les plus brillantes du ciel (époque J2000)
+ * RA en heures, déclinaison en degrés, magnitude apparente.
+ * Sert à projeter de vraies étoiles nommées sur la voûte de l'observateur.
+ */
+export interface BrightStar { name: string; ra: number; dec: number; mag: number; }
+
+export const BRIGHT_STARS: BrightStar[] = [
+  { name: 'Sirius', ra: 6.7525, dec: -16.7161, mag: -1.46 },
+  { name: 'Canopus', ra: 6.3992, dec: -52.6957, mag: -0.74 },
+  { name: 'Rigil Kentaurus', ra: 14.6599, dec: -60.8354, mag: -0.27 },
+  { name: 'Arcturus', ra: 14.2610, dec: 19.1825, mag: -0.05 },
+  { name: 'Véga', ra: 18.6156, dec: 38.7837, mag: 0.03 },
+  { name: 'Capella', ra: 5.2782, dec: 45.9980, mag: 0.08 },
+  { name: 'Rigel', ra: 5.2423, dec: -8.2016, mag: 0.13 },
+  { name: 'Procyon', ra: 7.6550, dec: 5.2250, mag: 0.34 },
+  { name: 'Achernar', ra: 1.6286, dec: -57.2368, mag: 0.46 },
+  { name: 'Bételgeuse', ra: 5.9195, dec: 7.4071, mag: 0.50 },
+  { name: 'Hadar', ra: 14.0637, dec: -60.3730, mag: 0.61 },
+  { name: 'Altaïr', ra: 19.8464, dec: 8.8683, mag: 0.76 },
+  { name: 'Acrux', ra: 12.4433, dec: -63.0991, mag: 0.76 },
+  { name: 'Aldébaran', ra: 4.5987, dec: 16.5093, mag: 0.86 },
+  { name: 'Antarès', ra: 16.4901, dec: -26.4320, mag: 0.96 },
+  { name: 'Spica', ra: 13.4199, dec: -11.1613, mag: 0.97 },
+  { name: 'Pollux', ra: 7.7553, dec: 28.0262, mag: 1.14 },
+  { name: 'Fomalhaut', ra: 22.9608, dec: -29.6222, mag: 1.16 },
+  { name: 'Deneb', ra: 20.6905, dec: 45.2803, mag: 1.25 },
+  { name: 'Mimosa', ra: 12.7953, dec: -59.6888, mag: 1.25 },
+  { name: 'Régulus', ra: 10.1395, dec: 11.9672, mag: 1.39 },
+  { name: 'Adhara', ra: 6.9771, dec: -28.9721, mag: 1.50 },
+  { name: 'Castor', ra: 7.5767, dec: 31.8883, mag: 1.58 },
+  { name: 'Shaula', ra: 17.5601, dec: -37.1038, mag: 1.62 },
+  { name: 'Gacrux', ra: 12.5194, dec: -57.1132, mag: 1.64 },
+  { name: 'Bellatrix', ra: 5.4188, dec: 6.3497, mag: 1.64 },
+  { name: 'Elnath', ra: 5.4382, dec: 28.6075, mag: 1.65 },
+  { name: 'Miaplacidus', ra: 9.2200, dec: -69.7172, mag: 1.69 },
+  { name: 'Alnilam', ra: 5.6036, dec: -1.2019, mag: 1.69 },
+  { name: 'Alnair', ra: 22.1372, dec: -46.9610, mag: 1.74 },
+  { name: 'Alnitak', ra: 5.6793, dec: -1.9426, mag: 1.77 },
+  { name: 'Alioth', ra: 12.9005, dec: 55.9598, mag: 1.77 },
+  { name: 'Dubhe', ra: 11.0622, dec: 61.7510, mag: 1.79 },
+  { name: 'Mirfak', ra: 3.4054, dec: 49.8612, mag: 1.80 },
+  { name: 'Wezen', ra: 7.1399, dec: -26.3932, mag: 1.84 },
+  { name: 'Kaus Australis', ra: 18.4029, dec: -34.3846, mag: 1.85 },
+  { name: 'Alkaid', ra: 13.7923, dec: 49.3133, mag: 1.86 },
+  { name: 'Avior', ra: 8.3752, dec: -59.5095, mag: 1.86 },
+  { name: 'Sargas', ra: 17.6219, dec: -42.9978, mag: 1.87 },
+  { name: 'Menkalinan', ra: 5.9921, dec: 44.9474, mag: 1.90 },
+  { name: 'Atria', ra: 16.8110, dec: -69.0277, mag: 1.92 },
+  { name: 'Alhena', ra: 6.6285, dec: 16.3993, mag: 1.92 },
+  { name: 'Peacock', ra: 20.4275, dec: -56.7351, mag: 1.94 },
+  { name: 'Polaris', ra: 2.5302, dec: 89.2641, mag: 1.98 },
+  { name: 'Mirzam', ra: 6.3783, dec: -17.9559, mag: 1.98 },
+  { name: 'Alphard', ra: 9.4598, dec: -8.6587, mag: 2.00 },
+  { name: 'Hamal', ra: 2.1196, dec: 23.4624, mag: 2.00 },
+  { name: 'Diphda', ra: 0.7265, dec: -17.9866, mag: 2.04 },
+  { name: 'Nunki', ra: 18.9211, dec: -26.2967, mag: 2.06 },
+  { name: 'Mizar', ra: 13.3988, dec: 54.9254, mag: 2.07 },
+];
+
+export interface StarPosition extends BrightStar { altitude: number; azimuth: number; }
+
+/**
+ * Altitude/azimut des étoiles brillantes pour un observateur et une date.
+ * Angle horaire H = TSL − RA, puis transformation équatorial → horizontal :
+ * sin(alt) = sin(φ)·sin(δ) + cos(φ)·cos(δ)·cos(H)
+ * az mesuré depuis le Nord vers l'Est.
+ */
+export function getStarPositions(date: Date, obs: ObserverLocation): StarPosition[] {
+  const lstDeg = Astronomy.SiderealTime(date) * 15 + obs.lng;
+  const latR = obs.lat * Math.PI / 180;
+  return BRIGHT_STARS.map(s => {
+    const haR = ((lstDeg - s.ra * 15) * Math.PI) / 180;
+    const decR = s.dec * Math.PI / 180;
+    const sinAlt = Math.sin(latR) * Math.sin(decR) + Math.cos(latR) * Math.cos(decR) * Math.cos(haR);
+    const alt = Math.asin(Math.max(-1, Math.min(1, sinAlt)));
+    const az = Math.atan2(
+      -Math.cos(decR) * Math.sin(haR),
+      Math.sin(decR) * Math.cos(latR) - Math.cos(decR) * Math.sin(latR) * Math.cos(haR)
+    );
+    return { ...s, altitude: alt * 180 / Math.PI, azimuth: ((az * 180 / Math.PI) + 360) % 360 };
+  });
+}
+
 /** Longueur et direction de l'ombre d'un gnomon de hauteur h, pour une altitude et azimut solaires donnés */
 export function gnomonShadow(sunAltDeg: number, sunAzDeg: number, gnomonH: number): { length: number; dirDeg: number } | null {
   if (sunAltDeg <= 0) return null;
