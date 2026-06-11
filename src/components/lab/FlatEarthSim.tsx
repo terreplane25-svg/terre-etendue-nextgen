@@ -3,7 +3,7 @@ import React, { useRef, useState, useMemo, useEffect, useCallback } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Html, Line, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
-import { getAllPositions, latLngToFlatDisc, moonPhaseName, DEFAULT_OBSERVER, type CelestialPosition, type ObserverLocation } from './celestialCalc';
+import { getAllPositions, latLngToFlatDisc, flatDiscToLatLng, moonPhaseName, DEFAULT_OBSERVER, PRESET_CITIES, type CelestialPosition, type ObserverLocation } from './celestialCalc';
 
 const SUN_C = '#FFD040';
 const MOON_C = '#C8C8D0';
@@ -156,10 +156,26 @@ function ObserverPin({ observer, show }:{ observer:ObserverLocation; show:boolea
   </group>;
 }
 
-function FlatScene({ speed, showLabels, isPlaying, showTropics, dateRef, observer, onPosUpdate }:{
+function ClickableDisc({ onMapClick }:{ onMapClick:(lat:number,lng:number)=>void }) {
+  return (
+    <mesh rotation={[-Math.PI/2,0,0]} position={[0,0.005,0]}
+      onClick={(e) => {
+        e.stopPropagation();
+        const { x, z } = e.point;
+        const result = flatDiscToLatLng(x, z, DISC_R);
+        if (result) onMapClick(result[0], result[1]);
+      }}>
+      <circleGeometry args={[DISC_R, 128]} />
+      <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+    </mesh>
+  );
+}
+
+function FlatScene({ speed, showLabels, isPlaying, showTropics, dateRef, observer, onMapClick, onPosUpdate }:{
   speed:number; showLabels:boolean; isPlaying:boolean; showTropics:boolean;
   dateRef: React.MutableRefObject<Date>;
   observer: ObserverLocation;
+  onMapClick:(lat:number,lng:number)=>void;
   onPosUpdate:(d:Date, p:PosData)=>void;
 }) {
   const sunRef = useRef<THREE.Group>(null);
@@ -225,6 +241,7 @@ function FlatScene({ speed, showLabels, isPlaying, showTropics, dateRef, observe
     <group>
       <ambientLight intensity={0.1} />
       <EarthDisc sunLatLng={sunLatLng} />
+      <ClickableDisc onMapClick={onMapClick} />
       {showTropics && <TropicCircles />}
       <ObserverPin observer={observer} show={showLabels} />
 
@@ -538,24 +555,55 @@ export default function FlatEarthSim(){
   const [simDate,setSimDate]=useState(()=>dateRef.current);
   const [posData,setPosData]=useState<PosData|null>(null);
   const [observer,setObserver]=useState<ObserverLocation>(DEFAULT_OBSERVER);
-  const [geoStatus,setGeoStatus]=useState<'idle'|'loading'|'error'>('idle');
   const [viewMode,setViewMode]=useState<'map'|'dome'>('map');
+  const [searchQuery,setSearchQuery]=useState('');
+  const [showCityList,setShowCityList]=useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
 
-  const isCustomObs = observer.name === 'Ma position';
+  const filteredCities = useMemo(()=>{
+    if (!searchQuery.trim()) return PRESET_CITIES;
+    const q = searchQuery.toLowerCase();
+    return PRESET_CITIES.filter(c => c.name.toLowerCase().includes(q));
+  },[searchQuery]);
 
-  const locateMe = useCallback(()=>{
-    if (isCustomObs) { setObserver(DEFAULT_OBSERVER); setGeoStatus('idle'); return; }
-    if (!navigator.geolocation) { setGeoStatus('error'); return; }
-    setGeoStatus('loading');
-    navigator.geolocation.getCurrentPosition(
-      p => {
-        setObserver({ lat: p.coords.latitude, lng: p.coords.longitude, name: 'Ma position' });
-        setGeoStatus('idle');
-      },
-      () => setGeoStatus('error'),
-      { timeout: 10000 }
-    );
-  },[isCustomObs]);
+  const selectCity = useCallback((city: ObserverLocation)=>{
+    setObserver(city);
+    setSearchQuery('');
+    setShowCityList(false);
+  },[]);
+
+  const handleMapClick = useCallback((lat:number, lng:number)=>{
+    const name = `${lat.toFixed(2)}°, ${lng.toFixed(2)}°`;
+    setObserver({ lat, lng, name });
+  },[]);
+
+  const handleSearchSubmit = useCallback((e: React.FormEvent)=>{
+    e.preventDefault();
+    const q = searchQuery.trim();
+    if (!q) return;
+    // Coordonnées numériques : "48.85, 2.35" ou "48.85 2.35"
+    const coordMatch = q.match(/^(-?\d+\.?\d*)[,\s]+(-?\d+\.?\d*)$/);
+    if (coordMatch) {
+      const lat = parseFloat(coordMatch[1]), lng = parseFloat(coordMatch[2]);
+      if (lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
+        selectCity({ lat, lng, name: `${lat.toFixed(2)}°, ${lng.toFixed(2)}°` });
+        return;
+      }
+    }
+    // Ville trouvée dans les presets
+    if (filteredCities.length > 0) {
+      selectCity(filteredCities[0]);
+    }
+  },[searchQuery, filteredCities, selectCity]);
+
+  // Fermer la liste au clic extérieur
+  useEffect(()=>{
+    const handler = (e:MouseEvent)=>{
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) setShowCityList(false);
+    };
+    document.addEventListener('mousedown', handler);
+    return ()=>document.removeEventListener('mousedown', handler);
+  },[]);
 
   const onPosUpdate = useCallback((d:Date, p:PosData)=>{
     setSimDate(new Date(d));
@@ -621,20 +669,49 @@ export default function FlatEarthSim(){
       <div className="w-px h-8 bg-slate-800 mx-1 hidden md:block" />
       <DateStepper label="HEURE" value={simDate.getHours().toString().padStart(2,'0')+'h'} onStep={d=>adjustDate('hour',d)} />
       <DateStepper label="MIN ±10" value={simDate.getMinutes().toString().padStart(2,'0')} onStep={d=>adjustDate('minute',d)} />
-      <div className="ml-auto flex items-center gap-2 flex-wrap">
-        <button onClick={locateMe} disabled={geoStatus==='loading'}
-          className={`px-3 py-1.5 text-[8px] font-tech-mono tracking-widest border ${
-            isCustomObs ? 'border-[var(--cyan)]/50 text-[var(--cyan)] hover:bg-[var(--cyan)]/10'
-            : 'border-[#00E87B]/50 text-[#00E87B] hover:bg-[#00E87B]/10'
-          } disabled:opacity-50`}
-        >{geoStatus==='loading' ? '… LOCALISATION' : isCustomObs ? `↺ ${DEFAULT_OBSERVER.name.toUpperCase()}` : '📍 MA POSITION'}</button>
-        <button onClick={resetNow}
-          className="px-3 py-1.5 text-[8px] font-tech-mono tracking-widest border border-[var(--green)]/50 text-[var(--green)] hover:bg-[var(--green)]/10"
-        >● MAINTENANT</button>
+      <button onClick={resetNow}
+        className="px-3 py-1.5 text-[8px] font-tech-mono tracking-widest border border-[var(--green)]/50 text-[var(--green)] hover:bg-[var(--green)]/10"
+      >● MAINTENANT</button>
+    </div>
+
+    {/* Recherche de lieu / observateur */}
+    <div className="flex flex-wrap items-center gap-2 mb-3 p-2 border border-slate-800/50 bg-[var(--hull)]">
+      <span className="text-[8px] font-tech-mono text-[#00E87B] tracking-widest shrink-0">📍 OBSERVATEUR</span>
+      <span className="text-[9px] font-tech-mono text-[var(--cyan)]">{observer.name}</span>
+      <span className="text-[8px] font-tech-mono text-slate-600">({observer.lat.toFixed(2)}°, {observer.lng.toFixed(2)}°)</span>
+      <div ref={searchRef} className="relative ml-auto">
+        <form onSubmit={handleSearchSubmit} className="flex">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={e=>{ setSearchQuery(e.target.value); setShowCityList(true); }}
+            onFocus={()=>setShowCityList(true)}
+            placeholder="Ville ou lat, lng…"
+            className="w-40 md:w-52 px-2 py-1.5 text-[9px] font-tech-mono bg-[#060A14] border border-slate-800 text-[var(--cyan)] placeholder-slate-700 outline-none focus:border-[var(--cyan)]/50"
+          />
+          <button type="submit" className="px-2 py-1.5 text-[9px] font-tech-mono border border-l-0 border-slate-800 text-slate-500 hover:text-[var(--cyan)] hover:bg-[var(--cyan)]/10">→</button>
+        </form>
+        {showCityList && (
+          <div className="absolute top-full right-0 mt-1 w-56 max-h-52 overflow-y-auto border border-slate-800 bg-[#060A14] z-50 shadow-lg">
+            <div className="px-2 py-1 text-[7px] font-tech-mono text-slate-700 tracking-widest border-b border-slate-800/50">
+              {viewMode==='map' ? 'CLIQUEZ SUR LA CARTE OU CHOISISSEZ' : 'CHOISISSEZ UN LIEU'}
+            </div>
+            {filteredCities.map(city=>(
+              <button key={city.name} onClick={()=>selectCity(city)}
+                className={`w-full text-left px-2 py-1.5 text-[9px] font-tech-mono hover:bg-[var(--cyan)]/10 flex justify-between ${
+                  observer.name===city.name ? 'text-[#00E87B]' : 'text-slate-400'
+                }`}
+              >
+                <span>{city.name}</span>
+                <span className="text-slate-700">{city.lat.toFixed(1)}°, {city.lng.toFixed(1)}°</span>
+              </button>
+            ))}
+            {filteredCities.length===0 && (
+              <div className="px-2 py-2 text-[8px] font-tech-mono text-slate-600">Tapez des coordonnées : 48.85, 2.35</div>
+            )}
+          </div>
+        )}
       </div>
-      {geoStatus==='error' && (
-        <span className="w-full text-[8px] font-tech-mono text-[#FF6655]">Géolocalisation indisponible — vérifiez les permissions du navigateur.</span>
-      )}
     </div>
 
     <div className="w-full h-[55vh] md:h-[70vh] border border-slate-800/50 bg-[#020408] relative overflow-hidden">
@@ -646,7 +723,7 @@ export default function FlatEarthSim(){
         <div className="text-[9px] font-tech-mono text-[var(--green)] tracking-widest">
           {viewMode==='map' ? '◉ TERRE PLANE — VUE DU DESSUS' : '◉ DÔME CÉLESTE — VUE DE L’OBSERVATEUR'}
         </div>
-        <div className="text-[8px] font-tech-mono text-slate-600 mt-1">Éphémérides : Astronomy Engine — {viewMode==='map'?'Alt. depuis':'Observateur :'} {observer.name} ({observer.lat.toFixed(1)}°, {observer.lng.toFixed(1)}°)</div>
+        <div className="text-[8px] font-tech-mono text-slate-600 mt-1">Éphémérides : Astronomy Engine — {viewMode==='map'?'Cliquez pour placer l\'observateur':'Observateur :'} {observer.name}</div>
         {viewMode==='dome' && <div className="text-[8px] font-tech-mono text-slate-700 mt-0.5">Glissez pour regarder autour de vous</div>}
       </div>
       {/* Date & saison */}
@@ -694,7 +771,7 @@ export default function FlatEarthSim(){
       </div>}
       {viewMode==='map' ? (
         <Canvas key="map" camera={{position:[0,12,0.1],fov:50}}>
-          <FlatScene speed={speed} showLabels={showLabels} isPlaying={isPlaying} showTropics={showTropics} dateRef={dateRef} observer={observer} onPosUpdate={onPosUpdate}/>
+          <FlatScene speed={speed} showLabels={showLabels} isPlaying={isPlaying} showTropics={showTropics} dateRef={dateRef} observer={observer} onMapClick={handleMapClick} onPosUpdate={onPosUpdate}/>
           <OrbitControls enablePan={false} minDistance={6} maxDistance={20} minPolarAngle={0} maxPolarAngle={Math.PI*0.3}/>
         </Canvas>
       ) : (
@@ -708,7 +785,7 @@ export default function FlatEarthSim(){
     </div>
     <div className="mt-3 border border-slate-800/50 bg-[var(--hull)] p-4">
       <p className="text-[13px] text-[#C8D8E8]/80 font-rajdhani leading-relaxed">
-        Modèle Terre plane : carte azimutale équidistante satellite. Le Soleil circule au-dessus du disque — la zone éclairée suit sa position avec les trois bandes crépusculaires (civile −6°, nautique −12°, astronomique −18°). Réglez la date et l&apos;heure pour explorer les éphémérides : positions du Soleil, de la Lune (avec sa phase) et des cinq planètes visibles, avec leur altitude vue depuis {observer.name} (▲ au-dessus de l&apos;horizon, ▼ en dessous). Le marqueur vert indique l&apos;observateur — utilisez 📍 MA POSITION pour le placer chez vous (le trait pointe vers le Nord, c&apos;est-à-dire le centre du disque). La boussole donne les azimuts du Soleil et de la Lune depuis ce point. Le mode ⛰ DÔME place la caméra au sol, à la position de l&apos;observateur : glissez pour balayer le ciel — chaque astre y est placé à son altitude et azimut réels, avec lueur crépusculaire vers le Soleil couchant et étoiles la nuit.
+        Modèle Terre plane : carte azimutale équidistante satellite. Le Soleil circule au-dessus du disque — la zone éclairée suit sa position avec les trois bandes crépusculaires (civile −6°, nautique −12°, astronomique −18°). Réglez la date et l&apos;heure pour explorer les éphémérides : positions du Soleil, de la Lune (avec sa phase) et des cinq planètes visibles, avec leur altitude vue depuis l&apos;observateur (▲ au-dessus de l&apos;horizon, ▼ en dessous). Cliquez sur la carte pour placer l&apos;observateur, ou tapez un nom de ville / des coordonnées dans le champ de recherche. La boussole donne les azimuts du Soleil et de la Lune depuis ce point. Le mode ⛰ DÔME place la caméra au sol : glissez pour balayer le ciel — chaque astre y est placé à son altitude et azimut réels, avec lueur crépusculaire vers le Soleil couchant et étoiles la nuit.
       </p>
       <div className="flex flex-wrap items-center gap-3 mt-3 pt-3 border-t border-slate-800/30">
         <span className="text-[8px] font-tech-mono text-slate-400">ARTICLES :</span>

@@ -22,6 +22,36 @@ export interface ObserverLocation {
 
 export const DEFAULT_OBSERVER: ObserverLocation = { lat: 48.853, lng: 2.35, name: 'Paris' };
 
+/** Projection azimutale inverse : position sur le disque (x, z) → (lat, lng) en degrés */
+export function flatDiscToLatLng(x: number, z: number, discRadius: number): [number, number] | null {
+  const r = Math.sqrt(x * x + z * z);
+  if (r > discRadius) return null;
+  const lat = 90 - (r / discRadius) * 180;
+  const AE_OFFSET = 128;
+  const a = Math.atan2(x, -z);
+  let lng = AE_OFFSET - (a * 180) / Math.PI;
+  lng = ((lng + 180) % 360 + 360) % 360 - 180;
+  return [lat, lng];
+}
+
+export const PRESET_CITIES: ObserverLocation[] = [
+  { lat: 21.4225, lng: 39.8262, name: 'La Mecque' },
+  { lat: 24.4672, lng: 39.6112, name: 'Médine' },
+  { lat: 48.853, lng: 2.35, name: 'Paris' },
+  { lat: 51.507, lng: -0.128, name: 'Londres' },
+  { lat: 40.713, lng: -74.006, name: 'New York' },
+  { lat: 35.682, lng: 139.692, name: 'Tokyo' },
+  { lat: -33.868, lng: 151.209, name: 'Sydney' },
+  { lat: -22.907, lng: -43.172, name: 'Rio de Janeiro' },
+  { lat: 55.756, lng: 37.617, name: 'Moscou' },
+  { lat: 30.044, lng: 31.236, name: 'Le Caire' },
+  { lat: -1.286, lng: 36.817, name: 'Nairobi' },
+  { lat: 31.768, lng: 35.214, name: 'Jérusalem' },
+  { lat: 33.513, lng: 36.292, name: 'Damas' },
+  { lat: 41.009, lng: 28.980, name: 'Istanbul' },
+  { lat: 39.916, lng: 116.397, name: 'Pékin' },
+];
+
 /**
  * Calcule la longitude subsolaire/sublunaire/subplanétaire
  * RA (ascension droite en heures) + heure sidérale → longitude
