@@ -3,7 +3,7 @@ import React, { useRef, useState, useMemo, useEffect, useCallback } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Html, Line, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
-import { getAllPositions, latLngToFlatDisc, flatDiscToLatLng, moonPhaseName, DEFAULT_OBSERVER, PRESET_CITIES, haversineKm, centralAngleDeg, greatCirclePoints, bennettRefractionArcmin, nextEclipses, gnomonShadow, getStarPositions, BRIGHT_STARS, type CelestialPosition, type ObserverLocation, type StarPosition } from './celestialCalc';
+import { getAllPositions, latLngToFlatDisc, flatDiscToLatLng, moonPhaseName, DEFAULT_OBSERVER, PRESET_CITIES, haversineKm, centralAngleDeg, greatCirclePoints, nextEclipses, getStarPositions, BRIGHT_STARS, type CelestialPosition, type ObserverLocation, type StarPosition } from './celestialCalc';
 
 const SUN_C = '#FFD040';
 const MOON_C = '#C8C8D0';
@@ -201,47 +201,6 @@ function DistanceLine({ a, b }:{ a:[number,number]; b:[number,number] }) {
   </group>;
 }
 
-/** Gnomon : pointe verticale + ombre projetée sur le disque */
-function GnomonMarker({ observer, sunAlt, sunAz }:{ observer:ObserverLocation; sunAlt:number; sunAz:number }) {
-  const [ox,oz] = latLngToFlatDisc(observer.lat, observer.lng, DISC_R);
-  const shadow = gnomonShadow(sunAlt, sunAz, 0.4);
-  if (!shadow) return null;
-  const sLen = Math.min(shadow.length, 2.5);
-  const sRad = shadow.dirDeg * Math.PI / 180;
-  // Direction dans le repère local du disque AE
-  const AE_OFFSET = 180;
-  const localRad = ((-shadow.dirDeg + AE_OFFSET) * Math.PI) / 180;
-  const sx = ox + Math.sin(localRad) * sLen * 0.5;
-  const sz = oz - Math.cos(localRad) * sLen * 0.5;
-  return <group>
-    {/* Pointe du gnomon */}
-    <mesh position={[ox, 0.4, oz]}>
-      <cylinderGeometry args={[0.015, 0.03, 0.4, 8]} />
-      <meshBasicMaterial color="#D4A843" />
-    </mesh>
-    {/* Ombre */}
-    <Line
-      points={[new THREE.Vector3(ox, 0.02, oz), new THREE.Vector3(sx, 0.02, sz)]}
-      color="#1A1A30" lineWidth={3} opacity={0.6} transparent
-    />
-    <group position={[sx, 0.03, sz]}>
-      <Label text={`Ombre: ${(sLen/0.4*100).toFixed(0)}%`} color="#D4A843" show />
-    </group>
-  </group>;
-}
-
-/** Anneau de réfraction autour d'un corps céleste (position écran disque) */
-function RefractionRing({ body, height }:{ body:CelestialPosition; height:number }) {
-  if (body.altitude === undefined) return null;
-  const refrac = bennettRefractionArcmin(body.altitude) / 60;
-  if (refrac < 0.02) return null;
-  const [x,z] = latLngToFlatDisc(body.lat, body.lng, DISC_R);
-  const r = Math.min(refrac * 0.08, 0.3);
-  return <mesh position={[x, height+0.01, z]} rotation={[-Math.PI/2,0,0]}>
-    <ringGeometry args={[r, r+0.015, 32]} />
-    <meshBasicMaterial color="#FF9452" transparent opacity={0.5} side={THREE.DoubleSide} />
-  </mesh>;
-}
 
 function ClickableDisc({ onMapClick }:{ onMapClick:(lat:number,lng:number)=>void }) {
   return (
@@ -258,15 +217,13 @@ function ClickableDisc({ onMapClick }:{ onMapClick:(lat:number,lng:number)=>void
   );
 }
 
-function FlatScene({ speed, showLabels, isPlaying, showTropics, showPaths, dateRef, observer, onMapClick, onPosUpdate, distPoints, showGnomon, showRefraction }:{
+function FlatScene({ speed, showLabels, isPlaying, showTropics, showPaths, dateRef, observer, onMapClick, onPosUpdate, distPoints }:{
   speed:number; showLabels:boolean; isPlaying:boolean; showTropics:boolean; showPaths:boolean;
   dateRef: React.MutableRefObject<Date>;
   observer: ObserverLocation;
   onMapClick:(lat:number,lng:number)=>void;
   onPosUpdate:(d:Date, p:PosData)=>void;
   distPoints: [number,number][] | null;
-  showGnomon: boolean;
-  showRefraction: boolean;
 }) {
   const sunRef = useRef<THREE.Group>(null);
   const moonRef = useRef<THREE.Group>(null);
@@ -380,17 +337,6 @@ function FlatScene({ speed, showLabels, isPlaying, showTropics, showPaths, dateR
         </mesh>
       )}
 
-      {/* Gnomon */}
-      {showGnomon && posData.sun.altitude !== undefined && posData.sun.azimuth !== undefined && (
-        <GnomonMarker observer={observer} sunAlt={posData.sun.altitude} sunAz={posData.sun.azimuth} />
-      )}
-
-      {/* Réfraction rings */}
-      {showRefraction && <>
-        <RefractionRing body={posData.sun} height={SUN_H} />
-        <RefractionRing body={posData.moon} height={MOON_H} />
-        {posData.planets.map(p => <RefractionRing key={p.name} body={p} height={0.2} />)}
-      </>}
     </group>
   );
 }
@@ -428,17 +374,17 @@ function altAzToVec(altDeg: number, azDeg: number, r: number): [number, number, 
   return [Math.cos(alt) * Math.sin(az) * r, Math.sin(alt) * r, -Math.cos(alt) * Math.cos(az) * r];
 }
 
-function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdate }:{
+function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdate, onSelectBody }:{
   speed:number; showLabels:boolean; isPlaying:boolean;
   dateRef: React.MutableRefObject<Date>;
   observer: ObserverLocation;
   onPosUpdate:(d:Date, p:PosData)=>void;
+  onSelectBody:(name:string, alt:number, az:number)=>void;
 }) {
   const sunRef = useRef<THREE.Group>(null);
   const moonRef = useRef<THREE.Group>(null);
   const planetRefs = useRef<(THREE.Group|null)[]>([]);
   const skyMatRef = useRef<THREE.ShaderMaterial>(null);
-  const starsMatRef = useRef<THREE.PointsMaterial>(null);
   const realStarsMatRef = useRef<THREE.PointsMaterial>(null);
   const lastMs = useRef(0);
   const frameCount = useRef(0);
@@ -477,21 +423,6 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
       }
     `,
   }),[]);
-
-  // Champ d'étoiles fixes (positions aléatoires sur le dôme, opacité liée à la nuit)
-  const starGeom = useMemo(()=>{
-    const n = 450;
-    const arr = new Float32Array(n*3);
-    for(let i=0;i<n;i++){
-      const az = Math.random()*360;
-      const alt = Math.asin(Math.random())*180/Math.PI; // distribution uniforme sur la sphère
-      const [x,y,z] = altAzToVec(alt, az, DOME_R*0.98);
-      arr[i*3]=x; arr[i*3+1]=y; arr[i*3+2]=z;
-    }
-    const g = new THREE.BufferGeometry();
-    g.setAttribute('position', new THREE.BufferAttribute(arr,3));
-    return g;
-  },[]);
 
   // Vraies étoiles nommées : positions mises à jour à chaque changement de date
   const realStarGeom = useMemo(()=>{
@@ -534,7 +465,6 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
     const sunDir = altAzToVec(pos.sun.altitude ?? 0, pos.sun.azimuth ?? 0, 1);
     if (skyMatRef.current) skyMatRef.current.uniforms.uSunDir.value.set(...sunDir);
     const day = THREE.MathUtils.smoothstep(sunDir[1], -0.12, 0.12);
-    if (starsMatRef.current) starsMatRef.current.opacity = (1 - day) * 0.9;
     if (realStarsMatRef.current) realStarsMatRef.current.opacity = (1 - day);
 
     if (!isPlaying || frameCount.current % 20 === 0) {
@@ -557,11 +487,13 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
   // eslint-disable-next-line react-hooks/exhaustive-deps
   []);
 
+  const groundTex = useMemo(()=>new THREE.TextureLoader().load('/textures/ae-map.jpg'),[]);
+
   return (
     <group>
-      {/* Dôme céleste */}
+      {/* Voûte céleste complète (sphère entière) */}
       <mesh>
-        <sphereGeometry args={[DOME_R, 48, 24, 0, Math.PI*2, 0, Math.PI*0.55]} />
+        <sphereGeometry args={[DOME_R, 64, 32]} />
         <shaderMaterial ref={skyMatRef}
           uniforms={skyShader.uniforms}
           vertexShader={skyShader.vertexShader}
@@ -569,24 +501,26 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
           side={THREE.BackSide} depthWrite={false}
         />
       </mesh>
-      <points geometry={starGeom}>
-        <pointsMaterial ref={starsMatRef} color="#FFFFFF" size={0.22} sizeAttenuation transparent opacity={0} depthWrite={false} />
-      </points>
-      {/* Catalogue des 50 étoiles les plus brillantes, à leur vraie position alt/az */}
+      {/* 50 étoiles les plus brillantes, à leur vraie position alt/az */}
       <points geometry={realStarGeom}>
         <pointsMaterial ref={realStarsMatRef} color="#E8F0FF" size={0.55} sizeAttenuation transparent opacity={0} depthWrite={false} />
       </points>
-      {showLabels && (posData.sun.altitude ?? 0) < -6 &&
-        starData.filter(s => (s.mag <= 1.0 || s.name === 'Polaris') && s.altitude > 3).map(s => (
-          <group key={s.name} position={altAzToVec(s.altitude, s.azimuth, DOME_R*0.97)}>
-            <Label text={s.name} color="#A8C0E8" show />
-          </group>
-        ))}
+      {/* Étoiles cliquables : sphères invisibles larges + label uniquement quand NOMS est ON et c'est la nuit */}
+      {starData.filter(s => s.altitude > 1).map(s => (
+        <group key={s.name} position={altAzToVec(s.altitude, s.azimuth, DOME_R*0.97)}>
+          <mesh onClick={(e) => { e.stopPropagation(); onSelectBody(`✦ ${s.name} (mag ${s.mag.toFixed(1)})`, s.altitude, s.azimuth); }}>
+            <sphereGeometry args={[1.8, 8, 8]} />
+            <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+          </mesh>
+          {showLabels && (posData.sun.altitude ?? 0) < -6 && (s.mag <= 1.0 || s.name === 'Polaris') &&
+            <Label text={s.name} color="#A8C0E8" show />}
+        </group>
+      ))}
 
-      {/* Sol */}
+      {/* Sol avec texture carte AE */}
       <mesh rotation={[-Math.PI/2,0,0]} position={[0,-0.02,0]}>
-        <circleGeometry args={[DOME_R*1.1, 64]} />
-        <meshBasicMaterial color="#070A06" />
+        <circleGeometry args={[DOME_R*0.6, 128]} />
+        <meshBasicMaterial map={groundTex} />
       </mesh>
 
       {/* Horizon + cercles d'altitude 30° et 60° */}
@@ -602,7 +536,8 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
       ))}
 
       {/* Soleil */}
-      <group ref={sunRef} position={initSun}>
+      <group ref={sunRef} position={initSun}
+        onClick={(e) => { e.stopPropagation(); if(posData.sun.altitude!==undefined) onSelectBody(`☉ Soleil`, posData.sun.altitude, posData.sun.azimuth!); }}>
         <Billboard>
           <mesh><circleGeometry args={[2,32]} /><meshBasicMaterial color={SUN_C} /></mesh>
           <mesh><circleGeometry args={[4.2,32]} /><meshBasicMaterial color={SUN_C} transparent opacity={0.15} depthWrite={false} /></mesh>
@@ -611,7 +546,8 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
       </group>
 
       {/* Lune */}
-      <group ref={moonRef}>
+      <group ref={moonRef}
+        onClick={(e) => { e.stopPropagation(); if(posData.moon.altitude!==undefined) onSelectBody(`☾ Lune`, posData.moon.altitude, posData.moon.azimuth!); }}>
         <Billboard>
           <mesh><circleGeometry args={[1.4,32]} /><meshBasicMaterial color={MOON_C} /></mesh>
         </Billboard>
@@ -620,7 +556,8 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
 
       {/* Planètes */}
       {posData.planets.map((p,i)=>(
-        <group key={p.name} ref={el=>{planetRefs.current[i]=el;}}>
+        <group key={p.name} ref={el=>{planetRefs.current[i]=el;}}
+          onClick={(e) => { e.stopPropagation(); if(p.altitude!==undefined) onSelectBody(p.name, p.altitude, p.azimuth!); }}>
           <Billboard>
             <mesh><circleGeometry args={[p.size*4,16]} /><meshBasicMaterial color={p.color} /></mesh>
           </Billboard>
@@ -707,9 +644,8 @@ export default function FlatEarthSim(){
   const searchRef = useRef<HTMLDivElement>(null);
   const [distMode,setDistMode]=useState(false);
   const [distPoints,setDistPoints]=useState<[number,number][]>([]);
-  const [showGnomon,setShowGnomon]=useState(false);
-  const [showRefraction,setShowRefraction]=useState(false);
   const [showEclipses,setShowEclipses]=useState(false);
+  const [selectedBody,setSelectedBody]=useState<{name:string;alt:number;az:number}|null>(null);
   const [eclipseData,setEclipseData]=useState<ReturnType<typeof nextEclipses>|null>(null);
 
   const filteredCities = useMemo(()=>{
@@ -762,6 +698,10 @@ export default function FlatEarthSim(){
     };
     document.addEventListener('mousedown', handler);
     return ()=>document.removeEventListener('mousedown', handler);
+  },[]);
+
+  const handleSelectBody = useCallback((name:string, alt:number, az:number)=>{
+    setSelectedBody({ name, alt, az });
   },[]);
 
   const onPosUpdate = useCallback((d:Date, p:PosData)=>{
@@ -833,12 +773,6 @@ export default function FlatEarthSim(){
       {viewMode==='map' && <button onClick={()=>{ setDistMode(!distMode); if(distMode) setDistPoints([]); }}
         className={`px-2.5 py-1 text-[8px] font-tech-mono border ${distMode?'border-[#FF6B6B]/60 text-[#FF6B6B] bg-[#FF6B6B]/10':'border-slate-800 text-slate-600 hover:text-slate-400'}`}
       >📏 DISTANCE {distMode && distPoints.length < 2 ? `(${distPoints.length}/2)` : ''}</button>}
-      <button onClick={()=>setShowGnomon(!showGnomon)}
-        className={`px-2.5 py-1 text-[8px] font-tech-mono border ${showGnomon?'border-[#D4A843]/60 text-[#D4A843] bg-[#D4A843]/10':'border-slate-800 text-slate-600 hover:text-slate-400'}`}
-      >☀ GNOMON</button>
-      <button onClick={()=>setShowRefraction(!showRefraction)}
-        className={`px-2.5 py-1 text-[8px] font-tech-mono border ${showRefraction?'border-[#FF9452]/60 text-[#FF9452] bg-[#FF9452]/10':'border-slate-800 text-slate-600 hover:text-slate-400'}`}
-      >◎ RÉFRACTION</button>
       <button onClick={()=>setShowEclipses(!showEclipses)}
         className={`px-2.5 py-1 text-[8px] font-tech-mono border ${showEclipses?'border-[#C45E6A]/60 text-[#C45E6A] bg-[#C45E6A]/10':'border-slate-800 text-slate-600 hover:text-slate-400'}`}
       >◑ ÉCLIPSES</button>
@@ -941,24 +875,15 @@ export default function FlatEarthSim(){
           </div>
         </div>
       )}
-      {/* Gnomon HUD */}
-      {showGnomon && posData && posData.sun.altitude !== undefined && (
-        <div className="absolute top-14 left-3 z-10 px-3 py-2 border border-[#D4A843]/40 bg-[#060A14]/90 backdrop-blur-sm">
-          <div className="text-[8px] font-tech-mono text-[#D4A843] tracking-widest mb-1">☀ GNOMON — MÉTHODE DE L&apos;OMBRE</div>
-          {posData.sun.altitude > 0 ? (<>
-            <div className="text-[9px] font-tech-mono text-slate-400">
-              Alt. solaire : <span className="text-[#FFD040]">{posData.sun.altitude.toFixed(1)}°</span>
-            </div>
-            <div className="text-[9px] font-tech-mono text-slate-400">
-              Ratio ombre/hauteur : <span className="text-[#D4A843]">{(1/Math.tan(posData.sun.altitude*Math.PI/180)).toFixed(2)}</span>
-            </div>
-            <div className="text-[9px] font-tech-mono text-slate-400">
-              Direction : <span className="text-slate-300">{((posData.sun.azimuth!+180)%360).toFixed(0)}° ({posData.sun.azimuth!>90&&posData.sun.azimuth!<270?'N':'S'})</span>
-            </div>
-            <div className="text-[7px] font-tech-mono text-slate-700 mt-1">Tang : 1 Lee = {(111.32/351*1000).toFixed(1)} m par degré sidéral</div>
-          </>) : (
-            <div className="text-[9px] font-tech-mono text-slate-600">Soleil sous l&apos;horizon — pas d&apos;ombre</div>
-          )}
+      {/* Info astre sélectionné (clic dans le dôme) */}
+      {selectedBody && viewMode==='dome' && (
+        <div className="absolute top-14 left-3 z-10 px-3 py-2 border border-[#A8C0E8]/40 bg-[#060A14]/90 backdrop-blur-sm cursor-pointer"
+          onClick={()=>setSelectedBody(null)}>
+          <div className="text-[10px] font-tech-mono text-[#A8C0E8] mb-0.5">{selectedBody.name}</div>
+          <div className="text-[9px] font-tech-mono text-slate-400">
+            Altitude : <span className="text-[var(--cyan)]">{selectedBody.alt.toFixed(1)}°</span> — Azimut : <span className="text-[var(--cyan)]">{selectedBody.az.toFixed(1)}°</span>
+          </div>
+          <div className="text-[7px] font-tech-mono text-slate-700 mt-1">Cliquez pour fermer</div>
         </div>
       )}
 
@@ -1005,21 +930,21 @@ export default function FlatEarthSim(){
       </div>}
       {viewMode==='map' ? (
         <Canvas key="map" camera={{position:[0,12,0.1],fov:50}}>
-          <FlatScene speed={speed} showLabels={showLabels} isPlaying={isPlaying} showTropics={showTropics} showPaths={showPaths} dateRef={dateRef} observer={observer} onMapClick={handleMapClick} onPosUpdate={onPosUpdate} distPoints={distPoints.length>0?distPoints:null} showGnomon={showGnomon} showRefraction={showRefraction}/>
+          <FlatScene speed={speed} showLabels={showLabels} isPlaying={isPlaying} showTropics={showTropics} showPaths={showPaths} dateRef={dateRef} observer={observer} onMapClick={handleMapClick} onPosUpdate={onPosUpdate} distPoints={distPoints.length>0?distPoints:null}/>
           <OrbitControls enablePan={false} minDistance={6} maxDistance={20} minPolarAngle={0} maxPolarAngle={Math.PI*0.3}/>
         </Canvas>
       ) : (
         <Canvas key="dome" camera={{position:[0,1.6,0.12],fov:65}}>
-          <DomeScene speed={speed} showLabels={showLabels} isPlaying={isPlaying} dateRef={dateRef} observer={observer} onPosUpdate={onPosUpdate}/>
+          <DomeScene speed={speed} showLabels={showLabels} isPlaying={isPlaying} dateRef={dateRef} observer={observer} onPosUpdate={onPosUpdate} onSelectBody={handleSelectBody}/>
           <OrbitControls enablePan={false} enableZoom={false} target={[0,1.6,0]}
             minDistance={0.12} maxDistance={0.12} rotateSpeed={-0.35}
-            minPolarAngle={Math.PI*0.12} maxPolarAngle={Math.PI*0.58}/>
+            minPolarAngle={0.05} maxPolarAngle={Math.PI*0.85}/>
         </Canvas>
       )}
     </div>
     <div className="mt-3 border border-slate-800/50 bg-[var(--hull)] p-4">
       <p className="text-[13px] text-[#C8D8E8]/80 font-rajdhani leading-relaxed">
-        Modèle cinématique : carte azimutale équidistante, éphémérides géocentriques (Astronomy Engine). 📏 DISTANCE : cliquez deux points pour mesurer la distance en km, degrés d&apos;arc et milles nautiques (théorème de l&apos;angle central). ☀ GNOMON : simulation de la méthode historique de l&apos;ombre (dynastie Tang, ratio hauteur/ombre = tan(altitude solaire), unité Lee). ◎ RÉFRACTION : anneaux de Bennett autour de chaque astre montrant l&apos;écart position réelle vs apparente. ◑ ÉCLIPSES : prochaines éclipses solaires et lunaires calculées via éléments besséliens (polynômes sur plan fondamental — pas de rayon terrestre nécessaire). ⛰ DÔME : caméra au sol, chaque astre à son altitude/azimut réels, plus les 50 étoiles les plus brillantes du ciel (Sirius, Véga, Polaris…) calculées via le temps sidéral — leurs noms s&apos;affichent la nuit. TRAJECTOIRES : cercle quotidien du Soleil et de la Lune sur le disque ; la démo 🌀 ANNÉE révèle la spirale solaire entre les deux tropiques. Toutes les positions sont purement cinématiques : position dans le temps, sans assertion dynamique (gravité, masse). Concepts de visualisation inspirés du <em>Conceptual Flat Earth Model</em> (Alan Space Audits).
+        Modèle cinématique : carte azimutale équidistante, éphémérides géocentriques (Astronomy Engine). 📏 DISTANCE : cliquez deux points pour mesurer la distance en km, degrés d&apos;arc et milles nautiques (théorème de l&apos;angle central). ◑ ÉCLIPSES : prochaines éclipses solaires et lunaires calculées via éléments besséliens (polynômes sur plan fondamental — pas de rayon terrestre nécessaire). ⛰ DÔME : caméra au sol avec carte AE au sol, regardez dans toutes les directions y compris au zénith. Cliquez sur un astre ou une étoile pour voir son nom, altitude et azimut. 50 étoiles les plus brillantes du ciel (Sirius, Véga, Polaris…) calculées via le temps sidéral. TRAJECTOIRES : cercle quotidien du Soleil et de la Lune sur le disque ; la démo 🌀 ANNÉE révèle la spirale solaire entre les deux tropiques. Toutes les positions sont purement cinématiques : position dans le temps, sans assertion dynamique (gravité, masse). Concepts de visualisation inspirés du <em>Conceptual Flat Earth Model</em> (Alan Space Audits).
       </p>
       <div className="flex flex-wrap items-center gap-3 mt-3 pt-3 border-t border-slate-800/30">
         <span className="text-[8px] font-tech-mono text-slate-400">ARTICLES :</span>
