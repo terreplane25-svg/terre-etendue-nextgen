@@ -11,7 +11,16 @@ export interface CelestialPosition {
   lng: number;    // Heure angle → longitude subplanétaire
   size: number;   // Taille visuelle relative
   altitude?: number; // Altitude en degrés (pour observateur)
+  azimuth?: number;  // Azimut en degrés (pour observateur)
 }
+
+export interface ObserverLocation {
+  lat: number;
+  lng: number;
+  name: string;
+}
+
+export const DEFAULT_OBSERVER: ObserverLocation = { lat: 48.853, lng: 2.35, name: 'Paris' };
 
 /**
  * Calcule la longitude subsolaire/sublunaire/subplanétaire
@@ -33,19 +42,26 @@ function raToSubLongitude(raHours: number, date: Date): number {
 /**
  * Obtient les positions de tous les corps célestes pour une date donnée
  */
-export function getAllPositions(date: Date): {
+export function getAllPositions(date: Date, obsLoc?: ObserverLocation): {
   sun: CelestialPosition;
   moon: CelestialPosition;
   planets: CelestialPosition[];
   moonPhaseAngle: number;
   moonIllumination: number;
 } {
-  const obs = new Astronomy.Observer(0, 0, 0);
-  
+  const obs = new Astronomy.Observer(obsLoc?.lat ?? 0, obsLoc?.lng ?? 0, 0);
+
+  // Coordonnées horizontales (altitude/azimut) pour l'observateur
+  const horizon = (ra: number, dec: number): { altitude?: number; azimuth?: number } => {
+    if (!obsLoc) return {};
+    const hor = Astronomy.Horizon(date, obs, ra, dec, 'normal');
+    return { altitude: hor.altitude, azimuth: hor.azimuth };
+  };
+
   // Soleil
   const sunEq = Astronomy.Equator(Astronomy.Body.Sun, date, obs, true, true);
   const sunLng = raToSubLongitude(sunEq.ra, date);
-  
+
   // Lune
   const moonEq = Astronomy.Equator(Astronomy.Body.Moon, date, obs, true, true);
   const moonLng = raToSubLongitude(moonEq.ra, date);
@@ -76,16 +92,32 @@ export function getAllPositions(date: Date): {
       lat: eq.dec,
       lng: raToSubLongitude(eq.ra, date),
       size: p.size,
+      ...horizon(eq.ra, eq.dec),
     };
   });
-  
+
   return {
-    sun: { name: 'Soleil', color: '#FFD040', lat: sunEq.dec, lng: sunLng, size: 0.22 },
-    moon: { name: 'Lune', color: '#C8C8D0', lat: moonEq.dec, lng: moonLng, size: 0.12 },
+    sun: { name: 'Soleil', color: '#FFD040', lat: sunEq.dec, lng: sunLng, size: 0.22, ...horizon(sunEq.ra, sunEq.dec) },
+    moon: { name: 'Lune', color: '#C8C8D0', lat: moonEq.dec, lng: moonLng, size: 0.12, ...horizon(moonEq.ra, moonEq.dec) },
     planets,
     moonPhaseAngle,
     moonIllumination: moonIll,
   };
+}
+
+/**
+ * Nom de la phase lunaire en français à partir de l'angle de phase (0 = nouvelle lune)
+ */
+export function moonPhaseName(phaseAngle: number): string {
+  const a = ((phaseAngle % 360) + 360) % 360;
+  if (a < 22.5 || a >= 337.5) return 'Nouvelle lune';
+  if (a < 67.5) return 'Premier croissant';
+  if (a < 112.5) return 'Premier quartier';
+  if (a < 157.5) return 'Gibbeuse croissante';
+  if (a < 202.5) return 'Pleine lune';
+  if (a < 247.5) return 'Gibbeuse décroissante';
+  if (a < 292.5) return 'Dernier quartier';
+  return 'Dernier croissant';
 }
 
 /**
