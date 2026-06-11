@@ -27,7 +27,7 @@ export function flatDiscToLatLng(x: number, z: number, discRadius: number): [num
   const r = Math.sqrt(x * x + z * z);
   if (r > discRadius) return null;
   const lat = 90 - (r / discRadius) * 180;
-  const AE_OFFSET = 128;
+  const AE_OFFSET = 180;
   const a = Math.atan2(x, -z);
   let lng = AE_OFFSET - (a * 180) / Math.PI;
   lng = ((lng + 180) % 360 + 360) % 360 - 180;
@@ -155,9 +155,10 @@ export function moonPhaseName(phaseAngle: number): string {
  * Pôle Nord au centre, Antarctique en bordure
  */
 export function latLngToFlatDisc(lat: number, lng: number, discRadius: number): [number, number] {
-  // Offset calibré sur l'image satellite AE (128°)
-  // Longitude inversée pour que le mouvement soit HORAIRE vu du dessus (pôle Nord)
-  const AE_OFFSET = 128;
+  // Orientation de la texture ae-map.jpg : méridien de Greenwich (0°) vers le bas,
+  // longitudes Est en sens anti-horaire → angle écran a = 180° − lng.
+  // Longitude inversée pour que le mouvement du Soleil soit HORAIRE vu du dessus (pôle Nord)
+  const AE_OFFSET = 180;
   const lngRad = ((-lng + AE_OFFSET) * Math.PI) / 180;
   const r = ((90 - lat) / 180) * discRadius;
   const x = Math.sin(lngRad) * r;

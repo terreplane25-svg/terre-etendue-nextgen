@@ -58,7 +58,7 @@ function EarthDisc({ sunLatLng }:{ sunLatLng:[number,number] }) {
       varying vec2 vUv;
       varying vec3 vPos;
       const float PI = 3.14159265358979;
-      const float AE_OFFSET = 128.0;
+      const float AE_OFFSET = 180.0;
       void main(){
         vec4 texColor = texture2D(uMap, vUv);
         // Projection azimutale inverse : position locale → (lat, lng)
