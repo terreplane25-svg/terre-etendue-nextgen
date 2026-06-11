@@ -3,7 +3,7 @@ import React, { useRef, useState, useMemo, useEffect, useCallback } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Html, Line } from '@react-three/drei';
 import * as THREE from 'three';
-import { getAllPositions, latLngToFlatDisc, moonPhaseName, DEFAULT_OBSERVER, type CelestialPosition } from './celestialCalc';
+import { getAllPositions, latLngToFlatDisc, moonPhaseName, DEFAULT_OBSERVER, type CelestialPosition, type ObserverLocation } from './celestialCalc';
 
 const SUN_C = '#FFD040';
 const MOON_C = '#C8C8D0';
@@ -133,9 +133,33 @@ function TropicCircles() {
   </>;
 }
 
-function FlatScene({ speed, showLabels, isPlaying, showTropics, dateRef, onPosUpdate }:{
+/**
+ * Marqueur de l'observateur sur le disque : anneau + point verts.
+ * Un trait court indique la direction du Nord (vers le centre du disque).
+ */
+function ObserverPin({ observer, show }:{ observer:ObserverLocation; show:boolean }) {
+  const [x,z] = latLngToFlatDisc(observer.lat, observer.lng, DISC_R);
+  // Direction du Nord sur la carte AE : vers le pôle (centre du disque)
+  const d = Math.max(Math.hypot(x,z), 1e-6);
+  const nx = -x/d, nz = -z/d;
+  return <group position={[x,0.06,z]}>
+    <mesh rotation={[-Math.PI/2,0,0]}>
+      <ringGeometry args={[0.07,0.11,24]} />
+      <meshBasicMaterial color="#00E87B" side={THREE.DoubleSide} />
+    </mesh>
+    <mesh rotation={[-Math.PI/2,0,0]}>
+      <circleGeometry args={[0.035,16]} />
+      <meshBasicMaterial color="#00E87B" />
+    </mesh>
+    <Line points={[new THREE.Vector3(0,0,0), new THREE.Vector3(nx*0.35,0,nz*0.35)]} color="#00E87B" opacity={0.7} transparent lineWidth={1.5} />
+    <Label text={`📍 ${observer.name}`} color="#00E87B" show={show} />
+  </group>;
+}
+
+function FlatScene({ speed, showLabels, isPlaying, showTropics, dateRef, observer, onPosUpdate }:{
   speed:number; showLabels:boolean; isPlaying:boolean; showTropics:boolean;
   dateRef: React.MutableRefObject<Date>;
+  observer: ObserverLocation;
   onPosUpdate:(d:Date, p:PosData)=>void;
 }) {
   const sunRef = useRef<THREE.Group>(null);
@@ -143,11 +167,14 @@ function FlatScene({ speed, showLabels, isPlaying, showTropics, dateRef, onPosUp
   const planetRefs = useRef<(THREE.Group|null)[]>([]);
   const lastMs = useRef(0);
   const frameCount = useRef(0);
-  const [posData, setPosData] = useState<PosData>(() => getAllPositions(dateRef.current, DEFAULT_OBSERVER));
+  const [posData, setPosData] = useState<PosData>(() => getAllPositions(dateRef.current, observer));
   const [sunLatLng, setSunLatLng] = useState<[number,number]>([posData.sun.lat, posData.sun.lng]);
 
   const SUN_H = 0.3;
   const MOON_H = 0.25;
+
+  // Forcer un recalcul quand l'observateur change (les altitudes en dépendent)
+  useEffect(()=>{ lastMs.current = 0; },[observer]);
 
   useFrame(()=>{
     if (isPlaying) {
@@ -161,7 +188,7 @@ function FlatScene({ speed, showLabels, isPlaying, showTropics, dateRef, onPosUp
     if (ms === lastMs.current) return;
     lastMs.current = ms;
 
-    const pos = getAllPositions(dateRef.current, DEFAULT_OBSERVER);
+    const pos = getAllPositions(dateRef.current, observer);
 
     const [sx,sz] = latLngToFlatDisc(pos.sun.lat, pos.sun.lng, DISC_R);
     if(sunRef.current) sunRef.current.position.set(sx, SUN_H, sz);
@@ -184,7 +211,7 @@ function FlatScene({ speed, showLabels, isPlaying, showTropics, dateRef, onPosUp
   });
 
   const initPos = useMemo(()=>{
-    const p = getAllPositions(dateRef.current, DEFAULT_OBSERVER);
+    const p = getAllPositions(dateRef.current, observer);
     return {
       sun: latLngToFlatDisc(p.sun.lat, p.sun.lng, DISC_R),
       moon: latLngToFlatDisc(p.moon.lat, p.moon.lng, DISC_R),
@@ -199,6 +226,7 @@ function FlatScene({ speed, showLabels, isPlaying, showTropics, dateRef, onPosUp
       <ambientLight intensity={0.1} />
       <EarthDisc sunLatLng={sunLatLng} />
       {showTropics && <TropicCircles />}
+      <ObserverPin observer={observer} show={showLabels} />
 
       <group ref={sunRef} position={[initPos.sun[0],SUN_H,initPos.sun[1]]}>
         <mesh rotation={[-Math.PI/2,0,0]}>
@@ -257,6 +285,51 @@ function MoonPhaseIcon({ phase, size=34 }:{ phase:number; size?:number }) {
   );
 }
 
+/**
+ * Boussole : azimuts du Soleil et de la Lune vus depuis l'observateur.
+ * Aiguilles pleines au-dessus de l'horizon, estompées en dessous.
+ */
+function CompassHUD({ sun, moon }:{ sun:CelestialPosition; moon:CelestialPosition }) {
+  const size = 92, cx = size/2, cy = size/2, R = 33;
+  const needle = (azDeg:number, len:number) => {
+    const a = azDeg * Math.PI / 180;
+    return { x: cx + Math.sin(a)*len, y: cy - Math.cos(a)*len };
+  };
+  const bodies = [
+    { p: sun, color: SUN_C, sym: '☉' },
+    { p: moon, color: MOON_C, sym: '☾' },
+  ].filter(b => b.p.azimuth !== undefined);
+  return (
+    <div className="flex flex-col items-center gap-1 px-2.5 py-2 border border-slate-800/70 bg-[#060A14]/85 backdrop-blur-sm">
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        <circle cx={cx} cy={cy} r={R+6} fill="none" stroke="#2A3448" strokeWidth="1" />
+        {[0,45,90,135,180,225,270,315].map(a=>{
+          const o = needle(a, R+6), i = needle(a, a%90===0 ? R : R+3);
+          return <line key={a} x1={i.x} y1={i.y} x2={o.x} y2={o.y} stroke="#3A4458" strokeWidth="1" />;
+        })}
+        {[['N',0,'#00E87B'],['E',90,'#8090A8'],['S',180,'#8090A8'],['O',270,'#8090A8']].map(([t,a,c])=>{
+          const pos = needle(a as number, R+13);
+          return <text key={t as string} x={pos.x} y={pos.y+3} textAnchor="middle" fontSize="8" fontFamily="monospace" fill={c as string} fontWeight="bold">{t}</text>;
+        })}
+        {bodies.map(({p,color})=>{
+          const tip = needle(p.azimuth!, R-2);
+          const vis = (p.altitude ?? 0) >= 0;
+          return <g key={p.name} opacity={vis ? 1 : 0.3}>
+            <line x1={cx} y1={cy} x2={tip.x} y2={tip.y} stroke={color} strokeWidth="1.5" />
+            <circle cx={tip.x} cy={tip.y} r="3" fill={color} />
+          </g>;
+        })}
+        <circle cx={cx} cy={cy} r="2" fill="#4A5468" />
+      </svg>
+      <div className="text-[7px] font-tech-mono text-slate-500 whitespace-nowrap">
+        {bodies.map(({p,sym},i)=>(
+          <span key={p.name}>{i>0 && ' · '}{sym} {p.azimuth!.toFixed(0)}°</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function DateStepper({ label, value, onStep }:{ label:string; value:string; onStep:(delta:number)=>void }) {
   return (
     <div className="flex flex-col items-center gap-0.5">
@@ -280,6 +353,24 @@ export default function FlatEarthSim(){
   const dateRef = useRef(new Date());
   const [simDate,setSimDate]=useState(()=>dateRef.current);
   const [posData,setPosData]=useState<PosData|null>(null);
+  const [observer,setObserver]=useState<ObserverLocation>(DEFAULT_OBSERVER);
+  const [geoStatus,setGeoStatus]=useState<'idle'|'loading'|'error'>('idle');
+
+  const isCustomObs = observer.name === 'Ma position';
+
+  const locateMe = useCallback(()=>{
+    if (isCustomObs) { setObserver(DEFAULT_OBSERVER); setGeoStatus('idle'); return; }
+    if (!navigator.geolocation) { setGeoStatus('error'); return; }
+    setGeoStatus('loading');
+    navigator.geolocation.getCurrentPosition(
+      p => {
+        setObserver({ lat: p.coords.latitude, lng: p.coords.longitude, name: 'Ma position' });
+        setGeoStatus('idle');
+      },
+      () => setGeoStatus('error'),
+      { timeout: 10000 }
+    );
+  },[isCustomObs]);
 
   const onPosUpdate = useCallback((d:Date, p:PosData)=>{
     setSimDate(new Date(d));
@@ -337,9 +428,20 @@ export default function FlatEarthSim(){
       <div className="w-px h-8 bg-slate-800 mx-1 hidden md:block" />
       <DateStepper label="HEURE" value={simDate.getHours().toString().padStart(2,'0')+'h'} onStep={d=>adjustDate('hour',d)} />
       <DateStepper label="MIN ±10" value={simDate.getMinutes().toString().padStart(2,'0')} onStep={d=>adjustDate('minute',d)} />
-      <button onClick={resetNow}
-        className="ml-auto px-3 py-1.5 text-[8px] font-tech-mono tracking-widest border border-[var(--green)]/50 text-[var(--green)] hover:bg-[var(--green)]/10"
-      >● MAINTENANT</button>
+      <div className="ml-auto flex items-center gap-2 flex-wrap">
+        <button onClick={locateMe} disabled={geoStatus==='loading'}
+          className={`px-3 py-1.5 text-[8px] font-tech-mono tracking-widest border ${
+            isCustomObs ? 'border-[var(--cyan)]/50 text-[var(--cyan)] hover:bg-[var(--cyan)]/10'
+            : 'border-[#00E87B]/50 text-[#00E87B] hover:bg-[#00E87B]/10'
+          } disabled:opacity-50`}
+        >{geoStatus==='loading' ? '… LOCALISATION' : isCustomObs ? `↺ ${DEFAULT_OBSERVER.name.toUpperCase()}` : '📍 MA POSITION'}</button>
+        <button onClick={resetNow}
+          className="px-3 py-1.5 text-[8px] font-tech-mono tracking-widest border border-[var(--green)]/50 text-[var(--green)] hover:bg-[var(--green)]/10"
+        >● MAINTENANT</button>
+      </div>
+      {geoStatus==='error' && (
+        <span className="w-full text-[8px] font-tech-mono text-[#FF6655]">Géolocalisation indisponible — vérifiez les permissions du navigateur.</span>
+      )}
     </div>
 
     <div className="w-full h-[55vh] md:h-[70vh] border border-slate-800/50 bg-[#020408] relative overflow-hidden">
@@ -349,7 +451,7 @@ export default function FlatEarthSim(){
       <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-[var(--cyan-20)] z-10"/>
       <div className="absolute top-3 left-3 z-10">
         <div className="text-[9px] font-tech-mono text-[var(--green)] tracking-widest">◉ TERRE PLANE — VUE DU DESSUS</div>
-        <div className="text-[8px] font-tech-mono text-slate-600 mt-1">Éphémérides : Astronomy Engine — Alt. depuis {DEFAULT_OBSERVER.name}</div>
+        <div className="text-[8px] font-tech-mono text-slate-600 mt-1">Éphémérides : Astronomy Engine — Alt. depuis {observer.name} ({observer.lat.toFixed(1)}°, {observer.lng.toFixed(1)}°)</div>
       </div>
       {/* Date & saison */}
       <div className="absolute top-3 right-3 z-10 text-right">
@@ -360,13 +462,16 @@ export default function FlatEarthSim(){
           {simDate.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' })} — {seasonName}
         </div>
       </div>
-      {/* Phase lunaire */}
+      {/* Boussole + phase lunaire */}
       {posData && (
-        <div className="absolute bottom-3 right-3 z-10 flex items-center gap-2.5 px-3 py-2 border border-slate-800/70 bg-[#060A14]/85 backdrop-blur-sm">
-          <MoonPhaseIcon phase={posData.moonPhaseAngle} />
-          <div className="text-right">
-            <div className="text-[9px] font-tech-mono text-[#C8C8D0]">{moonPhaseName(posData.moonPhaseAngle)}</div>
-            <div className="text-[8px] font-tech-mono text-slate-500">Illumination : {posData.moonIllumination.toFixed(0)} %</div>
+        <div className="absolute bottom-3 right-3 z-10 flex flex-col items-end gap-2">
+          <CompassHUD sun={posData.sun} moon={posData.moon} />
+          <div className="flex items-center gap-2.5 px-3 py-2 border border-slate-800/70 bg-[#060A14]/85 backdrop-blur-sm">
+            <MoonPhaseIcon phase={posData.moonPhaseAngle} />
+            <div className="text-right">
+              <div className="text-[9px] font-tech-mono text-[#C8C8D0]">{moonPhaseName(posData.moonPhaseAngle)}</div>
+              <div className="text-[8px] font-tech-mono text-slate-500">Illumination : {posData.moonIllumination.toFixed(0)} %</div>
+            </div>
           </div>
         </div>
       )}
@@ -392,13 +497,13 @@ export default function FlatEarthSim(){
         </div>
       </div>
       <Canvas camera={{position:[0,12,0.1],fov:50}}>
-        <FlatScene speed={speed} showLabels={showLabels} isPlaying={isPlaying} showTropics={showTropics} dateRef={dateRef} onPosUpdate={onPosUpdate}/>
+        <FlatScene speed={speed} showLabels={showLabels} isPlaying={isPlaying} showTropics={showTropics} dateRef={dateRef} observer={observer} onPosUpdate={onPosUpdate}/>
         <OrbitControls enablePan={false} minDistance={6} maxDistance={20} minPolarAngle={0} maxPolarAngle={Math.PI*0.3}/>
       </Canvas>
     </div>
     <div className="mt-3 border border-slate-800/50 bg-[var(--hull)] p-4">
       <p className="text-[13px] text-[var(--text-60)] font-rajdhani leading-relaxed">
-        Modèle Terre plane : carte azimutale équidistante satellite. Le Soleil circule au-dessus du disque — la zone éclairée suit sa position avec les trois bandes crépusculaires (civile −6°, nautique −12°, astronomique −18°). Réglez la date et l&apos;heure pour explorer les éphémérides : positions du Soleil, de la Lune (avec sa phase) et des cinq planètes visibles, avec leur altitude vue depuis {DEFAULT_OBSERVER.name} (▲ au-dessus de l&apos;horizon, ▼ en dessous).
+        Modèle Terre plane : carte azimutale équidistante satellite. Le Soleil circule au-dessus du disque — la zone éclairée suit sa position avec les trois bandes crépusculaires (civile −6°, nautique −12°, astronomique −18°). Réglez la date et l&apos;heure pour explorer les éphémérides : positions du Soleil, de la Lune (avec sa phase) et des cinq planètes visibles, avec leur altitude vue depuis {observer.name} (▲ au-dessus de l&apos;horizon, ▼ en dessous). Le marqueur vert indique l&apos;observateur — utilisez 📍 MA POSITION pour le placer chez vous (le trait pointe vers le Nord, c&apos;est-à-dire le centre du disque). La boussole donne les azimuts du Soleil et de la Lune depuis ce point.
       </p>
       <div className="flex flex-wrap items-center gap-3 mt-3 pt-3 border-t border-slate-800/30">
         <span className="text-[8px] font-tech-mono text-slate-600">ARTICLES :</span>
