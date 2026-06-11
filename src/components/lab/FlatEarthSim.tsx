@@ -1,7 +1,7 @@
 'use client';
 import React, { useRef, useState, useMemo, useEffect, useCallback } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Html, Line } from '@react-three/drei';
+import { OrbitControls, Html, Line, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 import { getAllPositions, latLngToFlatDisc, moonPhaseName, DEFAULT_OBSERVER, type CelestialPosition, type ObserverLocation } from './celestialCalc';
 
@@ -285,6 +285,190 @@ function MoonPhaseIcon({ phase, size=34 }:{ phase:number; size?:number }) {
   );
 }
 
+// ————— VUE DÔME (observateur au sol) —————
+
+const DOME_R = 50;
+
+/** Coordonnées horizontales → position 3D : azimut 0°=Nord (−z), 90°=Est (+x) */
+function altAzToVec(altDeg: number, azDeg: number, r: number): [number, number, number] {
+  const alt = altDeg * Math.PI / 180, az = azDeg * Math.PI / 180;
+  return [Math.cos(alt) * Math.sin(az) * r, Math.sin(alt) * r, -Math.cos(alt) * Math.cos(az) * r];
+}
+
+function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdate }:{
+  speed:number; showLabels:boolean; isPlaying:boolean;
+  dateRef: React.MutableRefObject<Date>;
+  observer: ObserverLocation;
+  onPosUpdate:(d:Date, p:PosData)=>void;
+}) {
+  const sunRef = useRef<THREE.Group>(null);
+  const moonRef = useRef<THREE.Group>(null);
+  const planetRefs = useRef<(THREE.Group|null)[]>([]);
+  const skyMatRef = useRef<THREE.ShaderMaterial>(null);
+  const starsMatRef = useRef<THREE.PointsMaterial>(null);
+  const lastMs = useRef(0);
+  const frameCount = useRef(0);
+  const [posData, setPosData] = useState<PosData>(() => getAllPositions(dateRef.current, observer));
+
+  useEffect(()=>{ lastMs.current = 0; },[observer]);
+
+  // Ciel : gradient zénith/horizon jour↔nuit + lueur crépusculaire orangée vers le Soleil
+  const skyShader = useMemo(()=>({
+    uniforms: { uSunDir: { value: new THREE.Vector3(0,1,0) } },
+    vertexShader: `
+      varying vec3 vDir;
+      void main(){
+        vDir = normalize(position);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+      }
+    `,
+    fragmentShader: `
+      uniform vec3 uSunDir;
+      varying vec3 vDir;
+      void main(){
+        float h = max(vDir.y, 0.0);
+        float sunAlt = uSunDir.y; // sin(altitude solaire)
+        float day = smoothstep(-0.12, 0.12, sunAlt);
+        vec3 zen = mix(vec3(0.008, 0.012, 0.030), vec3(0.10, 0.32, 0.65), day);
+        vec3 hor = mix(vec3(0.025, 0.035, 0.070), vec3(0.55, 0.72, 0.88), day);
+        vec3 col = mix(hor, zen, pow(h, 0.6));
+        float cosToSun = dot(vDir, normalize(uSunDir));
+        // Lueur crépusculaire : Soleil bas (−18°..+20°), concentrée vers son azimut et l'horizon
+        float twi = smoothstep(-0.31, 0.0, sunAlt) * (1.0 - smoothstep(0.05, 0.34, sunAlt));
+        col += vec3(0.90, 0.35, 0.12) * pow(max(cosToSun, 0.0), 4.0) * (1.0 - h) * twi * 0.85;
+        // Halo diurne autour du Soleil
+        col += vec3(1.0, 0.9, 0.7) * pow(max(cosToSun, 0.0), 60.0) * day * 0.5;
+        gl_FragColor = vec4(col, 1.0);
+      }
+    `,
+  }),[]);
+
+  // Champ d'étoiles fixes (positions aléatoires sur le dôme, opacité liée à la nuit)
+  const starGeom = useMemo(()=>{
+    const n = 450;
+    const arr = new Float32Array(n*3);
+    for(let i=0;i<n;i++){
+      const az = Math.random()*360;
+      const alt = Math.asin(Math.random())*180/Math.PI; // distribution uniforme sur la sphère
+      const [x,y,z] = altAzToVec(alt, az, DOME_R*0.98);
+      arr[i*3]=x; arr[i*3+1]=y; arr[i*3+2]=z;
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(arr,3));
+    return g;
+  },[]);
+
+  useFrame(()=>{
+    if (isPlaying) {
+      const dtMs = 0.016 * speed * 30 * 60 * 1000;
+      dateRef.current = new Date(dateRef.current.getTime() + dtMs);
+    }
+    const ms = dateRef.current.getTime();
+    frameCount.current++;
+    if (ms === lastMs.current) return;
+    lastMs.current = ms;
+
+    const pos = getAllPositions(dateRef.current, observer);
+
+    if (sunRef.current && pos.sun.altitude !== undefined)
+      sunRef.current.position.set(...altAzToVec(pos.sun.altitude, pos.sun.azimuth!, DOME_R*0.9));
+    if (moonRef.current && pos.moon.altitude !== undefined)
+      moonRef.current.position.set(...altAzToVec(pos.moon.altitude, pos.moon.azimuth!, DOME_R*0.9));
+    pos.planets.forEach((p,i)=>{
+      const ref = planetRefs.current[i];
+      if(ref && p.altitude !== undefined) ref.position.set(...altAzToVec(p.altitude, p.azimuth!, DOME_R*0.9));
+    });
+
+    const sunDir = altAzToVec(pos.sun.altitude ?? 0, pos.sun.azimuth ?? 0, 1);
+    if (skyMatRef.current) skyMatRef.current.uniforms.uSunDir.value.set(...sunDir);
+    if (starsMatRef.current) {
+      const day = THREE.MathUtils.smoothstep(sunDir[1], -0.12, 0.12);
+      starsMatRef.current.opacity = (1 - day) * 0.9;
+    }
+
+    if (!isPlaying || frameCount.current % 20 === 0) {
+      setPosData(pos);
+      onPosUpdate(dateRef.current, pos);
+    }
+  });
+
+  const altCircle = (altDeg:number) => {
+    const pts: THREE.Vector3[] = [];
+    for(let i=0;i<=96;i++){
+      pts.push(new THREE.Vector3(...altAzToVec(altDeg, (i/96)*360, DOME_R*0.96)));
+    }
+    return pts;
+  };
+
+  const initSun = useMemo(()=>altAzToVec(posData.sun.altitude ?? 0, posData.sun.azimuth ?? 0, DOME_R*0.9),
+  // position initiale uniquement
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  []);
+
+  return (
+    <group>
+      {/* Dôme céleste */}
+      <mesh>
+        <sphereGeometry args={[DOME_R, 48, 24, 0, Math.PI*2, 0, Math.PI*0.55]} />
+        <shaderMaterial ref={skyMatRef}
+          uniforms={skyShader.uniforms}
+          vertexShader={skyShader.vertexShader}
+          fragmentShader={skyShader.fragmentShader}
+          side={THREE.BackSide} depthWrite={false}
+        />
+      </mesh>
+      <points geometry={starGeom}>
+        <pointsMaterial ref={starsMatRef} color="#FFFFFF" size={0.22} sizeAttenuation transparent opacity={0} depthWrite={false} />
+      </points>
+
+      {/* Sol */}
+      <mesh rotation={[-Math.PI/2,0,0]} position={[0,-0.02,0]}>
+        <circleGeometry args={[DOME_R*1.1, 64]} />
+        <meshBasicMaterial color="#070A06" />
+      </mesh>
+
+      {/* Horizon + cercles d'altitude 30° et 60° */}
+      <Line points={altCircle(0)} color="#3A6648" opacity={0.7} transparent lineWidth={1.5} />
+      <Line points={altCircle(30)} color="#2A4458" opacity={0.3} transparent lineWidth={1} />
+      <Line points={altCircle(60)} color="#2A4458" opacity={0.2} transparent lineWidth={1} />
+
+      {/* Points cardinaux */}
+      {[['N',0,'#00E87B'],['E',90,'#8090A8'],['S',180,'#8090A8'],['O',270,'#8090A8']].map(([t,az,c])=>(
+        <group key={t as string} position={altAzToVec(1.5, az as number, DOME_R*0.93)}>
+          <Label text={t as string} color={c as string} show />
+        </group>
+      ))}
+
+      {/* Soleil */}
+      <group ref={sunRef} position={initSun}>
+        <Billboard>
+          <mesh><circleGeometry args={[2,32]} /><meshBasicMaterial color={SUN_C} /></mesh>
+          <mesh><circleGeometry args={[4.2,32]} /><meshBasicMaterial color={SUN_C} transparent opacity={0.15} depthWrite={false} /></mesh>
+        </Billboard>
+        <Label text={`Soleil ☉${altText(posData.sun)}`} color={SUN_C} show={showLabels && (posData.sun.altitude ?? 0) > -3} />
+      </group>
+
+      {/* Lune */}
+      <group ref={moonRef}>
+        <Billboard>
+          <mesh><circleGeometry args={[1.4,32]} /><meshBasicMaterial color={MOON_C} /></mesh>
+        </Billboard>
+        <Label text={`Lune ☾${altText(posData.moon)}`} color={MOON_C} show={showLabels && (posData.moon.altitude ?? 0) > -3} />
+      </group>
+
+      {/* Planètes */}
+      {posData.planets.map((p,i)=>(
+        <group key={p.name} ref={el=>{planetRefs.current[i]=el;}}>
+          <Billboard>
+            <mesh><circleGeometry args={[p.size*4,16]} /><meshBasicMaterial color={p.color} /></mesh>
+          </Billboard>
+          <Label text={`${p.name}${altText(p)}`} color={p.color} show={showLabels && (p.altitude ?? 0) > -3} />
+        </group>
+      ))}
+    </group>
+  );
+}
+
 /**
  * Boussole : azimuts du Soleil et de la Lune vus depuis l'observateur.
  * Aiguilles pleines au-dessus de l'horizon, estompées en dessous.
@@ -355,6 +539,7 @@ export default function FlatEarthSim(){
   const [posData,setPosData]=useState<PosData|null>(null);
   const [observer,setObserver]=useState<ObserverLocation>(DEFAULT_OBSERVER);
   const [geoStatus,setGeoStatus]=useState<'idle'|'loading'|'error'>('idle');
+  const [viewMode,setViewMode]=useState<'map'|'dome'>('map');
 
   const isCustomObs = observer.name === 'Ma position';
 
@@ -407,9 +592,17 @@ export default function FlatEarthSim(){
         className="px-4 py-2 text-[9px] font-tech-mono tracking-widest border transition-all"
         style={{borderColor:isPlaying?'#00E87B99':'#D4A84399',backgroundColor:isPlaying?'#00E87B1a':'#D4A8431a',color:isPlaying?'#00E87B':'#D4A843'}}
       >{isPlaying?'⏸ PAUSE':'▶ LECTURE'}</button>
-      <button onClick={()=>setShowTropics(!showTropics)}
+      <div className="flex border border-slate-800">
+        <button onClick={()=>setViewMode('map')}
+          className={`px-3 py-1.5 text-[8px] font-tech-mono tracking-widest ${viewMode==='map'?'bg-[var(--cyan)]/15 text-[var(--cyan)]':'text-slate-600 hover:text-slate-400'}`}
+        >🗺 CARTE</button>
+        <button onClick={()=>setViewMode('dome')}
+          className={`px-3 py-1.5 text-[8px] font-tech-mono tracking-widest ${viewMode==='dome'?'bg-[var(--cyan)]/15 text-[var(--cyan)]':'text-slate-600 hover:text-slate-400'}`}
+        >⛰ DÔME</button>
+      </div>
+      {viewMode==='map' && <button onClick={()=>setShowTropics(!showTropics)}
         className={`px-3 py-1 text-[8px] font-tech-mono border ${showTropics?'border-[#D4A843]/50 text-[#D4A843]':'border-slate-800 text-slate-600'}`}
-      >TROPIQUES: {showTropics?'ON':'OFF'}</button>
+      >TROPIQUES: {showTropics?'ON':'OFF'}</button>}
       <div className="flex items-center gap-2 ml-auto">
         <span className="text-[8px] font-tech-mono text-slate-500">VIT.</span>
         <input type="range" min={0.1} max={5} step={0.1} value={speed} onChange={e=>setSpeed(+e.target.value)} className="w-16 md:w-20 accent-[var(--cyan)]"/>
@@ -450,8 +643,11 @@ export default function FlatEarthSim(){
       <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[var(--cyan-20)] z-10"/>
       <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-[var(--cyan-20)] z-10"/>
       <div className="absolute top-3 left-3 z-10">
-        <div className="text-[9px] font-tech-mono text-[var(--green)] tracking-widest">◉ TERRE PLANE — VUE DU DESSUS</div>
-        <div className="text-[8px] font-tech-mono text-slate-600 mt-1">Éphémérides : Astronomy Engine — Alt. depuis {observer.name} ({observer.lat.toFixed(1)}°, {observer.lng.toFixed(1)}°)</div>
+        <div className="text-[9px] font-tech-mono text-[var(--green)] tracking-widest">
+          {viewMode==='map' ? '◉ TERRE PLANE — VUE DU DESSUS' : '◉ DÔME CÉLESTE — VUE DE L’OBSERVATEUR'}
+        </div>
+        <div className="text-[8px] font-tech-mono text-slate-600 mt-1">Éphémérides : Astronomy Engine — {viewMode==='map'?'Alt. depuis':'Observateur :'} {observer.name} ({observer.lat.toFixed(1)}°, {observer.lng.toFixed(1)}°)</div>
+        {viewMode==='dome' && <div className="text-[8px] font-tech-mono text-slate-700 mt-0.5">Glissez pour regarder autour de vous</div>}
       </div>
       {/* Date & saison */}
       <div className="absolute top-3 right-3 z-10 text-right">
@@ -476,7 +672,7 @@ export default function FlatEarthSim(){
         </div>
       )}
       {/* Légende tropiques + crépuscule */}
-      <div className="absolute bottom-3 left-3 z-10 flex flex-col gap-1">
+      {viewMode==='map' && <div className="absolute bottom-3 left-3 z-10 flex flex-col gap-1">
         {showTropics && <>
           <div className="flex items-center gap-2">
             <div className="w-4 h-0.5 bg-[#FF4444] opacity-40" />
@@ -495,15 +691,24 @@ export default function FlatEarthSim(){
           <div className="w-4 h-1.5" style={{background:'linear-gradient(90deg, #FF9452, #3A2A1A, #0A0A12)'}} />
           <span className="text-[7px] font-tech-mono text-slate-500">Crépuscule civil → nautique → astro.</span>
         </div>
-      </div>
-      <Canvas camera={{position:[0,12,0.1],fov:50}}>
-        <FlatScene speed={speed} showLabels={showLabels} isPlaying={isPlaying} showTropics={showTropics} dateRef={dateRef} observer={observer} onPosUpdate={onPosUpdate}/>
-        <OrbitControls enablePan={false} minDistance={6} maxDistance={20} minPolarAngle={0} maxPolarAngle={Math.PI*0.3}/>
-      </Canvas>
+      </div>}
+      {viewMode==='map' ? (
+        <Canvas key="map" camera={{position:[0,12,0.1],fov:50}}>
+          <FlatScene speed={speed} showLabels={showLabels} isPlaying={isPlaying} showTropics={showTropics} dateRef={dateRef} observer={observer} onPosUpdate={onPosUpdate}/>
+          <OrbitControls enablePan={false} minDistance={6} maxDistance={20} minPolarAngle={0} maxPolarAngle={Math.PI*0.3}/>
+        </Canvas>
+      ) : (
+        <Canvas key="dome" camera={{position:[0,1.6,0.12],fov:65}}>
+          <DomeScene speed={speed} showLabels={showLabels} isPlaying={isPlaying} dateRef={dateRef} observer={observer} onPosUpdate={onPosUpdate}/>
+          <OrbitControls enablePan={false} enableZoom={false} target={[0,1.6,0]}
+            minDistance={0.12} maxDistance={0.12} rotateSpeed={-0.35}
+            minPolarAngle={Math.PI*0.12} maxPolarAngle={Math.PI*0.58}/>
+        </Canvas>
+      )}
     </div>
     <div className="mt-3 border border-slate-800/50 bg-[var(--hull)] p-4">
       <p className="text-[13px] text-[var(--text-60)] font-rajdhani leading-relaxed">
-        Modèle Terre plane : carte azimutale équidistante satellite. Le Soleil circule au-dessus du disque — la zone éclairée suit sa position avec les trois bandes crépusculaires (civile −6°, nautique −12°, astronomique −18°). Réglez la date et l&apos;heure pour explorer les éphémérides : positions du Soleil, de la Lune (avec sa phase) et des cinq planètes visibles, avec leur altitude vue depuis {observer.name} (▲ au-dessus de l&apos;horizon, ▼ en dessous). Le marqueur vert indique l&apos;observateur — utilisez 📍 MA POSITION pour le placer chez vous (le trait pointe vers le Nord, c&apos;est-à-dire le centre du disque). La boussole donne les azimuts du Soleil et de la Lune depuis ce point.
+        Modèle Terre plane : carte azimutale équidistante satellite. Le Soleil circule au-dessus du disque — la zone éclairée suit sa position avec les trois bandes crépusculaires (civile −6°, nautique −12°, astronomique −18°). Réglez la date et l&apos;heure pour explorer les éphémérides : positions du Soleil, de la Lune (avec sa phase) et des cinq planètes visibles, avec leur altitude vue depuis {observer.name} (▲ au-dessus de l&apos;horizon, ▼ en dessous). Le marqueur vert indique l&apos;observateur — utilisez 📍 MA POSITION pour le placer chez vous (le trait pointe vers le Nord, c&apos;est-à-dire le centre du disque). La boussole donne les azimuts du Soleil et de la Lune depuis ce point. Le mode ⛰ DÔME place la caméra au sol, à la position de l&apos;observateur : glissez pour balayer le ciel — chaque astre y est placé à son altitude et azimut réels, avec lueur crépusculaire vers le Soleil couchant et étoiles la nuit.
       </p>
       <div className="flex flex-wrap items-center gap-3 mt-3 pt-3 border-t border-slate-800/30">
         <span className="text-[8px] font-tech-mono text-slate-600">ARTICLES :</span>
