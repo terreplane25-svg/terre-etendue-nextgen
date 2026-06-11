@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, Suspense } from 'react';
+import React, { useState, Suspense, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -172,6 +172,24 @@ export default function LabClient({ articles }: { articles: A[] }) {
   const [activeTool, setActiveTool] = useState<string | null>(null);
   const filtered = articles.filter(a => !EXCLUDED_PATTERNS.some(p => a.slug.includes(p)));
 
+  useEffect(()=>{
+    if (activeTool) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return ()=>{ document.body.style.overflow = ''; };
+  },[activeTool]);
+
+  const handleEsc = useCallback((e: KeyboardEvent)=>{
+    if (e.key === 'Escape' && activeTool) setActiveTool(null);
+  },[activeTool]);
+
+  useEffect(()=>{
+    document.addEventListener('keydown', handleEsc);
+    return ()=>document.removeEventListener('keydown', handleEsc);
+  },[handleEsc]);
+
   const renderSimulator = () => {
     switch (activeTool) {
       case 'curvature': return <CurvatureCalc />;
@@ -267,24 +285,28 @@ export default function LabClient({ articles }: { articles: A[] }) {
           </div>
         </ScrollReveal>
 
-        {/* ── ACTIVE SIMULATOR ── */}
+        {/* ── ACTIVE SIMULATOR (fullscreen overlay) ── */}
         <AnimatePresence mode="wait">
           {activeTool && activeToolData && (
             <motion.div
               key={activeTool}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
-              style={{ marginBottom: 32 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              style={{
+                position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+                zIndex: 9999, display: 'flex', flexDirection: 'column',
+                background: '#080E1A',
+              }}
             >
-              {/* Sim header bar */}
+              {/* Sim header bar (sticky top) */}
               <div style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                padding: '10px 16px',
+                padding: '8px 16px',
                 background: '#0D1528',
-                borderRadius: '6px 6px 0 0',
                 borderBottom: `2px solid ${activeToolData.color}`,
+                flexShrink: 0,
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <span style={{ fontSize: 15 }}>{activeToolData.icon}</span>
@@ -300,29 +322,28 @@ export default function LabClient({ articles }: { articles: A[] }) {
                     letterSpacing: '0.08em',
                   }}>INTERACTIF</span>
                 </div>
-                <button
-                  onClick={() => setActiveTool(null)}
-                  style={{
-                    width: 26, height: 26, borderRadius: 4,
-                    border: `1px solid #607890`,
-                    background: 'transparent',
-                    color: '#607890',
-                    fontSize: 13, cursor: 'pointer',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  }}
-                >
-                  ✕
-                </button>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <button
+                    onClick={() => setActiveTool(null)}
+                    style={{
+                      padding: '4px 12px', borderRadius: 4,
+                      border: `1px solid #607890`,
+                      background: 'transparent',
+                      color: '#C8D8E8',
+                      fontSize: 11, fontWeight: 600, cursor: 'pointer',
+                      fontFamily: dash.fontMono,
+                      letterSpacing: '0.05em',
+                    }}
+                  >
+                    ✕ FERMER
+                  </button>
+                </div>
               </div>
 
-              {/* Sim body */}
+              {/* Sim body (fills remaining space, scrollable) */}
               <div style={{
-                background: '#080E1A',
-                borderRadius: '0 0 6px 6px',
-                padding: 20,
-                border: `1px solid #1a2540`,
-                borderTop: 'none',
-                overflow: 'hidden',
+                flex: 1, overflow: 'auto',
+                padding: '16px 20px 24px',
               }}>
                 <Suspense fallback={<SimulatorLoader />}>
                   {renderSimulator()}
