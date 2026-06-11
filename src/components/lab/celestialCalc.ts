@@ -177,3 +177,77 @@ export function formatSimDate(date: Date): string {
   const min = date.getUTCMinutes().toString().padStart(2, '0');
   return `${d}/${m}/${y} ${h}:${min} UTC`;
 }
+
+/** Distance sur grand cercle (formule de Haversine) en km */
+export function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const R = 6371;
+  const toRad = (d: number) => d * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1), dLng = toRad(lng2 - lng1);
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+/** Angle central entre deux points (en degrés) */
+export function centralAngleDeg(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const toRad = (d: number) => d * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1), dLng = toRad(lng2 - lng1);
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))) * 180 / Math.PI;
+}
+
+/** Points intermédiaires le long d'un grand cercle pour le tracé sur le disque AE */
+export function greatCirclePoints(lat1: number, lng1: number, lat2: number, lng2: number, n: number): [number, number][] {
+  const toRad = (d: number) => d * Math.PI / 180;
+  const toDeg = (r: number) => r * 180 / Math.PI;
+  const f1 = toRad(lat1), l1 = toRad(lng1), f2 = toRad(lat2), l2 = toRad(lng2);
+  const d = 2 * Math.asin(Math.sqrt(Math.sin((f2 - f1) / 2) ** 2 + Math.cos(f1) * Math.cos(f2) * Math.sin((l2 - l1) / 2) ** 2));
+  if (d < 1e-10) return [[lat1, lng1]];
+  const pts: [number, number][] = [];
+  for (let i = 0; i <= n; i++) {
+    const f = i / n;
+    const a = Math.sin((1 - f) * d) / Math.sin(d);
+    const b = Math.sin(f * d) / Math.sin(d);
+    const x = a * Math.cos(f1) * Math.cos(l1) + b * Math.cos(f2) * Math.cos(l2);
+    const y = a * Math.cos(f1) * Math.sin(l1) + b * Math.cos(f2) * Math.sin(l2);
+    const z = a * Math.sin(f1) + b * Math.sin(f2);
+    pts.push([toDeg(Math.atan2(z, Math.sqrt(x * x + y * y))), toDeg(Math.atan2(y, x))]);
+  }
+  return pts;
+}
+
+/** Réfraction atmosphérique (formule de Bennett) en arc-minutes */
+export function bennettRefractionArcmin(apparentAltDeg: number): number {
+  if (apparentAltDeg < -1) return 0;
+  const h = Math.max(apparentAltDeg, -0.5);
+  return 1 / Math.tan((h + 7.31 / (h + 4.4)) * Math.PI / 180) + 0.0013515;
+}
+
+/** Prochaine éclipse solaire et lunaire depuis une date donnée */
+export function nextEclipses(date: Date): {
+  solarDate: Date | null;
+  solarType: string;
+  lunarDate: Date | null;
+  lunarType: string;
+} {
+  let solarDate: Date | null = null, solarType = '';
+  let lunarDate: Date | null = null, lunarType = '';
+  try {
+    const se = Astronomy.SearchGlobalSolarEclipse(date);
+    solarDate = se.peak.date;
+    solarType = se.kind === 'total' ? 'Totale' : se.kind === 'annular' ? 'Annulaire' : 'Partielle';
+  } catch { /* pas disponible */ }
+  try {
+    const le = Astronomy.SearchLunarEclipse(date);
+    lunarDate = le.peak.date;
+    lunarType = le.kind === 'total' ? 'Totale' : le.kind === 'partial' ? 'Partielle' : 'Pénombrale';
+  } catch { /* pas disponible */ }
+  return { solarDate, solarType, lunarDate, lunarType };
+}
+
+/** Longueur et direction de l'ombre d'un gnomon de hauteur h, pour une altitude et azimut solaires donnés */
+export function gnomonShadow(sunAltDeg: number, sunAzDeg: number, gnomonH: number): { length: number; dirDeg: number } | null {
+  if (sunAltDeg <= 0) return null;
+  const length = gnomonH / Math.tan(sunAltDeg * Math.PI / 180);
+  const dirDeg = (sunAzDeg + 180) % 360;
+  return { length, dirDeg };
+}
