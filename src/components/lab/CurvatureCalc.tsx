@@ -268,11 +268,11 @@ export default function CurvatureCalc(){
           className="w-20 bg-[#050A12] border border-[#D4A843]/40 text-[14px] font-tech-mono text-[#D4A843] px-3 py-2 text-right rounded-none"/>
       </div>
       <div className="flex flex-wrap gap-3 mt-3">
-        <button onClick={()=>setK(0)} className="px-3 py-1 text-[10px] font-tech-mono border border-slate-600 text-slate-400 hover:text-white">k=0 (aucune)</button>
-        <button onClick={()=>setK(0.143)} className="px-3 py-1 text-[10px] font-tech-mono border border-[#D4A843]/40 text-[#D4A843] hover:bg-[#D4A843]/10">k=0.143 (standard)</button>
-        <button onClick={()=>setK(0.17)} className="px-3 py-1 text-[10px] font-tech-mono border border-[#D4A843]/40 text-[#D4A843] hover:bg-[#D4A843]/10">k=0.17 (mer)</button>
-        <button onClick={()=>setK(0.38)} className="px-3 py-1 text-[10px] font-tech-mono border border-amber-700/40 text-amber-400 hover:bg-amber-400/10">k=0.38 (forte)</button>
-        <button onClick={()=>setK(0.5)} className="px-3 py-1 text-[10px] font-tech-mono border border-red-700/40 text-red-400 hover:bg-red-400/10">k=0.5 (super)</button>
+        <button onClick={()=>setK(0)} className="px-3 py-2 md:py-1 text-[12px] md:text-[10px] font-tech-mono border border-slate-600 text-slate-400 hover:text-white">k=0 (aucune)</button>
+        <button onClick={()=>setK(0.143)} className="px-3 py-2 md:py-1 text-[12px] md:text-[10px] font-tech-mono border border-[#D4A843]/40 text-[#D4A843] hover:bg-[#D4A843]/10">k=0.143 (standard)</button>
+        <button onClick={()=>setK(0.17)} className="px-3 py-2 md:py-1 text-[12px] md:text-[10px] font-tech-mono border border-[#D4A843]/40 text-[#D4A843] hover:bg-[#D4A843]/10">k=0.17 (mer)</button>
+        <button onClick={()=>setK(0.38)} className="px-3 py-2 md:py-1 text-[12px] md:text-[10px] font-tech-mono border border-amber-700/40 text-amber-400 hover:bg-amber-400/10">k=0.38 (forte)</button>
+        <button onClick={()=>setK(0.5)} className="px-3 py-2 md:py-1 text-[12px] md:text-[10px] font-tech-mono border border-red-700/40 text-red-400 hover:bg-red-400/10">k=0.5 (super)</button>
         <span className="text-[10px] font-tech-mono text-slate-600 self-center ml-2">
           R&apos; = {Math.round(Reff(k))} km {k>0.01 ? `(×${(Reff(k)/R_EARTH).toFixed(2)})` : ''}
         </span>
@@ -365,7 +365,7 @@ export default function CurvatureCalc(){
     </div>
 
     {/* Canvas 3D */}
-    <div className="w-full h-[60vh] md:h-[70vh] border border-slate-800/50 bg-[#030810] relative overflow-hidden">
+    <div className="w-full h-[40vh] sm:h-[55vh] md:h-[70vh] border border-slate-800/50 bg-[#030810] relative overflow-hidden">
       <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[#00C8FF]/30 z-10"/>
       <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[#00C8FF]/30 z-10"/>
       <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[#00C8FF]/30 z-10"/>

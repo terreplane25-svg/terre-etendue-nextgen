@@ -277,14 +277,14 @@ export default function LaserLakeSim() {
         </div>
       </div>
       <div className="flex flex-wrap gap-2 mt-3">
-        <button onClick={() => { setTempC(15); setGradC(-6.5); }} className="px-3 py-1 text-[9px] font-tech-mono border border-slate-600 text-slate-400 hover:text-white">Standard (k≈0.13)</button>
-        <button onClick={() => { setTempC(10); setGradC(0); }} className="px-3 py-1 text-[9px] font-tech-mono border border-[#D4A843]/40 text-[#D4A843] hover:bg-[#D4A843]/10">Eau froide / inversion légère</button>
-        <button onClick={() => { setTempC(8); setGradC(8); }} className="px-3 py-1 text-[9px] font-tech-mono border border-red-700/40 text-red-400 hover:bg-red-400/10">Forte inversion (super-réfraction)</button>
+        <button onClick={() => { setTempC(15); setGradC(-6.5); }} className="px-3 py-2 md:py-1 text-[11px] md:text-[9px] font-tech-mono border border-slate-600 text-slate-400 hover:text-white">Standard (k≈0.13)</button>
+        <button onClick={() => { setTempC(10); setGradC(0); }} className="px-3 py-2 md:py-1 text-[11px] md:text-[9px] font-tech-mono border border-[#D4A843]/40 text-[#D4A843] hover:bg-[#D4A843]/10">Eau froide / inversion légère</button>
+        <button onClick={() => { setTempC(8); setGradC(8); }} className="px-3 py-2 md:py-1 text-[11px] md:text-[9px] font-tech-mono border border-red-700/40 text-red-400 hover:bg-red-400/10">Forte inversion (super-réfraction)</button>
       </div>
     </div>
 
     {/* Presets */}
-    <div className="mb-4 grid grid-cols-2 md:grid-cols-4 gap-2">
+    <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
       {PRESETS.map(p => (
         <button key={p.label} onClick={() => { setDist(p.d); setLaserH(p.laserH); setNumTargets(p.targets.length); }}
           className="border border-slate-700 bg-[#0A1020] p-3 text-left hover:border-[#FF4444]/50 transition-all group">
@@ -295,7 +295,7 @@ export default function LaserLakeSim() {
     </div>
 
     {/* Canvas 3D */}
-    <div className="w-full h-[60vh] md:h-[70vh] border border-slate-800/50 bg-[#030810] relative overflow-hidden">
+    <div className="w-full h-[40vh] sm:h-[55vh] md:h-[70vh] border border-slate-800/50 bg-[#030810] relative overflow-hidden">
       <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[#FF4444]/30 z-10" />
       <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[#FF4444]/30 z-10" />
       <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[#FF4444]/30 z-10" />
@@ -346,7 +346,7 @@ export default function LaserLakeSim() {
     </div>
 
     {/* Résultats */}
-    <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+    <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
       <div className="border border-cyan-900/30 bg-[#0A1020] p-4">
         <div className="text-[11px] font-tech-mono text-cyan-400/70 tracking-widest mb-2">COURBURE MAX</div>
         <div className="text-[20px] font-tech-mono text-cyan-400 font-bold">

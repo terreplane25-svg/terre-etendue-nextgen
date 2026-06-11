@@ -48,7 +48,7 @@ export default function AboutClient() {
     <div>
       <SectionHeader pillar="À PROPOS" pillarNum="06" subtitle="Qui sommes-nous" title="Terre Étendue Islam" color={dash.opal} count={5} countLabel="sections — manifeste, méthodologie, FAQ, éthique et liens" />
 
-      <div style={{ maxWidth: 880, margin: '0 auto', padding: '0 24px 80px' }}>
+      <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 80px' }}>
 
         {/* ── MANIFESTE ── */}
         <motion.section {...fade(0)} style={{ marginTop: 48 }}>

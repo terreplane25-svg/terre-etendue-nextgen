@@ -208,7 +208,7 @@ export default function PerspectiveSim() {
     </div>
 
     {/* Presets */}
-    <div className="mb-4 grid grid-cols-2 md:grid-cols-4 gap-2">
+    <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
       {PRESETS.map(p => (
         <button key={p.label} onClick={() => { setDist(p.d); setObsM(p.oh); setTgtM(p.tgt * 1000); }}
           className="border border-slate-700 bg-[#0A1020] p-3 text-left hover:border-[#D4A843]/50 transition-all group">
@@ -244,7 +244,7 @@ export default function PerspectiveSim() {
     </div>
 
     {/* Canvas 3D */}
-    <div className="w-full h-[60vh] md:h-[70vh] border border-slate-800/50 bg-[#030810] relative overflow-hidden">
+    <div className="w-full h-[40vh] sm:h-[55vh] md:h-[70vh] border border-slate-800/50 bg-[#030810] relative overflow-hidden">
       <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[#D4A843]/30 z-10" />
       <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[#D4A843]/30 z-10" />
       <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[#D4A843]/30 z-10" />
@@ -255,7 +255,7 @@ export default function PerspectiveSim() {
     </div>
 
     {/* Résultats */}
-    <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+    <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
       <div className="border border-cyan-900/30 bg-[#0A1020] p-4">
         <div className="text-[11px] font-tech-mono text-cyan-400/70 tracking-widest mb-2">CACHÉ (GLOBE)</div>
         <div className="text-[20px] font-tech-mono text-cyan-400 font-bold">

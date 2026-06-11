@@ -206,7 +206,7 @@ export default function VisualFieldSim() {
               color: i === instrument ? '#00E87B' : '#64748b',
             }}>
             {ins.label}
-            <span className="block text-[8px] opacity-60">
+            <span className="block text-[10px] md:text-[8px] opacity-60">
               D = {ins.aperture} mm · θ = {ins.limit >= 1 ? `${ins.limit.toFixed(1)}'` : `${(ins.limit * 60).toFixed(2)}"`}
             </span>
           </button>
@@ -256,7 +256,7 @@ export default function VisualFieldSim() {
     </div>
 
     {/* Résultats */}
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
       <div className="border border-cyan-900/30 bg-[#0A1020] p-4">
         <div className="text-[11px] font-tech-mono text-cyan-400/70 tracking-widest mb-2">TAILLE ANGULAIRE</div>
         <div className="text-[20px] font-tech-mono text-cyan-400 font-bold">

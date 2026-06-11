@@ -163,6 +163,8 @@ a { color: inherit; text-decoration: none; }
 @media (min-width: 1024px) { .home-hero-grid { grid-template-columns: 1fr 340px 220px !important; } }
 @media (max-width: 640px) {
   .home-latest-img { width: 80px !important; height: 60px !important; }
+  .article-card-row { flex-direction: column !important; }
+  .article-card-row .article-card-thumb { width: 100% !important; max-height: 160px !important; min-height: auto !important; }
 }
 
 /* ═══ SVG LIGHTBOX ═══ */

@@ -214,7 +214,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
         padding: '40px 24px 36px',
         borderBottom: '1px solid #1a2540',
       }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+        <div style={{ maxWidth: 960, margin: '0 auto' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
             <span style={{
               fontSize: 10, fontFamily: dash.fontMono, fontWeight: 700,
@@ -247,7 +247,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
         </div>
       </div>
 
-      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '28px 24px 64px' }}>
+      <div style={{ maxWidth: 960, margin: '0 auto', padding: '28px 24px 64px' }}>
 
         {/* ── TOOL CARDS GRID ── */}
         <ScrollReveal delay={100}>

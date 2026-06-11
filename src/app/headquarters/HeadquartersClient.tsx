@@ -84,8 +84,8 @@ export default function HeadquartersClient({ articles }: { articles: A[] }) {
             const section = SECTIONS.find(s => s.id === getSection(a.slug));
             return (
               <motion.div key={a.slug} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
-                <Link href={`/article/${a.slug}`} className="dash-card" style={{ display: 'flex', overflow: 'hidden', cursor: 'pointer' }}>
-                  <div style={{ width: 180, minHeight: 140, flexShrink: 0, overflow: 'hidden' }}>
+                <Link href={`/article/${a.slug}`} className="dash-card article-card-row" style={{ display: 'flex', overflow: 'hidden', cursor: 'pointer' }}>
+                  <div className="article-card-thumb" style={{ width: 180, minHeight: 140, flexShrink: 0, overflow: 'hidden' }}>
                     <img src={getArticleImage(a.slug)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
                   </div>
                   <div style={{ padding: '18px 24px', flex: 1, minWidth: 0 }}>

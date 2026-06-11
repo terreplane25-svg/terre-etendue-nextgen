@@ -54,9 +54,9 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
           <motion.div key="d" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ marginBottom: 40 }}>
             {tab === "all" && <h2 style={{ fontSize: 17, fontWeight: 750, color: dash.ink, marginBottom: 16 }}>🔬 Démonstrations</h2>}
             <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 20 }}>
-              <button onClick={() => setFam(null)} style={{ padding: "5px 12px", borderRadius: 6, fontSize: 12, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${!fam ? dash.rose : dash.border}`, background: !fam ? dash.rose : dash.card, color: !fam ? "#fff" : dash.inkMuted, cursor: "pointer" }}>Toutes</button>
+              <button onClick={() => setFam(null)} style={{ padding: "6px 14px", borderRadius: 6, fontSize: 13, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${!fam ? dash.rose : dash.border}`, background: !fam ? dash.rose : dash.card, color: !fam ? "#fff" : dash.inkMuted, cursor: "pointer" }}>Toutes</button>
               {FAMILLES.map(f => (
-                <button key={f.id} onClick={() => setFam(f.id === fam ? null : f.id)} style={{ padding: "5px 12px", borderRadius: 6, fontSize: 12, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${fam === f.id ? dash.rose : dash.border}`, background: fam === f.id ? dash.rose : dash.card, color: fam === f.id ? "#fff" : dash.inkMuted, cursor: "pointer" }}>{f.icon} {f.label}</button>
+                <button key={f.id} onClick={() => setFam(f.id === fam ? null : f.id)} style={{ padding: "6px 14px", borderRadius: 6, fontSize: 13, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${fam === f.id ? dash.rose : dash.border}`, background: fam === f.id ? dash.rose : dash.card, color: fam === f.id ? "#fff" : dash.inkMuted, cursor: "pointer" }}>{f.icon} {f.label}</button>
               ))}
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -66,8 +66,8 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
                 return (
                   <motion.div key={a.slug} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
                     <div className="dash-card" style={{ overflow: "hidden" }}>
-                      <Link href={`/article/${a.slug}`} style={{ display: "flex", cursor: "pointer" }}>
-                        <div style={{ width: 180, minHeight: 140, flexShrink: 0, overflow: "hidden" }}>
+                      <Link href={`/article/${a.slug}`} className="article-card-row" style={{ display: "flex", cursor: "pointer" }}>
+                        <div className="article-card-thumb" style={{ width: 180, minHeight: 140, flexShrink: 0, overflow: "hidden" }}>
                           <img src={getArticleImage(a.slug)} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
                         </div>
                         <div style={{ padding: "18px 24px", flex: 1, minWidth: 0 }}>
@@ -98,8 +98,8 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               {historical.map((a, i) => (
                 <motion.div key={a.slug} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}>
-                  <Link href={`/article/${a.slug}`} className="dash-card" style={{ display: "flex", overflow: "hidden", cursor: "pointer" }}>
-                    <div style={{ width: 180, minHeight: 140, flexShrink: 0, overflow: "hidden" }}>
+                  <Link href={`/article/${a.slug}`} className="dash-card article-card-row" style={{ display: "flex", overflow: "hidden", cursor: "pointer" }}>
+                    <div className="article-card-thumb" style={{ width: 180, minHeight: 140, flexShrink: 0, overflow: "hidden" }}>
                       <img src={getArticleImage(a.slug)} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
                     </div>
                     <div style={{ padding: "18px 24px", flex: 1, minWidth: 0 }}>

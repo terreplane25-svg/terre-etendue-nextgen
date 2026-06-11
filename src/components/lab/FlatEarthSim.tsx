@@ -604,7 +604,7 @@ function CompassHUD({ sun, moon }:{ sun:CelestialPosition; moon:CelestialPositio
         })}
         <circle cx={cx} cy={cy} r="2" fill="#4A5468" />
       </svg>
-      <div className="text-[7px] font-tech-mono text-slate-500 whitespace-nowrap">
+      <div className="text-[10px] md:text-[7px] font-tech-mono text-slate-500 whitespace-nowrap">
         {bodies.map(({p,sym},i)=>(
           <span key={p.name}>{i>0 && ' · '}{sym} {p.azimuth!.toFixed(0)}°</span>
         ))}
@@ -616,11 +616,11 @@ function CompassHUD({ sun, moon }:{ sun:CelestialPosition; moon:CelestialPositio
 function DateStepper({ label, value, onStep }:{ label:string; value:string; onStep:(delta:number)=>void }) {
   return (
     <div className="flex flex-col items-center gap-0.5">
-      <span className="text-[7px] font-tech-mono text-slate-600 tracking-widest">{label}</span>
+      <span className="text-[10px] md:text-[7px] font-tech-mono text-slate-600 tracking-widest">{label}</span>
       <div className="flex items-center border border-slate-800 bg-[#060A14]">
-        <button onClick={()=>onStep(-1)} className="px-1.5 py-1 text-[10px] font-tech-mono text-slate-500 hover:text-[var(--cyan)] hover:bg-[var(--cyan)]/10">−</button>
+        <button onClick={()=>onStep(-1)} className="px-2.5 py-2 md:px-1.5 md:py-1 text-[10px] font-tech-mono text-slate-500 hover:text-[var(--cyan)] hover:bg-[var(--cyan)]/10">−</button>
         <span className="px-1 text-[10px] font-tech-mono text-[var(--cyan)] min-w-[34px] text-center">{value}</span>
-        <button onClick={()=>onStep(1)} className="px-1.5 py-1 text-[10px] font-tech-mono text-slate-500 hover:text-[var(--cyan)] hover:bg-[var(--cyan)]/10">+</button>
+        <button onClick={()=>onStep(1)} className="px-2.5 py-2 md:px-1.5 md:py-1 text-[10px] font-tech-mono text-slate-500 hover:text-[var(--cyan)] hover:bg-[var(--cyan)]/10">+</button>
       </div>
     </div>
   );
@@ -740,51 +740,51 @@ export default function FlatEarthSim(){
   return <div className="w-full">
     <div className="flex flex-wrap items-center gap-2 mb-2">
       <button onClick={()=>setIsPlaying(!isPlaying)}
-        className="px-4 py-2 text-[9px] font-tech-mono tracking-widest border transition-all"
+        className="px-4 py-2.5 md:py-2 text-[12px] md:text-[9px] font-tech-mono tracking-widest border transition-all"
         style={{borderColor:isPlaying?'#00E87B99':'#D4A84399',backgroundColor:isPlaying?'#00E87B1a':'#D4A8431a',color:isPlaying?'#00E87B':'#D4A843'}}
       >{isPlaying?'⏸ PAUSE':'▶ LECTURE'}</button>
       <div className="flex border border-slate-800">
         <button onClick={()=>setViewMode('map')}
-          className={`px-3 py-1.5 text-[8px] font-tech-mono tracking-widest ${viewMode==='map'?'bg-[var(--cyan)]/15 text-[var(--cyan)]':'text-slate-600 hover:text-slate-400'}`}
+          className={`px-3 py-2 md:py-1.5 text-[11px] md:text-[8px] font-tech-mono tracking-widest ${viewMode==='map'?'bg-[var(--cyan)]/15 text-[var(--cyan)]':'text-slate-600 hover:text-slate-400'}`}
         >🗺 CARTE</button>
         <button onClick={()=>setViewMode('dome')}
-          className={`px-3 py-1.5 text-[8px] font-tech-mono tracking-widest ${viewMode==='dome'?'bg-[var(--cyan)]/15 text-[var(--cyan)]':'text-slate-600 hover:text-slate-400'}`}
+          className={`px-3 py-2 md:py-1.5 text-[11px] md:text-[8px] font-tech-mono tracking-widest ${viewMode==='dome'?'bg-[var(--cyan)]/15 text-[var(--cyan)]':'text-slate-600 hover:text-slate-400'}`}
         >⛰ DÔME</button>
       </div>
       {viewMode==='map' && <button onClick={()=>setShowTropics(!showTropics)}
-        className={`px-3 py-1 text-[8px] font-tech-mono border ${showTropics?'border-[#D4A843]/50 text-[#D4A843]':'border-slate-800 text-slate-600'}`}
+        className={`px-3 py-2 md:py-1 text-[11px] md:text-[8px] font-tech-mono border ${showTropics?'border-[#D4A843]/50 text-[#D4A843]':'border-slate-800 text-slate-600'}`}
       >TROPIQUES: {showTropics?'ON':'OFF'}</button>}
       {viewMode==='map' && <button onClick={()=>setShowPaths(!showPaths)}
-        className={`px-3 py-1 text-[8px] font-tech-mono border ${showPaths?'border-[#FFD040]/50 text-[#FFD040]':'border-slate-800 text-slate-600'}`}
+        className={`px-3 py-2 md:py-1 text-[11px] md:text-[8px] font-tech-mono border ${showPaths?'border-[#FFD040]/50 text-[#FFD040]':'border-slate-800 text-slate-600'}`}
       >TRAJECTOIRES: {showPaths?'ON':'OFF'}</button>}
       <div className="flex items-center gap-2 ml-auto">
-        <span className="text-[8px] font-tech-mono text-slate-500">VIT.</span>
-        <input type="range" min={0.1} max={5} step={0.1} value={speed} onChange={e=>setSpeed(+e.target.value)} className="w-16 md:w-20 accent-[var(--cyan)]"/>
-        <span className="text-[8px] font-tech-mono text-[var(--cyan)]">&times;{speed>=10?speed.toFixed(0):speed.toFixed(1)}</span>
+        <span className="text-[11px] md:text-[8px] font-tech-mono text-slate-500">VIT.</span>
+        <input type="range" min={0.1} max={5} step={0.1} value={speed} onChange={e=>setSpeed(+e.target.value)} className="w-20 md:w-24 accent-[var(--cyan)]"/>
+        <span className="text-[11px] md:text-[8px] font-tech-mono text-[var(--cyan)]">&times;{speed>=10?speed.toFixed(0):speed.toFixed(1)}</span>
       </div>
       <button onClick={()=>setShowLabels(!showLabels)}
-        className={`px-3 py-1 text-[8px] font-tech-mono border ${showLabels?'border-slate-600 text-slate-400':'border-slate-800 text-slate-600'}`}
+        className={`px-3 py-2 md:py-1 text-[11px] md:text-[8px] font-tech-mono border ${showLabels?'border-slate-600 text-slate-400':'border-slate-800 text-slate-600'}`}
       >NOMS: {showLabels?'ON':'OFF'}</button>
     </div>
 
     {/* Barre d'outils avancés */}
     <div className="flex flex-wrap items-center gap-1.5 mb-2">
-      <span className="text-[7px] font-tech-mono text-slate-700 tracking-widest mr-1">OUTILS</span>
+      <span className="text-[10px] md:text-[7px] font-tech-mono text-slate-700 tracking-widest mr-1">OUTILS</span>
       {viewMode==='map' && <button onClick={()=>{ setDistMode(!distMode); if(distMode) setDistPoints([]); }}
-        className={`px-2.5 py-1 text-[8px] font-tech-mono border ${distMode?'border-[#FF6B6B]/60 text-[#FF6B6B] bg-[#FF6B6B]/10':'border-slate-800 text-slate-600 hover:text-slate-400'}`}
+        className={`px-3 py-2 md:px-2.5 md:py-1 text-[11px] md:text-[8px] font-tech-mono border ${distMode?'border-[#FF6B6B]/60 text-[#FF6B6B] bg-[#FF6B6B]/10':'border-slate-800 text-slate-600 hover:text-slate-400'}`}
       >📏 DISTANCE {distMode && distPoints.length < 2 ? `(${distPoints.length}/2)` : ''}</button>}
       <button onClick={()=>setShowEclipses(!showEclipses)}
-        className={`px-2.5 py-1 text-[8px] font-tech-mono border ${showEclipses?'border-[#C45E6A]/60 text-[#C45E6A] bg-[#C45E6A]/10':'border-slate-800 text-slate-600 hover:text-slate-400'}`}
+        className={`px-3 py-2 md:px-2.5 md:py-1 text-[11px] md:text-[8px] font-tech-mono border ${showEclipses?'border-[#C45E6A]/60 text-[#C45E6A] bg-[#C45E6A]/10':'border-slate-800 text-slate-600 hover:text-slate-400'}`}
       >◑ ÉCLIPSES</button>
-      <span className="text-[7px] font-tech-mono text-slate-700 tracking-widest ml-3 mr-1">DÉMOS</span>
+      <span className="text-[10px] md:text-[7px] font-tech-mono text-slate-700 tracking-widest ml-3 mr-1">DÉMOS</span>
       <button onClick={()=>{ setViewMode('map'); setShowPaths(true); setIsPlaying(true); setSpeed(2); }}
-        className="px-2.5 py-1 text-[8px] font-tech-mono border border-slate-800 text-slate-500 hover:text-[#FFD040] hover:border-[#FFD040]/50"
+        className="px-3 py-2 md:px-2.5 md:py-1 text-[11px] md:text-[8px] font-tech-mono border border-slate-800 text-slate-500 hover:text-[#FFD040] hover:border-[#FFD040]/50"
       >☀ JOURNÉE 24H</button>
       <button onClick={()=>{ setViewMode('map'); setShowPaths(true); setIsPlaying(true); setSpeed(600); }}
-        className="px-2.5 py-1 text-[8px] font-tech-mono border border-slate-800 text-slate-500 hover:text-[#FFD040] hover:border-[#FFD040]/50"
-      >🌀 ANNÉE — SPIRALE SOLAIRE</button>
+        className="px-3 py-2 md:px-2.5 md:py-1 text-[11px] md:text-[8px] font-tech-mono border border-slate-800 text-slate-500 hover:text-[#FFD040] hover:border-[#FFD040]/50"
+      >🌀 SPIRALE SOLAIRE</button>
       <button onClick={()=>{ setViewMode('dome'); setIsPlaying(true); setSpeed(2); }}
-        className="px-2.5 py-1 text-[8px] font-tech-mono border border-slate-800 text-slate-500 hover:text-[#A8C0E8] hover:border-[#A8C0E8]/50"
+        className="px-3 py-2 md:px-2.5 md:py-1 text-[11px] md:text-[8px] font-tech-mono border border-slate-800 text-slate-500 hover:text-[#A8C0E8] hover:border-[#A8C0E8]/50"
       >✦ NUIT ÉTOILÉE</button>
     </div>
 
@@ -797,15 +797,15 @@ export default function FlatEarthSim(){
       <DateStepper label="HEURE" value={simDate.getHours().toString().padStart(2,'0')+'h'} onStep={d=>adjustDate('hour',d)} />
       <DateStepper label="MIN ±10" value={simDate.getMinutes().toString().padStart(2,'0')} onStep={d=>adjustDate('minute',d)} />
       <button onClick={resetNow}
-        className="px-3 py-1.5 text-[8px] font-tech-mono tracking-widest border border-[var(--green)]/50 text-[var(--green)] hover:bg-[var(--green)]/10"
+        className="px-3 py-2 md:py-1.5 text-[11px] md:text-[8px] font-tech-mono tracking-widest border border-[var(--green)]/50 text-[var(--green)] hover:bg-[var(--green)]/10"
       >● MAINTENANT</button>
     </div>
 
     {/* Recherche de lieu / observateur */}
     <div className="flex flex-wrap items-center gap-2 mb-3 p-2 border border-slate-800/50 bg-[var(--hull)]">
-      <span className="text-[8px] font-tech-mono text-[#00E87B] tracking-widest shrink-0">📍 OBSERVATEUR</span>
-      <span className="text-[9px] font-tech-mono text-[var(--cyan)]">{observer.name}</span>
-      <span className="text-[8px] font-tech-mono text-slate-600">({observer.lat.toFixed(2)}°, {observer.lng.toFixed(2)}°)</span>
+      <span className="text-[11px] md:text-[8px] font-tech-mono text-[#00E87B] tracking-widest shrink-0">📍 OBSERVATEUR</span>
+      <span className="text-[12px] md:text-[9px] font-tech-mono text-[var(--cyan)]">{observer.name}</span>
+      <span className="text-[11px] md:text-[8px] font-tech-mono text-slate-600">({observer.lat.toFixed(2)}°, {observer.lng.toFixed(2)}°)</span>
       <div ref={searchRef} className="relative ml-auto">
         <form onSubmit={handleSearchSubmit} className="flex">
           <input
@@ -814,7 +814,7 @@ export default function FlatEarthSim(){
             onChange={e=>{ setSearchQuery(e.target.value); setShowCityList(true); }}
             onFocus={()=>setShowCityList(true)}
             placeholder="Ville ou lat, lng…"
-            className="w-40 md:w-52 px-2 py-1.5 text-[9px] font-tech-mono bg-[#060A14] border border-slate-800 text-[var(--cyan)] placeholder-slate-700 outline-none focus:border-[var(--cyan)]/50"
+            className="w-36 sm:w-40 md:w-52 px-2 py-2 md:py-1.5 text-[12px] md:text-[9px] font-tech-mono bg-[#060A14] border border-slate-800 text-[var(--cyan)] placeholder-slate-700 outline-none focus:border-[var(--cyan)]/50"
           />
           <button type="submit" className="px-2 py-1.5 text-[9px] font-tech-mono border border-l-0 border-slate-800 text-slate-500 hover:text-[var(--cyan)] hover:bg-[var(--cyan)]/10">→</button>
         </form>
@@ -841,7 +841,7 @@ export default function FlatEarthSim(){
       </div>
     </div>
 
-    <div className="w-full h-[55vh] md:h-[70vh] border border-slate-800/50 bg-[#020408] relative overflow-hidden">
+    <div className="w-full h-[40vh] sm:h-[55vh] md:h-[70vh] border border-slate-800/50 bg-[#020408] relative overflow-hidden">
       <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[var(--cyan-20)] z-10"/>
       <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[var(--cyan-20)] z-10"/>
       <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[var(--cyan-20)] z-10"/>
