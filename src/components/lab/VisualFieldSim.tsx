@@ -36,7 +36,7 @@ const PRESETS = [
 ];
 
 function EyeDiagram({ angSize, limit }: { angSize: number; limit: number }) {
-  const W = 400, H = 180;
+  const W = 600, H = 260;
   const cx = 60, cy = H / 2;
   const fovDeg = Math.min(angSize * 2, 60);
   const fovRad = (fovDeg / 2) * (Math.PI / 180) * 20;
@@ -47,7 +47,7 @@ function EyeDiagram({ angSize, limit }: { angSize: number; limit: number }) {
   const col = visible ? '#00E87B' : '#FF4444';
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 180 }}>
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 320 }}>
       <rect width={W} height={H} fill="#050A12" rx={8} />
       {/* Œil */}
       <ellipse cx={cx} cy={cy} rx={18} ry={22} fill="none" stroke="#C8D8E8" strokeWidth={1.5} />
@@ -81,7 +81,7 @@ function EyeDiagram({ angSize, limit }: { angSize: number; limit: number }) {
 }
 
 function ResolutionGraph({ heightM, instLimit }: { heightM: number; instLimit: number }) {
-  const W = 500, H = 160, PAD = 50;
+  const W = 700, H = 240, PAD = 50;
   const maxDist = maxVisibleDist(heightM, Math.min(EYE_LIMIT, instLimit)) * 1.5;
   if (!isFinite(maxDist) || maxDist <= 0) return null;
   const steps = 100;
@@ -109,7 +109,7 @@ function ResolutionGraph({ heightM, instLimit }: { heightM: number; instLimit: n
   const showInstLine = instLimit < EYE_LIMIT;
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 160 }}>
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 300 }}>
       <rect x={PAD} y={4} width={W - PAD * 2} height={H - PAD - 4} fill="#050A12" rx={4} />
       {/* Seuil œil 1' */}
       <line x1={PAD} y1={limitY} x2={W - PAD} y2={limitY}

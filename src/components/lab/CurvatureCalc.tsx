@@ -83,7 +83,7 @@ function NumInput({label,value,onChange,min,max,unit,step=1}:{
 
 // ─── Graphique SVG : courbure cachée en fonction de la distance ───
 function CurveGraph({ dist, oh, th, k }:{ dist:number; oh:number; th:number; k:number }) {
-  const W = 500, H = 180, PAD = 44;
+  const W = 700, H = 260, PAD = 44;
   const maxD = Math.max(dist * 1.3, 100);
   const steps = 100;
 
@@ -111,7 +111,7 @@ function CurveGraph({ dist, oh, th, k }:{ dist:number; oh:number; th:number; k:n
   const tgtY = H - PAD - ((th / 1000) / points.maxH) * (H - PAD * 2);
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 180 }}>
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 320 }}>
       <rect x={PAD} y={4} width={W - PAD * 2} height={H - PAD - 4} fill="#050A12" rx={4} />
       {/* Grid lines */}
       {[0.25, 0.5, 0.75].map(f => (
@@ -365,7 +365,7 @@ export default function CurvatureCalc(){
     </div>
 
     {/* Canvas 3D */}
-    <div className="w-full h-[50vh] md:h-[60vh] border border-slate-800/50 bg-[#030810] relative overflow-hidden">
+    <div className="w-full h-[60vh] md:h-[70vh] border border-slate-800/50 bg-[#030810] relative overflow-hidden">
       <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[#00C8FF]/30 z-10"/>
       <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[#00C8FF]/30 z-10"/>
       <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[#00C8FF]/30 z-10"/>

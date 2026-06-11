@@ -244,7 +244,7 @@ export default function PerspectiveSim() {
     </div>
 
     {/* Canvas 3D */}
-    <div className="w-full h-[50vh] md:h-[60vh] border border-slate-800/50 bg-[#030810] relative overflow-hidden">
+    <div className="w-full h-[60vh] md:h-[70vh] border border-slate-800/50 bg-[#030810] relative overflow-hidden">
       <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[#D4A843]/30 z-10" />
       <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[#D4A843]/30 z-10" />
       <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[#D4A843]/30 z-10" />
