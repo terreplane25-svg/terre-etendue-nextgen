@@ -18,6 +18,20 @@ function angularSize(height: number, distance: number): number {
   return Math.atan2(height, distance) * (180 / Math.PI) * 60;
 }
 
+/** Hauteur apparente projective stricte : h_app = h·d_ref/d (loi en 1/d).
+ *  d_ref est la distance de référence où l'objet apparaît à sa taille « réelle ». */
+function projectiveHeight(realH: number, dist: number, refDist: number): number {
+  if (dist <= 0) return realH;
+  return realH * (refDist / dist);
+}
+
+const INSTRUMENTS = [
+  { id: 'eye', label: 'Œil nu', zoom: 1, limit: 1.0 },             // 1 arc-min
+  { id: 'binos', label: 'Jumelles 10×', zoom: 10, limit: 0.125 },  // 7.5 arc-sec
+  { id: 'scope', label: 'Télescope 75×', zoom: 75, limit: 0.013 }, // 0.77 arc-sec
+  { id: 'p1000', label: 'Nikon P1000 125×', zoom: 125, limit: 0.033 }, // ~2 arc-sec
+];
+
 const PRESETS = [
   { label: 'Bateau 10 m — 15 km', d: 15, oh: 1.7, tgt: 0.010, name: 'Bateau côtier' },
   { label: 'Cargo 40 m — 30 km', d: 30, oh: 1.7, tgt: 0.040, name: 'Cargo' },
@@ -36,8 +50,13 @@ function Scene({ dist, obsH, tgtH }: { dist: number; obsH: number; tgtH: number 
   const hidHsc = Math.min(hidden, tgtH) * hScale;
   const visHsc = Math.max(0, tgtH - hidden) * hScale;
 
-  const vanishY = -0.003 * dist * scale;
-  const perspTgtH = tgtHsc * Math.max(0.05, 1 - dist * 0.008);
+  // Perspective projective stricte : taille apparente en 1/d (h_app = h·d_ref/d).
+  // Référence : à 1 km l'objet apparaît à sa taille pleine sur la scène.
+  const REF_DIST = 1;
+  const perspScale = REF_DIST / Math.max(dist, REF_DIST);
+  const perspTgtH = Math.max(tgtHsc * perspScale, 0.02);
+  // Le point de fuite est sur la ligne d'horizon, à la hauteur des yeux de l'observateur
+  const vanishY = obsHsc;
 
   return <>
     <ambientLight intensity={0.6} />
@@ -54,19 +73,24 @@ function Scene({ dist, obsH, tgtH }: { dist: number; obsH: number; tgtH: number 
         new THREE.Vector3(-halfD - 0.5, 0, 0),
         new THREE.Vector3(halfD + 0.5, 0, 0),
       ]} color="#D4A843" lineWidth={2} />
-      {/* Lignes de fuite */}
+      {/* Lignes de fuite — convergent au point de fuite sur l'horizon (hauteur des yeux) */}
       <Line points={[
         new THREE.Vector3(-halfD, obsHsc, 0),
-        new THREE.Vector3(halfD + 1, vanishY, 0),
-      ]} color="#D4A843" lineWidth={1} opacity={0.2} transparent dashed dashSize={0.06} gapSize={0.04} />
+        new THREE.Vector3(halfD + 1.2, vanishY, 0),
+      ]} color="#D4A843" lineWidth={1} opacity={0.25} transparent dashed dashSize={0.06} gapSize={0.04} />
       <Line points={[
         new THREE.Vector3(-halfD, 0, 0),
-        new THREE.Vector3(halfD + 1, vanishY, 0),
-      ]} color="#D4A843" lineWidth={1} opacity={0.2} transparent dashed dashSize={0.06} gapSize={0.04} />
+        new THREE.Vector3(halfD + 1.2, vanishY, 0),
+      ]} color="#D4A843" lineWidth={1} opacity={0.25} transparent dashed dashSize={0.06} gapSize={0.04} />
+      {/* Point de fuite */}
+      <mesh position={[halfD + 1.2, vanishY, 0]}><sphereGeometry args={[0.04, 10, 10]} /><meshBasicMaterial color="#D4A843" /></mesh>
+      <Html position={[halfD + 1.2, vanishY + 0.35, 0]} center distanceFactor={10} style={{ pointerEvents: 'none' }}>
+        <div style={{ color: '#D4A843', fontSize: '8px', fontFamily: 'monospace' }}>point de fuite</div>
+      </Html>
       {/* Observateur */}
       <Line points={[new THREE.Vector3(-halfD, 0, 0), new THREE.Vector3(-halfD, obsHsc, 0)]} color="#D4A843" lineWidth={2} />
       <mesh position={[-halfD, obsHsc, 0]}><sphereGeometry args={[0.06, 12, 12]} /><meshBasicMaterial color="#D4A843" /></mesh>
-      {/* Cible (réduite par perspective) */}
+      {/* Cible (réduite en 1/d par la perspective projective) */}
       <Line points={[new THREE.Vector3(halfD, 0, 0), new THREE.Vector3(halfD, perspTgtH, 0)]} color="#00E87B" lineWidth={3} />
       <mesh position={[halfD, perspTgtH, 0]}><sphereGeometry args={[0.05, 12, 12]} /><meshBasicMaterial color="#00E87B" /></mesh>
       {/* Ligne de visée */}
@@ -74,7 +98,7 @@ function Scene({ dist, obsH, tgtH }: { dist: number; obsH: number; tgtH: number 
         color="#00E87B" lineWidth={1} opacity={0.4} transparent dashed dashSize={0.06} gapSize={0.04} />
       <Html position={[halfD + 0.5, perspTgtH / 2, 0]} center distanceFactor={10} style={{ pointerEvents: 'none' }}>
         <div style={{ color: '#00E87B', fontSize: '9px', fontFamily: 'monospace' }}>
-          toujours visible (entier)
+          ×{perspScale < 1 ? perspScale.toFixed(3) : '1'} (loi en 1/d) — entier
         </div>
       </Html>
     </group>
@@ -133,12 +157,17 @@ export default function PerspectiveSim() {
   const [dist, setDist] = useState(30);
   const [obsM, setObsM] = useState(1.7);
   const [tgtM, setTgtM] = useState(40);
+  const [instrument, setInstrument] = useState(0);
 
   const obsH = obsM / 1000;
   const tgtH = tgtM / 1000;
   const hidden = hiddenByGlobe(dist, obsH);
   const angSz = angularSize(tgtM, dist * 1000);
-  const eyeLimit = 1.0;
+  const inst = INSTRUMENTS[instrument];
+  const eyeLimit = inst.limit;
+  const angSzZoomed = angSz * inst.zoom;
+  // Récupérable au zoom : invisible à l'œil nu mais résolu avec l'instrument
+  const recoverable = angSz < 1.0 && angSz >= inst.limit && instrument > 0;
 
   return <div className="w-full">
     {/* Contrôles */}
@@ -189,6 +218,31 @@ export default function PerspectiveSim() {
       ))}
     </div>
 
+    {/* Instrument optique */}
+    <div className="mb-4 border border-[#00E87B]/20 bg-[#0A1020] p-4">
+      <div className="text-[11px] font-tech-mono text-[#00E87B]/70 tracking-widest mb-3">INSTRUMENT OPTIQUE — le zoom ramène-t-il l&apos;objet ?</div>
+      <div className="flex flex-wrap gap-2">
+        {INSTRUMENTS.map((ins, i) => (
+          <button key={ins.id} onClick={() => setInstrument(i)}
+            className="px-4 py-2 text-[10px] font-tech-mono border transition-all"
+            style={{
+              borderColor: i === instrument ? '#00E87B99' : '#334155',
+              backgroundColor: i === instrument ? '#00E87B1a' : 'transparent',
+              color: i === instrument ? '#00E87B' : '#64748b',
+            }}>
+            {ins.label}
+            <span className="block text-[8px] opacity-60">seuil {ins.limit >= 1 ? `${ins.limit}'` : `${(ins.limit * 60).toFixed(1)}"`}</span>
+          </button>
+        ))}
+      </div>
+      {recoverable && (
+        <div className="mt-3 px-3 py-2 border border-[#00E87B]/40 bg-[#00E87B]/10 text-[11px] font-tech-mono text-[#00E87B]">
+          ✓ RÉCUPÉRABLE AU ZOOM — invisible à l&apos;œil nu ({angSz.toFixed(2)}&apos; &lt; 1&apos;) mais résolu par {inst.label}.
+          Si la disparition était due à la courbure, aucun zoom ne pourrait le ramener.
+        </div>
+      )}
+    </div>
+
     {/* Canvas 3D */}
     <div className="w-full h-[50vh] md:h-[60vh] border border-slate-800/50 bg-[#030810] relative overflow-hidden">
       <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[#D4A843]/30 z-10" />
@@ -213,9 +267,10 @@ export default function PerspectiveSim() {
       </div>
       <div className="border border-amber-900/30 bg-[#0A1020] p-4">
         <div className="text-[11px] font-tech-mono text-amber-400/70 tracking-widest mb-2">TAILLE ANGULAIRE</div>
-        <div className="text-[20px] font-tech-mono text-amber-400 font-bold">{angSz.toFixed(1)}&apos;</div>
+        <div className="text-[20px] font-tech-mono text-amber-400 font-bold">{angSz.toFixed(2)}&apos;</div>
         <div className="text-[10px] font-tech-mono text-slate-600 mt-1">
-          {angSz < eyeLimit ? 'sous le seuil de l\'œil (1\')' : `visible (seuil: ${eyeLimit}')`}
+          {instrument > 0 ? `×${inst.zoom} → ${angSzZoomed.toFixed(1)}' apparente` :
+            angSz < eyeLimit ? 'sous le seuil de l\'œil (1\')' : 'visible à l\'œil nu'}
         </div>
       </div>
       <div className={`border p-4 ${hidden < tgtH ? 'border-green-900/30 bg-green-950/20' : 'border-red-900/30 bg-red-950/20'}`}>
@@ -225,12 +280,14 @@ export default function PerspectiveSim() {
         </div>
       </div>
       <div className="border border-green-900/30 bg-green-950/20 p-4">
-        <div className="text-[11px] font-tech-mono text-slate-400/70 tracking-widest mb-2">PLAN</div>
+        <div className="text-[11px] font-tech-mono text-slate-400/70 tracking-widest mb-2">PLAN ({inst.label})</div>
         <div className="text-[18px] font-tech-mono font-bold text-green-400">
           {angSz >= eyeLimit ? '✓ VISIBLE' : '✗ TROP PETIT'}
         </div>
         <div className="text-[10px] font-tech-mono text-slate-500 mt-1">
-          {angSz >= eyeLimit ? 'perspective réduit la taille' : 'résolution angulaire insuffisante'}
+          {angSz >= eyeLimit
+            ? (recoverable ? 'récupéré grâce au zoom' : 'perspective réduit la taille (1/d)')
+            : `sous le seuil de ${inst.label}`}
         </div>
       </div>
     </div>

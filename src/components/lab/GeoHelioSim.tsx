@@ -7,27 +7,63 @@ import * as THREE from 'three';
 type Mode = 'classic' | 'vortex';
 const SUN_C = '#FFD040';
 
-interface PDef { name:string; color:string; r:number; period:number; size:number; ecc:number; }
+interface PDef { name:string; color:string; r:number; period:number; size:number; ecc:number; inc:number; argPeri:number; }
 const PLANETS: PDef[] = [
-  { name:'Mercure', color:'#A0A0A0', r:2.0, period:0.24, size:0.10, ecc:0.206 },
-  { name:'Vénus',   color:'#E8C060', r:3.0, period:0.62, size:0.13, ecc:0.007 },
-  { name:'Terre',   color:'#4488CC', r:4.2, period:1.00, size:0.14, ecc:0.017 },
-  { name:'Mars',    color:'#CC6644', r:5.5, period:1.88, size:0.11, ecc:0.093 },
-  { name:'Jupiter', color:'#C8A060', r:7.5, period:11.86, size:0.28, ecc:0.049 },
-  { name:'Saturne', color:'#E8D090', r:9.5, period:29.46, size:0.24, ecc:0.054 },
-  { name:'Uranus',  color:'#80D0E0', r:11.5, period:84.01, size:0.18, ecc:0.047 },
-  { name:'Neptune', color:'#4060E0', r:13.5, period:164.8, size:0.17, ecc:0.009 },
+  { name:'Mercure', color:'#A0A0A0', r:2.0, period:0.24, size:0.10, ecc:0.206, inc:7.00, argPeri:29.1 },
+  { name:'Vénus',   color:'#E8C060', r:3.0, period:0.62, size:0.13, ecc:0.007, inc:3.39, argPeri:55.2 },
+  { name:'Terre',   color:'#4488CC', r:4.2, period:1.00, size:0.14, ecc:0.017, inc:0.00, argPeri:114.2 },
+  { name:'Mars',    color:'#CC6644', r:5.5, period:1.88, size:0.11, ecc:0.093, inc:1.85, argPeri:286.5 },
+  { name:'Jupiter', color:'#C8A060', r:7.5, period:11.86, size:0.28, ecc:0.049, inc:1.31, argPeri:273.9 },
+  { name:'Saturne', color:'#E8D090', r:9.5, period:29.46, size:0.24, ecc:0.054, inc:2.49, argPeri:339.4 },
+  { name:'Uranus',  color:'#80D0E0', r:11.5, period:84.01, size:0.18, ecc:0.047, inc:0.77, argPeri:96.5 },
+  { name:'Neptune', color:'#4060E0', r:13.5, period:164.8, size:0.17, ecc:0.009, inc:1.77, argPeri:273.2 },
 ];
 
 const ORBITAL_V_KMH = [170503, 126072, 107218, 86677, 47002, 34701, 24477, 19566];
 
-function OrbitRing({ radius, color='#00C8FF', opacity=0.15 }:{ radius:number; color?:string; opacity?:number }) {
+const DEG = Math.PI / 180;
+
+/** Résout l'équation de Kepler M = E − e·sin(E) par Newton-Raphson. */
+function solveKepler(M: number, e: number): number {
+  let E = e < 0.8 ? M : Math.PI;
+  for (let i = 0; i < 8; i++) {
+    E -= (E - e * Math.sin(E) - M) / (1 - e * Math.cos(E));
+  }
+  return E;
+}
+
+/** Anomalie vraie ν depuis l'anomalie moyenne M. */
+function trueAnomaly(M: number, e: number): number {
+  const E = solveKepler(M, e);
+  return 2 * Math.atan2(Math.sqrt(1 + e) * Math.sin(E / 2), Math.sqrt(1 - e) * Math.cos(E / 2));
+}
+
+/** Position 3D depuis les éléments orbitaux (demi-grand axe a, excentricité e,
+ *  anomalie vraie ν, inclinaison inc, argument du périhélie ω — en radians). */
+function orbitalPosition(a: number, e: number, nu: number, inc: number, omega: number): [number, number, number] {
+  const r = a * (1 - e * e) / (1 + e * Math.cos(nu));
+  // angle dans le plan orbital, mesuré depuis le nœud ascendant
+  const u = nu + omega;
+  const xOrb = r * Math.cos(u);
+  const zOrb = r * Math.sin(u);
+  // inclinaison : rotation autour de l'axe x (le plan écliptique est xz, y vertical)
+  const y = zOrb * Math.sin(inc);
+  const z = zOrb * Math.cos(inc);
+  return [xOrb, y, z];
+}
+
+function OrbitRing({ planet, opacity=0.15 }:{ planet:PDef; opacity?:number }) {
   const pts = useMemo(()=>{
     const a:THREE.Vector3[]=[];
-    for(let i=0;i<=128;i++){const t=(i/128)*Math.PI*2;a.push(new THREE.Vector3(Math.cos(t)*radius,0,Math.sin(t)*radius));}
+    const inc = planet.inc * DEG, omega = planet.argPeri * DEG;
+    for(let i=0;i<=180;i++){
+      const nu=(i/180)*Math.PI*2;
+      const [x,y,z]=orbitalPosition(planet.r, planet.ecc, nu, inc, omega);
+      a.push(new THREE.Vector3(x,y,z));
+    }
     return a;
-  },[radius]);
-  return <Line points={pts} color={color} opacity={opacity} transparent lineWidth={0.5} />;
+  },[planet]);
+  return <Line points={pts} color={planet.color} opacity={opacity} transparent lineWidth={0.5} />;
 }
 
 function Label({text,color='#C8D8E8',show=true}:{text:string;color?:string;show?:boolean}){
@@ -67,14 +103,20 @@ function ClassicScene({speed,showLabels,showVelocities}:{speed:number;showLabels
   const moonRef=useRef<THREE.Group>(null);
   useFrame(({clock})=>{
     const t=clock.getElapsedTime()*speed*0.3;
-    PLANETS.forEach((p,i)=>{const g=refs.current[i];if(!g)return;const a=(t/p.period)*Math.PI*2;g.position.set(Math.cos(a)*p.r,0,Math.sin(a)*p.r);});
-    if(moonRef.current&&refs.current[2]){const e=refs.current[2]!.position;const ma=t*13.37;moonRef.current.position.set(e.x+Math.cos(ma)*0.5,0,e.z+Math.sin(ma)*0.5);}
+    PLANETS.forEach((p,i)=>{
+      const g=refs.current[i];if(!g)return;
+      const M=(t/p.period)*Math.PI*2;             // anomalie moyenne
+      const nu=trueAnomaly(M,p.ecc);              // anomalie vraie (Kepler)
+      const [x,y,z]=orbitalPosition(p.r,p.ecc,nu,p.inc*DEG,p.argPeri*DEG);
+      g.position.set(x,y,z);
+    });
+    if(moonRef.current&&refs.current[2]){const e=refs.current[2]!.position;const ma=t*13.37;moonRef.current.position.set(e.x+Math.cos(ma)*0.5,e.y,e.z+Math.sin(ma)*0.5);}
   });
   return <group>
     <group><mesh><sphereGeometry args={[0.45,32,32]}/><meshStandardMaterial color={SUN_C} emissive={SUN_C} emissiveIntensity={1.5}/></mesh>
     <mesh><sphereGeometry args={[0.9,16,16]}/><meshBasicMaterial color={SUN_C} transparent opacity={0.06}/></mesh>
     <pointLight intensity={2} color={SUN_C} distance={25}/><Label text="Soleil" color={SUN_C} show={showLabels}/></group>
-    {PLANETS.map(p=><OrbitRing key={'o'+p.name} radius={p.r} color={p.color} opacity={0.12}/>)}
+    {PLANETS.map(p=><OrbitRing key={'o'+p.name} planet={p} opacity={0.12}/>)}
     {PLANETS.map((p,i)=>(
       <group key={p.name} ref={el=>{refs.current[i]=el;}}>
         <mesh><sphereGeometry args={[p.size,20,20]}/><meshStandardMaterial color={p.color} roughness={0.6}/></mesh>
@@ -106,11 +148,10 @@ function VortexScene({speed,showLabels,showVelocities}:{speed:number;showLabels:
 
     PLANETS.forEach((p,i)=>{
       const g=refs.current[i];if(!g)return;
-      const a=(t*2/p.period)*Math.PI*2;
-      const rEllip = p.r * (1 - p.ecc*p.ecc) / (1 + p.ecc * Math.cos(a));
-      const x = Math.cos(a) * rEllip;
-      const y = Math.sin(a) * rEllip;
-      g.position.set(x, y, z);
+      const M=(t*2/p.period)*Math.PI*2;
+      const nu=trueAnomaly(M,p.ecc);              // même solveur de Kepler qu'en mode classique
+      const [ox,oy,oz]=orbitalPosition(p.r,p.ecc,nu,p.inc*DEG,p.argPeri*DEG);
+      g.position.set(ox, oy + oz, z);             // plan orbital ⟂ au mouvement galactique (oy+oz ≈ zOrb)
     });
 
     if(moonRef.current&&refs.current[2]){

@@ -12,6 +12,20 @@ function maxVisibleDist(heightM: number, limitArcMin: number): number {
 
 const EYE_LIMIT = 1.0;
 
+/** Critère de Rayleigh : θ_min = 1.22·λ/D (λ = 550 nm), converti en arc-minutes. */
+function rayleighArcMin(apertureMm: number): number {
+  const thetaRad = 1.22 * 550e-9 / (apertureMm / 1000);
+  return thetaRad * (180 / Math.PI) * 60;
+}
+
+const INSTRUMENTS = [
+  // L'œil : Rayleigh donne ~0.46' pour 5 mm, mais l'acuité pratique est ~1'
+  { id: 'eye', label: 'Œil nu', aperture: 5, limit: EYE_LIMIT, zoom: 1 },
+  { id: 'binos', label: 'Jumelles 10×50', aperture: 50, limit: rayleighArcMin(50), zoom: 10 },
+  { id: 'p1000', label: 'Nikon P1000 (125×)', aperture: 70, limit: rayleighArcMin(70), zoom: 125 },
+  { id: 'scope', label: 'Télescope 150 mm', aperture: 150, limit: rayleighArcMin(150), zoom: 75 },
+];
+
 const PRESETS = [
   { label: 'Personne (1.7 m) — 5 km', h: 1.7, d: 5000 },
   { label: 'Bateau (10 m) — 20 km', h: 10, d: 20000 },
@@ -66,9 +80,9 @@ function EyeDiagram({ angSize, limit }: { angSize: number; limit: number }) {
   );
 }
 
-function ResolutionGraph({ heightM }: { heightM: number }) {
+function ResolutionGraph({ heightM, instLimit }: { heightM: number; instLimit: number }) {
   const W = 500, H = 160, PAD = 50;
-  const maxDist = maxVisibleDist(heightM, EYE_LIMIT) * 1.5;
+  const maxDist = maxVisibleDist(heightM, Math.min(EYE_LIMIT, instLimit)) * 1.5;
   if (!isFinite(maxDist) || maxDist <= 0) return null;
   const steps = 100;
 
@@ -91,14 +105,22 @@ function ResolutionGraph({ heightM }: { heightM: number }) {
 
   const pathD = points.pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x},${p.y}`).join(' ');
   const limitY = H - PAD - (EYE_LIMIT / points.maxA) * (H - PAD * 2);
+  const instY = H - PAD - (instLimit / points.maxA) * (H - PAD * 2);
+  const showInstLine = instLimit < EYE_LIMIT;
 
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 160 }}>
       <rect x={PAD} y={4} width={W - PAD * 2} height={H - PAD - 4} fill="#050A12" rx={4} />
-      {/* Seuil 1' */}
+      {/* Seuil œil 1' */}
       <line x1={PAD} y1={limitY} x2={W - PAD} y2={limitY}
         stroke="#D4A843" strokeWidth={1} strokeDasharray="4,3" opacity={0.6} />
-      <text x={W - PAD + 4} y={limitY + 3} fill="#D4A843" fontSize={8} fontFamily="monospace">1&apos;</text>
+      <text x={W - PAD + 4} y={limitY + 3} fill="#D4A843" fontSize={8} fontFamily="monospace">œil 1&apos;</text>
+      {/* Seuil instrument (Rayleigh) */}
+      {showInstLine && <>
+        <line x1={PAD} y1={instY} x2={W - PAD} y2={instY}
+          stroke="#00E87B" strokeWidth={1} strokeDasharray="4,3" opacity={0.6} />
+        <text x={W - PAD + 4} y={instY + 3} fill="#00E87B" fontSize={8} fontFamily="monospace">instr.</text>
+      </>}
       {/* Courbe */}
       <path d={pathD} fill="none" stroke="#00C8FF" strokeWidth={2} />
       {/* Remplissage sous le seuil = zone invisible */}
@@ -122,10 +144,16 @@ function ResolutionGraph({ heightM }: { heightM: number }) {
 export default function VisualFieldSim() {
   const [heightM, setHeightM] = useState(10);
   const [distM, setDistM] = useState(20000);
+  const [instrument, setInstrument] = useState(0);
 
+  const inst = INSTRUMENTS[instrument];
   const angSz = arcMin(heightM, distM);
-  const maxVisDist = maxVisibleDist(heightM, EYE_LIMIT);
-  const visible = angSz >= EYE_LIMIT;
+  const maxVisDist = maxVisibleDist(heightM, inst.limit);
+  const maxVisDistEye = maxVisibleDist(heightM, EYE_LIMIT);
+  const visible = angSz >= inst.limit;
+  const visibleEye = angSz >= EYE_LIMIT;
+  // Récupérable au zoom : invisible à l'œil nu, mais résolu par l'instrument
+  const recoverable = !visibleEye && visible && instrument > 0;
   const distKm = distM / 1000;
 
   return <div className="w-full">
@@ -165,16 +193,46 @@ export default function VisualFieldSim() {
       ))}
     </div>
 
+    {/* Instrument optique */}
+    <div className="mb-4 border border-[#00E87B]/20 bg-[#0A1020] p-4">
+      <div className="text-[11px] font-tech-mono text-[#00E87B]/70 tracking-widest mb-3">INSTRUMENT — critère de Rayleigh θ = 1.22·λ/D</div>
+      <div className="flex flex-wrap gap-2">
+        {INSTRUMENTS.map((ins, i) => (
+          <button key={ins.id} onClick={() => setInstrument(i)}
+            className="px-4 py-2 text-[10px] font-tech-mono border transition-all"
+            style={{
+              borderColor: i === instrument ? '#00E87B99' : '#334155',
+              backgroundColor: i === instrument ? '#00E87B1a' : 'transparent',
+              color: i === instrument ? '#00E87B' : '#64748b',
+            }}>
+            {ins.label}
+            <span className="block text-[8px] opacity-60">
+              D = {ins.aperture} mm · θ = {ins.limit >= 1 ? `${ins.limit.toFixed(1)}'` : `${(ins.limit * 60).toFixed(2)}"`}
+            </span>
+          </button>
+        ))}
+      </div>
+      {recoverable && (
+        <div className="mt-3 px-3 py-2 border border-[#00E87B]/40 bg-[#00E87B]/10 text-[11px] font-tech-mono text-[#00E87B]">
+          ✓ RÉCUPÉRABLE AU ZOOM — l&apos;objet ({angSz.toFixed(3)}&apos;) est sous le seuil de l&apos;œil (1&apos;) mais au-dessus
+          de celui de {inst.label}. La disparition était angulaire, pas physique : un objet caché par une courbure
+          réelle ne reviendrait avec aucun zoom.
+        </div>
+      )}
+    </div>
+
     {/* Diagramme œil */}
     <div className="mb-4 border border-slate-800/50 bg-[#0A1020] p-4">
-      <div className="text-[11px] font-tech-mono text-slate-400 tracking-widest mb-3">RÉSOLUTION DE L&apos;ŒIL</div>
-      <EyeDiagram angSize={angSz} limit={EYE_LIMIT} />
+      <div className="text-[11px] font-tech-mono text-slate-400 tracking-widest mb-3">
+        RÉSOLUTION — {inst.label.toUpperCase()}
+      </div>
+      <EyeDiagram angSize={angSz} limit={inst.limit} />
     </div>
 
     {/* Graphique résolution vs distance */}
     <div className="mb-4 border border-slate-800/50 bg-[#0A1020] p-4">
       <div className="text-[11px] font-tech-mono text-slate-400 tracking-widest mb-3">TAILLE ANGULAIRE VS DISTANCE</div>
-      <ResolutionGraph heightM={heightM} />
+      <ResolutionGraph heightM={heightM} instLimit={inst.limit} />
       <div className="flex items-center gap-4 mt-2">
         <div className="flex items-center gap-2">
           <div className="w-4 h-0.5 bg-[#00C8FF]" />
@@ -184,6 +242,12 @@ export default function VisualFieldSim() {
           <div className="w-4 h-0.5 bg-[#D4A843] opacity-60" style={{ borderTop: '1px dashed #D4A843' }} />
           <span className="text-[9px] font-tech-mono text-slate-500">seuil œil (1&apos;)</span>
         </div>
+        {inst.limit < EYE_LIMIT && (
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-0.5 bg-[#00E87B] opacity-60" style={{ borderTop: '1px dashed #00E87B' }} />
+            <span className="text-[9px] font-tech-mono text-slate-500">seuil {inst.label}</span>
+          </div>
+        )}
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 bg-[#FF4444] opacity-15" />
           <span className="text-[9px] font-tech-mono text-slate-500">zone invisible</span>
@@ -203,19 +267,23 @@ export default function VisualFieldSim() {
         </div>
       </div>
       <div className="border border-amber-900/30 bg-[#0A1020] p-4">
-        <div className="text-[11px] font-tech-mono text-amber-400/70 tracking-widest mb-2">DISTANCE MAX VISIBLE</div>
+        <div className="text-[11px] font-tech-mono text-amber-400/70 tracking-widest mb-2">DISTANCE MAX ({inst.label.toUpperCase()})</div>
         <div className="text-[20px] font-tech-mono text-amber-400 font-bold">
           {maxVisDist >= 1000 ? `${(maxVisDist / 1000).toFixed(1)} km` : `${maxVisDist.toFixed(0)} m`}
         </div>
-        <div className="text-[10px] font-tech-mono text-slate-600 mt-1">pour un objet de {heightM} m</div>
+        <div className="text-[10px] font-tech-mono text-slate-600 mt-1">
+          {instrument > 0
+            ? `œil nu : ${maxVisDistEye >= 1000 ? `${(maxVisDistEye / 1000).toFixed(1)} km` : `${maxVisDistEye.toFixed(0)} m`}`
+            : `pour un objet de ${heightM} m`}
+        </div>
       </div>
-      <div className={`border p-4 ${visible ? 'border-green-900/30 bg-green-950/20' : 'border-red-900/30 bg-red-950/20'}`}>
+      <div className={`border p-4 ${recoverable ? 'border-green-900/30 bg-green-950/20' : visible ? 'border-green-900/30 bg-green-950/20' : 'border-red-900/30 bg-red-950/20'}`}>
         <div className="text-[11px] font-tech-mono text-slate-400/70 tracking-widest mb-2">VERDICT</div>
         <div className={`text-[18px] font-tech-mono font-bold ${visible ? 'text-green-400' : 'text-red-400'}`}>
-          {visible ? '✓ RÉSOLU' : '✗ NON RÉSOLU'}
+          {recoverable ? '✓ ZOOM RÉCUPÈRE' : visible ? '✓ RÉSOLU' : '✗ NON RÉSOLU'}
         </div>
         <div className="text-[10px] font-tech-mono text-slate-500 mt-1">
-          seuil : 1 arc-minute
+          seuil : {inst.limit >= 1 ? `${inst.limit.toFixed(1)}'` : `${(inst.limit * 60).toFixed(2)}"`} (Rayleigh)
         </div>
       </div>
       <div className="border border-purple-900/30 bg-[#0A1020] p-4">

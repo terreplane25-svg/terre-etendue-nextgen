@@ -10,6 +10,24 @@ function curvatureBulge(dist: number): number {
   return (dist ** 2) / (2 * R_EARTH);
 }
 
+/** Coefficient de réfraction k depuis les conditions atmosphériques.
+ *  Formule géodésique standard : k ≈ 503·P/T² · (0.0342 + dT/dh)
+ *  avec P en hPa, T en Kelvin, dT/dh en °C/m (gradient thermique vertical).
+ *  Gradient standard −6.5 °C/km → k ≈ 0.13–0.17 selon la température. */
+function refractionK(tempC: number, gradCPerKm: number, pressureHpa = 1013): number {
+  const T = tempC + 273.15;
+  const dTdh = gradCPerKm / 1000; // °C/m
+  const k = 503 * pressureHpa / (T * T) * (0.0342 + dTdh);
+  return Math.max(-0.5, Math.min(1.2, k));
+}
+
+/** Déviation verticale du rayon laser due à la réfraction à la distance d (km) :
+ *  le rayon suit un arc de rayon R_ray = R_earth/k → flèche δ = d²·k/(2·R_earth).
+ *  k > 0 : le rayon se courbe VERS la surface (réduit l'écart apparent). */
+function laserRefractionDrop(dist: number, k: number): number {
+  return (dist ** 2) * k / (2 * R_EARTH);
+}
+
 const PRESETS = [
   {
     label: 'Bedford Level (10 km)',
@@ -33,10 +51,22 @@ const PRESETS = [
   },
 ];
 
-function Scene({ dist, laserH, targets }: { dist: number; laserH: number; targets: number[] }) {
+function Scene({ dist, laserH, targets, k }: { dist: number; laserH: number; targets: number[]; k: number }) {
   const scale = 12 / Math.max(dist, 5);
   const hScale = scale * 800;
   const halfD = (dist / 2) * scale;
+
+  // Trajectoire du laser réfracté (modèle globe) : arc qui plonge de d²k/2R
+  const refractedPts = useMemo(() => {
+    const pts: THREE.Vector3[] = [];
+    for (let i = 0; i <= 100; i++) {
+      const dKm = (i / 100) * dist;
+      const x = -halfD + (i / 100) * (halfD * 2);
+      const y = laserH * hScale - laserRefractionDrop(dKm, k) * hScale;
+      pts.push(new THREE.Vector3(x, y, 0));
+    }
+    return pts;
+  }, [dist, halfD, laserH, hScale, k]);
 
   const waterPts = useMemo(() => {
     const pts: THREE.Vector3[] = [];
@@ -123,15 +153,19 @@ function Scene({ dist, laserH, targets }: { dist: number; laserH: number; target
       </Html>
       {/* Surface courbée */}
       <Line points={curvedWaterPts} color="#4488CC" lineWidth={2} />
-      {/* Laser droit (qui s'éloigne de l'eau) */}
+      {/* Laser géométrique droit (théorique, sans réfraction) */}
       <Line points={[
         new THREE.Vector3(-halfD, laserH * hScale, 0),
         new THREE.Vector3(halfD, laserH * hScale, 0),
-      ]} color="#FF0000" lineWidth={2} />
-      <Line points={[
-        new THREE.Vector3(-halfD, laserH * hScale, 0),
-        new THREE.Vector3(halfD, laserH * hScale, 0),
-      ]} color="#FF4444" lineWidth={6} opacity={0.15} transparent />
+      ]} color="#FF8888" lineWidth={1} opacity={0.35} transparent dashed dashSize={0.08} gapSize={0.05} />
+      {/* Laser réfracté (trajectoire réelle, courbée vers la surface) */}
+      <Line points={refractedPts} color="#FF0000" lineWidth={2} />
+      <Line points={refractedPts} color="#FF4444" lineWidth={6} opacity={0.15} transparent />
+      <Html position={[halfD * 0.6, laserH * hScale + 0.4, 0]} center distanceFactor={10} style={{ pointerEvents: 'none' }}>
+        <div style={{ color: '#FF8888', fontSize: '7px', fontFamily: 'monospace' }}>
+          pointillé = droit · plein = réfracté (k={k.toFixed(2)})
+        </div>
+      </Html>
       {/* Source */}
       <mesh position={[-halfD, laserH * hScale, 0]}>
         <sphereGeometry args={[0.08, 12, 12]} />
@@ -173,6 +207,10 @@ export default function LaserLakeSim() {
   const [dist, setDist] = useState(10);
   const [laserH, setLaserH] = useState(1.5);
   const [numTargets, setNumTargets] = useState(5);
+  const [tempC, setTempC] = useState(15);
+  const [gradC, setGradC] = useState(-6.5);
+
+  const k = refractionK(tempC, gradC);
 
   const targets = useMemo(() => {
     const t: number[] = [];
@@ -183,6 +221,7 @@ export default function LaserLakeSim() {
   }, [dist, numTargets]);
 
   const maxBulge = curvatureBulge(dist);
+  const maxBulgeRefracted = Math.max(0, maxBulge - laserRefractionDrop(dist, k));
 
   return <div className="w-full">
     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
@@ -218,6 +257,32 @@ export default function LaserLakeSim() {
       </div>
     </div>
 
+    {/* Conditions atmosphériques */}
+    <div className="border border-[#D4A843]/30 bg-[#0A1020] p-4 mb-4">
+      <div className="text-[11px] font-tech-mono text-[#D4A843] tracking-widest mb-3">
+        CONDITIONS ATMOSPHÉRIQUES → k = {k.toFixed(3)} (R_rayon = {k > 0.001 ? `${Math.round(R_EARTH / k).toLocaleString('fr-FR')} km` : '∞'})
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="flex items-center gap-3">
+          <label className="text-[10px] font-tech-mono text-slate-400 w-32">TEMPÉRATURE (T₀)</label>
+          <input type="range" min={5} max={40} step={0.5} value={tempC}
+            onChange={e => setTempC(+e.target.value)} className="flex-1 accent-[#D4A843] h-2" />
+          <span className="text-[12px] font-tech-mono text-[#D4A843] w-14 text-right">{tempC.toFixed(1)}°C</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <label className="text-[10px] font-tech-mono text-slate-400 w-32">GRADIENT ΔT/Δh</label>
+          <input type="range" min={-10} max={10} step={0.1} value={gradC}
+            onChange={e => setGradC(+e.target.value)} className="flex-1 accent-[#D4A843] h-2" />
+          <span className="text-[12px] font-tech-mono text-[#D4A843] w-20 text-right">{gradC.toFixed(1)} °C/km</span>
+        </div>
+      </div>
+      <div className="flex flex-wrap gap-2 mt-3">
+        <button onClick={() => { setTempC(15); setGradC(-6.5); }} className="px-3 py-1 text-[9px] font-tech-mono border border-slate-600 text-slate-400 hover:text-white">Standard (k≈0.13)</button>
+        <button onClick={() => { setTempC(10); setGradC(0); }} className="px-3 py-1 text-[9px] font-tech-mono border border-[#D4A843]/40 text-[#D4A843] hover:bg-[#D4A843]/10">Eau froide / inversion légère</button>
+        <button onClick={() => { setTempC(8); setGradC(8); }} className="px-3 py-1 text-[9px] font-tech-mono border border-red-700/40 text-red-400 hover:bg-red-400/10">Forte inversion (super-réfraction)</button>
+      </div>
+    </div>
+
     {/* Presets */}
     <div className="mb-4 grid grid-cols-2 md:grid-cols-4 gap-2">
       {PRESETS.map(p => (
@@ -236,7 +301,7 @@ export default function LaserLakeSim() {
       <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[#FF4444]/30 z-10" />
       <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-[#FF4444]/30 z-10" />
       <Canvas camera={{ position: [0, 0, 12], fov: 45 }}>
-        <Scene dist={dist} laserH={laserH} targets={targets} />
+        <Scene dist={dist} laserH={laserH} targets={targets} k={k} />
       </Canvas>
     </div>
 
@@ -247,7 +312,8 @@ export default function LaserLakeSim() {
           <tr className="border-b border-slate-800">
             <th className="text-[10px] font-tech-mono text-slate-500 px-3 py-2 text-left">DISTANCE</th>
             <th className="text-[10px] font-tech-mono text-slate-500 px-3 py-2 text-right">CHUTE COURBURE</th>
-            <th className="text-[10px] font-tech-mono text-slate-500 px-3 py-2 text-right">ÉCART LASER</th>
+            <th className="text-[10px] font-tech-mono text-slate-500 px-3 py-2 text-right">ÉCART GÉOMÉTRIQUE</th>
+            <th className="text-[10px] font-tech-mono text-slate-500 px-3 py-2 text-right">ÉCART AVEC RÉFRACTION</th>
             <th className="text-[10px] font-tech-mono text-slate-500 px-3 py-2 text-right">VERDICT GLOBE</th>
           </tr>
         </thead>
@@ -255,6 +321,7 @@ export default function LaserLakeSim() {
           {targets.map(t => {
             const bulge = curvatureBulge(t);
             const bulgeM = bulge * 1000;
+            const refractedGapM = Math.max(0, (bulge - laserRefractionDrop(t, k)) * 1000);
             const laserAbove = bulgeM > 0;
             return (
               <tr key={t} className="border-b border-slate-800/30">
@@ -263,7 +330,10 @@ export default function LaserLakeSim() {
                   {bulgeM >= 1 ? `${bulgeM.toFixed(1)} m` : `${(bulgeM * 100).toFixed(1)} cm`}
                 </td>
                 <td className="text-[11px] font-tech-mono px-3 py-2 text-right" style={{ color: laserAbove ? '#FF4444' : '#00E87B' }}>
-                  {laserAbove ? `+${bulgeM.toFixed(1)} m au-dessus` : 'sur la cible'}
+                  {laserAbove ? `+${bulgeM.toFixed(1)} m` : 'sur la cible'}
+                </td>
+                <td className="text-[11px] font-tech-mono px-3 py-2 text-right" style={{ color: refractedGapM > 0.5 ? '#FF8888' : '#00E87B' }}>
+                  {refractedGapM >= 1 ? `+${refractedGapM.toFixed(1)} m` : refractedGapM > 0.01 ? `+${(refractedGapM * 100).toFixed(0)} cm` : '≈ 0'}
                 </td>
                 <td className="text-[11px] font-tech-mono px-3 py-2 text-right" style={{ color: bulgeM > laserH * 1000 ? '#FF4444' : '#D4A843' }}>
                   {bulgeM > laserH * 1000 ? 'laser sous l\'eau' : 'laser visible'}
@@ -311,9 +381,11 @@ export default function LaserLakeSim() {
       <div className="text-[11px] font-tech-mono text-[#FF4444]/60 mb-2">L&apos;EXPÉRIENCE LASER SUR LAC</div>
       <p className="text-[12px] text-[#C8D8E8]/50 font-rajdhani leading-relaxed">
         Un laser placé à basse altitude au-dessus d&apos;une surface d&apos;eau calme devrait, sur un globe de 6 371 km de rayon,
-        s&apos;éloigner progressivement de la surface (la surface « descend » par courbure). Sur {dist} km, l&apos;écart attendu est
-        de {(maxBulge * 1000).toFixed(1)} m. Si le laser touche toutes les cibles à la même hauteur, l&apos;eau est plate sur cette distance.
-        C&apos;est le test le plus simple et le plus direct de la courbure terrestre.
+        s&apos;éloigner progressivement de la surface. Sur {dist} km, l&apos;écart géométrique attendu est de {(maxBulge * 1000).toFixed(1)} m.
+        La réfraction atmosphérique courbe le rayon vers la surface et réduit cet écart à {(maxBulgeRefracted * 1000).toFixed(1)} m
+        dans les conditions choisies (k = {k.toFixed(2)}). Même en super-réfraction réaliste (k ≈ 0.4), l&apos;écart résiduel reste
+        important au-delà de 5 km — la réfraction seule ne peut pas expliquer un laser qui touche toutes les cibles à la même hauteur.
+        Si le laser reste droit, l&apos;eau est plate sur cette distance. C&apos;est le test le plus simple et le plus direct de la courbure.
       </p>
     </div>
 
