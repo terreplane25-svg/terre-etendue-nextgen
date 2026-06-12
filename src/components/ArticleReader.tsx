@@ -69,7 +69,8 @@ export default function ArticleReader(props: ArticleReaderProps) {
   const a = props.article || props;
   const title = a.title || 'Article';
   const description = a.description || '';
-  const content = a.content || a.htmlContent || '';
+  const rawContent = a.content || a.htmlContent || '';
+  const content = rawContent.replace(/<table([\s\S]*?)<\/table>/g, '<div class="table-scroll-wrapper"><table$1</table></div>');
   const category = a.category || 'observatory';
   const tags = a.tags || [];
   const readTime = a.readTime;
@@ -90,14 +91,6 @@ export default function ArticleReader(props: ArticleReaderProps) {
 
     if (!hintsAdded.current) {
       hintsAdded.current = true;
-
-      container.querySelectorAll('table').forEach(table => {
-        if (table.parentElement?.classList.contains('table-scroll-wrapper')) return;
-        const wrapper = document.createElement('div');
-        wrapper.className = 'table-scroll-wrapper';
-        table.parentNode?.insertBefore(wrapper, table);
-        wrapper.appendChild(table);
-      });
 
       container.querySelectorAll('svg').forEach(svg => {
         svg.style.cursor = 'zoom-in';
