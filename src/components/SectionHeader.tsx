@@ -18,7 +18,7 @@ export default function SectionHeader({ pillar, pillarNum, subtitle, title, colo
       padding: '40px 24px 36px',
       borderBottom: '1px solid #1a2540',
     }}>
-      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+      <div style={{ maxWidth: 960, margin: '0 auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
           <span style={{
             fontSize: 10, fontFamily: dash.fontMono, fontWeight: 700,

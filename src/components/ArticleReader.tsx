@@ -125,15 +125,15 @@ export default function ArticleReader(props: ArticleReaderProps) {
   }, [content]);
 
   return (
-    <div style={{ maxWidth: 900, margin: '0 auto', padding: '32px 24px 80px', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+    <div style={{ maxWidth: 900, margin: '0 auto', padding: '32px 16px 80px', fontFamily: "'Plus Jakarta Sans', sans-serif" }} className="sm:!px-6">
 
       <div style={{ fontSize: 12, fontWeight: 700, color: '#7C6FC4', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 12 }}>
         {CAT_LABEL[category] || category}
       </div>
 
-      <h1 style={{ fontSize: 36, fontWeight: 800, color: '#141210', lineHeight: 1.25, letterSpacing: '-0.02em', marginBottom: 14 }}>{title}</h1>
+      <h1 className="text-[26px] sm:text-[32px] md:text-[36px]" style={{ fontWeight: 800, color: '#141210', lineHeight: 1.25, letterSpacing: '-0.02em', marginBottom: 14, overflowWrap: 'break-word' }}>{title}</h1>
 
-      {description && <p style={{ fontSize: 18, color: '#666', lineHeight: 1.6, marginBottom: 16 }}>{description}</p>}
+      {description && <p className="text-[16px] sm:text-[18px]" style={{ color: '#666', lineHeight: 1.6, marginBottom: 16 }}>{description}</p>}
 
       <div style={{ fontSize: 13, color: '#999', marginBottom: 24 }}>
         {author && <span>{author} | </span>}
