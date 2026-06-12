@@ -59,8 +59,10 @@ a { color: inherit; text-decoration: none; }
 .prose-dash blockquote { background: var(--cream); border-left: 3px solid var(--lavender); border-radius: 6px; padding: 18px 22px; margin: 1.5em 0; font-style: italic; }
 
 @media (max-width: 768px) {
-  .prose-dash { font-size: 15px; }
+  .prose-dash { font-size: 15px; overflow-wrap: break-word; word-break: break-word; }
   .prose-dash h2 { font-size: 20px; }
+  .prose-dash table { display: block; overflow-x: auto; }
+  .prose-dash pre { overflow-x: auto; }
 }
 
 /* ═══ CARDS ═══ */
