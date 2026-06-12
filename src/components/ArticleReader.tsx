@@ -90,6 +90,15 @@ export default function ArticleReader(props: ArticleReaderProps) {
 
     if (!hintsAdded.current) {
       hintsAdded.current = true;
+
+      container.querySelectorAll('table').forEach(table => {
+        if (table.parentElement?.classList.contains('table-scroll-wrapper')) return;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'table-scroll-wrapper';
+        table.parentNode?.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+      });
+
       container.querySelectorAll('svg').forEach(svg => {
         svg.style.cursor = 'zoom-in';
         svg.setAttribute('title', 'Cliquez pour agrandir');

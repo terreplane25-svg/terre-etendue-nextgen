@@ -46,6 +46,8 @@ a { color: inherit; text-decoration: none; }
 .prose-dash table, .tei-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 1.5em 0; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
 .prose-dash th, .tei-table th { background: var(--cream); font-weight: 700; color: var(--ink); padding: 10px 14px; text-align: left; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
 .prose-dash td, .tei-table td { padding: 10px 14px; border-top: 1px solid var(--border); color: var(--ink-soft); }
+.table-scroll-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1.5em 0; border-radius: 6px; }
+.table-scroll-wrapper table { margin: 0; }
 
 /* Widget blocks */
 .tei-data { background: #3580C00A; border: 1px solid #3580C015; border-radius: 6px; padding: 18px 22px; margin: 1.2em 0; }
@@ -61,7 +63,8 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 768px) {
   .prose-dash { font-size: 15px; overflow-wrap: break-word; word-break: break-word; }
   .prose-dash h2 { font-size: 20px; }
-  .prose-dash table { display: block; overflow-x: auto; }
+  .prose-dash table { width: max-content; min-width: 500px; }
+  .prose-dash th, .prose-dash td { white-space: nowrap; padding: 8px 10px; }
   .prose-dash pre { overflow-x: auto; }
 }
 
