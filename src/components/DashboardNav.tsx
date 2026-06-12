@@ -87,9 +87,8 @@ export default function DashboardNav() {
         transform: visible ? 'translateY(0)' : 'translateY(-100%)',
         transition: 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)',
       }}>
-        <div style={{ maxWidth: 1360, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center' }}>
-
-          {/* Logo — far left */}
+        {/* ── Desktop header ── */}
+        <div className="hidden lg:flex" style={{ maxWidth: 1360, margin: '0 auto', padding: '0 24px', alignItems: 'center' }}>
           <Link href="/" style={{ flexShrink: 0, marginRight: 40, padding: '8px 0' }}>
             <div style={{
               fontSize: 27, fontWeight: 900, color: '#0A0A0A', letterSpacing: '-0.03em',
@@ -105,8 +104,7 @@ export default function DashboardNav() {
             </div>
           </Link>
 
-          {/* Desktop nav — center */}
-          <nav className="hidden lg:flex" style={{ alignItems: 'center', gap: 0, flex: 1, justifyContent: 'center', minWidth: 0 }}>
+          <nav style={{ display: 'flex', alignItems: 'center', gap: 0, flex: 1, justifyContent: 'center', minWidth: 0 }}>
             {SECTIONS.map(s => {
               const active = pathname === s.href || pathname?.startsWith(s.href + '/');
               return (
@@ -164,18 +162,29 @@ export default function DashboardNav() {
             })}
           </nav>
 
-          {/* Search + mobile hamburger — right */}
-          <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: 8, marginLeft: 'auto' }}>
-            <div className="hidden sm:block">
-              <SearchCommand inline />
+          <div style={{ flexShrink: 0, marginLeft: 'auto' }}>
+            <SearchCommand inline />
+          </div>
+        </div>
+
+        {/* ── Mobile header ── */}
+        <div className="flex lg:hidden" style={{ padding: '0 16px', alignItems: 'center', height: 56 }}>
+          <button onClick={() => setMobileOpen(!mobileOpen)}
+            style={{ padding: 8, background: 'none', border: 'none', cursor: 'pointer', color: '#0D0D0D', flexShrink: 0 }}>
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+
+          <Link href="/" style={{ flex: 1, textAlign: 'center', padding: '4px 0' }}>
+            <div style={{
+              fontSize: 18, fontWeight: 900, color: '#0A0A0A', letterSpacing: '-0.02em',
+              lineHeight: 1.15, fontFamily: "'Plus Jakarta Sans', sans-serif",
+            }}>
+              Terre Étendue <span style={{ color: '#2B9E6E' }}>Islam</span>
             </div>
-            <div className="sm:hidden">
-              <SearchCommand />
-            </div>
-            <button className="lg:hidden" onClick={() => setMobileOpen(!mobileOpen)}
-              style={{ padding: '10px 0 10px 10px', background: 'none', border: 'none', cursor: 'pointer', color: '#0D0D0D' }}>
-              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+          </Link>
+
+          <div style={{ flexShrink: 0 }}>
+            <SearchCommand />
           </div>
         </div>
 
