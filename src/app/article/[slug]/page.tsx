@@ -90,7 +90,7 @@ export default async function ArticlePage({ params }: PageProps) {
   };
 
   return (
-    <main className="min-h-screen pt-24 pb-16" style={{ background: 'var(--bg)' }}>
+    <main className="min-h-screen pt-24 pb-16" style={{ background: 'var(--bg)', overflowX: 'hidden' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="article-layout" style={{ display: 'grid', gridTemplateColumns: '1fr', maxWidth: 1200, margin: '0 auto', gap: 32, padding: '0 24px' }}>
         <div>

@@ -63,8 +63,9 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 768px) {
   .prose-dash { font-size: 15px; overflow-wrap: break-word; word-break: break-word; }
   .prose-dash h2 { font-size: 20px; }
-  .prose-dash table { width: max-content; min-width: 500px; }
-  .prose-dash th, .prose-dash td { white-space: nowrap; padding: 8px 10px; }
+  .table-scroll-wrapper { margin: 1.5em -16px; padding: 0 16px; }
+  .prose-dash table { width: max-content; min-width: 480px; }
+  .prose-dash th, .prose-dash td { white-space: nowrap; padding: 8px 10px; font-size: 12px; }
   .prose-dash pre { overflow-x: auto; }
 }
 
@@ -104,6 +105,7 @@ a { color: inherit; text-decoration: none; }
   border-radius: 6px !important;
   padding: 16px !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.03) !important;
+  box-sizing: border-box !important;
 }
 
 /* Override any dark inline backgrounds from old HUD theme */
