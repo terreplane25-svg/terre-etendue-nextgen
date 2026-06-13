@@ -502,7 +502,7 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
           side={THREE.BackSide} depthWrite={false}
         />
       </mesh>
-      {/* 50 étoiles les plus brillantes, à leur vraie position alt/az */}
+      {/* ~120 étoiles brillantes, à leur vraie position alt/az */}
       <points geometry={realStarGeom}>
         <pointsMaterial ref={realStarsMatRef} color="#E8F0FF" size={0.55} sizeAttenuation transparent opacity={0} depthWrite={false} />
       </points>
@@ -531,7 +531,7 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
                 </group>
               </Billboard>
             )}
-            {!isPolaris && showLabels && (posData.sun.altitude ?? 0) < -6 && s.mag <= 1.0 &&
+            {!isPolaris && showLabels && (posData.sun.altitude ?? 0) < -6 && s.mag <= 2.0 &&
               <Label text={s.name} color="#A8C0E8" show />}
           </group>
         );
@@ -574,14 +574,15 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
         <Label text={`Lune ☾${altText(posData.moon)}`} color={MOON_C} show={showLabels && (posData.moon.altitude ?? 0) > -3} />
       </group>
 
-      {/* Planètes */}
+      {/* Planètes — visibles avec label permanent au-dessus de l'horizon */}
       {posData.planets.map((p,i)=>(
         <group key={p.name} ref={el=>{planetRefs.current[i]=el;}}
           onClick={(e) => { e.stopPropagation(); if(p.altitude!==undefined) onSelectBody(p.name, p.altitude, p.azimuth!); }}>
           <Billboard>
-            <mesh><circleGeometry args={[p.size*4,16]} /><meshBasicMaterial color={p.color} /></mesh>
+            <mesh><circleGeometry args={[p.size*8,16]} /><meshBasicMaterial color={p.color} /></mesh>
+            <mesh><circleGeometry args={[p.size*14,16]} /><meshBasicMaterial color={p.color} transparent opacity={0.12} depthWrite={false} /></mesh>
           </Billboard>
-          <Label text={`${p.name}${altText(p)}`} color={p.color} show={showLabels && (p.altitude ?? 0) > -3} />
+          <Label text={`${p.name}${altText(p)}`} color={p.color} show={(p.altitude ?? 0) > -3} />
         </group>
       ))}
     </group>
