@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import SearchCommand from '@/components/SearchCommand';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const SECTIONS = [
   {
@@ -162,8 +163,9 @@ export default function DashboardNav() {
             })}
           </nav>
 
-          <div style={{ flexShrink: 0, marginLeft: 'auto' }}>
+          <div style={{ flexShrink: 0, marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
             <SearchCommand inline />
+            <ThemeToggle />
           </div>
         </div>
 
@@ -183,8 +185,9 @@ export default function DashboardNav() {
             </div>
           </Link>
 
-          <div style={{ flexShrink: 0 }}>
+          <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: 6 }}>
             <SearchCommand />
+            <ThemeToggle />
           </div>
         </div>
 
