@@ -18,6 +18,14 @@ const ISLAMIC_SLUGS = [
   'la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre',
 ];
 
+const PILLARS = [
+  { label: 'Bibliothèque', desc: 'Coran, Sunna, patrimoine islamique', icon: '📖', href: '/library', color: '#D4943A' },
+  { label: 'Centre de Recherche', desc: 'Épistémologie et méthode', icon: '🧠', href: '/headquarters', color: '#8B7EC8' },
+  { label: 'Observatoire', desc: 'Données empiriques et optique', icon: '🔭', href: '/observatory', color: '#3B8FD4' },
+  { label: 'Expériences', desc: 'Physique et phénomènes naturels', icon: '⚗️', href: '/experiences', color: '#C45E6A' },
+  { label: 'Simulateurs', desc: '7 outils interactifs 3D', icon: '🗺️', href: '/lab', color: '#3D9E7C' },
+];
+
 function fmtDate(d: string) {
   try { return new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }); }
   catch { return ''; }
@@ -30,7 +38,74 @@ export default function HomeClient({ articles }: { articles: A[] }) {
   const latest = nonIslamic.slice(3, 15);
 
   return (
-    <div style={{ maxWidth: 1200, margin: '0 auto', padding: '24px 24px 80px' }}>
+    <div>
+      {/* ═══ HERO ═══ */}
+      <div style={{
+        background: 'linear-gradient(135deg, #0D1528 0%, #1A2540 50%, #0D1528 100%)',
+        padding: '56px 24px 48px',
+        borderBottom: '3px solid',
+        borderImage: 'linear-gradient(90deg, #D4943A, #8B7EC8, #3B8FD4, #C45E6A, #3D9E7C) 1',
+      }}>
+        <div style={{ maxWidth: 960, margin: '0 auto', textAlign: 'center' }}>
+          <div style={{
+            fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase',
+            color: '#3D9E7C', marginBottom: 16,
+            fontFamily: "'JetBrains Mono', monospace",
+          }}>
+            Revue indépendante de cosmologie
+          </div>
+          <h1 style={{
+            fontSize: 42, fontWeight: 900, color: '#E8EDF4', letterSpacing: '-0.02em',
+            lineHeight: 1.15, marginBottom: 16,
+            fontFamily: "'Plus Jakarta Sans', sans-serif",
+          }}>
+            Explorer la création,<br />honorer la Révélation
+          </h1>
+          <p style={{
+            fontSize: 17, color: '#8A95A8', lineHeight: 1.65, maxWidth: 640,
+            margin: '0 auto 32px',
+          }}>
+            Le Coran et la Sunna décrivent une cosmologie cohérente. La science moderne repose sur des hypothèses — certaines solides, d&apos;autres non vérifiables. Ce site examine les deux avec la même rigueur.
+          </p>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+            gap: 10, maxWidth: 860, margin: '0 auto',
+          }}>
+            {PILLARS.map(p => (
+              <Link key={p.href} href={p.href} style={{
+                padding: '14px 12px', borderRadius: 8,
+                background: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                textAlign: 'center',
+                transition: 'background 0.2s, border-color 0.2s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.borderColor = p.color + '60'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}
+              >
+                <div style={{ fontSize: 22, marginBottom: 6 }}>{p.icon}</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: p.color, marginBottom: 2 }}>{p.label}</div>
+                <div style={{ fontSize: 11, color: '#607890' }}>{p.desc}</div>
+              </Link>
+            ))}
+          </div>
+          <div style={{ marginTop: 24, display: 'flex', justifyContent: 'center', gap: 16 }}>
+            <span style={{ fontSize: 12, color: '#607890', fontFamily: "'JetBrains Mono', monospace" }}>
+              {articles.length} articles
+            </span>
+            <span style={{ fontSize: 12, color: '#3D4E60' }}>·</span>
+            <span style={{ fontSize: 12, color: '#607890', fontFamily: "'JetBrains Mono', monospace" }}>
+              7 simulateurs
+            </span>
+            <span style={{ fontSize: 12, color: '#3D4E60' }}>·</span>
+            <span style={{ fontSize: 12, color: '#607890', fontFamily: "'JetBrains Mono', monospace" }}>
+              Sources vérifiables
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '36px 24px 80px' }}>
 
       {/* ═══ TEXTES FONDATEURS ═══ */}
       {islamicArticles.length > 0 && (
@@ -143,6 +218,7 @@ export default function HomeClient({ articles }: { articles: A[] }) {
             </Link>
           ))}
         </div>
+      </div>
       </div>
     </div>
   );
