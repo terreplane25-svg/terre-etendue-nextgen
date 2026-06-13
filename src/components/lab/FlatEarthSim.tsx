@@ -506,16 +506,35 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
         <pointsMaterial ref={realStarsMatRef} color="#E8F0FF" size={0.55} sizeAttenuation transparent opacity={0} depthWrite={false} />
       </points>
       {/* Étoiles cliquables : sphères invisibles larges + label uniquement quand NOMS est ON et c'est la nuit */}
-      {starData.filter(s => s.altitude > 1).map(s => (
-        <group key={s.name} position={altAzToVec(s.altitude, s.azimuth, DOME_R*0.97)}>
-          <mesh onClick={(e) => { e.stopPropagation(); onSelectBody(`✦ ${s.name} (mag ${s.mag.toFixed(1)})`, s.altitude, s.azimuth); }}>
-            <sphereGeometry args={[1.8, 8, 8]} />
-            <meshBasicMaterial transparent opacity={0} depthWrite={false} />
-          </mesh>
-          {showLabels && (posData.sun.altitude ?? 0) < -6 && (s.mag <= 1.0 || s.name === 'Polaris') &&
-            <Label text={s.name} color="#A8C0E8" show />}
-        </group>
-      ))}
+      {starData.filter(s => s.altitude > 1).map(s => {
+        const isPolaris = s.name === 'Polaris';
+        return (
+          <group key={s.name} position={altAzToVec(s.altitude, s.azimuth, DOME_R*0.97)}>
+            {isPolaris && (
+              <mesh>
+                <sphereGeometry args={[0.8, 12, 12]} />
+                <meshBasicMaterial color="#FFD700" />
+              </mesh>
+            )}
+            <mesh onClick={(e) => { e.stopPropagation(); onSelectBody(`✦ ${s.name} (mag ${s.mag.toFixed(1)})`, s.altitude, s.azimuth); }}>
+              <sphereGeometry args={[1.8, 8, 8]} />
+              <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+            </mesh>
+            {isPolaris && (posData.sun.altitude ?? 0) < -6 && (
+              <Billboard>
+                <group position={[0, 2.5, 0]}>
+                  <mesh><planeGeometry args={[12, 3]} /><meshBasicMaterial color="#000" transparent opacity={0.5} /></mesh>
+                  <Html center style={{ pointerEvents: 'none', whiteSpace: 'nowrap' }}>
+                    <div style={{ color: '#FFD700', fontSize: 14, fontWeight: 800, fontFamily: 'monospace', textShadow: '0 0 8px rgba(255,215,0,0.6)' }}>★ POLARIS</div>
+                  </Html>
+                </group>
+              </Billboard>
+            )}
+            {!isPolaris && showLabels && (posData.sun.altitude ?? 0) < -6 && s.mag <= 1.0 &&
+              <Label text={s.name} color="#A8C0E8" show />}
+          </group>
+        );
+      })}
 
       {/* Sol avec texture carte AE */}
       <mesh rotation={[-Math.PI/2,0,0]} position={[0,-0.02,0]}>
@@ -944,8 +963,7 @@ export default function FlatEarthSim(){
     </div>
     <div className="mt-3 border border-slate-800/50 bg-[var(--hull)] p-4">
       <p className="text-[13px] text-[#C8D8E8]/80 font-rajdhani leading-relaxed">
-        Modèle cinématique : carte azimutale équidistante, éphémérides géocentriques (Astronomy Engine). 📏 DISTANCE : cliquez deux points pour mesurer la distance en km, degrés d&apos;arc et milles nautiques (théorème de l&apos;angle central). ◑ ÉCLIPSES : prochaines éclipses solaires et lunaires calculées via éléments besséliens (polynômes sur plan fondamental — pas de rayon terrestre nécessaire). ⛰ DÔME : caméra au sol avec carte AE au sol, regardez dans toutes les directions y compris au zénith. Cliquez sur un astre ou une étoile pour voir son nom, altitude et azimut. 50 étoiles les plus brillantes du ciel (Sirius, Véga, Polaris…) calculées via le temps sidéral. TRAJECTOIRES : cercle quotidien du Soleil et de la Lune sur le disque ; la démo 🌀 ANNÉE révèle la spirale solaire entre les deux tropiques. Toutes les positions sont purement cinématiques : position dans le temps, sans assertion dynamique (gravité, masse). Concepts de visualisation inspirés du <em>Conceptual Flat Earth Model</em> (Alan Space Audits).
-      </p>
+        Modèle cinématique : projection plane équidistante, éphémérides géocentriques (Astronomy Engine). 📏 DISTANCE : cliquez deux points pour mesurer la distance en km, degrés d&apos;arc et milles nautiques (théorème de l&apos;angle central). ◑ ÉCLIPSES : prochaines éclipses solaires et lunaires calculées via éléments besséliens (polynômes sur plan fondamental — pas de rayon terrestre nécessaire). ⛰ DÔME : caméra au sol avec carte AE au sol, regardez dans toutes les directions y compris au zénith. Cliquez sur un astre ou une étoile pour voir son nom, altitude et azimut. 50 étoiles les plus brillantes du ciel (Sirius, Véga, Polaris…) calculées via le temps sidéral. TRAJECTOIRES : cercle quotidien du Soleil et de la Lune sur le disque ; la démo 🌀 ANNÉE révèle la spirale solaire entre les deux tropiques. Toutes les positions sont purement cinématiques : position dans le temps, sans assertion dynamique (gravité, masse).      </p>
       <div className="flex flex-wrap items-center gap-3 mt-3 pt-3 border-t border-slate-800/30">
         <span className="text-[8px] font-tech-mono text-slate-400">ARTICLES :</span>
         <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[9px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;hypothèse nulle →</a>

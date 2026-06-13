@@ -81,7 +81,7 @@ export default function DashboardNav() {
   return (
     <>
       <header style={{
-        position: 'sticky', top: 0, zIndex: 90,
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 90,
         background: '#fff',
         borderBottom: '1px solid #E8EAED',
         transform: visible ? 'translateY(0)' : 'translateY(-100%)',

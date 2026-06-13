@@ -20,8 +20,8 @@ interface A { slug: string; title: string; description: string; tags: string[]; 
 const TOOLS = [
   {
     id: 'flat',
-    label: 'Carte Azimutale',
-    desc: "Carte azimutale avec dôme céleste, éphémérides, terminateur, phases lunaires, boussole et géolocalisation.",
+    label: 'Terre Plane',
+    desc: "Carte plane avec dôme céleste, éphémérides, terminateur, phases lunaires, boussole et géolocalisation.",
     icon: '🗺️',
     color: '#D4943A',
     num: '01',
