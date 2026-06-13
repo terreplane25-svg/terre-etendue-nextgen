@@ -88,21 +88,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "y": -145.4,
     "size": 8
   },
-  {
-    "id": "ce-quon-voit-quand-on-ne-devrait-plus-voir",
-    "title": "Ce qu'on voit quand on ne devrait plus voir",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF6B6B",
-    "primaryDomain": "optique",
-    "topDomains": ["optique", "geometrie", "hydrologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 257.8,
-    "y": -268.3,
-    "size": 8
-  },
+  /* merged into la-perspective-pourquoi-les-objets-disparaissent */
   {
     "id": "champ-visuel-central-peripherique",
     "title": "Le champ visuel : vision centrale et vision périphérique",
@@ -193,21 +179,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "y": 347.0,
     "size": 8
   },
-  {
-    "id": "diminution-angulaire-taille-apparente",
-    "title": "Pourquoi les objets lointains paraissent plus petits",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF6B6B",
-    "primaryDomain": "optique",
-    "topDomains": ["optique", "geometrie", "physique"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 210.2,
-    "y": -244.2,
-    "size": 8
-  },
+  /* merged into la-perspective-pourquoi-les-objets-disparaissent */
   {
     "id": "dune-terre-plate-universelle-a-la-sphere-grecque",
     "title": "D'une Terre plate universelle à la sphère grecque",
@@ -420,7 +392,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
   },
   {
     "id": "la-perspective-pourquoi-les-objets-disparaissent",
-    "title": "La Perspective : pourquoi les objets disparaissent (et pourquoi ils reviennent au zoom)",
+    "title": "La Perspective : pourquoi les objets disparaissent",
     "category": "observatory",
     "pillar": "OBS",
     "pillarNum": "02",
@@ -658,21 +630,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "y": -391.1,
     "size": 8
   },
-  {
-    "id": "les-telescopes-et-la-courbure-terrestre",
-    "title": "Les télescopes et la courbure terrestre",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF6B6B",
-    "primaryDomain": "optique",
-    "topDomains": ["optique", "geometrie", "physique"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 144.9,
-    "y": -326.9,
-    "size": 8
-  },
+  /* merged into la-perspective-pourquoi-les-objets-disparaissent */
   {
     "id": "les-trous-noirs-nexistent-pas",
     "title": "Les trous noirs n'existent pas",
@@ -810,7 +768,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
   },
   {
     "id": "masse-et-volume",
-    "title": "Masse et volume : solides, liquides et gaz",
+    "title": "Densité et flottabilité",
     "category": "observatory",
     "pillar": "OBS",
     "pillarNum": "02",
@@ -821,7 +779,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "wordCount": 0,
     "x": 6.2,
     "y": -407.9,
-    "size": 8
+    "size": 8,
   },
   {
     "id": "methodologie",
@@ -885,7 +843,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
   },
   {
     "id": "pourquoi-les-choses-montent-et-descendent",
-    "title": "Pourquoi les choses montent et descendent",
+    "title": "Densité et flottabilité",
     "category": "observatory",
     "pillar": "OBS",
     "pillarNum": "02",
@@ -896,7 +854,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "wordCount": 0,
     "x": 48.1,
     "y": -418.8,
-    "size": 8
+    "size": 8,
   },
   {
     "id": "pourquoi-tout-remettre-en-question",
@@ -1006,7 +964,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["physique", "gravite", "cartographie"]
   },
   {
-    "source": "les-telescopes-et-la-courbure-terrestre",
+    "source": "la-perspective-pourquoi-les-objets-disparaissent",
     "target": "lhorizon-la-perspective-et-la-refraction",
     "score": 373.9,
     "strength": "strong",
@@ -1061,13 +1019,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "strength": "strong",
     "sharedDomains": ["optique", "geometrie", "physique"]
   },
-  {
-    "source": "la-perspective-pourquoi-les-objets-disparaissent",
-    "target": "les-telescopes-et-la-courbure-terrestre",
-    "score": 369.0,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie", "physique"]
-  },
+  /* self-loop removed */
   {
     "source": "masse-et-volume",
     "target": "pourquoi-les-choses-montent-et-descendent",
@@ -1098,7 +1050,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "champ-visuel-central-peripherique",
-    "target": "diminution-angulaire-taille-apparente",
+    "target": "la-perspective-pourquoi-les-objets-disparaissent",
     "score": 359.0,
     "strength": "strong",
     "sharedDomains": ["optique", "physique", "geometrie"]
@@ -1132,14 +1084,14 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["optique", "physique", "geometrie"]
   },
   {
-    "source": "ce-quon-voit-quand-on-ne-devrait-plus-voir",
+    "source": "la-perspective-pourquoi-les-objets-disparaissent",
     "target": "la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas",
     "score": 348.5,
     "strength": "strong",
     "sharedDomains": ["optique", "geometrie", "hydrologie"]
   },
   {
-    "source": "diminution-angulaire-taille-apparente",
+    "source": "la-perspective-pourquoi-les-objets-disparaissent",
     "target": "la-perspective-atmospherique",
     "score": 346.9,
     "strength": "strong",
@@ -1159,13 +1111,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "strength": "strong",
     "sharedDomains": ["physique", "gravite", "cartographie"]
   },
-  {
-    "source": "la-perspective-pourquoi-les-objets-disparaissent",
-    "target": "lhorizon-la-perspective-et-la-refraction",
-    "score": 338.0,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie", "physique"]
-  },
+  /* duplicate edge removed */
   {
     "source": "masse-et-volume",
     "target": "principe-action-reaction",
@@ -1208,13 +1154,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "strength": "strong",
     "sharedDomains": ["physique", "gravite", "modelisation"]
   },
-  {
-    "source": "les-telescopes-et-la-courbure-terrestre",
-    "target": "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite",
-    "score": 332.6,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie", "physique"]
-  },
+  /* duplicate edge removed */
   {
     "source": "densite-pourquoi-les-choses-montent-et-descendent",
     "target": "electricite-statique-attraction-repulsion",
@@ -1231,7 +1171,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "la-perspective-lineaire",
-    "target": "les-telescopes-et-la-courbure-terrestre",
+    "target": "la-perspective-pourquoi-les-objets-disparaissent",
     "score": 329.5,
     "strength": "strong",
     "sharedDomains": ["optique", "geometrie", "physique"]
@@ -1322,7 +1262,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "accommodation-oculaire",
-    "target": "diminution-angulaire-taille-apparente",
+    "target": "la-perspective-pourquoi-les-objets-disparaissent",
     "score": 321.2,
     "strength": "strong",
     "sharedDomains": ["optique", "physique", "geometrie"]
@@ -1377,7 +1317,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["physique", "epistemologie"]
   },
   {
-    "source": "ce-quon-voit-quand-on-ne-devrait-plus-voir",
+    "source": "la-perspective-pourquoi-les-objets-disparaissent",
     "target": "champ-visuel-central-peripherique",
     "score": 316.0,
     "strength": "strong",
@@ -1446,13 +1386,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "strength": "strong",
     "sharedDomains": ["islam_sources", "epistemologie"]
   },
-  {
-    "source": "ce-quon-voit-quand-on-ne-devrait-plus-voir",
-    "target": "la-perspective-atmospherique",
-    "score": 303.0,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie"]
-  },
+  /* duplicate edge removed */
   {
     "source": "glossaire",
     "target": "la-cosmologie-comme-instrument-de-domination",
@@ -1572,13 +1506,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "strength": "strong",
     "sharedDomains": ["islam_sources", "cosmologie"]
   },
-  {
-    "source": "diminution-angulaire-taille-apparente",
-    "target": "la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas",
-    "score": 281.4,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie"]
-  },
+  /* duplicate edge removed */
   {
     "source": "electricite-statique-attraction-repulsion",
     "target": "magnetisme-et-electromagnetisme",
@@ -1593,13 +1521,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "strength": "strong",
     "sharedDomains": ["epistemologie", "cosmologie"]
   },
-  {
-    "source": "ce-quon-voit-quand-on-ne-devrait-plus-voir",
-    "target": "diminution-angulaire-taille-apparente",
-    "score": 277.7,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie"]
-  },
+  /* self-loop removed */
   {
     "source": "les-distances-cosmiques-au-dela-de-la-regle",
     "target": "lhypothese-nulle-dynamique-et-cinematique",
@@ -1623,7 +1545,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "la-pression-atmospherique-un-ocean-d-air-invisible",
-    "target": "les-telescopes-et-la-courbure-terrestre",
+    "target": "la-perspective-pourquoi-les-objets-disparaissent",
     "score": 276.4,
     "strength": "strong",
     "sharedDomains": ["optique", "geometrie"]
@@ -1679,7 +1601,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "accommodation-oculaire",
-    "target": "ce-quon-voit-quand-on-ne-devrait-plus-voir",
+    "target": "la-perspective-pourquoi-les-objets-disparaissent",
     "score": 270.0,
     "strength": "strong",
     "sharedDomains": ["optique", "geometrie"]

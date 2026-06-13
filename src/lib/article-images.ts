@@ -9,14 +9,13 @@ const UNSPLASH = "https://images.unsplash.com";
 const IMG: Record<string, string> = {
   // ── Observatory: Analysis ──
   "lhorizon-la-perspective-et-la-refraction": `${HOSTINGER}/2026/06/refraction.png`,
-  "ce-quon-voit-quand-on-ne-devrait-plus-voir": `${HOSTINGER}/2026/06/3b-scaled.jpg`,
+  // merged into la-perspective-pourquoi-les-objets-disparaissent
   "leau-ne-ment-pas": `${HOSTINGER}/2026/05/ea.png`,
   "le-pendule-de-foucault-une-preuve-contestee": `${HOSTINGER}/2026/06/pantheon_pendule_de_foucault1.jpg`,
   "les-horloges-atomiques-ne-prouvent-rien": `${HOSTINGER}/2026/06/48371867_2205216006163858_1771726137618071552_n.jpg`,
-  "pourquoi-les-choses-montent-et-descendent": `${HOSTINGER}/2026/06/mongolfier_pomme.png`,
   "pression-lumiere-halos-rayons-et-ondes": `${UNSPLASH}/photo-1534088568595-a066f410bcda?w=600&h=400&fit=crop`,
   "les-marees-contre-lheliocentrisme": `${HOSTINGER}/2026/06/maree.jpg`,
-  "les-telescopes-et-la-courbure-terrestre": `${HOSTINGER}/2026/06/Y4koCE7VcDdtZKbRf3b9Q8.jpg`,
+  // merged into la-perspective-pourquoi-les-objets-disparaissent
   "lespace-une-frontiere-infranchissable": `${HOSTINGER}/2026/06/frontiere_atmosphere_espace.jpg`,
   "cartes-routes-boussoles-et-le-mystere-antarctique": `${HOSTINGER}/2026/04/boussole.png`,
   "la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas": `${UNSPLASH}/photo-1522030299830-16b8d3d049fe?w=600&h=400&fit=crop`,
@@ -27,15 +26,11 @@ const IMG: Record<string, string> = {
   // ── Experiments ──
   "densite-pourquoi-les-choses-montent-et-descendent": `${UNSPLASH}/photo-1558618666-fcd25c85f82e?w=600&h=400&fit=crop`,
   "la-pression-atmospherique-un-ocean-d-air-invisible": `${UNSPLASH}/photo-1534088568595-a066f410bcda?w=600&h=400&fit=crop`,
-  "masse-et-volume": `${UNSPLASH}/photo-1532094349884-543bc11b234d?w=600&h=400&fit=crop`,
   "experiences-sous-pression-reduite": `${UNSPLASH}/photo-1567427018141-0584cfcbf1b8?w=600&h=400&fit=crop`,
   "la-perspective-lineaire": `${UNSPLASH}/photo-1473654729523-203e25dfda10?w=600&h=400&fit=crop`,
-  "diminution-angulaire-taille-apparente": `${UNSPLASH}/photo-1500534314209-a25ddb2bd429?w=600&h=400&fit=crop`,
+  // merged into la-perspective-pourquoi-les-objets-disparaissent
   "la-perspective-atmospherique": `${UNSPLASH}/photo-1470071459604-3b5ec3a7fe05?w=600&h=400&fit=crop`,
-  "champ-visuel-central-peripherique": `${UNSPLASH}/photo-1494869042583-f6c911f04b4c?w=600&h=400&fit=crop`,
-  "vision-binoculaire-stereoscopie": `${UNSPLASH}/photo-1494869042583-f6c911f04b4c?w=600&h=400&fit=crop`,
-  "accommodation-oculaire": `${UNSPLASH}/photo-1494869042583-f6c911f04b4c?w=600&h=400&fit=crop`,
-  "persistance-retinienne": `${UNSPLASH}/photo-1550684848-fac1c5b4e853?w=600&h=400&fit=crop`,
+  "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite": `${UNSPLASH}/photo-1494869042583-f6c911f04b4c?w=600&h=400&fit=crop`,
   "principe-action-reaction": `${UNSPLASH}/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop`,
   "magnetisme-et-electromagnetisme": `${UNSPLASH}/photo-1567427018141-0584cfcbf1b8?w=600&h=400&fit=crop`,
   "electricite-statique-attraction-repulsion": `${UNSPLASH}/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop`,
@@ -72,7 +67,6 @@ const IMG: Record<string, string> = {
 
   // ── Observatory extra ──
   "la-perspective-pourquoi-les-objets-disparaissent": `${UNSPLASH}/photo-1473654729523-203e25dfda10?w=600&h=400&fit=crop`,
-  "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite": `${UNSPLASH}/photo-1494869042583-f6c911f04b4c?w=600&h=400&fit=crop`,
 
   // ── Meta ──
   "manifeste": `${UNSPLASH}/photo-1457364887197-9150188c107b?w=600&h=400&fit=crop`,

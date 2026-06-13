@@ -11,9 +11,7 @@ interface A { slug: string; title: string; description: string; tags: string[]; 
 
 const SECTIONS = [
   { id: 'optique', label: 'Optique & horizon', icon: '🔭', slugs: [
-    'ce-quon-voit-quand-on-ne-devrait-plus-voir',
     'la-perspective-pourquoi-les-objets-disparaissent',
-    'les-telescopes-et-la-courbure-terrestre',
     'loeil-humain-la-machine-a-voir-qui-faconne-notre-realite',
     'pression-lumiere-halos-rayons-et-ondes',
   ]},
@@ -23,7 +21,7 @@ const SECTIONS = [
     'les-marees-contre-lheliocentrisme',
     'le-pole-sud-nexiste-pas',
     'lespace-une-frontiere-infranchissable',
-    'pourquoi-les-choses-montent-et-descendent',
+    'densite-pourquoi-les-choses-montent-et-descendent',
   ]},
   { id: 'astronomie', label: 'Astronomie', icon: '🌙', slugs: [
     'la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre',
@@ -41,10 +39,10 @@ function getSection(slug: string) {
 }
 
 const EXP_LINKS: Record<string, { slug: string; label: string }> = {
-  "pourquoi-les-choses-montent-et-descendent": { slug: "densite-pourquoi-les-choses-montent-et-descendent", label: "Fiche expérience : densité" },
+  "densite-pourquoi-les-choses-montent-et-descendent": { slug: "densite-pourquoi-les-choses-montent-et-descendent", label: "Fiche expérience : densité" },
   "pression-lumiere-halos-rayons-et-ondes": { slug: "la-pression-atmospherique-un-ocean-d-air-invisible", label: "Fiche expérience : pression" },
   "lhorizon-la-perspective-et-la-refraction": { slug: "la-perspective-lineaire", label: "Fiche expérience : perspective" },
-  "ce-quon-voit-quand-on-ne-devrait-plus-voir": { slug: "diminution-angulaire-taille-apparente", label: "Fiche expérience : angle visuel" },
+  "la-perspective-pourquoi-les-objets-disparaissent": { slug: "la-perspective-lineaire", label: "Fiche expérience : perspective" },
   "cartes-routes-boussoles-et-le-mystere-antarctique": { slug: "magnetisme-et-electromagnetisme", label: "Fiche expérience : magnétisme" },
 };
 

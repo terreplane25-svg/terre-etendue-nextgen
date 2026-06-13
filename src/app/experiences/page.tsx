@@ -12,12 +12,11 @@ const HISTORICAL_SLUGS = [
   "leau-ne-ment-pas",
   "le-pendule-de-foucault-une-preuve-contestee",
   "les-horloges-atomiques-ne-prouvent-rien",
-  "ce-quon-voit-quand-on-ne-devrait-plus-voir",
+  "la-perspective-pourquoi-les-objets-disparaissent",
   "lhorizon-la-perspective-et-la-refraction",
   "les-marees-contre-lheliocentrisme",
-  "pourquoi-les-choses-montent-et-descendent",
+  "densite-pourquoi-les-choses-montent-et-descendent",
   "pression-lumiere-halos-rayons-et-ondes",
-  "les-telescopes-et-la-courbure-terrestre",
   "lespace-une-frontiere-infranchissable",
 ];
 
