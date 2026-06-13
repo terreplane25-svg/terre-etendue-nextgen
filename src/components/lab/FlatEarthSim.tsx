@@ -513,7 +513,7 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
           <group key={s.name} position={altAzToVec(s.altitude, s.azimuth, DOME_R*0.97)}>
             {isPolaris && (
               <mesh>
-                <sphereGeometry args={[0.8, 12, 12]} />
+                <sphereGeometry args={[0.4, 12, 12]} />
                 <meshBasicMaterial color="#FFD700" />
               </mesh>
             )}
@@ -521,7 +521,7 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
               <sphereGeometry args={[1.8, 8, 8]} />
               <meshBasicMaterial transparent opacity={0} depthWrite={false} />
             </mesh>
-            {isPolaris && (posData.sun.altitude ?? 0) < -6 && (
+            {isPolaris && (
               <Billboard>
                 <group position={[0, 2.5, 0]}>
                   <mesh><planeGeometry args={[12, 3]} /><meshBasicMaterial color="#000" transparent opacity={0.5} /></mesh>
