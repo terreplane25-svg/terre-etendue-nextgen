@@ -29,7 +29,7 @@ export interface ArticleMeta {
   description: string;
   date: string;
   author: string;
-  category: 'headquarters' | 'observatory' | 'library' | 'lab' | 'meta';
+  category: 'headquarters' | 'observatory' | 'library' | 'lab' | 'meta' | 'experiences';
   tags: string[];
   pinned?: boolean;
   readTime?: number; // minutes, calculated from htmlBody
