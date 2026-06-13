@@ -80,6 +80,7 @@ class HTMLToTextConverter(HTMLParser):
         self.output = []
         self.current_tag = None
         self.tag_stack = []
+        self.class_stack = []
         self.in_blockquote = False
         self.blockquote_text = []
         self.blockquote_cite = ""
@@ -102,9 +103,20 @@ class HTMLToTextConverter(HTMLParser):
         self.list_item_text = []
         self.ordered_list = False
         self.list_counters = []
+        # Timeline support
+        self.in_timeline = False
+        self.in_timeline_item = False
+        self.timeline_date = ""
+        self.timeline_title = ""
+        self.timeline_desc = ""
+        self.timeline_field = None  # "date", "title", "desc"
+
+    def _get_classes(self, attrs):
+        attrs_dict = dict(attrs)
+        return attrs_dict.get("class", "").split()
 
     def handle_starttag(self, tag, attrs):
-        attrs_dict = dict(attrs)
+        classes = self._get_classes(attrs)
 
         if tag == "svg":
             self.in_svg = True
@@ -115,6 +127,32 @@ class HTMLToTextConverter(HTMLParser):
             return
 
         self.tag_stack.append(tag)
+        self.class_stack.append(classes)
+
+        # Timeline components
+        if "tei-timeline" in classes:
+            self.in_timeline = True
+            self.output.append("\n")
+            return
+
+        if "tei-timeline-item" in classes:
+            self.in_timeline_item = True
+            self.timeline_date = ""
+            self.timeline_title = ""
+            self.timeline_desc = ""
+            return
+
+        if "tei-timeline-date" in classes:
+            self.timeline_field = "date"
+            return
+
+        if "tei-timeline-title" in classes:
+            self.timeline_field = "title"
+            return
+
+        if "tei-timeline-desc" in classes:
+            self.timeline_field = "desc"
+            return
 
         if tag in ("h2", "h3"):
             self.current_tag = tag
@@ -173,7 +211,7 @@ class HTMLToTextConverter(HTMLParser):
             return
 
         if tag == "p":
-            if not self.in_blockquote and not self.in_cell:
+            if not self.in_blockquote and not self.in_cell and not self.in_timeline_item:
                 self.output.append("\n\n")
             return
 
@@ -200,8 +238,37 @@ class HTMLToTextConverter(HTMLParser):
                     self.in_svg = False
             return
 
+        # Pop stacks
+        classes = []
         if self.tag_stack and self.tag_stack[-1] == tag:
             self.tag_stack.pop()
+            if self.class_stack:
+                classes = self.class_stack.pop()
+
+        # Timeline end tags
+        if "tei-timeline" in classes:
+            self.in_timeline = False
+            self.output.append("\n")
+            return
+
+        if "tei-timeline-item" in classes:
+            # Flush the timeline item
+            self.output.append(f"  {self.timeline_date}  {self.timeline_title}\n")
+            if self.timeline_desc:
+                wrapped = textwrap.fill(
+                    self.timeline_desc,
+                    width=WRAP_WIDTH,
+                    initial_indent="        ",
+                    subsequent_indent="        ",
+                )
+                self.output.append(f"{wrapped}\n\n")
+            self.in_timeline_item = False
+            self.timeline_field = None
+            return
+
+        if "tei-timeline-date" in classes or "tei-timeline-title" in classes or "tei-timeline-desc" in classes:
+            self.timeline_field = None
+            return
 
         if tag in ("h2", "h3"):
             self.output.append("\n")
@@ -264,6 +331,17 @@ class HTMLToTextConverter(HTMLParser):
         if self.in_svg:
             return
 
+        # Timeline field capture
+        if self.in_timeline_item and self.timeline_field:
+            text = data.strip()
+            if self.timeline_field == "date":
+                self.timeline_date += text
+            elif self.timeline_field == "title":
+                self.timeline_title += text
+            elif self.timeline_field == "desc":
+                self.timeline_desc += text
+            return
+
         if self.in_figure and not self.in_figcaption:
             return
 
@@ -310,9 +388,17 @@ class HTMLToTextConverter(HTMLParser):
         cite = re.sub(r"^—\s*", "", cite)
 
         self.output.append("\n\n")
-        self.output.append(f"  << {raw} >>")
+        # Wrap blockquote text with guillemets
+        bq_body = f"<< {raw} >>"
+        wrapped_bq = textwrap.fill(
+            bq_body,
+            width=WRAP_WIDTH - 4,
+            initial_indent="    ",
+            subsequent_indent="    ",
+        )
+        self.output.append(wrapped_bq)
         if cite:
-            self.output.append(f"\n  -- {cite}")
+            self.output.append(f"\n    -- {cite}")
         self.output.append("\n")
 
     def _flush_table(self):
@@ -325,14 +411,14 @@ class HTMLToTextConverter(HTMLParser):
                 parts = []
                 for i, cell in enumerate(row):
                     if i < len(self.table_headers):
-                        parts.append(f"{self.table_headers[i]} : {cell}")
+                        parts.append(f"  {self.table_headers[i]} : {cell}")
                     else:
-                        parts.append(cell)
+                        parts.append(f"  {cell}")
                 self.output.append("\n".join(parts))
                 self.output.append("\n\n")
         else:
             for row in self.table_rows:
-                self.output.append(" | ".join(row))
+                self.output.append("  " + " | ".join(row))
                 self.output.append("\n")
 
     def _flush_list_item(self):
@@ -348,8 +434,23 @@ class HTMLToTextConverter(HTMLParser):
         return "".join(self.output)
 
 
-def html_to_text(html: str) -> str:
-    """Convert HTML body to clean plain text."""
+def html_to_text(html: str, description: str = "") -> str:
+    """Convert HTML body to clean plain text.
+
+    If description is provided, the first paragraph is removed when it
+    matches the description (avoids duplication in the output).
+    """
+    # Remove leading paragraph that duplicates the description
+    if description:
+        desc_clean = re.sub(r"\s+", " ", description).strip()
+        # Match the first <p>...</p> block
+        m = re.match(r"\s*<p>(.*?)</p>", html, re.DOTALL)
+        if m:
+            first_p = re.sub(r"<[^>]+>", "", m.group(1))
+            first_p_clean = re.sub(r"\s+", " ", first_p).strip()
+            if first_p_clean == desc_clean:
+                html = html[m.end():]
+
     converter = HTMLToTextConverter()
     converter.feed(html)
     text = converter.get_text()
@@ -428,8 +529,8 @@ def format_article(slug: str, data: dict, category: str) -> str:
     description = data.get("description", "")
     html_body = data.get("htmlBody", "")
 
-    # Convert body
-    body_text = html_to_text(html_body)
+    # Convert body (pass description to deduplicate first paragraph)
+    body_text = html_to_text(html_body, description=description)
     body_text = wrap_text(body_text)
 
     # Reading time
