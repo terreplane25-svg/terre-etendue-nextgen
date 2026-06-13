@@ -74,9 +74,6 @@ const IMG: Record<string, string> = {
   "la-perspective-pourquoi-les-objets-disparaissent": `${UNSPLASH}/photo-1473654729523-203e25dfda10?w=600&h=400&fit=crop`,
   "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite": `${UNSPLASH}/photo-1494869042583-f6c911f04b4c?w=600&h=400&fit=crop`,
 
-  // ── Lab ──
-  "le-modele-geocentrique-a-plans-paralleles-mgpp": `${UNSPLASH}/photo-1507400492013-162706c8c05e?w=600&h=400&fit=crop`,
-
   // ── Meta ──
   "manifeste": `${UNSPLASH}/photo-1457364887197-9150188c107b?w=600&h=400&fit=crop`,
   "methodologie": `${UNSPLASH}/photo-1507413245164-6160d8298b31?w=600&h=400&fit=crop`,

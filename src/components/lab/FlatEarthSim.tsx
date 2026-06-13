@@ -948,7 +948,6 @@ export default function FlatEarthSim(){
       </p>
       <div className="flex flex-wrap items-center gap-3 mt-3 pt-3 border-t border-slate-800/30">
         <span className="text-[8px] font-tech-mono text-slate-400">ARTICLES :</span>
-        <a href="/article/le-modele-geocentrique-a-plans-paralleles-mgpp" className="text-[9px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">Le MGPP →</a>
         <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[9px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;hypothèse nulle →</a>
       </div>
     </div>

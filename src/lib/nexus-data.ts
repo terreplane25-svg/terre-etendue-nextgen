@@ -291,25 +291,6 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
-    "id": "le-modele-geocentrique-a-plans-paralleles-mgpp",
-    "title": "Le Modèle Géocentrique à Plans Parallèles (MGPP)",
-    "category": "lab",
-    "pillar": "LAB",
-    "pillarNum": "04",
-    "color": "#00C8FF",
-    "primaryDomain": "hydrologie",
-    "topDomains": [
-      "hydrologie",
-      "gravite",
-      "modelisation"
-    ],
-    "quranRefs": 0,
-    "wordCount": 2650,
-    "x": -160.7,
-    "y": -191.5,
-    "size": 8
-  },
-  {
     "id": "le-mythe-deratosthene",
     "title": "Le mythe d'Ératosthène",
     "category": "headquarters",
@@ -602,17 +583,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     ]
   },
   {
-    "source": "la-gravite-70-theories-et-aucune-preuve",
-    "target": "le-modele-geocentrique-a-plans-paralleles-mgpp",
-    "score": 216,
-    "strength": "strong",
-    "sharedDomains": [
-      "cosmologie",
-      "geometrie",
-      "modelisation"
-    ]
-  },
-  {
     "source": "cartes-routes-boussoles-et-le-mystere-antarctique",
     "target": "leau-ne-ment-pas",
     "score": 205.4,
@@ -690,42 +660,9 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     ]
   },
   {
-    "source": "le-modele-geocentrique-a-plans-paralleles-mgpp",
-    "target": "leau-ne-ment-pas",
-    "score": 188,
-    "strength": "strong",
-    "sharedDomains": [
-      "cosmologie",
-      "geometrie",
-      "modelisation"
-    ]
-  },
-  {
     "source": "lhypothese-nulle-dynamique-et-cinematique",
     "target": "pourquoi-tout-remettre-en-question",
     "score": 172.9,
-    "strength": "strong",
-    "sharedDomains": [
-      "cosmologie",
-      "geometrie",
-      "modelisation"
-    ]
-  },
-  {
-    "source": "cartes-routes-boussoles-et-le-mystere-antarctique",
-    "target": "le-modele-geocentrique-a-plans-paralleles-mgpp",
-    "score": 170,
-    "strength": "strong",
-    "sharedDomains": [
-      "cosmologie",
-      "geometrie",
-      "modelisation"
-    ]
-  },
-  {
-    "source": "le-modele-geocentrique-a-plans-paralleles-mgpp",
-    "target": "lhypothese-nulle-dynamique-et-cinematique",
-    "score": 169,
     "strength": "strong",
     "sharedDomains": [
       "cosmologie",
