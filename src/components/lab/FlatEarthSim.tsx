@@ -374,12 +374,13 @@ function altAzToVec(altDeg: number, azDeg: number, r: number): [number, number, 
   return [Math.cos(alt) * Math.sin(az) * r, Math.sin(alt) * r, -Math.cos(alt) * Math.cos(az) * r];
 }
 
-function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdate, onSelectBody }:{
+function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdate, onSelectBody, northAngle }:{
   speed:number; showLabels:boolean; isPlaying:boolean;
   dateRef: React.MutableRefObject<Date>;
   observer: ObserverLocation;
   onPosUpdate:(d:Date, p:PosData)=>void;
   onSelectBody:(name:string, alt:number, az:number)=>void;
+  northAngle: number;
 }) {
   const sunRef = useRef<THREE.Group>(null);
   const moonRef = useRef<THREE.Group>(null);
@@ -490,8 +491,8 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
   const groundTex = useMemo(()=>new THREE.TextureLoader().load('/textures/ae-map.jpg'),[]);
 
   return (
-    <group>
-      {/* Voûte céleste complète (sphère entière) */}
+    <group rotation={[0, northAngle, 0]}>
+      {/* Toute la scène est tournée pour que le Nord AE (vers le centre du disque) soit devant la caméra */}
       <mesh>
         <sphereGeometry args={[DOME_R, 64, 32]} />
         <shaderMaterial ref={skyMatRef}
@@ -591,7 +592,8 @@ function DomeScene({ speed, showLabels, isPlaying, dateRef, observer, onPosUpdat
  * Boussole : azimuts du Soleil et de la Lune vus depuis l'observateur.
  * Aiguilles pleines au-dessus de l'horizon, estompées en dessous.
  */
-function CompassHUD({ sun, moon }:{ sun:CelestialPosition; moon:CelestialPosition }) {
+function CompassHUD({ sun, moon, northOffset=0 }:{ sun:CelestialPosition; moon:CelestialPosition; northOffset?:number }) {
+  const offsetDeg = northOffset * 180 / Math.PI;
   const size = 92, cx = size/2, cy = size/2, R = 33;
   const needle = (azDeg:number, len:number) => {
     const a = azDeg * Math.PI / 180;
@@ -614,7 +616,7 @@ function CompassHUD({ sun, moon }:{ sun:CelestialPosition; moon:CelestialPositio
           return <text key={t as string} x={pos.x} y={pos.y+3} textAnchor="middle" fontSize="8" fontFamily="monospace" fill={c as string} fontWeight="bold">{t}</text>;
         })}
         {bodies.map(({p,color})=>{
-          const tip = needle(p.azimuth!, R-2);
+          const tip = needle(p.azimuth! + offsetDeg, R-2);
           const vis = (p.altitude ?? 0) >= 0;
           return <g key={p.name} opacity={vis ? 1 : 0.3}>
             <line x1={cx} y1={cy} x2={tip.x} y2={tip.y} stroke={color} strokeWidth="1.5" />
@@ -625,7 +627,7 @@ function CompassHUD({ sun, moon }:{ sun:CelestialPosition; moon:CelestialPositio
       </svg>
       <div className="text-[10px] md:text-[7px] font-tech-mono text-slate-500 whitespace-nowrap">
         {bodies.map(({p,sym},i)=>(
-          <span key={p.name}>{i>0 && ' · '}{sym} {p.azimuth!.toFixed(0)}°</span>
+          <span key={p.name}>{i>0 && ' · '}{sym} {((p.azimuth! + offsetDeg + 360) % 360).toFixed(0)}°</span>
         ))}
       </div>
     </div>
@@ -727,6 +729,16 @@ export default function FlatEarthSim(){
     setSimDate(new Date(d));
     setPosData(p);
   },[]);
+
+  // Chantier 1 & 2 : angle Nord AE depuis la position du pin
+  // Sur la projection AE, le Nord = direction vers le centre (0,0).
+  // pinPos = [x, z] sur le disque ; vecteur Nord = (-x, -z).
+  // northAngle = rotation Y pour aligner le Nord géographique (az=0, -Z en 3D)
+  // avec le Nord AE (vers le centre). Formule : atan2(-x, -z).
+  const northAngle = useMemo(() => {
+    const [px, pz] = latLngToFlatDisc(observer.lat, observer.lng, DISC_R);
+    return Math.atan2(-px, -pz);
+  }, [observer.lat, observer.lng]);
 
   useEffect(()=>{
     if (showEclipses) setEclipseData(nextEclipses(simDate));
@@ -884,7 +896,7 @@ export default function FlatEarthSim(){
       {/* Boussole + phase lunaire */}
       {posData && (
         <div className="absolute bottom-3 right-3 z-10 flex flex-col items-end gap-2">
-          <CompassHUD sun={posData.sun} moon={posData.moon} />
+          <CompassHUD sun={posData.sun} moon={posData.moon} northOffset={northAngle} />
           <div className="flex items-center gap-2.5 px-3 py-2 border border-slate-800/70 bg-[#060A14]/85 backdrop-blur-sm">
             <MoonPhaseIcon phase={posData.moonPhaseAngle} />
             <div className="text-right">
@@ -953,8 +965,8 @@ export default function FlatEarthSim(){
           <OrbitControls enablePan={false} minDistance={6} maxDistance={20} minPolarAngle={0} maxPolarAngle={Math.PI*0.3}/>
         </Canvas>
       ) : (
-        <Canvas key="dome" camera={{position:[0,1.6,0.12],fov:65}}>
-          <DomeScene speed={speed} showLabels={showLabels} isPlaying={isPlaying} dateRef={dateRef} observer={observer} onPosUpdate={onPosUpdate} onSelectBody={handleSelectBody}/>
+        <Canvas key="dome" camera={{position:[0,1.6,-0.12],fov:65}}>
+          <DomeScene speed={speed} showLabels={showLabels} isPlaying={isPlaying} dateRef={dateRef} observer={observer} onPosUpdate={onPosUpdate} onSelectBody={handleSelectBody} northAngle={northAngle}/>
           <OrbitControls enablePan={false} enableZoom={false} target={[0,1.6,0]}
             minDistance={0.12} maxDistance={0.12} rotateSpeed={-0.35}
             minPolarAngle={0.05} maxPolarAngle={Math.PI*0.85}/>
