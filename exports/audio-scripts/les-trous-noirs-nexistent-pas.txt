@@ -1,0 +1,119 @@
+
+================================================================================
+                         LES TROUS NOIRS N'EXISTENT PAS
+================================================================================
+
+  Categorie : Quartier General
+  Temps de lecture : ~3 min
+
+========================================
+
+Einstein lui-même a démontré en 1939 que les singularités de Schwarzschild ne
+peuvent pas se former physiquement. Confirmé par Florides & Jones (1970),
+Logunov & Mestvirishvili (2013), et la rétractation de Hawking. Comment le mythe
+a été construit après la mort d'Einstein.
+
+========================================
+
+Les trous noirs occupent une place centrale dans la cosmologie contemporaine,
+présentés comme une prédiction inévitable de la Relativité Générale. Pourtant,
+une réalité historique fondamentale a été systématiquement occultée : Einstein
+lui-même a démontré, dès 1939, que les trous noirs ne peuvent pas exister
+physiquement.
+
+
+L'ARTICLE D'EINSTEIN DE 1939 : LA PREUVE ORIGINELLE
+===================================================
+
+
+En octobre 1939, Einstein publie dans les Annals of Mathematics un article au
+titre explicite : On a Stationary System with Spherical Symmetry Consisting of
+Many Gravitating Masses. Il cherche à déterminer si les singularités de
+Schwarzschild correspondent à une réalité physique.
+
+
+Sa réponse est catégoriquement négative. À mesure que l'objet se contracte, ses
+particules accélèrent sur des orbites de plus en plus étroites. L'énergie
+cinétique de rotation interdit toute compression au-delà d'un certain seuil —
+environ 3,7 fois le rayon de Schwarzschild.
+
+
+<< « La singularité de Schwarzschild n'apparaît pas, pour la raison que la
+matière ne peut pas être concentrée de façon arbitraire. »— Albert Einstein,
+Annals of Mathematics, Vol. 40, n° 4, 1939 >>
+
+
+OPPENHEIMER : UNE CONCLUSION MAL INTERPRÉTÉE
+============================================
+
+
+Un mois avant Einstein, Oppenheimer et Snyder publient un article envisageant un
+effondrement gravitationnel. Mais Oppenheimer précise lui-même que, vu de
+l'extérieur, l'effondrement prendrait un temps infini — il n'est donc jamais
+complété. De plus, il avait omis de prendre en compte la rotation — exactement
+le facteur qu'Einstein avait correctement intégré.
+
+
+LA CONSTRUCTION DU MYTHE : DES ANNÉES 1960 À NOS JOURS
+======================================================
+
+
+Après la mort d'Einstein (1955), les astronomes découvrent les quasars. Kip
+Thorne et ses collaborateurs proposent l'effondrement gravitationnel comme
+explication et postulent l'existence de trous noirs. Ce qui est frappant : ils
+citent l'article d'Einstein de 1939 sans en mentionner la conclusion, qui
+contredit directement leur thèse.
+
+
+Les physiciens théoriciens découvrent qu'ils peuvent générer des manchettes
+mondiales en publiant des solutions mathématiques, sans aucune observation
+empirique. Le terme « trou noir » — évocateur et mystérieux — vend des
+magazines. La mythologie scientifique est en marche.
+
+
+HAWKING SE RÉTRACTE
+===================
+
+
+Stephen Hawking, le physicien le plus célèbre de sa génération, annonça qu'il
+n'existait pas de trous noirs au sens classique. Les médias présentèrent cela
+comme une contradiction avec Einstein. C'est l'inverse : Hawking rejoignait
+enfin la conclusion d'Einstein de 1939.
+
+
+CONFIRMATIONS INDÉPENDANTES
+===========================
+
+
+Florides & Jones (1970), de Trinity College Dublin, confirment dans Il Nuovo
+Cimento B que les résultats fondamentaux d'Einstein sont rigoureusement
+corrects.
+
+
+Logunov & Mestvirishvili (2013), de l'Institut de Physique des Hautes Énergies
+de Moscou, publient dans Theoretical and Mathematical Physics un article
+intitulé Impossibility of Gravitational Collapse, confirmant que la Relativité
+Générale interdit l'effondrement gravitationnel complet.
+
+
+Le prix Nobel Hannes Alfvén, pionnier de la physique des plasmas, déplorait que
+la cosmologie soit passée « entre les mains de scientifiques n'ayant jamais
+visité un laboratoire ni regardé dans un télescope ».
+
+
+QUAND LA MATHÉMATIQUE SUPPLANTE L'OBSERVATION
+=============================================
+
+
+Les équations peuvent décrire ce qui n'existe pas. Un exemple classique : les
+équations du second degré produisent deux solutions, dont l'une est souvent non
+physique et doit être rejetée. La solution de Schwarzschild est précisément dans
+ce cas : une solution mathématique valide qui ne correspond à aucune
+configuration physique réalisable.
+
+
+Voir aussi : Les distances cosmiques · LIGO : l’onde qui n’existait pas.
+
+================================================================================
+  Fin de l'article : Les trous noirs n'existent pas
+================================================================================

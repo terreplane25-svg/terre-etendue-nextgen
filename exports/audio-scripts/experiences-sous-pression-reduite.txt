@@ -1,0 +1,192 @@
+
+================================================================================
+   EXPÉRIENCES SOUS PRESSION RÉDUITE : CE QUI SE PASSE QUAND L'AIR DISPARAÎT
+================================================================================
+
+  Categorie : Observatoire
+  Temps de lecture : ~4 min
+
+========================================
+
+La cloche à vide révèle des phénomènes impossibles à observer autrement — un
+marshmallow qui gonfle, de l'eau qui bout à froid, un son qui disparaît. Chaque
+expérience remet en question ce qu'on croit savoir.
+
+========================================
+
+CE QU'ON OBSERVE
+================
+
+
+Nous vivons au fond d'un océan d'air. La pression atmosphérique — environ 1 013
+mbar — comprime tout ce qui nous entoure, en permanence, dans toutes les
+directions. Nous ne la percevons pas parce que nous y sommes adaptés. Mais dès
+qu'on réduit cette pression sous une cloche à vide, les effets sont immédiats et
+spectaculaires.
+
+
+Une pompe à vide manuelle (disponible pour quelques dizaines d'euros) et un
+récipient transparent suffisent pour révéler des phénomènes que la physique des
+manuels peine à expliquer sans contradictions.
+
+
+EXPÉRIENCE 1 : LE MARSHMALLOW QUI GONFLE
+========================================
+
+
+Matériel
+--------
+
+
+Une cloche à vide (ou un bocal avec pompe à vide manuelle), un marshmallow.
+
+
+Protocole
+---------
+
+
+1. Placez le marshmallow sous la cloche.
+
+2. Actionnez la pompe pour réduire la pression.
+
+3. Le marshmallow gonfle progressivement — il peut doubler ou tripler de volume.
+
+4. Quand vous relâchez la pression (en ouvrant la valve), il reprend sa taille
+initiale.
+
+
+Ce qui se passe
+---------------
+
+
+Le marshmallow contient des milliers de petites bulles d'air emprisonnées dans
+le sucre. À pression atmosphérique normale, l'air extérieur comprime ces bulles.
+Quand on réduit la pression extérieure, rien ne s'oppose plus à l'expansion des
+bulles internes — elles gonflent, et le marshmallow avec.
+
+
+Ce n'est pas le marshmallow qui « grandit » — c'est la pression extérieure qui
+ne le comprime plus. Nous vivons constamment comprimés par l'atmosphère sans en
+avoir conscience.
+
+
+EXPÉRIENCE 2 : L'EAU QUI BOUT À TEMPÉRATURE AMBIANTE
+====================================================
+
+
+Protocole
+---------
+
+
+1. Placez un petit récipient d'eau tiède (30-40 °C) sous la cloche à vide.
+
+2. Pompez progressivement.
+
+3. À un certain point, l'eau se met à bouillir — alors qu'elle n'est même pas
+chaude.
+
+
+Ce qui se passe
+---------------
+
+
+L'ébullition n'est pas définie par une température fixe — elle dépend de la
+pression. L'eau bout quand sa pression de vapeur égale la pression ambiante. À 1
+013 mbar (pression atmosphérique standard), ce point est à 100 °C. Mais à 70
+mbar, l'eau bout à 39 °C. À 23 mbar, elle bout à 20 °C.
+
+
+Les astronautes le savent : sans combinaison pressurisée, le sang et les fluides
+corporels entreraient en ébullition à la température du corps. Ce n'est pas une
+question de « chaleur » — c'est une question de pression.
+
+
+Point d'ébullition de l'eau en fonction de la pression
+
+
+1 013 mbar (niveau de la mer) : 100 °C · 700 mbar (≈ 3 000 m d'altitude) : 90 °C
+· 300 mbar : 69 °C · 70 mbar : 39 °C · 23 mbar : 20 °C. La « température
+d'ébullition de l'eau = 100 °C » n'est vraie qu'à la pression atmosphérique du
+niveau de la mer.
+
+
+EXPÉRIENCE 3 : LE SON DISPARAÎT
+===============================
+
+
+Protocole
+---------
+
+
+1. Placez un petit buzzer électronique (ou un téléphone avec une alarme) sous la
+cloche à vide.
+
+2. Allumez-le — le son est parfaitement audible.
+
+3. Pompez l'air progressivement.
+
+4. Le son s'atténue et finit par devenir inaudible — bien que le buzzer continue
+de vibrer.
+
+
+Ce qui se passe
+---------------
+
+
+Le son est une onde de pression qui se propage dans un milieu matériel — l'air,
+l'eau, un solide. Sans milieu, pas de propagation. Sous la cloche à vide, les
+vibrations du buzzer n'ont plus de molécules d'air à mettre en mouvement :
+l'onde sonore ne peut plus atteindre la paroi de la cloche, et vous n'entendez
+plus rien.
+
+
+Cette expérience démontre une vérité fondamentale : le son a besoin d'un milieu.
+La question qui en découle naturellement est : la lumière a-t-elle aussi besoin
+d'un milieu pour se propager ? C'est la question historique de l'éther — un
+débat que la physique officielle a « résolu » en 1887 avec l'expérience de
+Michelson-Morley, mais dont les résultats méritent d'être réexaminés.
+
+
+EXPÉRIENCE 4 : LE BALLON DANS LA CLOCHE
+=======================================
+
+
+Protocole
+---------
+
+
+Gonflez un ballon de baudruche à mi-capacité et placez-le sous la cloche. Pompez
+l'air. Le ballon gonfle jusqu'à remplir toute la cloche — il peut même éclater
+si vous pompez assez. Relâchez la pression : le ballon reprend sa taille
+initiale.
+
+
+La leçon est limpide : ce qui détermine la taille du ballon, ce n'est pas la
+quantité d'air à l'intérieur (elle n'a pas changé), c'est la pression extérieure
+qui s'exerce sur sa paroi. Nous sommes tous des ballons — comprimés en
+permanence par un océan d'air.
+
+
+CE QUE ÇA CHANGE
+================
+
+
+Les expériences sous pression réduite démontrent que la pression atmosphérique
+n'est pas un simple « poids de l'air au-dessus de nous » — c'est un système de
+compression omnidirectionnel qui affecte la température d'ébullition, la taille
+des objets, la propagation du son et le comportement de la matière.
+
+
+Dans le modèle standard, on explique la pression atmosphérique par la gravité («
+l'air est attiré vers le bas et crée un poids »). Mais la pression s'exerce
+aussi vers le haut et latéralement avec la même intensité — ce qui pose la
+question : est-ce vraiment la gravité qui crée la pression, ou bien la pression
+est-elle une propriété intrinsèque de l'atmosphère confinée ?
+
+
+Pour approfondir : Pression, lumière, halos, rayons et ondes et L'espace : une
+frontière infranchissable.
+
+================================================================================
+  Fin de l'article : Expériences sous pression réduite : ce qui se passe quand l'air disparaît
+================================================================================

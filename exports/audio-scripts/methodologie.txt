@@ -1,0 +1,94 @@
+
+================================================================================
+                                  MÉTHODOLOGIE
+================================================================================
+
+  Categorie : Meta
+  Temps de lecture : ~2 min
+
+========================================
+
+Comment nous travaillons. Quelles sources nous utilisons. Quels critères nous
+appliquons. Cette page est la charte intellectuelle du site.
+
+========================================
+
+Comment nous travaillons. Quelles sources nous utilisons. Quels critères nous
+appliquons. Cette page est la charte intellectuelle du site.
+
+
+PRINCIPE 1 — DISTINGUER LE FAIT DE L'INTERPRÉTATION
+===================================================
+
+
+La chute d'un objet est un fait. L'appeler « gravité » est une interprétation.
+La trajectoire du soleil dans le ciel est un fait. L'appeler « rotation de la
+Terre » est une interprétation. Nous documentons les faits et identifions les
+interprétations comme telles.
+
+
+PRINCIPE 2 — PRIVILÉGIER L'EXPÉRIENCE SUR L'OBSERVATION
+=======================================================
+
+
+Francis Bacon, Claude Bernard, Karl Popper, Ian Hacking et James Woodward
+convergent : l'expérimentation contrôlée est épistémiquement supérieure à la
+simple observation. Un test reproductible sur un lac a plus de poids qu'une
+image satellite interprétée. L'expérience que tout le monde peut refaire vaut
+plus que l'observation que personne ne peut vérifier. Voir Pourquoi tout
+remettre en question.
+
+
+PRINCIPE 3 — NE JAMAIS PLIER LA RÉVÉLATION
+==========================================
+
+
+Le concordisme — faire coïncider le Coran avec les théories du moment — est une
+erreur méthodologique et théologique. Le Coran est muhaymin (dominant). Ses
+termes ont des sens précis, documentés par les Salaf et les dictionnaires
+classiques. Nous les laissons dire ce qu'ils disent. Voir Le concordisme et La
+Terre dans le Coran.
+
+
+PRINCIPE 4 — APPELER LES CHOSES PAR LEUR NOM
+============================================
+
+
+Une hypothèse est une hypothèse. Un consensus est un consensus, pas une preuve.
+Une inférence est une inférence, pas une mesure. Nous n'utilisons pas de
+vocabulaire trompeur.
+
+
+SOURCES UTILISÉES
+=================
+
+
+Nos articles s'appuient sur trois types de sources, toujours citées :
+
+
+- Sources islamiques primaires : Coran, hadith authentiques (Bukhārī, Muslim),
+tafsīr classiques (al-Ṭabarī, al-Qurṭubī, al-Jalālayn, al-Rāzī...),
+dictionnaires arabes classiques (Ibn Manẓūr, al-Fayrūzābādī, al-Zabīdī...).
+
+- Sources scientifiques à comité de lecture : revues de physique, géodésie,
+optique, géophysique. Nous citons les auteurs et les références complètes.
+
+- Données d'ingénierie : canaux (Suez), pipelines (Alaska), infrastructures
+ferroviaires — construits sur des modèles plans sans correction de courbure.
+
+
+CE QUE NOUS NE FAISONS PAS
+==========================
+
+
+- Nous ne citons pas de source sans la vérifier.
+
+- Nous ne cachons pas les arguments adverses — nous les présentons et les
+examinons.
+
+- Nous ne prétendons pas avoir toutes les réponses — nous identifions
+explicitement ce qui reste ouvert (voir État des lieux : où en sommes-nous ?).
+
+================================================================================
+  Fin de l'article : Méthodologie
+================================================================================

@@ -1,0 +1,125 @@
+
+================================================================================
+         KINGS DETHRONED : L'EFFONDREMENT DE LA TRIANGULATION STELLAIRE
+================================================================================
+
+  Categorie : Quartier General
+  Temps de lecture : ~4 min
+
+========================================
+
+Analyse de l'ouvrage de Gerrard Hickson (1922) qui démonte la chaîne de mesure
+astronomique : l'erreur de Halley dans la méthode de parallaxe diurne, la bévue
+d'Ole Roemer sur la vitesse de la lumière, l'effondrement de la triangulation de
+Bessel, et la critique d'Einstein.
+
+========================================
+
+Kings Dethroned est un ouvrage publié par Gerrard Hickson en 1922, fruit de 15
+ans de recherche. Il retrace l'histoire de l'astronomie depuis l'Empire romain
+jusqu'à Einstein, et démontre que la chaîne de mesure sur laquelle reposent
+toutes les distances cosmiques contient des erreurs fondamentales jamais
+corrigées.
+
+
+L'ERREUR DE HALLEY : LA MÉTHODE DE PARALLAXE DIURNE
+===================================================
+
+
+En 1716, le Dr Edmund Halley proposa une méthode pour mesurer la distance aux
+planètes en utilisant la rotation de la Terre comme base de triangulation. Un
+observateur devait observer Mars le soir (point A), puis le matin suivant (point
+B), la rotation terrestre l'ayant déplacé de ~12 700 km.
+
+
+Hickson identifie l'erreur : Halley suppose que Mars est visible simultanément
+depuis les points A et B. Or, si Mars est au-dessus de l'horizon de A, il est
+nécessairement sous l'horizon de B — les deux horizons étant des plans
+parallèles séparés par 12 700 km. Un objet plus petit que la Terre ne peut pas
+être au-dessus des deux horizons en même temps.
+
+
+LA BÉVUE D'OLE ROEMER : LA VITESSE DE LA LUMIÈRE
+================================================
+
+
+Ole Roemer (1676) observa que les éclipses des satellites de Jupiter arrivaient
+avec un retard de 16 minutes et demie quand la Terre s'éloignait de Jupiter. Il
+en déduisit que la lumière avait une vitesse finie.
+
+
+Hickson montre que l'explication est plus simple : le retard est dû à la
+différence d'angle d'observation, pas à un temps de trajet de la lumière. Quand
+l'observateur change de position sur son orbite supposée, il voit l'éclipse sous
+un angle différent — et la voit donc à un moment différent. Le retard n'a rien à
+voir avec la vitesse de la lumière.
+
+
+LA DISTANCE À LA LUNE : UN PLAN CONTRE UN AUTRE
+===============================================
+
+
+Lalande et Lacaille tentèrent de mesurer la distance à la Lune par
+triangulation. Hickson démontre qu'ils commirent une erreur de plan : leur
+triangulation était dans le plan horizontal, mais les corrections pour la
+réfraction atmosphérique et la parallaxe équatoriale étaient dans le plan
+vertical — deux plans perpendiculaires. Les calculs mélangeaient des angles
+réels et imaginaires sur deux plans différents, rendant le résultat sans valeur.
+
+
+BESSEL ET 61 CYGNI : UNE PARALLAXE DE 0.31 SECONDE D'ARC
+========================================================
+
+
+F.W. Bessel (1838) est considéré comme le « créateur de l'astronomie moderne de
+précision ». Il mesura la parallaxe de l'étoile 61 Cygni à 0.31 seconde d'arc —
+soit 1/11 613ème de degré.
+
+
+Hickson met cette mesure en perspective : sur le vernir de 6 pieds de diamètre
+de l'Observatoire de Greenwich (l'un des plus grands au monde), un degré mesure
+environ 2 cm. La parallaxe de 0.31 seconde d'arc correspondrait à 1/15 484ème de
+centimètre. Tycho Brahé déclarait que « les angles de parallaxe n'existent que
+dans l'esprit des observateurs ; ils sont dus à des erreurs instrumentales et
+personnelles ».
+
+
+LA MESURE À MARS : 93 MILLIONS DE MILES PAR MULTIPLICATION
+==========================================================
+
+
+Sir David Gill mesura en 1877 la distance à Mars par la méthode de Halley,
+obtenant une parallaxe de 8.80 secondes d'arc, d'où une distance de 35 millions
+de miles. En multipliant par le ratio de Kepler (2.6571), il obtint 93 millions
+de miles pour le Soleil.
+
+
+L'Encyclopaedia Britannica reconnaît que « la distance du Soleil est le lien
+indispensable qui relie toutes les mesures célestes ». Si la mesure à Mars est
+fausse (erreur de Halley), la distance au Soleil est fausse, et par conséquent
+toutes les distances de l'univers sont fausses.
+
+
+EINSTEIN : LA RELATIVITÉ EXAMINÉE
+=================================
+
+
+Hickson consacre ses derniers chapitres à Einstein. Il examine les « trois tests
+cruciaux » de la relativité : la déviation de la lumière, l'avance du périhélie
+de Mercure, et le décalage vers le rouge gravitationnel. Il montre que les
+observations de 1919 (déviation de la lumière pendant l'éclipse) étaient
+contestées par les propres membres de la Royal Astronomical Society.
+
+
+LA CHAÎNE BRISÉE
+================
+
+
+L'argument de Hickson est structurel : les distances astronomiques forment une
+chaîne où chaque maillon dépend du précédent. Si la méthode de Halley est
+fausse, la distance à Mars est fausse. Si Mars est faux, le Soleil est faux. Si
+le Soleil est faux, les étoiles sont fausses. Toute la cosmologie s'effondre.
+
+================================================================================
+  Fin de l'article : Kings Dethroned : l'effondrement de la triangulation stellaire
+================================================================================

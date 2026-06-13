@@ -1,0 +1,199 @@
+
+================================================================================
+                      CHRONOLOGIE DE LA TROMPERIE DU GLOBE
+================================================================================
+
+  Categorie : Quartier General
+  Temps de lecture : ~5 min
+
+========================================
+
+De 350 av. J.-C. à 1972 : comment le modèle de la Terre-globe a été élaboré,
+institutionnalisé et imposé. Sept actes, un seul schéma — hypothèse, échec
+expérimental, correction ad hoc, verrouillage institutionnel.
+
+========================================
+
+Voici une histoire en sept actes. Elle commence dans une école philosophique de
+la Grèce antique et s'achève dans un bureau de la NASA. À chaque acte, le même
+schéma se répète : une hypothèse non vérifiée est promue au rang de fait, une
+expérience gênante est écartée, une institution est créée pour verrouiller le
+récit.
+
+
+Ce n'est pas une théorie du complot. C'est un relevé de dates, de noms et de
+documents — dont chacun est vérifiable.
+
+
+LA PHILOSOPHIE PRÉCÈDE L'OBSERVATION
+====================================
+
+
+Aristote ne découvre pas que la Terre est ronde. Il décide qu'elle doit l'être —
+parce que la sphère est, dans sa philosophie, la forme la plus noble. La
+conclusion précède l'observation de vingt siècles.
+
+
+Un siècle plus tard, Aristarque tente de mesurer la distance au Soleil. Il
+obtient un ratio de 19 (la Lune étant à 1). Le ratio admis aujourd'hui est de
+400. Un facteur 20 d'erreur — sur la mesure fondatrice de toute l'astronomie des
+distances.
+
+
+Puis vient Ératosthène. On lui attribue la première mesure de la circonférence
+terrestre. Trois problèmes : il n'existe aucune documentation primaire de cette
+expérience. Les sources secondaires divergent sur les chiffres. Et surtout —
+deux bâtons, deux ombres, deux latitudes — ce résultat est tout aussi cohérent
+avec un Soleil local au-dessus d'un plan qu'avec un Soleil lointain autour d'une
+sphère.
+
+
+L'HYPOTHÈSE QUI N'EN ÉTAIT PLUS UNE
+===================================
+
+
+1492. Martin Behaim fabrique le premier globe terrestre — le Erdapfel. La même
+année, Colomb part vers l'ouest et croit atteindre l'Inde. Il n'a rien prouvé
+sur la forme de la Terre.
+
+
+1543. Copernic publie De revolutionibus. La préface (rédigée par Osiander) est
+explicite :
+
+
+<< « Ces hypothèses n'ont pas besoin d'être vraies, ni même vraisemblables ; il
+suffit qu'elles permettent des calculs conformes aux observations. »— Préface de
+De revolutionibus orbium coelestium, attribuée à Andreas Osiander, 1543 >>
+
+
+Un outil de calcul, pas une vérité physique. Pourtant, en moins de deux siècles,
+l'outil devient dogme.
+
+
+Kepler (1609-1619) modifie les orbites circulaires en ellipses. Sa motivation
+est explicitement mystique — l'harmonie géométrique divine. Newton (1687)
+postule la gravité universelle. Elle ne sera pas démontrée expérimentalement de
+son vivant. Cavendish (1798) mesurera la densité de la Terre en présupposant la
+gravité newtonienne vraie. La circularité est déjà installée.
+
+
+QUAND LA SCIENCE DIT NON
+========================
+
+
+À partir du XIXe siècle, les physiciens disposent enfin d'instruments assez
+précis pour tester le modèle. Ils testent. Et le modèle échoue.
+
+
+1818 — Arago. Tente de mesurer le mouvement de la Terre par la déviation de la
+lumière stellaire. Résultat négatif.
+
+
+1851 — Foucault. Le pendule est présenté comme la preuve de la rotation. Mais
+les contemporains eux-mêmes (Airy, Baden Powell) avaient de graves réserves —
+Airy le qualifiant en privé de « fraude ». Maurice Allais, Prix Nobel, montrera
+au XXe siècle que le pendule obéit à des forces que la théorie ne prédit pas.
+
+
+1887 — Michelson-Morley. L'expérience la plus précise jamais conçue pour
+détecter le mouvement de la Terre à travers l'éther. Résultat : négatif. La
+Terre ne semblait pas se déplacer.
+
+
+La réponse de la communauté scientifique ne fut pas de remettre en question le
+modèle. Elle fut d'inventer la contraction de Lorentz (1895), puis la relativité
+restreinte (1905) — qui déclare la question elle-même non pertinente. Le
+mouvement absolu n'existe plus. Le modèle est devenu irréfutable par
+construction.
+
+
+Pour le détail de ces 200 ans d'échecs expérimentaux, voir 200 ans de résultats
+nuls. Pour le pendule de Foucault, voir Le pendule de Foucault : une preuve
+contestée.
+
+
+CORRIGER UNE ERREUR DE 99%
+==========================
+
+
+1933. Fritz Zwicky étudie l'amas de Coma et découvre que la masse observable ne
+représente qu'environ 1% de ce que les lois newtoniennes exigent pour expliquer
+les mouvements observés.
+
+
+La réponse logique serait de remettre en question les lois. La réponse
+institutionnelle fut d'inventer une substance invisible, indétectable, qui
+constituerait 95% de l'univers — la « matière noire » puis l'« énergie noire ».
+Bientôt un siècle de recherches, des milliards de dollars investis, et aucune
+détection directe.
+
+
+LA SÉQUENCE INSTITUTIONNELLE
+============================
+
+
+Entre 1915 et 1961, une série d'institutions est créée dont les missions
+combinées dessinent un système de contrôle de l'information et de l'accès
+physique aux zones sensibles.
+
+
+1915NACANational Advisory Committee for Aeronautics. Futur socle de la NASA.
+1945Opération Paperclip~1 600 scientifiques nazis rapatriés aux États-Unis.
+Parmi eux, Wernher von Braun — concepteur de la V2, futur directeur du programme
+Apollo.
+1946Opération High JumpExpédition militaire massive en Antarctique. 4 700
+hommes, 13 navires, 33 avions.
+1947CIACentral Intelligence Agency.
+1952NSANational Security Agency.
+1957Documents classifiésLa CIA produit une étude utilisant explicitement le
+modèle de la Terre plane pour cartographier le firmament. Déclassifié en 2000.
+1958NASANational Aeronautics and Space Administration. Hérite de la NACA.
+1959Traité sur l'AntarctiqueSigné par 12 nations. Interdit l'exploration libre.
+Ratifié aujourd'hui par 56 nations.
+1961DIADefense Intelligence Agency.
+
+
+DE FISHBOWL À LA BLUE MARBLE
+============================
+
+
+1962. L'opération Fishbowl — « bocal à poissons » — fait exploser des charges
+nucléaires à haute altitude. Le premier tir réussi s'appelle Starfish Prime.
+
+
+1967. Gus Grissom — critique vocal de la faisabilité d'Apollo — meurt dans un
+incendie lors d'un test au sol. La porte de la capsule était verrouillée de
+l'extérieur.
+
+
+1969. Apollo 11. Cinquante-sept ans plus tard, aucun retour habité au-delà de
+l'orbite basse terrestre.
+
+
+LE SCHÉMA
+=========
+
+
+Chaque acte de cette histoire suit le même schéma :
+
+
+Une hypothèse philosophique est promue au rang de fait (Aristote → Copernic →
+Newton). Une expérience la contredit (Arago → Michelson-Morley → Zwicky). Au
+lieu de réviser le modèle, on invente une correction ad hoc (contraction de
+Lorentz → relativité → matière noire). Puis on crée une institution pour
+verrouiller le récit (NACA → CIA → NASA → Traité antarctique).
+
+
+La science véritable est falsifiable, transparente, et suit les preuves où
+qu'elles mènent. Ce que cette chronologie documente, c'est un système qui se
+protège de la réfutation — en modifiant ses hypothèses, en classifiant ses
+documents, en restreignant l'accès aux zones sensibles.
+
+
+Pour la documentation complète : 200 ans de résultats nuls · L'hypothèse nulle ·
+L'espace infranchissable · La cosmologie comme instrument de domination ·
+Falsification cosmologique (PDF)
+
+================================================================================
+  Fin de l'article : Chronologie de la tromperie du globe
+================================================================================

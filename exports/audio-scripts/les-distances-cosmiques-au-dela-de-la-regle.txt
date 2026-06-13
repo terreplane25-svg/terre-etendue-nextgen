@@ -1,0 +1,132 @@
+
+================================================================================
+                 LES DISTANCES COSMIQUES : AU-DELÀ DE LA RÈGLE
+================================================================================
+
+  Categorie : Quartier General
+  Temps de lecture : ~4 min
+
+========================================
+
+Pourquoi les distances extragalactiques ne sont pas des mesures mais des
+inférences. L'erreur de Halley, la bévue de Roemer, la fragilité de Bessel, les
+chandelles non standardisées, et les doutes de Hubble lui-même. Sources :
+Hickson (1922), Freedman (2019), Hubble (1937).
+
+========================================
+
+Toutes les distances astronomiques reposent sur une chaîne de calculs où chaque
+maillon dépend du précédent. Si le premier maillon est faux, toute la chaîne
+s'effondre. Gerrard Hickson, dans Kings Dethroned (1922), démontre que c'est
+exactement le cas.
+
+
+LA PARALLAXE : LA SEULE VRAIE MESURE — ET SES LIMITES
+=====================================================
+
+
+La parallaxe trigonométrique est la seule méthode qui s'approche d'une mesure
+géométrique directe. La mission Gaia de l'ESA, la plus précise jamais réalisée,
+ne peut mesurer des distances fiables que jusqu'à quelques kiloparsecs — soit
+moins de 10% du diamètre de notre propre galaxie. Au-delà, on bascule dans
+l'inférence.
+
+
+Mais même la parallaxe a ses problèmes. F.W. Bessel (1838) mesura la parallaxe
+de 61 Cygni à 0,31 seconde d'arc — soit 1/11 613ème de degré. Hickson met cette
+mesure en perspective : sur le cercle gradué de 6 pieds de l'Observatoire de
+Greenwich, un degré mesure environ 2 cm. La parallaxe de Bessel correspondrait à
+1/15 484ème de centimètre — un angle indistinguable des erreurs instrumentales.
+
+
+L'ERREUR DE HALLEY : LE PREMIER MAILLON BRISÉ
+=============================================
+
+
+En 1716, Edmund Halley proposa la méthode de parallaxe diurne pour mesurer la
+distance à Mars. L'idée : observer Mars le soir (point A), puis le matin (point
+B), la rotation terrestre ayant déplacé l'observateur de ~12 700 km.
+
+
+Hickson identifie l'erreur : Halley suppose que Mars est visible depuis les deux
+points. Or, si Mars est au-dessus de l'horizon de A, il est nécessairement sous
+l'horizon de B — les deux horizons étant des plans parallèles séparés par 12 700
+km. Les deux lignes de visée ne convergent pas — elles divergent. La
+triangulation est physiquement impossible telle que décrite.
+
+
+Sir David Gill utilisa cette méthode en 1877 pour mesurer Mars, obtenant une
+parallaxe de 8,80 secondes d'arc. En multipliant par le ratio de Kepler
+(2,6571), il obtint 93 millions de miles pour le Soleil. L'Encyclopaedia
+Britannica reconnaît que « la distance du Soleil est le lien indispensable qui
+relie toutes les mesures célestes ». Si la mesure à Mars est fausse, toutes les
+distances de l'univers sont fausses.
+
+
+LA BÉVUE DE ROEMER : LA VITESSE DE LA LUMIÈRE
+=============================================
+
+
+Ole Roemer (1676) observa un retard de 16 minutes et demie dans les éclipses des
+satellites de Jupiter quand la Terre s'éloignait. Il en déduisit que la lumière
+avait une vitesse finie.
+
+
+Hickson montre que l'explication est plus simple : le retard est dû à la
+différence d'angle d'observation. Quand l'observateur change de position sur son
+orbite supposée, il voit l'éclipse sous un angle différent. Le retard n'a rien à
+voir avec un temps de trajet de la lumière.
+
+
+LES CHANDELLES STANDARD : DES ÉTALONS QUI N'EN SONT PAS
+=======================================================
+
+
+Les Céphéides pulsent régulièrement, et leur période est supposée corrélée à
+leur luminosité. Mais cette luminosité dépend de la métallicité, de
+l'environnement stellaire et de l'âge (Freedman et al., 2019). Ce n'est pas un
+étalon absolu — c'est un étalon corrigé par des hypothèses.
+
+
+Les supernovae de type Ia sont calibrées sur les Céphéides. Elles héritent de
+toutes leurs incertitudes. L'échelle des distances cosmiques est une cascade où
+chaque échelon hérite et amplifie les erreurs du précédent : parallaxe →
+Céphéides → supernovae → redshift → modèles cosmologiques.
+
+
+HUBBLE LUI-MÊME DOUTAIT
+=======================
+
+
+La « tension de Hubble » est le désaccord persistant entre deux méthodes de
+mesure de la constante d'expansion H₀. Ce désaccord n'est pas un détail
+technique — c'est le symptôme d'un problème structurel dans la chaîne de mesure.
+
+
+<< « Si le facteur de récession est abandonné, si les décalages spectraux ne
+sont pas principalement des décalages de vitesse, le tableau est simple et
+plausible. Il n'y a aucune preuve d'expansion. »— Edwin Hubble, The
+Observational Approach to Cosmology, Oxford, 1937 >>
+
+
+Hubble — l'homme dont le nom est synonyme d'expansion de l'univers — doutait que
+le redshift représente une récession réelle.
+
+
+LA CHAÎNE BRISÉE
+================
+
+
+Les distances astronomiques forment une chaîne : si la méthode de Halley est
+fausse, la distance à Mars est fausse. Si Mars est faux, le Soleil est faux. Si
+le Soleil est faux, les étoiles sont fausses. Les distances cosmiques ne sont
+pas des mesures — ce sont les projections de nos hypothèses sur le ciel.
+
+
+Pour l'analyse détaillée de Hickson : Kings Dethroned. Pour le cadre
+épistémologique : Pourquoi tout remettre en question. Pour les expériences sur
+le mouvement terrestre : 200 ans de résultats nuls.
+
+================================================================================
+  Fin de l'article : Les distances cosmiques : au-delà de la règle
+================================================================================

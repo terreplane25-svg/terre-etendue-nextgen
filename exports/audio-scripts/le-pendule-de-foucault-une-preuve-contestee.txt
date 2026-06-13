@@ -1,0 +1,317 @@
+
+================================================================================
+                 LE PENDULE DE FOUCAULT : UNE PREUVE CONTESTÉE
+================================================================================
+
+  Categorie : Observatoire
+  Temps de lecture : ~9 min
+
+========================================
+
+Analyse critique fondée sur trois sources académiques : Conlin (Isis, 1999), Lee
+(2005), Thirring (Physikalische Zeitschrift, 1918). Faille méthodologique
+fondamentale, problèmes expérimentaux documentés depuis 1851, indiscernabilité
+physique confirmée par Einstein, et effet Allais non élucidé.
+
+========================================
+
+Depuis 1851, le pendule de Foucault est présenté comme une démonstration directe
+de la rotation de la Terre. Cette réputation, forgée dans l’enthousiasme de la «
+pendulum mania » qui balaya l’Europe et les États-Unis, s’est imposée au point
+de rendre toute remise en question suspecte. Le présent article entreprend cette
+tâche, non par provocation, mais par fidélité aux sources académiques
+elles-mêmes.
+
+
+Trois sources : Conlin, « The Popular and Scientific Reception of the Foucault
+Pendulum in the United States » (Isis, Vol. 90, No. 2, 1999) ; Lee, « La Terre
+tourne-t-elle vraiment ? » (2005) ; Thirring, « The Effect of Rotating Distant
+Masses in Einstein’s Theory of Gravitation » (Physikalische Zeitschrift, 1918).
+
+
+LE PRINCIPE ET SON POSTULAT IMPLICITE
+=====================================
+
+
+Un pendule de Foucault est une masse suspendue à un pivot permettant le
+mouvement dans toutes les directions. Selon la mécanique classique, en l’absence
+de forces latérales, le plan d’oscillation devrait demeurer fixe par rapport aux
+étoiles lointaines. Si la Terre tourne, c’est le sol qui se déplace sous le
+pendule. La période de précession obéit à T = 24h / sin(φ), où φ est la
+latitude.
+
+
+Foucault interprète ce phénomène dans le cadre newtonien, qui postule un espace
+absolu et immobile. Son mémoire du 3 février 1851 est intitulé « Démonstration
+physique du mouvement de rotation de la Terre ». Le titre est un programme —
+mais il repose sur un postulat qu’il ne démontre pas : l’existence d’un espace
+absolu. Newton lui-même reconnaissait que ce concept est « abstrait,
+métaphysique » (Lee, 2005).
+
+
+L’interprétation classique ne démontre pas la rotation de la Terre — elle la
+rend cohérente avec l’hypothèse newtonienne. Ces deux affirmations sont
+radicalement différentes.
+
+
+LA FAILLE MÉTHODOLOGIQUE FONDAMENTALE
+=====================================
+
+
+Pour établir qu’un phénomène A est causé par une variable B, la méthode
+expérimentale impose trois conditions :
+
+
+Condition 1 — Isolation. La cause supposée doit être isolée de toutes les autres
+variables susceptibles de produire le même effet. Or le comportement du pendule
+dépend du câble de suspension (Longden, 1919), de l’impulsion de départ (Conlin,
+1999), des courants d’air (Loomis), des gradients thermiques (Horsford), du
+champ magnétique (Schoepffer), et de la configuration astronomique lors
+d’éclipses (Allais, 1954). Aucune de ces variables ne peut être tenue pour
+nulle.
+
+
+Condition 2 — Manipulation. L’expérimentateur doit pouvoir contrôler la variable
+: l’activer, la désactiver, la faire varier. Peut-on arrêter la rotation
+terrestre ? Non. Comme Mach le formule :
+
+
+<< « L’univers ne nous est pas donné deux fois, d’abord avec une terre au repos,
+puis avec une terre animée d’une rotation, mais bien une fois, avec ses
+mouvements relatifs seuls déterminables. »— Ernst Mach, Die Mechanik, 1883, p.
+225 >>
+
+
+Condition 3 — Groupe contrôle. On doit pouvoir constituer une situation
+identique à l’expérience en tous points, sauf la variable causée. Poincaré va
+plus loin :
+
+
+<< « Cette affirmation : “la Terre tourne”, n’a aucun sens, puisqu’aucune
+expérience ne permettra de la vérifier ; puisqu’une telle expérience ne peut
+être conçue sans contradiction. »— Henri Poincaré, La Science et l’Hypothèse,
+1902 >>
+
+
+L’expérience de Foucault ne satisfait aucune des trois conditions. Ce constat
+n’est pas une opinion — c’est une conclusion logique découlant de la définition
+même de la méthode expérimentale.
+
+
+THIRRING (1918) : L’INDISCERNABILITÉ PHYSIQUE
+=============================================
+
+
+Hans Thirring démontre mathématiquement, dans le cadre de la relativité
+générale, que les forces engendrées à l’intérieur d’une sphère massive en
+rotation — forces de Coriolis, forces centrifuges — sont physiquement
+indiscernables de celles qui apparaîtraient si la sphère était au repos et si le
+reste de l’univers tournait autour d’elle.
+
+
+<< « Par un exemple concret, il a été démontré que, dans un champ gravitationnel
+einsteinien causé par des masses distantes en rotation, des forces apparaissent
+qui sont analogues aux forces centrifuges et de Coriolis. »— Hans Thirring,
+Physikalische Zeitschrift, 19 : 33–39, 1918 >>
+
+
+Einstein lui-même reconnaît la conséquence directe pour le pendule :
+
+
+<< « Si l’on fait tourner [une coquille massive] par rapport aux étoiles fixes
+autour d’un axe passant par son centre, une force de Coriolis apparaîtra à
+l’intérieur de la coquille ; cela signifie que le plan d’un pendule de Foucault
+sera entraîné. »— Albert Einstein, lettre à Ernst Mach, 25 juin 1913 >>
+
+
+La précession du pendule peut être produite aussi bien par la rotation de la
+Terre dans un espace fixe que par la rotation du cosmos autour d’une Terre
+immobile. Les deux descriptions sont rigoureusement équivalentes. L’expérience
+ne peut pas distinguer entre elles.
+
+
+AIRY, DOWDEN, KITCHELL : LES PROBLÈMES DOCUMENTÉS DEPUIS 1851
+=============================================================
+
+
+George Biddell Airy, astronome royal de Grande-Bretagne, rejetait l’expérience
+en privé :
+
+
+<< « [Airy] avait à plusieurs reprises rejeté l’expérience du pendule de
+Foucault comme une “fraud” » et considérait la formule de précession comme « une
+curiosité mathématique sans application aucune à l’expérience soi-disant ainsi
+dénommée ».— Conlin, Isis, 1999, p. 185 >>
+
+
+C. Dowden (AAAS) identifie deux hypothèses « injustifiables » : que le
+frottement au point de suspension serait nul, et que le pendule pourrait
+osciller indépendamment de la rotation terrestre. Il conclut que les
+scientifiques avaient « sauté à une conclusion hâtive et prématurée » (Conlin,
+p. 193).
+
+
+Le Dr. William Kitchell (AAAS) et ses collègues répètent l’expérience sur
+plusieurs jours :
+
+
+<< « Après de nombreux essais menés sur plusieurs jours, ils signalèrent que le
+résultat était “invariablement un MOUVEMENT ELLIPTIQUE !” Ils conclurent “à
+regret” que la résistance de l’air et l’impossibilité d’amener le pendule au
+repos constituaient des “obstacles insurmontables”. »— Conlin, Isis, 1999, p.
+193 >>
+
+
+HORSFORD, LONGDEN : LE CÂBLE ET LE MONUMENT
+===========================================
+
+
+Eben N. Horsford (Harvard) découvre que le monument de Bunker Hill — l’un des
+sites les plus célèbres pour les démonstrations — se déformait sous l’effet du
+soleil :
+
+
+<< « La chaleur du soleil dilatait les pierres du monument, ce qui déplaçait le
+point de suspension du pendule. Par les jours ensoleillés, le monument penchait
+vers le nord d’environ trois quarts de pouce. Pour compenser, Horsford changeait
+le point de suspension une ou deux fois par jour. »— Conlin, Isis, 1999, p. 200
+>>
+
+
+En 1919, A.C. Longden (Knox College) publie dans The Physical Review un résultat
+décisif :
+
+
+<< « Le pendule commençait toujours à tourner dans le sens horaire. Ce fait
+demeura un mystère jusqu’à ce qu’on substitue un autre fil. Les deux fils
+avaient été découpés dans le même morceau — et pourtant le pendule tournait
+maintenant invariablement dans le sens antihoraire. Après avoir fait tourner le
+fil de 180 degrés sur son propre axe, le pendule recommença à tourner dans le
+sens horaire. »— A.C. Longden, The Physical Review, avril 1919 >>
+
+
+Le sens de rotation du pendule — censé refléter le sens de rotation de la Terre
+— peut être entièrement déterminé par les propriétés mécaniques du câble.
+
+
+L’EFFET ALLAIS : UNE ANOMALIE PUBLIÉE AUX COMPTES RENDUS
+========================================================
+
+
+Maurice Allais (1911–2010), lauréat du prix Nobel d’économie, observe en 1954,
+lors de l’éclipse solaire totale du 30 juin, une déviation anormale d’environ
+13,5 degrés du plan d’oscillation de son pendule paraconique. L’expérience est
+conduite à l’intérieur d’un laboratoire, à l’abri de tout effet direct de
+l’éclipse.
+
+
+Il publie dans les Comptes Rendus de l’Académie des Sciences (vol. 245, 1957).
+En 1959, à la recommandation de Wernher von Braun, une traduction anglaise
+paraît dans Aero/Space Engineering sous le titre « Should the Laws of
+Gravitation be Reconsidered? ». En 1998, Christian Marchal réanalyse les données
+et confirme les composantes harmoniques identifiées par Allais.
+
+
+Si le plan d’oscillation est affecté par la configuration astronomique, alors la
+rotation terrestre n’est pas la seule variable influençant la précession.
+L’expérience ne mesure pas exclusivement ce qu’on lui attribue.
+
+
+LA CIRCULARITÉ INTERPRÉTATIVE
+=============================
+
+
+Pour que l’expérience prouve la rotation terrestre, il faut supposer que le plan
+du pendule reste fixe par rapport à un espace absolu. Mais l’existence de cet
+espace absolu est précisément ce que l’expérience est censée démontrer. Le
+fondement du raisonnement est la conclusion.
+
+
+Lee (2005) note que même l’interprétation la plus favorable — le plan serait
+immobile par rapport à l’univers lointain — « ne reste, en tout état de cause,
+qu’une hypothèse. Quelqu’un a-t-il vérifié que le plan du pendule de Foucault
+restait immobile par rapport aux quasars lointains ? »
+
+
+LA MESURE N’EST PAS LA PREUVE
+=============================
+
+
+Ce qui est établi : le plan d’oscillation présente une rotation relative par
+rapport au sol, à une vitesse dépendant de la latitude. C’est un fait mesuré.
+
+
+Ce qui n’est pas établi : que cette rotation est causée par la rotation de la
+Terre. Ce saut interprétatif est non fondé méthodologiquement (variable non
+isolable, non manipulable, pas de groupe contrôle), non fondé philosophiquement
+(Mach, Poincaré : l’espace absolu n’est pas démontrable), et non fondé
+physiquement (Thirring 1918, Einstein 1913 : indiscernabilité entre rotation
+propre et rotation du cosmos).
+
+
+<< « Nous n’avons devant nous qu’une expérience unique et nous avons à la mettre
+en accord avec l’ensemble des faits qui nous sont connus, mais non pas avec les
+fictions que l’on imagine. »— Ernst Mach, Die Mechanik, 1883, p. 225 >>
+
+
+Voir aussi : 200 ans de résultats nuls · L’hypothèse nulle · Les marées contre l’héliocentrisme
+
+
+RÉFÉRENCES
+==========
+
+
+[1] Conlin, M.F. (1999). « The Popular and Scientific Reception of the Foucault
+Pendulum in the United States ». Isis, Vol. 90, No. 2, pp. 181–204.
+
+
+[2] Lee, A. (2005). « La Terre tourne-t-elle vraiment ? Ernst Mach, le pendule
+de Foucault et l’origine des forces d’inertie ».
+
+
+[3] Thirring, H. (1918). « Über die Wirkung rotierender ferner Massen in der
+Einsteinschen Gravitationstheorie ». Physikalische Zeitschrift, 19 : 33–39.
+
+
+[4] Mach, E. (1883). Die Mechanik in ihrer Entwickelung historisch-kritisch
+dargestellet. Leipzig.
+
+
+[5] Poincaré, H. (1902). La Science et l’Hypothèse. Paris : Flammarion.
+
+
+[6] Einstein, A. (1913). Lettre à Ernst Mach, 25 juin 1913.
+
+
+[7] Foucault, L. (1851). « Démonstration physique du mouvement de rotation de la
+Terre ». Comptes Rendus, 32 : 135–138.
+
+
+[8] Airy, G.B. (1851). Memoirs of the Royal Astronomical Society, 20 : 121–130.
+
+
+[9] Dowden, C. (1851). Appletons’ Mechanics’ and Engineers’ Journal, 1 : 407–408.
+
+
+[10] Lyman, C.S. (1851). American Journal of Science, 12 : 398–416.
+
+
+[11] Longden, A.C. (1919). « On the Irregularities of Motion of the Foucault
+Pendulum ». The Physical Review.
+
+
+[12] Allais, M. (1957). Comptes Rendus de l’Académie des Sciences, vol. 245.
+
+
+[13] Allais, M. (1959). « Should the Laws of Gravitation be Reconsidered? ».
+Aero/Space Engineering.
+
+
+[14] Marchal, C. (1998). La Jaune et la Rouge.
+
+
+[15] Horsford, E.N. (1851). Proceedings of the AAAS, 6 : 132–137.
+
+================================================================================
+  Fin de l'article : Le pendule de Foucault : une preuve contestée
+================================================================================

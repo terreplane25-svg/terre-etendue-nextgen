@@ -1,0 +1,102 @@
+
+================================================================================
+                   POURQUOI LES CHOSES MONTENT ET DESCENDENT
+================================================================================
+
+  Categorie : Observatoire
+  Temps de lecture : ~2 min
+
+========================================
+
+La gravité expliquée autrement. Densité, flottabilité, et le principe
+d'Archimède comme alternative au modèle gravitationnel newtonien. Ce que nous
+observons réellement quand les objets tombent.
+
+========================================
+
+Pourquoi une pomme tombe-t-elle ? Pourquoi un ballon d'hélium monte-t-il ? La
+réponse standard est « la gravité » — une force attractive universelle entre
+toutes les masses. Mais ce que nous observons réellement, c'est que les objets
+plus denses que leur milieu descendent, et les objets moins denses montent. La
+densité et la flottabilité expliquent-elles ce que nous attribuons à la gravité
+?
+
+
+CE QUE NOUS OBSERVONS RÉELLEMENT
+================================
+
+
+Dans la vie quotidienne, nous observons que :
+
+
+- Les objets plus denses que l'air tombent vers le sol.
+
+- Les objets moins denses que l'air montent (fumée, hélium, vapeur d'eau).
+
+- Les objets plus denses que l'eau coulent.
+
+- Les objets moins denses que l'eau flottent.
+
+
+Le principe d'Archimède décrit ce phénomène avec précision : tout corps plongé
+dans un fluide subit une poussée vers le haut égale au poids du fluide déplacé.
+Si l'objet est plus dense, il descend. S'il est moins dense, il monte.
+
+
+LA GRAVITÉ DE NEWTON : UNE FORCE JAMAIS MESURÉE DIRECTEMENT
+===========================================================
+
+
+Newton postula que tous les corps s'attirent mutuellement par une force
+proportionnelle au produit de leurs masses et inversement proportionnelle au
+carré de leur distance. Cette force — la gravité — n'a jamais été mesurée
+directement entre deux objets de taille ordinaire de manière convaincante avant
+l'expérience de Cavendish (1798), dont les résultats sont eux-mêmes contestés.
+
+
+L'HYPOTHÈSE ÉLECTRIQUE
+======================
+
+
+Certains chercheurs proposent que ce que nous appelons gravité est en réalité un
+phénomène électrostatique : la Terre, chargée électriquement, crée un champ qui
+trie les objets par densité et charge. Cette hypothèse est cohérente avec les
+observations de Nikola Tesla et les travaux modernes sur l'Univers Électrique.
+
+
+ARCHIMÈDE AVANT NEWTON
+======================
+
+
+Deux mille ans avant Newton, Archimède formulait le principe de la flottabilité
+: un corps plongé dans un fluide subit une poussée verticale égale au poids du
+fluide déplacé. Ce principe est vérifié expérimentalement, reproductible, et ne
+nécessite aucune force mystérieuse agissant à distance.
+
+
+Un ballon d’hélium monte parce qu’il est moins dense que l’air environnant. Une
+pierre coule parce qu’elle est plus dense que l’eau. Le comportement est
+déterminé par la densité relative de l’objet par rapport au milieu — pas par une
+attraction vers le centre d’une sphère.
+
+
+L’EXPÉRIENCE DE CAVENDISH : UN CERCLE LOGIQUE
+=============================================
+
+
+L’expérience de Cavendish (1798) est présentée comme la première mesure de la
+constante gravitationnelle G. Cavendish mesure la torsion d’un fil entre deux
+masses de plomb. Mais pour déduire G de cette torsion, il faut présupposer la
+loi de Newton (F = Gm₁m₂/r²). L’expérience ne démontre pas la gravité — elle
+calibre un paramètre d’un modèle qu’elle suppose vrai.
+
+
+De plus, les réplications modernes de Cavendish produisent des valeurs de G qui
+varient d’une expérience à l’autre bien au-delà des marges d’erreur. G est la
+constante fondamentale la plus mal connue de toute la physique.
+
+Voir aussi : La gravité : 70 théories · L’eau ne ment pas.
+
+================================================================================
+  Fin de l'article : Pourquoi les choses montent et descendent
+================================================================================

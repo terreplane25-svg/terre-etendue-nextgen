@@ -1,0 +1,77 @@
+
+================================================================================
+                    LES TÉLESCOPES ET LA COURBURE TERRESTRE
+================================================================================
+
+  Categorie : Observatoire
+  Temps de lecture : ~2 min
+
+========================================
+
+Analyse épistémique des observations télescopiques longue distance. Ce que les
+télescopes modernes révèlent sur la courbure (ou l'absence de courbure)
+terrestre — zoom optique, résolution angulaire, et les limites de la
+perspective.
+
+========================================
+
+Les télescopes et les zooms optiques modernes permettent de ramener dans le
+champ de vision des objets que le globe prédit masqués par la courbure
+terrestre. Cette contradiction entre la prédiction théorique et l'observation
+directe constitue l'un des défis empiriques les plus documentés contre le modèle
+sphérique.
+💡 En termes simples
+
+Si la Terre est une sphère de 6 371 km de rayon, un objet à 30 km devrait être
+partiellement caché derrière la courbure (environ 70 mètres de masquage).
+Pourtant, avec un bon télescope ou un zoom P900/P1000, on peut souvent « ramener
+» l'objet dans le cadre. La question est : comment ?
+
+
+LE ZOOM OPTIQUE VS LA COURBURE THÉORIQUE
+========================================
+
+
+Les caméras Nikon P900 et P1000 ont popularisé un phénomène que les marins
+connaissaient depuis longtemps : un objet qui semble disparaître sous l'horizon
+peut souvent être « rappelé » en zoomant. Si la disparition était due à la
+courbure physique du globe, le zoom ne devrait pas pouvoir récupérer l'objet —
+un obstacle physique ne disparaît pas en changeant de lentille.
+
+
+PERSPECTIVE VS COURBURE
+=======================
+
+
+La perspective géométrique prédit qu'un objet s'éloignant sur un plan converge
+vers le point de fuite à hauteur des yeux. Plus il est loin, plus il paraît
+petit et bas. Au-delà d'une certaine distance, il devient trop petit pour être
+résolu par l'œil nu — mais un télescope peut le résoudre à nouveau.
+
+
+Sur une sphère, la disparition est physique : l'objet passe derrière la surface
+courbe. Sur un plan, la disparition est optique : l'objet passe sous la
+résolution angulaire de l'instrument. Ces deux mécanismes produisent des
+prédictions différentes et testables.
+
+
+Si un zoom optique peut « ramener » un objet théoriquement masqué par la
+courbure, l'explication doit être soit la réfraction (courbure de la lumière),
+soit l'absence de courbure physique. La réfraction ne peut pas expliquer tous
+les cas documentés — en particulier ceux observés par temps clair et sec.
+
+
+CAS DOCUMENTÉS
+==============
+
+
+De nombreuses observations télescopiques longue distance sont documentées en
+vidéo et en photographie : skylines de villes vues à 90+ km, phares vus bien
+au-delà de leur distance théorique de visibilité, montagnes observées à 300+ km.
+Ces observations sont systématiquement expliquées par la « réfraction
+exceptionnelle » — une explication ad hoc qui n'est jamais quantifiée ni prédite
+à l'avance.
+
+================================================================================
+  Fin de l'article : Les télescopes et la courbure terrestre
+================================================================================

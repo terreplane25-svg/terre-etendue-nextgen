@@ -1,6 +1,10 @@
 'use client';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { getArticleImage } from '@/lib/article-images';
+import AudioPlayer from '@/components/AudioPlayer';
+
+/** Slugs that have a corresponding /audio/{slug}.mp3 file */
+const AUDIO_SLUGS: string[] = [];
 
 interface ArticleReaderProps { article?: any; title?: string; description?: string; content?: string; category?: string; tags?: string[]; readTime?: number; date?: string; author?: string; }
 
@@ -150,6 +154,10 @@ export default function ArticleReader(props: ArticleReaderProps) {
       )}
 
       <div style={{ height: 1, background: '#eee', margin: '0 0 32px' }} />
+
+      {AUDIO_SLUGS.includes(slug) && (
+        <AudioPlayer src={`/audio/${slug}.mp3`} title={title} />
+      )}
 
       <div ref={contentRef} className="prose-dash" dangerouslySetInnerHTML={{ __html: content }} />
 

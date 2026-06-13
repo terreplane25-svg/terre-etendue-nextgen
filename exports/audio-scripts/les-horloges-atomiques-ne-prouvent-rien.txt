@@ -1,0 +1,118 @@
+
+================================================================================
+                    LES HORLOGES ATOMIQUES NE PROUVENT RIEN
+================================================================================
+
+  Categorie : Observatoire
+  Temps de lecture : ~3 min
+
+========================================
+
+L'expérience de Hafele-Keating (1971) est présentée comme une preuve de la
+relativité. Analyse critique : données brutes secrètes pendant 40 ans,
+corrections ad hoc, résultats divergents entre les horloges, et impossibilité de
+distinguer gravité et altitude.
+
+========================================
+
+L'expérience de Hafele-Keating (1971) est présentée comme l'une des
+confirmations expérimentales les plus directes de la relativité restreinte et
+générale. Deux physiciens auraient emporté des horloges atomiques autour du
+monde en avion, et mesuré des décalages temporels conformes aux prédictions
+d'Einstein. La réalité documentaire est considérablement plus nuancée.
+
+
+L'EXPÉRIENCE OFFICIELLE
+=======================
+
+
+En octobre 1971, Joseph Hafele et Richard Keating embarquèrent quatre horloges
+atomiques au césium sur des vols commerciaux — d'abord vers l'est, puis vers
+l'ouest. La relativité prédit un retard pour le vol vers l'est et une avance
+pour le vol vers l'ouest par rapport aux horloges restées au sol.
+
+
+LES DONNÉES BRUTES : 40 ANS DE SECRET
+=====================================
+
+
+Les données brutes individuelles de chaque horloge ne furent pas publiées dans
+l'article original de Science (1972). Seules les moyennes furent présentées. Il
+fallut attendre la numérisation des archives et les analyses indépendantes pour
+découvrir que les quatre horloges ne s'accordaient pas entre elles.
+
+
+LE GPS PROUVE-T-IL LA RELATIVITÉ ?
+==================================
+
+
+L'argument du GPS est souvent avancé : les satellites GPS corrigent leurs
+horloges pour la relativité, donc la relativité est prouvée. Mais cette
+correction est empirique — calibrée sur les données, pas déduite de la théorie.
+Un modèle dans lequel l'altitude (et non la « courbure de l'espace-temps »)
+affecte la fréquence atomique produirait les mêmes corrections.
+
+
+CE QUE CELA IMPLIQUE
+====================
+
+
+Les horloges atomiques mesurent des variations de fréquence en fonction de
+l'altitude et de la vitesse. Ces variations sont réelles. Mais elles ne
+discriminent pas entre la relativité d'Einstein et d'autres modèles physiques
+qui prédisent les mêmes effets. Présenter Hafele-Keating comme une preuve
+définitive ignore les problèmes documentaires de l'expérience elle-même.
+
+
+HAFELE-KEATING (1971) : L’EXPÉRIENCE QUI NE PROUVE RIEN
+=======================================================
+
+
+En 1971, Joseph Hafele et Richard Keating embarquent quatre horloges atomiques
+au césium dans des avions de ligne commerciaux. Ils font le tour du monde vers
+l’est, puis vers l’ouest, et comparent les horloges avec celles restées au sol à
+l’Observatoire naval de Washington.
+
+
+Le résultat publié dans Science (1972) prétend confirmer la relativité
+restreinte et générale. Trois problèmes documentaires :
+
+
+Premièrement, les quatre horloges n’étaient pas d’accord entre elles. Les écarts
+entre les horloges individuelles étaient du même ordre de grandeur que l’effet à
+mesurer. Le résultat publié est une moyenne de données hautement dispersées.
+
+
+Deuxièmement, les horloges ont voyagé dans des avions commerciaux soumis à des
+vibrations, des variations de température, des changements de pression et
+d’altitude irréguliers. Aucune de ces variables n’a été isolée.
+
+
+Troisièmement, l’interprétation suppose que le décalage temporel est causé par
+la vitesse relative et le potentiel gravitationnel. Mais l’altitude seule (sans
+aucune vitesse de déplacement) affecte déjà la fréquence des horloges atomiques
+— un fait lié à la pression atmosphérique et au champ magnétique, pas
+nécessairement à la relativité.
+
+
+LE GPS : UNE CORRECTION, PAS UNE PREUVE
+=======================================
+
+
+On répète souvent que « le GPS ne fonctionnerait pas sans la relativité ». C’est
+un argument circulaire. Les satellites GPS sont calibrés avec une correction de
+38 microsecondes par jour. Cette correction a été déterminée empiriquement (par
+mesure), puis interprétée comme un effet relativiste.
+
+
+La correction fonctionne parce qu’elle compense un décalage mesuré. Que ce
+décalage soit dû à la relativité, à l’altitude, aux conditions atmosphériques ou
+à une combinaison de facteurs est une question d’interprétation — pas un fait
+établi. Le GPS prouve qu’une correction est nécessaire. Il ne prouve pas
+pourquoi.
+
+Voir aussi : 200 ans de résultats nuls · La gravité : 70 théories.
+
+================================================================================
+  Fin de l'article : Les horloges atomiques ne prouvent rien
+================================================================================

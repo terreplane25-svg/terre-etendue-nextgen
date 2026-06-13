@@ -1,0 +1,92 @@
+
+================================================================================
+                      LA QIBLA ET LA DIRECTION CÔTÉ OUEST
+================================================================================
+
+  Categorie : Bibliotheque
+  Temps de lecture : ~2 min
+
+========================================
+
+Analyse de la direction de la qibla et ses implications géographiques. Pourquoi
+certaines mosquées anciennes pointent vers un azimut inattendu, et ce que cela
+révèle sur la compréhension géographique des premiers musulmans.
+
+========================================
+
+La qibla — la direction de prière vers la Kaaba à La Mecque — est un marqueur
+géographique fondamental de l'Islam. L'étude des orientations des mosquées
+anciennes révèle des données intéressantes sur la compréhension géographique des
+premiers musulmans et sur la question de la forme de la Terre.
+
+
+LA DIRECTION DE LA QIBLA : GRAND CERCLE VS LIGNE DROITE
+=======================================================
+
+
+Sur un globe, le plus court chemin entre deux points est le grand cercle
+(orthodromie). Sur un plan, c'est la ligne droite. Pour un musulman en Amérique
+du Nord, la direction du grand cercle vers La Mecque pointe vers le nord-est —
+alors que la ligne droite sur une carte pointe vers le sud-est ou l'est.
+
+
+L'étude des mosquées anciennes et des pratiques traditionnelles montre que la
+direction de la qibla a été historiquement comprise comme une direction
+cardinale simple (est, sud-est, etc.), pas comme un grand cercle calculé par
+trigonométrie sphérique.
+
+
+IMPLICATIONS GÉOGRAPHIQUES
+==========================
+
+
+Sur une projection azimutale équidistante centrée sur La Mecque, la qibla est
+toujours une ligne droite depuis n'importe quel point du monde. C'est la
+propriété fondamentale de cette projection : les directions depuis le centre
+sont préservées. Cette observation est cohérente avec un modèle de Terre plane
+où les directions sont des lignes droites.
+
+
+CE QUE CELA NOUS APPREND
+========================
+
+
+La question de la qibla n'est pas un argument décisif en soi — mais elle
+illustre la tension entre la géographie moderne (globe + grand cercle) et la
+compréhension traditionnelle (direction cardinale simple). L'orientation des
+mosquées anciennes constitue un corpus de données géographiques encore
+insuffisamment étudié.
+
+
+LA PROJECTION AZIMUTALE ÉQUIDISTANTE
+====================================
+
+
+Sur une carte en projection azimutale équidistante centrée sur La Mecque, la
+direction de la Qibla depuis n’importe quel point du monde est une ligne droite
+vers le centre de la carte. Depuis l’Amérique du Nord, cette direction pointe
+vers l’est-nord-est — pas vers le sud-est comme le suggère une carte Mercator.
+
+
+Ce décalage est exactement ce qu’on observe : les mosquées nord-américaines
+historiques (avant les calculs GPS) étaient orientées vers l’est-nord-est, ce
+qui correspond à la direction de la Qibla sur une projection azimutale. Sur un
+globe, cette direction est le « grand cercle » — mais sur un plan, c’est
+simplement la ligne droite.
+
+
+LE COMPAS NE PROUVE PAS LE GLOBE
+================================
+
+
+Un compas magnétique pointe vers le nord magnétique, pas vers le pôle Nord
+géographique. La déclinaison magnétique (l’écart entre nord magnétique et nord
+géographique) varie selon la position et évolue dans le temps. Les navigateurs
+qui utilisent un compas ne prouvent pas la sphéricité — ils suivent des lignes
+de champ magnétique qui existent indépendamment de la forme de la Terre.
+
+Voir aussi : Cartes et boussoles · La Terre dans le Coran.
+
+================================================================================
+  Fin de l'article : La qibla et la direction côté ouest
+================================================================================

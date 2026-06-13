@@ -1,0 +1,165 @@
+
+================================================================================
+                                INDEX THÉMATIQUE
+================================================================================
+
+  Categorie : Meta
+  Temps de lecture : ~3 min
+
+========================================
+
+Retrouvez chaque sujet à travers les articles qui le traitent. Un même thème
+peut apparaître dans plusieurs sections du site.
+
+========================================
+
+Retrouvez chaque sujet à travers les articles qui le traitent. Un même thème
+peut apparaître dans plusieurs sections du site.
+
+
+PHÉNOMÈNES PHYSIQUES
+====================
+
+
+- Pression, lumière, halos, rayons et ondes (O6) — pression, Rayleigh, halos,
+rayons crépusculaires, EM sans satellites, acoustique
+
+
+LA TERRE : FORME ET SURFACE
+===========================
+
+
+- L'eau ne ment pas (O1) — formule de courbure, Bedford Level, canaux, lacs,
+pipelines
+
+- Ce qu'on voit quand on ne devrait plus voir (O2) — phares, skylines, records
+Guinness 443 km et 493 km
+
+- Optique et atmosphère (O4) — fisheye, réfraction, Fata Morgana, horizon au
+niveau des yeux, modèle de réfraction circulaire
+
+- La Terre dans le Coran (B1) — 7 termes coraniques, 8 versets avec tafsīr, dahā
+réfuté, kawkab, immobilité
+
+- Près de cent savants (B2) — 95 autorités islamiques des Ṣaḥāba aux modernes +
+PDF arabe
+
+- Le théodolite céleste (O8) — 11 320 points de données, 12 pics, Soleil à ~6
+375 km, pas de correction de courbure
+
+
+LE SOLEIL, LA LUNE ET LES ÉTOILES
+=================================
+
+
+- La Lune, le Soleil et les étoiles (O3) — lumière lunaire, selenelion, taille
+angulaire, Novaya Zemlya, voûte optique
+
+- Début de la Création (B3) — hadiths sur le Soleil mobile (Abū Dharr, Josué),
+la Terre sur l'eau, signes de l'Heure
+
+- Le théodolite céleste (O8) — Soleil et Lune sur des sphères célestes
+différentes (6 375 km vs 6 275 km)
+
+
+LA GRAVITÉ ET LES FORCES
+========================
+
+
+- La gravité : 70 théories (N4) — Newton « hypotheses non fingo », Cavendish (5
+failles), G instable à 5σ, LIGO, trous noirs, Arp/redshift
+
+- Le MGPP (L1) — Force de Densité (Aerodynamic), BEC, van der Waals, marées EM
+
+- L'hypothèse nulle (N6) — dynamique = cinématique × 1, GM = a³/T² × 4π², Bouw
+(11 corps), problème des 3 corps
+
+- Neptune et Pluton (N8) — perturbations inexistantes, Adams a triché, Standish
+1993 (JPL), comètes (curve-fitting)
+
+
+LE MOUVEMENT DE LA TERRE : EXPÉRIENCES ET RÉSULTATS
+===================================================
+
+
+- 200 ans de résultats nuls (N7) — Bradley → Arago → Fresnel → Fizeau → Airy →
+Michelson-Morley → Lorentz → Einstein
+
+- L'hypothèse nulle (N6) — Einstein, Hawking, Born, Mach, Poincaré, Ellis :
+géocentrisme = héliocentrisme
+
+
+L'ESPACE ET SES CONTRAINTES
+===========================
+
+
+- L'espace : une frontière infranchissable ? (O7) — thermosphère 2 500°C,
+soudage à froid, Van Allen/spallation
+
+- Pression, lumière, halos, rayons et ondes (O6) — ionosphère, Marconi 1901,
+rayons crépusculaires, arc-en-ciel
+
+
+CARTOGRAPHIE, NAVIGATION ET FUSEAUX HORAIRES
+============================================
+
+
+- Cartes, routes, boussoles et Antarctique (O5) — Al-Idrisi, Mercator vs
+azimutale, Neuschwabenland, Byrd, Antarctique, fuseaux horaires
+
+
+HISTOIRE DES SCIENCES ET ÉPISTÉMOLOGIE
+======================================
+
+
+- Pourquoi tout remettre en question (N1) — Bacon, Popper, citations
+Einstein/Hawking/Born, état de l'académie
+
+- D'une Terre plate universelle à la sphère grecque (N2) — 6 civilisations, Gài
+Tiān chinois, Pythagore ésotérique
+
+- Le mythe d'Ératosthène (N3) — non-discrimination de Brenner, « Ératosthène
+chinois » du Zhōu Bì
+
+- 200 ans de résultats nuls (N7) — chaîne historique complète des expériences
+négatives
+
+- Neptune et Pluton (N8) — Fort, Rawlins, Standish — démythification
+
+
+EXÉGÈSE, SOURCES ISLAMIQUES ET CONCORDISME
+==========================================
+
+
+- La Terre dans le Coran (B1) — 7 termes, 8 versets arabes + tafsīr, dahā,
+kawkab, immobilité, Soleil mobile, espace
+
+- Près de cent savants (B2) — 95 savants des Ṣaḥāba aux modernes + PDF
+consultable
+
+- Début de la Création (B3) — hadiths ṣaḥīḥ (Bukhārī, Muslim) sur le Soleil, la
+Terre, le ciel
+
+- Dhū al-Qarnayn (B4) — source boueuse, confins de la Terre, rupture ptoléméenne
+
+- Le consensus sur la sphéricité : cinq raisons de douter (B5) — حركاتها vs
+أجزائها, cinq axes d'invalidation
+
+- Le concordisme trahi (N5) — ratq/fatq ≠ Big Bang, falak ≠ orbite, mūsiʿūn ≠
+expansion
+
+
+LE MODÈLE ALTERNATIF
+====================
+
+
+- Le MGPP (L1) — Modèle Géocentrique à Plans Parallèles, BEC, Force de Densité,
+marées EM
+
+- L'hypothèse nulle (N6) — le cadre théorique : cinématique suffit, la dynamique n'ajoute rien
+
+- État des lieux (L2) — synthèse des 23 articles et expériences reproductibles
+
+================================================================================
+  Fin de l'article : Index thématique
+================================================================================
