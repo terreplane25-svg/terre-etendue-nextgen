@@ -37,7 +37,7 @@ SLUGS = {
         "le-pole-sud-nexiste-pas",
         "les-horloges-atomiques-ne-prouvent-rien",
         "les-marees-contre-lheliocentrisme",
-        "les-telescopes-et-la-courbure-terrestre",
+        "la-perspective-pourquoi-les-objets-disparaissent",
         "pourquoi-les-choses-montent-et-descendent",
     ],
     "library": [

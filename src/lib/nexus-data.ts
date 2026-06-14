@@ -1169,13 +1169,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "strength": "strong",
     "sharedDomains": ["physique", "gravite"]
   },
-  {
-    "source": "la-perspective-lineaire",
-    "target": "la-perspective-pourquoi-les-objets-disparaissent",
-    "score": 329.5,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie", "physique"]
-  },
+  /* duplicate edge removed */
   {
     "source": "lhorizon-la-perspective-et-la-refraction",
     "target": "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite",
@@ -1599,13 +1593,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "strength": "strong",
     "sharedDomains": ["islam_sources", "epistemologie"]
   },
-  {
-    "source": "accommodation-oculaire",
-    "target": "la-perspective-pourquoi-les-objets-disparaissent",
-    "score": 270.0,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie"]
-  },
+  /* duplicate edge removed */
   {
     "source": "200-ans-de-resultats-nuls-darago-a-einstein",
     "target": "masse-et-volume",
