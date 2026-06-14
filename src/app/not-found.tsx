@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <div
       className="min-h-screen flex flex-col items-center justify-center px-6"
-      style={{ background: '#FAFAF6', fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+      style={{ background: 'var(--bg)', fontFamily: "'Plus Jakarta Sans', sans-serif" }}
     >
       <div className="mb-10">
         <Image src="/images/globe-crossed.png" alt="Globe barré" width={260} height={260} priority />
@@ -15,11 +15,11 @@ export default function NotFound() {
       </div>
       <h1
         className="text-4xl md:text-5xl font-bold text-center mb-8 leading-tight"
-        style={{ color: '#141210', fontFamily: 'Georgia, serif' }}
+        style={{ color: 'var(--ink)', fontFamily: 'Georgia, serif' }}
       >
         Ce modèle n&apos;existe<br/>pas non plus
       </h1>
-      <p className="text-[16px] text-center mb-12 max-w-md leading-relaxed" style={{ color: '#8A857D' }}>
+      <p className="text-[16px] text-center mb-12 max-w-md leading-relaxed" style={{ color: 'var(--ink-muted)' }}>
         La page que vous cherchez n&apos;a pas été trouvée.<br/>
         Comme la courbure — elle devrait être là, mais elle n&apos;y est pas.
       </p>
@@ -34,7 +34,7 @@ export default function NotFound() {
         <Link
           href="/nexus"
           className="px-8 py-3 border-2 text-[13px] tracking-[0.15em] font-semibold transition-colors"
-          style={{ borderColor: 'rgba(20,18,16,0.2)', color: '#141210' }}
+          style={{ borderColor: 'var(--border)', color: 'var(--ink)' }}
         >
           EXPLORER LE NEXUS
         </Link>

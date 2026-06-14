@@ -206,7 +206,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
   const activeToolData = TOOLS.find(t => t.id === activeTool);
 
   return (
-    <div style={{ background: '#F4F5F7', minHeight: '100vh' }}>
+    <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
 
       {/* ── HEADER ── */}
       <div style={{
@@ -359,7 +359,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
             <div style={{
               textAlign: 'center',
               padding: '36px 24px',
-              background: '#FFFFFF',
+              background: 'var(--card)',
               borderRadius: 6,
               marginBottom: 32,
               border: `1px dashed ${dash.border}`,
@@ -400,7 +400,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
                   >
                     <Link href={`/article/${a.slug}`} style={{
                       display: 'flex', overflow: 'hidden', cursor: 'pointer',
-                      background: '#FFFFFF', borderRadius: 6,
+                      background: 'var(--card)', borderRadius: 6,
                       border: `1px solid ${dash.border}`,
                       textDecoration: 'none',
                       transition: 'box-shadow 0.2s ease',

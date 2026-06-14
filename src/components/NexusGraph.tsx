@@ -261,18 +261,18 @@ export default function NexusGraph({ mini, highlightSlug }: Props) {
       {hovered && (
         <div style={{
           position: 'absolute', top: 12, right: 12,
-          background: '#fff', border: '1px solid #E8EAED', borderRadius: 10,
+          background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10,
           padding: '12px 16px', boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
           maxWidth: 260, pointerEvents: 'none',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
             <span style={{ width: 10, height: 10, borderRadius: '50%', background: CAT_COLORS[hovered.category] }} />
-            <span style={{ fontSize: 12, fontWeight: 700, color: '#1A1D23' }}>{hovered.title}</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink)' }}>{hovered.title}</span>
           </div>
-          <div style={{ fontSize: 11, color: '#8B8F96' }}>
+          <div style={{ fontSize: 11, color: 'var(--ink-muted)' }}>
             {CAT_LABELS[hovered.category]} · {filteredLinks.filter(e => e.source === hovered.id || e.target === hovered.id).length} connexions
           </div>
-          <div style={{ fontSize: 10, color: '#B8BBC2', marginTop: 4 }}>
+          <div style={{ fontSize: 10, color: 'var(--ink-ghost)', marginTop: 4 }}>
             Cliquez pour ouvrir l&apos;article →
           </div>
         </div>

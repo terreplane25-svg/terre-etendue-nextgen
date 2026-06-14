@@ -20,9 +20,9 @@ export default function NexusClient() {
         <div style={{ marginBottom: 32 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
             <div style={{ width: 4, height: 28, background: '#8B7EC8', borderRadius: 2 }} />
-            <h1 style={{ fontSize: 28, fontWeight: 800, color: '#1A1D23', letterSpacing: '-0.02em' }}>Le Nexus</h1>
+            <h1 style={{ fontSize: 28, fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.02em' }}>Le Nexus</h1>
           </div>
-          <p style={{ fontSize: 15, color: '#8B8F96', maxWidth: 560 }}>
+          <p style={{ fontSize: 15, color: 'var(--ink-muted)', maxWidth: 560 }}>
             Chaque point est un article. Chaque lien une connexion intellectuelle.
             Explorez le réseau de connaissances.
           </p>
