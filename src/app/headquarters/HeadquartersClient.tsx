@@ -58,9 +58,9 @@ export default function HeadquartersClient({ articles }: { articles: A[] }) {
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 24 }}>
           <button onClick={() => setFilter('all')} style={{
             padding: '6px 14px', borderRadius: 6, fontSize: 13, fontWeight: 600,
-            border: `1px solid ${filter === 'all' ? dash.lavender : dash.border}`,
-            background: filter === 'all' ? dash.lavender : dash.card,
-            color: filter === 'all' ? '#fff' : dash.inkMuted,
+            border: `1px solid ${filter === 'all' ? dash.lavender : 'var(--border)'}`,
+            background: filter === 'all' ? dash.lavender : 'var(--card)',
+            color: filter === 'all' ? '#fff' : 'var(--ink-muted)',
             cursor: 'pointer', fontFamily: dash.fontMain,
           }}>Tout ({articles.length})</button>
           {SECTIONS.map(s => {
@@ -69,9 +69,9 @@ export default function HeadquartersClient({ articles }: { articles: A[] }) {
             return (
               <button key={s.id} onClick={() => setFilter(filter === s.id ? 'all' : s.id)} style={{
                 padding: '6px 14px', borderRadius: 6, fontSize: 13, fontWeight: 600,
-                border: `1px solid ${filter === s.id ? dash.lavender : dash.border}`,
-                background: filter === s.id ? dash.lavender : dash.card,
-                color: filter === s.id ? '#fff' : dash.inkMuted,
+                border: `1px solid ${filter === s.id ? dash.lavender : 'var(--border)'}`,
+                background: filter === s.id ? dash.lavender : 'var(--card)',
+                color: filter === s.id ? '#fff' : 'var(--ink-muted)',
                 cursor: 'pointer', fontFamily: dash.fontMain,
               }}>{s.icon} {s.label} ({count})</button>
             );
@@ -94,12 +94,12 @@ export default function HeadquartersClient({ articles }: { articles: A[] }) {
                         {section.icon} {section.label}
                       </div>
                     )}
-                    <div style={{ fontSize: 17, fontWeight: 700, color: dash.ink, marginBottom: 6, lineHeight: 1.35 }}>
+                    <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--ink)', marginBottom: 6, lineHeight: 1.35 }}>
                       {a.pinned && <span style={{ color: dash.saffron, marginRight: 6 }}>★</span>}{a.title}
                     </div>
-                    <div style={{ fontSize: 12, color: dash.inkGhost, marginBottom: 8, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
+                    <div style={{ fontSize: 12, color: 'var(--ink-ghost)', marginBottom: 8, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
                     {a.description && (
-                      <div style={{ fontSize: 14, color: dash.inkMuted, lineHeight: 1.55, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as never }}>{a.description}</div>
+                      <div style={{ fontSize: 14, color: 'var(--ink-muted)', lineHeight: 1.55, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as never }}>{a.description}</div>
                     )}
                   </div>
                 </Link>

@@ -48,16 +48,16 @@ export default function RelatedArticles({ currentSlug, currentTags, allArticles,
   if (scored.length === 0) return null;
 
   return (
-    <div className="mt-12 pt-8" style={{ borderTop: '1px solid rgba(20,18,16,0.06)', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+    <div className="mt-12 pt-8" style={{ borderTop: '1px solid var(--border-soft)', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <div className="flex items-center gap-3 mb-6">
         <div className="w-6 h-[1px]" style={{ background: '#3580C0' }} />
         <span
           className="text-[10px] tracking-[0.2em]"
-          style={{ color: '#8A857D', fontWeight: 600, letterSpacing: '0.2em' }}
+          style={{ color: 'var(--ink-muted)', fontWeight: 600, letterSpacing: '0.2em' }}
         >
           ARTICLES CONNEXES
         </span>
-        <div className="flex-1 h-[1px]" style={{ background: 'rgba(20,18,16,0.06)' }} />
+        <div className="flex-1 h-[1px]" style={{ background: 'var(--border-soft)' }} />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {scored.map(article => (
@@ -66,8 +66,8 @@ export default function RelatedArticles({ currentSlug, currentTags, allArticles,
             href={`/article/${article.slug}`}
             className="block p-4 border rounded-lg transition-all hover:-translate-y-0.5"
             style={{
-              background: '#FFFFFF',
-              borderColor: 'rgba(20,18,16,0.06)',
+              background: 'var(--card)',
+              borderColor: 'var(--border-soft)',
             }}
           >
             <div
@@ -76,12 +76,12 @@ export default function RelatedArticles({ currentSlug, currentTags, allArticles,
             >
               {CATEGORY_LABELS[article.category] || article.category}
             </div>
-            <div className="text-[15px] font-semibold mb-2" style={{ color: '#141210' }}>
+            <div className="text-[15px] font-semibold mb-2" style={{ color: 'var(--ink)' }}>
               {article.title}
             </div>
             <div
               className="text-[12px] line-clamp-2"
-              style={{ color: '#8A857D' }}
+              style={{ color: 'var(--ink-muted)' }}
             >
               {article.description}
             </div>

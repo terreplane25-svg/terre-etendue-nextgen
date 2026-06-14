@@ -36,7 +36,7 @@ function SvgLightbox({ svgHtml, onClose }: { svgHtml: string; onClose: () => voi
       <div
         onClick={e => e.stopPropagation()}
         style={{
-          background: '#fff',
+          background: 'var(--card)',
           borderRadius: 6,
           padding: 24,
           width: '92vw',
@@ -53,8 +53,8 @@ function SvgLightbox({ svgHtml, onClose }: { svgHtml: string; onClose: () => voi
           style={{
             position: 'sticky', top: 0, float: 'right',
             width: 36, height: 36, borderRadius: 4,
-            border: '1px solid #ddd', background: '#fff',
-            color: '#666', fontSize: 18, cursor: 'pointer',
+            border: '1px solid var(--border)', background: 'var(--card)',
+            color: 'var(--ink-soft)', fontSize: 18, cursor: 'pointer',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             zIndex: 1, marginBottom: -36,
           }}
@@ -183,26 +183,26 @@ export default function ArticleReader(props: ArticleReaderProps) {
       {/* Reading progress bar */}
       <div style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, height: 3,
-        background: '#E8EAED',
+        background: 'var(--border)',
       }}>
         <div style={{
           height: '100%', width: `${readProgress}%`,
-          background: 'linear-gradient(90deg, #8B7EC8, #3B8FD4)',
+          background: 'linear-gradient(90deg, var(--lavender), var(--cyan))',
           transition: 'width 0.1s linear',
         }} />
       </div>
 
       <div ref={articleRef} style={{ maxWidth: 900, margin: '0 auto', padding: '32px 16px 80px', fontFamily: "'Plus Jakarta Sans', sans-serif", overflowX: 'hidden' }} className="sm:!px-6">
 
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#7C6FC4', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 12 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--lavender)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 12 }}>
           {CAT_LABEL[category] || category}
         </div>
 
-        <h1 className="text-[26px] sm:text-[32px] md:text-[36px]" style={{ fontWeight: 800, color: '#141210', lineHeight: 1.25, letterSpacing: '-0.02em', marginBottom: 14, overflowWrap: 'break-word' }}>{title}</h1>
+        <h1 className="text-[26px] sm:text-[32px] md:text-[36px]" style={{ fontWeight: 800, color: 'var(--ink)', lineHeight: 1.25, letterSpacing: '-0.02em', marginBottom: 14, overflowWrap: 'break-word' }}>{title}</h1>
 
-        {description && <p className="text-[16px] sm:text-[18px]" style={{ color: '#666', lineHeight: 1.6, marginBottom: 16 }}>{description}</p>}
+        {description && <p className="text-[16px] sm:text-[18px]" style={{ color: 'var(--ink-soft)', lineHeight: 1.6, marginBottom: 16 }}>{description}</p>}
 
-        <div style={{ fontSize: 13, color: '#999', marginBottom: 24 }}>
+        <div style={{ fontSize: 13, color: 'var(--ink-muted)', marginBottom: 24 }}>
           {author && <span>{author} | </span>}
           {date && <span>{new Date(date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })} | </span>}
           {readTime && <span>{readTime} min</span>}
@@ -214,7 +214,7 @@ export default function ArticleReader(props: ArticleReaderProps) {
           </div>
         )}
 
-        <div style={{ height: 1, background: '#eee', margin: '0 0 32px' }} />
+        <div style={{ height: 1, background: 'var(--border)', margin: '0 0 32px' }} />
 
         {AUDIO_SLUGS.includes(slug) && (
           <AudioPlayer src={`/audio/${slug}.mp3`} title={title} />
@@ -249,15 +249,15 @@ export default function ArticleReader(props: ArticleReaderProps) {
             <div style={{
               position: 'fixed', bottom: 80, right: 24, zIndex: 80,
               width: 280, maxHeight: '60vh', overflowY: 'auto',
-              background: '#fff', borderRadius: 10,
-              border: '1px solid #E8EAED',
+              background: 'var(--card)', borderRadius: 10,
+              border: '1px solid var(--border)',
               boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
               padding: '16px 0',
             }}>
               <div style={{
-                fontSize: 10, fontWeight: 700, color: '#8B8F96',
+                fontSize: 10, fontWeight: 700, color: 'var(--ink-muted)',
                 textTransform: 'uppercase', letterSpacing: '0.1em',
-                padding: '0 16px 10px', borderBottom: '1px solid #F0F1F3',
+                padding: '0 16px 10px', borderBottom: '1px solid var(--border-soft)',
                 fontFamily: "'JetBrains Mono', monospace",
               }}>
                 Sommaire
@@ -272,8 +272,8 @@ export default function ArticleReader(props: ArticleReaderProps) {
                     padding: `6px 16px 6px ${item.level === 3 ? 28 : 16}px`,
                     fontSize: item.level === 3 ? 12 : 13,
                     fontWeight: activeHeading === item.id ? 700 : 500,
-                    color: activeHeading === item.id ? '#8B7EC8' : '#4A4E57',
-                    borderLeft: activeHeading === item.id ? '2px solid #8B7EC8' : '2px solid transparent',
+                    color: activeHeading === item.id ? 'var(--lavender)' : 'var(--ink-soft)',
+                    borderLeft: activeHeading === item.id ? '2px solid var(--lavender)' : '2px solid transparent',
                     textDecoration: 'none',
                     lineHeight: 1.4,
                     transition: 'color 0.15s',

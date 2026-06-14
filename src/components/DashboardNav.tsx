@@ -81,10 +81,10 @@ export default function DashboardNav() {
 
   return (
     <>
-      <header style={{
+      <header className="tei-header" style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 90,
-        background: '#fff',
-        borderBottom: '1px solid #E8EAED',
+        background: 'var(--card)',
+        borderBottom: '1px solid var(--border)',
         transform: visible ? 'translateY(0)' : 'translateY(-100%)',
         transition: 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)',
       }}>
@@ -92,13 +92,13 @@ export default function DashboardNav() {
         <div className="hidden lg:flex" style={{ maxWidth: 1360, margin: '0 auto', padding: '0 24px', alignItems: 'center' }}>
           <Link href="/" style={{ flexShrink: 0, marginRight: 40, padding: '8px 0' }}>
             <div style={{
-              fontSize: 27, fontWeight: 900, color: '#0A0A0A', letterSpacing: '-0.03em',
+              fontSize: 27, fontWeight: 900, color: 'var(--ink)', letterSpacing: '-0.03em',
               lineHeight: 1.1, fontFamily: "'Plus Jakarta Sans', sans-serif",
             }}>
               Terre Étendue <span style={{ color: '#2B9E6E', fontWeight: 900 }}>Islam</span>
             </div>
             <div style={{
-              fontSize: 10.5, color: '#9BA0A8', letterSpacing: '0.03em',
+              fontSize: 10.5, color: 'var(--ink-muted)', letterSpacing: '0.03em',
               marginTop: 1, fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 500,
             }}>
               Explorer la création, honorer la Révélation
@@ -126,7 +126,7 @@ export default function DashboardNav() {
                     display: 'flex', alignItems: 'center', gap: 4,
                     padding: '16px 12px',
                     fontSize: 14.5, fontWeight: 750,
-                    color: active ? s.color : '#0D0D0D',
+                    color: active ? s.color : 'var(--ink)',
                     borderBottom: active ? `3px solid ${s.color}` : '3px solid transparent',
                     transition: 'color 0.15s',
                     whiteSpace: 'nowrap',
@@ -140,7 +140,7 @@ export default function DashboardNav() {
                   {openDropdown === s.href && s.subs.length > 0 && (
                     <div style={{
                       position: 'absolute', top: '100%', left: 0, zIndex: 100,
-                      background: '#fff', border: '1px solid #E8EAED', borderRadius: 10,
+                      background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10,
                       padding: '8px 0', minWidth: 240,
                       boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
                       animation: 'fadeIn 0.15s ease',
@@ -148,11 +148,11 @@ export default function DashboardNav() {
                       {s.subs.map(sub => (
                         <Link key={sub.href} href={sub.href} style={{
                           display: 'block', padding: '10px 20px',
-                          fontSize: 14, fontWeight: 500, color: '#1A1D23',
-                          transition: 'background 0.1s',
+                          fontSize: 14, fontWeight: 500, color: 'var(--ink-soft)',
+                          transition: 'background 0.1s, color 0.1s',
                         }}
-                        onMouseOver={e => { e.currentTarget.style.background = '#F4F5F7'; e.currentTarget.style.color = s.color; }}
-                        onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#1A1D23'; }}>
+                        onMouseOver={e => { e.currentTarget.style.background = 'var(--bg)'; e.currentTarget.style.color = s.color; }}
+                        onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--ink-soft)'; }}>
                           {sub.label}
                         </Link>
                       ))}
@@ -172,13 +172,13 @@ export default function DashboardNav() {
         {/* ── Mobile header ── */}
         <div className="flex lg:hidden" style={{ padding: '0 16px', alignItems: 'center', height: 56 }}>
           <button onClick={() => setMobileOpen(!mobileOpen)}
-            style={{ padding: 8, background: 'none', border: 'none', cursor: 'pointer', color: '#0D0D0D', flexShrink: 0 }}>
+            style={{ padding: 8, background: 'none', border: 'none', cursor: 'pointer', color: 'var(--ink)', flexShrink: 0 }}>
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
 
           <Link href="/" style={{ flex: 1, textAlign: 'center', padding: '4px 0' }}>
             <div style={{
-              fontSize: 18, fontWeight: 900, color: '#0A0A0A', letterSpacing: '-0.02em',
+              fontSize: 18, fontWeight: 900, color: 'var(--ink)', letterSpacing: '-0.02em',
               lineHeight: 1.15, fontFamily: "'Plus Jakarta Sans', sans-serif",
             }}>
               Terre Étendue <span style={{ color: '#2B9E6E' }}>Islam</span>
@@ -199,19 +199,19 @@ export default function DashboardNav() {
       {mobileOpen && (
         <div className="lg:hidden" style={{
           position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 89,
-          background: '#fff', overflowY: 'auto', paddingTop: 70,
+          background: 'var(--card)', overflowY: 'auto', paddingTop: 70,
         }}>
           <div style={{ padding: '12px 24px' }}>
             {SECTIONS.map(s => (
-              <div key={s.href} style={{ borderBottom: '1px solid #F0F1F3' }}>
+              <div key={s.href} style={{ borderBottom: '1px solid var(--border-soft)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <Link href={s.href} onClick={() => setMobileOpen(false)}
-                    style={{ display: 'block', padding: '14px 0', fontSize: 17, fontWeight: 750, color: '#0D0D0D', flex: 1 }}>
+                    style={{ display: 'block', padding: '14px 0', fontSize: 17, fontWeight: 750, color: 'var(--ink)', flex: 1 }}>
                     {s.label}
                   </Link>
                   {s.subs.length > 0 && (
                     <button onClick={() => setMobileExpanded(mobileExpanded === s.href ? null : s.href)}
-                      style={{ padding: 8, background: 'none', border: 'none', cursor: 'pointer', color: '#8B8F96' }}>
+                      style={{ padding: 8, background: 'none', border: 'none', cursor: 'pointer', color: 'var(--ink-muted)' }}>
                       <ChevronDown size={18} style={{
                         transform: mobileExpanded === s.href ? 'rotate(180deg)' : 'rotate(0)',
                         transition: 'transform 0.2s',
@@ -223,7 +223,7 @@ export default function DashboardNav() {
                   <div style={{ paddingBottom: 8 }}>
                     {s.subs.map(sub => (
                       <Link key={sub.href} href={sub.href} onClick={() => setMobileOpen(false)}
-                        style={{ display: 'block', padding: '8px 0 8px 16px', fontSize: 15, color: '#1A1D23' }}>
+                        style={{ display: 'block', padding: '8px 0 8px 16px', fontSize: 15, color: 'var(--ink-soft)' }}>
                         {sub.label}
                       </Link>
                     ))}

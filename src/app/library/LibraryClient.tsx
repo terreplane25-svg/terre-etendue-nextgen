@@ -56,9 +56,9 @@ export default function LibraryClient({ priority, articles }: { priority: A[]; a
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 24 }}>
           <button onClick={() => setFilter('all')} style={{
             padding: '6px 14px', borderRadius: 6, fontSize: 13, fontWeight: 600,
-            border: `1px solid ${filter === 'all' ? dash.saffron : dash.border}`,
-            background: filter === 'all' ? dash.saffron : dash.card,
-            color: filter === 'all' ? '#fff' : dash.inkMuted,
+            border: `1px solid ${filter === 'all' ? dash.saffron : 'var(--border)'}`,
+            background: filter === 'all' ? dash.saffron : 'var(--card)',
+            color: filter === 'all' ? '#fff' : 'var(--ink-muted)',
             cursor: 'pointer', fontFamily: dash.fontMain,
           }}>Tout ({allArticles.length})</button>
           {SECTIONS.map(s => {
@@ -67,9 +67,9 @@ export default function LibraryClient({ priority, articles }: { priority: A[]; a
             return (
               <button key={s.id} onClick={() => setFilter(filter === s.id ? 'all' : s.id)} style={{
                 padding: '6px 14px', borderRadius: 6, fontSize: 13, fontWeight: 600,
-                border: `1px solid ${filter === s.id ? dash.saffron : dash.border}`,
-                background: filter === s.id ? dash.saffron : dash.card,
-                color: filter === s.id ? '#fff' : dash.inkMuted,
+                border: `1px solid ${filter === s.id ? dash.saffron : 'var(--border)'}`,
+                background: filter === s.id ? dash.saffron : 'var(--card)',
+                color: filter === s.id ? '#fff' : 'var(--ink-muted)',
                 cursor: 'pointer', fontFamily: dash.fontMain,
               }}>{s.icon} {s.label} ({count})</button>
             );
@@ -81,7 +81,7 @@ export default function LibraryClient({ priority, articles }: { priority: A[]; a
           <div style={{ marginBottom: 40 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 18 }}>
               <span style={{ fontSize: 18 }}>📖</span>
-              <h2 style={{ fontSize: 18, fontWeight: 750, color: dash.ink }}>Lecture prioritaire</h2>
+              <h2 style={{ fontSize: 18, fontWeight: 750, color: 'var(--ink)' }}>Lecture prioritaire</h2>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20 }}>
               {priorityInFilter.map((a, i) => (
@@ -92,9 +92,9 @@ export default function LibraryClient({ priority, articles }: { priority: A[]; a
                       <span className="badge" style={{ position: 'absolute', top: 14, left: 14, background: 'rgba(255,255,255,0.93)', color: dash.gold, border: `1px solid ${dash.gold}30`, backdropFilter: 'blur(8px)', fontSize: 11 }}>★ PRIORITAIRE</span>
                     </div>
                     <div style={{ padding: '22px 24px' }}>
-                      <div style={{ fontSize: 18, fontWeight: 750, color: dash.ink, lineHeight: 1.35, marginBottom: 8 }}>{a.title}</div>
-                      {a.description && <div style={{ fontSize: 14, color: dash.inkMuted, lineHeight: 1.55, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' as never, overflow: 'hidden' }}>{a.description}</div>}
-                      <div style={{ fontSize: 12, color: dash.inkGhost, marginTop: 12, fontFamily: dash.fontMono }}>{a.readTime} min de lecture</div>
+                      <div style={{ fontSize: 18, fontWeight: 750, color: 'var(--ink)', lineHeight: 1.35, marginBottom: 8 }}>{a.title}</div>
+                      {a.description && <div style={{ fontSize: 14, color: 'var(--ink-muted)', lineHeight: 1.55, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' as never, overflow: 'hidden' }}>{a.description}</div>}
+                      <div style={{ fontSize: 12, color: 'var(--ink-ghost)', marginTop: 12, fontFamily: dash.fontMono }}>{a.readTime} min de lecture</div>
                     </div>
                   </Link>
                 </motion.div>
@@ -107,7 +107,7 @@ export default function LibraryClient({ priority, articles }: { priority: A[]; a
         {othersInFilter.length > 0 && (
           <>
             {(showPrioritySection && priorityInFilter.length > 0) && (
-              <h2 style={{ fontSize: 18, fontWeight: 750, color: dash.ink, marginBottom: 16 }}>
+              <h2 style={{ fontSize: 18, fontWeight: 750, color: 'var(--ink)', marginBottom: 16 }}>
                 {filter === 'all' ? 'Toutes les publications' : SECTIONS.find(s => s.id === filter)?.label || 'Publications'}
               </h2>
             )}
@@ -126,9 +126,9 @@ export default function LibraryClient({ priority, articles }: { priority: A[]; a
                             {section.icon} {section.label}
                           </div>
                         )}
-                        <div style={{ fontSize: 17, fontWeight: 700, color: dash.ink, marginBottom: 6, lineHeight: 1.35 }}>{a.title}</div>
-                        <div style={{ fontSize: 12, color: dash.inkGhost, marginBottom: 8, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
-                        {a.description && <div style={{ fontSize: 14, color: dash.inkMuted, lineHeight: 1.55, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as never }}>{a.description}</div>}
+                        <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--ink)', marginBottom: 6, lineHeight: 1.35 }}>{a.title}</div>
+                        <div style={{ fontSize: 12, color: 'var(--ink-ghost)', marginBottom: 8, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
+                        {a.description && <div style={{ fontSize: 14, color: 'var(--ink-muted)', lineHeight: 1.55, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as never }}>{a.description}</div>}
                       </div>
                     </Link>
                   </motion.div>

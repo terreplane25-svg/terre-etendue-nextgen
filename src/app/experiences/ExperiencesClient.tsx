@@ -39,11 +39,11 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
       <SectionHeader pillar="EXP" pillarNum="05" subtitle="Physique naturelle" title="Laboratoire de Physique Naturelle" color={dash.rose} count={demonstrations.length + historical.length} countLabel="fiches — démonstrations et retracements historiques" />
       <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px 64px" }}>
 
-      <div style={{ display: "flex", gap: 4, marginBottom: 24, borderBottom: `1px solid ${dash.border}` }}>
+      <div style={{ display: "flex", gap: 4, marginBottom: 24, borderBottom: `1px solid ${'var(--border)'}` }}>
         {([{ id: "all" as const, l: "Tout" }, { id: "demos" as const, l: "Démonstrations" }, { id: "hist" as const, l: "Historique" }]).map(t => (
           <button key={t.id} onClick={() => { setTab(t.id); setFam(null); }} style={{
             padding: "8px 16px", fontSize: 13, fontWeight: 600, fontFamily: dash.fontMain, border: "none", background: "none", cursor: "pointer",
-            color: tab === t.id ? dash.ink : dash.inkMuted, borderBottom: tab === t.id ? `2px solid ${dash.ink}` : "2px solid transparent", marginBottom: -1,
+            color: tab === t.id ? 'var(--ink)' : 'var(--ink-muted)', borderBottom: tab === t.id ? `2px solid ${'var(--ink)'}` : "2px solid transparent", marginBottom: -1,
           }}>{t.l}</button>
         ))}
       </div>
@@ -51,11 +51,11 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
       <AnimatePresence mode="wait">
         {(tab === "all" || tab === "demos") && (
           <motion.div key="d" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ marginBottom: 40 }}>
-            {tab === "all" && <h2 style={{ fontSize: 17, fontWeight: 750, color: dash.ink, marginBottom: 16 }}>🔬 Démonstrations</h2>}
+            {tab === "all" && <h2 style={{ fontSize: 17, fontWeight: 750, color: 'var(--ink)', marginBottom: 16 }}>🔬 Démonstrations</h2>}
             <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 20 }}>
-              <button onClick={() => setFam(null)} style={{ padding: "6px 14px", borderRadius: 6, fontSize: 13, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${!fam ? dash.rose : dash.border}`, background: !fam ? dash.rose : dash.card, color: !fam ? "#fff" : dash.inkMuted, cursor: "pointer" }}>Toutes</button>
+              <button onClick={() => setFam(null)} style={{ padding: "6px 14px", borderRadius: 6, fontSize: 13, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${!fam ? dash.rose : 'var(--border)'}`, background: !fam ? dash.rose : 'var(--card)', color: !fam ? "#fff" : 'var(--ink-muted)', cursor: "pointer" }}>Toutes</button>
               {FAMILLES.map(f => (
-                <button key={f.id} onClick={() => setFam(f.id === fam ? null : f.id)} style={{ padding: "6px 14px", borderRadius: 6, fontSize: 13, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${fam === f.id ? dash.rose : dash.border}`, background: fam === f.id ? dash.rose : dash.card, color: fam === f.id ? "#fff" : dash.inkMuted, cursor: "pointer" }}>{f.icon} {f.label}</button>
+                <button key={f.id} onClick={() => setFam(f.id === fam ? null : f.id)} style={{ padding: "6px 14px", borderRadius: 6, fontSize: 13, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${fam === f.id ? dash.rose : 'var(--border)'}`, background: fam === f.id ? dash.rose : 'var(--card)', color: fam === f.id ? "#fff" : 'var(--ink-muted)', cursor: "pointer" }}>{f.icon} {f.label}</button>
               ))}
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -75,12 +75,12 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
                               {famille.icon} {famille.label}
                             </div>
                           )}
-                          <div style={{ fontSize: 17, fontWeight: 700, color: dash.ink, marginBottom: 4, lineHeight: 1.3 }}>{a.title}</div>
-                          <div style={{ fontSize: 11, color: dash.inkGhost, marginBottom: 6, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
-                          {a.description && <div style={{ fontSize: 14, color: dash.inkMuted, lineHeight: 1.5, overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as never }}>{a.description}</div>}
+                          <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--ink)', marginBottom: 4, lineHeight: 1.3 }}>{a.title}</div>
+                          <div style={{ fontSize: 11, color: 'var(--ink-ghost)', marginBottom: 6, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
+                          {a.description && <div style={{ fontSize: 14, color: 'var(--ink-muted)', lineHeight: 1.5, overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as never }}>{a.description}</div>}
                         </div>
                       </Link>
-                      {cr && <div style={{ padding: "8px 20px 12px", borderTop: `1px solid ${dash.borderSoft}` }}><Link href={`/article/${cr.slug}`} style={{ fontSize: 11, color: dash.lavender, fontWeight: 600 }}>↗ {cr.label}</Link></div>}
+                      {cr && <div style={{ padding: "8px 20px 12px", borderTop: `1px solid ${'var(--border-soft)'}` }}><Link href={`/article/${cr.slug}`} style={{ fontSize: 11, color: dash.lavender, fontWeight: 600 }}>↗ {cr.label}</Link></div>}
                     </div>
                   </motion.div>
                 );
@@ -93,7 +93,7 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
       <AnimatePresence mode="wait">
         {(tab === "all" || tab === "hist") && (
           <motion.div key="h" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            {tab === "all" && <h2 style={{ fontSize: 17, fontWeight: 750, color: dash.ink, marginBottom: 16 }}>📜 Retracement historique</h2>}
+            {tab === "all" && <h2 style={{ fontSize: 17, fontWeight: 750, color: 'var(--ink)', marginBottom: 16 }}>📜 Retracement historique</h2>}
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               {historical.map((a, i) => (
                 <motion.div key={a.slug} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}>
@@ -102,9 +102,9 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
                       <img src={getArticleImage(a.slug)} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
                     </div>
                     <div style={{ padding: "18px 24px", flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: 17, fontWeight: 700, color: dash.ink, marginBottom: 4, lineHeight: 1.3 }}>{a.title}</div>
-                      <div style={{ fontSize: 11, color: dash.inkGhost, marginBottom: 6, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
-                      {a.description && <div style={{ fontSize: 14, color: dash.inkMuted, lineHeight: 1.5, overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as never }}>{a.description}</div>}
+                      <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--ink)', marginBottom: 4, lineHeight: 1.3 }}>{a.title}</div>
+                      <div style={{ fontSize: 11, color: 'var(--ink-ghost)', marginBottom: 6, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
+                      {a.description && <div style={{ fontSize: 14, color: 'var(--ink-muted)', lineHeight: 1.5, overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as never }}>{a.description}</div>}
                     </div>
                   </Link>
                 </motion.div>
@@ -112,7 +112,7 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
             </div>
             <div className="dash-card" style={{ marginTop: 24, padding: "18px 22px", display: "flex", alignItems: "center", gap: 14 }}>
               <span style={{ fontSize: 24 }}>📺</span>
-              <div><div style={{ fontSize: 13, fontWeight: 650, color: dash.ink }}>Chaîne recommandée</div><div style={{ fontSize: 12, color: dash.inkMuted }}>Le Lab&apos;O Sciences</div></div>
+              <div><div style={{ fontSize: 13, fontWeight: 650, color: 'var(--ink)' }}>Chaîne recommandée</div><div style={{ fontSize: 12, color: 'var(--ink-muted)' }}>Le Lab&apos;O Sciences</div></div>
               <a href="https://www.youtube.com/@lelabosciences2216" target="_blank" rel="noopener noreferrer" style={{ marginLeft: "auto", fontSize: 12, fontWeight: 600, color: dash.lavender }}>Voir →</a>
             </div>
           </motion.div>

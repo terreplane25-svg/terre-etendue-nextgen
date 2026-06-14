@@ -62,7 +62,7 @@ export default function AboutClient() {
               Ce site existe parce qu&apos;une question mérite d&apos;être posée — et qu&apos;elle ne l&apos;est presque jamais.
             </p>
 
-            <div style={{ fontSize: 15, color: '#3A3D44', lineHeight: 1.75 }}>
+            <div style={{ fontSize: 15, color: 'var(--ink-soft)', lineHeight: 1.75 }}>
               <p style={{ marginBottom: 16 }}>
                 Le modèle cosmologique enseigné dans les écoles, les universités et les médias est présenté comme un fait établi. Or il repose sur des hypothèses — certaines solides, d&apos;autres fragiles, d&apos;autres non vérifiables.
               </p>
@@ -76,7 +76,7 @@ export default function AboutClient() {
 
             <div style={{ marginTop: 24, padding: '20px 24px', background: dash.opalSoft, borderRadius: 8, borderLeft: `4px solid ${dash.opal}` }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: dash.opal, marginBottom: 6 }}>Ce que nous sommes</div>
-              <p style={{ fontSize: 14, color: '#3A3D44', lineHeight: 1.6, margin: 0 }}>
+              <p style={{ fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.6, margin: 0 }}>
                 Des musulmans qui prennent au sérieux les mots du Coran et de la Sunna, et qui prennent au sérieux la méthode scientifique. Nous ne pensons pas que les deux soient en contradiction — à condition de ne pas plier l&apos;un pour le faire coïncider avec l&apos;autre.
               </p>
             </div>
@@ -114,7 +114,7 @@ export default function AboutClient() {
             <div style={{ fontSize: 14, fontWeight: 700, color: dash.ink, marginBottom: 12 }}>Sources utilisées</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {SOURCES.map((s, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', background: '#F8F9FA', borderRadius: 8 }}>
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', background: 'var(--bg)', borderRadius: 8 }}>
                   <span style={{ fontSize: 18 }}>{s.icon}</span>
                   <div>
                     <div style={{ fontSize: 14, fontWeight: 650, color: dash.ink }}>{s.label}</div>
@@ -145,7 +145,7 @@ export default function AboutClient() {
                 { num: '4', label: 'Questions ouvertes', color: dash.saffron },
                 { num: '6', label: 'Expériences reproductibles', color: dash.cyan },
               ].map((s, i) => (
-                <div key={i} style={{ textAlign: 'center', padding: '16px 12px', background: '#F8F9FA', borderRadius: 8 }}>
+                <div key={i} style={{ textAlign: 'center', padding: '16px 12px', background: 'var(--bg)', borderRadius: 8 }}>
                   <div style={{ fontSize: 28, fontWeight: 900, color: s.color, fontFamily: dash.fontMono }}>{s.num}</div>
                   <div style={{ fontSize: 12, color: dash.inkMuted, fontWeight: 600, marginTop: 2 }}>{s.label}</div>
                 </div>
@@ -171,7 +171,7 @@ export default function AboutClient() {
             {ETHIQUE.map((e, i) => (
               <motion.div key={i} {...fade(i + 3)} style={{
                 display: 'flex', alignItems: 'flex-start', gap: 14,
-                padding: '16px 20px', background: '#F8F9FA', borderRadius: 10,
+                padding: '16px 20px', background: 'var(--bg)', borderRadius: 10,
               }}>
                 <div style={{
                   width: 28, height: 28, borderRadius: 6, background: `${dash.opal}15`,

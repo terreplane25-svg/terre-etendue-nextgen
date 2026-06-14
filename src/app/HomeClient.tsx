@@ -113,8 +113,8 @@ export default function HomeClient({ articles }: { articles: A[] }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
             <div style={{ width: 4, height: 28, background: '#D4943A', borderRadius: 2 }} />
             <div>
-              <h2 style={{ fontSize: 22, fontWeight: 800, color: '#1A1D23', lineHeight: 1.2 }}>Textes Fondateurs</h2>
-              <p style={{ fontSize: 13, color: '#8B8F96', marginTop: 2 }}>Coran, Sunna et patrimoine islamique</p>
+              <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)', lineHeight: 1.2 }}>Textes Fondateurs</h2>
+              <p style={{ fontSize: 13, color: 'var(--ink-muted)', marginTop: 2 }}>Coran, Sunna et patrimoine islamique</p>
             </div>
           </div>
 
@@ -145,7 +145,7 @@ export default function HomeClient({ articles }: { articles: A[] }) {
             {islamicArticles.slice(2).map(a => (
               <Link key={a.slug} href={`/article/${a.slug}`} style={{
                 display: 'flex', gap: 12, padding: '12px 14px',
-                background: '#FBF8F1', border: '1px solid #EDE8DD',
+                background: 'var(--cream)', border: '1px solid var(--border)',
                 borderRadius: 6, alignItems: 'center',
               }}>
                 <div style={{
@@ -156,8 +156,8 @@ export default function HomeClient({ articles }: { articles: A[] }) {
                   &#9789;
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <h4 style={{ fontSize: 13, fontWeight: 700, color: '#1A1D23', lineHeight: 1.3, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{a.title}</h4>
-                  <div style={{ fontSize: 11, color: '#8B8F96', marginTop: 2 }}>{a.readTime} min de lecture</div>
+                  <h4 style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)', lineHeight: 1.3, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{a.title}</h4>
+                  <div style={{ fontSize: 11, color: 'var(--ink-muted)', marginTop: 2 }}>{a.readTime} min de lecture</div>
                 </div>
               </Link>
             ))}
@@ -169,7 +169,7 @@ export default function HomeClient({ articles }: { articles: A[] }) {
       <div style={{ marginBottom: 48 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
           <div style={{ width: 4, height: 28, background: '#8B7EC8', borderRadius: 2 }} />
-          <h2 style={{ fontSize: 22, fontWeight: 800, color: '#1A1D23' }}>À la une</h2>
+          <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)' }}>À la une</h2>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20 }}>
           {featured.map(a => (
@@ -197,23 +197,23 @@ export default function HomeClient({ articles }: { articles: A[] }) {
       <div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
           <div style={{ width: 4, height: 28, background: '#3B8FD4', borderRadius: 2 }} />
-          <h2 style={{ fontSize: 22, fontWeight: 800, color: '#1A1D23' }}>Dernières publications</h2>
+          <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)' }}>Dernières publications</h2>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
           {latest.map(a => (
             <Link key={a.slug} href={`/article/${a.slug}`} className="home-latest-item" style={{
-              display: 'flex', gap: 16, padding: '20px 0', borderBottom: '1px solid #E8EAED', alignItems: 'flex-start',
+              display: 'flex', gap: 16, padding: '20px 0', borderBottom: '1px solid var(--border)', alignItems: 'flex-start',
             }}>
               <img src={getArticleImage(a.slug)} alt="" loading="lazy" className="home-latest-img" style={{ width: 160, height: 100, objectFit: 'cover', borderRadius: 6, flexShrink: 0 }} />
               <div style={{ flex: 1, minWidth: 0 }}>
                 <span style={{ fontSize: 11, fontWeight: 700, color: CAT_COLOR[a.category] || '#8B8F96', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   {CAT_LABEL[a.category] || a.category}
                 </span>
-                <h3 style={{ fontSize: 16, fontWeight: 700, color: '#1A1D23', lineHeight: 1.35, margin: '4px 0' }}>{a.title}</h3>
-                <div style={{ fontSize: 12, color: '#8B8F96' }}>
+                <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--ink)', lineHeight: 1.35, margin: '4px 0' }}>{a.title}</h3>
+                <div style={{ fontSize: 12, color: 'var(--ink-muted)' }}>
                   {fmtDate(a.date)} · {a.readTime} min
                 </div>
-                <p className="hidden sm:block" style={{ fontSize: 13, color: '#4A4E57', lineHeight: 1.5, marginTop: 4 }}>{a.description}</p>
+                <p className="hidden sm:block" style={{ fontSize: 13, color: 'var(--ink-soft)', lineHeight: 1.5, marginTop: 4 }}>{a.description}</p>
               </div>
             </Link>
           ))}
