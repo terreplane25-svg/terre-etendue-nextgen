@@ -197,6 +197,11 @@ html, body { overflow-x: hidden; }
   margin-bottom: 4px;
 }
 
+/* ═══ CAROUSEL CARDS ═══ */
+.carousel-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); border-color: var(--ink-ghost) !important; }
+.carousel-card:hover .carousel-card-img { transform: scale(1.05); }
+[data-theme="dark"] .carousel-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+
 /* ═══ HOME — responsive ═══ */
 @media (min-width: 768px) { .home-hero-grid { grid-template-columns: 1fr 340px !important; } }
 @media (min-width: 1024px) { .home-hero-grid { grid-template-columns: 1fr 340px 220px !important; } }

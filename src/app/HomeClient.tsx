@@ -2,6 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { getArticleImage } from '@/lib/article-images';
+import ArticleCarousel from '@/components/ArticleCarousel';
 
 interface A { slug: string; title: string; description: string; category: string; tags: string[]; readTime: number; date: string; pinned: boolean; }
 
@@ -194,31 +195,7 @@ export default function HomeClient({ articles }: { articles: A[] }) {
       </div>
 
       {/* ═══ DERNIÈRES PUBLICATIONS ═══ */}
-      <div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
-          <div style={{ width: 4, height: 28, background: '#3B8FD4', borderRadius: 2 }} />
-          <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)' }}>Dernières publications</h2>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-          {latest.map(a => (
-            <Link key={a.slug} href={`/article/${a.slug}`} className="home-latest-item" style={{
-              display: 'flex', gap: 16, padding: '20px 0', borderBottom: '1px solid var(--border)', alignItems: 'flex-start',
-            }}>
-              <img src={getArticleImage(a.slug)} alt="" loading="lazy" className="home-latest-img" style={{ width: 160, height: 100, objectFit: 'cover', borderRadius: 6, flexShrink: 0 }} />
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: CAT_COLOR[a.category] || '#8B8F96', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  {CAT_LABEL[a.category] || a.category}
-                </span>
-                <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--ink)', lineHeight: 1.35, margin: '4px 0' }}>{a.title}</h3>
-                <div style={{ fontSize: 12, color: 'var(--ink-muted)' }}>
-                  {fmtDate(a.date)} · {a.readTime} min
-                </div>
-                <p className="hidden sm:block" style={{ fontSize: 13, color: 'var(--ink-soft)', lineHeight: 1.5, marginTop: 4 }}>{a.description}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
+      <ArticleCarousel articles={latest} />
       </div>
     </div>
   );
