@@ -2,10 +2,9 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { motion } from 'framer-motion';
 import { dash } from '@/lib/design-tokens';
-import { getArticleImage } from '@/lib/article-images';
 import SectionHeader from '@/components/SectionHeader';
+import ArticleCarousel from '@/components/ArticleCarousel';
 
 interface A { slug: string; title: string; description: string; tags: string[]; pinned: boolean; readTime: number; }
 
@@ -55,6 +54,22 @@ export default function ObservatoryClient({ articles }: { articles: A[] }) {
     ? articles
     : articles.filter(a => getSection(a.slug) === filter);
 
+  const badgeLabel = (a: A) => {
+    if (filter !== 'all') return null;
+    const section = SECTIONS.find(s => s.id === getSection(a.slug));
+    return section ? `${section.icon} ${section.label}` : null;
+  };
+
+  const articleFooter = (a: A) => {
+    const exp = EXP_LINKS[a.slug];
+    if (!exp) return null;
+    return (
+      <Link href={`/article/${exp.slug}`} style={{ fontSize: 11, color: dash.opal, fontWeight: 600 }}>
+        🧪 {exp.label}
+      </Link>
+    );
+  };
+
   return (
     <div>
       <SectionHeader pillar="OBS" pillarNum="02" subtitle="Données empiriques" title="L'Observatoire" color={dash.cyan} count={articles.length} countLabel="analyses — observations, optique, hydrologie et astronomie" />
@@ -89,43 +104,15 @@ export default function ObservatoryClient({ articles }: { articles: A[] }) {
           })}
         </div>
 
-        {/* Articles list */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-          {filtered.map((a, i) => {
-            const exp = EXP_LINKS[a.slug];
-            const section = SECTIONS.find(s => s.id === getSection(a.slug));
-            return (
-              <motion.div key={a.slug} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
-                <div className="dash-card" style={{ overflow: 'hidden' }}>
-                  <Link href={`/article/${a.slug}`} className="article-card-row" style={{ display: 'flex', cursor: 'pointer' }}>
-                    <div className="article-card-thumb" style={{ width: 180, minHeight: 140, flexShrink: 0, overflow: 'hidden' }}>
-                      <img src={getArticleImage(a.slug)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
-                    </div>
-                    <div style={{ padding: '18px 24px', flex: 1, minWidth: 0 }}>
-                      {section && filter === 'all' && (
-                        <div style={{ fontSize: 11, fontWeight: 700, color: dash.cyan, marginBottom: 4, letterSpacing: '0.04em' }}>
-                          {section.icon} {section.label}
-                        </div>
-                      )}
-                      <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--ink)', marginBottom: 6, lineHeight: 1.35 }}>
-                        {a.pinned && <span style={{ color: dash.saffron, marginRight: 6 }}>★</span>}{a.title}
-                      </div>
-                      <div style={{ fontSize: 12, color: 'var(--ink-ghost)', marginBottom: 8, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
-                      {a.description && (
-                        <div style={{ fontSize: 14, color: 'var(--ink-muted)', lineHeight: 1.55, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as never }}>{a.description}</div>
-                      )}
-                    </div>
-                  </Link>
-                  {exp && (
-                    <div style={{ padding: '10px 24px 14px', borderTop: `1px solid ${'var(--border-soft)'}` }}>
-                      <Link href={`/article/${exp.slug}`} style={{ fontSize: 12, color: dash.opal, fontWeight: 600 }}>🧪 {exp.label}</Link>
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+        {/* Articles carousel */}
+        <ArticleCarousel
+          articles={filtered as any}
+          color={dash.cyan}
+          badgeLabel={badgeLabel as any}
+          badgeColor={dash.cyan}
+          footer={articleFooter as any}
+          showDate={false}
+        />
       </div>
     </div>
   );

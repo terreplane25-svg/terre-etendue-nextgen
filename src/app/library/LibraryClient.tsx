@@ -2,10 +2,10 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { motion } from 'framer-motion';
 import { dash } from '@/lib/design-tokens';
 import { getArticleImage } from '@/lib/article-images';
 import SectionHeader from '@/components/SectionHeader';
+import ArticleCarousel from '@/components/ArticleCarousel';
 
 interface A { slug: string; title: string; description: string; tags: string[]; pinned: boolean; readTime: number; }
 
@@ -47,6 +47,12 @@ export default function LibraryClient({ priority, articles }: { priority: A[]; a
   const priorityInFilter = filtered.filter(a => priority.some(p => p.slug === a.slug));
   const othersInFilter = filtered.filter(a => !priority.some(p => p.slug === a.slug));
 
+  const badgeLabel = (a: A) => {
+    if (filter !== 'all') return null;
+    const section = SECTIONS.find(s => s.id === getSection(a.slug));
+    return section ? `${section.icon} ${section.label}` : null;
+  };
+
   return (
     <div>
       <SectionHeader pillar="BIBLIO" pillarNum="03" subtitle="Sources sacrées" title="La Bibliothèque" color={dash.saffron} count={allArticles.length} countLabel="publications — Coran, Sunna, textes historiques et cosmographie" />
@@ -76,7 +82,7 @@ export default function LibraryClient({ priority, articles }: { priority: A[]; a
           })}
         </div>
 
-        {/* Priority articles */}
+        {/* Priority articles — keep as featured cards */}
         {showPrioritySection && priorityInFilter.length > 0 && (
           <div style={{ marginBottom: 40 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 18 }}>
@@ -84,58 +90,35 @@ export default function LibraryClient({ priority, articles }: { priority: A[]; a
               <h2 style={{ fontSize: 18, fontWeight: 750, color: 'var(--ink)' }}>Lecture prioritaire</h2>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20 }}>
-              {priorityInFilter.map((a, i) => (
-                <motion.div key={a.slug} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + i * 0.08 }}>
-                  <Link href={`/article/${a.slug}`} className="dash-card" style={{ display: 'block', overflow: 'hidden', cursor: 'pointer' }}>
-                    <div style={{ height: 200, overflow: 'hidden', position: 'relative' }}>
-                      <img src={getArticleImage(a.slug)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
-                      <span className="badge" style={{ position: 'absolute', top: 14, left: 14, background: 'rgba(255,255,255,0.93)', color: dash.gold, border: `1px solid ${dash.gold}30`, backdropFilter: 'blur(8px)', fontSize: 11 }}>★ PRIORITAIRE</span>
-                    </div>
-                    <div style={{ padding: '22px 24px' }}>
-                      <div style={{ fontSize: 18, fontWeight: 750, color: 'var(--ink)', lineHeight: 1.35, marginBottom: 8 }}>{a.title}</div>
-                      {a.description && <div style={{ fontSize: 14, color: 'var(--ink-muted)', lineHeight: 1.55, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' as never, overflow: 'hidden' }}>{a.description}</div>}
-                      <div style={{ fontSize: 12, color: 'var(--ink-ghost)', marginTop: 12, fontFamily: dash.fontMono }}>{a.readTime} min de lecture</div>
-                    </div>
-                  </Link>
-                </motion.div>
+              {priorityInFilter.map(a => (
+                <Link key={a.slug} href={`/article/${a.slug}`} className="dash-card" style={{ display: 'block', overflow: 'hidden', cursor: 'pointer' }}>
+                  <div style={{ height: 200, overflow: 'hidden', position: 'relative' }}>
+                    <img src={getArticleImage(a.slug)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+                    <span className="badge" style={{ position: 'absolute', top: 14, left: 14, background: 'rgba(255,255,255,0.93)', color: dash.gold, border: `1px solid ${dash.gold}30`, backdropFilter: 'blur(8px)', fontSize: 11 }}>★ PRIORITAIRE</span>
+                  </div>
+                  <div style={{ padding: '22px 24px' }}>
+                    <div style={{ fontSize: 18, fontWeight: 750, color: 'var(--ink)', lineHeight: 1.35, marginBottom: 8 }}>{a.title}</div>
+                    {a.description && <div style={{ fontSize: 14, color: 'var(--ink-muted)', lineHeight: 1.55, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' as never, overflow: 'hidden' }}>{a.description}</div>}
+                    <div style={{ fontSize: 12, color: 'var(--ink-ghost)', marginTop: 12, fontFamily: dash.fontMono }}>{a.readTime} min de lecture</div>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
         )}
 
-        {/* Other articles */}
+        {/* Other articles — carousel */}
         {othersInFilter.length > 0 && (
-          <>
-            {(showPrioritySection && priorityInFilter.length > 0) && (
-              <h2 style={{ fontSize: 18, fontWeight: 750, color: 'var(--ink)', marginBottom: 16 }}>
-                {filter === 'all' ? 'Toutes les publications' : SECTIONS.find(s => s.id === filter)?.label || 'Publications'}
-              </h2>
-            )}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              {othersInFilter.map((a, i) => {
-                const section = SECTIONS.find(s => s.id === getSection(a.slug));
-                return (
-                  <motion.div key={a.slug} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.03 }}>
-                    <Link href={`/article/${a.slug}`} className="dash-card article-card-row" style={{ display: 'flex', overflow: 'hidden', cursor: 'pointer' }}>
-                      <div className="article-card-thumb" style={{ width: 180, minHeight: 140, flexShrink: 0, overflow: 'hidden' }}>
-                        <img src={getArticleImage(a.slug)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
-                      </div>
-                      <div style={{ padding: '18px 24px', flex: 1, minWidth: 0 }}>
-                        {section && filter === 'all' && (
-                          <div style={{ fontSize: 11, fontWeight: 700, color: dash.saffron, marginBottom: 4, letterSpacing: '0.04em' }}>
-                            {section.icon} {section.label}
-                          </div>
-                        )}
-                        <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--ink)', marginBottom: 6, lineHeight: 1.35 }}>{a.title}</div>
-                        <div style={{ fontSize: 12, color: 'var(--ink-ghost)', marginBottom: 8, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
-                        {a.description && <div style={{ fontSize: 14, color: 'var(--ink-muted)', lineHeight: 1.55, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as never }}>{a.description}</div>}
-                      </div>
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </>
+          <ArticleCarousel
+            articles={othersInFilter as any}
+            title={(showPrioritySection && priorityInFilter.length > 0)
+              ? (filter === 'all' ? 'Toutes les publications' : SECTIONS.find(s => s.id === filter)?.label || 'Publications')
+              : undefined}
+            color={dash.saffron}
+            badgeLabel={badgeLabel as any}
+            badgeColor={dash.saffron}
+            showDate={false}
+          />
         )}
       </div>
     </div>

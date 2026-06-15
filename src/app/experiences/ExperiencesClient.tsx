@@ -2,10 +2,10 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { dash } from "@/lib/design-tokens";
 import SectionHeader from "@/components/SectionHeader";
-import { getArticleImage } from "@/lib/article-images";
+import ArticleCarousel from "@/components/ArticleCarousel";
 
 interface AE { slug: string; title: string; description: string; category: string; tags: string[]; pinned: boolean; readTime: number; }
 
@@ -34,16 +34,32 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
   const [fam, setFam] = useState<string|null>(initialFilter);
   const fd = fam ? demonstrations.filter(a => getFam(a) === fam) : demonstrations;
 
+  const demoBadgeLabel = (a: AE) => {
+    if (fam) return null;
+    const famille = FAMILLES.find(f => f.id === getFam(a));
+    return famille ? `${famille.icon} ${famille.label}` : null;
+  };
+
+  const demoFooter = (a: AE) => {
+    const cr = CROSS[a.slug];
+    if (!cr) return null;
+    return (
+      <Link href={`/article/${cr.slug}`} style={{ fontSize: 11, color: dash.lavender, fontWeight: 600 }}>
+        ↗ {cr.label}
+      </Link>
+    );
+  };
+
   return (
     <div>
       <SectionHeader pillar="EXP" pillarNum="05" subtitle="Physique naturelle" title="Laboratoire de Physique Naturelle" color={dash.rose} count={demonstrations.length + historical.length} countLabel="fiches — démonstrations et retracements historiques" />
       <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px 64px" }}>
 
-      <div style={{ display: "flex", gap: 4, marginBottom: 24, borderBottom: `1px solid ${'var(--border)'}` }}>
+      <div style={{ display: "flex", gap: 4, marginBottom: 24, borderBottom: '1px solid var(--border)' }}>
         {([{ id: "all" as const, l: "Tout" }, { id: "demos" as const, l: "Démonstrations" }, { id: "hist" as const, l: "Historique" }]).map(t => (
           <button key={t.id} onClick={() => { setTab(t.id); setFam(null); }} style={{
             padding: "8px 16px", fontSize: 13, fontWeight: 600, fontFamily: dash.fontMain, border: "none", background: "none", cursor: "pointer",
-            color: tab === t.id ? 'var(--ink)' : 'var(--ink-muted)', borderBottom: tab === t.id ? `2px solid ${'var(--ink)'}` : "2px solid transparent", marginBottom: -1,
+            color: tab === t.id ? 'var(--ink)' : 'var(--ink-muted)', borderBottom: tab === t.id ? '2px solid var(--ink)' : "2px solid transparent", marginBottom: -1,
           }}>{t.l}</button>
         ))}
       </div>
@@ -58,34 +74,14 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
                 <button key={f.id} onClick={() => setFam(f.id === fam ? null : f.id)} style={{ padding: "6px 14px", borderRadius: 6, fontSize: 13, fontWeight: 600, fontFamily: dash.fontMain, border: `1px solid ${fam === f.id ? dash.rose : 'var(--border)'}`, background: fam === f.id ? dash.rose : 'var(--card)', color: fam === f.id ? "#fff" : 'var(--ink-muted)', cursor: "pointer" }}>{f.icon} {f.label}</button>
               ))}
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-              {fd.map((a, i) => {
-                const cr = CROSS[a.slug];
-                const famille = FAMILLES.find(f => f.id === getFam(a));
-                return (
-                  <motion.div key={a.slug} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
-                    <div className="dash-card" style={{ overflow: "hidden" }}>
-                      <Link href={`/article/${a.slug}`} className="article-card-row" style={{ display: "flex", cursor: "pointer" }}>
-                        <div className="article-card-thumb" style={{ width: 180, minHeight: 140, flexShrink: 0, overflow: "hidden" }}>
-                          <img src={getArticleImage(a.slug)} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
-                        </div>
-                        <div style={{ padding: "18px 24px", flex: 1, minWidth: 0 }}>
-                          {famille && !fam && (
-                            <div style={{ fontSize: 11, fontWeight: 700, color: dash.rose, marginBottom: 4, letterSpacing: '0.04em' }}>
-                              {famille.icon} {famille.label}
-                            </div>
-                          )}
-                          <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--ink)', marginBottom: 4, lineHeight: 1.3 }}>{a.title}</div>
-                          <div style={{ fontSize: 11, color: 'var(--ink-ghost)', marginBottom: 6, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
-                          {a.description && <div style={{ fontSize: 14, color: 'var(--ink-muted)', lineHeight: 1.5, overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as never }}>{a.description}</div>}
-                        </div>
-                      </Link>
-                      {cr && <div style={{ padding: "8px 20px 12px", borderTop: `1px solid ${'var(--border-soft)'}` }}><Link href={`/article/${cr.slug}`} style={{ fontSize: 11, color: dash.lavender, fontWeight: 600 }}>↗ {cr.label}</Link></div>}
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
+            <ArticleCarousel
+              articles={fd as any}
+              color={dash.rose}
+              badgeLabel={demoBadgeLabel as any}
+              badgeColor={dash.rose}
+              footer={demoFooter as any}
+              showDate={false}
+            />
           </motion.div>
         )}
       </AnimatePresence>
@@ -94,22 +90,11 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
         {(tab === "all" || tab === "hist") && (
           <motion.div key="h" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             {tab === "all" && <h2 style={{ fontSize: 17, fontWeight: 750, color: 'var(--ink)', marginBottom: 16 }}>📜 Retracement historique</h2>}
-            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-              {historical.map((a, i) => (
-                <motion.div key={a.slug} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}>
-                  <Link href={`/article/${a.slug}`} className="dash-card article-card-row" style={{ display: "flex", overflow: "hidden", cursor: "pointer" }}>
-                    <div className="article-card-thumb" style={{ width: 180, minHeight: 140, flexShrink: 0, overflow: "hidden" }}>
-                      <img src={getArticleImage(a.slug)} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
-                    </div>
-                    <div style={{ padding: "18px 24px", flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--ink)', marginBottom: 4, lineHeight: 1.3 }}>{a.title}</div>
-                      <div style={{ fontSize: 11, color: 'var(--ink-ghost)', marginBottom: 6, fontFamily: dash.fontMono }}>Terre Etendue · {a.readTime} min</div>
-                      {a.description && <div style={{ fontSize: 14, color: 'var(--ink-muted)', lineHeight: 1.5, overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as never }}>{a.description}</div>}
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
+            <ArticleCarousel
+              articles={historical as any}
+              color={dash.rose}
+              showDate={false}
+            />
             <div className="dash-card" style={{ marginTop: 24, padding: "18px 22px", display: "flex", alignItems: "center", gap: 14 }}>
               <span style={{ fontSize: 24 }}>📺</span>
               <div><div style={{ fontSize: 13, fontWeight: 650, color: 'var(--ink)' }}>Chaîne recommandée</div><div style={{ fontSize: 12, color: 'var(--ink-muted)' }}>Le Lab&apos;O Sciences</div></div>
