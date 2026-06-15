@@ -75,7 +75,7 @@ export default function ArticleReader(props: ArticleReaderProps) {
   const title = a.title || 'Article';
   const description = a.description || '';
   const rawContent = a.content || a.htmlContent || '';
-  const content = rawContent.replace(/<table([\s\S]*?)<\/table>/g, '<div class="table-scroll-wrapper"><table$1</table></div>');
+  const content = useMemo(() => rawContent.replace(/<table([\s\S]*?)<\/table>/g, '<div class="table-scroll-wrapper"><table$1</table></div>'), [rawContent]);
   const category = a.category || 'observatory';
   const tags = a.tags || [];
   const readTime = a.readTime;
@@ -86,8 +86,8 @@ export default function ArticleReader(props: ArticleReaderProps) {
 
   const contentRef = useRef<HTMLDivElement>(null);
   const articleRef = useRef<HTMLDivElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
   const [lightboxSvg, setLightboxSvg] = useState<string | null>(null);
-  const [readProgress, setReadProgress] = useState(0);
   const [tocItems, setTocItems] = useState<TocItem[]>([]);
   const [activeHeading, setActiveHeading] = useState<string>('');
   const [tocOpen, setTocOpen] = useState(false);
@@ -98,11 +98,13 @@ export default function ArticleReader(props: ArticleReaderProps) {
   useEffect(() => {
     const onScroll = () => {
       const el = articleRef.current;
-      if (!el) return;
+      const bar = progressBarRef.current;
+      if (!el || !bar) return;
       const rect = el.getBoundingClientRect();
       const total = el.scrollHeight - window.innerHeight;
       const scrolled = -rect.top;
-      setReadProgress(Math.max(0, Math.min(100, (scrolled / total) * 100)));
+      const pct = Math.max(0, Math.min(100, (scrolled / total) * 100));
+      bar.style.width = `${pct}%`;
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -185,10 +187,10 @@ export default function ArticleReader(props: ArticleReaderProps) {
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, height: 3,
         background: 'var(--border)',
       }}>
-        <div style={{
-          height: '100%', width: `${readProgress}%`,
+        <div ref={progressBarRef} style={{
+          height: '100%', width: '0%',
           background: 'linear-gradient(90deg, var(--lavender), var(--cyan))',
-          transition: 'width 0.1s linear',
+          willChange: 'width',
         }} />
       </div>
 
