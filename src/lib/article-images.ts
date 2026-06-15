@@ -59,7 +59,7 @@ const IMG: Record<string, string> = {
   "le-mouvement-zetetique-150-ans-de-resistance": `${UNSPLASH}/photo-1504711434969-e33886168d9c?w=600&h=400&fit=crop`,
   "le-mythe-deratosthene": `${UNSPLASH}/photo-1569003339405-ea396a5a8a90?w=600&h=400&fit=crop`,
   "les-distances-cosmiques-au-dela-de-la-regle": `${UNSPLASH}/photo-1462332420958-a05d1e002413?w=600&h=400&fit=crop`,
-  "les-trous-noirs-nexistent-pas": `${UNSPLASH}/photo-1462332420958-a05d1e002413?w=600&h=400&fit=crop`,
+  "les-trous-noirs-nexistent-pas": `${HOSTINGER}/2026/06/Black_Holes_-_Monsters_in_Space-scaled.jpg`,
   "lhypothese-nulle-dynamique-et-cinematique": `${UNSPLASH}/photo-1507413245164-6160d8298b31?w=600&h=400&fit=crop`,
   "ligo-londe-qui-nexistait-pas": `${UNSPLASH}/photo-1462332420958-a05d1e002413?w=600&h=400&fit=crop`,
   "neptune-et-pluton-les-faux-triomphes": `${UNSPLASH}/photo-1614732414444-096e5f1122d5?w=600&h=400&fit=crop`,
