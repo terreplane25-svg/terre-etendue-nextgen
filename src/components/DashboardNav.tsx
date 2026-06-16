@@ -45,6 +45,14 @@ const SECTIONS = [
     subs: [],
   },
   {
+    label: 'Enseignants', href: '/enseignants', color: '#2B7A5F',
+    subs: [
+      { label: '📄 Livret enseignant (PDF)', href: '/livret-enseignant.pdf' },
+      { label: '🧪 Fiches par niveau', href: '/enseignants#fiches' },
+      { label: '🖥️ Simulateurs pédagogiques', href: '/enseignants#simulateurs' },
+    ],
+  },
+  {
     label: 'À propos', href: '/about', color: '#8B8F96',
     subs: [],
   },
