@@ -32,7 +32,7 @@ const SOCIALS = [
   { icon: '◉', label: 'Odysee', href: 'https://odysee.com/@terreetendue', color: '#E84A8A' },
   { icon: '✈', label: 'Telegram (canal)', href: 'https://t.me/LATERREETENDUE', color: '#0088CC' },
   { icon: '💬', label: 'Telegram (groupe)', href: 'https://t.me/terre_etendue', color: '#0088CC' },
-  { icon: '♪', label: 'TikTok', href: 'https://tiktok.com/@terreetendue1', color: '#111' },
+  { icon: '♪', label: 'TikTok', href: 'https://tiktok.com/@terreetendue1', color: '#69C9D0' },
 ];
 
 const ETHIQUE = [
@@ -54,11 +54,11 @@ export default function AboutClient() {
         <motion.section {...fade(0)} style={{ marginTop: 48 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
             <div style={{ width: 4, height: 28, borderRadius: 2, background: dash.saffron }} />
-            <h2 style={{ fontSize: 22, fontWeight: 800, color: dash.ink, letterSpacing: '-0.01em' }}>Manifeste</h2>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.01em' }}>Manifeste</h2>
           </div>
 
           <div className="dash-card" style={{ padding: '32px 28px' }}>
-            <p style={{ fontSize: 17, fontWeight: 600, color: dash.ink, lineHeight: 1.6, marginBottom: 20 }}>
+            <p style={{ fontSize: 17, fontWeight: 600, color: 'var(--ink)', lineHeight: 1.6, marginBottom: 20 }}>
               Ce site existe parce qu&apos;une question mérite d&apos;être posée — et qu&apos;elle ne l&apos;est presque jamais.
             </p>
 
@@ -74,7 +74,7 @@ export default function AboutClient() {
               </p>
             </div>
 
-            <div style={{ marginTop: 24, padding: '20px 24px', background: dash.opalSoft, borderRadius: 8, borderLeft: `4px solid ${dash.opal}` }}>
+            <div style={{ marginTop: 24, padding: '20px 24px', background: `${dash.opal}10`, borderRadius: 8, borderLeft: `4px solid ${dash.opal}` }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: dash.opal, marginBottom: 6 }}>Ce que nous sommes</div>
               <p style={{ fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.6, margin: 0 }}>
                 Des musulmans qui prennent au sérieux les mots du Coran et de la Sunna, et qui prennent au sérieux la méthode scientifique. Nous ne pensons pas que les deux soient en contradiction — à condition de ne pas plier l&apos;un pour le faire coïncider avec l&apos;autre.
@@ -87,9 +87,9 @@ export default function AboutClient() {
         <motion.section {...fade(1)} style={{ marginTop: 48 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
             <div style={{ width: 4, height: 28, borderRadius: 2, background: dash.cyan }} />
-            <h2 style={{ fontSize: 22, fontWeight: 800, color: dash.ink, letterSpacing: '-0.01em' }}>Méthodologie</h2>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.01em' }}>Méthodologie</h2>
           </div>
-          <p style={{ fontSize: 15, color: dash.inkSoft, lineHeight: 1.6, marginBottom: 24 }}>
+          <p style={{ fontSize: 15, color: 'var(--ink-soft)', lineHeight: 1.6, marginBottom: 24 }}>
             Quatre principes guident chaque article, chaque argument, chaque conclusion.
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
@@ -103,22 +103,22 @@ export default function AboutClient() {
                     fontFamily: dash.fontMono,
                   }}>PRINCIPE {i + 1}</span>
                 </div>
-                <div style={{ fontSize: 16, fontWeight: 750, color: dash.ink, marginBottom: 8, lineHeight: 1.35 }}>{p.title}</div>
-                <p style={{ fontSize: 14, color: dash.inkSoft, lineHeight: 1.6, margin: 0 }}>{p.desc}</p>
+                <div style={{ fontSize: 16, fontWeight: 750, color: 'var(--ink)', marginBottom: 8, lineHeight: 1.35 }}>{p.title}</div>
+                <p style={{ fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.6, margin: 0 }}>{p.desc}</p>
               </motion.div>
             ))}
           </div>
 
           {/* Sources */}
           <div style={{ marginTop: 24 }}>
-            <div style={{ fontSize: 14, fontWeight: 700, color: dash.ink, marginBottom: 12 }}>Sources utilisées</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 12 }}>Sources utilisées</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {SOURCES.map((s, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', background: 'var(--bg)', borderRadius: 8 }}>
                   <span style={{ fontSize: 18 }}>{s.icon}</span>
                   <div>
                     <div style={{ fontSize: 14, fontWeight: 650, color: dash.ink }}>{s.label}</div>
-                    <div style={{ fontSize: 12, color: dash.inkMuted }}>{s.detail}</div>
+                    <div style={{ fontSize: 12, color: 'var(--ink-muted)' }}>{s.detail}</div>
                   </div>
                 </div>
               ))}
@@ -130,11 +130,11 @@ export default function AboutClient() {
         <motion.section {...fade(2)} style={{ marginTop: 48 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
             <div style={{ width: 4, height: 28, borderRadius: 2, background: dash.lavender }} />
-            <h2 style={{ fontSize: 22, fontWeight: 800, color: dash.ink, letterSpacing: '-0.01em' }}>État des lieux</h2>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.01em' }}>État des lieux</h2>
           </div>
 
           <div className="dash-card" style={{ padding: '28px 24px' }}>
-            <p style={{ fontSize: 15, color: dash.inkSoft, lineHeight: 1.6, marginBottom: 20 }}>
+            <p style={{ fontSize: 15, color: 'var(--ink-soft)', lineHeight: 1.6, marginBottom: 20 }}>
               Ce que nous avons établi. Ce qui reste ouvert. Ce que vous pouvez vérifier vous-même.
             </p>
 
@@ -147,7 +147,7 @@ export default function AboutClient() {
               ].map((s, i) => (
                 <div key={i} style={{ textAlign: 'center', padding: '16px 12px', background: 'var(--bg)', borderRadius: 8 }}>
                   <div style={{ fontSize: 28, fontWeight: 900, color: s.color, fontFamily: dash.fontMono }}>{s.num}</div>
-                  <div style={{ fontSize: 12, color: dash.inkMuted, fontWeight: 600, marginTop: 2 }}>{s.label}</div>
+                  <div style={{ fontSize: 12, color: 'var(--ink-muted)', fontWeight: 600, marginTop: 2 }}>{s.label}</div>
                 </div>
               ))}
             </div>
@@ -165,7 +165,7 @@ export default function AboutClient() {
         <motion.section {...fade(3)} style={{ marginTop: 48 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
             <div style={{ width: 4, height: 28, borderRadius: 2, background: dash.opal }} />
-            <h2 style={{ fontSize: 22, fontWeight: 800, color: dash.ink, letterSpacing: '-0.01em' }}>Éthique intellectuelle</h2>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.01em' }}>Éthique intellectuelle</h2>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {ETHIQUE.map((e, i) => (
@@ -179,8 +179,8 @@ export default function AboutClient() {
                   fontSize: 12, fontWeight: 800, color: dash.opal, fontFamily: dash.fontMono, flexShrink: 0,
                 }}>{i + 1}</div>
                 <div>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: dash.ink, marginBottom: 3 }}>{e.title}</div>
-                  <div style={{ fontSize: 14, color: dash.inkSoft, lineHeight: 1.55 }}>{e.desc}</div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink)', marginBottom: 3 }}>{e.title}</div>
+                  <div style={{ fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.55 }}>{e.desc}</div>
                 </div>
               </motion.div>
             ))}
@@ -191,13 +191,13 @@ export default function AboutClient() {
         <motion.section {...fade(4)} style={{ marginTop: 48 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
             <div style={{ width: 4, height: 28, borderRadius: 2, background: dash.rose }} />
-            <h2 style={{ fontSize: 22, fontWeight: 800, color: dash.ink, letterSpacing: '-0.01em' }}>Questions fréquentes</h2>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.01em' }}>Questions fréquentes</h2>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {FAQ.map((f, i) => (
               <motion.div key={i} {...fade(i + 4)} className="dash-card" style={{ padding: '22px 24px' }}>
-                <div style={{ fontSize: 15, fontWeight: 750, color: dash.ink, marginBottom: 8 }}>{f.q}</div>
-                <p style={{ fontSize: 14, color: dash.inkSoft, lineHeight: 1.65, margin: 0 }}>{f.a}</p>
+                <div style={{ fontSize: 15, fontWeight: 750, color: 'var(--ink)', marginBottom: 8 }}>{f.q}</div>
+                <p style={{ fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.65, margin: 0 }}>{f.a}</p>
               </motion.div>
             ))}
           </div>
@@ -218,10 +218,10 @@ export default function AboutClient() {
             <div style={{ fontSize: 18, color: dash.saffron, lineHeight: 1.8, fontFamily: dash.fontArabic, marginBottom: 12 }}>
               وَإِلَى ٱلْجِبَالِ كَيْفَ نُصِبَتْ ۝ وَإِلَى ٱلْأَرْضِ كَيْفَ سُطِحَتْ
             </div>
-            <p style={{ fontSize: 13, color: '#607890', lineHeight: 1.6, margin: 0 }}>
+            <p style={{ fontSize: 13, color: '#8A95A8', lineHeight: 1.6, margin: 0 }}>
               « Ne considèrent-ils pas les chameaux, comment ils ont été créés ; et le ciel, comment il a été élevé ; et les montagnes, comment elles ont été dressées ; et la terre, comment elle a été étendue ? »
             </p>
-            <p style={{ fontSize: 11, color: '#4A5568', marginTop: 8, fontFamily: dash.fontMono }}>Sourate Al-Ghashiyah — 88:17-20</p>
+            <p style={{ fontSize: 11, color: '#607890', marginTop: 8, fontFamily: dash.fontMono }}>Sourate Al-Ghashiyah — 88:17-20</p>
           </div>
         </motion.section>
 
@@ -229,7 +229,7 @@ export default function AboutClient() {
         <motion.section {...fade(6)} style={{ marginTop: 48 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
             <div style={{ width: 4, height: 28, borderRadius: 2, background: dash.cyan }} />
-            <h2 style={{ fontSize: 22, fontWeight: 800, color: dash.ink, letterSpacing: '-0.01em' }}>Rejoignez-nous</h2>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.01em' }}>Rejoignez-nous</h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12 }}>
             {SOCIALS.map((s, i) => (
@@ -240,7 +240,7 @@ export default function AboutClient() {
                 <span style={{ fontSize: 20, width: 36, height: 36, borderRadius: 8, background: `${s.color}10`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{s.icon}</span>
                 <div>
                   <div style={{ fontSize: 14, fontWeight: 700, color: dash.ink }}>{s.label}</div>
-                  <div style={{ fontSize: 11, color: dash.inkMuted }}>Suivre →</div>
+                  <div style={{ fontSize: 11, color: 'var(--ink-muted)' }}>Suivre →</div>
                 </div>
               </a>
             ))}
