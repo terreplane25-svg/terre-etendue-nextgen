@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getAllFiches } from '@/lib/fiches';
 import EnseignantsClient from './EnseignantsClient';
 
 export const metadata: Metadata = {
@@ -7,5 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default function EnseignantsPage() {
-  return <EnseignantsClient />;
+  const fiches = getAllFiches();
+  return <EnseignantsClient fiches={fiches} />;
 }

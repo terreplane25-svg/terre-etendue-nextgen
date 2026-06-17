@@ -1,0 +1,383 @@
+[
+  {
+    "id": "gravitation",
+    "cycle": "4",
+    "niveau": "4e–3e",
+    "matiere": "Physique-Chimie",
+    "chapitre": "Actions mécaniques — La gravitation",
+    "titre": "La gravitation : ce que Newton a décrit — et ce qu'il n'a pas expliqué",
+    "accroche": "La gravitation est l'un des phénomènes les plus familiers et les moins compris de la physique. Newton a décrit le comportement des objets qui tombent — mais en 300 ans, personne n'a expliqué le mécanisme.",
+    "cequeditrogram": "« Toute masse attire toute autre masse avec une force proportionnelle au produit des masses et inversement proportionnelle au carré de la distance. » — Programme de physique-chimie, cycle 4.",
+    "cequeditlemanuel": "Les manuels présentent la gravité comme une force prouvée qui « attire » les objets vers le centre de la Terre. Le mot « force » est utilisé sans nuance, comme si le mécanisme était connu.",
+    "cequedirlalitterature": [
+      {
+        "source": "Isaac Newton, Lettre à Richard Bentley, 25 février 1693",
+        "citation": "Que la gravité soit innée, inhérente et essentielle à la matière, de sorte qu'un corps puisse agir sur un autre à distance [...] est pour moi une si grande absurdité que je ne crois pas qu'un homme ayant une faculté de penser compétente puisse jamais y tomber.",
+        "commentaire": "Newton lui-même refusait l'idée d'action à distance. Il a décrit le comportement, pas le mécanisme."
+      },
+      {
+        "source": "Richard Feynman, The Character of Physical Law, MIT Press, 1965",
+        "citation": "Jusqu'à présent, personne n'a pu donner une description adéquate du mécanisme derrière la loi de la gravité.",
+        "commentaire": "Un siècle après Einstein, le constat de Feynman reste valable."
+      },
+      {
+        "source": "Erik Verlinde, On the Origin of Gravity and the Laws of Newton, JHEP, 2011",
+        "citation": "La gravité n'est pas une force fondamentale mais un phénomène émergent d'origine entropique.",
+        "commentaire": "En 2010, un physicien théoricien propose que la gravité n'est pas une force du tout. Sa proposition reste débattue."
+      },
+      {
+        "source": "Qing Li et al., Measurements of the gravitational constant using two independent methods, Nature 560, 2018",
+        "citation": "Les mesures de la constante gravitationnelle G présentent des écarts persistants entre laboratoires, avec une dispersion de 5σ.",
+        "commentaire": "La constante fondamentale de la gravité ne peut pas être mesurée de manière stable. C'est unique parmi les constantes physiques."
+      }
+    ],
+    "formulation": "Les objets tombent vers le sol — c'est un fait observable par tout le monde. Les scientifiques utilisent des modèles pour décrire ce comportement. Newton a proposé une force d'attraction entre les masses. Einstein a proposé que l'espace-temps se courbe. Aujourd'hui encore, le mécanisme exact de la gravité reste l'une des grandes questions ouvertes de la physique.",
+    "activite": {
+      "titre": "Newton vs Einstein : deux modèles, un seul fait",
+      "duree": "30 minutes",
+      "materiel": "Un ballon, une bille, un drap tendu (pour simuler la courbure de l'espace-temps), un tableau",
+      "deroulement": [
+        "Lâcher la bille : observer la chute. C'est le fait.",
+        "Demander : « Pourquoi tombe-t-elle ? » — noter toutes les réponses au tableau.",
+        "Présenter le modèle de Newton (force invisible qui attire).",
+        "Présenter le modèle d'Einstein (la bille suit la courbure du drap tendu quand on pose le ballon au centre).",
+        "Question : « Les deux modèles expliquent le même fait. Comment savoir lequel est le bon ? »",
+        "Conclure : un fait observable peut être décrit par plusieurs modèles. C'est pour ça qu'on parle de modèle, pas de vérité."
+      ]
+    },
+    "articlesLies": [
+      "la-gravite-70-theories-et-aucune-preuve",
+      "densite-pourquoi-les-choses-montent-et-descendent",
+      "lhypothese-nulle-dynamique-et-cinematique"
+    ],
+    "simulateur": "density"
+  },
+  {
+    "id": "systeme-solaire",
+    "cycle": "3",
+    "niveau": "CM1–CM2–6e",
+    "matiere": "Sciences et technologie",
+    "chapitre": "La Terre dans le système solaire",
+    "titre": "Le système solaire : comment les modèles ont changé",
+    "accroche": "Le modèle actuel du système solaire n'a pas toujours existé. Pendant 1 500 ans, un autre modèle dominait — et il faisait d'aussi bonnes prédictions.",
+    "cequeditrogram": "« Situer la Terre dans le système solaire. Décrire les mouvements de la Terre (rotation, révolution). » — Programme de sciences, cycle 3.",
+    "cequeditlemanuel": "Les manuels montrent le Soleil au centre et les planètes en orbite autour. C'est présenté comme un fait établi, sans mentionner que d'autres modèles ont existé ni comment on est passé de l'un à l'autre.",
+    "cequedirlalitterature": [
+      {
+        "source": "Thomas Kuhn, The Copernican Revolution, Harvard UP, 1957",
+        "citation": "Le système de Copernic n'était ni plus simple ni plus précis que celui de Ptolémée. Son avantage était esthétique et philosophique.",
+        "commentaire": "L'historien des sciences montre que le changement de modèle n'a pas été motivé par de nouvelles observations."
+      },
+      {
+        "source": "Albert Michelson & Edward Morley, American Journal of Science, 1887",
+        "citation": "Le résultat de l'hypothèse d'un éther stationnaire est montré comme étant incorrect.",
+        "commentaire": "L'expérience conçue pour détecter le mouvement de la Terre à travers l'éther a produit un résultat nul — aucun mouvement détecté."
+      },
+      {
+        "source": "George Biddell Airy, Proceedings of the Royal Society, 1871",
+        "citation": "Le résultat est compatible avec une Terre stationnaire et des étoiles en mouvement.",
+        "commentaire": "L'Astronome Royal a obtenu un résultat inattendu qu'il a lui-même qualifié de « failure »."
+      }
+    ],
+    "formulation": "Le modèle héliocentrique place le Soleil au centre du système solaire et les planètes en orbite autour. C'est le modèle utilisé aujourd'hui parce qu'il permet de faire des prédictions très précises. Mais pendant 1 500 ans, le modèle géocentrique (la Terre au centre) était utilisé — et il faisait aussi de bonnes prédictions. Le passage de l'un à l'autre a pris des siècles de débats. C'est un bon exemple de la façon dont les modèles scientifiques évoluent.",
+    "activite": {
+      "titre": "Deux maquettes, une seule observation",
+      "duree": "45 minutes",
+      "materiel": "Deux balles (Soleil et Terre), une lampe de poche, du fil, du carton",
+      "deroulement": [
+        "Construire une maquette géocentrique : la Terre au centre, le Soleil tourne autour.",
+        "Construire une maquette héliocentrique : le Soleil au centre, la Terre tourne autour.",
+        "Avec la lampe, simuler le cycle jour/nuit dans chaque maquette.",
+        "Question : « Les deux maquettes produisent-elles le même cycle jour/nuit ? »",
+        "Réponse : oui. Les deux modèles expliquent la même observation.",
+        "Demander : « Comment choisir entre les deux ? » — noter les arguments au tableau.",
+        "Conclure : en science, un modèle est choisi parce qu'il est utile, pas parce qu'il est « vrai » dans l'absolu."
+      ]
+    },
+    "articlesLies": [
+      "200-ans-de-resultats-nuls-darago-a-einstein",
+      "la-rotation-terrestre-deux-experiences-zero-preuve",
+      "le-mythe-deratosthene"
+    ],
+    "simulateur": "geo"
+  },
+  {
+    "id": "densite-flottabilite",
+    "cycle": "3",
+    "niveau": "CM1–CM2–6e",
+    "matiere": "Sciences et technologie",
+    "chapitre": "La matière — masse, volume et propriétés",
+    "titre": "Pourquoi les objets flottent ou coulent : la densité",
+    "accroche": "Un bateau en acier flotte. Une bille en verre coule. Pourquoi ? La réponse tient en un mot : densité. Et elle est vérifiable en classe en 10 minutes.",
+    "cequeditrogram": "« Mettre en œuvre des expériences simples impliquant la matière. Décrire les propriétés de la matière. » — Programme de sciences, cycle 3.",
+    "cequeditlemanuel": "Les manuels mentionnent la densité mais attribuent souvent la chute des objets à « la gravité qui les attire vers le bas ». La densité relative est rarement présentée comme explication suffisante du mouvement vertical.",
+    "cequedirlalitterature": [
+      {
+        "source": "Archimède, Sur les corps flottants, ~250 av. J.-C.",
+        "citation": "Un corps plongé dans un fluide subit une poussée verticale, de bas en haut, égale au poids du volume de fluide déplacé.",
+        "commentaire": "Le principe d'Archimède a 2 300 ans. Il explique pourquoi les objets montent ou descendent dans un fluide sans faire appel à aucune « force d'attraction »."
+      },
+      {
+        "source": "Laurence Viennot, Raisonner en physique, De Boeck, 2001",
+        "citation": "Les élèves confondent régulièrement masse et densité, et attribuent la flottabilité à des propriétés magiques plutôt qu'à un rapport de densités.",
+        "commentaire": "La didacticienne montre que la confusion commence dans les manuels eux-mêmes."
+      }
+    ],
+    "formulation": "Un objet flotte quand il est moins dense que le liquide dans lequel il est plongé. Il coule quand il est plus dense. C'est un fait vérifiable avec n'importe quel objet et n'importe quel liquide. Le principe d'Archimède décrit ce comportement avec précision depuis 2 300 ans.",
+    "activite": {
+      "titre": "La colonne de densité",
+      "duree": "30 minutes",
+      "materiel": "Un grand verre transparent, du miel, du liquide vaisselle, de l'eau, de l'huile, de l'alcool à 90°, et 5 petits objets (raisin sec, bouchon, pièce de monnaie, perle, vis)",
+      "deroulement": [
+        "Verser les liquides dans l'ordre : miel, liquide vaisselle, eau, huile, alcool. Ils forment des couches.",
+        "Demander : « Pourquoi ne se mélangent-ils pas ? » — introduire le mot « densité ».",
+        "Lâcher les objets un par un. Chacun s'arrête à un niveau différent.",
+        "Question : « Qu'est-ce qui détermine où l'objet s'arrête ? »",
+        "Réponse : il s'arrête quand il rencontre un liquide plus dense que lui.",
+        "Conclure : la position verticale d'un objet dépend de sa densité relative. C'est un fait observable et reproductible."
+      ]
+    },
+    "articlesLies": [
+      "densite-pourquoi-les-choses-montent-et-descendent",
+      "la-pression-atmospherique-un-ocean-d-air-invisible",
+      "experiences-sous-pression-reduite"
+    ],
+    "simulateur": "density"
+  },
+  {
+    "id": "optique-perspective",
+    "cycle": "4",
+    "niveau": "5e–4e",
+    "matiere": "Physique-Chimie",
+    "chapitre": "La lumière — propagation rectiligne et vision",
+    "titre": "Perspective et optique : pourquoi les objets semblent disparaître au loin",
+    "accroche": "Un bateau qui s'éloigne semble « couler » sous l'horizon. Mais un zoom puissant le fait réapparaître. Pourquoi ? Trois faits optiques vérifiables l'expliquent.",
+    "cequeditrogram": "« La lumière se propage en ligne droite. Modéliser la propagation rectiligne de la lumière. Comprendre la formation des images. » — Programme de physique-chimie, cycle 4.",
+    "cequeditlemanuel": "Les manuels abordent la propagation rectiligne mais ne connectent jamais ce principe à la question de la visibilité à grande distance. La disparition des objets au loin est implicitement attribuée à la courbure terrestre, sans que ce soit discuté.",
+    "cequedirlalitterature": [
+      {
+        "source": "Eugene Hecht, Optics, 5th edition, Pearson, 2016",
+        "citation": "L'angle sous-tendu par un objet diminue avec la distance. En dessous de la résolution angulaire de l'instrument d'observation, l'objet devient indiscernable.",
+        "commentaire": "Le manuel de référence en optique universitaire confirme que la visibilité dépend de l'angle, pas de la géométrie de la surface."
+      },
+      {
+        "source": "Lord Rayleigh, On the light from the sky, its polarisation and colour, Philosophical Magazine, 1871",
+        "citation": "La diffusion moléculaire de la lumière par l'atmosphère est proportionnelle à λ⁻⁴.",
+        "commentaire": "La diffusion de Rayleigh explique pourquoi les objets lointains deviennent bleus et flous — un effet purement atmosphérique."
+      }
+    ],
+    "formulation": "Quand un objet s'éloigne, trois phénomènes optiques réduisent sa visibilité : 1) la diminution angulaire (il paraît plus petit), 2) la limite de résolution de l'œil (~1 arc-minute), 3) la diffusion atmosphérique (il devient flou et bleuté). Ces trois faits sont vérifiables et suffisent à expliquer pourquoi les objets « disparaissent » au loin, avant toute considération géométrique sur la forme de la surface.",
+    "activite": {
+      "titre": "L'expérience du couloir",
+      "duree": "20 minutes",
+      "materiel": "Un long couloir (ou cour de récréation), un objet de 10 cm de haut (bouteille), un mètre, un appareil photo avec zoom",
+      "deroulement": [
+        "Placer la bouteille au bout du couloir (ou à 50 m dans la cour).",
+        "Demander : « Que voyez-vous ? » — l'objet est petit, flou, presque invisible.",
+        "Prendre une photo avec zoom. L'objet réapparaît en détail.",
+        "Mesurer la taille apparente à l'œil nu et au zoom. Calculer le rapport.",
+        "Question : « L'objet avait-il vraiment disparu, ou était-il juste trop petit pour notre œil ? »",
+        "Conclure : la disparition visuelle est un phénomène optique, pas nécessairement géométrique."
+      ]
+    },
+    "articlesLies": [
+      "la-perspective-pourquoi-les-objets-disparaissent",
+      "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite",
+      "la-perspective-atmospherique"
+    ],
+    "simulateur": "perspective"
+  },
+  {
+    "id": "big-bang",
+    "cycle": "4",
+    "niveau": "3e",
+    "matiere": "Physique-Chimie",
+    "chapitre": "L'Univers — structure et évolution",
+    "titre": "Le Big Bang : le modèle, ses forces et ses questions ouvertes",
+    "accroche": "Le Big Bang est le modèle cosmologique le plus utilisé. Il explique beaucoup de choses. Mais ses propres partisans reconnaissent des tensions majeures — et 95% de l'Univers qu'il prédit reste invisible.",
+    "cequeditrogram": "« L'Univers, structure et échelle. L'évolution de l'Univers. » — Programme de physique-chimie, cycle 4, 3e.",
+    "cequeditlemanuel": "« L'Univers est né il y a 13,8 milliards d'années lors du Big Bang. Il est en expansion accélérée. » — formulation type. Aucune mention des tensions internes du modèle.",
+    "cequedirlalitterature": [
+      {
+        "source": "Adam Riess et al., The Astrophysical Journal, 2022",
+        "citation": "L'écart entre les mesures locales et cosmologiques de H₀ atteint désormais 5σ.",
+        "commentaire": "5σ est le seuil de « découverte » en physique. Deux méthodes de mesure de la vitesse d'expansion donnent des résultats incompatibles."
+      },
+      {
+        "source": "Labbé, I. et al., Nature, 2023",
+        "citation": "Ces galaxies massives pleinement formées à z > 7 posent un défi sérieux aux modèles de formation actuels.",
+        "commentaire": "Le télescope James Webb observe des galaxies qui ne devraient pas exister si le modèle standard est correct."
+      },
+      {
+        "source": "Lee Smolin, The Trouble with Physics, Houghton Mifflin, 2006",
+        "citation": "Quand un modèle nécessite que 95% de son contenu soit invisible et indétectable, c'est au minimum un signal d'incomplétude.",
+        "commentaire": "La matière noire (27%) et l'énergie noire (68%) n'ont jamais été directement détectées."
+      },
+      {
+        "source": "Eleonora Di Valentino et al., Classical and Quantum Gravity, 2021",
+        "citation": "La tension de Hubble pourrait indiquer une physique au-delà du modèle standard.",
+        "commentaire": "Les cosmologistes eux-mêmes publient des articles sur la « crise » du modèle."
+      }
+    ],
+    "formulation": "Le modèle du Big Bang propose que l'Univers a commencé dans un état très dense et chaud il y a environ 13,8 milliards d'années, et qu'il est en expansion depuis. Ce modèle explique beaucoup de choses — comme le fond diffus cosmologique. Mais il a aussi des problèmes ouverts : deux méthodes de mesure de la vitesse d'expansion donnent des résultats différents, le télescope James Webb observe des galaxies qui ne devraient pas exister si le modèle est correct, et 95% de l'Univers prédit n'a jamais été directement observé. C'est un modèle puissant, mais c'est un modèle — pas un fait.",
+    "activite": {
+      "titre": "Le camembert de l'Univers",
+      "duree": "20 minutes",
+      "materiel": "Papier, compas, crayons de couleur",
+      "deroulement": [
+        "Dessiner un camembert de l'Univers selon le modèle standard : 5% matière ordinaire, 27% matière noire, 68% énergie noire.",
+        "Colorier les 5% de matière ordinaire. Laisser le reste en gris.",
+        "Question : « Que savons-nous des 95% en gris ? » — Réponse : rien de direct. Ce sont des hypothèses ajoutées au modèle pour qu'il fonctionne.",
+        "Comparer avec un autre camembert : « Et si le modèle est incomplet ? »",
+        "Conclure : un modèle qui a besoin de 95% de contenu invisible pour fonctionner est peut-être puissant, mais il a des questions ouvertes sérieuses."
+      ]
+    },
+    "articlesLies": [
+      "les-distances-cosmiques-au-dela-de-la-regle",
+      "les-trous-noirs-nexistent-pas",
+      "ligo-londe-qui-nexistait-pas"
+    ],
+    "simulateur": null
+  },
+  {
+    "id": "eratosthene",
+    "cycle": "3",
+    "niveau": "6e",
+    "matiere": "Sciences et technologie / Histoire",
+    "chapitre": "La Terre — forme et représentation / Histoire des sciences",
+    "titre": "L'expérience d'Ératosthène : que mesure-t-elle vraiment ?",
+    "accroche": "On apprend qu'Ératosthène a « prouvé » que la Terre est ronde en 240 av. J.-C. L'histoire réelle est plus nuancée — et plus intéressante pédagogiquement.",
+    "cequeditrogram": "« Situer la Terre dans le système solaire. Identifier les composantes d'un paysage. » — Programme de sciences, cycle 3.",
+    "cequeditlemanuel": "« En 240 av. J.-C., Ératosthène a mesuré la circonférence de la Terre en comparant les ombres à Alexandrie et à Syène. Il a trouvé environ 40 000 km — très proche de la valeur réelle. »",
+    "cequedirlalitterature": [
+      {
+        "source": "Thomas Heath, A History of Greek Mathematics, Oxford UP, 1921",
+        "citation": "Le calcul d'Ératosthène repose sur deux hypothèses cruciales : que les rayons du Soleil sont parallèles et que Syène est exactement sur le tropique.",
+        "commentaire": "Si les rayons ne sont pas parallèles (Soleil plus proche), les mêmes mesures produisent des résultats différents."
+      },
+      {
+        "source": "Dennis Rawlins, The Eratosthenes-Strabo Nile Map, Vistas in Astronomy, 1982",
+        "citation": "La distance entre Alexandrie et Syène utilisée par Ératosthène (5 000 stades) est une approximation conventionnelle, pas une mesure.",
+        "commentaire": "La « mesure » repose sur une estimation de distance, pas sur un arpentage."
+      },
+      {
+        "source": "Dirk Couprie, Heaven and Earth in Ancient Greek Cosmology, Springer, 2011",
+        "citation": "Les Grecs connaissaient la géométrie de l'expérience, mais la même géométrie est compatible avec plusieurs configurations.",
+        "commentaire": "L'historien de la cosmologie grecque confirme que l'expérience ne tranche pas entre les modèles."
+      }
+    ],
+    "formulation": "Ératosthène a fait quelque chose de remarquable : il a mesuré l'angle de l'ombre du Soleil dans deux villes différentes au même moment, et il en a déduit une circonférence de la Terre. C'est une belle démonstration de raisonnement géométrique. Mais son calcul repose sur une hypothèse : que les rayons du Soleil arrivent parallèles, ce qui n'est vrai que si le Soleil est très loin. Si le Soleil est plus proche, les mêmes mesures donnent un résultat différent. Le mot juste n'est pas « prouvé » mais « estimé, dans le cadre d'un modèle donné ».",
+    "activite": {
+      "titre": "Deux modèles, mêmes ombres",
+      "duree": "30 minutes",
+      "materiel": "Deux bâtons verticaux (crayons), une lampe de poche, un carton plat (surface plane), un ballon (surface courbe), un rapporteur",
+      "deroulement": [
+        "Planter deux crayons sur le ballon (surface courbe). Éclairer avec la lampe très loin (rayons presque parallèles). Mesurer les ombres différentes.",
+        "Planter deux crayons sur le carton plat. Éclairer avec la lampe de plus près (rayons divergents). Ajuster la distance pour obtenir les mêmes ombres.",
+        "Question : « Les ombres sont identiques dans les deux cas. Comment savoir quelle configuration est la bonne ? »",
+        "Réponse : l'observation seule ne suffit pas — il faut connaître la distance du Soleil, ce qui est lui-même un calcul dans un modèle.",
+        "Conclure : Ératosthène a fait un raisonnement brillant, mais il repose sur un présupposé. C'est la nature de la science : les conclusions dépendent des hypothèses de départ."
+      ]
+    },
+    "articlesLies": [
+      "le-mythe-deratosthene",
+      "dune-terre-plate-universelle-a-la-sphere-grecque",
+      "les-distances-cosmiques-au-dela-de-la-regle"
+    ],
+    "simulateur": "curvature"
+  },
+  {
+    "id": "pression-atmospherique",
+    "cycle": "4",
+    "niveau": "5e–4e",
+    "matiere": "Physique-Chimie",
+    "chapitre": "L'air — pression et composition",
+    "titre": "La pression atmosphérique : un océan d'air au-dessus de nos têtes",
+    "accroche": "Nous vivons au fond d'un océan d'air. Cet air a un poids, et ce poids crée une pression. C'est un fait mesurable — et il explique beaucoup de phénomènes qu'on attribue habituellement à d'autres causes.",
+    "cequeditrogram": "« Caractériser la pression d'un gaz. Expliquer l'existence de la pression atmosphérique. » — Programme de physique-chimie, cycle 4.",
+    "cequeditlemanuel": "Les manuels présentent la pression atmosphérique correctement, mais ils passent rapidement à « la gravité maintient l'atmosphère autour de la Terre ». Le rôle autonome de la pression comme force est souvent sous-estimé.",
+    "cequedirlalitterature": [
+      {
+        "source": "Evangelista Torricelli, Lettre à Michelangelo Ricci, 1644",
+        "citation": "Nous vivons submergés au fond d'un océan d'air élémentaire.",
+        "commentaire": "Torricelli a compris que la pression atmosphérique est le poids de la colonne d'air au-dessus de nous — sans aucune référence à la gravité comme « force d'attraction »."
+      },
+      {
+        "source": "Blaise Pascal, Récit de la grande expérience de l'équilibre des liqueurs, 1648",
+        "citation": "La hauteur du mercure diminue quand on monte en altitude.",
+        "commentaire": "L'expérience du Puy-de-Dôme confirme que la pression est due au poids de l'air au-dessus — fait reproductible."
+      }
+    ],
+    "formulation": "La pression atmosphérique est le poids de la colonne d'air au-dessus d'un point donné. Au niveau de la mer, cette pression est d'environ 1 013 hPa — soit environ 1 kg par cm². C'est un fait mesurable avec un baromètre. Cette pression diminue avec l'altitude (il y a moins d'air au-dessus). Elle explique pourquoi l'eau « monte » dans une paille, pourquoi les ventouses tiennent, et pourquoi nos oreilles se bouchent en montagne.",
+    "activite": {
+      "titre": "La ventouse et le verre renversé",
+      "duree": "20 minutes",
+      "materiel": "Un verre d'eau, un carton rigide, une ventouse, un baromètre (ou app téléphone)",
+      "deroulement": [
+        "Remplir le verre d'eau. Poser le carton dessus. Retourner le verre. L'eau ne tombe pas.",
+        "Question : « Qu'est-ce qui maintient l'eau ? » — Ce n'est pas le carton : c'est la pression de l'air qui pousse par en dessous.",
+        "Coller une ventouse sur une surface lisse. Tirer. Elle résiste.",
+        "Question : « Qu'est-ce qui la retient ? » — La pression atmosphérique pousse la ventouse contre la surface.",
+        "Si disponible, mesurer la pression avec un baromètre. Comparer avec la pression au sommet d'un escalier (ou comparer les mesures de deux étages).",
+        "Conclure : la pression atmosphérique est une force réelle, mesurable, qui explique de nombreux phénomènes du quotidien."
+      ]
+    },
+    "articlesLies": [
+      "la-pression-atmospherique-un-ocean-d-air-invisible",
+      "experiences-sous-pression-reduite",
+      "pression-lumiere-halos-rayons-et-ondes"
+    ],
+    "simulateur": null
+  },
+  {
+    "id": "evolution",
+    "cycle": "4",
+    "niveau": "3e",
+    "matiere": "SVT",
+    "chapitre": "Évolution des êtres vivants",
+    "titre": "L'évolution : une théorie vivante et ses débats internes",
+    "accroche": "La théorie de l'évolution est l'un des cadres les plus influents de la biologie. Mais elle a considérablement changé depuis Darwin — et ses propres spécialistes débattent encore des mécanismes.",
+    "cequeditrogram": "« Expliquer l'évolution des espèces par la sélection naturelle. Relier la diversité des espèces à l'évolution. » — Programme de SVT, cycle 4.",
+    "cequeditlemanuel": "« Les espèces évoluent par sélection naturelle. L'homme descend du singe. » — formulations fréquentes qui simplifient à l'excès le cadre théorique.",
+    "cequedirlalitterature": [
+      {
+        "source": "Stephen Jay Gould & Niles Eldredge, Punctuated equilibria, Paleobiology, 1977",
+        "citation": "Le registre fossile montre de longues périodes de stabilité interrompues par des changements brusques — un schéma difficilement explicable par le gradualisme.",
+        "commentaire": "Gould, évolutionniste convaincu, a proposé que l'évolution ne fonctionne pas comme Darwin le pensait."
+      },
+      {
+        "source": "Lynn Margulis, Symbiotic Planet, Basic Books, 1998",
+        "citation": "Les cellules eucaryotes sont le produit de fusions bactériennes, pas de mutations graduelles.",
+        "commentaire": "La symbiogenèse est un mécanisme évolutif majeur qui ne relève pas de la sélection naturelle darwinienne."
+      },
+      {
+        "source": "Eugene Koonin, The Logic of Chance, FT Press, 2011",
+        "citation": "Le modèle darwinien classique est une simplification excessive de la réalité biologique.",
+        "commentaire": "Un biologiste de l'évolution de premier plan reconnaît les limites du cadre classique."
+      },
+      {
+        "source": "Denis Noble, The Music of Life, Oxford UP, 2006",
+        "citation": "Il n'y a pas de programme génétique unique. L'organisme utilise ses gènes, pas l'inverse.",
+        "commentaire": "Le physiologiste d'Oxford remet en question le réductionnisme génétique au cœur du néo-darwinisme."
+      }
+    ],
+    "formulation": "La théorie de l'évolution propose que les espèces changent au fil du temps et que les êtres vivants actuels descendent d'ancêtres communs. Ce cadre est soutenu par de nombreuses observations : fossiles, ADN, anatomie comparée. Mais les scientifiques débattent encore des mécanismes : la sélection naturelle seule n'explique pas tout. D'autres mécanismes ont été découverts — dérive génétique, symbiogenèse, épigénétique, équilibres ponctués. La théorie de l'évolution évolue elle-même, ce qui est la marque d'une science vivante.",
+    "activite": {
+      "titre": "Darwin vs Gould : deux modèles d'évolution",
+      "duree": "30 minutes",
+      "materiel": "Deux graphiques imprimés (un graduel, un ponctué), une frise chronologique vierge",
+      "deroulement": [
+        "Montrer le graphique gradualiste : changement lent et constant au fil du temps.",
+        "Montrer le graphique des équilibres ponctués : longues périodes stables + changements rapides.",
+        "Distribuer des données fossiles simplifiées (dates + caractéristiques). Demander aux élèves de tracer la courbe.",
+        "Question : « Quel graphique correspond le mieux aux données ? »",
+        "Discuter : les deux scientifiques sont des évolutionnistes. Ils débattent du rythme, pas du fait que les espèces changent.",
+        "Conclure : une théorie scientifique n'est pas un bloc monolithique. Ses spécialistes débattent des mécanismes — et c'est normal."
+      ]
+    },
+    "articlesLies": [
+      "levolution-et-lislam"
+    ],
+    "simulateur": null
+  }
+]

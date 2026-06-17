@@ -1,7 +1,8 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import type { Fiche } from '@/lib/fiches';
 
 const fade = (i: number) => ({
   initial: { opacity: 0, y: 14 },
@@ -12,70 +13,10 @@ const fade = (i: number) => ({
 const ACCENT = '#2B7A5F';
 const ACCENT_SOFT = '#2B7A5F12';
 
-const FICHES = [
-  {
-    niveau: 'Cycle 3 (CM1–CM2–6e)',
-    color: '#3B8FD4',
-    items: [
-      {
-        titre: 'Le système solaire : modèles et histoire',
-        programme: 'Sciences — Situer la Terre dans le système solaire',
-        description: 'Comment les modèles du système solaire ont évolué, de Ptolémée à aujourd\'hui. Pourquoi on parle de "modèle" et pas de "vérité".',
-        activite: 'Activité : construire deux maquettes (géocentrique et héliocentrique) et comparer.',
-      },
-      {
-        titre: 'Fait et modèle : l\'exemple de l\'atome',
-        programme: 'Sciences — La matière',
-        description: 'Le modèle de l\'atome a changé 5 fois en 100 ans. C\'est un excellent cas pour montrer que les modèles évoluent.',
-        activite: 'Activité : classer des affirmations en "fait observable" ou "modèle explicatif".',
-      },
-      {
-        titre: 'L\'eau, la glace et la vapeur : faits reproductibles',
-        programme: 'Sciences — Les états de la matière',
-        description: 'Un cas où le fait et le modèle se rejoignent : les changements d\'état sont observables, mesurables, reproductibles. Exemple de certitude scientifique.',
-        activite: 'Activité : mesurer les températures de changement d\'état en classe.',
-      },
-    ],
-  },
-  {
-    niveau: 'Cycle 4 (5e–4e–3e)',
-    color: '#8B7EC8',
-    items: [
-      {
-        titre: 'La gravitation : ce que Newton a décrit — et ce qu\'il n\'a pas expliqué',
-        programme: 'Physique-Chimie — La gravitation universelle',
-        description: 'Newton a décrit le comportement des objets, pas le mécanisme. 300 ans plus tard, le mécanisme reste un sujet de recherche actif.',
-        activite: 'Activité : lire la citation de Newton à Bentley (1693) et discuter en classe.',
-        simulateur: { id: 'density', label: 'Simulateur de densité' },
-      },
-      {
-        titre: 'Perspective et optique : pourquoi les objets semblent disparaître',
-        programme: 'Physique-Chimie — La lumière, modèle de propagation',
-        description: 'La diminution angulaire, la limite de résolution de l\'œil et la diffusion atmosphérique. Trois faits optiques vérifiables.',
-        activite: 'Activité : mesurer la taille apparente d\'un objet à différentes distances.',
-        simulateur: { id: 'perspective', label: 'Simulateur de perspective' },
-      },
-      {
-        titre: 'L\'Univers : le modèle du Big Bang, ses forces et ses questions ouvertes',
-        programme: 'Physique-Chimie — L\'Univers, structure et échelle',
-        description: 'Le Big Bang explique beaucoup de choses. Mais 95% de l\'Univers prédit reste non détecté. Les cosmologistes eux-mêmes parlent de "crise".',
-        activite: 'Activité : comparer deux articles de Nature (résultats Planck vs JWST).',
-      },
-      {
-        titre: 'Mesurer sans toucher : comment estime-t-on les distances cosmiques ?',
-        programme: 'Physique-Chimie — Distances dans l\'Univers',
-        description: 'La parallaxe, les céphéides, les supernovæ : une chaîne de méthodes indirectes où chaque barreau dépend du précédent.',
-        activite: 'Activité : expérience de parallaxe avec un doigt et les deux yeux.',
-      },
-      {
-        titre: 'L\'évolution : théorie vivante et débats internes',
-        programme: 'SVT — Évolution des espèces',
-        description: 'Sélection naturelle, dérive génétique, équilibres ponctués, symbiogenèse. La théorie de l\'évolution évolue elle-même.',
-        activite: 'Activité : comparer le modèle gradualiste de Darwin et les équilibres ponctués de Gould.',
-      },
-    ],
-  },
-];
+const CYCLE_COLORS: Record<string, string> = {
+  '3': '#3B8FD4',
+  '4': '#8B7EC8',
+};
 
 const SIMULATEURS = [
   {
@@ -166,7 +107,29 @@ const REFERENCES = [
   { auteur: 'Sabine Hossenfelder', titre: 'Lost in Math', annee: '2018', note: 'Biais esthétiques en physique' },
 ];
 
-export default function EnseignantsClient() {
+const SIM_LABELS: Record<string, string> = {
+  density: 'Simulateur de densité',
+  perspective: 'Simulateur de perspective',
+  visualfield: 'Champ visuel',
+  curvature: 'Calculateur de courbure',
+  geo: 'Système solaire 3D',
+  laser: 'Expérience laser',
+};
+
+interface Props {
+  fiches: Fiche[];
+}
+
+export default function EnseignantsClient({ fiches }: Props) {
+  const [expandedFiche, setExpandedFiche] = useState<string | null>(null);
+
+  const cycle3 = fiches.filter(f => f.cycle === '3');
+  const cycle4 = fiches.filter(f => f.cycle === '4');
+  const groups = [
+    { label: 'Cycle 3 (CM1–CM2–6e)', color: CYCLE_COLORS['3'], fiches: cycle3 },
+    { label: 'Cycle 4 (5e–4e–3e)', color: CYCLE_COLORS['4'], fiches: cycle4 },
+  ];
+
   return (
     <div>
       {/* ═══ HERO ═══ */}
@@ -229,13 +192,13 @@ export default function EnseignantsClient() {
           </div>
           <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, padding: '28px 24px' }}>
             <p style={{ fontSize: 15, color: 'var(--ink-soft)', lineHeight: 1.75, marginBottom: 16 }}>
-              Les manuels scolaires présentent régulièrement des <strong style={{ color: 'var(--ink)' }}>modèles comme des faits</strong> et des <strong style={{ color: 'var(--ink)' }}>hypothèses comme des certitudes</strong>. Ce n'est pas un reproche — c'est un constat documenté par les didacticiens des sciences (Giordan, De Vecchi, Viennot).
+              Les manuels scolaires présentent régulièrement des <strong style={{ color: 'var(--ink)' }}>modèles comme des faits</strong> et des <strong style={{ color: 'var(--ink)' }}>hypothèses comme des certitudes</strong>. Ce n&apos;est pas un reproche — c&apos;est un constat documenté par les didacticiens des sciences (Giordan, De Vecchi, Viennot).
             </p>
             <p style={{ fontSize: 15, color: 'var(--ink-soft)', lineHeight: 1.75, marginBottom: 16 }}>
-              Or la <strong style={{ color: 'var(--ink)' }}>distinction entre fait, modèle et hypothèse</strong> est le fondement même de la méthode scientifique. Un élève qui ne la maîtrise pas apprend un rapport d'autorité à la science — pas un rapport de méthode.
+              Or la <strong style={{ color: 'var(--ink)' }}>distinction entre fait, modèle et hypothèse</strong> est le fondement même de la méthode scientifique. Un élève qui ne la maîtrise pas apprend un rapport d&apos;autorité à la science — pas un rapport de méthode.
             </p>
             <p style={{ fontSize: 15, color: 'var(--ink-soft)', lineHeight: 1.75, margin: 0 }}>
-              Cet espace propose des outils concrets pour réintroduire cette rigueur dans l'enseignement — <strong style={{ color: 'var(--ink)' }}>sans rejeter les modèles enseignés</strong>, mais en les présentant pour ce qu'ils sont réellement.
+              Cet espace propose des outils concrets pour réintroduire cette rigueur dans l&apos;enseignement — <strong style={{ color: 'var(--ink)' }}>sans rejeter les modèles enseignés</strong>, mais en les présentant pour ce qu&apos;ils sont réellement.
             </p>
           </div>
         </motion.section>
@@ -270,70 +233,231 @@ export default function EnseignantsClient() {
         </motion.section>
 
         {/* ═══ FICHES PAR NIVEAU ═══ */}
-        <motion.section {...fade(2)} style={{ marginTop: 48 }}>
+        <motion.section {...fade(2)} id="fiches" style={{ marginTop: 48 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
             <div style={{ width: 4, height: 28, borderRadius: 2, background: '#8B7EC8' }} />
             <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)' }}>Fiches par niveau et chapitre du programme</h2>
           </div>
           <p style={{ fontSize: 14, color: 'var(--ink-muted)', marginBottom: 24, lineHeight: 1.6 }}>
-            Chaque fiche est alignée sur le programme officiel (Éducation nationale — France). Utilisable telle quelle en séquence pédagogique.
+            Chaque fiche est alignée sur le programme officiel (Éducation nationale — France). Cliquez sur une fiche pour voir les sources, l&apos;activité détaillée et les articles liés.
           </p>
 
-          {FICHES.map((groupe, gi) => (
+          {groups.map((groupe, gi) => (
             <div key={gi} style={{ marginBottom: 36 }}>
               <div style={{
                 fontSize: 13, fontWeight: 700, color: groupe.color, letterSpacing: '0.04em',
                 textTransform: 'uppercase', marginBottom: 14,
                 fontFamily: "'JetBrains Mono', monospace",
               }}>
-                {groupe.niveau}
+                {groupe.label}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {groupe.items.map((fiche, fi) => (
-                  <motion.div key={fi} {...fade(gi * 3 + fi + 3)} style={{
-                    background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10,
-                    padding: '22px 24px',
-                  }}>
-                    <div style={{ fontSize: 10, fontWeight: 700, color: groupe.color, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 6, fontFamily: "'JetBrains Mono', monospace" }}>
-                      {fiche.programme}
-                    </div>
-                    <div style={{ fontSize: 16, fontWeight: 750, color: 'var(--ink)', marginBottom: 8, lineHeight: 1.35 }}>
-                      {fiche.titre}
-                    </div>
-                    <p style={{ fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.6, marginBottom: 10 }}>
-                      {fiche.description}
-                    </p>
-                    <div style={{
-                      fontSize: 13, color: ACCENT, fontWeight: 600,
-                      padding: '8px 12px', background: ACCENT_SOFT, borderRadius: 6,
-                      display: 'inline-block',
+                {groupe.fiches.map((fiche, fi) => {
+                  const isExpanded = expandedFiche === fiche.id;
+                  return (
+                    <motion.div key={fiche.id} {...fade(gi * 3 + fi + 3)} style={{
+                      background: 'var(--card)', border: `1px solid ${isExpanded ? groupe.color + '40' : 'var(--border)'}`,
+                      borderRadius: 10, overflow: 'hidden',
+                      transition: 'border-color 0.2s',
                     }}>
-                      🧪 {fiche.activite}
-                    </div>
-                    {fiche.simulateur && (
-                      <div style={{ marginTop: 10 }}>
-                        <Link href={`/lab?tool=${fiche.simulateur.id}`} style={{
-                          fontSize: 12, fontWeight: 600, color: '#8B7EC8',
-                        }}>
-                          🖥️ Ouvrir le {fiche.simulateur.label} →
-                        </Link>
-                      </div>
-                    )}
-                  </motion.div>
-                ))}
+                      <button
+                        onClick={() => setExpandedFiche(isExpanded ? null : fiche.id)}
+                        style={{
+                          width: '100%', padding: '22px 24px', background: 'none', border: 'none',
+                          cursor: 'pointer', textAlign: 'left',
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+                          <div style={{ flex: 1 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6, flexWrap: 'wrap' }}>
+                              <span style={{
+                                fontSize: 10, fontWeight: 700, color: groupe.color, letterSpacing: '0.08em',
+                                textTransform: 'uppercase', fontFamily: "'JetBrains Mono', monospace",
+                              }}>
+                                {fiche.matiere} — {fiche.chapitre}
+                              </span>
+                              <span style={{
+                                fontSize: 10, fontWeight: 600, color: 'var(--ink-muted)',
+                                padding: '2px 6px', background: 'var(--bg)', borderRadius: 4,
+                                fontFamily: "'JetBrains Mono', monospace",
+                              }}>
+                                {fiche.niveau}
+                              </span>
+                            </div>
+                            <div style={{ fontSize: 16, fontWeight: 750, color: 'var(--ink)', marginBottom: 6, lineHeight: 1.35 }}>
+                              {fiche.titre}
+                            </div>
+                            <p style={{ fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.6, margin: 0 }}>
+                              {fiche.accroche}
+                            </p>
+                          </div>
+                          <div style={{
+                            flexShrink: 0, width: 28, height: 28, borderRadius: 6,
+                            background: `${groupe.color}10`, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            fontSize: 14, color: groupe.color, transition: 'transform 0.2s',
+                            transform: isExpanded ? 'rotate(180deg)' : 'rotate(0)',
+                          }}>
+                            ▾
+                          </div>
+                        </div>
+                      </button>
+
+                      {isExpanded && (
+                        <div style={{ padding: '0 24px 24px', borderTop: `1px solid var(--border)` }}>
+
+                          {/* Ce que dit le programme */}
+                          <div style={{ marginTop: 20 }}>
+                            <div style={{ fontSize: 11, fontWeight: 700, color: groupe.color, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 8, fontFamily: "'JetBrains Mono', monospace" }}>
+                              📋 Ce que dit le programme
+                            </div>
+                            <div style={{
+                              fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.6,
+                              padding: '12px 16px', background: 'var(--bg)', borderRadius: 8,
+                              borderLeft: `3px solid ${groupe.color}`,
+                              fontStyle: 'italic',
+                            }}>
+                              {fiche.cequeditrogram}
+                            </div>
+                          </div>
+
+                          {/* Ce que dit le manuel */}
+                          <div style={{ marginTop: 18 }}>
+                            <div style={{ fontSize: 11, fontWeight: 700, color: '#C45E6A', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 8, fontFamily: "'JetBrains Mono', monospace" }}>
+                              📖 Ce que disent les manuels
+                            </div>
+                            <p style={{ fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.6, margin: 0 }}>
+                              {fiche.cequeditlemanuel}
+                            </p>
+                          </div>
+
+                          {/* Sources scientifiques */}
+                          <div style={{ marginTop: 18 }}>
+                            <div style={{ fontSize: 11, fontWeight: 700, color: '#D4943A', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10, fontFamily: "'JetBrains Mono', monospace" }}>
+                              🔬 Ce que dit la littérature scientifique
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                              {fiche.cequedirlalitterature.map((src, si) => (
+                                <div key={si} style={{
+                                  padding: '14px 16px', background: 'var(--bg)', borderRadius: 8,
+                                  borderLeft: '3px solid #D4943A30',
+                                }}>
+                                  <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink)', marginBottom: 6 }}>
+                                    {src.source}
+                                  </div>
+                                  <div style={{
+                                    fontSize: 13, color: 'var(--ink-soft)', lineHeight: 1.6,
+                                    fontStyle: 'italic', marginBottom: 6,
+                                    paddingLeft: 12, borderLeft: '2px solid var(--border)',
+                                  }}>
+                                    « {src.citation} »
+                                  </div>
+                                  <div style={{ fontSize: 12, color: 'var(--ink-muted)', lineHeight: 1.5 }}>
+                                    → {src.commentaire}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Formulation rigoureuse */}
+                          <div style={{ marginTop: 18 }}>
+                            <div style={{ fontSize: 11, fontWeight: 700, color: ACCENT, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 8, fontFamily: "'JetBrains Mono', monospace" }}>
+                              ✓ Formulation rigoureuse à utiliser en classe
+                            </div>
+                            <div style={{
+                              fontSize: 14, color: 'var(--ink)', lineHeight: 1.7,
+                              padding: '16px 18px', background: `${ACCENT}08`, borderRadius: 8,
+                              border: `1px solid ${ACCENT}20`,
+                              fontWeight: 500,
+                            }}>
+                              {fiche.formulation}
+                            </div>
+                          </div>
+
+                          {/* Activité */}
+                          <div style={{ marginTop: 18 }}>
+                            <div style={{ fontSize: 11, fontWeight: 700, color: '#3B8FD4', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10, fontFamily: "'JetBrains Mono', monospace" }}>
+                              🧪 Activité en classe
+                            </div>
+                            <div style={{
+                              padding: '18px 20px', background: 'var(--bg)', borderRadius: 10,
+                              border: '1px solid var(--border)',
+                            }}>
+                              <div style={{ fontSize: 15, fontWeight: 750, color: 'var(--ink)', marginBottom: 8 }}>
+                                {fiche.activite.titre}
+                              </div>
+                              <div style={{ display: 'flex', gap: 16, marginBottom: 14, flexWrap: 'wrap' }}>
+                                <span style={{ fontSize: 12, color: 'var(--ink-muted)', fontFamily: "'JetBrains Mono', monospace" }}>
+                                  ⏱ {fiche.activite.duree}
+                                </span>
+                                <span style={{ fontSize: 12, color: 'var(--ink-muted)', fontFamily: "'JetBrains Mono', monospace" }}>
+                                  🧰 {fiche.activite.materiel}
+                                </span>
+                              </div>
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                {fiche.activite.deroulement.map((step, si) => (
+                                  <div key={si} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                                    <div style={{
+                                      flexShrink: 0, width: 22, height: 22, borderRadius: 6,
+                                      background: `#3B8FD415`, color: '#3B8FD4',
+                                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                      fontSize: 11, fontWeight: 800, fontFamily: "'JetBrains Mono', monospace",
+                                      marginTop: 1,
+                                    }}>
+                                      {si + 1}
+                                    </div>
+                                    <p style={{ fontSize: 13, color: 'var(--ink-soft)', lineHeight: 1.55, margin: 0 }}>
+                                      {step}
+                                    </p>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Links row */}
+                          <div style={{ marginTop: 18, display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+                            {fiche.simulateur && (
+                              <Link href={`/lab?tool=${fiche.simulateur}`} style={{
+                                fontSize: 12, fontWeight: 600, color: '#8B7EC8',
+                                padding: '6px 12px', borderRadius: 6,
+                                background: '#8B7EC810', border: '1px solid #8B7EC820',
+                                textDecoration: 'none',
+                              }}>
+                                🖥️ {SIM_LABELS[fiche.simulateur] || fiche.simulateur}
+                              </Link>
+                            )}
+                            {fiche.articlesLies.map(slug => (
+                              <Link key={slug} href={`/article/${slug}`} style={{
+                                fontSize: 12, fontWeight: 600, color: 'var(--ink-muted)',
+                                padding: '6px 12px', borderRadius: 6,
+                                background: 'var(--bg)', border: '1px solid var(--border)',
+                                textDecoration: 'none',
+                                maxWidth: 260, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                              }}>
+                                📄 {slug.replace(/-/g, ' ').replace(/^./, c => c.toUpperCase())}
+                              </Link>
+                            ))}
+                          </div>
+
+                        </div>
+                      )}
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
           ))}
         </motion.section>
 
         {/* ═══ SIMULATEURS ═══ */}
-        <motion.section {...fade(3)} style={{ marginTop: 48 }}>
+        <motion.section {...fade(3)} id="simulateurs" style={{ marginTop: 48 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
             <div style={{ width: 4, height: 28, borderRadius: 2, background: '#3D9E7C' }} />
             <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)' }}>Simulateurs interactifs</h2>
           </div>
           <p style={{ fontSize: 14, color: 'var(--ink-muted)', marginBottom: 24, lineHeight: 1.6 }}>
-            6 outils manipulables en classe, sur tableau interactif ou en salle informatique. Chacun est accompagné d'une suggestion d'utilisation pédagogique.
+            6 outils manipulables en classe, sur tableau interactif ou en salle informatique. Chacun est accompagné d&apos;une suggestion d&apos;utilisation pédagogique.
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 14 }}>
@@ -443,7 +567,7 @@ export default function EnseignantsClient() {
             {REFERENCES.map((r, i) => (
               <div key={i} style={{
                 padding: '14px 18px', background: 'var(--bg)', borderRadius: 8,
-                borderLeft: `3px solid var(--border)`,
+                borderLeft: '3px solid var(--border)',
               }}>
                 <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 2 }}>{r.auteur}</div>
                 <div style={{ fontSize: 13, color: 'var(--ink-soft)', fontStyle: 'italic' }}>{r.titre} ({r.annee})</div>
@@ -460,7 +584,7 @@ export default function EnseignantsClient() {
             borderRadius: 12, textAlign: 'center',
           }}>
             <p style={{ fontSize: 20, fontWeight: 700, color: '#E8EDF4', marginBottom: 8 }}>
-              La science n'est pas un dogme. C'est une méthode.
+              La science n&apos;est pas un dogme. C&apos;est une méthode.
             </p>
             <p style={{ fontSize: 15, color: '#8A95A8', marginBottom: 24, lineHeight: 1.6 }}>
               Enseignons la méthode.
