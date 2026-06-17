@@ -1,0 +1,68 @@
+[
+  {
+    "id": "laser-leman",
+    "titre": "Expérience laser sur 15 km — Lac Léman",
+    "statut": "financement",
+    "question": "Un faisceau laser envoyé à ras de l'eau sur 15 km touche-t-il une cible à la même hauteur de l'autre côté, ou passe-t-il au-dessus à cause de la courbure terrestre théorique ?",
+    "protocole": "Installation d'un laser 532nm (vert) à 30 cm au-dessus de la surface du lac, côté Évian. Cible calibrée à 30 cm côté Lausanne. Caméra 4K pour enregistrer le point d'impact. Mesures de température et humidité pour calculer la réfraction. Trois tirs à des heures différentes (aube, midi, crépuscule).",
+    "budget": [
+      { "poste": "Laser 532nm 200mW + trépied", "montant": 95 },
+      { "poste": "Cible rétro-réfléchissante calibrée", "montant": 45 },
+      { "poste": "Location caméra 4K + zoom 100x", "montant": 180 },
+      { "poste": "Station météo portable", "montant": 60 },
+      { "poste": "Déplacement × 2 personnes (Évian–Lausanne)", "montant": 140 },
+      { "poste": "Hébergement 1 nuit", "montant": 80 }
+    ],
+    "objectif": 600,
+    "collecte": 0,
+    "donateurs": 0,
+    "articlesLies": ["la-perspective-pourquoi-les-objets-disparaissent", "les-experiences-laser-sur-leau"],
+    "simulateur": "laser",
+    "dateCreation": "2026-06-17",
+    "dateObjectif": "2026-09-01",
+    "engagement": "Les résultats seront publiés intégralement — quel qu'en soit le résultat. Données brutes, vidéos, mesures météo : tout sera accessible sur le site."
+  },
+  {
+    "id": "observation-longue-distance",
+    "titre": "Observation de bâtiments au-delà de la courbure théorique",
+    "statut": "financement",
+    "question": "Peut-on photographier des bâtiments qui devraient être partiellement cachés par la courbure terrestre à des distances de 30 à 80 km, dans des conditions atmosphériques documentées ?",
+    "protocole": "Série de 5 observations photographiques depuis des points côtiers connus (Côte d'Azur, Corse, côtes italiennes). Utilisation d'un Nikon P1000 (125× zoom) et d'un télescope 75×. Chaque observation : photo, GPS exact, altitude, conditions météo, calcul de courbure théorique attendue, comparaison avec le visible réel.",
+    "budget": [
+      { "poste": "Location Nikon P1000 (2 semaines)", "montant": 120 },
+      { "poste": "Location télescope 75× + adaptateur photo", "montant": 85 },
+      { "poste": "Déplacements côtiers (5 sites)", "montant": 220 },
+      { "poste": "Station GPS de précision (location)", "montant": 45 },
+      { "poste": "Station météo portable", "montant": 60 }
+    ],
+    "objectif": 530,
+    "collecte": 0,
+    "donateurs": 0,
+    "articlesLies": ["la-perspective-pourquoi-les-objets-disparaissent", "la-refraction-atmospherique-quand-lair-deforme-tout"],
+    "simulateur": "curvature",
+    "dateCreation": "2026-06-17",
+    "dateObjectif": "2026-10-15",
+    "engagement": "Chaque observation sera documentée avec photos haute résolution, coordonnées GPS, données météo et calculs. Les résultats seront publiés même s'ils confirment la courbure attendue."
+  },
+  {
+    "id": "pression-altitude",
+    "titre": "Mesure de pression atmosphérique : gradient vertical réel",
+    "statut": "preparation",
+    "question": "Le gradient de pression atmosphérique mesuré sur le terrain correspond-il exactement aux prédictions du modèle barométrique standard, ou y a-t-il des écarts significatifs ?",
+    "protocole": "Mesures simultanées à 10 altitudes (0 à 3 000 m) le même jour, dans la même colonne d'air. Baromètres calibrés identiques. Mesure de température, humidité et vent à chaque point. Comparaison avec la formule barométrique internationale (ISA).",
+    "budget": [
+      { "poste": "3 baromètres numériques calibrés", "montant": 90 },
+      { "poste": "Thermomètres-hygromètres ×3", "montant": 45 },
+      { "poste": "Déplacement montagne (Alpes, 1 journée)", "montant": 80 },
+      { "poste": "GPS altimétrique de précision", "montant": 35 }
+    ],
+    "objectif": 250,
+    "collecte": 175,
+    "donateurs": 12,
+    "articlesLies": ["la-pression-atmospherique-un-ocean-d-air-invisible", "experiences-sous-pression-reduite"],
+    "simulateur": "density",
+    "dateCreation": "2026-05-01",
+    "dateObjectif": "2026-08-01",
+    "engagement": "Toutes les mesures brutes seront publiées en CSV téléchargeable. Le rapport comparera point par point les valeurs mesurées et les valeurs prédites."
+  }
+]

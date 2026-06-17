@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { getAllArticles } from '@/lib/articles';
+import { getActiveProjet } from '@/lib/projets';
+import ExperimentCTA from '@/components/ExperimentCTA';
 
 const SOCIALS = [
   { icon: '▶', label: 'YouTube', href: 'https://www.youtube.com/@TERREETENDUE', color: '#FF0000' },
@@ -15,11 +17,13 @@ const SECTIONS = [
   { label: 'Observatoire', href: '/observatory' },
   { label: 'Expériences', href: '/experiences' },
   { label: 'Outils', href: '/lab' },
+  { label: 'Projets', href: '/projets' },
   { label: 'À propos', href: '/about' },
 ];
 
 export default function DashboardFooter() {
   const count = getAllArticles().length;
+  const activeProjet = getActiveProjet();
   return (
     <footer style={{
       borderTop: '1px solid var(--border)',
@@ -64,6 +68,20 @@ export default function DashboardFooter() {
               </Link>
             ))}
           </div>
+
+          {/* Experiment CTA */}
+          {activeProjet && (
+            <div>
+              <ExperimentCTA
+                titre={activeProjet.titre}
+                objectif={activeProjet.objectif}
+                collecte={activeProjet.collecte}
+                donateurs={activeProjet.donateurs}
+                id={activeProjet.id}
+                variant="footer"
+              />
+            </div>
+          )}
 
           {/* Social links */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>

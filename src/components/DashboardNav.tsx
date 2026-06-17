@@ -45,6 +45,10 @@ const SECTIONS = [
     subs: [],
   },
   {
+    label: 'Projets', href: '/projets', color: '#D4943A',
+    subs: [],
+  },
+  {
     label: 'Enseignants', href: '/enseignants', color: '#2B7A5F',
     subs: [
       { label: '📄 Livret enseignant (PDF)', href: '/livret-enseignant.pdf' },
