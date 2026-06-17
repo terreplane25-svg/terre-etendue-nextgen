@@ -14,6 +14,7 @@ const PerspectiveSim = dynamic(() => import('@/components/lab/PerspectiveSim'), 
 const DensitySim = dynamic(() => import('@/components/lab/DensitySim'), { ssr: false });
 const VisualFieldSim = dynamic(() => import('@/components/lab/VisualFieldSim'), { ssr: false });
 const LaserLakeSim = dynamic(() => import('@/components/lab/LaserLakeSim'), { ssr: false });
+const ClassifierSim = dynamic(() => import('@/components/lab/ClassifierSim'), { ssr: false });
 
 interface A { slug: string; title: string; description: string; tags: string[]; pinned: boolean; readTime: number; }
 
@@ -80,6 +81,15 @@ const TOOLS = [
     color: '#3B8FD4',
     num: '07',
     tags: ['3D', 'planètes', 'orbites'],
+  },
+  {
+    id: 'classifier',
+    label: 'Fait / Modèle / Hypothèse',
+    desc: "Classez 24 affirmations scientifiques. Feedback immédiat et sources.",
+    icon: '🎯',
+    color: '#2B7A5F',
+    num: '08',
+    tags: ['pédagogie', 'épistémologie', 'quiz', 'enseignants'],
   },
 ];
 
@@ -199,6 +209,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
       case 'laser': return <LaserLakeSim />;
       case 'flat': return <FlatEarthSim />;
       case 'geo': return <GeoHelioSim />;
+      case 'classifier': return <ClassifierSim />;
       default: return null;
     }
   };

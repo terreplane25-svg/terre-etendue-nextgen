@@ -20,6 +20,15 @@ const CYCLE_COLORS: Record<string, string> = {
 
 const SIMULATEURS = [
   {
+    id: 'classifier',
+    titre: 'Trieur Fait / Modèle / Hypothèse',
+    description: '24 affirmations scientifiques à classer. Feedback immédiat avec explication et source pour chaque réponse.',
+    usage: 'L\'outil pédagogique central. Projetez-le au tableau et faites voter la classe avant de révéler la réponse. Question : "Pourquoi avez-vous classé ça comme un fait ?"',
+    programme: 'Tous cycles — Épistémologie',
+    icon: '🎯',
+    color: '#2B7A5F',
+  },
+  {
     id: 'perspective',
     titre: 'Comment la taille apparente change avec la distance',
     description: 'Deux modèles côte à côte : disparition par perspective vs occultation par courbure. L\'élève manipule et observe la différence.',
@@ -114,6 +123,7 @@ const SIM_LABELS: Record<string, string> = {
   curvature: 'Calculateur de courbure',
   geo: 'Système solaire 3D',
   laser: 'Expérience laser',
+  classifier: 'Trieur Fait/Modèle/Hypothèse',
 };
 
 interface Props {
@@ -457,7 +467,7 @@ export default function EnseignantsClient({ fiches }: Props) {
             <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)' }}>Simulateurs interactifs</h2>
           </div>
           <p style={{ fontSize: 14, color: 'var(--ink-muted)', marginBottom: 24, lineHeight: 1.6 }}>
-            6 outils manipulables en classe, sur tableau interactif ou en salle informatique. Chacun est accompagné d&apos;une suggestion d&apos;utilisation pédagogique.
+            7 outils manipulables en classe, sur tableau interactif ou en salle informatique. Chacun est accompagné d&apos;une suggestion d&apos;utilisation pédagogique.
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 14 }}>
