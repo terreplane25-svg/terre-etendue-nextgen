@@ -97,6 +97,7 @@ export default async function ArticlePage({ params }: PageProps) {
       <div className="article-layout" style={{ display: 'grid', gridTemplateColumns: '1fr', maxWidth: 1200, margin: '0 auto', gap: 32, padding: '0 24px' }}>
         <div>
           <ArticleReader article={article} />
+          {/* ExperimentCTA — réactivé quand /projets sera prêt
           {(() => {
             const projet = getActiveProjet();
             if (!projet) return null;
@@ -113,6 +114,7 @@ export default async function ArticlePage({ params }: PageProps) {
               </div>
             );
           })()}
+          */}
           <div className="max-w-[800px] mx-auto px-6">
             <RelatedArticles
               currentSlug={slug}

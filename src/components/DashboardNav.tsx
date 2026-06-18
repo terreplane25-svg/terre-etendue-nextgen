@@ -44,10 +44,7 @@ const SECTIONS = [
     label: 'Outils', href: '/lab', color: '#3D9E7C',
     subs: [],
   },
-  {
-    label: 'Projets', href: '/projets', color: '#D4943A',
-    subs: [],
-  },
+  // { label: 'Projets', href: '/projets', color: '#D4943A', subs: [] },
   {
     label: 'Enseignants', href: '/enseignants', color: '#2B7A5F',
     subs: [

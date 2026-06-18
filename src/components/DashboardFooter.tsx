@@ -17,7 +17,7 @@ const SECTIONS = [
   { label: 'Observatoire', href: '/observatory' },
   { label: 'Expériences', href: '/experiences' },
   { label: 'Outils', href: '/lab' },
-  { label: 'Projets', href: '/projets' },
+  // { label: 'Projets', href: '/projets' },
   { label: 'À propos', href: '/about' },
 ];
 
@@ -69,7 +69,7 @@ export default function DashboardFooter() {
             ))}
           </div>
 
-          {/* Experiment CTA */}
+          {/* ExperimentCTA footer — réactivé quand /projets sera prêt
           {activeProjet && (
             <div>
               <ExperimentCTA
@@ -82,6 +82,7 @@ export default function DashboardFooter() {
               />
             </div>
           )}
+          */}
 
           {/* Social links */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
