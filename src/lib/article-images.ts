@@ -66,6 +66,7 @@ const IMG: Record<string, string> = {
   "pourquoi-tout-remettre-en-question": `${UNSPLASH}/photo-1457364887197-9150188c107b?w=600&h=400&fit=crop`,
 
   // ── Observatory extra ──
+  "vols-avion-et-courbure-terrestre": `${HOSTINGER}/2026/06/Six_flight_instruments.jpg`,
   "la-perspective-pourquoi-les-objets-disparaissent": `${UNSPLASH}/photo-1473654729523-203e25dfda10?w=600&h=400&fit=crop`,
 
   // ── Meta ──
