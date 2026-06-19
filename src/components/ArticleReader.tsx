@@ -11,7 +11,7 @@ interface TocItem { id: string; text: string; level: number; }
 
 const CAT_LABEL: Record<string, string> = { headquarters: 'Centre de Recherche', observatory: 'Observatoire', library: 'Bibliothèque', lab: 'Outils' };
 
-function SvgLightbox({ svgHtml, onClose }: { svgHtml: string; onClose: () => void }) {
+function Lightbox({ content, type, onClose }: { content: string; type: 'svg' | 'img'; onClose: () => void }) {
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     document.addEventListener('keydown', handleKey);
@@ -36,35 +36,39 @@ function SvgLightbox({ svgHtml, onClose }: { svgHtml: string; onClose: () => voi
       <div
         onClick={e => e.stopPropagation()}
         style={{
-          background: 'var(--card)',
+          background: type === 'img' ? 'transparent' : 'var(--card)',
           borderRadius: 6,
-          padding: 24,
+          padding: type === 'img' ? 0 : 24,
           width: '92vw',
           maxWidth: 1200,
           maxHeight: '92vh',
           overflow: 'auto',
           cursor: 'default',
           position: 'relative',
-          boxShadow: '0 8px 40px rgba(0,0,0,0.3)',
+          boxShadow: type === 'img' ? 'none' : '0 8px 40px rgba(0,0,0,0.3)',
         }}
       >
         <button
           onClick={onClose}
           style={{
-            position: 'sticky', top: 0, float: 'right',
+            position: 'absolute', top: 8, right: 8,
             width: 36, height: 36, borderRadius: 4,
             border: '1px solid var(--border)', background: 'var(--card)',
             color: 'var(--ink-soft)', fontSize: 18, cursor: 'pointer',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            zIndex: 1, marginBottom: -36,
+            zIndex: 1,
           }}
         >
           ✕
         </button>
-        <div
-          dangerouslySetInnerHTML={{ __html: svgHtml }}
-          className="svg-lightbox-content"
-        />
+        {type === 'svg' ? (
+          <div
+            dangerouslySetInnerHTML={{ __html: content }}
+            className="svg-lightbox-content"
+          />
+        ) : (
+          <img src={content} alt="" style={{ width: '100%', height: 'auto', borderRadius: 6, display: 'block' }} />
+        )}
       </div>
     </div>
   );
@@ -87,13 +91,13 @@ export default function ArticleReader(props: ArticleReaderProps) {
   const contentRef = useRef<HTMLDivElement>(null);
   const articleRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
-  const [lightboxSvg, setLightboxSvg] = useState<string | null>(null);
+  const [lightboxContent, setLightboxContent] = useState<{ content: string; type: 'svg' | 'img' } | null>(null);
   const [tocItems, setTocItems] = useState<TocItem[]>([]);
   const [activeHeading, setActiveHeading] = useState<string>('');
   const [tocOpen, setTocOpen] = useState(false);
   const hintsAdded = useRef(false);
 
-  const closeLightbox = useCallback(() => setLightboxSvg(null), []);
+  const closeLightbox = useCallback(() => setLightboxContent(null), []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -146,34 +150,43 @@ export default function ArticleReader(props: ArticleReaderProps) {
     if (!hintsAdded.current) {
       hintsAdded.current = true;
 
-      container.querySelectorAll('svg').forEach(svg => {
-        svg.style.cursor = 'zoom-in';
-        svg.setAttribute('title', 'Cliquez pour agrandir');
+      const addZoomHint = (el: Element) => {
+        (el as HTMLElement).style.cursor = 'zoom-in';
+        el.setAttribute('title', 'Cliquez pour agrandir');
         const hint = document.createElement('div');
         hint.className = 'svg-zoom-hint';
         hint.style.cssText = 'position:absolute;bottom:6px;right:8px;font-size:9px;font-family:monospace;color:#8A857D;opacity:0;transition:opacity 0.2s;pointer-events:none;background:rgba(255,255,255,0.85);padding:1px 5px;border-radius:2px;';
         hint.textContent = '⤢ Agrandir';
-        const wrapper = svg.parentElement;
+        const wrapper = el.parentElement;
         if (wrapper) {
           wrapper.style.position = 'relative';
           wrapper.appendChild(hint);
-          svg.addEventListener('mouseenter', () => { hint.style.opacity = '1'; });
-          svg.addEventListener('mouseleave', () => { hint.style.opacity = '0'; });
+          el.addEventListener('mouseenter', () => { hint.style.opacity = '1'; });
+          el.addEventListener('mouseleave', () => { hint.style.opacity = '0'; });
         }
-      });
+      };
+      container.querySelectorAll('svg').forEach(addZoomHint);
+      container.querySelectorAll('img[data-zoomable]').forEach(addZoomHint);
     }
 
     const handleClick = (e: MouseEvent) => {
       const target = e.target as Element;
+
+      const img = target.closest('img[data-zoomable]') as HTMLImageElement | null;
+      if (img && container.contains(img)) {
+        e.stopPropagation();
+        setLightboxContent({ content: img.src, type: 'img' });
+        return;
+      }
+
       const svg = target.closest('svg');
       if (!svg || !container.contains(svg)) return;
-
       e.stopPropagation();
       const clone = svg.cloneNode(true) as SVGSVGElement;
       clone.removeAttribute('width');
       clone.removeAttribute('height');
       clone.style.cssText = 'width:100%;height:auto;max-width:none;display:block;background:transparent;border:none;box-shadow:none;padding:0;margin:0;cursor:default;';
-      setLightboxSvg(clone.outerHTML);
+      setLightboxContent({ content: clone.outerHTML, type: 'svg' });
     };
 
     container.addEventListener('click', handleClick);
@@ -224,7 +237,7 @@ export default function ArticleReader(props: ArticleReaderProps) {
 
         <div ref={contentRef} className="prose-dash" dangerouslySetInnerHTML={{ __html: content }} />
 
-        {lightboxSvg && <SvgLightbox svgHtml={lightboxSvg} onClose={closeLightbox} />}
+        {lightboxContent && <Lightbox content={lightboxContent.content} type={lightboxContent.type} onClose={closeLightbox} />}
       </div>
 
       {/* Floating TOC button + panel */}
