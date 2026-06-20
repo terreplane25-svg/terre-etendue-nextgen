@@ -230,7 +230,7 @@ export default function SearchCommand({ inline }: { inline?: boolean }) {
                     placeholder="Rechercher un article, un sujet..."
                     style={{
                       flex: 1, border: 'none', outline: 'none',
-                      fontSize: 15, color: dash.ink, background: 'transparent',
+                      fontSize: 15, color: 'var(--ink)', background: 'transparent',
                       fontFamily: dash.fontMain,
                     }}
                   />
