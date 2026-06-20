@@ -98,8 +98,8 @@ export default function DashboardNav() {
         transition: 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)',
       }}>
         {/* ── Desktop header ── */}
-        <div className="hidden lg:flex" style={{ maxWidth: 1360, margin: '0 auto', padding: '0 24px', alignItems: 'center' }}>
-          <Link href="/" style={{ flexShrink: 0, marginRight: 32, marginLeft: -8, padding: '8px 0' }}>
+        <div className="hidden lg:flex" style={{ width: '100%', padding: '0 32px', alignItems: 'center' }}>
+          <Link href="/" style={{ flexShrink: 0, padding: '8px 0' }}>
             <div style={{
               fontSize: 27, fontWeight: 900, color: 'var(--ink)', letterSpacing: '-0.03em',
               lineHeight: 1.1, fontFamily: "'Plus Jakarta Sans', sans-serif",
@@ -114,7 +114,7 @@ export default function DashboardNav() {
             </div>
           </Link>
 
-          <nav style={{ display: 'flex', alignItems: 'center', gap: 0, flex: 1, justifyContent: 'center', minWidth: 0, overflow: 'hidden' }}>
+          <nav style={{ display: 'flex', alignItems: 'center', gap: 0, flex: 1, justifyContent: 'center', minWidth: 0 }}>
             {SECTIONS.map(s => {
               const active = pathname === s.href || pathname?.startsWith(s.href + '/');
               return (
@@ -172,7 +172,7 @@ export default function DashboardNav() {
             })}
           </nav>
 
-          <div style={{ flexShrink: 0, marginLeft: 'auto', paddingLeft: 24, display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: 12 }}>
             <SearchCommand inline />
             <ThemeToggle />
           </div>
