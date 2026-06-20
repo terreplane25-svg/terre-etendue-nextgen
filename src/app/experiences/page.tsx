@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const HISTORICAL_SLUGS = [
   "leau-ne-ment-pas",
-  "le-pendule-de-foucault-une-preuve-contestee",
+  "la-rotation-terrestre-deux-experiences-zero-preuve",
   "les-horloges-atomiques-ne-prouvent-rien",
   "la-perspective-pourquoi-les-objets-disparaissent",
   "lhorizon-la-perspective-et-la-refraction",

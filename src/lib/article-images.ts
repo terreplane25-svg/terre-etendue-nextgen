@@ -11,7 +11,6 @@ const IMG: Record<string, string> = {
   "lhorizon-la-perspective-et-la-refraction": `${HOSTINGER}/2026/06/refraction.png`,
   // merged into la-perspective-pourquoi-les-objets-disparaissent
   "leau-ne-ment-pas": `${HOSTINGER}/2026/05/ea.png`,
-  "le-pendule-de-foucault-une-preuve-contestee": `${HOSTINGER}/2026/06/pantheon_pendule_de_foucault1.jpg`,
   "les-horloges-atomiques-ne-prouvent-rien": `${HOSTINGER}/2026/06/48371867_2205216006163858_1771726137618071552_n.jpg`,
   "pression-lumiere-halos-rayons-et-ondes": `${UNSPLASH}/photo-1534088568595-a066f410bcda?w=600&h=400&fit=crop`,
   "les-marees-contre-lheliocentrisme": `${HOSTINGER}/2026/06/maree.jpg`,
@@ -54,7 +53,7 @@ const IMG: Record<string, string> = {
   "dune-terre-plate-universelle-a-la-sphere-grecque": `${UNSPLASH}/photo-1569003339405-ea396a5a8a90?w=600&h=400&fit=crop`,
   "kings-dethroned-leffondrement-de-la-triangulation-stellaire": `${UNSPLASH}/photo-1419242902214-272b3f66ee7a?w=600&h=400&fit=crop`,
   "la-cosmologie-comme-instrument-de-domination": `${UNSPLASH}/photo-1504711434969-e33886168d9c?w=600&h=400&fit=crop`,
-  "la-rotation-terrestre-deux-experiences-zero-preuve": `${UNSPLASH}/photo-1446776811953-b23d57bd21aa?w=600&h=400&fit=crop`,
+  "la-rotation-terrestre-deux-experiences-zero-preuve": `${HOSTINGER}/2026/06/pantheon_pendule_de_foucault1.jpg`,
   "le-concordisme": `${UNSPLASH}/photo-1530026405186-ed1f139313f8?w=600&h=400&fit=crop`,
   "le-mouvement-zetetique-150-ans-de-resistance": `${UNSPLASH}/photo-1504711434969-e33886168d9c?w=600&h=400&fit=crop`,
   "le-mythe-deratosthene": `${UNSPLASH}/photo-1569003339405-ea396a5a8a90?w=600&h=400&fit=crop`,

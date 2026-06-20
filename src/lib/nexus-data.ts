@@ -526,7 +526,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
-    "id": "le-pendule-de-foucault-une-preuve-contestee",
+    "id": "la-rotation-terrestre-deux-experiences-zero-preuve",
     "title": "Le pendule de Foucault : une preuve contestée",
     "category": "observatory",
     "pillar": "OBS",
@@ -978,7 +978,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["epistemologie", "cosmologie", "histoire_sciences"]
   },
   {
-    "source": "le-pendule-de-foucault-une-preuve-contestee",
+    "source": "la-rotation-terrestre-deux-experiences-zero-preuve",
     "target": "les-horloges-atomiques-ne-prouvent-rien",
     "score": 373.0,
     "strength": "strong",
@@ -1305,7 +1305,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "200-ans-de-resultats-nuls-darago-a-einstein",
-    "target": "le-pendule-de-foucault-une-preuve-contestee",
+    "target": "la-rotation-terrestre-deux-experiences-zero-preuve",
     "score": 316.7,
     "strength": "strong",
     "sharedDomains": ["physique", "epistemologie"]
@@ -1602,7 +1602,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["physique"]
   },
   {
-    "source": "le-pendule-de-foucault-une-preuve-contestee",
+    "source": "la-rotation-terrestre-deux-experiences-zero-preuve",
     "target": "principe-action-reaction",
     "score": 148.4,
     "strength": "medium",
@@ -1616,7 +1616,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["geometrie", "physique"]
   },
   {
-    "source": "le-pendule-de-foucault-une-preuve-contestee",
+    "source": "la-rotation-terrestre-deux-experiences-zero-preuve",
     "target": "masse-et-volume",
     "score": 142.9,
     "strength": "medium",
@@ -1931,7 +1931,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["islam_sources"]
   },
   {
-    "source": "le-pendule-de-foucault-une-preuve-contestee",
+    "source": "la-rotation-terrestre-deux-experiences-zero-preuve",
     "target": "pourquoi-les-choses-montent-et-descendent",
     "score": 114.2,
     "strength": "medium",

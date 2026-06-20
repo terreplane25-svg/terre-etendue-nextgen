@@ -27,7 +27,7 @@ const SECTIONS = [
     'la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas',
     'la-lune-fonction-et-anomalies',
     'le-theodolite-celeste',
-    'le-pendule-de-foucault-une-preuve-contestee',
+    'la-rotation-terrestre-deux-experiences-zero-preuve',
     'les-horloges-atomiques-ne-prouvent-rien',
   ]},
 ];
