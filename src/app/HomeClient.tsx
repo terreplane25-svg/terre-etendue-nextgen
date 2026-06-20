@@ -43,7 +43,7 @@ export default function HomeClient({ articles }: { articles: A[] }) {
       {/* ═══ HERO ═══ */}
       <div style={{
         background: 'linear-gradient(135deg, #0D1528 0%, #1A2540 50%, #0D1528 100%)',
-        padding: '56px 24px 48px',
+        padding: '100px 24px 48px',
         borderBottom: '3px solid',
         borderImage: 'linear-gradient(90deg, #D4943A, #8B7EC8, #3B8FD4, #C45E6A, #3D9E7C) 1',
       }}>

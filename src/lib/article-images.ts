@@ -23,7 +23,7 @@ const IMG: Record<string, string> = {
   "le-theodolite-celeste": `${UNSPLASH}/photo-1507400492013-162706c8c05e?w=600&h=400&fit=crop`,
 
   // ── Experiments ──
-  "densite-pourquoi-les-choses-montent-et-descendent": `${UNSPLASH}/photo-1558618666-fcd25c85f82e?w=600&h=400&fit=crop`,
+  "densite-pourquoi-les-choses-montent-et-descendent": `${HOSTINGER}/2026/06/ChatGPT-Image-21-juin-2026-00_39_16.png`,
   "la-pression-atmospherique-un-ocean-d-air-invisible": `${UNSPLASH}/photo-1534088568595-a066f410bcda?w=600&h=400&fit=crop`,
   "experiences-sous-pression-reduite": `${UNSPLASH}/photo-1567427018141-0584cfcbf1b8?w=600&h=400&fit=crop`,
   "la-perspective-lineaire": `${UNSPLASH}/photo-1473654729523-203e25dfda10?w=600&h=400&fit=crop`,
