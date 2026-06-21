@@ -50,7 +50,7 @@ const IMG: Record<string, string> = {
   "la-gravite-70-theories-et-aucune-preuve": `${UNSPLASH}/photo-1446776811953-b23d57bd21aa?w=600&h=400&fit=crop`,
   "200-ans-de-resultats-nuls-darago-a-einstein": `${UNSPLASH}/photo-1507413245164-6160d8298b31?w=600&h=400&fit=crop`,
   "chronologie-de-la-tromperie-du-globe": `${HOSTINGER}/2025/09/science_logo.png`,
-  "dune-terre-plate-universelle-a-la-sphere-grecque": `${UNSPLASH}/photo-1569003339405-ea396a5a8a90?w=600&h=400&fit=crop`,
+  "dune-terre-plate-universelle-a-la-sphere-grecque": `${HOSTINGER}/2025/09/photo_2025-09-29_04-34-50-1.jpg`,
   "kings-dethroned-leffondrement-de-la-triangulation-stellaire": `${UNSPLASH}/photo-1419242902214-272b3f66ee7a?w=600&h=400&fit=crop`,
   "la-cosmologie-comme-instrument-de-domination": `${UNSPLASH}/photo-1504711434969-e33886168d9c?w=600&h=400&fit=crop`,
   "la-rotation-terrestre-deux-experiences-zero-preuve": `${HOSTINGER}/2026/06/pantheon_pendule_de_foucault1.jpg`,
