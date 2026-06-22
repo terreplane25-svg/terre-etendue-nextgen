@@ -11,7 +11,7 @@ const IMG: Record<string, string> = {
   "lhorizon-la-perspective-et-la-refraction": `${HOSTINGER}/2026/06/refraction.png`,
   // merged into la-perspective-pourquoi-les-objets-disparaissent
   "leau-ne-ment-pas": `${HOSTINGER}/2026/05/ea.png`,
-  "les-horloges-atomiques-ne-prouvent-rien": `${HOSTINGER}/2026/06/48371867_2205216006163858_1771726137618071552_n.jpg`,
+  // les-horloges-atomiques-ne-prouvent-rien: merged into la-rotation-terrestre
   "pression-lumiere-halos-rayons-et-ondes": `${UNSPLASH}/photo-1534088568595-a066f410bcda?w=600&h=400&fit=crop`,
   "les-marees-contre-lheliocentrisme": `${HOSTINGER}/2026/06/maree.jpg`,
   // merged into la-perspective-pourquoi-les-objets-disparaissent

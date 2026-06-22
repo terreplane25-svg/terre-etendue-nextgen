@@ -601,21 +601,6 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
-    "id": "les-horloges-atomiques-ne-prouvent-rien",
-    "title": "Les horloges atomiques ne prouvent rien",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF5722",
-    "primaryDomain": "physique",
-    "topDomains": ["physique", "epistemologie", "astronomie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -57.5,
-    "y": -356.0,
-    "size": 8
-  },
-  {
     "id": "les-marees-contre-lheliocentrisme",
     "title": "Les marées contre l'héliocentrisme",
     "category": "observatory",
@@ -976,13 +961,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 373.4,
     "strength": "strong",
     "sharedDomains": ["epistemologie", "cosmologie", "histoire_sciences"]
-  },
-  {
-    "source": "la-rotation-terrestre-deux-experiences-zero-preuve",
-    "target": "les-horloges-atomiques-ne-prouvent-rien",
-    "score": 373.0,
-    "strength": "strong",
-    "sharedDomains": ["physique", "astronomie", "epistemologie"]
   },
   {
     "source": "la-perspective-lineaire",
@@ -1389,13 +1367,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["epistemologie", "histoire_sciences"]
   },
   {
-    "source": "200-ans-de-resultats-nuls-darago-a-einstein",
-    "target": "les-horloges-atomiques-ne-prouvent-rien",
-    "score": 301.8,
-    "strength": "strong",
-    "sharedDomains": ["physique", "epistemologie"]
-  },
-  {
     "source": "la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas",
     "target": "la-perspective-atmospherique",
     "score": 301.4,
@@ -1679,13 +1650,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["geometrie", "optique"]
   },
   {
-    "source": "les-horloges-atomiques-ne-prouvent-rien",
-    "target": "principe-action-reaction",
-    "score": 139.2,
-    "strength": "medium",
-    "sharedDomains": ["physique"]
-  },
-  {
     "source": "etat-des-lieux-ou-en-sommes-nous",
     "target": "le-mythe-deratosthene",
     "score": 138.6,
@@ -1784,13 +1748,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["histoire_sciences", "cosmologie"]
   },
   {
-    "source": "les-horloges-atomiques-ne-prouvent-rien",
-    "target": "masse-et-volume",
-    "score": 129.3,
-    "strength": "medium",
-    "sharedDomains": ["physique"]
-  },
-  {
     "source": "lespace-une-frontiere-infranchissable",
     "target": "persistance-retinienne",
     "score": 129.1,
@@ -1831,13 +1788,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 127.4,
     "strength": "medium",
     "sharedDomains": ["gravite"]
-  },
-  {
-    "source": "les-horloges-atomiques-ne-prouvent-rien",
-    "target": "pourquoi-les-choses-montent-et-descendent",
-    "score": 127.4,
-    "strength": "medium",
-    "sharedDomains": ["physique"]
   },
   {
     "source": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",

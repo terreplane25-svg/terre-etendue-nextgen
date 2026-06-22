@@ -28,7 +28,6 @@ const SECTIONS = [
     'la-lune-fonction-et-anomalies',
     'le-theodolite-celeste',
     'la-rotation-terrestre-deux-experiences-zero-preuve',
-    'les-horloges-atomiques-ne-prouvent-rien',
   ]},
 ];
 
