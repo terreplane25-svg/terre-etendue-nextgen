@@ -207,7 +207,7 @@ export default function ArticleReader(props: ArticleReaderProps) {
         }} />
       </div>
 
-      <div ref={articleRef} style={{ maxWidth: 900, margin: '0 auto', padding: '32px 16px 80px', fontFamily: "'Plus Jakarta Sans', sans-serif", overflowX: 'hidden' }} className="sm:!px-6">
+      <div ref={articleRef} style={{ maxWidth: 960, margin: '0 auto', padding: '32px 16px 80px', fontFamily: "'Plus Jakarta Sans', sans-serif", overflowX: 'hidden' }} className="sm:!px-6">
 
         <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--lavender)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 12 }}>
           {CAT_LABEL[category] || category}

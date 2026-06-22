@@ -94,7 +94,7 @@ export default async function ArticlePage({ params }: PageProps) {
   return (
     <main className="min-h-screen pt-24 pb-16" style={{ background: 'var(--bg)', overflowX: 'hidden' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <div className="article-layout" style={{ display: 'grid', gridTemplateColumns: '1fr', maxWidth: 1200, margin: '0 auto', gap: 32, padding: '0 24px' }}>
+      <div className="article-layout" style={{ display: 'grid', gridTemplateColumns: '1fr', maxWidth: 1400, margin: '0 auto', gap: 32, padding: '0 24px' }}>
         <div>
           <ArticleReader article={article} />
           {/* ExperimentCTA — réactivé quand /projets sera prêt
@@ -102,7 +102,7 @@ export default async function ArticlePage({ params }: PageProps) {
             const projet = getActiveProjet();
             if (!projet) return null;
             return (
-              <div className="max-w-[800px] mx-auto px-6">
+              <div className="max-w-[960px] mx-auto px-6">
                 <ExperimentCTA
                   titre={projet.titre}
                   objectif={projet.objectif}
@@ -115,7 +115,7 @@ export default async function ArticlePage({ params }: PageProps) {
             );
           })()}
           */}
-          <div className="max-w-[800px] mx-auto px-6">
+          <div className="max-w-[960px] mx-auto px-6">
             <RelatedArticles
               currentSlug={slug}
               currentTags={article.tags || []}
