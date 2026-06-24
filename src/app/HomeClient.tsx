@@ -25,6 +25,7 @@ const PILLARS = [
   { label: 'Observatoire', desc: 'Données empiriques et optique', icon: '🔭', href: '/observatory', color: '#3B8FD4' },
   { label: 'Expériences', desc: 'Physique et phénomènes naturels', icon: '⚗️', href: '/experiences', color: '#C45E6A' },
   { label: 'Simulateurs', desc: '7 outils interactifs 3D', icon: '🗺️', href: '/lab', color: '#3D9E7C' },
+  { label: 'Laboratoire', desc: 'Analyse de médias et méthode', icon: '🔬', href: '/laboratoire', color: '#8B7EC8' },
 ];
 
 function fmtDate(d: string) {
