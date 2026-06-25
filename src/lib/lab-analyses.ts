@@ -44,10 +44,10 @@ export const ANALYSES: AnalyseMedia[] = [
     duration: '~2 min',
     embedUrl: 'https://www.youtube.com/embed/Lgi_kPy-fjQ',
     observation: `Sur une longue route droite par forte chaleur, la chaussée semble mouillée à quelques centaines de mètres. On aperçoit un « reflet » inversé des véhicules et du ciel sur la route. L'effet disparaît à mesure qu'on s'approche.`,
-    analyse: `<p>L'air surchauffé au contact du bitume (60–70 °C) crée une couche d'air <strong>moins dense</strong> juste au-dessus de la route.</p>
-<p>L'indice de réfraction de l'air diminue avec la température : <code>n ≈ 1 + 0,000293 × (P/T)</code>. Les rayons lumineux se courbent vers les couches plus denses (<strong>loi de Snell-Descartes</strong> appliquée en gradient continu).</p>
-<p>À un angle rasant suffisant, la courbure est telle que la lumière « remonte » vers l'observateur → on voit le ciel projeté sur la route (apparence de flaque d'eau). L'image inversée en dessous de l'objet est caractéristique du <strong>mirage inférieur</strong>.</p>
-<p>À distinguer du mirage <em>supérieur</em> (image au-dessus, inversion thermique en altitude) et de la <em>Fata Morgana</em> (couches multiples créant des images empilées et déformées).</p>`,
+    analyse: `<p>L'air surchauffé au contact du bitume crée une couche d'air <strong>moins dense</strong> juste au-dessus de la route. L'indice de réfraction diminue avec la température, les rayons se courbent vers les couches plus denses (<strong>loi de Snell-Descartes</strong> en gradient continu).</p>
+<p>À un angle rasant suffisant, la lumière « remonte » vers l'observateur → on voit le ciel projeté sur la route (apparence de flaque d'eau).</p>
+<p><strong>Ce que cela nous apprend :</strong> le mirage inférieur est une preuve directe que l'atmosphère dévie systématiquement la lumière. Toute observation à l'horizon — disparition de bateaux, coucher de soleil, visibilité d'objets lointains — est <strong>filtrée par ces mêmes déviations</strong>. Aucune conclusion sur la forme de la Terre ne peut être tirée sans d'abord quantifier la réfraction locale.</p>
+<p>L'article <em>Pression, lumière, halos</em> développe en détail comment la densité de l'air modifie systématiquement ce que nous voyons.</p>`,
     demarche: [
       'Identifier le type de mirage : inférieur (sol chaud) vs supérieur (inversion thermique en altitude) vs Fata Morgana (couches multiples)',
       'Documenter les conditions : température au sol, température de l\'air, heure, ensoleillement, nature de la surface',
@@ -194,9 +194,9 @@ export const ANALYSES: AnalyseMedia[] = [
     duration: '~2-5 min',
     embedUrl: 'https://www.youtube.com/embed/9anAi3cF3yM',
     observation: `En tournant le dos au soleil lorsque des rayons crépusculaires sont visibles, on observe les mêmes faisceaux qui semblent maintenant converger vers un point unique à l'horizon, diamétralement opposé au soleil.`,
-    analyse: `<p>Les rayons anti-crépusculaires sont <strong>exactement les mêmes rayons</strong> que les rayons crépusculaires, vus depuis la direction opposée. Si les rayons semblent diverger du côté du soleil, ils semblent converger du côté anti-solaire.</p>
-<p>C'est la preuve directe que la divergence apparente est un <strong>effet de perspective</strong> et non une divergence réelle. Des rayons réellement divergents ne pourraient pas converger de l'autre côté — seuls des rayons parallèles produisent cet effet symétrique.</p>
-<p>Analogie : imaginez une longue route droite. D'un côté, elle semble s'élargir vers vous. De l'autre, elle semble se rétrécir vers l'horizon. La route ne change pas de largeur — c'est votre perspective qui change.</p>`,
+    analyse: `<p>Les rayons anti-crépusculaires sont les <strong>mêmes rayons</strong> que les rayons crépusculaires, vus depuis le côté opposé du ciel. Ils semblent converger vers le point anti-solaire (directement opposé au Soleil).</p>
+<p>La convergence apparente est un <strong>effet de perspective</strong> : des lignes parallèles semblent converger vers un point de fuite. Les rayons solaires sont en réalité quasi-parallèles (le Soleil est très loin), mais notre vision en perspective les fait converger.</p>
+<p><strong>Ce que cela nous apprend :</strong> ce phénomène illustre de façon spectaculaire comment la <strong>perspective</strong> crée des illusions de convergence. C'est le même mécanisme que les rails de chemin de fer qui « se rejoignent ». Cela questionne directement les conclusions tirées de la perspective — ce que l'on voit converger n'est pas nécessairement ce qui converge réellement.</p>`,
     demarche: [
       `Observer simultanément les deux côtés du ciel (crépusculaire et anti-crépusculaire)`,
       `Photographier les deux directions avec la même focale pour comparaison`,
@@ -222,10 +222,9 @@ export const ANALYSES: AnalyseMedia[] = [
     duration: '~2-5 min',
     embedUrl: 'https://www.youtube.com/embed/k3L1BX0Czak',
     observation: `Un cercle lumineux parfait entoure le soleil à une distance angulaire d'environ 22°. L'intérieur du cercle est légèrement plus sombre que l'extérieur. Parfois, des couleurs irisées sont visibles (rouge à l'intérieur, bleu à l'extérieur).`,
-    analyse: `<p>Le halo de 22° est produit par la <strong>réfraction de la lumière</strong> à travers des cristaux de glace hexagonaux en suspension dans les cirrus (nuages entre 5 000 et 13 000 m d'altitude).</p>
-<p>La lumière entre par une face du cristal hexagonal et sort par une face non adjacente, ce qui produit une déviation minimale de <strong>21,8°</strong> (arrondi à 22°). C'est pourquoi le halo a toujours le même rayon angulaire, quelle que soit la taille des cristaux.</p>
-<p>L'intérieur du cercle est plus sombre parce qu'aucun rayon ne peut être dévié de moins de 22° par ce type de cristal — c'est un <strong>minimum de déviation</strong>. Les couleurs proviennent de la dispersion chromatique (le rouge est moins dévié que le bleu).</p>
-<p>Le halo est un phénomène de <strong>réfraction</strong> (pas de réflexion) et ne dépend que de la géométrie hexagonale des cristaux de glace — un phénomène prévisible et reproductible.</p>`,
+    analyse: `<p>Le halo à 22° se forme par réfraction de la lumière solaire à travers les cristaux de glace hexagonaux des cirrostratus (altitude ~5-10 km). L'angle de déviation minimale à travers un prisme de glace à 60° est d'environ 22°.</p>
+<p>Le halo est toujours circulaire et centré sur le Soleil — il n'est jamais elliptique ni décentré. Sa taille angulaire (22°) est constante quel que soit le lieu ou la saison.</p>
+<p><strong>Ce que cela nous apprend :</strong> le halo prouve que des cristaux de glace sont suspendus dans la haute atmosphère. L'article <em>Pression, lumière, halos, rayons et ondes</em> analyse en détail comment ces phénomènes optiques atmosphériques — souvent ignorés — nous renseignent sur la structure réelle de l'atmosphère au-dessus de nos têtes, indépendamment de tout modèle cosmologique.</p>`,
     demarche: [
       `Mesurer le rayon angulaire du halo (doit être proche de 22° — un poing à bout de bras ≈ 10°, donc environ 2 poings)`,
       `Observer la distribution des couleurs : rouge à l'intérieur, bleu à l'extérieur (dispersion chromatique)`,
@@ -253,10 +252,9 @@ export const ANALYSES: AnalyseMedia[] = [
     duration: '~2-5 min',
     embedUrl: 'https://www.youtube.com/embed/R4cbvsJvGUg',
     observation: `Deux taches lumineuses brillantes apparaissent de chaque côté du soleil, à environ 22° de distance. Elles sont souvent colorées (rouge vers le soleil, bleu à l'extérieur). Parfois, seule une parhélie est visible. Elles sont à la même hauteur que le soleil.`,
-    analyse: `<p>Les parhélies sont produites par la réfraction de la lumière à travers des <strong>cristaux de glace plats</strong> (en forme de plaquette hexagonale) qui tombent horizontalement dans l'atmosphère, comme des feuilles mortes.</p>
-<p>Cette orientation horizontale spécifique fait que la lumière est déviée principalement dans le plan horizontal — d'où les taches lumineuses <strong>à gauche et à droite</strong> du soleil, et non au-dessus ni en dessous.</p>
-<p>La distance de 22° est la même que celle du halo, car c'est le même angle de déviation minimale à travers un prisme hexagonal. Mais le halo est produit par des cristaux orientés aléatoirement (cercle complet), tandis que les parhélies sont produites par des cristaux alignés horizontalement (points lumineux).</p>
-<p>Quand le soleil est bas sur l'horizon, les parhélies sont exactement à 22°. Quand il monte, elles s'éloignent progressivement.</p>`,
+    analyse: `<p>Les parhélies apparaissent quand des cristaux de glace hexagonaux <strong>orientés horizontalement</strong> réfractent la lumière solaire. Contrairement au halo (cristaux aléatoires), les parhélies nécessitent des cristaux alignés, ce qui les localise à ±22° du Soleil sur l'horizontale.</p>
+<p>La vidéo montre un phénomène remarquable : jusqu'à <strong>7 sources lumineuses</strong> visibles simultanément dans le ciel. L'explication par les cristaux de glace est solide pour les parhélies classiques (2 faux soleils).</p>
+<p><strong>Ce que cela nous apprend :</strong> l'atmosphère terrestre est capable de produire des <strong>images multiples et déformées</strong> d'une même source lumineuse. Ce phénomène, bien que compris dans ses grandes lignes, montre que ce que nous voyons dans le ciel n'est pas toujours la réalité — la lumière est constamment réfractée, réfléchie et dispersée par l'atmosphère. L'article <em>Pression, lumière, halos, rayons et ondes</em> explore ces mécanismes en profondeur.</p>`,
     demarche: [
       `Mesurer la distance angulaire entre le soleil et chaque parhélie (~22° quand le soleil est bas)`,
       `Vérifier que les parhélies sont à la même hauteur que le soleil (critère distinctif)`,
@@ -284,10 +282,9 @@ export const ANALYSES: AnalyseMedia[] = [
     duration: '~2-5 min',
     embedUrl: 'https://www.youtube.com/embed/h7JGYma5yZ0',
     observation: `Une colonne de lumière verticale s'élève au-dessus (et parfois en dessous) du soleil couchant, ou au-dessus de lampadaires et sources de lumière artificielles par nuit froide. La colonne semble solide et peut s'étendre sur plusieurs degrés.`,
-    analyse: `<p>Les piliers lumineux sont un phénomène de <strong>réflexion</strong> (pas de réfraction) sur des cristaux de glace plats qui tombent presque horizontalement dans l'air calme.</p>
-<p>Chaque cristal agit comme un minuscule miroir horizontal. La lumière du soleil (ou d'un lampadaire) se reflète sur des millions de ces miroirs microscopiques, à différentes hauteurs. L'ensemble de ces reflets crée l'illusion d'une colonne verticale continue.</p>
-<p>Le pilier n'est pas un faisceau de lumière réel — c'est un effet collectif de millions de reflets individuels. C'est pourquoi il est toujours centré sur la source de lumière vue depuis l'observateur.</p>
-<p>Les piliers lumineux au-dessus de lampadaires sont particulièrement faciles à observer en hiver dans les régions froides (Canada, Scandinavie, Russie) et prouvent que le phénomène ne nécessite pas le soleil.</p>`,
+    analyse: `<p>Les piliers lumineux se forment par <strong>réflexion</strong> (pas réfraction) sur la face plate de cristaux de glace hexagonaux en suspension. Les cristaux agissent comme de minuscules miroirs oscillant légèrement autour de l'horizontale.</p>
+<p>Le pilier n'est pas un faisceau de lumière montant depuis la source — c'est une <strong>image virtuelle</strong> créée par la réflexion collective de millions de cristaux à différentes altitudes.</p>
+<p><strong>Ce que cela nous apprend :</strong> un phénomène optique peut créer l'illusion d'un objet qui n'existe pas (la colonne de lumière). Cela illustre un principe fondamental : nos yeux ne voient pas la réalité directement — ils voient la lumière telle qu'elle nous parvient après avoir interagi avec l'atmosphère. Cette distinction est cruciale pour toute observation astronomique.</p>`,
     demarche: [
       `Identifier la source de lumière (soleil, lampadaire, phare) et vérifier que le pilier est centré dessus`,
       `Observer si le pilier change de position quand l'observateur se déplace (il devrait suivre la source)`,
@@ -314,10 +311,9 @@ export const ANALYSES: AnalyseMedia[] = [
     duration: '~2-5 min',
     embedUrl: 'https://www.youtube.com/embed/KxwvMfzYWwM',
     observation: `L'observateur voit sa propre ombre projetée sur un nuage ou du brouillard en contrebas, entourée d'anneaux concentriques colorés (arc-en-ciel). L'ombre semble parfois gigantesque. Le phénomène est centré exactement sur la tête de l'observateur.`,
-    analyse: `<p>La gloire est produite par la <strong>rétrodiffusion</strong> de la lumière par de très petites gouttelettes d'eau (brouillard ou nuage). C'est un phénomène d'<strong>optique ondulatoire</strong> — il ne peut pas être expliqué par la simple réfraction géométrique.</p>
-<p>La lumière pénètre dans les gouttelettes, subit des réflexions internes, et ressort presque exactement dans la direction d'où elle venait. L'interférence entre les ondes produites par de nombreuses gouttelettes crée les anneaux colorés.</p>
-<p>Le phénomène est toujours centré sur le <strong>point anti-solaire</strong> — c'est-à-dire exactement à l'opposé du soleil par rapport à l'observateur. C'est pourquoi chaque personne voit la gloire autour de sa propre tête.</p>
-<p>Depuis un avion, la gloire est visible autour de l'ombre de l'avion sur les nuages en dessous — un phénomène fréquent et facilement photographiable.</p>`,
+    analyse: `<p>La vidéo montre un arc-en-ciel <strong>circulaire complet</strong> vu depuis un hélicoptère. Au sol, on ne voit jamais qu'un demi-cercle car l'horizon coupe la moitié inférieure.</p>
+<p>Ce phénomène est produit par la <strong>rétrodiffusion</strong> de la lumière dans les gouttelettes d'eau du nuage. Contrairement à l'arc-en-ciel classique (réfraction + réflexion interne, angle ~42°), la gloire est un phénomène de <strong>diffraction</strong> (onde lumineuse contournant les gouttelettes).</p>
+<p><strong>Ce que cela nous apprend :</strong> l'arc-en-ciel est en réalité <strong>toujours un cercle complet</strong> — c'est notre position au sol qui nous empêche de le voir en entier. Ce principe s'applique plus largement : notre point d'observation terrestre limite ce que nous pouvons conclure sur la géométrie du monde. Ce que nous voyons est conditionné par notre position — un rappel d'humilité épistémologique.</p>`,
     demarche: [
       `Vérifier que le phénomène est centré sur le point anti-solaire (ombre de la tête de l'observateur)`,
       `Compter le nombre d'anneaux colorés — il dépend de la taille des gouttelettes`,
@@ -345,10 +341,9 @@ export const ANALYSES: AnalyseMedia[] = [
     duration: '~2-5 min',
     embedUrl: 'https://www.youtube.com/embed/KF0XIGTVR1o',
     observation: `Des nuages en forme de lentille ou de soucoupe apparaissent au-dessus ou en aval de reliefs montagneux. Ils semblent immobiles malgré le vent fort, et présentent souvent des bords très nets et des formes empilées.`,
-    analyse: `<p>Les nuages lenticulaires (altocumulus lenticularis) se forment dans les <strong>ondes de relief</strong> — des ondulations de l'atmosphère créées quand le vent est forcé de monter au-dessus d'une montagne.</p>
-<p>L'air humide monte dans la crête de l'onde, se refroidit, et la vapeur d'eau se condense en nuage. Dans le creux suivant, l'air redescend, se réchauffe, et le nuage s'évapore. Le résultat est un nuage <strong>stationnaire</strong> : l'air le traverse en permanence, mais le nuage reste au même endroit.</p>
-<p>C'est comme une vague dans une rivière au-dessus d'un rocher : la vague reste fixe, mais l'eau coule à travers elle. Le nuage est la « vague » atmosphérique.</p>
-<p>Les formes empilées (pile d'assiettes) se produisent quand plusieurs couches d'air humide sont séparées par des couches d'air sec, créant une série de lentilles superposées.</p>`,
+    analyse: `<p>Les nuages lenticulaires se forment quand un flux d'air stable rencontre un obstacle (montagne). L'air est forcé de monter, se refroidit, et l'humidité se condense en nuage. Puis l'air redescend de l'autre côté, le nuage s'évapore. Le nuage est <strong>stationnaire</strong> — c'est l'air qui le traverse.</p>
+<p>Ces nuages peuvent former plusieurs couches empilées (altocumulus lenticularis) quand l'atmosphère a un profil d'humidité stratifié.</p>
+<p><strong>Ce que cela nous apprend :</strong> les nuages lenticulaires montrent que l'atmosphère est un <strong>fluide stratifié</strong> avec des couches de propriétés différentes. L'air ne circule pas librement — il est contraint par la topographie et la stratification thermique. Ces mêmes contraintes affectent la propagation de la lumière et expliquent pourquoi les conditions d'observation varient autant d'un lieu et d'un moment à l'autre.</p>`,
     demarche: [
       `Identifier le relief responsable de l'onde (montagne, crête) en amont du vent`,
       `Vérifier que le nuage reste stationnaire malgré le vent (critère distinctif — filmer en time-lapse)`,
@@ -376,10 +371,9 @@ export const ANALYSES: AnalyseMedia[] = [
     duration: '~2 min',
     embedUrl: 'https://www.youtube.com/embed/S0y9hEEI0ug',
     observation: `Par nuit d'été, des éclairs illuminent l'horizon sans qu'aucun tonnerre ne soit audible. Le ciel au-dessus de l'observateur est dégagé. Les éclairs semblent silencieux et diffus, sans la forme en zigzag typique de la foudre proche.`,
-    analyse: `<p>L'« éclair de chaleur » n'est <strong>pas un phénomène distinct</strong> de la foudre ordinaire. C'est simplement un orage normal si éloigné que le <strong>son ne parvient pas</strong> jusqu'à l'observateur.</p>
-<p>Le son du tonnerre se propage dans l'air et s'atténue avec la distance. Au-delà d'environ <strong>15–25 km</strong>, le tonnerre n'est généralement plus audible — l'air absorbe les ondes sonores et la courbure du sol les dévie vers le haut.</p>
-<p>En revanche, la <strong>lumière</strong> des éclairs peut être visible à plus de <strong>150 km</strong> de distance, surtout la nuit, car elle se reflète sur les nuages et la vapeur d'eau dans l'atmosphère.</p>
-<p>L'apparence diffuse (pas de zigzag visible) s'explique par la distance : les détails du canal de foudre sont trop petits pour être résolus à l'œil nu, et la lumière est diffusée par l'atmosphère intermédiaire.</p>`,
+    analyse: `<p>L'« éclair de chaleur » n'est pas un type spécial de foudre — c'est un orage ordinaire si lointain (50-100+ km) que le <strong>tonnerre n'est plus audible</strong> (le son est absorbé par l'atmosphère sur de longues distances) mais les <strong>éclairs restent visibles</strong> (la lumière porte beaucoup plus loin).</p>
+<p>La lumière est réfléchie et diffusée par les nuages d'altitude, ce qui permet de voir des éclairs bien au-delà de l'horizon direct. Les flashs semblent venir de nulle part car l'orage source est sous l'horizon ou derrière d'autres formations nuageuses.</p>
+<p><strong>Ce que cela nous apprend :</strong> la lumière se propage sur des distances bien supérieures au son, et l'atmosphère peut réfléchir et transmettre la lumière bien au-delà de ce que la géométrie directe permettrait. Cela rejoint la question de la <strong>visibilité à longue distance</strong> — la lumière atteint des points que la ligne droite géométrique ne devrait pas atteindre, à cause des réflexions et diffractions atmosphériques.</p>`,
     demarche: [
       `Estimer la distance de l'orage : compter le temps entre l'éclair et le tonnerre (si audible), ou vérifier les cartes météo en temps réel`,
       `Vérifier qu'un orage est effectivement en cours dans la direction observée (radar météo, sites de foudre en temps réel)`,
@@ -469,11 +463,10 @@ export const ANALYSES: AnalyseMedia[] = [
     duration: '~3-5 min',
     embedUrl: 'https://www.youtube.com/embed/ZtUVandOJj4',
     observation: `Un bateau s'éloigne et semble « couler » progressivement sous l'horizon — d'abord la coque, puis les superstructures. Mais en utilisant un zoom puissant (Nikon P900/P1000), une partie ou la totalité du bateau réapparaît. Ce test est fréquemment utilisé comme argument dans les deux sens du débat.`,
-    analyse: `<p>C'est l'un des tests les plus discutés. Plusieurs phénomènes se superposent :</p>
-<p><strong>1. Résolution angulaire :</strong> à grande distance, la coque (basse, sombre, contre l'eau) disparaît en premier car sa taille angulaire tombe sous le seuil de résolution. Le zoom augmente la résolution effective → la coque réapparaît.</p>
-<p><strong>2. Réfraction atmosphérique :</strong> au-dessus de l'eau, l'air forme un gradient de densité qui courbe les rayons lumineux. Cet effet peut « relever » un bateau théoriquement sous l'horizon géométrique (mirage supérieur).</p>
-<p><strong>3. Courbure géométrique :</strong> sur une sphère de rayon R, un objet de hauteur h disparaît au-delà de d ≈ √(2Rh). Pour un observateur à 2m et un bateau à 15km, la courbure cache ~15m de coque.</p>
-<p><strong>Le problème :</strong> sans mesures précises de hauteur d'observation, distance, conditions de réfraction, et hauteur du bateau, il est <strong>impossible</strong> de conclure. Chaque variable change le résultat. C'est pourquoi ce test, mal contrôlé, ne prouve rien dans aucun sens.</p>`,
+    analyse: `<p>C'est l'un des tests les plus discutés. Un bateau semble « couler » sous l'horizon, mais un zoom puissant (Nikon P900/P1000) le ramène — en partie ou en totalité.</p>
+<p><strong>L'explication mainstream :</strong> la coque (basse, sombre) disparaît par résolution angulaire, le zoom l'augmente → la coque réapparaît. La courbure cacherait ~15m à 15 km.</p>
+<p><strong>Le problème :</strong> si le bateau était réellement derrière une courbure physique, le zoom ne devrait <strong>pas</strong> le ramener — on ne peut pas zoomer derrière un obstacle physique. Le fait que le zoom ramène systématiquement des bateaux « disparus » suggère que la disparition est un problème de <strong>résolution angulaire et de perspective</strong>, pas d'obstruction par une courbure.</p>
+<p>L'article <em>La perspective : pourquoi les objets disparaissent</em> développe cette analyse en détail, en distinguant les trois causes de disparition : résolution angulaire, perspective atmosphérique, et obstruction physique.</p>`,
     demarche: [
       `Mesurer précisément : hauteur de l'observateur (GPS + altimètre), distance du bateau (AIS, radar), hauteur du bateau`,
       `Documenter les conditions de réfraction : température air/eau, humidité, pression, vent`,
@@ -503,11 +496,9 @@ export const ANALYSES: AnalyseMedia[] = [
     duration: '~3 min',
     embedUrl: 'https://www.youtube.com/embed/ILVdi_9C1T0',
     observation: `Des objets lointains (bâtiments, navires, côtes) apparaissent anormalement grands, étirés verticalement, ou surélevés au-dessus de leur position réelle. L'effet peut être spectaculaire : des villes entières semblent flotter, des falaises paraissent deux fois plus hautes. Le phénomène est plus fréquent en conditions d'inversion thermique.`,
-    analyse: `<p>Le <strong>looming</strong> (surélévation) et le <strong>towering</strong> (étirement vertical) sont des formes de réfraction anormale causées par des gradients de température non standard dans l'atmosphère.</p>
-<p>En conditions normales, la température diminue avec l'altitude (~6.5°C/km). Quand une <strong>inversion thermique</strong> crée une couche d'air chaud au-dessus d'air froid, les rayons lumineux se courbent plus fortement que d'habitude.</p>
-<p><strong>Looming :</strong> l'objet entier est relevé — il apparaît plus haut qu'il ne l'est. Cela peut rendre visibles des objets normalement sous l'horizon. <strong>Towering :</strong> la courbure varie avec la hauteur, étirant verticalement l'image de l'objet.</p>
-<p>L'effet inverse existe aussi : <strong>sinking</strong> (abaissement) et <strong>stooping</strong> (compression verticale), quand le gradient de température est inversé (air froid en altitude, rare mais possible).</p>
-<p>Ces phénomènes montrent que l'atmosphère est un <strong>milieu optique actif</strong> qui déforme systématiquement ce que nous voyons à l'horizon.</p>`,
+    analyse: `<p>Le <strong>looming</strong> (surélévation) et le <strong>towering</strong> (étirement vertical) sont des formes de réfraction anormale causées par des inversions thermiques.</p>
+<p>Quand une couche d'air chaud repose sur de l'air froid, les rayons lumineux se courbent plus fortement que d'habitude. Le looming peut rendre visibles des objets normalement <strong>sous l'horizon</strong>. Le towering étire verticalement l'image, rendant des falaises ou des bâtiments beaucoup plus grands qu'en réalité.</p>
+<p><strong>Ce que cela nous apprend :</strong> ces phénomènes prouvent que l'atmosphère peut <strong>relever</strong> des objets cachés par la distance et les rendre visibles alors qu'ils ne devraient pas l'être. C'est un argument central dans le débat sur la courbure : quand un objet est visible bien au-delà de la distance « théorique » de l'horizon, est-ce la réfraction qui le relève, ou est-ce qu'il n'y a tout simplement pas de courbure à cacher ? Sans mesure précise de la réfraction locale, <strong>impossible de conclure</strong>.</p>`,
     demarche: [
       `Documenter le profil thermique vertical (radiosondage ou mesures étagées) au moment de l'observation`,
       `Mesurer la position réelle de l'objet (GPS, carte) et comparer avec sa position apparente`,
@@ -535,10 +526,9 @@ export const ANALYSES: AnalyseMedia[] = [
     duration: '~3 min',
     embedUrl: 'https://www.tiktok.com/embed/v2/ZNRTVeGfN',
     observation: `Les étoiles scintillent (clignotent, changent de couleur et d'intensité) surtout près de l'horizon, tandis que les planètes restent relativement stables. L'effet augmente par temps agité et diminue en altitude (montagne) ou dans l'espace (photos satellite). Par temps très calme, même les étoiles scintillent moins.`,
-    analyse: `<p>La scintillation est causée par les <strong>turbulences atmosphériques</strong> — des cellules d'air de températures et densités différentes qui se déplacent en permanence.</p>
-<p>Chaque cellule d'air agit comme une petite lentille qui dévie légèrement le rayon lumineux. Comme ces cellules bougent constamment, le rayon d'une étoile est dévié de façon aléatoire → l'étoile semble « danser » et changer d'éclat.</p>
-<p><strong>Pourquoi les planètes ne scintillent pas (ou peu) ?</strong> Une étoile est une source ponctuelle (taille angulaire ~0.001"). Une planète a un disque mesurable (~10-50"). Les turbulences affectent différentes parties du disque indépendamment, et ces variations se moyennent → la lumière totale reste stable.</p>
-<p><strong>Pourquoi plus de scintillation à l'horizon ?</strong> Près de l'horizon, la lumière traverse une épaisseur d'atmosphère ~38× plus grande qu'au zénith (loi de sécante) → plus de cellules turbulentes traversées → plus de déviation.</p>`,
+    analyse: `<p>La scintillation est causée par les <strong>turbulences atmosphériques</strong> — des cellules d'air de températures et densités différentes qui dévient les rayons lumineux de façon aléatoire.</p>
+<p>Les étoiles scintillent plus près de l'horizon car la lumière traverse une épaisseur d'atmosphère ~38× plus grande qu'au zénith. Les planètes scintillent moins car leur disque apparent est plus grand (les variations se moyennent).</p>
+<p><strong>Ce que cela nous apprend :</strong> la scintillation prouve que l'atmosphère est un milieu <strong>turbulent et instable</strong> qui déforme constamment les images des objets célestes. Si même la <em>position apparente</em> d'une étoile danse en permanence, que dire de la précision des mesures astronomiques (parallaxe, distances stellaires) qui reposent sur des décalages angulaires <strong>mille fois plus petits</strong> que la scintillation elle-même ? L'article sur les étoiles explore cette question en détail.</p>`,
     demarche: [
       `Observer la même étoile à différentes hauteurs au-dessus de l'horizon (du lever au transit)`,
       `Comparer étoile (ponctuelle) vs planète (disque) dans les mêmes conditions`,
@@ -566,10 +556,9 @@ export const ANALYSES: AnalyseMedia[] = [
     duration: '~2-3 min',
     embedUrl: 'https://www.youtube.com/embed/BA4qFJ22yTU',
     observation: `Pendant une fraction de seconde, juste au moment où le dernier segment du soleil disparaît sous l'horizon, un éclat vert vif apparaît. Le phénomène est bref (1-2 secondes), rare dans des conditions parfaites, et plus fréquent sur un horizon maritime dégagé. Il existe aussi au lever du soleil (premier segment).`,
-    analyse: `<p>Le rayon vert est un phénomène de <strong>dispersion atmosphérique</strong> combiné à la réfraction.</p>
-<p>L'atmosphère agit comme un prisme : elle réfracte davantage les courtes longueurs d'onde (bleu, vert) que les longues (rouge). Au coucher, le soleil produit en réalité un petit spectre vertical : une image rouge en bas, verte en haut, bleue encore plus haut.</p>
-<p>Normalement ces images se chevauchent et on ne voit que du blanc-jaune. Mais quand le <strong>dernier fragment</strong> du soleil est visible, seule l'image la plus réfractée (verte) reste au-dessus de l'horizon. L'image bleue est trop diffusée par l'atmosphère (diffusion Rayleigh) pour être visible.</p>
-<p>Le rayon vert nécessite : (1) un horizon très net et dégagé, (2) une atmosphère stable (pas trop de turbulence), (3) une réfraction suffisante mais pas excessive. C'est un phénomène parfaitement prédit par l'optique atmosphérique.</p>`,
+    analyse: `<p>Le rayon vert est un phénomène de <strong>dispersion atmosphérique</strong>. L'atmosphère agit comme un prisme : elle réfracte davantage les courtes longueurs d'onde (vert) que les longues (rouge). Quand le dernier fragment du Soleil est visible, seule l'image verte reste au-dessus de l'horizon.</p>
+<p>Le rayon vert nécessite un horizon très dégagé, une atmosphère stable, et une réfraction suffisante.</p>
+<p><strong>Ce que cela nous apprend :</strong> le rayon vert montre que l'atmosphère <strong>sépare les couleurs</strong> de la lumière solaire et les projette à des positions différentes. Le Soleil que nous voyons au coucher n'est pas un objet unique — c'est un <strong>empilement d'images</strong> de couleurs différentes, chacune décalée par la réfraction. Cela signifie que la position apparente du Soleil à l'horizon est toujours décalée par rapport à sa position réelle. L'article <em>Pression, lumière, halos, rayons et ondes</em> approfondit ces mécanismes.</p>`,
     demarche: [
       `Se positionner face à un horizon maritime dégagé, sans obstacle`,
       `Filmer le coucher de soleil en continu avec un téléobjectif (200mm+)`,
@@ -597,10 +586,9 @@ export const ANALYSES: AnalyseMedia[] = [
     duration: '~5 min',
     embedUrl: 'https://www.youtube.com/embed/giiRLMesFFA',
     observation: `Un gyroscope en rotation résiste aux changements d'orientation : il maintient son axe fixe dans l'espace même quand on incline son support. Si on applique une force pour le faire basculer, il ne tombe pas mais « précesse » — son axe tourne lentement autour de la verticale. Plus il tourne vite, plus il est stable.`,
-    analyse: `<p>Le gyroscope illustre la <strong>conservation du moment cinétique</strong> (L = Iω). Un objet en rotation possède un vecteur moment cinétique aligné avec son axe de rotation. Ce vecteur ne change de direction que si un <strong>couple extérieur</strong> (torque) est appliqué.</p>
-<p>La <strong>précession</strong> se produit quand la gravité exerce un couple sur le gyroscope incliné. Au lieu de tomber, l'axe tourne perpendiculairement au couple — c'est la règle du produit vectoriel : dL/dt = τ.</p>
-<p>La vitesse de précession est : <code>Ω = τ / (Iω)</code> — plus le gyroscope tourne vite (ω grand), plus la précession est lente et l'axe est stable.</p>
-<p><strong>Applications :</strong> le gyrocompas (navigation), les gyroscopes MEMS (smartphones), la stabilisation des satellites, et historiquement l'argument de la rotation terrestre (le gyroscope maintient son axe fixe par rapport aux étoiles, pas par rapport au sol).</p>`,
+    analyse: `<p>Le gyroscope en rotation maintient son axe fixe dans l'espace grâce à la <strong>conservation du moment cinétique</strong> (L = Iω). Si on applique une force pour le faire basculer, il ne tombe pas mais « précesse » — son axe tourne perpendiculairement au couple appliqué.</p>
+<p>La vitesse de précession est : <code>Ω = τ / (Iω)</code> — plus il tourne vite, plus il est stable.</p>
+<p><strong>Ce que cela nous apprend :</strong> le gyroscope est censé maintenir son axe fixe par rapport aux étoiles, pas par rapport au sol. C'est pourquoi le <strong>gyrocompas</strong> est invoqué comme preuve de la rotation terrestre. Mais cette interprétation repose sur le même postulat que le pendule de Foucault : l'existence d'un <strong>référentiel absolu</strong> fixe par rapport aux étoiles. Le principe de Mach pose la même objection : on ne peut pas distinguer « la Terre tourne sous le gyroscope » de « l'univers tourne autour du gyroscope ». L'article sur la rotation terrestre développe cette argumentation.</p>`,
     demarche: [
       `Varier la vitesse de rotation et observer l'effet sur la stabilité et la vitesse de précession`,
       `Mesurer la vitesse de précession et comparer avec la formule théorique Ω = mgl/(Iω)`,
@@ -693,9 +681,8 @@ export const ANALYSES: AnalyseMedia[] = [
     embedUrl: 'https://www.youtube.com/embed/_x3rRM9k_LE',
     observation: `Dans des vases communicants, l'eau trouve toujours le même niveau, quelle que soit la forme des récipients. Sur un canal rectiligne, la surface de l'eau apparaît parfaitement plane. Ce principe est utilisé en topographie (niveau à eau) depuis l'Antiquité. La question : sur de grandes distances, l'eau suit-elle la courbure terrestre ou reste-t-elle plane ?`,
     analyse: `<p>Le principe des vases communicants découle de la <strong>pression hydrostatique</strong> : P = ρgh. À l'équilibre, la pression est la même en tout point connecté → le niveau est le même.</p>
-<p>À petite échelle (quelques mètres), la surface de l'eau est effectivement plane à la précision de mesure ordinaire. La courbure terrestre abaisse la surface de ~8 cm/km² (formule approchée pour de petites distances).</p>
-<p>À grande échelle, la surface libre de l'eau suit une <strong>équipotentielle gravitationnelle</strong> — elle est perpendiculaire à la direction de la gravité locale. Sur un globe, cette surface est courbe. Sur un plan, elle serait plate.</p>
-<p><strong>Le défi expérimental :</strong> mesurer la courbure de la surface de l'eau sur de longues distances est difficile. La réfraction atmosphérique (au-dessus de l'eau, air froid en bas) courbe les rayons lumineux et peut faire apparaître une surface courbe comme plane (ou inversement). Les mesures au laser sur de longs canaux sont perturbées par ces mêmes effets.</p>`,
+<p>À petite échelle, la surface de l'eau est plane à la précision de mesure. Le modèle standard prédit que sur de grandes distances, l'eau devrait suivre la courbure terrestre (~8 cm/km²).</p>
+<p><strong>Ce que cela nous apprend :</strong> l'eau cherche <strong>toujours</strong> son niveau. C'est un fait physique observable et reproductible. L'article <em>L'eau ne ment pas</em> examine en détail les mesures faites sur de longs canaux rectilignes. Les résultats montrent systématiquement que l'eau reste <strong>plane</strong> sur des distances où la courbure devrait être mesurable. Le modèle standard invoque la réfraction pour expliquer ces résultats — mais cette explication nécessite un gradient de réfraction très précis qui compenserait exactement la courbure. La question reste ouverte : est-ce une coïncidence, ou est-ce que l'eau est simplement plane ?</p>`,
     demarche: [
       `Mesurer le niveau de l'eau à plusieurs points le long d'un canal rectiligne de grande longueur`,
       `Utiliser un laser et une cible étalonnée pour détecter un éventuel écart par rapport à la planéité`,
@@ -787,9 +774,9 @@ export const ANALYSES: AnalyseMedia[] = [
     duration: '~4 min',
     embedUrl: 'https://www.youtube.com/embed/hOjrPcD6Iuc',
     observation: `Normalement, Mars se déplace lentement vers l'est par rapport aux étoiles fixes (mouvement direct). Mais périodiquement (~tous les 26 mois), Mars semble s'arrêter, reculer vers l'ouest pendant quelques semaines (mouvement rétrograde), puis reprendre son mouvement normal. Le résultat est une boucle ou un « Z » tracé sur le fond des étoiles.`,
-    analyse: `<p>La rétrogradation de Mars a été l'un des grands casse-têtes de l'astronomie antique. Dans le modèle <strong>héliocentrique</strong>, l'explication est simple : la Terre, plus proche du Soleil, tourne plus vite que Mars. Quand la Terre « double » Mars, celle-ci semble reculer par effet de parallaxe — comme un camion doublé sur l'autoroute semble reculer.</p>
-<p>Dans le modèle <strong>géocentrique</strong> de Ptolémée, la rétrogradation était expliquée par des <strong>épicycles</strong> — des cercles sur des cercles. Ce système était calculatoirement complexe mais produisait des prédictions correctes.</p>
-<p><strong>Point épistémologique important :</strong> Copernic n'a pas « prouvé » l'héliocentrisme — il a montré qu'un modèle plus simple (sans épicycles majeurs) produisait les mêmes résultats. Les deux modèles sont <strong>cinématiquement équivalents</strong> pour les observations à l'œil nu. C'est le rasoir d'Ockham, pas une preuve empirique, qui favorise l'héliocentrisme dans ce cas.</p>`,
+    analyse: `<p>La rétrogradation de Mars a été l'un des grands casse-têtes de l'astronomie antique. Périodiquement, Mars semble reculer dans le ciel avant de reprendre son mouvement normal.</p>
+<p><strong>Modèle héliocentrique :</strong> la Terre « double » Mars sur son orbite, créant un effet de parallaxe. <strong>Modèle géocentrique :</strong> Ptolémée l'expliquait par des épicycles — des cercles sur des cercles, calculatoirement complexes mais produisant des prédictions correctes.</p>
+<p><strong>Ce que cela nous apprend :</strong> les deux modèles produisent les <strong>mêmes prédictions observationnelles</strong>. C'est le rasoir d'Ockham (simplicité), pas une preuve empirique, qui favorise l'héliocentrisme. Plus fondamentalement, la rétrogradation montre que les modèles cinématiquement équivalents ne peuvent pas être départagés par l'observation seule — il faut un critère extérieur. L'article sur les étoiles explore les implications de cette équivalence cinématique pour l'ensemble de l'astronomie observationnelle.</p>`,
     demarche: [
       `Photographier Mars chaque semaine pendant 6 mois autour de l'opposition`,
       `Tracer la trajectoire apparente par rapport aux étoiles fixes de référence`,
@@ -912,10 +899,9 @@ export const ANALYSES: AnalyseMedia[] = [
     duration: '~5 min',
     embedUrl: 'https://www.youtube.com/embed/aB9BmM7y4dI',
     observation: `Un tsunami en plein océan est presque invisible : une vague de quelques dizaines de centimètres de haut, avec une longueur d'onde de 100-200 km, se déplaçant à 700-800 km/h. Mais en approchant de la côte, l'eau ralentit (profondeur diminue), la longueur d'onde se raccourcit, et la hauteur augmente dramatiquement — jusqu'à 30 mètres dans les cas extrêmes.`,
-    analyse: `<p>Un tsunami est une <strong>onde de gravité en eau peu profonde</strong> à très grande longueur d'onde. Sa vitesse est <code>c = √(gh)</code>, où h est la profondeur. En plein océan (h ≈ 4000m) : c ≈ 200 m/s ≈ 720 km/h.</p>
-<p>Comme la <strong>longueur d'onde</strong> (100-200 km) est bien plus grande que la profondeur, l'onde « touche le fond » même en plein océan — c'est une onde d'eau peu profonde malgré la profondeur.</p>
-<p>Le <strong>shoaling</strong> (amplification côtière) résulte de la conservation de l'énergie : quand la profondeur diminue, la vitesse diminue, et comme l'énergie doit être conservée, l'amplitude augmente. La formule approchée est : h₂/h₁ ≈ (d₁/d₂)^(1/4).</p>
-<p>Le temps d'arrivée d'un tsunami est prévisible avec une grande précision grâce à la bathymétrie (carte des profondeurs) et à la formule c = √(gh). Les systèmes d'alerte se basent sur ce calcul.</p>`,
+    analyse: `<p>Un tsunami en plein océan est presque invisible : quelques dizaines de centimètres de haut, 100-200 km de longueur d'onde, se déplaçant à ~720 km/h. En approchant de la côte, l'eau ralentit et la hauteur augmente dramatiquement.</p>
+<p>La vitesse est <code>c = √(gh)</code> en eau peu profonde. Le shoaling (amplification côtière) résulte de la conservation de l'énergie : quand la profondeur diminue, la vitesse diminue et l'amplitude augmente.</p>
+<p><strong>Ce que cela nous apprend :</strong> le tsunami est un phénomène de <strong>mécanique des fluides</strong> qui fonctionne identiquement quel que soit le modèle cosmologique. Sa prédiction repose sur la bathymétrie (profondeur des fonds) et les lois de propagation des ondes — pas sur la forme de la Terre. L'eau réagit aux lois physiques locales (pression, profondeur, énergie), et ces lois fonctionnent aussi bien sur une surface plane que courbe.</p>`,
     demarche: [
       `Analyser les données sismiques : magnitude, profondeur, mécanisme (subduction, effondrement)`,
       `Calculer le temps de propagation avec la formule c = √(gh) et la bathymétrie`,
@@ -943,10 +929,9 @@ export const ANALYSES: AnalyseMedia[] = [
     duration: '~4 min',
     embedUrl: 'https://www.youtube.com/embed/qQKhIK4pvYo',
     observation: `Un éclair illumine le ciel en une fraction de seconde. Au ralenti, on découvre un processus complexe : un « traceur par pas » (stepped leader) descend du nuage, invisible à l'œil nu, par bonds de 50-100m. Quand il approche du sol, un arc de retour (return stroke) remonte à ~100 000 km/s — c'est le flash visible. Le tonnerre arrive avec un délai (~3s/km).`,
-    analyse: `<p>La foudre est une <strong>décharge électrique</strong> géante. Dans un cumulonimbus, la séparation de charges crée des potentiels de centaines de millions de volts. Le champ électrique finit par dépasser la rigidité diélectrique de l'air (~3 MV/m) → claquage.</p>
-<p>Le processus en deux temps est remarquable : (1) le <strong>traceur par pas</strong> ionise un canal dans l'air (courant ~200A, peu lumineux, vitesse ~200 km/s). (2) Quand il atteint le sol (ou un streamer montant), le <strong>coup de retour</strong> remonte le canal ionisé avec un courant de ~30 000A et une température de ~30 000 K → c'est le flash aveuglant.</p>
-<p>Le <strong>tonnerre</strong> est causé par la dilatation explosive de l'air chauffé à 30 000 K (5× la surface du Soleil). L'onde de choc se transforme en onde sonore. Le délai son/lumière permet d'estimer la distance (vitesse du son ~340 m/s).</p>
-<p>La Terre subit ~100 éclairs par seconde. La foudre maintient le <strong>circuit électrique global</strong> atmosphérique — les orages rechargent en permanence la différence de potentiel entre l'ionosphère et le sol (~300 kV).</p>`,
+    analyse: `<p>La foudre est une <strong>décharge électrique</strong> géante. Le processus en deux temps est remarquable : (1) un traceur par pas ionise un canal invisible (~200A, ~200 km/s). (2) Le coup de retour remonte le canal avec ~30 000A à ~100 000 km/s et ~30 000 K → c'est le flash visible.</p>
+<p>Le tonnerre est causé par la dilatation explosive de l'air chauffé. La Terre subit ~100 éclairs par seconde.</p>
+<p><strong>Ce que cela nous apprend :</strong> la foudre est un phénomène <strong>électrique</strong>, pas gravitationnel. Elle maintient un circuit électrique global entre l'ionosphère et le sol (~300 kV). L'article <em>Magnétisme et électromagnétisme</em> explore comment les phénomènes électromagnétiques — souvent sous-estimés en cosmologie — pourraient jouer un rôle bien plus important que ce que le modèle standard admet. Si l'atmosphère est parcourue par des courants électriques permanents, cela ouvre la question de l'influence électromagnétique sur d'autres phénomènes attribués à la seule gravité.</p>`,
     demarche: [
       `Filmer en haute vitesse (1000+ fps) pour décomposer le traceur et le coup de retour`,
       `Mesurer le délai tonnerre/éclair pour estimer la distance`,
