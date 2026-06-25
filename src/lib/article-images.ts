@@ -57,6 +57,7 @@ const IMG: Record<string, string> = {
   "le-concordisme": `${UNSPLASH}/photo-1530026405186-ed1f139313f8?w=600&h=400&fit=crop`,
   "le-mouvement-zetetique-150-ans-de-resistance": `${UNSPLASH}/photo-1504711434969-e33886168d9c?w=600&h=400&fit=crop`,
   "le-mythe-deratosthene": `${UNSPLASH}/photo-1569003339405-ea396a5a8a90?w=600&h=400&fit=crop`,
+  "lire-le-ciel-avant-le-globe": `${UNSPLASH}/photo-1507400492013-162706c8c05e?w=600&h=400&fit=crop`,
   "les-distances-cosmiques-au-dela-de-la-regle": `${UNSPLASH}/photo-1462332420958-a05d1e002413?w=600&h=400&fit=crop`,
   "les-trous-noirs-nexistent-pas": `${HOSTINGER}/2026/06/Black_Holes_-_Monsters_in_Space-scaled.jpg`,
   "lhypothese-nulle-dynamique-et-cinematique": `${UNSPLASH}/photo-1507413245164-6160d8298b31?w=600&h=400&fit=crop`,
