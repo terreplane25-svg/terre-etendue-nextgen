@@ -1,5 +1,5 @@
 'use client';
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Line, Html } from '@react-three/drei';
 import * as THREE from 'three';
@@ -48,6 +48,17 @@ function fmt(km:number):string{
   return(km*100000).toFixed(1)+' cm';
 }
 
+/** Affichage propre d'un nombre saisi (évite les flottants à rallonge). */
+function fmtNum(n:number):string{
+  if(!isFinite(n)) return '0';
+  const r = Math.round(n*1000)/1000;
+  return String(r);
+}
+
+// Facteurs vers le mètre (unité de base pour les conversions de longueur).
+const LEN_UNITS: Record<string, number> = { m: 1, km: 1000, mi: 1609.344, ft: 0.3048 };
+const UNIT_LABEL: Record<string, string> = { m: 'm', km: 'km', mi: 'mi', ft: 'ft' };
+
 const PRESETS = [
   { label:'Finestrelles → Écrins (443 km)', d:443, oh:2820, th:4102, k:0.14,
     desc:'Pic de Finestrelles 2 820 m → Barre des Écrins 4 102 m. Record 2016.' },
@@ -63,19 +74,113 @@ const PRESETS = [
     desc:'Obs. niveau de la mer → navire ~30 m. Fata Morgana. Super-réfraction.' },
 ];
 
-function NumInput({label,value,onChange,min,max,unit,step=1}:{
-  label:string;value:number;onChange:(v:number)=>void;min:number;max:number;unit:string;step?:number;
+// ─── Champ de saisie propre avec sélecteur d'unité (longueurs) ───
+function LengthField({label,value,onChange,canonical,units,min,max,accent='#00C8FF',hint}:{
+  label:string; value:number; onChange:(v:number)=>void;
+  canonical:string; units:string[]; min:number; max:number;
+  accent?:string; hint?:string;
 }){
+  const [unit,setUnit] = useState(units[0]);
+  const [focused,setFocused] = useState(false);
+  const toDisplay = (v:number,u:string)=> v * LEN_UNITS[canonical] / LEN_UNITS[u];
+  const toCanonical = (d:number,u:string)=> d * LEN_UNITS[u] / LEN_UNITS[canonical];
+  const [text,setText] = useState(()=>fmtNum(toDisplay(value,units[0])));
+
+  // Resynchronise le texte quand la valeur change de l'extérieur (presets)
+  // ou quand l'unité change — sans écraser la saisie en cours.
+  useEffect(()=>{ if(!focused) setText(fmtNum(toDisplay(value,unit))); },[value,unit,focused]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const commit = (raw:string)=>{
+    setText(raw);
+    const d = parseFloat(raw.replace(',','.'));
+    if(!isNaN(d)) onChange(Math.max(min,Math.min(max,toCanonical(d,unit))));
+  };
+
   return(
-    <div className="border border-slate-800/50 bg-[#0A1020] p-4">
-      <label className="text-[11px] font-tech-mono text-slate-400 tracking-widest block mb-2">{label}</label>
-      <div className="flex items-center gap-3">
-        <input type="range" min={min} max={max} step={step} value={value}
-          onChange={e=>onChange(+e.target.value)} className="flex-1 accent-[#00C8FF] h-2"/>
-        <input type="number" min={min} max={max} step={step} value={value}
-          onChange={e=>{const v=+e.target.value;if(!isNaN(v))onChange(Math.max(min,Math.min(max,v)));}}
-          className="w-24 bg-[#050A12] border border-slate-600 text-[14px] font-tech-mono text-[#00C8FF] px-3 py-2 text-right rounded-none"/>
-        <span className="text-[12px] font-tech-mono text-slate-500 w-8">{unit}</span>
+    <div style={{
+      background:'#0A1020', border:`1px solid ${focused?accent+'80':'#1c2942'}`,
+      borderRadius:10, padding:'13px 15px', transition:'border-color 0.15s ease',
+    }}>
+      <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:9}}>
+        <span style={{fontSize:11,fontFamily:'monospace',color:'#8499b3',letterSpacing:'0.12em',textTransform:'uppercase'}}>{label}</span>
+        {hint && <span title={hint} style={{
+          display:'inline-flex',alignItems:'center',justifyContent:'center',
+          width:13,height:13,borderRadius:'50%',border:'1px solid #46566e',
+          color:'#8499b3',fontSize:9,fontFamily:'monospace',cursor:'help',lineHeight:1,
+        }}>i</span>}
+      </div>
+      <div style={{
+        display:'flex',alignItems:'center',gap:8,
+        background:'#050A12',border:'1px solid #1c2942',borderRadius:8,
+        padding:'8px 10px 8px 12px',
+      }}>
+        <input
+          type="text" inputMode="decimal" value={text}
+          onChange={e=>commit(e.target.value)}
+          onFocus={()=>setFocused(true)} onBlur={()=>{setFocused(false);setText(fmtNum(toDisplay(value,unit)));}}
+          style={{
+            flex:1,minWidth:0,background:'transparent',border:'none',outline:'none',
+            color:accent,fontSize:20,fontWeight:700,fontFamily:'monospace',
+          }}
+        />
+        {units.length>1 ? (
+          <select value={unit} onChange={e=>setUnit(e.target.value)}
+            style={{
+              background:'#0A1020',border:'1px solid #283750',borderRadius:6,
+              color:'#8499b3',fontSize:13,fontFamily:'monospace',padding:'4px 6px',
+              cursor:'pointer',outline:'none',
+            }}>
+            {units.map(u=><option key={u} value={u}>{UNIT_LABEL[u]}</option>)}
+          </select>
+        ) : (
+          <span style={{fontSize:13,fontFamily:'monospace',color:'#8499b3',paddingRight:4}}>{UNIT_LABEL[unit]}</span>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── Champ de saisie propre sans dimension (k, °C, %, gradient) ───
+function PlainField({label,value,onChange,min,max,unit,accent='#00C8FF',hint,compact}:{
+  label:string; value:number; onChange:(v:number)=>void;
+  min:number; max:number; unit:string; accent?:string; hint?:string; compact?:boolean;
+}){
+  const [focused,setFocused] = useState(false);
+  const [text,setText] = useState(()=>fmtNum(value));
+  useEffect(()=>{ if(!focused) setText(fmtNum(value)); },[value,focused]);
+  const commit = (raw:string)=>{
+    setText(raw);
+    const v = parseFloat(raw.replace(',','.'));
+    if(!isNaN(v)) onChange(Math.max(min,Math.min(max,v)));
+  };
+  return(
+    <div style={{
+      background:'#0A1020', border:`1px solid ${focused?accent+'80':'#1c2942'}`,
+      borderRadius:10, padding: compact ? '10px 13px' : '13px 15px', transition:'border-color 0.15s ease',
+    }}>
+      <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:compact?6:9}}>
+        <span style={{fontSize:compact?10:11,fontFamily:'monospace',color:'#8499b3',letterSpacing:'0.1em',textTransform:'uppercase'}}>{label}</span>
+        {hint && <span title={hint} style={{
+          display:'inline-flex',alignItems:'center',justifyContent:'center',
+          width:13,height:13,borderRadius:'50%',border:'1px solid #46566e',
+          color:'#8499b3',fontSize:9,fontFamily:'monospace',cursor:'help',lineHeight:1,
+        }}>i</span>}
+      </div>
+      <div style={{
+        display:'flex',alignItems:'center',gap:8,
+        background:'#050A12',border:'1px solid #1c2942',borderRadius:8,
+        padding:'7px 10px 7px 12px',
+      }}>
+        <input
+          type="text" inputMode="decimal" value={text}
+          onChange={e=>commit(e.target.value)}
+          onFocus={()=>setFocused(true)} onBlur={()=>{setFocused(false);setText(fmtNum(value));}}
+          style={{
+            flex:1,minWidth:0,background:'transparent',border:'none',outline:'none',
+            color:accent,fontSize:compact?16:20,fontWeight:700,fontFamily:'monospace',
+          }}
+        />
+        <span style={{fontSize:12,fontFamily:'monospace',color:'#8499b3',paddingRight:2,whiteSpace:'nowrap'}}>{unit}</span>
       </div>
     </div>
   );
@@ -218,6 +323,7 @@ export default function CurvatureCalc(){
   const [tempC,setTempC]=useState(15);
   const [gradC,setGradC]=useState(-6.5);
   const [rh,setRh]=useState(50);
+  const [showAtmo,setShowAtmo]=useState(false);
 
   const kAtm = refractionK(tempC, gradC, rh);
 
@@ -251,83 +357,109 @@ export default function CurvatureCalc(){
     });
   }, [dist, obsM, tgtM, k, hDist, hDistNoRef, drop, dropNoRef, hidden, hiddenNoRef, vis, visNoRef]);
 
+  const kPresetBtn = (label:string, val:number, tone:'neutral'|'gold'|'amber'|'red'='gold')=>{
+    const active = Math.abs(k-val)<0.0005;
+    const c = tone==='neutral' ? '#8499b3' : tone==='amber' ? '#D9A441' : tone==='red' ? '#E06464' : '#D4A843';
+    return(
+      <button key={label} onClick={()=>setK(val)}
+        style={{
+          padding:'6px 11px',fontSize:11,fontFamily:'monospace',borderRadius:6,
+          border:`1px solid ${active?c:c+'40'}`,
+          background:active?c+'1f':'transparent',color:c,
+          cursor:'pointer',transition:'all 0.15s ease',whiteSpace:'nowrap',
+        }}>{label}</button>
+    );
+  };
+
   return<div className="w-full">
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
-      <NumInput label="DISTANCE" value={dist} onChange={setDist} min={0} max={2000} unit="km"/>
-      <NumInput label="HAUTEUR OBSERVATEUR" value={obsM} onChange={setObsM} min={0} max={500000} unit="m"/>
-      <NumInput label="HAUTEUR CIBLE" value={tgtM} onChange={setTgtM} min={0} max={10000} unit="m"/>
+
+    {/* ── ENTRÉES PRINCIPALES — champs propres ── */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+      <LengthField label="Distance" value={dist} onChange={setDist}
+        canonical="km" units={['km','m','mi']} min={0} max={2000} accent="#00C8FF"
+        hint="Distance horizontale entre l'observateur et la cible." />
+      <LengthField label="Hauteur observateur" value={obsM} onChange={setObsM}
+        canonical="m" units={['m','km','ft']} min={0} max={500000} accent="#00C8FF"
+        hint="Altitude de l'œil de l'observateur au-dessus du niveau de référence." />
+      <LengthField label="Hauteur cible" value={tgtM} onChange={setTgtM}
+        canonical="m" units={['m','km','ft']} min={0} max={10000} accent="#00E87B"
+        hint="Hauteur de l'objet visé (sommet, immeuble, navire…)." />
     </div>
 
-    <div className="border border-[#D4A843]/30 bg-[#0A1020] p-4 mb-4">
-      <div className="flex items-center gap-4">
-        <label className="text-[11px] font-tech-mono text-[#D4A843] tracking-widest whitespace-nowrap">RÉFRACTION (k)</label>
-        <input type="range" min={0} max={0.8} step={0.001} value={k}
-          onChange={e=>setK(+e.target.value)} className="flex-1 accent-[#D4A843] h-2"/>
-        <input type="number" min={0} max={0.99} step={0.001} value={k}
-          onChange={e=>{const v=+e.target.value;if(!isNaN(v))setK(Math.max(0,Math.min(0.99,v)));}}
-          className="w-20 bg-[#050A12] border border-[#D4A843]/40 text-[14px] font-tech-mono text-[#D4A843] px-3 py-2 text-right rounded-none"/>
-      </div>
-      <div className="flex flex-wrap gap-3 mt-3">
-        <button onClick={()=>setK(0)} className="px-3 py-2 md:py-1 text-[12px] md:text-[10px] font-tech-mono border border-slate-600 text-slate-400 hover:text-white">k=0 (aucune)</button>
-        <button onClick={()=>setK(0.143)} className="px-3 py-2 md:py-1 text-[12px] md:text-[10px] font-tech-mono border border-[#D4A843]/40 text-[#D4A843] hover:bg-[#D4A843]/10">k=0.143 (standard)</button>
-        <button onClick={()=>setK(0.17)} className="px-3 py-2 md:py-1 text-[12px] md:text-[10px] font-tech-mono border border-[#D4A843]/40 text-[#D4A843] hover:bg-[#D4A843]/10">k=0.17 (mer)</button>
-        <button onClick={()=>setK(0.38)} className="px-3 py-2 md:py-1 text-[12px] md:text-[10px] font-tech-mono border border-amber-700/40 text-amber-400 hover:bg-amber-400/10">k=0.38 (forte)</button>
-        <button onClick={()=>setK(0.5)} className="px-3 py-2 md:py-1 text-[12px] md:text-[10px] font-tech-mono border border-red-700/40 text-red-400 hover:bg-red-400/10">k=0.5 (super)</button>
-        <span className="text-[10px] font-tech-mono text-slate-600 self-center ml-2">
-          R&apos; = {Math.round(Reff(k))} km {k>0.01 ? `(×${(Reff(k)/R_EARTH).toFixed(2)})` : ''}
-        </span>
-      </div>
-
-      {/* Mode atmosphérique : k calculé depuis T°, gradient et humidité */}
-      <div className="mt-4 pt-4 border-t border-[#D4A843]/20">
-        <div className="text-[10px] font-tech-mono text-[#D4A843]/70 tracking-widest mb-3">
-          MODE ATMOSPHÉRIQUE — k = 503·P_eff/T² · (0.0342 + ΔT/Δh)
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="flex items-center gap-3">
-            <label className="text-[10px] font-tech-mono text-slate-400 w-24">TEMPÉRATURE</label>
-            <input type="range" min={-10} max={40} step={0.5} value={tempC}
-              onChange={e=>setTempC(+e.target.value)} className="flex-1 accent-[#D4A843] h-2"/>
-            <span className="text-[11px] font-tech-mono text-[#D4A843] w-14 text-right">{tempC.toFixed(1)}°C</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <label className="text-[10px] font-tech-mono text-slate-400 w-24">ΔT/Δh</label>
-            <input type="range" min={-10} max={15} step={0.1} value={gradC}
-              onChange={e=>setGradC(+e.target.value)} className="flex-1 accent-[#D4A843] h-2"/>
-            <span className="text-[11px] font-tech-mono text-[#D4A843] w-20 text-right">{gradC.toFixed(1)} °C/km</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <label className="text-[10px] font-tech-mono text-slate-400 w-24">HUMIDITÉ</label>
-            <input type="range" min={0} max={100} step={1} value={rh}
-              onChange={e=>setRh(+e.target.value)} className="flex-1 accent-[#00C8FF] h-2"/>
-            <span className="text-[11px] font-tech-mono text-[#00C8FF] w-14 text-right">{rh}%</span>
-          </div>
-        </div>
-        <div className="flex flex-wrap items-center gap-3 mt-3">
-          <span className="text-[11px] font-tech-mono text-slate-300">
-            k atmosphérique = <span className="text-[#D4A843] font-bold">{kAtm.toFixed(3)}</span>
-          </span>
-          <button onClick={()=>setK(Math.round(kAtm*1000)/1000)}
-            className="px-4 py-1.5 text-[10px] font-tech-mono border border-[#D4A843]/60 text-[#D4A843] bg-[#D4A843]/10 hover:bg-[#D4A843]/20 transition-all">
-            → APPLIQUER CE k
-          </button>
-          <button onClick={()=>{setTempC(15);setGradC(-6.5);setRh(50);}} className="px-3 py-1.5 text-[9px] font-tech-mono border border-slate-600 text-slate-400 hover:text-white">Standard</button>
-          <button onClick={()=>{setTempC(8);setGradC(5);setRh(85);}} className="px-3 py-1.5 text-[9px] font-tech-mono border border-amber-700/40 text-amber-400 hover:bg-amber-400/10">Inversion sur mer froide</button>
-          <span className="text-[9px] font-tech-mono text-slate-600">
-            (l&apos;humidité a un effet optique faible : −0.13·e sur la pression effective)
+    {/* ── RÉFRACTION ── */}
+    <div className="bg-[#0A1020] mb-3" style={{border:'1px solid #2a2410',borderRadius:12,padding:16}}>
+      <div className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-3 items-start">
+        <PlainField label="Réfraction k" value={k} onChange={setK} min={0} max={0.99}
+          unit="" accent="#D4A843"
+          hint="Coefficient de réfraction atmosphérique. 0 = aucune ; 0.143 = standard." />
+        <div className="flex flex-wrap gap-2 md:pt-1">
+          {kPresetBtn('aucune (0)',0,'neutral')}
+          {kPresetBtn('standard (0.143)',0.143,'gold')}
+          {kPresetBtn('mer (0.17)',0.17,'gold')}
+          {kPresetBtn('forte (0.38)',0.38,'amber')}
+          {kPresetBtn('super (0.5)',0.5,'red')}
+          <span style={{fontSize:10,fontFamily:'monospace',color:'#5a6a82',alignSelf:'center',marginLeft:4}}>
+            R&apos; = {Math.round(Reff(k))} km{k>0.01?` (×${(Reff(k)/R_EARTH).toFixed(2)})`:''}
           </span>
         </div>
       </div>
+
+      {/* Mode atmosphérique repliable */}
+      <button onClick={()=>setShowAtmo(s=>!s)}
+        style={{
+          marginTop:14,display:'flex',alignItems:'center',gap:8,background:'transparent',
+          border:'none',cursor:'pointer',color:'#D4A843',fontSize:11,fontFamily:'monospace',
+          letterSpacing:'0.08em',padding:0,
+        }}>
+        <span style={{transform:showAtmo?'rotate(90deg)':'none',transition:'transform 0.15s',display:'inline-block'}}>▸</span>
+        CALCULER k DEPUIS L&apos;ATMOSPHÈRE
+      </button>
+
+      {showAtmo && (
+        <div style={{marginTop:12,paddingTop:14,borderTop:'1px solid #2a2410'}}>
+          <div style={{fontSize:10,fontFamily:'monospace',color:'#9a8240',letterSpacing:'0.06em',marginBottom:12}}>
+            k = 503·P_eff/T² · (0.0342 + ΔT/Δh)
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <PlainField label="Température" value={tempC} onChange={setTempC} min={-40} max={60} unit="°C" accent="#D4A843" compact
+              hint="Température de l'air au niveau de l'observateur." />
+            <PlainField label="Gradient ΔT/Δh" value={gradC} onChange={setGradC} min={-15} max={20} unit="°C/km" accent="#D4A843" compact
+              hint="Variation de température avec l'altitude. Négatif = l'air se refroidit en montant (normal)." />
+            <PlainField label="Humidité" value={rh} onChange={setRh} min={0} max={100} unit="%" accent="#00C8FF" compact
+              hint="Humidité relative. Effet optique faible (−0.13·e sur la pression effective)." />
+          </div>
+          <div className="flex flex-wrap items-center gap-3 mt-3">
+            <span style={{fontSize:11,fontFamily:'monospace',color:'#C8D8E8'}}>
+              k atmosphérique = <span style={{color:'#D4A843',fontWeight:700}}>{kAtm.toFixed(3)}</span>
+            </span>
+            <button onClick={()=>setK(Math.round(kAtm*1000)/1000)}
+              style={{padding:'7px 14px',fontSize:10,fontFamily:'monospace',borderRadius:6,border:'1px solid #D4A84399',background:'#D4A8431a',color:'#D4A843',cursor:'pointer'}}>
+              → APPLIQUER CE k
+            </button>
+            <button onClick={()=>{setTempC(15);setGradC(-6.5);setRh(50);}}
+              style={{padding:'7px 12px',fontSize:10,fontFamily:'monospace',borderRadius:6,border:'1px solid #46566e',background:'transparent',color:'#8499b3',cursor:'pointer'}}>
+              Standard
+            </button>
+            <button onClick={()=>{setTempC(8);setGradC(5);setRh(85);}}
+              style={{padding:'7px 12px',fontSize:10,fontFamily:'monospace',borderRadius:6,border:'1px solid #9a824055',background:'transparent',color:'#D9A441',cursor:'pointer'}}>
+              Inversion sur mer froide
+            </button>
+          </div>
+        </div>
+      )}
     </div>
 
+    {/* ── CAS RÉELS ── */}
     <div className="mb-5">
-      <div className="text-[11px] font-tech-mono text-slate-500 mb-3">CAS RÉELS DOCUMENTÉS :</div>
+      <div className="text-[11px] font-tech-mono text-slate-500 mb-3" style={{letterSpacing:'0.08em'}}>CAS RÉELS DOCUMENTÉS</div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
         {PRESETS.map(p=>{
           const fmtH = (m:number) => m>=1000 ? `${(m/1000).toFixed(1)} km` : `${m} m`;
           return (
             <button key={p.label} onClick={()=>{setDist(p.d);setObsM(p.oh);setTgtM(p.th);setK(p.k);}}
-              className="border border-slate-700 bg-[#0A1020] p-3 text-left hover:border-[#00C8FF]/50 transition-all group"
+              className="text-left group" style={{border:'1px solid #283750',background:'#0A1020',borderRadius:8,padding:12,transition:'border-color 0.15s'}}
+              onMouseEnter={e=>e.currentTarget.style.borderColor='#00C8FF80'}
+              onMouseLeave={e=>e.currentTarget.style.borderColor='#283750'}
             >
               <div className="text-[12px] font-tech-mono text-slate-200 group-hover:text-[#00C8FF] mb-2 font-bold">{p.label}</div>
               <div className="text-[10px] font-tech-mono text-slate-500 space-y-0.5">
@@ -341,10 +473,10 @@ export default function CurvatureCalc(){
     </div>
 
     {/* Graphique SVG : hauteur cachée vs distance */}
-    <div className="mb-4 border border-slate-800/50 bg-[#0A1020] p-4">
+    <div className="mb-4 bg-[#0A1020] p-4" style={{border:'1px solid #1c2942',borderRadius:12}}>
       <div className="text-[11px] font-tech-mono text-slate-400 tracking-widest mb-3">HAUTEUR CACHÉE EN FONCTION DE LA DISTANCE</div>
       <CurveGraph dist={dist} oh={obsM} th={tgtM} k={k} />
-      <div className="flex items-center gap-4 mt-2">
+      <div className="flex items-center flex-wrap gap-4 mt-2">
         <div className="flex items-center gap-2">
           <div className="w-4 h-0.5 bg-[#00C8FF]" />
           <span className="text-[9px] font-tech-mono text-slate-500">hauteur cachée (globe)</span>
@@ -365,7 +497,7 @@ export default function CurvatureCalc(){
     </div>
 
     {/* Canvas 3D */}
-    <div className="w-full h-[40vh] sm:h-[55vh] md:h-[70vh] border border-slate-800/50 bg-[#030810] relative overflow-hidden">
+    <div className="w-full h-[40vh] sm:h-[55vh] md:h-[70vh] bg-[#030810] relative overflow-hidden" style={{border:'1px solid #1c2942',borderRadius:12}}>
       <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[#00C8FF]/30 z-10"/>
       <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[#00C8FF]/30 z-10"/>
       <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[#00C8FF]/30 z-10"/>
@@ -377,29 +509,29 @@ export default function CurvatureCalc(){
 
     {/* Résultats */}
     <div className="mt-5 grid grid-cols-2 md:grid-cols-5 gap-3">
-      <div className="border border-cyan-900/30 bg-[#0A1020] p-4">
+      <div className="bg-[#0A1020] p-4" style={{border:'1px solid #14333f',borderRadius:10}}>
         <div className="text-[11px] font-tech-mono text-cyan-400/70 tracking-widest mb-2">HORIZON</div>
         <div className="text-[20px] font-tech-mono text-cyan-400 font-bold">{hDist.toFixed(1)} km</div>
         {k>0.01&&<div className="text-[10px] font-tech-mono text-slate-600 mt-1">sans réf: {hDistNoRef.toFixed(1)} km</div>}
       </div>
-      <div className="border border-red-900/30 bg-[#0A1020] p-4">
+      <div className="bg-[#0A1020] p-4" style={{border:'1px solid #3a1414',borderRadius:10}}>
         <div className="text-[11px] font-tech-mono text-red-400/70 tracking-widest mb-2">CHUTE COURBURE</div>
         <div className="text-[20px] font-tech-mono text-red-400 font-bold">{fmt(drop)}</div>
         {k>0.01&&<div className="text-[10px] font-tech-mono text-slate-600 mt-1">sans réf: {fmt(dropNoRef)}</div>}
       </div>
-      <div className="border border-amber-900/30 bg-[#0A1020] p-4">
+      <div className="bg-[#0A1020] p-4" style={{border:'1px solid #3a2e14',borderRadius:10}}>
         <div className="text-[11px] font-tech-mono text-amber-400/70 tracking-widest mb-2">HAUTEUR CACHÉE</div>
         <div className="text-[20px] font-tech-mono text-amber-400 font-bold">{fmt(hidden)}</div>
         {k>0.01&&<div className="text-[10px] font-tech-mono text-slate-600 mt-1">sans réf: {fmt(hiddenNoRef)}</div>}
       </div>
-      <div className={`border p-4 ${vis?'border-green-900/30 bg-green-950/20':'border-red-900/30 bg-red-950/20'}`}>
+      <div className="p-4" style={{borderRadius:10,border:`1px solid ${vis?'#14401f':'#401414'}`,background:vis?'#0a1f12':'#1f0a0a'}}>
         <div className="text-[11px] font-tech-mono text-slate-400/70 tracking-widest mb-2">AVEC RÉFRACTION</div>
         <div className={`text-[18px] font-tech-mono font-bold ${vis?'text-green-400':'text-red-400'}`}>{vis?'✓ VISIBLE':'✗ MASQUÉE'}</div>
         <div className="text-[10px] font-tech-mono text-slate-500 mt-1">
           {vis?`${fmt(th-hidden)} visible sur ${fmt(th)}`:`${fmt(hidden)} caché > ${fmt(th)}`}
         </div>
       </div>
-      <div className={`border p-4 ${visNoRef?'border-green-900/30 bg-green-950/20':'border-red-900/30 bg-red-950/20'}`}>
+      <div className="p-4" style={{borderRadius:10,border:`1px solid ${visNoRef?'#14401f':'#401414'}`,background:visNoRef?'#0a1f12':'#1f0a0a'}}>
         <div className="text-[11px] font-tech-mono text-slate-400/70 tracking-widest mb-2">SANS RÉFRACTION</div>
         <div className={`text-[18px] font-tech-mono font-bold ${visNoRef?'text-green-400':'text-red-400'}`}>{visNoRef?'✓ VISIBLE':'✗ MASQUÉE'}</div>
         <div className="text-[10px] font-tech-mono text-slate-500 mt-1">
@@ -411,9 +543,10 @@ export default function CurvatureCalc(){
     {/* Bouton copier */}
     <div className="mt-4 flex gap-3">
       <button onClick={copyResults}
-        className="px-5 py-2.5 text-[11px] font-tech-mono tracking-widest border transition-all"
+        className="px-5 py-2.5 text-[11px] font-tech-mono tracking-widest transition-all"
         style={{
-          borderColor: copied ? '#00E87B99' : '#00C8FF40',
+          borderRadius:8,
+          border: `1px solid ${copied ? '#00E87B99' : '#00C8FF40'}`,
           backgroundColor: copied ? '#00E87B1a' : '#00C8FF0a',
           color: copied ? '#00E87B' : '#00C8FF',
         }}>
@@ -421,7 +554,7 @@ export default function CurvatureCalc(){
       </button>
     </div>
 
-    <div className="mt-4 border border-[#D4A843]/20 bg-[#0A1020] p-4">
+    <div className="mt-4 bg-[#0A1020] p-4" style={{border:'1px solid #2a2410',borderRadius:10}}>
       <div className="text-[11px] font-tech-mono text-[#D4A843]/60 mb-2">À PROPOS DE LA RÉFRACTION</div>
       <p className="text-[12px] text-[#C8D8E8]/80 font-rajdhani leading-relaxed">
         La réfraction atmosphérique courbe les rayons lumineux vers le sol (l&apos;air dense au sol a un indice plus élevé).
@@ -433,7 +566,7 @@ export default function CurvatureCalc(){
       </p>
     </div>
 
-    <div className="mt-4 border-t border-slate-800/30 pt-4 flex flex-wrap items-center gap-5">
+    <div className="mt-4 pt-4 flex flex-wrap items-center gap-5" style={{borderTop:'1px solid #1c2942'}}>
       <span className="text-[11px] font-tech-mono text-slate-400">ARTICLES :</span>
       <a href="/article/leau-ne-ment-pas" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;eau ne ment pas →</a>
       <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;hypothèse nulle →</a>
