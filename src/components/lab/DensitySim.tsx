@@ -1,5 +1,6 @@
 'use client';
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { PlainField } from './ui/Field';
 
 interface Layer {
   id: number;
@@ -121,14 +122,11 @@ export default function DensitySim() {
           ))}
         </div>
         {selectedObj === OBJECTS.length - 1 && (
-          <div className="mt-3 flex items-center gap-3">
-            <label className="text-[10px] font-tech-mono text-[#D4A843]">DENSITÉ CUSTOM :</label>
-            <input type="range" min={0.0001} max={20} step={0.01} value={customDensity}
-              onChange={e => { setCustomDensity(+e.target.value); reset(); }}
-              className="flex-1 accent-[#D4A843] h-2" />
-            <input type="number" min={0.0001} max={20} step={0.01} value={customDensity}
-              onChange={e => { const v = +e.target.value; if (!isNaN(v) && v > 0) { setCustomDensity(v); reset(); } }}
-              className="w-20 bg-[#050A12] border border-[#D4A843]/40 text-[13px] font-tech-mono text-[#D4A843] px-2 py-1 text-right rounded-none" />
+          <div className="mt-3">
+            <PlainField label="Densité custom" value={customDensity}
+              onChange={v => { setCustomDensity(v); reset(); }}
+              min={0.0001} max={20} unit="g/cm³" accent="#D4A843" compact
+              hint="Densité de l'objet personnalisé. L'objet se stabilise dans la couche de même densité." />
           </div>
         )}
       </div>

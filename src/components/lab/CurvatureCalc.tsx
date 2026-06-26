@@ -4,6 +4,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Line, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { LengthField, PlainField } from './ui/Field';
+import { niceTicks, fmtKmAxis } from './ui/chart';
 
 const R_EARTH = 6371;
 
@@ -66,9 +67,11 @@ const PRESETS = [
 
 // ─── Graphique SVG : courbure cachée en fonction de la distance ───
 function CurveGraph({ dist, oh, th, k }:{ dist:number; oh:number; th:number; k:number }) {
-  const W = 700, H = 260, PAD = 44;
+  const W = 720, H = 300, PADL = 64, PADR = 46, PADT = 14, PADB = 42;
+  const plotW = W - PADL - PADR, plotH = H - PADT - PADB;
   const maxD = Math.max(dist * 1.3, 100);
-  const steps = 100;
+  const steps = 120;
+  const [hoverD, setHoverD] = useState<number | null>(null);
 
   const points = useMemo(() => {
     const pts: { x:number; y:number; d:number; h:number }[] = [];
@@ -81,46 +84,82 @@ function CurveGraph({ dist, oh, th, k }:{ dist:number; oh:number; th:number; k:n
     }
     maxH = Math.max(maxH, th / 1000 * 1.2, 0.01);
     for (const p of pts) {
-      p.x = PAD + (p.d / maxD) * (W - PAD * 2);
-      p.y = H - PAD - (p.h / maxH) * (H - PAD * 2);
+      p.x = PADL + (p.d / maxD) * plotW;
+      p.y = PADT + plotH - (p.h / maxH) * plotH;
     }
     return { pts, maxH };
-  }, [dist, oh, th, k, maxD]);
+  }, [dist, oh, th, k, maxD, plotW, plotH]);
 
-  const pathD = points.pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x},${p.y}`).join(' ');
+  const xOf = (d:number) => PADL + (d / maxD) * plotW;
+  const yOf = (hkm:number) => PADT + plotH - (hkm / points.maxH) * plotH;
+
+  const pathD = points.pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
   const curHidden = hiddenH(dist, oh / 1000, k);
-  const curX = PAD + (dist / maxD) * (W - PAD * 2);
-  const curY = H - PAD - (curHidden / points.maxH) * (H - PAD * 2);
-  const tgtY = H - PAD - ((th / 1000) / points.maxH) * (H - PAD * 2);
+  const curX = xOf(dist);
+  const curY = yOf(curHidden);
+  const tgtY = yOf(th / 1000);
+
+  const xTicks = niceTicks(maxD, 6);
+  const yTicks = niceTicks(points.maxH, 4);
+
+  // Survol : distance pointée + hauteur cachée correspondante
+  const onMove = (e: React.MouseEvent<SVGRectElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width * W;
+    const d = Math.max(0, Math.min(maxD, (px - PADL) / plotW * maxD));
+    setHoverD(d);
+  };
+  const hD = hoverD;
+  const hH = hD != null ? hiddenH(hD, oh / 1000, k) : 0;
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 320 }}>
-      <rect x={PAD} y={4} width={W - PAD * 2} height={H - PAD - 4} fill="#050A12" rx={4} />
-      {/* Grid lines */}
-      {[0.25, 0.5, 0.75].map(f => (
-        <line key={f} x1={PAD} y1={H - PAD - f * (H - PAD * 2)} x2={W - PAD} y2={H - PAD - f * (H - PAD * 2)}
-          stroke="#1a2540" strokeWidth={0.5} />
-      ))}
-      {/* Target height line */}
-      <line x1={PAD} y1={tgtY} x2={W - PAD} y2={tgtY} stroke="#D4A843" strokeWidth={1} strokeDasharray="4,3" opacity={0.6} />
-      <text x={W - PAD + 4} y={tgtY + 3} fill="#D4A843" fontSize={8} fontFamily="monospace">cible</text>
-      {/* Curve */}
-      <path d={pathD} fill="none" stroke="#00C8FF" strokeWidth={2} />
-      {/* Current point */}
-      <circle cx={curX} cy={curY} r={4} fill={curHidden < th / 1000 ? '#00E87B' : '#FF4444'} />
-      <line x1={curX} y1={H - PAD} x2={curX} y2={curY} stroke={curHidden < th / 1000 ? '#00E87B' : '#FF4444'} strokeWidth={1} strokeDasharray="2,2" opacity={0.5} />
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 340 }}
+      role="img" aria-label="Graphique de la hauteur cachée par la courbure en fonction de la distance">
+      <rect x={PADL} y={PADT} width={plotW} height={plotH} fill="#050A12" rx={4} />
+      {/* Grille + graduations Y */}
+      {yTicks.map(t => {
+        const y = yOf(t);
+        return <g key={`y${t}`}>
+          <line x1={PADL} y1={y} x2={PADL + plotW} y2={y} stroke="#16203a" strokeWidth={0.7} />
+          <text x={PADL - 8} y={y + 3.5} fill="#7c8ca5" fontSize={11} fontFamily="monospace" textAnchor="end">{fmtKmAxis(t)}</text>
+        </g>;
+      })}
+      {/* Graduations X */}
+      {xTicks.map(t => {
+        const x = xOf(t);
+        return <g key={`x${t}`}>
+          <line x1={x} y1={PADT} x2={x} y2={PADT + plotH} stroke="#101a30" strokeWidth={0.6} />
+          <text x={x} y={PADT + plotH + 16} fill="#7c8ca5" fontSize={11} fontFamily="monospace" textAnchor="middle">{Math.round(t)}</text>
+        </g>;
+      })}
+      {/* Ligne hauteur cible */}
+      <line x1={PADL} y1={tgtY} x2={PADL + plotW} y2={tgtY} stroke="#D4A843" strokeWidth={1} strokeDasharray="5,3" opacity={0.7} />
+      <text x={PADL + plotW + 4} y={tgtY + 3.5} fill="#D4A843" fontSize={10} fontFamily="monospace">cible</text>
+      {/* Courbe */}
+      <path d={pathD} fill="none" stroke="#00C8FF" strokeWidth={2.2} />
+      {/* Point courant */}
+      <line x1={curX} y1={PADT} x2={curX} y2={PADT + plotH} stroke={curHidden < th / 1000 ? '#00E87B' : '#FF4444'} strokeWidth={1} strokeDasharray="2,2" opacity={0.45} />
+      <circle cx={curX} cy={curY} r={4.5} fill={curHidden < th / 1000 ? '#00E87B' : '#FF4444'} />
+      {/* Survol interactif */}
+      {hD != null && (
+        <g pointerEvents="none">
+          <line x1={xOf(hD)} y1={PADT} x2={xOf(hD)} y2={PADT + plotH} stroke="#C8D8E8" strokeWidth={0.8} opacity={0.5} />
+          <circle cx={xOf(hD)} cy={yOf(hH)} r={3.5} fill="#C8D8E8" />
+          <g transform={`translate(${Math.min(xOf(hD) + 8, W - 150)},${PADT + 6})`}>
+            <rect width={142} height={34} rx={4} fill="#0D1528" stroke="#283750" strokeWidth={0.8} />
+            <text x={8} y={14} fill="#8499b3" fontSize={10} fontFamily="monospace">{Math.round(hD)} km</text>
+            <text x={8} y={28} fill="#00C8FF" fontSize={11} fontFamily="monospace" fontWeight="bold">caché : {fmt(hH)}</text>
+          </g>
+        </g>
+      )}
       {/* Axes */}
-      <line x1={PAD} y1={H - PAD} x2={W - PAD} y2={H - PAD} stroke="#607890" strokeWidth={1} />
-      <line x1={PAD} y1={4} x2={PAD} y2={H - PAD} stroke="#607890" strokeWidth={1} />
-      <text x={W / 2} y={H - 4} fill="#607890" fontSize={9} fontFamily="monospace" textAnchor="middle">Distance (km)</text>
-      <text x={8} y={H / 2} fill="#607890" fontSize={9} fontFamily="monospace" textAnchor="middle" transform={`rotate(-90,8,${H / 2})`}>Caché (km)</text>
-      {/* Tick labels */}
-      <text x={PAD} y={H - PAD + 12} fill="#607890" fontSize={8} fontFamily="monospace" textAnchor="middle">0</text>
-      <text x={W - PAD} y={H - PAD + 12} fill="#607890" fontSize={8} fontFamily="monospace" textAnchor="middle">{Math.round(maxD)}</text>
-      <text x={PAD - 4} y={H - PAD} fill="#607890" fontSize={8} fontFamily="monospace" textAnchor="end">0</text>
-      <text x={PAD - 4} y={10} fill="#607890" fontSize={8} fontFamily="monospace" textAnchor="end">{points.maxH >= 1 ? points.maxH.toFixed(1) + ' km' : (points.maxH * 1000).toFixed(0) + ' m'}</text>
-      {/* Legend */}
-      <text x={curX + 8} y={curY - 6} fill="#C8D8E8" fontSize={8} fontFamily="monospace">{fmt(curHidden)} caché à {dist} km</text>
+      <line x1={PADL} y1={PADT + plotH} x2={PADL + plotW} y2={PADT + plotH} stroke="#607890" strokeWidth={1.2} />
+      <line x1={PADL} y1={PADT} x2={PADL} y2={PADT + plotH} stroke="#607890" strokeWidth={1.2} />
+      <text x={PADL + plotW / 2} y={H - 6} fill="#8499b3" fontSize={11} fontFamily="monospace" textAnchor="middle">Distance (km)</text>
+      <text x={16} y={PADT + plotH / 2} fill="#8499b3" fontSize={11} fontFamily="monospace" textAnchor="middle" transform={`rotate(-90,16,${PADT + plotH / 2})`}>Hauteur cachée</text>
+      {/* Zone de capture du survol */}
+      <rect x={PADL} y={PADT} width={plotW} height={plotH} fill="transparent"
+        onMouseMove={onMove} onMouseLeave={() => setHoverD(null)} style={{ cursor: 'crosshair' }} />
     </svg>
   );
 }

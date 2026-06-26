@@ -3,6 +3,7 @@ import { useState, useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Line, Html } from '@react-three/drei';
 import * as THREE from 'three';
+import { LengthField } from './ui/Field';
 
 const R_EARTH = 6371;
 
@@ -172,39 +173,9 @@ export default function PerspectiveSim() {
   return <div className="w-full">
     {/* Contrôles */}
     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
-      <div className="border border-slate-800/50 bg-[#0A1020] p-4">
-        <label className="text-[11px] font-tech-mono text-slate-400 tracking-widest block mb-2">DISTANCE</label>
-        <div className="flex items-center gap-3">
-          <input type="range" min={1} max={200} step={0.5} value={dist}
-            onChange={e => setDist(+e.target.value)} className="flex-1 accent-[#00C8FF] h-2" />
-          <input type="number" min={1} max={200} step={0.5} value={dist}
-            onChange={e => { const v = +e.target.value; if (!isNaN(v)) setDist(Math.max(1, Math.min(200, v))); }}
-            className="w-20 bg-[#050A12] border border-slate-600 text-[14px] font-tech-mono text-[#00C8FF] px-3 py-2 text-right rounded-none" />
-          <span className="text-[12px] font-tech-mono text-slate-500">km</span>
-        </div>
-      </div>
-      <div className="border border-slate-800/50 bg-[#0A1020] p-4">
-        <label className="text-[11px] font-tech-mono text-slate-400 tracking-widest block mb-2">HAUTEUR OBSERVATEUR</label>
-        <div className="flex items-center gap-3">
-          <input type="range" min={0} max={100} step={0.1} value={obsM}
-            onChange={e => setObsM(+e.target.value)} className="flex-1 accent-[#D4A843] h-2" />
-          <input type="number" min={0} max={100} step={0.1} value={obsM}
-            onChange={e => { const v = +e.target.value; if (!isNaN(v)) setObsM(Math.max(0, Math.min(100, v))); }}
-            className="w-20 bg-[#050A12] border border-slate-600 text-[14px] font-tech-mono text-[#D4A843] px-3 py-2 text-right rounded-none" />
-          <span className="text-[12px] font-tech-mono text-slate-500">m</span>
-        </div>
-      </div>
-      <div className="border border-slate-800/50 bg-[#0A1020] p-4">
-        <label className="text-[11px] font-tech-mono text-slate-400 tracking-widest block mb-2">HAUTEUR CIBLE</label>
-        <div className="flex items-center gap-3">
-          <input type="range" min={1} max={600} step={1} value={tgtM}
-            onChange={e => setTgtM(+e.target.value)} className="flex-1 accent-[#00E87B] h-2" />
-          <input type="number" min={1} max={600} step={1} value={tgtM}
-            onChange={e => { const v = +e.target.value; if (!isNaN(v)) setTgtM(Math.max(1, Math.min(600, v))); }}
-            className="w-20 bg-[#050A12] border border-slate-600 text-[14px] font-tech-mono text-[#00E87B] px-3 py-2 text-right rounded-none" />
-          <span className="text-[12px] font-tech-mono text-slate-500">m</span>
-        </div>
-      </div>
+      <LengthField label="Distance" value={dist} onChange={setDist} canonical="km" units={['km','m','mi']} min={1} max={200} accent="#00C8FF" hint="Distance horizontale entre l'observateur et la cible." />
+      <LengthField label="Hauteur observateur" value={obsM} onChange={setObsM} canonical="m" units={['m','km','ft']} min={0} max={100} accent="#D4A843" hint="Altitude de l'œil de l'observateur." />
+      <LengthField label="Hauteur cible" value={tgtM} onChange={setTgtM} canonical="m" units={['m','ft']} min={1} max={600} accent="#00E87B" hint="Hauteur de l'objet visé." />
     </div>
 
     {/* Presets */}

@@ -1,5 +1,7 @@
 'use client';
 import { useState, useMemo } from 'react';
+import { LengthField } from './ui/Field';
+import { niceTicks, fmtDist } from './ui/chart';
 
 function arcMin(heightM: number, distM: number): number {
   if (distM <= 0) return Infinity;
@@ -81,13 +83,15 @@ function EyeDiagram({ angSize, limit }: { angSize: number; limit: number }) {
 }
 
 function ResolutionGraph({ heightM, instLimit }: { heightM: number; instLimit: number }) {
-  const W = 700, H = 240, PAD = 50;
+  const W = 720, H = 280, PADL = 58, PADR = 50, PADT = 14, PADB = 42;
+  const plotW = W - PADL - PADR, plotH = H - PADT - PADB;
   const maxDist = maxVisibleDist(heightM, Math.min(EYE_LIMIT, instLimit)) * 1.5;
-  if (!isFinite(maxDist) || maxDist <= 0) return null;
-  const steps = 100;
+  const steps = 120;
+  const [hoverD, setHoverD] = useState<number | null>(null);
 
   const points = useMemo(() => {
     const pts: { x: number; y: number; d: number; a: number }[] = [];
+    if (!isFinite(maxDist) || maxDist <= 0) return { pts, maxA: 1 };
     let maxA = 0;
     for (let i = 1; i <= steps; i++) {
       const d = (i / steps) * maxDist;
@@ -97,46 +101,87 @@ function ResolutionGraph({ heightM, instLimit }: { heightM: number; instLimit: n
     }
     maxA = Math.max(maxA, EYE_LIMIT * 3);
     for (const p of pts) {
-      p.x = PAD + (p.d / maxDist) * (W - PAD * 2);
-      p.y = H - PAD - (Math.min(p.a, maxA) / maxA) * (H - PAD * 2);
+      p.x = PADL + (p.d / maxDist) * plotW;
+      p.y = PADT + plotH - (Math.min(p.a, maxA) / maxA) * plotH;
     }
-    return { pts, maxA, maxDist };
-  }, [heightM, maxDist]);
+    return { pts, maxA };
+  }, [heightM, maxDist, plotW, plotH]);
 
-  const pathD = points.pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x},${p.y}`).join(' ');
-  const limitY = H - PAD - (EYE_LIMIT / points.maxA) * (H - PAD * 2);
-  const instY = H - PAD - (instLimit / points.maxA) * (H - PAD * 2);
+  if (!isFinite(maxDist) || maxDist <= 0) return null;
+
+  const xOf = (d: number) => PADL + (d / maxDist) * plotW;
+  const yOf = (a: number) => PADT + plotH - (Math.min(a, points.maxA) / points.maxA) * plotH;
+
+  const pathD = points.pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+  const limitY = yOf(EYE_LIMIT);
+  const instY = yOf(instLimit);
   const showInstLine = instLimit < EYE_LIMIT;
 
+  const xTicks = niceTicks(maxDist, 6);
+  const yTicks = niceTicks(points.maxA, 4);
+
+  const onMove = (e: React.MouseEvent<SVGRectElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width * W;
+    setHoverD(Math.max(0, Math.min(maxDist, (px - PADL) / plotW * maxDist)));
+  };
+  const hA = hoverD != null ? arcMin(heightM, hoverD) : 0;
+
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 300 }}>
-      <rect x={PAD} y={4} width={W - PAD * 2} height={H - PAD - 4} fill="#050A12" rx={4} />
-      {/* Seuil œil 1' */}
-      <line x1={PAD} y1={limitY} x2={W - PAD} y2={limitY}
-        stroke="#D4A843" strokeWidth={1} strokeDasharray="4,3" opacity={0.6} />
-      <text x={W - PAD + 4} y={limitY + 3} fill="#D4A843" fontSize={8} fontFamily="monospace">œil 1&apos;</text>
-      {/* Seuil instrument (Rayleigh) */}
-      {showInstLine && <>
-        <line x1={PAD} y1={instY} x2={W - PAD} y2={instY}
-          stroke="#00E87B" strokeWidth={1} strokeDasharray="4,3" opacity={0.6} />
-        <text x={W - PAD + 4} y={instY + 3} fill="#00E87B" fontSize={8} fontFamily="monospace">instr.</text>
-      </>}
-      {/* Courbe */}
-      <path d={pathD} fill="none" stroke="#00C8FF" strokeWidth={2} />
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 320 }}
+      role="img" aria-label="Graphique de la taille angulaire d'un objet en fonction de la distance">
+      <rect x={PADL} y={PADT} width={plotW} height={plotH} fill="#050A12" rx={4} />
+      {/* Grille + graduations Y */}
+      {yTicks.map(t => {
+        const y = yOf(t);
+        return <g key={`y${t}`}>
+          <line x1={PADL} y1={y} x2={PADL + plotW} y2={y} stroke="#16203a" strokeWidth={0.7} />
+          <text x={PADL - 8} y={y + 3.5} fill="#7c8ca5" fontSize={11} fontFamily="monospace" textAnchor="end">{t >= 60 ? `${(t / 60).toFixed(0)}°` : `${t}'`}</text>
+        </g>;
+      })}
+      {/* Graduations X */}
+      {xTicks.map(t => {
+        const x = xOf(t);
+        return <g key={`x${t}`}>
+          <line x1={x} y1={PADT} x2={x} y2={PADT + plotH} stroke="#101a30" strokeWidth={0.6} />
+          <text x={x} y={PADT + plotH + 16} fill="#7c8ca5" fontSize={11} fontFamily="monospace" textAnchor="middle">{fmtDist(t)}</text>
+        </g>;
+      })}
       {/* Remplissage sous le seuil = zone invisible */}
       <clipPath id="below-limit">
-        <rect x={PAD} y={limitY} width={W - PAD * 2} height={H - PAD - limitY} />
+        <rect x={PADL} y={limitY} width={plotW} height={PADT + plotH - limitY} />
       </clipPath>
-      <path d={pathD + ` L${W - PAD},${H - PAD} L${PAD},${H - PAD} Z`} fill="#FF4444" opacity={0.08} clipPath="url(#below-limit)" />
+      <path d={pathD + ` L${PADL + plotW},${PADT + plotH} L${PADL},${PADT + plotH} Z`} fill="#FF4444" opacity={0.09} clipPath="url(#below-limit)" />
+      {/* Seuil œil 1' */}
+      <line x1={PADL} y1={limitY} x2={PADL + plotW} y2={limitY} stroke="#D4A843" strokeWidth={1} strokeDasharray="5,3" opacity={0.7} />
+      <text x={PADL + plotW + 4} y={limitY + 3.5} fill="#D4A843" fontSize={10} fontFamily="monospace">œil 1&apos;</text>
+      {/* Seuil instrument (Rayleigh) */}
+      {showInstLine && <>
+        <line x1={PADL} y1={instY} x2={PADL + plotW} y2={instY} stroke="#00E87B" strokeWidth={1} strokeDasharray="5,3" opacity={0.7} />
+        <text x={PADL + plotW + 4} y={instY + 3.5} fill="#00E87B" fontSize={10} fontFamily="monospace">instr.</text>
+      </>}
+      {/* Courbe */}
+      <path d={pathD} fill="none" stroke="#00C8FF" strokeWidth={2.2} />
+      {/* Survol interactif */}
+      {hoverD != null && (
+        <g pointerEvents="none">
+          <line x1={xOf(hoverD)} y1={PADT} x2={xOf(hoverD)} y2={PADT + plotH} stroke="#C8D8E8" strokeWidth={0.8} opacity={0.5} />
+          <circle cx={xOf(hoverD)} cy={yOf(hA)} r={3.5} fill="#C8D8E8" />
+          <g transform={`translate(${Math.min(xOf(hoverD) + 8, W - 160)},${PADT + 6})`}>
+            <rect width={152} height={34} rx={4} fill="#0D1528" stroke="#283750" strokeWidth={0.8} />
+            <text x={8} y={14} fill="#8499b3" fontSize={10} fontFamily="monospace">{fmtDist(hoverD)}</text>
+            <text x={8} y={28} fill="#00C8FF" fontSize={11} fontFamily="monospace" fontWeight="bold">{hA >= 60 ? `${(hA / 60).toFixed(1)}°` : `${hA.toFixed(2)}'`} {hA < EYE_LIMIT ? '— sous seuil' : ''}</text>
+          </g>
+        </g>
+      )}
       {/* Axes */}
-      <line x1={PAD} y1={H - PAD} x2={W - PAD} y2={H - PAD} stroke="#607890" strokeWidth={1} />
-      <line x1={PAD} y1={4} x2={PAD} y2={H - PAD} stroke="#607890" strokeWidth={1} />
-      <text x={W / 2} y={H - 4} fill="#607890" fontSize={9} fontFamily="monospace" textAnchor="middle">Distance</text>
-      <text x={8} y={H / 2} fill="#607890" fontSize={9} fontFamily="monospace" textAnchor="middle" transform={`rotate(-90,8,${H / 2})`}>Arc-min</text>
-      <text x={PAD} y={H - PAD + 12} fill="#607890" fontSize={8} fontFamily="monospace" textAnchor="middle">0</text>
-      <text x={W - PAD} y={H - PAD + 12} fill="#607890" fontSize={8} fontFamily="monospace" textAnchor="middle">
-        {maxDist >= 1000 ? `${(maxDist / 1000).toFixed(0)} km` : `${maxDist.toFixed(0)} m`}
-      </text>
+      <line x1={PADL} y1={PADT + plotH} x2={PADL + plotW} y2={PADT + plotH} stroke="#607890" strokeWidth={1.2} />
+      <line x1={PADL} y1={PADT} x2={PADL} y2={PADT + plotH} stroke="#607890" strokeWidth={1.2} />
+      <text x={PADL + plotW / 2} y={H - 6} fill="#8499b3" fontSize={11} fontFamily="monospace" textAnchor="middle">Distance</text>
+      <text x={14} y={PADT + plotH / 2} fill="#8499b3" fontSize={11} fontFamily="monospace" textAnchor="middle" transform={`rotate(-90,14,${PADT + plotH / 2})`}>Taille angulaire</text>
+      {/* Zone de capture du survol */}
+      <rect x={PADL} y={PADT} width={plotW} height={plotH} fill="transparent"
+        onMouseMove={onMove} onMouseLeave={() => setHoverD(null)} style={{ cursor: 'crosshair' }} />
     </svg>
   );
 }
@@ -154,33 +199,14 @@ export default function VisualFieldSim() {
   const visibleEye = angSz >= EYE_LIMIT;
   // Récupérable au zoom : invisible à l'œil nu, mais résolu par l'instrument
   const recoverable = !visibleEye && visible && instrument > 0;
-  const distKm = distM / 1000;
-
   return <div className="w-full">
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-      <div className="border border-slate-800/50 bg-[#0A1020] p-4">
-        <label className="text-[11px] font-tech-mono text-slate-400 tracking-widest block mb-2">HAUTEUR DE L&apos;OBJET</label>
-        <div className="flex items-center gap-3">
-          <input type="range" min={0.1} max={5000} step={0.1} value={heightM}
-            onChange={e => setHeightM(+e.target.value)} className="flex-1 accent-[#00E87B] h-2" />
-          <input type="number" min={0.1} max={50000} step={0.1} value={heightM}
-            onChange={e => { const v = +e.target.value; if (!isNaN(v) && v > 0) setHeightM(v); }}
-            className="w-24 bg-[#050A12] border border-slate-600 text-[14px] font-tech-mono text-[#00E87B] px-3 py-2 text-right rounded-none" />
-          <span className="text-[12px] font-tech-mono text-slate-500">m</span>
-        </div>
-      </div>
-      <div className="border border-slate-800/50 bg-[#0A1020] p-4">
-        <label className="text-[11px] font-tech-mono text-slate-400 tracking-widest block mb-2">DISTANCE</label>
-        <div className="flex items-center gap-3">
-          <input type="range" min={100} max={500000} step={100} value={distM}
-            onChange={e => setDistM(+e.target.value)} className="flex-1 accent-[#00C8FF] h-2" />
-          <input type="number" min={100} max={5000000} step={100} value={distM}
-            onChange={e => { const v = +e.target.value; if (!isNaN(v) && v > 0) setDistM(v); }}
-            className="w-24 bg-[#050A12] border border-slate-600 text-[14px] font-tech-mono text-[#00C8FF] px-3 py-2 text-right rounded-none" />
-          <span className="text-[12px] font-tech-mono text-slate-500">m</span>
-        </div>
-        <div className="text-[10px] font-tech-mono text-slate-600 mt-1">= {distKm.toFixed(1)} km</div>
-      </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+      <LengthField label="Hauteur de l'objet" value={heightM} onChange={setHeightM}
+        canonical="m" units={['m','km','ft']} min={0.1} max={50000} accent="#00E87B"
+        hint="Hauteur réelle de l'objet observé (personne, bateau, tour…)." />
+      <LengthField label="Distance" value={distM} onChange={setDistM}
+        canonical="m" units={['km','m','mi']} min={100} max={5000000} accent="#00C8FF"
+        hint="Distance entre l'observateur et l'objet." />
     </div>
 
     {/* Presets */}

@@ -3,6 +3,7 @@ import { useState, useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Line, Html } from '@react-three/drei';
 import * as THREE from 'three';
+import { LengthField, PlainField } from './ui/Field';
 
 const R_EARTH = 6371;
 
@@ -225,36 +226,9 @@ export default function LaserLakeSim() {
 
   return <div className="w-full">
     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
-      <div className="border border-slate-800/50 bg-[#0A1020] p-4">
-        <label className="text-[11px] font-tech-mono text-slate-400 tracking-widest block mb-2">DISTANCE TOTALE</label>
-        <div className="flex items-center gap-3">
-          <input type="range" min={1} max={50} step={0.5} value={dist}
-            onChange={e => setDist(+e.target.value)} className="flex-1 accent-[#00C8FF] h-2" />
-          <input type="number" min={1} max={50} step={0.5} value={dist}
-            onChange={e => { const v = +e.target.value; if (!isNaN(v)) setDist(Math.max(1, Math.min(50, v))); }}
-            className="w-20 bg-[#050A12] border border-slate-600 text-[14px] font-tech-mono text-[#00C8FF] px-3 py-2 text-right rounded-none" />
-          <span className="text-[12px] font-tech-mono text-slate-500">km</span>
-        </div>
-      </div>
-      <div className="border border-slate-800/50 bg-[#0A1020] p-4">
-        <label className="text-[11px] font-tech-mono text-slate-400 tracking-widest block mb-2">HAUTEUR DU LASER</label>
-        <div className="flex items-center gap-3">
-          <input type="range" min={0.1} max={5} step={0.1} value={laserH}
-            onChange={e => setLaserH(+e.target.value)} className="flex-1 accent-[#FF4444] h-2" />
-          <input type="number" min={0.1} max={5} step={0.1} value={laserH}
-            onChange={e => { const v = +e.target.value; if (!isNaN(v)) setLaserH(Math.max(0.1, Math.min(5, v))); }}
-            className="w-20 bg-[#050A12] border border-slate-600 text-[14px] font-tech-mono text-[#FF4444] px-3 py-2 text-right rounded-none" />
-          <span className="text-[12px] font-tech-mono text-slate-500">m</span>
-        </div>
-      </div>
-      <div className="border border-slate-800/50 bg-[#0A1020] p-4">
-        <label className="text-[11px] font-tech-mono text-slate-400 tracking-widest block mb-2">NOMBRE DE CIBLES</label>
-        <div className="flex items-center gap-3">
-          <input type="range" min={2} max={10} step={1} value={numTargets}
-            onChange={e => setNumTargets(+e.target.value)} className="flex-1 accent-[#D4A843] h-2" />
-          <span className="text-[14px] font-tech-mono text-[#D4A843] w-12 text-right">{numTargets}</span>
-        </div>
-      </div>
+      <LengthField label="Distance totale" value={dist} onChange={setDist} canonical="km" units={['km','m']} min={1} max={50} accent="#00C8FF" hint="Longueur du plan d'eau visé par le laser." />
+      <LengthField label="Hauteur du laser" value={laserH} onChange={setLaserH} canonical="m" units={['m','cm']} min={0.1} max={5} accent="#FF4444" hint="Hauteur du laser au-dessus de l'eau." />
+      <PlainField label="Nombre de cibles" value={numTargets} onChange={v=>setNumTargets(Math.round(v))} min={2} max={10} unit="cibles" accent="#D4A843" hint="Nombre de jalons répartis sur la distance." />
     </div>
 
     {/* Conditions atmosphériques */}
@@ -262,19 +236,9 @@ export default function LaserLakeSim() {
       <div className="text-[11px] font-tech-mono text-[#D4A843] tracking-widest mb-3">
         CONDITIONS ATMOSPHÉRIQUES → k = {k.toFixed(3)} (R_rayon = {k > 0.001 ? `${Math.round(R_EARTH / k).toLocaleString('fr-FR')} km` : '∞'})
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="flex items-center gap-3">
-          <label className="text-[10px] font-tech-mono text-slate-400 w-32">TEMPÉRATURE (T₀)</label>
-          <input type="range" min={5} max={40} step={0.5} value={tempC}
-            onChange={e => setTempC(+e.target.value)} className="flex-1 accent-[#D4A843] h-2" />
-          <span className="text-[12px] font-tech-mono text-[#D4A843] w-14 text-right">{tempC.toFixed(1)}°C</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <label className="text-[10px] font-tech-mono text-slate-400 w-32">GRADIENT ΔT/Δh</label>
-          <input type="range" min={-10} max={10} step={0.1} value={gradC}
-            onChange={e => setGradC(+e.target.value)} className="flex-1 accent-[#D4A843] h-2" />
-          <span className="text-[12px] font-tech-mono text-[#D4A843] w-20 text-right">{gradC.toFixed(1)} °C/km</span>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <PlainField label="Température (T₀)" value={tempC} onChange={setTempC} min={5} max={40} unit="°C" accent="#D4A843" compact hint="Température de l'air au niveau de l'eau." />
+        <PlainField label="Gradient ΔT/Δh" value={gradC} onChange={setGradC} min={-10} max={10} unit="°C/km" accent="#D4A843" compact hint="Variation de température avec l'altitude." />
       </div>
       <div className="flex flex-wrap gap-2 mt-3">
         <button onClick={() => { setTempC(15); setGradC(-6.5); }} className="px-3 py-2 md:py-1 text-[11px] md:text-[9px] font-tech-mono border border-slate-600 text-slate-400 hover:text-white">Standard (k≈0.13)</button>
