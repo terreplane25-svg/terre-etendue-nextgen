@@ -1,9 +1,9 @@
 'use client';
 import { useState, useMemo } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Line, Html } from '@react-three/drei';
+import { Line, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { LengthField, PlainField } from './ui/Field';
+import { Canvas3D, Marker } from './ui/scene3d';
 
 const R_EARTH = 6371;
 
@@ -90,8 +90,6 @@ function Scene({ dist, laserH, targets, k }: { dist: number; laserH: number; tar
   }, [halfD, scale, hScale]);
 
   return <>
-    <ambientLight intensity={0.5} />
-
     {/* ── MODÈLE PLAN (haut) ── */}
     <group position={[0, 3, 0]}>
       <Html position={[0, 2, 0]} center distanceFactor={10} style={{ pointerEvents: 'none' }}>
@@ -117,10 +115,7 @@ function Scene({ dist, laserH, targets, k }: { dist: number; laserH: number; tar
         new THREE.Vector3(halfD, laserH * hScale, 0),
       ]} color="#FF4444" lineWidth={6} opacity={0.15} transparent />
       {/* Source */}
-      <mesh position={[-halfD, laserH * hScale, 0]}>
-        <sphereGeometry args={[0.08, 12, 12]} />
-        <meshBasicMaterial color="#FF0000" />
-      </mesh>
+      <Marker position={[-halfD, laserH * hScale, 0]} r={0.08} color="#FF0000" />
       {/* Cibles */}
       {targets.map(t => {
         const x = -halfD + (t / dist) * halfD * 2;
@@ -168,10 +163,7 @@ function Scene({ dist, laserH, targets, k }: { dist: number; laserH: number; tar
         </div>
       </Html>
       {/* Source */}
-      <mesh position={[-halfD, laserH * hScale, 0]}>
-        <sphereGeometry args={[0.08, 12, 12]} />
-        <meshBasicMaterial color="#FF0000" />
-      </mesh>
+      <Marker position={[-halfD, laserH * hScale, 0]} r={0.08} color="#FF0000" />
       {/* Cibles + écart */}
       {targets.map(t => {
         const x = -halfD + (t / dist) * halfD * 2;
@@ -199,8 +191,6 @@ function Scene({ dist, laserH, targets, k }: { dist: number; laserH: number; tar
         );
       })}
     </group>
-
-    <OrbitControls enablePan enableZoom maxDistance={20} minDistance={3} />
   </>;
 }
 
@@ -259,15 +249,9 @@ export default function LaserLakeSim() {
     </div>
 
     {/* Canvas 3D */}
-    <div className="w-full h-[40vh] sm:h-[55vh] md:h-[70vh] border border-slate-800/50 bg-[#030810] relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[#FF4444]/30 z-10" />
-      <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[#FF4444]/30 z-10" />
-      <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[#FF4444]/30 z-10" />
-      <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-[#FF4444]/30 z-10" />
-      <Canvas camera={{ position: [0, 0, 12], fov: 45 }}>
-        <Scene dist={dist} laserH={laserH} targets={targets} k={k} />
-      </Canvas>
-    </div>
+    <Canvas3D accent="#FF4444" controlsProps={{ enablePan: true, enableZoom: true, maxDistance: 20, minDistance: 3 }}>
+      <Scene dist={dist} laserH={laserH} targets={targets} k={k} />
+    </Canvas3D>
 
     {/* Tableau des écarts */}
     <div className="mt-4 overflow-x-auto">

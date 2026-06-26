@@ -1,9 +1,9 @@
 'use client';
 import { useState, useMemo } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Line, Html } from '@react-three/drei';
+import { Line, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { LengthField } from './ui/Field';
+import { Canvas3D, Marker } from './ui/scene3d';
 
 const R_EARTH = 6371;
 
@@ -60,8 +60,6 @@ function Scene({ dist, obsH, tgtH }: { dist: number; obsH: number; tgtH: number 
   const vanishY = obsHsc;
 
   return <>
-    <ambientLight intensity={0.6} />
-
     {/* Modèle PERSPECTIVE (haut) */}
     <group position={[0, 3.5, 0]}>
       <Html position={[0, 2.5, 0]} center distanceFactor={10} style={{ pointerEvents: 'none' }}>
@@ -84,16 +82,16 @@ function Scene({ dist, obsH, tgtH }: { dist: number; obsH: number; tgtH: number 
         new THREE.Vector3(halfD + 1.2, vanishY, 0),
       ]} color="#D4A843" lineWidth={1} opacity={0.25} transparent dashed dashSize={0.06} gapSize={0.04} />
       {/* Point de fuite */}
-      <mesh position={[halfD + 1.2, vanishY, 0]}><sphereGeometry args={[0.04, 10, 10]} /><meshBasicMaterial color="#D4A843" /></mesh>
+      <Marker position={[halfD + 1.2, vanishY, 0]} r={0.04} color="#D4A843" />
       <Html position={[halfD + 1.2, vanishY + 0.35, 0]} center distanceFactor={10} style={{ pointerEvents: 'none' }}>
         <div style={{ color: '#D4A843', fontSize: '8px', fontFamily: 'monospace' }}>point de fuite</div>
       </Html>
       {/* Observateur */}
       <Line points={[new THREE.Vector3(-halfD, 0, 0), new THREE.Vector3(-halfD, obsHsc, 0)]} color="#D4A843" lineWidth={2} />
-      <mesh position={[-halfD, obsHsc, 0]}><sphereGeometry args={[0.06, 12, 12]} /><meshBasicMaterial color="#D4A843" /></mesh>
+      <Marker position={[-halfD, obsHsc, 0]} r={0.06} color="#D4A843" />
       {/* Cible (réduite en 1/d par la perspective projective) */}
       <Line points={[new THREE.Vector3(halfD, 0, 0), new THREE.Vector3(halfD, perspTgtH, 0)]} color="#00E87B" lineWidth={3} />
-      <mesh position={[halfD, perspTgtH, 0]}><sphereGeometry args={[0.05, 12, 12]} /><meshBasicMaterial color="#00E87B" /></mesh>
+      <Marker position={[halfD, perspTgtH, 0]} r={0.05} color="#00E87B" />
       {/* Ligne de visée */}
       <Line points={[new THREE.Vector3(-halfD, obsHsc, 0), new THREE.Vector3(halfD, perspTgtH, 0)]}
         color="#00E87B" lineWidth={1} opacity={0.4} transparent dashed dashSize={0.06} gapSize={0.04} />
@@ -131,7 +129,7 @@ function Scene({ dist, obsH, tgtH }: { dist: number; obsH: number; tgtH: number 
         return <>
           <Line points={pts} color="#00C8FF" lineWidth={2.5} />
           <Line points={[new THREE.Vector3(oGx, oGy, 0), new THREE.Vector3(...obsP)]} color="#00C8FF" lineWidth={2} />
-          <mesh position={obsP}><sphereGeometry args={[0.06, 12, 12]} /><meshBasicMaterial color="#00C8FF" /></mesh>
+          <Marker position={obsP} r={0.06} color="#00C8FF" />
           {/* Portion visible (verte) */}
           {vis && <Line points={[new THREE.Vector3(...hidP), new THREE.Vector3(...tgtTopP)]} color="#00E87B" lineWidth={3} />}
           {/* Portion cachée (rouge) */}
@@ -149,8 +147,6 @@ function Scene({ dist, obsH, tgtH }: { dist: number; obsH: number; tgtH: number 
         </>;
       })()}
     </group>
-
-    <OrbitControls enablePan enableZoom maxDistance={20} minDistance={3} />
   </>;
 }
 
@@ -215,15 +211,9 @@ export default function PerspectiveSim() {
     </div>
 
     {/* Canvas 3D */}
-    <div className="w-full h-[40vh] sm:h-[55vh] md:h-[70vh] border border-slate-800/50 bg-[#030810] relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[#D4A843]/30 z-10" />
-      <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[#D4A843]/30 z-10" />
-      <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[#D4A843]/30 z-10" />
-      <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-[#D4A843]/30 z-10" />
-      <Canvas camera={{ position: [0, 0, 12], fov: 45 }}>
-        <Scene dist={dist} obsH={obsH} tgtH={tgtH} />
-      </Canvas>
-    </div>
+    <Canvas3D accent="#D4A843" controlsProps={{ enablePan: true, enableZoom: true, maxDistance: 20, minDistance: 3 }}>
+      <Scene dist={dist} obsH={obsH} tgtH={tgtH} />
+    </Canvas3D>
 
     {/* Résultats */}
     <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">

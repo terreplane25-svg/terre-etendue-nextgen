@@ -1,10 +1,10 @@
 'use client';
 import { useState, useMemo, useCallback } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Line, Html } from '@react-three/drei';
+import { Line, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { LengthField, PlainField } from './ui/Field';
 import { niceTicks, fmtKmAxis } from './ui/chart';
+import { Canvas3D, Marker } from './ui/scene3d';
 
 const R_EARTH = 6371;
 
@@ -197,12 +197,11 @@ function Scene({d,oh,th,k}:{d:number;oh:number;th:number;k:number}){
   const vis=hidden<th;
 
   return<>
-    <ambientLight intensity={0.5}/>
     <group position={[0,3,0]}>
       {k>0.01 && <Line points={curveNoRef} color="#666666" lineWidth={1} opacity={0.3} transparent dashed dashSize={0.06} gapSize={0.04}/>}
       <Line points={curveRef} color="#00C8FF" lineWidth={2.5}/>
       <Line points={[new THREE.Vector3(oGx,oGy,0),new THREE.Vector3(...obsP)]} color="#00C8FF" lineWidth={2}/>
-      <mesh position={obsP}><sphereGeometry args={[0.08,12,12]}/><meshBasicMaterial color="#00C8FF"/></mesh>
+      <Marker position={obsP} r={0.08} color="#00C8FF"/>
       {vis&&<Line points={[new THREE.Vector3(tGx+tNx*hidden*hs,tGy+tNy*hidden*hs,0),new THREE.Vector3(...tgtP)]} color="#00E87B" lineWidth={3}/>}
       {hidden>0&&<Line points={[new THREE.Vector3(tGx,tGy,0),new THREE.Vector3(...hidP)]} color="#FF4444" lineWidth={4}/>}
       <Line points={[new THREE.Vector3(...obsP),new THREE.Vector3(...tgtP)]}
@@ -219,7 +218,7 @@ function Scene({d,oh,th,k}:{d:number;oh:number;th:number;k:number}){
     <group position={[0,-3.5,0]}>
       <Line points={[new THREE.Vector3(-halfD-0.5,0,0),new THREE.Vector3(halfD+0.5,0,0)]} color="#D4A843" lineWidth={2.5}/>
       <Line points={[new THREE.Vector3(-halfD,0,0),new THREE.Vector3(-halfD,oh*hs,0)]} color="#D4A843" lineWidth={2}/>
-      <mesh position={[-halfD,oh*hs,0]}><sphereGeometry args={[0.08,12,12]}/><meshBasicMaterial color="#D4A843"/></mesh>
+      <Marker position={[-halfD,oh*hs,0]} r={0.08} color="#D4A843"/>
       <Line points={[new THREE.Vector3(halfD,0,0),new THREE.Vector3(halfD,th*hs,0)]} color="#00E87B" lineWidth={2}/>
       <Line points={[new THREE.Vector3(-halfD,oh*hs,0),new THREE.Vector3(halfD,th*hs,0)]}
         color="#00E87B" lineWidth={1} opacity={0.4} transparent dashed dashSize={0.08} gapSize={0.04}/>
@@ -227,7 +226,6 @@ function Scene({d,oh,th,k}:{d:number;oh:number;th:number;k:number}){
         <div style={{color:'#D4A843',fontSize:'13px',fontFamily:'monospace',letterSpacing:'0.12em',fontWeight:'bold'}}>MODÈLE PLAN — toujours visible</div>
       </Html>
     </group>
-    <OrbitControls enablePan enableZoom maxDistance={20} minDistance={3}/>
   </>;
 }
 
@@ -414,15 +412,9 @@ export default function CurvatureCalc(){
     </div>
 
     {/* Canvas 3D */}
-    <div className="w-full h-[40vh] sm:h-[55vh] md:h-[70vh] bg-[#030810] relative overflow-hidden" style={{border:'1px solid #1c2942',borderRadius:12}}>
-      <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[#00C8FF]/30 z-10"/>
-      <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[#00C8FF]/30 z-10"/>
-      <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[#00C8FF]/30 z-10"/>
-      <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-[#00C8FF]/30 z-10"/>
-      <Canvas camera={{position:[0,0,12],fov:45}}>
-        <Scene d={dist} oh={oh} th={th} k={k}/>
-      </Canvas>
-    </div>
+    <Canvas3D accent="#00C8FF" controlsProps={{ enablePan: true, enableZoom: true, maxDistance: 20, minDistance: 3 }}>
+      <Scene d={dist} oh={oh} th={th} k={k}/>
+    </Canvas3D>
 
     {/* Résultats */}
     <div className="mt-5 grid grid-cols-2 md:grid-cols-5 gap-3">
