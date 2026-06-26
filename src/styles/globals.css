@@ -197,6 +197,23 @@ html, body { overflow-x: hidden; }
   margin-bottom: 4px;
 }
 
+/* ═══ LEDE (chapeau d'intro) ═══ */
+.prose-dash .tei-lede { font-size: 18px; line-height: 1.7; color: var(--ink-soft); font-weight: 500; margin: 0 0 1.6em; }
+
+/* ═══ ENCADRÉ-CLÉ par page (couleur du pilier + label propre) ═══ */
+.prose-dash .tei-fait { border-left: 4px solid var(--saffron); background: rgba(212,148,58,0.06); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0; }
+.prose-dash .tei-fait .tei-fait-label { display: block; font-size: 11px; font-weight: 700; font-family: var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; color: var(--saffron); }
+.prose-dash .tei-fait p { margin: 0; color: var(--ink); }
+/* Variantes par page */
+.prose-dash .tei-fait.library { border-left-color: var(--saffron); background: rgba(212,148,58,0.06); }
+.prose-dash .tei-fait.library .tei-fait-label { color: var(--saffron); }
+.prose-dash .tei-fait.headquarters { border-left-color: var(--lavender); background: rgba(139,126,200,0.06); }
+.prose-dash .tei-fait.headquarters .tei-fait-label { color: var(--lavender); }
+.prose-dash .tei-fait.observatory { border-left-color: var(--cyan); background: rgba(59,143,212,0.06); }
+.prose-dash .tei-fait.observatory .tei-fait-label { color: var(--cyan); }
+.prose-dash .tei-fait.experiences { border-left-color: var(--rose); background: rgba(196,94,106,0.06); }
+.prose-dash .tei-fait.experiences .tei-fait-label { color: var(--rose); }
+
 /* ═══ CAROUSEL CARDS ═══ */
 .carousel-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); border-color: var(--ink-ghost) !important; }
 .carousel-card:hover .carousel-card-img { transform: scale(1.05); }
