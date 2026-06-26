@@ -657,6 +657,8 @@ export default function FlatEarthSim(){
   const [showTropics,setShowTropics]=useState(false);
   const [showPaths,setShowPaths]=useState(false);
   const dateRef = useRef(new Date());
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const camControlsRef = useRef<any>(null);
   const [simDate,setSimDate]=useState(()=>dateRef.current);
   const [posData,setPosData]=useState<PosData|null>(null);
   const [observer,setObserver]=useState<ObserverLocation>(DEFAULT_OBSERVER);
@@ -963,16 +965,25 @@ export default function FlatEarthSim(){
       {viewMode==='map' ? (
         <Canvas key="map" camera={{position:[0,12,0.1],fov:50}}>
           <FlatScene speed={speed} showLabels={showLabels} isPlaying={isPlaying} showTropics={showTropics} showPaths={showPaths} dateRef={dateRef} observer={observer} onMapClick={handleMapClick} onPosUpdate={onPosUpdate} distPoints={distPoints.length>0?distPoints:null}/>
-          <OrbitControls enablePan={false} minDistance={6} maxDistance={20} minPolarAngle={0} maxPolarAngle={Math.PI*0.3}/>
+          <OrbitControls ref={camControlsRef} enableDamping dampingFactor={0.08} enablePan={false} minDistance={6} maxDistance={20} minPolarAngle={0} maxPolarAngle={Math.PI*0.3}/>
         </Canvas>
       ) : (
         <Canvas key="dome" camera={{position:[0,1.6,-0.12],fov:65}}>
           <DomeScene speed={speed} showLabels={showLabels} isPlaying={isPlaying} dateRef={dateRef} observer={observer} onPosUpdate={onPosUpdate} onSelectBody={handleSelectBody} northAngle={northAngle}/>
-          <OrbitControls enablePan={false} enableZoom={false} target={[0,1.6,0]}
+          <OrbitControls ref={camControlsRef} enablePan={false} enableZoom={false} target={[0,1.6,0]}
             minDistance={0.12} maxDistance={0.12} rotateSpeed={-0.35}
             minPolarAngle={0.05} maxPolarAngle={Math.PI*0.85}/>
         </Canvas>
       )}
+      <button
+        onClick={()=>camControlsRef.current?.reset()}
+        className="absolute top-2 right-2 z-20 px-2.5 py-1 text-[10px] font-tech-mono tracking-widest transition-all"
+        style={{border:'1px solid #3B8FD455',background:'#030810cc',color:'#3B8FD4'}}
+        title="Recentrer la vue"
+      >⟳ RECENTRER</button>
+      <div className="absolute bottom-3 right-3 z-10 text-[8px] font-tech-mono pointer-events-none" style={{color:'#3B8FD4',opacity:0.5}}>
+        {viewMode==='map' ? 'glisser pour pivoter · molette pour zoomer' : 'glisser pour regarder autour'}
+      </div>
     </div>
     <div className="mt-3 border border-slate-800/50 bg-[var(--hull)] p-4">
       <p className="text-[13px] text-[#C8D8E8]/80 font-rajdhani leading-relaxed">

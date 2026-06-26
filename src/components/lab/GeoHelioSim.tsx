@@ -213,6 +213,8 @@ export default function GeoHelioSim(){
   const [speed, setSpeed] = useState(1);
   const [showLabels, setShowLabels] = useState(true);
   const [showVelocities, setShowVelocities] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const controlsRef = useRef<any>(null);
 
   return <div className="w-full">
     <div className="flex flex-wrap items-center gap-2 mb-3">
@@ -265,8 +267,17 @@ export default function GeoHelioSim(){
         {mode==='classic'
           ?<ClassicScene speed={speed} showLabels={showLabels} showVelocities={showVelocities}/>
           :<VortexScene speed={speed} showLabels={showLabels} showVelocities={showVelocities}/>}
-        <OrbitControls enablePan={mode==='vortex'} minDistance={4} maxDistance={35}/>
+        <OrbitControls ref={controlsRef} enableDamping dampingFactor={0.08} enablePan={mode==='vortex'} minDistance={4} maxDistance={35}/>
       </Canvas>
+      <button
+        onClick={()=>controlsRef.current?.reset()}
+        className="absolute top-2 right-2 z-20 px-2.5 py-1 text-[10px] font-tech-mono tracking-widest transition-all"
+        style={{border:'1px solid #3B8FD455',background:'#030810cc',color:'#3B8FD4'}}
+        title="Recentrer la vue"
+      >⟳ RECENTRER</button>
+      <div className="absolute bottom-3 right-3 z-10 text-[8px] font-tech-mono pointer-events-none" style={{color:'#3B8FD4',opacity:0.5}}>
+        glisser pour pivoter · molette pour zoomer
+      </div>
     </div>
 
     {/* Tableau des vitesses orbitales */}
