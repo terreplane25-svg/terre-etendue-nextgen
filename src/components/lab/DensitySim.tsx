@@ -185,7 +185,7 @@ export default function DensitySim() {
                 <rect x={colX} y={yAcc} width={colW} height={l.height}
                   fill={l.color} opacity={0.15} stroke={l.color} strokeWidth={0.5} strokeOpacity={0.3} />
                 <text x={colX + colW + 10} y={yAcc + l.height / 2 + 4}
-                  fill={l.color} fontSize={10} fontFamily="monospace" opacity={0.8}>
+                  fill={l.color} fontSize={12} fontFamily="monospace" opacity={0.9}>
                   {l.name} (ρ={l.density})
                 </text>
                 {/* Densité gauge */}
@@ -223,7 +223,7 @@ export default function DensitySim() {
         >{obj.emoji}</text>
 
         {/* Titre */}
-        <text x={colX + colW / 2} y={16} fill="#C8D8E8" fontSize={11} fontFamily="monospace" textAnchor="middle" fontWeight="bold">
+        <text x={colX + colW / 2} y={16} fill="#C8D8E8" fontSize={13} fontFamily="monospace" textAnchor="middle" fontWeight="bold" letterSpacing="0.08em">
           COLONNE DE DENSITÉ
         </text>
       </svg>

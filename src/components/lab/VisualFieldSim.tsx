@@ -62,19 +62,23 @@ function EyeDiagram({ angSize, limit }: { angSize: number; limit: number }) {
         stroke={col} strokeWidth={1.5} opacity={0.6} />
       {/* Zone de résolution */}
       <line x1={cx + 18} y1={cy - Math.sin(limitRad) * rayLen * 0.3} x2={cx + rayLen} y2={cy - Math.sin(limitRad) * rayLen * 0.3}
-        stroke="#D4A843" strokeWidth={0.5} strokeDasharray="4,3" opacity={0.5} />
+        stroke="#D4A843" strokeWidth={0.9} strokeDasharray="5,3" opacity={0.7} />
       <line x1={cx + 18} y1={cy + Math.sin(limitRad) * rayLen * 0.3} x2={cx + rayLen} y2={cy + Math.sin(limitRad) * rayLen * 0.3}
-        stroke="#D4A843" strokeWidth={0.5} strokeDasharray="4,3" opacity={0.5} />
+        stroke="#D4A843" strokeWidth={0.9} strokeDasharray="5,3" opacity={0.7} />
+      {/* Arc de la taille angulaire, près de l'œil */}
+      <path d={`M ${cx + 54} ${cy - Math.sin(fovRad) * 54 * 0.3} A 54 54 0 0 1 ${cx + 54} ${cy + Math.sin(fovRad) * 54 * 0.3}`}
+        fill="none" stroke={col} strokeWidth={1.2} />
       {/* Objet */}
       <line x1={cx + rayLen - 10} y1={cy - Math.sin(fovRad) * rayLen * 0.3}
         x2={cx + rayLen - 10} y2={cy + Math.sin(fovRad) * rayLen * 0.3}
-        stroke={col} strokeWidth={3} />
+        stroke={col} strokeWidth={3.5} />
       {/* Labels */}
-      <text x={cx} y={cy + 40} fill="#C8D8E8" fontSize={9} fontFamily="monospace" textAnchor="middle">Œil</text>
-      <text x={cx + rayLen - 10} y={cy + 40} fill={col} fontSize={9} fontFamily="monospace" textAnchor="middle">Objet</text>
-      <text x={W - 10} y={cy - 8} fill="#D4A843" fontSize={8} fontFamily="monospace" textAnchor="end">seuil 1&apos;</text>
+      <text x={cx} y={cy + 42} fill="#C8D8E8" fontSize={11} fontFamily="monospace" textAnchor="middle">Œil</text>
+      <text x={cx + rayLen - 10} y={cy + 42} fill={col} fontSize={11} fontFamily="monospace" textAnchor="middle">Objet</text>
+      <text x={cx + 64} y={cy - Math.sin(fovRad) * 54 * 0.3 - 6} fill={col} fontSize={10} fontFamily="monospace">taille angulaire</text>
+      <text x={W - 10} y={cy - Math.sin(limitRad) * rayLen * 0.3 - 5} fill="#D4A843" fontSize={10} fontFamily="monospace" textAnchor="end">seuil de résolution (1&apos;)</text>
       {/* Taille angulaire */}
-      <text x={cx + rayLen / 2} y={20} fill={col} fontSize={11} fontFamily="monospace" textAnchor="middle" fontWeight="bold">
+      <text x={cx + rayLen / 2} y={22} fill={col} fontSize={13} fontFamily="monospace" textAnchor="middle" fontWeight="bold">
         {angSize > 1000 ? `${(angSize / 60).toFixed(1)}°` : `${angSize.toFixed(2)}'`}
         {visible ? ' — RÉSOLU' : ' — NON RÉSOLU'}
       </text>
