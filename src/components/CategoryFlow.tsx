@@ -8,7 +8,11 @@ interface A {
   slug: string; title: string; description: string;
   tags?: string[]; pinned?: boolean; readTime: number;
 }
-interface Section { id: string; label: string; icon: string; slugs: string[]; }
+interface Section {
+  id: string; label: string; icon: string;
+  slugs?: string[];
+  match?: (a: { slug: string; tags?: string[]; pinned?: boolean }) => boolean;
+}
 
 interface Props {
   sections: Section[];
@@ -101,13 +105,13 @@ function SecTitle({ icon, label, count, color }: { icon: string; label: string; 
 export default function CategoryFlow({ sections, articles, color, basePath, perSection = 4, featuredSlug, footer }: Props) {
   const sp = useSearchParams();
   const filter = sp.get('filter') || 'all';
-  const getSection = (slug: string) => sections.find(s => s.slugs.includes(slug))?.id ?? null;
-  const uncategorized = articles.filter(a => getSection(a.slug) === null);
+  const getSection = (a: A) => sections.find(s => s.match ? s.match(a) : (s.slugs?.includes(a.slug) ?? false))?.id ?? null;
+  const uncategorized = articles.filter(a => getSection(a) === null);
 
   // ── Mode catégorie complète (?filter=…) ──
   if (filter !== 'all') {
     const sec = sections.find(s => s.id === filter);
-    const list = filter === 'autres' ? uncategorized : articles.filter(a => getSection(a.slug) === filter);
+    const list = filter === 'autres' ? uncategorized : articles.filter(a => getSection(a) === filter);
     const label = sec ? sec.label : 'Autres publications';
     const icon = sec ? sec.icon : '📄';
     return (
@@ -127,7 +131,7 @@ export default function CategoryFlow({ sections, articles, color, basePath, perS
 
   const blocks = [
     ...sections.map(s => ({ id: s.id, icon: s.icon, label: s.label,
-      list: articles.filter(a => getSection(a.slug) === s.id && a.slug !== featured?.slug) })),
+      list: articles.filter(a => getSection(a) === s.id && a.slug !== featured?.slug) })),
     ...(uncategorized.filter(a => a.slug !== featured?.slug).length
       ? [{ id: 'autres', icon: '📄', label: 'Autres publications',
           list: uncategorized.filter(a => a.slug !== featured?.slug) }]
