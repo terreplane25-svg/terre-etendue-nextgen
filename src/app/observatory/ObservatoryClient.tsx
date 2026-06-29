@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { dash } from '@/lib/design-tokens';
 import SectionHeader from '@/components/SectionHeader';
+import PageIntro from '@/components/PageIntro';
 import ArticleCarousel from '@/components/ArticleCarousel';
 
 interface A { slug: string; title: string; description: string; tags: string[]; pinned: boolean; readTime: number; }
@@ -72,6 +73,9 @@ export default function ObservatoryClient({ articles }: { articles: A[] }) {
   return (
     <div>
       <SectionHeader pillar="OBS" pillarNum="02" subtitle="Données empiriques" title="L'Observatoire" color={dash.cyan} count={articles.length} countLabel="analyses — observations, optique, hydrologie et astronomie" />
+      <PageIntro color={dash.cyan}
+        lede="Regardez ce que vous observez vraiment."
+        body="L'Observatoire confronte le modèle aux données : marées, horizon, réfraction, trajectoires célestes. Tableaux de mesures, sources institutionnelles (NOAA, NASA, ESA, SHOM) et schémas optiques à l'appui. Pas d'opinion — ce que montrent les chiffres." />
       <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 64px' }}>
         <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
           <Link href="/experiences" style={{ fontSize: 13, fontWeight: 600, color: dash.opal, padding: '6px 14px', borderRadius: 6, background: `${dash.opal}10` }}>

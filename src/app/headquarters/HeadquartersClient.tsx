@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { dash } from '@/lib/design-tokens';
 import SectionHeader from '@/components/SectionHeader';
+import PageIntro from '@/components/PageIntro';
 import ArticleCarousel from '@/components/ArticleCarousel';
 
 interface A { slug: string; title: string; description: string; tags: string[]; pinned: boolean; readTime: number; }
@@ -56,6 +57,9 @@ export default function HeadquartersClient({ articles }: { articles: A[] }) {
   return (
     <div>
       <SectionHeader pillar="Q.G." pillarNum="01" subtitle="Épistémologie & méthode" title="Le Centre de Recherche" color={dash.lavender} count={articles.length} countLabel="publications — épistémologie, zététique et remise en question" />
+      <PageIntro color={dash.lavender}
+        lede="On a interprété. On n'a pas prouvé."
+        body="Le Centre de Recherche retourne la méthode scientifique contre le consensus : chaque « preuve » de la rotation, de la gravité ou du globe est reprise pas à pas — affirmation, mise en doute, réfutation. On ne demande pas d'y croire, mais d'examiner ce qui est réellement démontré." />
       <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 64px' }}>
 
         {/* Section filters */}

@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { dash } from '@/lib/design-tokens';
 import { getArticleImage } from '@/lib/article-images';
 import SectionHeader from '@/components/SectionHeader';
+import PageIntro from '@/components/PageIntro';
 import ArticleCarousel from '@/components/ArticleCarousel';
 
 interface A { slug: string; title: string; description: string; tags: string[]; pinned: boolean; readTime: number; }
@@ -56,6 +57,9 @@ export default function LibraryClient({ priority, articles }: { priority: A[]; a
   return (
     <div>
       <SectionHeader pillar="BIBLIO" pillarNum="03" subtitle="Sources sacrées" title="La Bibliothèque" color={dash.saffron} count={allArticles.length} countLabel="publications — Coran, Sunna, textes historiques et cosmographie" />
+      <PageIntro color={dash.saffron}
+        lede="Ce que le texte établit — avant toute interprétation."
+        body="Ici, le Coran et la Sunna sont lus comme une édition critique : verset en arabe, traduction, source datée et vérifiable. On y sépare ce que le texte dit de ce qu'on lui a fait dire — et l'on s'en tient aux références." />
       <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 64px' }}>
 
         {/* Section filters */}

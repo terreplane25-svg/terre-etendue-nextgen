@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { dash } from "@/lib/design-tokens";
 import SectionHeader from "@/components/SectionHeader";
+import PageIntro from "@/components/PageIntro";
 import ArticleCarousel from "@/components/ArticleCarousel";
 
 interface AE { slug: string; title: string; description: string; category: string; tags: string[]; pinned: boolean; readTime: number; }
@@ -53,6 +54,9 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
   return (
     <div>
       <SectionHeader pillar="EXP" pillarNum="05" subtitle="Physique naturelle" title="Laboratoire de Physique Naturelle" color={dash.rose} count={demonstrations.length + historical.length} countLabel="fiches — démonstrations et retracements historiques" />
+      <PageIntro color={dash.rose}
+        lede="Ne nous croyez pas. Faites-le vous-même."
+        body="Chaque démonstration est reproductible chez soi : matériel courant, protocole pas à pas, ce qui se passe, ce que ça change. Densité, pression, perspective, électricité — la physique se vérifie à la main, sans autorité à invoquer." />
       <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px 64px" }}>
 
       <div style={{ display: "flex", gap: 4, marginBottom: 24, borderBottom: '1px solid var(--border)' }}>

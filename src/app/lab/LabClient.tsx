@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { dash } from '@/lib/design-tokens';
 import { getArticleImage } from '@/lib/article-images';
 import ScrollReveal from '@/components/ui/ScrollReveal';
+import PageIntro from '@/components/PageIntro';
 
 const CurvatureCalc = dynamic(() => import('@/components/lab/CurvatureCalc'), { ssr: false });
 const FlatEarthSim = dynamic(() => import('@/components/lab/FlatEarthSim'), { ssr: false });
@@ -258,6 +259,9 @@ export default function LabClient({ articles }: { articles: A[] }) {
         </div>
       </div>
 
+      <PageIntro color={dash.opal}
+        lede="Manipuler vaut mieux que croire."
+        body="Le Lab rassemble des simulateurs interactifs — courbure et réfraction, perspective, densité, champ visuel, système solaire. Faites varier les paramètres, lisez les résultats, jugez par vous-même. Chaque outil renvoie aux articles qui l'expliquent." />
       <div style={{ maxWidth: 960, margin: '0 auto', padding: '28px 24px 64px' }}>
 
         {/* ── TOOL CARDS GRID ── */}
