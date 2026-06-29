@@ -214,6 +214,12 @@ html, body { overflow-x: hidden; }
 .prose-dash .tei-fait.experiences { border-left-color: var(--rose); background: rgba(196,94,106,0.06); }
 .prose-dash .tei-fait.experiences .tei-fait-label { color: var(--rose); }
 
+/* ═══ Encadré « En clair » — vulgarisation (transversal, couleur opale) ═══ */
+.prose-dash .tei-enclair { border: 1px solid var(--border); border-left: 3px solid var(--opal); background: rgba(61,158,124,0.06); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 22px 0; }
+.prose-dash .tei-enclair .tei-enclair-label { display: block; font-size: 11px; font-weight: 700; font-family: var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 7px; color: var(--opal); }
+.prose-dash .tei-enclair p { margin: 0 0 8px; color: var(--ink-soft); }
+.prose-dash .tei-enclair p:last-child { margin-bottom: 0; }
+
 /* ═══ Bouton PDF / carte document ═══ */
 .prose-dash .tei-doc-card { background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin: 1.5em 0; }
 .prose-dash .tei-doc-card .tei-doc-icon { font-size: 24px; line-height: 1; margin-bottom: 6px; }
