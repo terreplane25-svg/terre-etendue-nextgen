@@ -15,10 +15,10 @@ export default function SectionHeader({ pillar, pillarNum, subtitle, title, colo
   return (
     <div style={{
       background: '#0D1528',
-      padding: '40px 24px 36px',
+      padding: '60px 32px 52px',
       borderBottom: '1px solid #1a2540',
     }}>
-      <div style={{ maxWidth: 960, margin: '0 auto' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
           <span style={{
             fontSize: 10, fontFamily: dash.fontMono, fontWeight: 700,
@@ -31,13 +31,13 @@ export default function SectionHeader({ pillar, pillarNum, subtitle, title, colo
           </span>
         </div>
         <h1 style={{
-          fontSize: 28, fontWeight: 800, color: '#C8D8E8',
-          letterSpacing: '-0.01em', marginBottom: 6,
+          fontSize: 44, fontWeight: 800, color: '#C8D8E8',
+          letterSpacing: '-0.02em', marginBottom: 12, lineHeight: 1.1,
         }}>
           {title}
         </h1>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <p style={{ fontSize: 14, color: '#607890', lineHeight: 1.5 }}>
+          <p style={{ fontSize: 16.5, color: '#607890', lineHeight: 1.55 }}>
             {count} {countLabel}
           </p>
           <div style={{ display: 'flex', gap: 8, marginLeft: 'auto' }}>

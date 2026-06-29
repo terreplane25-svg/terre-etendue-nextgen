@@ -11,14 +11,14 @@ interface Props {
 // filet à la couleur du pilier. Donne un contexte avant la liste d'articles.
 export default function PageIntro({ lede, body, color }: Props) {
   return (
-    <div style={{ maxWidth: 960, margin: '0 auto', padding: '30px 24px 6px' }}>
-      <div style={{ borderLeft: `3px solid ${color}`, paddingLeft: 18 }}>
+    <div style={{ maxWidth: 1200, margin: '0 auto', padding: '44px 32px 10px' }}>
+      <div style={{ borderLeft: `4px solid ${color}`, paddingLeft: 22 }}>
         <p style={{
-          fontSize: 19, fontWeight: 750, color: 'var(--ink)',
-          lineHeight: 1.45, marginBottom: 10, letterSpacing: '-0.01em',
+          fontSize: 26, fontWeight: 750, color: 'var(--ink)',
+          lineHeight: 1.35, marginBottom: 14, letterSpacing: '-0.015em',
         }}>{lede}</p>
         <p style={{
-          fontSize: 14.5, color: 'var(--ink-muted)', lineHeight: 1.7, maxWidth: 760,
+          fontSize: 17, color: 'var(--ink-muted)', lineHeight: 1.75, maxWidth: 880,
         }}>{body}</p>
       </div>
     </div>

@@ -56,7 +56,7 @@ export default function ObservatoryClient({ articles }: { articles: A[] }) {
       <PageIntro color={dash.cyan}
         lede="Regardez ce que vous observez vraiment."
         body="L'Observatoire confronte le modèle aux données : marées, horizon, réfraction, trajectoires célestes. Tableaux de mesures, sources institutionnelles (NOAA, NASA, ESA, SHOM) et schémas optiques à l'appui. Pas d'opinion — ce que montrent les chiffres." />
-      <div style={{ maxWidth: 960, margin: '0 auto', padding: '8px 24px 0' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '12px 32px 0' }}>
         <Link href="/experiences" style={{ fontSize: 13, fontWeight: 600, color: dash.opal, padding: '6px 14px', borderRadius: 6, background: `${dash.opal}10` }}>
           Voir les fiches expériences →
         </Link>

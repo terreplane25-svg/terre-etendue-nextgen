@@ -226,7 +226,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
         padding: '40px 24px 36px',
         borderBottom: '1px solid #1a2540',
       }}>
-        <div style={{ maxWidth: 960, margin: '0 auto' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
             <span style={{
               fontSize: 10, fontFamily: dash.fontMono, fontWeight: 700,
@@ -262,7 +262,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
       <PageIntro color={dash.opal}
         lede="Manipuler vaut mieux que croire."
         body="Le Lab rassemble des simulateurs interactifs — courbure et réfraction, perspective, densité, champ visuel, système solaire. Faites varier les paramètres, lisez les résultats, jugez par vous-même. Chaque outil renvoie aux articles qui l'expliquent." />
-      <div style={{ maxWidth: 960, margin: '0 auto', padding: '28px 24px 64px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '36px 32px 72px' }}>
 
         {/* ── TOOL CARDS GRID ── */}
         <ScrollReveal delay={100}>
