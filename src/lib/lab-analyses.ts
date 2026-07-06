@@ -953,6 +953,7 @@ export const ANALYSES: AnalyseMedia[] = [
   // ─── RECORDS DE VISIBILITÉ LONGUE DISTANCE (courbure vs observation) ───
   {
     id: `record-finestrelles-ecrins`,
+    imageUrl: `https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/07/finestrelles-gaspard-marc-bret-23212620-e1600889273929.png`,
     type: 'image',
     category: 'optique',
     title: `Finestrelles → Barre des Écrins (443 km)`,
@@ -981,6 +982,7 @@ export const ANALYSES: AnalyseMedia[] = [
   },
   {
     id: `record-canigou-marseille`,
+    imageUrl: `https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/07/Canigou.jpg`,
     type: 'image',
     category: 'optique',
     title: `Pic du Canigou depuis Marseille (263 km)`,
@@ -1009,6 +1011,7 @@ export const ANALYSES: AnalyseMedia[] = [
   },
   {
     id: `record-chicago-michigan`,
+    imageUrl: `https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/07/chicago-skyline-visible-across-lake-michigan-60mi-100km-away-v0-x5xmea97wa4e1.jpg`,
     type: 'image',
     category: 'optique',
     title: `Skyline de Chicago depuis l'autre rive (90 km)`,
@@ -1037,6 +1040,7 @@ export const ANALYSES: AnalyseMedia[] = [
   },
   {
     id: `record-elbrouz-caucase`,
+    imageUrl: `https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/07/66661-longest-line-of-sight-on-earth-header.jpg`,
     type: 'image',
     category: 'optique',
     title: `Mont Elbrouz depuis le Caucase (493 km)`,
@@ -1065,6 +1069,7 @@ export const ANALYSES: AnalyseMedia[] = [
   },
   {
     id: `record-corse-nice`,
+    imageUrl: `https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/07/corse_vue_de_la_cote_dazur-2940161.jpg`,
     type: 'image',
     category: 'optique',
     title: `La Corse depuis la Côte d'Azur (~200 km)`,
