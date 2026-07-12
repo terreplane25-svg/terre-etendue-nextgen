@@ -42,7 +42,7 @@ export default function HomeClient({ articles }: { articles: A[] }) {
     <div>
       {/* ═══ HERO ═══ */}
       <div style={{
-        background: 'linear-gradient(135deg, #0D1528 0%, #1A2540 50%, #0D1528 100%)',
+        background: 'linear-gradient(135deg, rgba(13,21,40,0.88) 0%, rgba(26,37,64,0.82) 50%, rgba(13,21,40,0.92) 100%), url("https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/07/Canigou.jpg") center/cover no-repeat',
         padding: '100px 24px 48px',
         borderBottom: '3px solid',
         borderImage: 'linear-gradient(90deg, #D4943A, #8B7EC8, #3B8FD4, #C45E6A, #3D9E7C) 1',
