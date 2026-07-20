@@ -541,6 +541,68 @@ export default function EnseignantsClient({ fiches }: Props) {
           </div>
         </motion.section>
 
+        {/* ═══ PROGRESSION SPIRALAIRE ═══ */}
+        <motion.section {...fade(4)} style={{ marginTop: 48 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+            <div style={{ width: 4, height: 28, borderRadius: 2, background: '#3B8FD4' }} />
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)' }}>Progression spiralaire — le réflexe niveau par niveau</h2>
+          </div>
+          <p style={{ fontSize: 14, color: 'var(--ink-muted)', marginBottom: 22, lineHeight: 1.6 }}>
+            Le même réflexe — distinguer ce qu&apos;on mesure de ce qu&apos;on en déduit — se construit et s&apos;approfondit du CM1 à la terminale.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+            {[
+              ['Cycle 3 · CM1–6e', '#3B8FD4', 'Distinguer ce qu&apos;on voit de ce qu&apos;on en dit. Un modèle = une maquette, une image utile — pas la réalité elle-même.'],
+              ['Cycle 4 · 5e–3e', '#8B7EC8', 'Nommer explicitement fait / modèle / hypothèse. Chercher et citer la source d&apos;une affirmation.'],
+              ['2de', '#3D9E7C', 'Introduire l&apos;incertitude de mesure et les chiffres significatifs. Un modèle se juge à ses prédictions.'],
+              ['1re · Enseignement scientifique', '#D4943A', 'Nature du savoir scientifique, histoire des sciences, rôle de la controverse et de la revue par les pairs.'],
+              ['Terminale · Philosophie / Ens. scientifique', '#C45E6A', 'Réfutabilité (Popper), paradigmes (Kuhn), limites et révisions de la connaissance.'],
+            ].map(([niveau, color, txt], i, arr) => (
+              <div key={i} style={{ display: 'flex', gap: 16, alignItems: 'stretch' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 16 }}>
+                  <div style={{ width: 13, height: 13, borderRadius: '50%', background: color as string, marginTop: 4, flexShrink: 0 }} />
+                  {i < arr.length - 1 && <div style={{ width: 2, flex: 1, background: 'var(--border)', marginTop: 2 }} />}
+                </div>
+                <div style={{ paddingBottom: i < arr.length - 1 ? 22 : 0 }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: color as string, fontFamily: "'JetBrains Mono', monospace", marginBottom: 4 }}>{niveau}</div>
+                  <p style={{ fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.6, margin: 0 }} dangerouslySetInnerHTML={{ __html: txt as string }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* ═══ GRILLE D'ÉVALUATION ═══ */}
+        <motion.section {...fade(4)} style={{ marginTop: 48 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+            <div style={{ width: 4, height: 28, borderRadius: 2, background: '#D4943A' }} />
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)' }}>Grille d&apos;évaluation de l&apos;esprit critique</h2>
+          </div>
+          <p style={{ fontSize: 14, color: 'var(--ink-muted)', marginBottom: 20, lineHeight: 1.6 }}>
+            Une grille par niveaux, réutilisable pour toute activité — orale, écrite ou en débat.
+          </p>
+          <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, overflow: 'hidden', overflowX: 'auto' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr 1fr 1fr', borderBottom: '2px solid var(--border)', minWidth: 640 }}>
+              {['Critère', 'À développer', 'En cours', 'Maîtrisé'].map((th, i) => (
+                <div key={i} style={{ padding: '12px 14px', fontSize: 11, fontWeight: 700, color: i === 0 ? 'var(--ink)' : ['#C45E6A', '#D4943A', '#3D9E7C'][i - 1], letterSpacing: '0.05em', textTransform: 'uppercase', fontFamily: "'JetBrains Mono', monospace", borderLeft: i > 0 ? '1px solid var(--border)' : 'none' }}>{th}</div>
+              ))}
+            </div>
+            {[
+              ['Observation vs interprétation', 'Confond ce qui est vu et ce qui est déduit.', 'Distingue les deux avec de l&apos;aide.', 'Distingue spontanément et justifie.'],
+              ['Statut d&apos;un énoncé', 'Confond fait, modèle et hypothèse.', 'Classe la plupart des énoncés.', 'Classe et justifie le statut.'],
+              ['Recours à une source', 'Affirme sans source.', 'Cite une source.', 'Évalue la fiabilité de la source.'],
+              ['Alternative testable', 'N&apos;envisage aucune alternative.', 'Propose une alternative.', 'Propose une alternative réfutable.'],
+              ['Prise en compte de l&apos;incertitude', 'Ignore la marge d&apos;erreur.', 'Mentionne l&apos;incertitude.', 'Interprète barres d&apos;erreur et écarts.'],
+            ].map((row, i, arr) => (
+              <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr 1fr 1fr', borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none', minWidth: 640 }}>
+                {row.map((cell, j) => (
+                  <div key={j} style={{ padding: '13px 14px', fontSize: 13, lineHeight: 1.5, color: j === 0 ? 'var(--ink)' : 'var(--ink-soft)', fontWeight: j === 0 ? 700 : 400, borderLeft: j > 0 ? '1px solid var(--border)' : 'none' }} dangerouslySetInnerHTML={{ __html: cell }} />
+                ))}
+              </div>
+            ))}
+          </div>
+        </motion.section>
+
         {/* ═══ AVANT / APRÈS ═══ */}
         <motion.section {...fade(4)} style={{ marginTop: 48 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
@@ -609,6 +671,55 @@ export default function EnseignantsClient({ fiches }: Props) {
                 <div style={{ padding: '13px 16px', fontSize: 13, color: 'var(--ink-muted)', lineHeight: 1.55, borderLeft: '1px solid var(--border)', fontStyle: 'italic' }} dangerouslySetInnerHTML={{ __html: ex as string }} />
               </div>
             ))}
+          </div>
+        </motion.section>
+
+        {/* ═══ MESURE & INCERTITUDE ═══ */}
+        <motion.section {...fade(5)} style={{ marginTop: 48 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+            <div style={{ width: 4, height: 28, borderRadius: 2, background: '#3D9E7C' }} />
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)' }}>Mesure &amp; incertitude</h2>
+          </div>
+          <p style={{ fontSize: 14, color: 'var(--ink-muted)', marginBottom: 22, lineHeight: 1.6 }}>
+            Un chiffre seul ne dit rien. Toute mesure porte une marge d&apos;erreur — l&apos;ignorer, c&apos;est confondre <strong style={{ color: 'var(--ink-soft)' }}>précision</strong> et <strong style={{ color: 'var(--ink-soft)' }}>vérité</strong>. C&apos;est ici que se joue la frontière entre un fait et son interprétation.
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 14, marginBottom: 20 }}>
+            {[
+              ['Chiffres significatifs', 'N&apos;afficher que la précision réellement mesurée.', 'Une règle au cm donne 3,14 m — pas 3,14159 m.'],
+              ['La barre d&apos;erreur (±)', 'Une valeur sans sa marge est incomplète.', 'g = 9,81 ± 0,01 m/s².'],
+              ['Moyenne &amp; écart-type', 'Plusieurs mesures se dispersent ; l&apos;écart-type mesure cette dispersion.', '4 horloges donnant 30, 55, 78, 73 ns : la moyenne cache une forte dispersion.'],
+              ['Le seuil de 5σ', 'En physique, on parle de « découverte » quand la probabilité que ce soit le hasard est inférieure à 1 sur 3,5 millions.', 'C&apos;est le critère annoncé pour le boson de Higgs et pour GW150914.'],
+            ].map(([titre, def, ex], i) => (
+              <div key={i} style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, padding: '18px 18px' }}>
+                <div style={{ fontSize: 14.5, fontWeight: 750, color: '#3D9E7C', marginBottom: 8 }} dangerouslySetInnerHTML={{ __html: titre as string }} />
+                <p style={{ fontSize: 13.5, color: 'var(--ink-soft)', lineHeight: 1.55, marginBottom: 8 }} dangerouslySetInnerHTML={{ __html: def as string }} />
+                <p style={{ fontSize: 12.5, color: 'var(--ink-muted)', lineHeight: 1.5, margin: 0, fontStyle: 'italic' }} dangerouslySetInnerHTML={{ __html: ex as string }} />
+              </div>
+            ))}
+          </div>
+          <div style={{ background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: 10, padding: '20px 22px' }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: '#3B8FD4', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12, fontFamily: "'JetBrains Mono', monospace" }}>🧪 En classe — deux mesures qui se contredisent</div>
+            <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', alignItems: 'center' }}>
+              <svg viewBox="0 0 420 130" style={{ width: 320, maxWidth: '100%' }} role="img" aria-label="Deux mesures avec barres d'erreur qui ne se recouvrent pas">
+                <line x1="30" y1="105" x2="400" y2="105" stroke="var(--ink-muted)" strokeWidth="1" />
+                <text x="215" y="122" textAnchor="middle" fill="var(--ink-muted)" fontSize="10" fontFamily="monospace">valeur mesurée →</text>
+                <line x1="90" y1="45" x2="150" y2="45" stroke="#3D9E7C" strokeWidth="2.5" />
+                <line x1="90" y1="38" x2="90" y2="52" stroke="#3D9E7C" strokeWidth="2.5" />
+                <line x1="150" y1="38" x2="150" y2="52" stroke="#3D9E7C" strokeWidth="2.5" />
+                <circle cx="120" cy="45" r="4" fill="#3D9E7C" />
+                <text x="120" y="30" textAnchor="middle" fill="#3D9E7C" fontSize="11" fontWeight="700" fontFamily="monospace">mesure A</text>
+                <line x1="250" y1="75" x2="330" y2="75" stroke="#C45E6A" strokeWidth="2.5" />
+                <line x1="250" y1="68" x2="250" y2="82" stroke="#C45E6A" strokeWidth="2.5" />
+                <line x1="330" y1="68" x2="330" y2="82" stroke="#C45E6A" strokeWidth="2.5" />
+                <circle cx="290" cy="75" r="4" fill="#C45E6A" />
+                <text x="290" y="98" textAnchor="middle" fill="#C45E6A" fontSize="11" fontWeight="700" fontFamily="monospace">mesure B</text>
+                <line x1="150" y1="45" x2="250" y2="75" stroke="var(--border)" strokeWidth="1" strokeDasharray="3,3" />
+              </svg>
+              <p style={{ flex: 1, minWidth: 220, fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.65, margin: 0 }}>
+                Quand les barres d&apos;erreur de deux mesures <strong style={{ color: 'var(--ink)' }}>ne se recouvrent pas</strong>, le désaccord est <strong style={{ color: 'var(--ink)' }}>réel</strong> : il reste quelque chose à comprendre. C&apos;est exactement le cas des mesures de la constante gravitationnelle <em>G</em>, en désaccord au-delà de leurs incertitudes déclarées.{' '}
+                <Link href="/article/la-gravite-70-theories-et-aucune-preuve" style={{ color: '#3D9E7C', fontWeight: 600 }}>Voir l&apos;article →</Link>
+              </p>
+            </div>
           </div>
         </motion.section>
 
