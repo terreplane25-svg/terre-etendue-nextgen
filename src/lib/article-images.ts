@@ -83,3 +83,13 @@ const FALLBACK = `${UNSPLASH}/photo-1451187580459-43490279c0fa?w=600&h=400&fit=c
 export function getArticleImage(slug: string): string {
   return IMG[slug] || FALLBACK;
 }
+
+// Version optimisée pour le partage social (Open Graph / Twitter Cards).
+// Agrandit les vignettes Unsplash 600×400 vers ~1200×630 (grande carte).
+export function getArticleOgImage(slug: string): string {
+  const img = getArticleImage(slug);
+  if (img.includes('images.unsplash.com')) {
+    return img.replace(/w=\d+/, 'w=1200').replace(/h=\d+/, 'h=630');
+  }
+  return img;
+}

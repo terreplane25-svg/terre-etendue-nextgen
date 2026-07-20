@@ -26,13 +26,23 @@ const amiri = Amiri({
   display: 'swap',
 });
 
+const SITE_URL = 'https://terre-etendue-islam.fr';
+const SITE_DESC = 'Revue indépendante de cosmologie : la cosmologie coranique et la science moderne examinées avec la même rigueur.';
+const OG_IMAGE = 'https://green-gnat-134443.hostingersite.com/wp-content/uploads/2026/07/StockCake-Horizon_de_Lever_de_Soleil_Ethere-297875-standard.jpg';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: { default: 'Terre Étendue Islam', template: '%s — TEI' },
-  description: 'Revue indépendante de cosmologie.',
+  description: SITE_DESC,
   openGraph: {
     siteName: 'Terre Étendue Islam',
     type: 'website',
     locale: 'fr_FR',
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: 'Terre Étendue Islam' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: [OG_IMAGE],
   },
 };
 

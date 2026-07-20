@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getArticle, getAllArticles } from "@/lib/articles";
-import { getArticleImage } from "@/lib/article-images";
+import { getArticleOgImage } from "@/lib/article-images";
 import { getActiveProjet } from "@/lib/projets";
 import ArticleReader from "@/components/ArticleReader";
 import ExperimentCTA from "@/components/ExperimentCTA";
@@ -48,13 +48,13 @@ export async function generateMetadata({ params }: PageProps) {
       publishedTime: article.date,
       authors: [article.author || 'Collectif TEI'],
       tags: article.tags,
-      images: [{ url: getArticleImage(slug), width: 600, height: 400 }],
+      images: [{ url: getArticleOgImage(slug), width: 1200, height: 630, alt: article.title }],
     },
     twitter: {
       card: 'summary_large_image',
       title: article.title,
       description: article.description,
-      images: [getArticleImage(slug)],
+      images: [getArticleOgImage(slug)],
     },
     alternates: {
       canonical: `${SITE_URL}/article/${slug}`,
