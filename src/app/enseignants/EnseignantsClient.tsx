@@ -242,6 +242,38 @@ export default function EnseignantsClient({ fiches }: Props) {
           </div>
         </motion.section>
 
+        {/* ═══ GARDE-FOUS ═══ */}
+        <motion.section {...fade(2)} style={{ marginTop: 48 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+            <div style={{ width: 4, height: 28, borderRadius: 2, background: ACCENT }} />
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)' }}>Garde-fous : douter avec méthode</h2>
+          </div>
+          <p style={{ fontSize: 14, color: 'var(--ink-muted)', marginBottom: 20, lineHeight: 1.6 }}>
+            Cet esprit critique n&apos;a de valeur que s&apos;il reste rigoureux. La ligne à tenir en classe : renforcer la confiance dans <strong style={{ color: 'var(--ink-soft)' }}>la méthode</strong>, jamais la défiance envers les scientifiques.
+          </p>
+          <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, overflow: 'hidden' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderBottom: '2px solid var(--border)' }}>
+              <div style={{ padding: '12px 18px', fontSize: 11, fontWeight: 700, color: '#C45E6A', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: "'JetBrains Mono', monospace" }}>✗ Ce que ce n&apos;est PAS</div>
+              <div style={{ padding: '12px 18px', fontSize: 11, fontWeight: 700, color: ACCENT, letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: "'JetBrains Mono', monospace", borderLeft: '1px solid var(--border)' }}>✓ Ce que c&apos;est</div>
+            </div>
+            {[
+              ['« Les scientifiques nous mentent. »', 'Où passe exactement la frontière entre ce qu&apos;on mesure et ce qu&apos;on en déduit ?'],
+              ['« Toutes les opinions se valent. »', 'Une hypothèse se juge à sa réfutabilité et à ses preuves — non, elles ne se valent pas toutes.'],
+              ['« Le modèle est faux. »', 'Le modèle est un modèle : utile, prédictif, et révisable si les données changent.'],
+              ['« Il faut tout remettre en cause. »', 'On doute là où c&apos;est justifié, avec des arguments — pas par principe.'],
+              ['« C&apos;est un complot. »', 'Une erreur d&apos;interprétation n&apos;est pas un mensonge : la science se corrige elle-même (la masse de Neptune corrigée par Voyager 2, le désaccord persistant sur la constante G…).'],
+            ].map(([non, oui], i) => (
+              <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderBottom: '1px solid var(--border)' }}>
+                <div style={{ padding: '14px 18px', fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.55 }} dangerouslySetInnerHTML={{ __html: non }} />
+                <div style={{ padding: '14px 18px', fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.55, borderLeft: '1px solid var(--border)' }} dangerouslySetInnerHTML={{ __html: oui }} />
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: 14, padding: '14px 18px', background: `${ACCENT}0d`, border: `1px solid ${ACCENT}20`, borderRadius: 8, fontSize: 13.5, color: 'var(--ink-soft)', lineHeight: 1.6 }}>
+            <strong style={{ color: ACCENT }}>Règle d&apos;or :</strong> toute critique s&apos;appuie sur une source vérifiable (revue à comité de lecture). Sans source, ce n&apos;est plus de la science — c&apos;est une opinion.
+          </div>
+        </motion.section>
+
         {/* ═══ FICHES PAR NIVEAU ═══ */}
         <motion.section {...fade(2)} id="fiches" style={{ marginTop: 48 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
@@ -543,6 +575,38 @@ export default function EnseignantsClient({ fiches }: Props) {
                 <div style={{ padding: '14px 18px', fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.55, borderLeft: '1px solid var(--border)' }}>
                   {apres}
                 </div>
+              </div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* ═══ GLOSSAIRE ═══ */}
+        <motion.section {...fade(5)} style={{ marginTop: 48 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+            <div style={{ width: 4, height: 28, borderRadius: 2, background: '#8B7EC8' }} />
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)' }}>Glossaire pour la classe</h2>
+          </div>
+          <p style={{ fontSize: 14, color: 'var(--ink-muted)', marginBottom: 20, lineHeight: 1.6 }}>
+            Les huit mots à distinguer pour parler juste. Projetables au tableau.
+          </p>
+          <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, overflow: 'hidden' }}>
+            {[
+              ['Fait', 'Ce qu&apos;on observe ou mesure directement.', 'Un objet lâché tombe. L&apos;eau bout.'],
+              ['Loi', 'Une régularité mesurée, souvent une formule. Décrit, n&apos;explique pas.', 'Loi de Kepler : a³/T² est constant.'],
+              ['Modèle', 'Une représentation qui explique et prédit. Pas la réalité elle-même.', 'Le modèle héliocentrique.'],
+              ['Hypothèse', 'Une explication proposée, encore à tester.', 'La « matière noire ».'],
+              ['Théorie', 'Un ensemble cohérent et éprouvé d&apos;explications — pas une « simple supposition ».', 'La théorie de l&apos;évolution.'],
+              ['Paradigme', 'Le cadre de pensée dominant d&apos;une époque (Kuhn).', 'Géocentrisme, puis héliocentrisme.'],
+              ['Réfutabilité', 'Une affirmation est scientifique si une expérience pourrait la contredire (Popper).', '« Tous les corbeaux sont noirs » est réfutable.'],
+              ['Incertitude', 'Toute mesure a une marge d&apos;erreur ; un résultat sans incertitude est incomplet.', 'g = 9,81 ± 0,01 m/s².'],
+            ].map(([terme, def, ex], i) => (
+              <div key={i} style={{
+                display: 'grid', gridTemplateColumns: '140px 1fr 1fr',
+                borderBottom: i < 7 ? '1px solid var(--border)' : 'none', alignItems: 'start',
+              }} className="gloss-row">
+                <div style={{ padding: '13px 18px', fontSize: 14, fontWeight: 750, color: '#8B7EC8' }}>{terme}</div>
+                <div style={{ padding: '13px 16px', fontSize: 13.5, color: 'var(--ink-soft)', lineHeight: 1.55, borderLeft: '1px solid var(--border)' }} dangerouslySetInnerHTML={{ __html: def as string }} />
+                <div style={{ padding: '13px 16px', fontSize: 13, color: 'var(--ink-muted)', lineHeight: 1.55, borderLeft: '1px solid var(--border)', fontStyle: 'italic' }} dangerouslySetInnerHTML={{ __html: ex as string }} />
               </div>
             ))}
           </div>
