@@ -16,6 +16,7 @@ const ACCENT_SOFT = '#2B7A5F12';
 const CYCLE_COLORS: Record<string, string> = {
   '3': '#3B8FD4',
   '4': '#8B7EC8',
+  'lycee': '#D4943A',
 };
 
 const SIMULATEURS = [
@@ -135,9 +136,14 @@ export default function EnseignantsClient({ fiches }: Props) {
 
   const cycle3 = fiches.filter(f => f.cycle === '3');
   const cycle4 = fiches.filter(f => f.cycle === '4');
-  const groups = [
+  const lycee = fiches.filter(f => f.cycle === 'lycee');
+  const groups: { label: string; color: string; fiches: typeof fiches; intro?: string }[] = [
     { label: 'Cycle 3 (CM1–CM2–6e)', color: CYCLE_COLORS['3'], fiches: cycle3 },
     { label: 'Cycle 4 (5e–4e–3e)', color: CYCLE_COLORS['4'], fiches: cycle4 },
+    {
+      label: 'Lycée (2de–1re–Tle)', color: CYCLE_COLORS['lycee'], fiches: lycee,
+      intro: 'Dès la maternelle, le modèle du monde — planètes, système solaire, globe en rotation — est enseigné comme un décor : un fait acquis, jamais une hypothèse à examiner. Les enfants rentrent d’ailleurs de leurs premières années d’école avec des maquettes de système solaire. Le lycée est le premier moment où l’on dispose des outils pour interroger le cadre lui-même, et non plus seulement l’apprendre : la philosophie (la vérité, la science), l’enseignement scientifique (histoire et nature du savoir) et la physique de 2de (mesures et incertitudes) donnent enfin le vocabulaire du doute méthodique. On ne demande pas à l’élève de rejeter le modèle : on lui apprend à distinguer ce qui est démontré, ce qui est corroboré et ce qui est cru sur parole.',
+    },
   ];
 
   return (
@@ -293,6 +299,16 @@ export default function EnseignantsClient({ fiches }: Props) {
               }}>
                 {groupe.label}
               </div>
+              {groupe.intro && (
+                <div style={{
+                  background: `${groupe.color}0D`, border: `1px solid ${groupe.color}33`,
+                  borderLeft: `3px solid ${groupe.color}`, borderRadius: 8,
+                  padding: '16px 18px', marginBottom: 16,
+                  fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.65,
+                }}>
+                  {groupe.intro}
+                </div>
+              )}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {groupe.fiches.map((fiche, fi) => {
                   const isExpanded = expandedFiche === fiche.id;

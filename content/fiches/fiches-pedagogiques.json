@@ -379,5 +379,138 @@
       "levolution-et-lislam"
     ],
     "simulateur": null
+  },
+  {
+    "id": "lycee-philo-verite",
+    "cycle": "lycee",
+    "niveau": "Terminale",
+    "matiere": "Philosophie",
+    "chapitre": "La vérité · La science · La raison et le réel",
+    "titre": "Une théorie scientifique est-elle « vraie » ?",
+    "accroche": "Depuis la maternelle, l'élève apprend le système solaire comme un décor du monde. La terminale est le premier moment où l'on peut interroger le cadre lui-même : qu'est-ce qui rend un savoir « scientifique » — et « vrai » ?",
+    "cequeditrogram": "Notions au programme de philosophie (Tle générale) : « la vérité », « la science », « la raison et le réel ». L'élève doit distinguer croire, savoir et démontrer.",
+    "cequeditlemanuel": "La science est souvent présentée, dès l'enfance, comme le domaine des vérités prouvées et définitives — l'exact opposé de l'opinion.",
+    "cequedirlalitterature": [
+      {
+        "source": "Karl Popper, La Logique de la découverte scientifique, 1934",
+        "citation": "Une théorie qui n'est réfutable par aucun événement concevable n'est pas scientifique.",
+        "commentaire": "C'est la possibilité d'être contredite qui rend une théorie scientifique — pas sa certitude."
+      },
+      {
+        "source": "Henri Poincaré, La Science et l'Hypothèse, 1902",
+        "citation": "Ces deux propositions : « la Terre tourne » et « il est plus commode de supposer que la Terre tourne » ont une seule et même signification.",
+        "commentaire": "Un modèle peut être choisi pour sa commodité, sans qu'on puisse dire qu'il est « le vrai »."
+      },
+      {
+        "source": "Thomas Kuhn, La Structure des révolutions scientifiques, 1962",
+        "citation": "Ce que voit un homme dépend à la fois de ce qu'il regarde et de ce que son expérience visuelle et conceptuelle antérieure lui a appris à voir.",
+        "commentaire": "Le cadre dominant d'une époque (le paradigme) oriente ce qu'on tient pour une évidence."
+      }
+    ],
+    "formulation": "Une théorie scientifique n'est jamais « prouvée » définitivement : elle est corroborée tant qu'aucune expérience ne l'a réfutée. Ce qui la distingue d'une croyance, ce n'est pas sa certitude, mais sa réfutabilité — elle prend le risque d'être fausse.",
+    "activite": {
+      "titre": "Débat réglé : « Peut-on prouver qu'une théorie est vraie ? »",
+      "duree": "1 heure",
+      "materiel": "Extraits de Popper et Poincaré, tableau",
+      "deroulement": [
+        "Afficher deux affirmations : « la Terre tourne » et « le ciel tourne ». Demander : laquelle est vraie ?",
+        "Faire émerger que les deux produisent le même ciel observé (jour, nuit, saisons).",
+        "Lire l'extrait de Poincaré : « commode » n'est pas « vrai ».",
+        "Introduire le critère de Popper : qu'est-ce qui pourrait réfuter chaque thèse ?",
+        "Débattre : une théorie qu'aucune expérience ne pourrait contredire est-elle scientifique ?",
+        "Synthèse : distinguer démontré, corroboré et cru."
+      ]
+    },
+    "articlesLies": [
+      "lhypothese-nulle-dynamique-et-cinematique",
+      "pourquoi-tout-remettre-en-question",
+      "la-rotation-terrestre-deux-experiences-zero-preuve"
+    ],
+    "simulateur": "classifier"
+  },
+  {
+    "id": "lycee-2de-incertitude",
+    "cycle": "lycee",
+    "niveau": "Seconde",
+    "matiere": "Physique-Chimie",
+    "chapitre": "Mesures et incertitudes",
+    "titre": "Mesurer, ce n'est pas obtenir un nombre exact",
+    "accroche": "Le programme de 2de introduit officiellement l'incertitude de mesure. L'occasion de montrer que même les grandes constantes de la physique portent une marge d'erreur — parfois embarrassante.",
+    "cequeditrogram": "Programme de physique-chimie (2de générale) : thème « Mesures et incertitudes » — évaluer une incertitude, exprimer un résultat avec un nombre correct de chiffres significatifs.",
+    "cequeditlemanuel": "Les manuels donnent souvent une valeur unique (g = 9,81 m/s², G = 6,674×10⁻¹¹) sans sa marge d'erreur, comme si c'était un nombre exact.",
+    "cequedirlalitterature": [
+      {
+        "source": "CODATA, valeurs recommandées des constantes fondamentales",
+        "citation": "La constante gravitationnelle G possède la plus grande incertitude relative de toutes les constantes fondamentales (~2×10⁻⁵).",
+        "commentaire": "La constante de la gravité est, paradoxalement, la moins bien connue."
+      },
+      {
+        "source": "Qing Li et al., Nature 560, 2018 ; Schlamminger et al., Phys. Rev. D 74, 2006",
+        "citation": "Les mesures de G réalisées dans différents laboratoires sont en désaccord au-delà de leurs incertitudes déclarées.",
+        "commentaire": "Deux mesures se contredisent réellement lorsque leurs barres d'erreur ne se recouvrent pas."
+      }
+    ],
+    "formulation": "Une mesure n'est jamais un nombre exact : elle s'accompagne toujours d'une incertitude. Deux mesures ne sont « en désaccord » que si leurs barres d'erreur ne se recouvrent pas. Afficher plus de chiffres qu'on n'en mesure, c'est une fausse précision.",
+    "activite": {
+      "titre": "La même longueur, dix élèves : la dispersion",
+      "duree": "30 minutes",
+      "materiel": "Une table, un mètre-ruban, un tableur ou le tableau",
+      "deroulement": [
+        "Dix élèves mesurent la même longueur (la largeur de la table) sans se concerter.",
+        "Reporter les valeurs au tableau — elles diffèrent.",
+        "Calculer la moyenne et l'écart-type (la dispersion).",
+        "Exprimer le résultat sous la forme valeur ± incertitude, avec le bon nombre de chiffres significatifs.",
+        "Comparer avec les valeurs de G des laboratoires : elles se contredisent au-delà de leurs incertitudes.",
+        "Conclure : un résultat sans incertitude est incomplet."
+      ]
+    },
+    "articlesLies": [
+      "la-gravite-70-theories-et-aucune-preuve",
+      "ligo-londe-qui-nexistait-pas"
+    ],
+    "simulateur": "curvature"
+  },
+  {
+    "id": "lycee-1re-nature-savoir",
+    "cycle": "lycee",
+    "niveau": "Première",
+    "matiere": "Enseignement scientifique",
+    "chapitre": "Histoire et nature du savoir scientifique",
+    "titre": "Comment un modèle devient-il consensuel ?",
+    "accroche": "L'enseignement scientifique de première met l'histoire des sciences au programme. On y voit qu'un modèle ne s'impose pas d'un coup : héliocentrisme, dérive des continents, Big Bang ont tous été d'abord minoritaires.",
+    "cequeditrogram": "Programme d'enseignement scientifique (1re générale) : histoire des sciences et nature du savoir scientifique — un savoir se construit, se débat et se révise.",
+    "cequeditlemanuel": "Les grandes découvertes sont souvent racontées comme des évidences immédiates, gommant les décennies de controverse et les modèles concurrents.",
+    "cequedirlalitterature": [
+      {
+        "source": "Thomas Kuhn, La Structure des révolutions scientifiques, 1962",
+        "citation": "Les révolutions scientifiques ne sont pas de simples ajouts au savoir : elles remplacent un paradigme par un autre.",
+        "commentaire": "Un modèle dominant peut être renversé — le consensus n'est pas définitif."
+      },
+      {
+        "source": "E.M. Standish, The Astronomical Journal 105, 1993",
+        "citation": "Les « anomalies inexpliquées » du mouvement d'Uranus disparaissent lorsqu'on corrige la masse de Neptune.",
+        "commentaire": "Un fait qui semblait solide (la « planète X ») s'est révélé être l'artefact d'une masse mal mesurée."
+      }
+    ],
+    "formulation": "Un modèle ne devient consensuel qu'après un long processus de tests, de débats et de révisions. Ce qui compte n'est pas qu'il soit cru par la majorité, mais qu'il résiste aux tentatives de réfutation et qu'il prédise mieux que ses concurrents.",
+    "activite": {
+      "titre": "Frise : combien de temps pour convaincre ?",
+      "duree": "45 minutes",
+      "materiel": "Documents historiques, une frise chronologique",
+      "deroulement": [
+        "Choisir trois modèles : héliocentrisme, dérive des continents, Big Bang.",
+        "Pour chacun : dater la proposition initiale, puis l'acceptation majoritaire.",
+        "Mesurer le délai (souvent plusieurs décennies).",
+        "Identifier les objections de l'époque et comment elles ont été levées.",
+        "Discuter : un modèle minoritaire est-il forcément faux ? Un modèle majoritaire forcément vrai ?",
+        "Conclure : le consensus est un résultat, pas un point de départ."
+      ]
+    },
+    "articlesLies": [
+      "dune-terre-plate-universelle-a-la-sphere-grecque",
+      "chronologie-de-la-tromperie-du-globe",
+      "neptune-et-pluton-les-faux-triomphes"
+    ],
+    "simulateur": "geo"
   }
 ]
