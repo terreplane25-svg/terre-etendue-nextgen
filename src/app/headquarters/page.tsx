@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import HeadquartersClient from './HeadquartersClient';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/headquarters' },
   title: "Le Quartier Général — Épistémologie",
 };
 

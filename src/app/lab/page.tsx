@@ -3,6 +3,7 @@ import LabClient from './LabClient';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/lab' },
   title: "Le Lab — Modélisation 3D",
   description: "Simulateurs interactifs, calculateur de courbure et modèles 3D du dôme céleste.",
 };

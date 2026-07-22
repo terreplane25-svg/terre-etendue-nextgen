@@ -4,6 +4,7 @@ import ExperiencesClient from "./ExperiencesClient";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/experiences' },
   title: "Laboratoire de Physique Naturelle — Expériences",
   description: "Démonstrations pédagogiques reproductibles et retracement historique des grandes expériences.",
 };

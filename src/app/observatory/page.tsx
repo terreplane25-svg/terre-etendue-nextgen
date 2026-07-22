@@ -4,6 +4,7 @@ import ObservatoryClient from './ObservatoryClient';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/observatory' },
   title: "L'Observatoire — Données empiriques",
   description: 'Publications analytiques : données empiriques, analyses optiques, observations documentées.',
 };

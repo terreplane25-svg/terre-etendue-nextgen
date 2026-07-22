@@ -1,5 +1,10 @@
 import { getAllArticles } from '@/lib/articles';
 import HomeClient from './HomeClient';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 const EXCLUDE = ['le-mouvement-zetetique-150-ans-de-resistance'];
 

@@ -4,6 +4,7 @@ import LibraryClient from './LibraryClient';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/library' },
   title: "La Bibliothèque — Sources sacrées & historiques",
   description: "Sources coraniques, hadith, textes historiques et analyses des fondements cosmologiques.",
 };
