@@ -8,15 +8,15 @@ const UNSPLASH = "https://images.unsplash.com";
 
 const IMG: Record<string, string> = {
   // ── Observatory: Analysis ──
-  "lhorizon-la-perspective-et-la-refraction": `${HOSTINGER}/2026/06/refraction.png`,
+  "lhorizon-la-perspective-et-la-refraction": `${HOSTINGER}/2026/07/persperctive_horizon-e1784751826124.png`,
   // merged into la-perspective-pourquoi-les-objets-disparaissent
-  "leau-ne-ment-pas": `${HOSTINGER}/2026/05/ea.png`,
+  "leau-ne-ment-pas": `${HOSTINGER}/2026/06/mer_horizon-e1784751872495.png`,
   // les-horloges-atomiques-ne-prouvent-rien: merged into la-rotation-terrestre
   "pression-lumiere-halos-rayons-et-ondes": `${UNSPLASH}/photo-1534088568595-a066f410bcda?w=600&h=400&fit=crop`,
   "les-marees-contre-lheliocentrisme": `${HOSTINGER}/2026/06/maree.jpg`,
   // merged into la-perspective-pourquoi-les-objets-disparaissent
   "lespace-une-frontiere-infranchissable": `${HOSTINGER}/2026/06/frontiere_atmosphere_espace.jpg`,
-  "cartes-routes-boussoles-et-le-mystere-antarctique": `${HOSTINGER}/2026/04/boussole.png`,
+  "cartes-routes-boussoles-et-le-mystere-antarctique": `${HOSTINGER}/2026/07/carte_boussole_2-e1784751599837.png`,
   "la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas": `${UNSPLASH}/photo-1522030299830-16b8d3d049fe?w=600&h=400&fit=crop`,
   "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre": `${UNSPLASH}/photo-1419242902214-272b3f66ee7a?w=600&h=400&fit=crop`,
   "le-pole-sud-nexiste-pas": `${UNSPLASH}/photo-1489549132488-d00b7eee80f1?w=600&h=400&fit=crop`,
@@ -36,7 +36,7 @@ const IMG: Record<string, string> = {
 
   // ── Library (Islamic) ──
   "debut-de-la-creation-selon-le-coran-et-la-sunna": `${HOSTINGER}/2026/06/mer_horizon.png`,
-  "debut-de-la-creation-le-soleil-mobile-la-terre-immobile": `${HOSTINGER}/2026/04/cosmologie-fonde-sur-textes.png`,
+  "debut-de-la-creation-le-soleil-mobile-la-terre-immobile": `${HOSTINGER}/2026/04/cosmologie-fonde-sur-textes-e1784752034269.png`,
   "la-terre-dans-le-coran": `${UNSPLASH}/photo-1542816417-0983c9c7ad53?w=600&h=400&fit=crop`,
   "pres-de-cent-savants-de-lislam": `${UNSPLASH}/photo-1585036156171-384164a8c159?w=600&h=400&fit=crop`,
   "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne": `${UNSPLASH}/photo-1564769625905-50e93615e769?w=600&h=400&fit=crop`,
@@ -49,7 +49,7 @@ const IMG: Record<string, string> = {
   // ── Headquarters ──
   "la-gravite-70-theories-et-aucune-preuve": `${UNSPLASH}/photo-1446776811953-b23d57bd21aa?w=600&h=400&fit=crop`,
   "200-ans-de-resultats-nuls-darago-a-einstein": `${UNSPLASH}/photo-1507413245164-6160d8298b31?w=600&h=400&fit=crop`,
-  "chronologie-de-la-tromperie-du-globe": `${HOSTINGER}/2025/09/science_logo.png`,
+  "chronologie-de-la-tromperie-du-globe": `${HOSTINGER}/2026/07/chronologie_de_tro-e1784751688322.png`,
   "dune-terre-plate-universelle-a-la-sphere-grecque": `${HOSTINGER}/2025/09/photo_2025-09-29_04-34-50-1.jpg`,
   "kings-dethroned-leffondrement-de-la-triangulation-stellaire": `${UNSPLASH}/photo-1419242902214-272b3f66ee7a?w=600&h=400&fit=crop`,
   "la-cosmologie-comme-instrument-de-domination": `${UNSPLASH}/photo-1504711434969-e33886168d9c?w=600&h=400&fit=crop`,
