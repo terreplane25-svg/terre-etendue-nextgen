@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: "Projets — Bientôt disponible",
   description: "Expériences scientifiques financées par la communauté. Page en construction.",
+  robots: { index: false, follow: true },
 };
 
 export default function ProjetsPage() {
