@@ -34,6 +34,17 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: 'Terre Étendue Islam', template: '%s — TEI' },
   description: SITE_DESC,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
   openGraph: {
     siteName: 'Terre Étendue Islam',
     type: 'website',
