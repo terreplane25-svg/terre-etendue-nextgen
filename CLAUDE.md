@@ -45,6 +45,12 @@ bienveillant, jamais méprisant.
   pilier. Ajouter `data-zoomable` aux SVG aussi quand pertinent.
 - Vidéos : section **« Médias »** en BAS de l'article, juste avant Sources. YouTube en
   `<iframe>`. Présentation des intervenants à la première mention (brève bio).
+- 🖼️ **Image de couverture / partage social (Open Graph, Google Discover)** :
+  **1200×630 px minimum, format paysage (~1.91:1), JPEG < 1 Mo.** Jamais de carré
+  1024×1024, jamais de logo/schéma comme visuel principal (Discover exige ≥1200 px de
+  large sinon l'article perd la grande carte). Les vignettes Unsplash sont agrandies
+  automatiquement en 1200×630 (`getArticleOgImage` dans `src/lib/article-images.ts`) ;
+  les fichiers Hostinger sont servis tels quels → les uploader déjà en ≥1200 px de large.
 
 ## Charte rédactionnelle — tronc commun (toutes les pages)
 
