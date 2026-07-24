@@ -15,29 +15,29 @@ export default function SectionHeader({ pillar, pillarNum, subtitle, title, colo
   return (
     <div style={{
       background: '#0D1528',
-      padding: '60px 32px 52px',
+      padding: '132px 40px 72px',
       borderBottom: '1px solid #1a2540',
     }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
           <span style={{
-            fontSize: 10, fontFamily: dash.fontMono, fontWeight: 700,
-            color, letterSpacing: '0.12em',
-            padding: '3px 8px', border: `1px solid ${color}40`, borderRadius: 3,
+            fontSize: 11, fontFamily: dash.fontMono, fontWeight: 700,
+            color, letterSpacing: '0.14em',
+            padding: '5px 11px', border: `1px solid ${color}40`, borderRadius: 4,
           }}>PILIER {pillarNum}</span>
-          <div style={{ width: 24, height: 1, background: '#607890' }} />
-          <span style={{ fontSize: 10, fontFamily: dash.fontMono, color: '#607890', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+          <div style={{ width: 32, height: 1, background: '#607890' }} />
+          <span style={{ fontSize: 11, fontFamily: dash.fontMono, color: '#607890', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
             {subtitle}
           </span>
         </div>
         <h1 style={{
-          fontSize: 44, fontWeight: 800, color: '#C8D8E8',
-          letterSpacing: '-0.02em', marginBottom: 12, lineHeight: 1.1,
+          fontSize: 52, fontWeight: 800, color: '#C8D8E8',
+          letterSpacing: '-0.02em', marginBottom: 18, lineHeight: 1.08,
         }}>
           {title}
         </h1>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <p style={{ fontSize: 16.5, color: '#607890', lineHeight: 1.55 }}>
+          <p style={{ fontSize: 17, color: '#607890', lineHeight: 1.55 }}>
             {count} {countLabel}
           </p>
           <div style={{ display: 'flex', gap: 8, marginLeft: 'auto' }}>

@@ -151,7 +151,7 @@ export default function EnseignantsClient({ fiches }: Props) {
       {/* ═══ HERO ═══ */}
       <div style={{
         background: 'linear-gradient(135deg, #0D2818 0%, #1A3A2A 50%, #0D2818 100%)',
-        padding: '64px 24px 56px',
+        padding: '128px 24px 64px',
         borderBottom: `3px solid ${ACCENT}`,
       }}>
         <div style={{ maxWidth: 800, margin: '0 auto', textAlign: 'center' }}>

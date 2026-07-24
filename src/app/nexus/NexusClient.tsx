@@ -15,7 +15,7 @@ const NexusGraph = dynamic(() => import("@/components/NexusGraph"), {
 
 export default function NexusClient() {
   return (
-    <div style={{ minHeight: '100vh', padding: '40px 0 80px' }}>
+    <div style={{ minHeight: '100vh', padding: '112px 0 80px' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
         <div style={{ marginBottom: 32 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>

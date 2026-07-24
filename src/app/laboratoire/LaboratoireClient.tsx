@@ -222,7 +222,7 @@ export default function LaboratoireClient() {
       {/* Hero */}
       <div style={{
         background: 'linear-gradient(135deg, #0D1528 0%, #1A2540 50%, #0D1528 100%)',
-        padding: '100px 24px 48px',
+        padding: '128px 24px 56px',
         borderBottom: '3px solid',
         borderImage: 'linear-gradient(90deg, #3B8FD4, #8B7EC8, #D4943A, #3D9E7C) 1',
       }}>
