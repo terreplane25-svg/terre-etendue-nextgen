@@ -50,13 +50,6 @@ export default function ExperiencesClient({ demonstrations }: { demonstrations: 
         lede="Ne nous croyez pas. Faites-le vous-même."
         body="Chaque démonstration est reproductible chez soi : matériel courant, protocole pas à pas, ce qui se passe, ce que ça change. Densité, pression, perspective, électricité — la physique se vérifie à la main, sans autorité à invoquer." />
       <CategoryFlow sections={sections} articles={all} color={dash.rose} basePath="/experiences" footer={demoFooter} />
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px 56px" }}>
-        <div className="dash-card" style={{ padding: "18px 22px", display: "flex", alignItems: "center", gap: 14 }}>
-          <span style={{ fontSize: 24 }}>📺</span>
-          <div><div style={{ fontSize: 13, fontWeight: 650, color: 'var(--ink)' }}>Chaîne recommandée</div><div style={{ fontSize: 12, color: 'var(--ink-muted)' }}>Le Lab&apos;O Sciences</div></div>
-          <a href="https://www.youtube.com/@lelabosciences2216" target="_blank" rel="noopener noreferrer" style={{ marginLeft: "auto", fontSize: 12, fontWeight: 600, color: dash.lavender }}>Voir →</a>
-        </div>
-      </div>
     </div>
   );
 }

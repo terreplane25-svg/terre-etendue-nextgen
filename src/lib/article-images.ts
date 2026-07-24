@@ -8,7 +8,7 @@ const UNSPLASH = "https://images.unsplash.com";
 
 const IMG: Record<string, string> = {
   // ── Observatory: Analysis ──
-  "lhorizon-la-perspective-et-la-refraction": `${HOSTINGER}/2026/07/persperctive_horizon-e1784751826124.png`,
+  "lhorizon-la-perspective-et-la-refraction": `${HOSTINGER}/2026/07/refraction_horizon.png`,
   // merged into la-perspective-pourquoi-les-objets-disparaissent
   "leau-ne-ment-pas": `${HOSTINGER}/2026/06/mer_horizon-e1784751872495.png`,
   // les-horloges-atomiques-ne-prouvent-rien: merged into la-rotation-terrestre
@@ -26,13 +26,13 @@ const IMG: Record<string, string> = {
   "densite-pourquoi-les-choses-montent-et-descendent": `${HOSTINGER}/2026/06/ChatGPT-Image-21-juin-2026-00_39_16.png`,
   "la-pression-atmospherique-un-ocean-d-air-invisible": `${HOSTINGER}/2026/07/pression_atmos.png`,
   "experiences-sous-pression-reduite": `${HOSTINGER}/2026/07/chambre_a_vide.png`,
-  "la-perspective-lineaire": `${UNSPLASH}/photo-1473654729523-203e25dfda10?w=600&h=400&fit=crop`,
+  "la-perspective-lineaire": `${HOSTINGER}/2026/07/persperctive_horizon-e1784751826124.png`,
   // merged into la-perspective-pourquoi-les-objets-disparaissent
   "la-perspective-atmospherique": `${UNSPLASH}/photo-1470071459604-3b5ec3a7fe05?w=600&h=400&fit=crop`,
   "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite": `${UNSPLASH}/photo-1494869042583-f6c911f04b4c?w=600&h=400&fit=crop`,
-  "principe-action-reaction": `${UNSPLASH}/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop`,
-  "magnetisme-et-electromagnetisme": `${UNSPLASH}/photo-1567427018141-0584cfcbf1b8?w=600&h=400&fit=crop`,
-  "electricite-statique-attraction-repulsion": `${UNSPLASH}/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop`,
+  "principe-action-reaction": `${HOSTINGER}/2026/07/action_reaction.png`,
+  "magnetisme-et-electromagnetisme": `${HOSTINGER}/2026/07/electromagnetisme.png`,
+  "electricite-statique-attraction-repulsion": `${HOSTINGER}/2026/07/electricite.png`,
 
   // ── Library (Islamic) ──
   "debut-de-la-creation-selon-le-coran-et-la-sunna": `${HOSTINGER}/2026/06/mer_horizon.png`,
