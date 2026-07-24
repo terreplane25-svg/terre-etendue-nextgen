@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { getArticleImage } from '@/lib/article-images';
 import ArticleCarousel from '@/components/ArticleCarousel';
+import { TOOLS } from '@/lib/lab-tools';
 
 interface A { slug: string; title: string; description: string; category: string; tags: string[]; readTime: number; date: string; pinned: boolean; }
 
@@ -48,8 +49,8 @@ export default function HomeClient({ articles }: { articles: A[] }) {
 
   const stats = [
     { n: String(articles.length), label: 'Articles publiés' },
-    { n: '7', label: 'Simulateurs interactifs' },
-    { n: '5', label: 'Univers thématiques' },
+    { n: String(TOOLS.length), label: 'Simulateurs interactifs' },
+    { n: String(PILIERS.length), label: 'Univers thématiques' },
     { n: '100 %', label: 'Sources vérifiables' },
   ];
 
@@ -64,10 +65,12 @@ export default function HomeClient({ articles }: { articles: A[] }) {
       }}>
         <div style={{ maxWidth: 1120, margin: '0 auto', textAlign: 'center' }}>
           <div style={{
+            display: 'inline-block',
             fontSize: 12, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase',
-            color: '#4FD1A0', marginBottom: 22,
+            color: '#5CE0B0', marginBottom: 22,
             fontFamily: "'JetBrains Mono', monospace",
-            textShadow: '0 1px 10px rgba(0,0,0,0.55)',
+            background: 'rgba(13,21,40,0.55)', border: '1px solid rgba(92,224,176,0.35)',
+            padding: '7px 16px', borderRadius: 100, backdropFilter: 'blur(4px)',
           }}>
             Revue indépendante de cosmologie
           </div>
