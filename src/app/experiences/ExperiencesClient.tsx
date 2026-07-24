@@ -9,7 +9,7 @@ import CategoryFlow from "@/components/CategoryFlow";
 interface AE { slug: string; title: string; description: string; category: string; tags: string[]; pinned: boolean; readTime: number; }
 
 const FAMILLES = [
-  { id: "fluides", label: "Fluides & matière", icon: "💧", tags: ["densité","pression","masse","vide","mécanique-des-fluides","états-de-la-matière","pression-réduite","cloche-à-vide"] },
+  { id: "fluides", label: "Fluides & matière", icon: "💧", tags: ["densité","pression","masse","vide","mécanique-des-fluides","états-de-la-matière","pression-réduite","cloche-à-vide","eau"] },
   { id: "optique", label: "Optique & perspective", icon: "🔭", tags: ["perspective","angle-visuel","taille-apparente","point-de-fuite","diffusion-rayleigh"] },
   { id: "oeil", label: "L'œil humain", icon: "👁", tags: ["champ-visuel","stéréoscopie","accommodation","persistance-rétinienne","cristallin","œil-humain"] },
   { id: "forces", label: "Forces & interactions", icon: "⚡", tags: ["action-réaction","magnétisme","électromagnétisme","charge-électrique","électricité-statique"] },
@@ -24,21 +24,14 @@ const CROSS: Record<string, { slug: string; label: string }> = {
   "magnetisme-et-electromagnetisme": { slug: "cartes-routes-boussoles-et-le-mystere-antarctique", label: "Analyse géographique" },
 };
 
-export default function ExperiencesClient({ historical, demonstrations }: { historical: AE[]; demonstrations: AE[] }) {
-  const histSlugs = new Set(historical.map(a => a.slug));
-  const all = [...demonstrations, ...historical];
+export default function ExperiencesClient({ demonstrations }: { demonstrations: AE[] }) {
+  const all = demonstrations;
 
-  const sections = [
-    ...FAMILLES.map(f => ({
-      id: f.id, label: f.label, icon: f.icon,
-      match: (a: { slug: string; tags?: string[] }) =>
-        !histSlugs.has(a.slug) && (a.tags?.some(t => f.tags.includes(t)) ?? false),
-    })),
-    {
-      id: 'historique', label: 'Retracement historique', icon: '📜',
-      match: (a: { slug: string }) => histSlugs.has(a.slug),
-    },
-  ];
+  const sections = FAMILLES.map(f => ({
+    id: f.id, label: f.label, icon: f.icon,
+    match: (a: { slug: string; tags?: string[] }) =>
+      a.tags?.some(t => f.tags.includes(t)) ?? false,
+  }));
 
   const demoFooter = (a: { slug: string }) => {
     const cr = CROSS[a.slug];
@@ -52,7 +45,7 @@ export default function ExperiencesClient({ historical, demonstrations }: { hist
 
   return (
     <div>
-      <SectionHeader pillar="EXP" pillarNum="05" subtitle="Physique naturelle" title="Laboratoire de Physique Naturelle" color={dash.rose} count={demonstrations.length + historical.length} countLabel="fiches — démonstrations et retracements historiques" />
+      <SectionHeader pillar="EXP" pillarNum="05" subtitle="Physique naturelle" title="Laboratoire de Physique Naturelle" color={dash.rose} count={demonstrations.length} countLabel="démonstrations reproductibles" />
       <PageIntro color={dash.rose}
         lede="Ne nous croyez pas. Faites-le vous-même."
         body="Chaque démonstration est reproductible chez soi : matériel courant, protocole pas à pas, ce qui se passe, ce que ça change. Densité, pression, perspective, électricité — la physique se vérifie à la main, sans autorité à invoquer." />
