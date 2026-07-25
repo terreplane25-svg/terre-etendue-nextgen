@@ -38,3 +38,8 @@ yarn-error.log*
 .idea/
 *.swp
 *.swo
+
+# Documents de travail (non publiés)
+_docs/
+*.pdf
+!public/*.pdf
