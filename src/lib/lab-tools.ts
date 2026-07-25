@@ -83,4 +83,13 @@ export const TOOLS: LabTool[] = [
     num: '08',
     tags: ['pédagogie', 'épistémologie', 'quiz', 'enseignants'],
   },
+  {
+    id: 'geodesy',
+    label: 'Carte par les trajets',
+    desc: "Reconstruit la position des villes à partir des seules durées de vol mesurées. Aucune carte en entrée.",
+    icon: '🧭',
+    color: '#3D9E7C',
+    num: '09',
+    tags: ['multilatération', 'données', 'distances', 'méthode'],
+  },
 ];

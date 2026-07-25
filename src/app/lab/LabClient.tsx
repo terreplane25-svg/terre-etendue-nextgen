@@ -17,6 +17,7 @@ const DensitySim = dynamic(() => import('@/components/lab/DensitySim'), { ssr: f
 const VisualFieldSim = dynamic(() => import('@/components/lab/VisualFieldSim'), { ssr: false });
 const LaserLakeSim = dynamic(() => import('@/components/lab/LaserLakeSim'), { ssr: false });
 const ClassifierSim = dynamic(() => import('@/components/lab/ClassifierSim'), { ssr: false });
+const GeodesyFitSim = dynamic(() => import('@/components/lab/GeodesyFitSim'), { ssr: false });
 
 interface A { slug: string; title: string; description: string; tags: string[]; pinned: boolean; readTime: number; }
 
@@ -137,6 +138,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
       case 'flat': return <FlatEarthSim />;
       case 'geo': return <GeoHelioSim />;
       case 'classifier': return <ClassifierSim />;
+      case 'geodesy': return <GeodesyFitSim />;
       default: return null;
     }
   };
