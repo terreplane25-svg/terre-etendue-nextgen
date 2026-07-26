@@ -147,6 +147,8 @@ const SEED: Leg[] = [
   { a: "Hobart", b: "Christchurch", km: 2040, on: true, src: "Aérienne (Directe) · Séparation directe — Transversale de verrouillage Océanie Sud", nat: 'separation' },
   { a: "Reykjavík", b: "New York", km: 4200, on: true, src: "Aérienne (Directe) · Séparation directe — Deuxième ancrage vers l'Amérique du Nord", nat: 'separation' },
   { a: "Tromsø", b: "Moscou", km: 1660, on: true, src: "Aérienne (Directe) · Séparation directe — Deuxième ancrage vers l'Europe de l'Est", nat: 'separation' },
+  { a: "Paris", b: "Reykjavík", km: 2230, on: true, src: "Aérienne (Directe) · Séparation directe — Deuxième appui pour Paris", nat: 'separation' },
+  { a: "Moscou", b: "Pékin", km: 5800, on: true, src: "Aérienne (Directe) · Séparation directe — Transcontinentale Asie", nat: 'separation' },
 ];
 
 // ── Géométrie ───────────────────────────────────────────────────
