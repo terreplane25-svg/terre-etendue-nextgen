@@ -145,6 +145,8 @@ const SEED: Leg[] = [
   { a: "Pôle Sud", b: "Christchurch", km: 5170, on: true, src: "Géodésique / Orthodromique · Séparation directe — Rayon polaire sud (lat 43,53° S)", nat: 'separation' },
   { a: "Pôle Sud", b: "Hobart", km: 5240, on: true, src: "Géodésique / Orthodromique · Séparation directe — Rayon polaire sud (lat 42,88° S)", nat: 'separation' },
   { a: "Hobart", b: "Christchurch", km: 2040, on: true, src: "Aérienne (Directe) · Séparation directe — Transversale de verrouillage Océanie Sud", nat: 'separation' },
+  { a: "Reykjavík", b: "New York", km: 4200, on: true, src: "Aérienne (Directe) · Séparation directe — Deuxième ancrage vers l'Amérique du Nord", nat: 'separation' },
+  { a: "Tromsø", b: "Moscou", km: 1660, on: true, src: "Aérienne (Directe) · Séparation directe — Deuxième ancrage vers l'Europe de l'Est", nat: 'separation' },
 ];
 
 // ── Géométrie ───────────────────────────────────────────────────
