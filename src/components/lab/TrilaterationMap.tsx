@@ -83,6 +83,7 @@ const SEED: Leg[] = [
   { a: "Sydney", b: "Buenos Aires", km: 12230, on: true, src: "Aérienne (Directe) · Séparation directe — Vol transpacifique Sud" , nat: 'separation' },
   { a: "Rio de Janeiro", b: "Santiago", km: 3650, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Transcontinentale sud-américaine via l'Argentine", nat: 'trajet' },
   { a: "Santiago", b: "Buenos Aires", km: 1400, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Traversée des Andes (col de la Cumbre / route 7)" , nat: 'trajet' },
+  { a: "Chicago", b: "Miami", km: 2220, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Route I-75 / I-65, centre-sud des États-Unis", nat: 'trajet' },
 ];
 
 // ── Géométrie ───────────────────────────────────────────────────
