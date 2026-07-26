@@ -92,6 +92,13 @@ const SEED: Leg[] = [
   { a: "Rome", b: "Le Caire", km: 2130, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Méditerranée centrale / Port-Saïd", nat: 'trajet' },
   { a: "Rome", b: "Moscou", km: 2870, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Trans-européen via Autriche, Pologne et Biélorussie", nat: 'trajet' },
   { a: "Honolulu", b: "Auckland", km: 7240, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Pacifique Centre-Sud", nat: 'trajet' },
+  { a: "Dakar", b: "Buenos Aires", km: 6070, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Atlantique Sud médian direct", nat: 'trajet' },
+  { a: "Dakar", b: "Londres", km: 4610, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Côte ouest-africaine / Europe du Nord", nat: 'trajet' },
+  { a: "Dakar", b: "Punta Arenas", km: 8780, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Atlantique Sud vers le détroit de Magellan", nat: 'trajet' },
+  { a: "Miami", b: "Rio de Janeiro", km: 7620, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Caraïbes / Atlantique Sud", nat: 'trajet' },
+  { a: "Los Angeles", b: "Santiago", km: 9210, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Côtière Pacifique Est", nat: 'trajet' },
+  { a: "Honolulu", b: "Singapour", km: 10830, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Transpacifique Centre-Ouest via Philippines", nat: 'trajet' },
+  { a: "Auckland", b: "Santiago", km: 9880, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Pacifique Sud-Est", nat: 'trajet' },
 ];
 
 // ── Géométrie ───────────────────────────────────────────────────
