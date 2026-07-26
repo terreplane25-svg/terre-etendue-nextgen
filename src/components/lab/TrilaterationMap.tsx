@@ -84,6 +84,14 @@ const SEED: Leg[] = [
   { a: "Rio de Janeiro", b: "Santiago", km: 3650, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Transcontinentale sud-américaine via l'Argentine", nat: 'trajet' },
   { a: "Santiago", b: "Buenos Aires", km: 1400, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Traversée des Andes (col de la Cumbre / route 7)" , nat: 'trajet' },
   { a: "Chicago", b: "Miami", km: 2220, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Route I-75 / I-65, centre-sud des États-Unis", nat: 'trajet' },
+  { a: "New York", b: "Dakar", km: 6170, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Transatlantique Nord-Ouest / Afrique de l'Ouest", nat: 'trajet' },
+  { a: "New York", b: "Buenos Aires", km: 10870, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Atlantique Nord-Sud complète", nat: 'trajet' },
+  { a: "Los Angeles", b: "Sydney", km: 12510, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Transpacifique via Honolulu", nat: 'trajet' },
+  { a: "Le Cap", b: "Singapour", km: 9830, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Océan Indien Sud", nat: 'trajet' },
+  { a: "Le Caire", b: "Rio de Janeiro", km: 9850, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Méditerranée, Gibraltar et Atlantique", nat: 'trajet' },
+  { a: "Rome", b: "Le Caire", km: 2130, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Méditerranée centrale / Port-Saïd", nat: 'trajet' },
+  { a: "Rome", b: "Moscou", km: 2870, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Trans-européen via Autriche, Pologne et Biélorussie", nat: 'trajet' },
+  { a: "Honolulu", b: "Auckland", km: 7240, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Pacifique Centre-Sud", nat: 'trajet' },
 ];
 
 // ── Géométrie ───────────────────────────────────────────────────
