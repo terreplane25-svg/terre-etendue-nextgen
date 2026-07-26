@@ -394,10 +394,19 @@ export default function TrilaterationMap() {
             return built.order.map(c => {
               const p = view.map(built.pos.get(c)!);
               const free = built.unconstrained.includes(c);
-              const right = p.x < 500;
+              let right = p.x < 500;
+              // on essaie quelques décalages bornés, à droite puis à gauche,
+              // pour éviter les cascades de libellés loin de leur point
+              const slotFree = (x: number, y: number) =>
+                !placed.some(q => Math.abs(q.x - x) < 88 && Math.abs(q.y - y) < 11.5);
               let ly = p.y + 4;
-              while (placed.some(q => Math.abs(q.x - p.x) < 95 && Math.abs(q.y - ly) < 12)) ly += 13;
-              placed.push({ x: p.x, y: ly });
+              const tries: [number, boolean][] = [[0, right], [0, !right], [13, right], [-13, right],
+                [13, !right], [-13, !right], [26, right], [-26, right]];
+              for (const [dy, side] of tries) {
+                const ax = side ? p.x + 8 : p.x - 8;
+                if (slotFree(ax, p.y + 4 + dy)) { ly = p.y + 4 + dy; right = side; break; }
+              }
+              placed.push({ x: right ? p.x + 8 : p.x - 8, y: ly });
               return (
                 <g key={c}>
                   <circle cx={p.x} cy={p.y} r="4.5" fill={free ? '#6b7a8f' : GOLD}
