@@ -38,7 +38,7 @@ const SEED: Leg[] = [
   { a: "Le Cap", b: "Sydney", km: 11010, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Route maritime Océan Indien Sud" , nat: 'trajet' },
   { a: "Sydney", b: "Santiago", km: 11340, on: true, src: "Aérienne (Orthodromie) · Séparation directe — Vol transpacifique Sud" , nat: 'separation' },
   { a: "Punta Arenas", b: "Base Eduardo Frei", km: 1250, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Passage de Drake vers la péninsule Antarctique" , nat: 'trajet' },
-  { a: "Ushuaïa", b: "Base McMurdo", km: 5420, on: true, src: "Aérienne (Directe) · Séparation directe — Liaison directe Amérique du Sud – Antarctique" , nat: 'separation' },
+  { a: "Ushuaïa", b: "Base McMurdo", km: 4800, on: true, src: "Aérienne (Directe) · Séparation directe — Liaison directe Amérique du Sud – Antarctique" , nat: 'separation' },
   { a: "Hobart", b: "Base Casey", km: 3420, on: true, src: "Maritime / Ravitaillement · Trajet — Route maritime de ravitaillement australienne" , nat: 'trajet' },
   { a: "Christchurch", b: "Base McMurdo", km: 3830, on: true, src: "Aérienne (Ravitaillement) · Séparation directe — Ligne de ravitaillement américaine / néo-zélandaise" , nat: 'separation' },
   { a: "Le Cap", b: "Base Novolazarevskaya", km: 4180, on: true, src: "Aérienne (DROMLAN) · Séparation directe — Réseau aérien intercontinental antarctique sud-africain" , nat: 'separation' },
@@ -136,7 +136,7 @@ const SEED: Leg[] = [
   { a: "Longyearbyen", b: "Londres", km: 3050, on: true, src: "Aérienne (Directe) · Séparation directe — Svalbard – Europe du Nord", nat: 'separation' },
   { a: "Tromsø", b: "Londres", km: 2280, on: true, src: "Aérienne (Directe) · Séparation directe — Norvège du Nord – Europe", nat: 'separation' },
   { a: "Base McMurdo", b: "Base Novolazarevskaya", km: 3410, on: true, src: "Séparation directe — Transversale trans-antarctique", nat: 'separation' },
-  { a: "Base Novolazarevskaya", b: "Ushuaïa", km: 4610, on: true, src: "Séparation directe — Antarctique Est – Amérique du Sud", nat: 'separation' },
+  { a: "Base Novolazarevskaya", b: "Ushuaïa", km: 4060, on: true, src: "Séparation directe — Antarctique Est – Amérique du Sud", nat: 'separation' },
   { a: "Base McMurdo", b: "Hobart", km: 3980, on: true, src: "Séparation directe — Antarctique – Tasmanie", nat: 'separation' },
   { a: "Base Novolazarevskaya", b: "Christchurch", km: 7210, on: true, src: "Séparation directe — Trans-océanique australe", nat: 'separation' },
   { a: "Pôle Sud", b: "Base McMurdo", km: 1350, on: true, src: "Géodésique / Orthodromique · Séparation directe — Rayon polaire sud (lat 77,84° S)", nat: 'separation' },
@@ -144,7 +144,7 @@ const SEED: Leg[] = [
   { a: "Pôle Sud", b: "Ushuaïa", km: 3920, on: true, src: "Géodésique / Orthodromique · Séparation directe — Rayon polaire sud (lat 54,80° S)", nat: 'separation' },
   { a: "Pôle Sud", b: "Christchurch", km: 5170, on: true, src: "Géodésique / Orthodromique · Séparation directe — Rayon polaire sud (lat 43,53° S)", nat: 'separation' },
   { a: "Pôle Sud", b: "Hobart", km: 5240, on: true, src: "Géodésique / Orthodromique · Séparation directe — Rayon polaire sud (lat 42,88° S)", nat: 'separation' },
-  { a: "Hobart", b: "Christchurch", km: 2410, on: true, src: "Aérienne (Directe) · Séparation directe — Transversale de verrouillage Océanie Sud", nat: 'separation' },
+  { a: "Hobart", b: "Christchurch", km: 2040, on: true, src: "Aérienne (Directe) · Séparation directe — Transversale de verrouillage Océanie Sud", nat: 'separation' },
 ];
 
 // ── Géométrie ───────────────────────────────────────────────────
