@@ -135,6 +135,10 @@ const SEED: Leg[] = [
   { a: "Longyearbyen", b: "Reykjavík", km: 2010, on: true, src: "Aérienne (Directe) · Séparation directe — Svalbard – Islande", nat: 'separation' },
   { a: "Longyearbyen", b: "Londres", km: 3050, on: true, src: "Aérienne (Directe) · Séparation directe — Svalbard – Europe du Nord", nat: 'separation' },
   { a: "Tromsø", b: "Londres", km: 2280, on: true, src: "Aérienne (Directe) · Séparation directe — Norvège du Nord – Europe", nat: 'separation' },
+  { a: "Base McMurdo", b: "Base Novolazarevskaya", km: 4250, on: true, src: "Séparation directe — Transversale trans-antarctique", nat: 'separation' },
+  { a: "Base Novolazarevskaya", b: "Ushuaïa", km: 4610, on: true, src: "Séparation directe — Antarctique Est – Amérique du Sud", nat: 'separation' },
+  { a: "Base McMurdo", b: "Hobart", km: 2420, on: true, src: "Séparation directe — Antarctique – Tasmanie", nat: 'separation' },
+  { a: "Base Novolazarevskaya", b: "Christchurch", km: 7210, on: true, src: "Séparation directe — Trans-océanique australe", nat: 'separation' },
 ];
 
 // ── Géométrie ───────────────────────────────────────────────────
