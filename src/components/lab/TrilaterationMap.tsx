@@ -19,20 +19,35 @@ const ROSE = '#C45E6A';
 const MONO = "'JetBrains Mono', monospace";
 const NM = 1.852;
 
-interface Leg { a: string; b: string; km: number; src: string; }
+interface Leg { a: string; b: string; km: number; src: string; on: boolean; }
 
 /** Lot de données fourni — repris tel quel, sans modification. */
 const SEED: Leg[] = [
-  { a: 'Paris', b: 'Londres', km: 343, src: 'Géodésique / Directe — triangulation IGN / Ordnance Survey' },
-  { a: 'Paris', b: 'Berlin', km: 878, src: 'Terrestre (Odomètre / Rail) — via Francfort' },
-  { a: 'Paris', b: 'Moscou', km: 3217, src: 'Terrestre (Odomètre / Rail) — via Allemagne et Biélorussie' },
-  { a: 'New York', b: 'Londres', km: 5869, src: 'Maritime (NGA Pub. 151) — Bishop Rock' },
-  { a: 'New York', b: 'Rio de Janeiro', km: 8834, src: 'Maritime (NGA Pub. 151) — Atlantique' },
-  { a: 'New York', b: 'Los Angeles', km: 4491, src: 'Terrestre (Odomètre / Route) — I-80 / I-15' },
-  { a: 'Los Angeles', b: 'Tokyo', km: 8816, src: 'Maritime (NGA Pub. 151) — transpacifique' },
-  { a: 'Tokyo', b: 'Sydney', km: 8225, src: 'Maritime (NGA Pub. 151) — Pacifique Ouest' },
-  { a: 'Londres', b: 'Le Caire', km: 3510, src: 'Aérienne (Orthodromie) — trajet direct' },
-  { a: 'Sydney', b: 'Auckland', km: 2156, src: 'Maritime (NGA Pub. 151) — mer de Tasman' },
+  { a: 'Paris', b: 'Londres', km: 343, on: true, src: 'Géodésique / Directe — triangulation IGN / Ordnance Survey' },
+  { a: 'Paris', b: 'Berlin', km: 878, on: true, src: 'Terrestre (Odomètre / Rail) — via Francfort' },
+  { a: 'Paris', b: 'Moscou', km: 3217, on: true, src: 'Terrestre (Odomètre / Rail) — via Allemagne et Biélorussie' },
+  { a: 'New York', b: 'Londres', km: 5869, on: true, src: 'Maritime (NGA Pub. 151) — Bishop Rock' },
+  { a: 'New York', b: 'Rio de Janeiro', km: 8834, on: true, src: 'Maritime (NGA Pub. 151) — Atlantique' },
+  { a: 'New York', b: 'Los Angeles', km: 4491, on: true, src: 'Terrestre (Odomètre / Route) — I-80 / I-15' },
+  { a: 'Los Angeles', b: 'Tokyo', km: 8816, on: true, src: 'Maritime (NGA Pub. 151) — transpacifique' },
+  { a: 'Tokyo', b: 'Sydney', km: 8225, on: true, src: 'Maritime (NGA Pub. 151) — Pacifique Ouest' },
+  { a: 'Londres', b: 'Le Caire', km: 3510, on: true, src: 'Aérienne (Orthodromie) — trajet direct' },
+  { a: 'Sydney', b: 'Auckland', km: 2156, on: true, src: 'Maritime (NGA Pub. 151) — mer de Tasman' },
+  { a: "Buenos Aires", b: "Le Cap", km: 6880, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Route maritime Transatlantique Sud" },
+  { a: "Le Cap", b: "Sydney", km: 11010, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Route maritime Océan Indien Sud" },
+  { a: "Sydney", b: "Santiago", km: 11340, on: true, src: "Aérienne (Orthodromie) · Séparation directe — Vol transpacifique Sud" },
+  { a: "Punta Arenas", b: "Base Eduardo Frei", km: 1250, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Passage de Drake vers la péninsule Antarctique" },
+  { a: "Ushuaïa", b: "Base McMurdo", km: 5420, on: true, src: "Aérienne (Directe) · Séparation directe — Liaison directe Amérique du Sud – Antarctique" },
+  { a: "Hobart", b: "Base Casey", km: 3420, on: true, src: "Maritime / Ravitaillement · Trajet — Route maritime de ravitaillement australienne" },
+  { a: "Christchurch", b: "Base McMurdo", km: 3830, on: true, src: "Aérienne (Ravitaillement) · Séparation directe — Ligne de ravitaillement américaine / néo-zélandaise" },
+  { a: "Le Cap", b: "Base Novolazarevskaya", km: 4180, on: true, src: "Aérienne (DROMLAN) · Séparation directe — Réseau aérien intercontinental antarctique sud-africain" },
+  { a: "Dakar", b: "Rio de Janeiro", km: 5030, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Traversée la plus courte de l'Atlantique Sud" },
+  { a: "Le Caire", b: "Bombay (Mumbai)", km: 3930, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Via la mer Rouge et le golfe d'Aden" },
+  { a: "Bombay (Mumbai)", b: "Singapour", km: 3900, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Océan Indien Est / détroit de Malacca" },
+  { a: "Singapour", b: "Sydney", km: 6300, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Passage Indonésie / nord de l'Australie" },
+  { a: "Pékin", b: "Moscou", km: 7980, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Transmongolien / Transsibérien" },
+  { a: "Los Angeles", b: "Honolulu", km: 4110, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Route Pacifique Nord-Est" },
+  { a: "Honolulu", b: "Tokyo", km: 6200, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Route Pacifique Centre-Ouest" },
 ];
 
 // ── Géométrie ───────────────────────────────────────────────────
@@ -91,42 +106,49 @@ function relax(pos: Map<string, Pt>, legs: Leg[], iterations = 4000) {
   }
 }
 
-/** Construit la carte de façon incrémentale, ville par ville. */
-function buildMap(legs: Leg[], upTo: number) {
-  const order = insertionOrder(legs).slice(0, upTo);
+/** Regroupe les villes en réseaux connexes (des liaisons les relient). */
+function components(legs: Leg[]): string[][] {
+  const parent = new Map<string, string>();
+  const find = (x: string): string => {
+    if (!parent.has(x)) parent.set(x, x);
+    while (parent.get(x) !== x) { parent.set(x, parent.get(parent.get(x)!)!); x = parent.get(x)!; }
+    return x;
+  };
+  legs.forEach(l => { const a = find(l.a), b = find(l.b); if (a !== b) parent.set(a, b); });
+  const groups = new Map<string, string[]>();
+  insertionOrder(legs).forEach(c => {
+    const r = find(c);
+    if (!groups.has(r)) groups.set(r, []);
+    groups.get(r)!.push(c);
+  });
+  return Array.from(groups.values());
+}
+
+/** Place un réseau connexe : ancrage, puis trilatération, puis relaxation. */
+function placeGroup(cities: string[], legs: Leg[]) {
   const pos = new Map<string, Pt>();
   const unconstrained: string[] = [];
+  const own = legs.filter(l => cities.includes(l.a) && cities.includes(l.b));
 
-  order.forEach((city, i) => {
-    const links = legs.filter(l =>
-      (l.a === city && pos.has(l.b)) || (l.b === city && pos.has(l.a)));
-
+  cities.forEach((city, i) => {
     if (i === 0) { pos.set(city, { x: 0, y: 0 }); return; }
-
+    const links = own.filter(l =>
+      (l.a === city && pos.has(l.b)) || (l.b === city && pos.has(l.a)));
     if (links.length === 0) {
-      // aucune distance connue vers les villes déjà placées
-      const ang = (i / Math.max(1, order.length)) * Math.PI * 2;
-      const spread = 4000;
-      pos.set(city, { x: Math.cos(ang) * spread, y: Math.sin(ang) * spread });
+      const ang = i * 2.399963;
+      pos.set(city, { x: Math.cos(ang) * 3000, y: Math.sin(ang) * 3000 });
       unconstrained.push(city);
       return;
     }
-
     const ref = (l: Leg) => (l.a === city ? pos.get(l.b)! : pos.get(l.a)!);
-
     if (links.length === 1) {
-      // une seule contrainte : distance respectée, orientation libre
-      const p = ref(links[0]); const d = links[0].km;
-      const ang = pos.size === 1 ? 0 : (i * 2.399963);   // angle d'or, pour étaler
+      const p = ref(links[0]), d = links[0].km;
+      const ang = pos.size === 1 ? 0 : i * 2.399963;
       pos.set(city, { x: p.x + Math.cos(ang) * d, y: p.y + Math.sin(ang) * d });
       return;
     }
-
-    // deux contraintes ou plus : trilatération
-    const [l1, l2] = links;
-    const cands = circleIntersect(ref(l1), l1.km, ref(l2), l2.km);
+    const cands = circleIntersect(ref(links[0]), links[0].km, ref(links[1]), links[1].km);
     if (cands.length === 0) { pos.set(city, { x: 0, y: 0 }); return; }
-    // on retient la solution qui respecte le mieux les autres distances connues
     let bestPt = cands[0], bestErr = Infinity;
     for (const c of cands) {
       let err = 0;
@@ -139,40 +161,61 @@ function buildMap(legs: Leg[], upTo: number) {
     pos.set(city, bestPt);
   });
 
-  // meilleur compromis global sur l'ensemble des villes placées
-  relax(pos, legs);
-  return { pos, order, unconstrained };
+  relax(pos, own);
+  return { pos, unconstrained };
+}
+
+/** Construit la carte : chaque réseau connexe est placé séparément,
+ *  puis les réseaux sont disposés côte à côte sans se chevaucher. */
+function buildMap(legs: Leg[]) {
+  const groups = components(legs);
+  const pos = new Map<string, Pt>();
+  const unconstrained: string[] = [];
+  const order: string[] = [];
+  let offsetX = 0;
+
+  groups.forEach(cities => {
+    const g = placeGroup(cities, legs);
+    const pts = Array.from(g.pos.values());
+    const minX = Math.min(...pts.map(p => p.x)), maxX = Math.max(...pts.map(p => p.x));
+    const minY = Math.min(...pts.map(p => p.y)), maxY = Math.max(...pts.map(p => p.y));
+    const cy = (minY + maxY) / 2;
+    cities.forEach(c => {
+      const p = g.pos.get(c)!;
+      pos.set(c, { x: p.x - minX + offsetX, y: p.y - cy });
+      order.push(c);
+    });
+    unconstrained.push(...g.unconstrained);
+    offsetX += (maxX - minX) + 2200;   // marge entre réseaux
+  });
+
+  return { pos, order, unconstrained, groups };
 }
 
 // ── Composant ───────────────────────────────────────────────────
 export default function TrilaterationMap() {
   const [legs, setLegs] = useState<Leg[]>(SEED);
   const [unit, setUnit] = useState<'km' | 'nm'>('km');
-  const order = useMemo(() => insertionOrder(legs), [legs]);
-  const [shown, setShown] = useState(2);
   const [form, setForm] = useState({ a: '', b: '', km: '', src: '' });
 
-  const nShown = Math.min(Math.max(2, shown), order.length);
-  const built = useMemo(() => buildMap(legs, nShown), [legs, nShown]);
+  const activeLegs = useMemo(() => legs.filter(l => l.on), [legs]);
+  const built = useMemo(() => buildMap(activeLegs), [activeLegs]);
 
   const conv = (km: number) => (unit === 'km' ? km : km / NM);
   const uLabel = unit === 'km' ? 'km' : 'NM';
-  const fmt = (km: number) =>
-    conv(km).toLocaleString('fr-FR', { maximumFractionDigits: 0 });
+  const fmt = (km: number) => conv(km).toLocaleString('fr-FR', { maximumFractionDigits: 0 });
 
-  // liaisons visibles + écart entre saisi et tracé
   const visible = useMemo(() => {
     const { pos } = built;
-    return legs
+    return activeLegs
       .filter(l => pos.has(l.a) && pos.has(l.b))
       .map(l => {
         const A = pos.get(l.a)!, B = pos.get(l.b)!;
         const drawn = Math.hypot(A.x - B.x, A.y - B.y);
         return { ...l, drawn, gap: drawn - l.km };
       });
-  }, [built, legs]);
+  }, [built, activeLegs]);
 
-  // mise à l'échelle pour l'affichage
   const view = useMemo(() => {
     const pts = Array.from(built.pos.values());
     if (pts.length === 0) return null;
@@ -180,19 +223,18 @@ export default function TrilaterationMap() {
     const minX = Math.min(...xs), maxX = Math.max(...xs);
     const minY = Math.min(...ys), maxY = Math.max(...ys);
     const w = Math.max(1, maxX - minX), h = Math.max(1, maxY - minY);
-    const pad = 60;
+    const pad = 70;
     const S = Math.min((680 - 2 * pad) / w, (520 - 2 * pad) / h);
     const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
-    const map = (p: Pt) => ({ x: 340 + (p.x - cx) * S, y: 260 + (p.y - cy) * S });
-    return { map, S };
+    return { map: (p: Pt) => ({ x: 340 + (p.x - cx) * S, y: 260 + (p.y - cy) * S }), S };
   }, [built]);
 
   const addLeg = useCallback(() => {
     const km = Number(form.km);
     if (!form.a.trim() || !form.b.trim() || !km || km <= 0) return;
-    const kmStored = unit === 'km' ? km : km * NM;
     setLegs(ls => [...ls, {
-      a: form.a.trim(), b: form.b.trim(), km: kmStored,
+      a: form.a.trim(), b: form.b.trim(),
+      km: unit === 'km' ? km : km * NM, on: true,
       src: form.src.trim() || 'source non renseignée',
     }]);
     setForm({ a: '', b: '', km: '', src: '' });
@@ -200,42 +242,29 @@ export default function TrilaterationMap() {
 
   const card: React.CSSProperties = {
     background: 'var(--card)', border: '1px solid var(--border)',
-    borderRadius: 10, padding: '16px 18px',
+    borderRadius: 10, padding: '14px 16px',
   };
   const input: React.CSSProperties = {
     background: 'var(--bg)', border: '1px solid var(--border)', color: 'var(--ink)',
     padding: '7px 9px', borderRadius: 6, fontFamily: MONO, fontSize: 13, width: '100%',
   };
 
-  // barre d'échelle
   const scaleBar = useMemo(() => {
     if (!view) return null;
-    const targets = [500, 1000, 2000, 5000, 10000];
+    const targets = [200, 500, 1000, 2000, 5000, 10000];
     const t = targets.find(v => v * view.S > 70 && v * view.S < 220) ?? 5000;
     return { km: t, px: t * view.S };
   }, [view]);
 
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+  const nCities = built.order.length;
 
-      {/* Contrôles */}
-      <div style={{ ...card, display: 'flex', gap: 18, flexWrap: 'wrap', alignItems: 'center' }}>
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+
+      {/* ═══ RÉGLAGES (en haut) ═══ */}
+      <div style={{ ...card, display: 'flex', gap: 20, flexWrap: 'wrap', alignItems: 'center' }}>
         <div>
-          <div style={{ fontSize: 10.5, fontFamily: MONO, color: 'var(--ink-muted)', marginBottom: 5 }}>
-            VILLES PLACÉES
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <button onClick={() => setShown(s => Math.max(2, s - 1))}
-              style={{ background: 'var(--bg)', border: '1px solid var(--border)', color: 'var(--ink)', width: 30, height: 30, borderRadius: 6, cursor: 'pointer', fontSize: 15 }}>−</button>
-            <span style={{ fontFamily: MONO, fontSize: 17, fontWeight: 800, color: OPAL, minWidth: 54, textAlign: 'center' }}>
-              {nShown} / {order.length}
-            </span>
-            <button onClick={() => setShown(s => Math.min(order.length, s + 1))}
-              style={{ background: OPAL, border: 'none', color: '#08130f', width: 30, height: 30, borderRadius: 6, cursor: 'pointer', fontSize: 15, fontWeight: 800 }}>+</button>
-          </div>
-        </div>
-        <div>
-          <div style={{ fontSize: 10.5, fontFamily: MONO, color: 'var(--ink-muted)', marginBottom: 5 }}>UNITÉ</div>
+          <div style={{ fontSize: 10, fontFamily: MONO, color: 'var(--ink-muted)', marginBottom: 5, letterSpacing: '0.06em' }}>UNITÉ</div>
           <div style={{ display: 'flex', gap: 4 }}>
             {(['km', 'nm'] as const).map(u => (
               <button key={u} onClick={() => setUnit(u)}
@@ -247,14 +276,53 @@ export default function TrilaterationMap() {
             ))}
           </div>
         </div>
-        <div style={{ marginLeft: 'auto', fontSize: 11.5, color: 'var(--ink-muted)', fontFamily: MONO }}>
-          {visible.length} liaison{visible.length > 1 ? 's' : ''} tracée{visible.length > 1 ? 's' : ''}
+        <div>
+          <div style={{ fontSize: 10, fontFamily: MONO, color: 'var(--ink-muted)', marginBottom: 5, letterSpacing: '0.06em' }}>LIAISONS</div>
+          <div style={{ display: 'flex', gap: 4 }}>
+            <button onClick={() => setLegs(ls => ls.map(l => ({ ...l, on: true })))}
+              style={{ background: 'var(--bg)', color: 'var(--ink-soft)', border: '1px solid var(--border)', padding: '6px 12px', borderRadius: 6, cursor: 'pointer', fontFamily: MONO, fontSize: 12 }}>
+              TOUT COCHER
+            </button>
+            <button onClick={() => setLegs(ls => ls.map(l => ({ ...l, on: false })))}
+              style={{ background: 'var(--bg)', color: 'var(--ink-soft)', border: '1px solid var(--border)', padding: '6px 12px', borderRadius: 6, cursor: 'pointer', fontFamily: MONO, fontSize: 12 }}>
+              TOUT DÉCOCHER
+            </button>
+          </div>
+        </div>
+        <div style={{ marginLeft: 'auto', textAlign: 'right', fontFamily: MONO, fontSize: 11.5, color: 'var(--ink-muted)', lineHeight: 1.7 }}>
+          <div><span style={{ color: GOLD, fontWeight: 700 }}>{nCities}</span> ville{nCities > 1 ? 's' : ''} placée{nCities > 1 ? 's' : ''}</div>
+          <div><span style={{ color: OPAL, fontWeight: 700 }}>{visible.length}</span> / {legs.length} liaison{legs.length > 1 ? 's' : ''} active{visible.length > 1 ? 's' : ''}</div>
         </div>
       </div>
 
-      {/* Toile */}
+      {/* ═══ AJOUT D'UNE LIAISON (en haut) ═══ */}
+      <div style={card}>
+        <div style={{ fontSize: 10, fontFamily: MONO, color: 'var(--ink-muted)', marginBottom: 8, letterSpacing: '0.06em' }}>
+          AJOUTER UNE LIAISON
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 100px 1.7fr auto', gap: 8, alignItems: 'end' }}>
+          <input style={input} placeholder="Ville A" value={form.a}
+            onChange={e => setForm({ ...form, a: e.target.value })}
+            onKeyDown={e => { if (e.key === 'Enter') addLeg(); }} />
+          <input style={input} placeholder="Ville B" value={form.b}
+            onChange={e => setForm({ ...form, b: e.target.value })}
+            onKeyDown={e => { if (e.key === 'Enter') addLeg(); }} />
+          <input style={input} type="number" placeholder={uLabel} value={form.km}
+            onChange={e => setForm({ ...form, km: e.target.value })}
+            onKeyDown={e => { if (e.key === 'Enter') addLeg(); }} />
+          <input style={input} placeholder="Provenance (source)" value={form.src}
+            onChange={e => setForm({ ...form, src: e.target.value })}
+            onKeyDown={e => { if (e.key === 'Enter') addLeg(); }} />
+          <button onClick={addLeg}
+            style={{ background: OPAL, color: '#08130f', border: 'none', padding: '8px 18px', borderRadius: 6, fontFamily: MONO, fontSize: 12, fontWeight: 800, cursor: 'pointer' }}>
+            AJOUTER
+          </button>
+        </div>
+      </div>
+
+      {/* ═══ TOILE ═══ */}
       <div style={{ ...card, padding: 0, overflow: 'hidden' }}>
-        <svg viewBox="0 0 680 520" style={{ width: '100%', display: 'block', background: '#0d1117' }}>
+        <svg viewBox="0 0 680 520" style={{ width: '100%', maxHeight: '62vh', display: 'block', background: '#0d1117' }}>
           <rect width="680" height="520" fill="#0d1117" />
           {view && visible.map((l, i) => {
             const A = view.map(built.pos.get(l.a)!), B = view.map(built.pos.get(l.b)!);
@@ -266,9 +334,7 @@ export default function TrilaterationMap() {
                   stroke={tense ? ROSE : OPAL} strokeWidth={tense ? 1.4 : 1}
                   strokeDasharray={tense ? '5,3' : undefined} opacity="0.75" />
                 <text x={mx} y={my - 4} fill={tense ? ROSE : '#8fa0b8'} fontSize="8.5"
-                  fontFamily="monospace" textAnchor="middle">
-                  {fmt(l.km)} {uLabel}
-                </text>
+                  fontFamily="monospace" textAnchor="middle">{fmt(l.km)} {uLabel}</text>
                 {tense && (
                   <text x={mx} y={my + 7} fill={ROSE} fontSize="7.5" fontFamily="monospace" textAnchor="middle">
                     tracé {fmt(l.drawn)} ({l.gap > 0 ? '+' : ''}{fmt(l.gap)})
@@ -278,15 +344,13 @@ export default function TrilaterationMap() {
             );
           })}
           {view && (() => {
-            // placement des libellés : côté choisi selon la position, décalage
-            // vertical si deux villes sont trop proches à l'écran
             const placed: { x: number; y: number }[] = [];
             return built.order.map(c => {
               const p = view.map(built.pos.get(c)!);
               const free = built.unconstrained.includes(c);
-              const right = p.x < 520;
+              const right = p.x < 500;
               let ly = p.y + 4;
-              while (placed.some(q => Math.abs(q.x - p.x) < 90 && Math.abs(q.y - ly) < 12)) ly += 13;
+              while (placed.some(q => Math.abs(q.x - p.x) < 95 && Math.abs(q.y - ly) < 12)) ly += 13;
               placed.push({ x: p.x, y: ly });
               return (
                 <g key={c}>
@@ -296,16 +360,14 @@ export default function TrilaterationMap() {
                     <line x1={p.x} y1={p.y} x2={right ? p.x + 6 : p.x - 6} y2={ly - 3}
                       stroke="#4a5b70" strokeWidth="0.6" />
                   )}
-                  <text x={right ? p.x + 8 : p.x - 8} y={ly} fill="#c8d8e8" fontSize="11"
-                    fontFamily="monospace" fontWeight="bold" textAnchor={right ? 'start' : 'end'}>
-                    {c}
-                  </text>
+                  <text x={right ? p.x + 8 : p.x - 8} y={ly} fill="#c8d8e8" fontSize="10.5"
+                    fontFamily="monospace" fontWeight="bold" textAnchor={right ? 'start' : 'end'}>{c}</text>
                 </g>
               );
             });
           })()}
           {scaleBar && (
-            <g transform="translate(24,494)">
+            <g transform="translate(24,496)">
               <line x1="0" y1="0" x2={scaleBar.px} y2="0" stroke="#8fa0b8" strokeWidth="1.5" />
               <line x1="0" y1="-4" x2="0" y2="4" stroke="#8fa0b8" strokeWidth="1.5" />
               <line x1={scaleBar.px} y1="-4" x2={scaleBar.px} y2="4" stroke="#8fa0b8" strokeWidth="1.5" />
@@ -313,6 +375,11 @@ export default function TrilaterationMap() {
                 {fmt(scaleBar.km)} {uLabel}
               </text>
             </g>
+          )}
+          {nCities === 0 && (
+            <text x="340" y="260" fill="#4a5b70" fontSize="13" fontFamily="monospace" textAnchor="middle">
+              toile vierge — cochez ou ajoutez une liaison
+            </text>
           )}
         </svg>
       </div>
@@ -325,44 +392,34 @@ export default function TrilaterationMap() {
         distance connue vers le réseau déjà placé.
       </p>
 
-      {/* Saisie */}
+      {/* ═══ DONNÉES ═══ */}
       <div style={card}>
-        <div style={{ fontSize: 10.5, fontFamily: MONO, color: 'var(--ink-muted)', marginBottom: 10 }}>
-          AJOUTER UNE LIAISON
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 110px 1.6fr auto', gap: 8, alignItems: 'end' }}>
-          <input style={input} placeholder="Ville A" value={form.a} onChange={e => setForm({ ...form, a: e.target.value })} />
-          <input style={input} placeholder="Ville B" value={form.b} onChange={e => setForm({ ...form, b: e.target.value })} />
-          <input style={input} type="number" placeholder={uLabel} value={form.km} onChange={e => setForm({ ...form, km: e.target.value })} />
-          <input style={input} placeholder="Provenance (source)" value={form.src} onChange={e => setForm({ ...form, src: e.target.value })} />
-          <button onClick={addLeg}
-            style={{ background: OPAL, color: '#08130f', border: 'none', padding: '8px 16px', borderRadius: 6, fontFamily: MONO, fontSize: 12, fontWeight: 800, cursor: 'pointer' }}>
-            AJOUTER
-          </button>
-        </div>
-      </div>
-
-      {/* Données */}
-      <div style={card}>
-        <div style={{ fontSize: 10.5, fontFamily: MONO, color: 'var(--ink-muted)', marginBottom: 10 }}>
+        <div style={{ fontSize: 10, fontFamily: MONO, color: 'var(--ink-muted)', marginBottom: 8, letterSpacing: '0.06em' }}>
           DONNÉES — {legs.length} LIAISON{legs.length > 1 ? 'S' : ''}
         </div>
-        <div style={{ maxHeight: 300, overflowY: 'auto' }}>
+        <div style={{ maxHeight: 340, overflowY: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
             <thead>
-              <tr style={{ color: 'var(--ink-muted)', fontFamily: MONO, fontSize: 10, textAlign: 'left' }}>
+              <tr style={{ color: 'var(--ink-muted)', fontFamily: MONO, fontSize: 9.5, textAlign: 'left' }}>
+                <th style={{ padding: '4px 6px', width: 28 }} title="Activer / désactiver">ON</th>
                 <th style={{ padding: '4px 6px' }}>LIAISON</th>
-                <th style={{ padding: '4px 6px', width: 100 }}>SAISI ({uLabel})</th>
-                <th style={{ padding: '4px 6px', width: 100 }}>TRACÉ</th>
+                <th style={{ padding: '4px 6px', width: 96 }}>SAISI ({uLabel})</th>
+                <th style={{ padding: '4px 6px', width: 104 }}>TRACÉ</th>
                 <th style={{ padding: '4px 6px' }}>PROVENANCE</th>
-                <th style={{ padding: '4px 6px', width: 30 }} />
+                <th style={{ padding: '4px 6px', width: 28 }} />
               </tr>
             </thead>
             <tbody>
               {legs.map((l, i) => {
                 const v = visible.find(x => x.a === l.a && x.b === l.b && x.km === l.km);
+                const tense = v && Math.abs(v.gap) / l.km > 0.02;
                 return (
-                  <tr key={i} style={{ borderTop: '1px solid var(--border-soft)' }}>
+                  <tr key={i} style={{ borderTop: '1px solid var(--border-soft)', opacity: l.on ? 1 : 0.42 }}>
+                    <td style={{ padding: '4px 6px' }}>
+                      <input type="checkbox" checked={l.on}
+                        onChange={() => setLegs(ls => ls.map((x, k) => k === i ? { ...x, on: !x.on } : x))}
+                        style={{ width: 15, height: 15, accentColor: OPAL, cursor: 'pointer' }} />
+                    </td>
                     <td style={{ padding: '4px 6px', fontFamily: MONO, color: 'var(--ink)' }}>{l.a} – {l.b}</td>
                     <td style={{ padding: '4px 6px' }}>
                       <input type="number" value={Math.round(conv(l.km))}
@@ -370,15 +427,15 @@ export default function TrilaterationMap() {
                           const val = Number(e.target.value) || 0;
                           setLegs(ls => ls.map((x, k) => k === i ? { ...x, km: unit === 'km' ? val : val * NM } : x));
                         }}
-                        style={{ ...input, width: 84, padding: '3px 6px', fontSize: 12 }} />
+                        style={{ ...input, width: 82, padding: '3px 6px', fontSize: 12 }} />
                     </td>
-                    <td style={{ padding: '4px 6px', fontFamily: MONO, fontSize: 11.5, color: v && Math.abs(v.gap) / l.km > 0.02 ? ROSE : 'var(--ink-muted)' }}>
-                      {v ? `${fmt(v.drawn)}${Math.abs(v.gap) / l.km > 0.02 ? ` (${v.gap > 0 ? '+' : ''}${fmt(v.gap)})` : ''}` : '—'}
+                    <td style={{ padding: '4px 6px', fontFamily: MONO, fontSize: 11.5, color: tense ? ROSE : 'var(--ink-muted)' }}>
+                      {v ? `${fmt(v.drawn)}${tense ? ` (${v.gap > 0 ? '+' : ''}${fmt(v.gap)})` : ''}` : '—'}
                     </td>
                     <td style={{ padding: '4px 6px', color: 'var(--ink-muted)', fontSize: 10.5 }}>{l.src}</td>
                     <td style={{ padding: '4px 6px' }}>
-                      <button onClick={() => setLegs(ls => ls.filter((_, k) => k !== i))}
-                        style={{ background: 'none', border: 'none', color: ROSE, cursor: 'pointer', fontSize: 14 }}>×</button>
+                      <button onClick={() => setLegs(ls => ls.filter((_, k) => k !== i))} title="Supprimer"
+                        style={{ background: 'none', border: 'none', color: ROSE, cursor: 'pointer', fontSize: 15 }}>×</button>
                     </td>
                   </tr>
                 );

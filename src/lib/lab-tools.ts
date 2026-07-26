@@ -92,13 +92,4 @@ export const TOOLS: LabTool[] = [
     num: '09',
     tags: ['trilatération', 'distances', 'carte', 'données brutes'],
   },
-  {
-    id: 'geodesy',
-    label: 'Carte par les trajets',
-    desc: "Reconstruit la position des villes à partir des seules durées de vol mesurées. Aucune carte en entrée.",
-    icon: '🧭',
-    color: '#3D9E7C',
-    num: '10',
-    tags: ['multilatération', 'données', 'distances', 'méthode'],
-  },
 ];

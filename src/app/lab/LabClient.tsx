@@ -18,7 +18,6 @@ const VisualFieldSim = dynamic(() => import('@/components/lab/VisualFieldSim'), 
 const LaserLakeSim = dynamic(() => import('@/components/lab/LaserLakeSim'), { ssr: false });
 const ClassifierSim = dynamic(() => import('@/components/lab/ClassifierSim'), { ssr: false });
 const TrilaterationMap = dynamic(() => import('@/components/lab/TrilaterationMap'), { ssr: false });
-const GeodesyFitSim = dynamic(() => import('@/components/lab/GeodesyFitSim'), { ssr: false });
 
 interface A { slug: string; title: string; description: string; tags: string[]; pinned: boolean; readTime: number; }
 
@@ -140,7 +139,6 @@ export default function LabClient({ articles }: { articles: A[] }) {
       case 'geo': return <GeoHelioSim />;
       case 'classifier': return <ClassifierSim />;
       case 'trilat': return <TrilaterationMap />;
-      case 'geodesy': return <GeodesyFitSim />;
       default: return null;
     }
   };
