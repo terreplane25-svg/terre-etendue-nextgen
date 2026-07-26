@@ -48,6 +48,26 @@ const SEED: Leg[] = [
   { a: "Pékin", b: "Moscou", km: 7980, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Transmongolien / Transsibérien" },
   { a: "Los Angeles", b: "Honolulu", km: 4110, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Route Pacifique Nord-Est" },
   { a: "Honolulu", b: "Tokyo", km: 6200, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Route Pacifique Centre-Ouest" },
+  { a: "Christchurch", b: "Auckland", km: 1070, on: true, src: "Terrestre (Route / Ferry Interislander) · Trajet — Île du Sud – île du Nord via ferry du détroit de Cook" },
+  { a: "Hobart", b: "Sydney", km: 1160, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Détroit de Bass / mer de Tasman" },
+  { a: "Punta Arenas", b: "Santiago", km: 3090, on: true, src: "Terrestre (Route / Ruta 40 & Ruta 5) · Trajet — Trajet routier Chili – Argentine – Chili" },
+  { a: "Ushuaïa", b: "Buenos Aires", km: 3080, on: true, src: "Terrestre (Route / Ruta Nacional 3) · Trajet — Trajet routier direct Patagonie" },
+  { a: "Le Cap", b: "Rio de Janeiro", km: 6050, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Traversée directe Atlantique Sud" },
+  { a: "Le Cap", b: "Dakar", km: 7030, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Le long de la côte ouest-africaine" },
+  { a: "Honolulu", b: "Sydney", km: 8180, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Pacifique Sud-Ouest" },
+  { a: "Singapour", b: "Tokyo", km: 5390, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Mer de Chine méridionale / Pacifique" },
+  { a: "Buenos Aires", b: "Rio de Janeiro", km: 2180, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Côtière Amérique du Sud" },
+  { a: "Le Caire", b: "Singapour", km: 9220, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Via Suez, mer Rouge et détroit de Malacca" },
+  { a: "New York", b: "Le Cap", km: 12590, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Transatlantique Nord-Sud" },
+  { a: "Berlin", b: "Moscou", km: 1820, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Ligne directe via Varsovie et Minsk" },
+  { a: "Berlin", b: "Londres", km: 1100, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Via Bruxelles et Eurostar" },
+  { a: "Pékin", b: "Singapour", km: 4480, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Asie du Sud-Est via Viêt Nam / Laos / Thaïlande" },
+  { a: "Sydney", b: "Los Angeles", km: 12060, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct transpacifique" },
+  { a: "Paris", b: "New York", km: 5830, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct transatlantique" },
+  { a: "Londres", b: "Tokyo", km: 9560, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct Eurasie" },
+  { a: "New York", b: "Tokyo", km: 10860, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct Pacifique" },
+  { a: "Londres", b: "Moscou", km: 2500, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct Europe Ouest – Est" },
+  { a: "Pékin", b: "Tokyo", km: 2100, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct Asie de l'Est" },
 ];
 
 // ── Géométrie ───────────────────────────────────────────────────
@@ -196,6 +216,7 @@ function buildMap(legs: Leg[]) {
 export default function TrilaterationMap() {
   const [legs, setLegs] = useState<Leg[]>(SEED);
   const [unit, setUnit] = useState<'km' | 'nm'>('km');
+  const [showLabels, setShowLabels] = useState(true);
   const [form, setForm] = useState({ a: '', b: '', km: '', src: '' });
 
   const activeLegs = useMemo(() => legs.filter(l => l.on), [legs]);
@@ -289,6 +310,14 @@ export default function TrilaterationMap() {
             </button>
           </div>
         </div>
+        <div>
+          <div style={{ fontSize: 10, fontFamily: MONO, color: 'var(--ink-muted)', marginBottom: 5, letterSpacing: '0.06em' }}>AFFICHAGE</div>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 7, cursor: 'pointer', fontFamily: MONO, fontSize: 12, color: 'var(--ink-soft)' }}>
+            <input type="checkbox" checked={showLabels} onChange={() => setShowLabels(v => !v)}
+              style={{ width: 15, height: 15, accentColor: OPAL, cursor: 'pointer' }} />
+            distances sur la carte
+          </label>
+        </div>
         <div style={{ marginLeft: 'auto', textAlign: 'right', fontFamily: MONO, fontSize: 11.5, color: 'var(--ink-muted)', lineHeight: 1.7 }}>
           <div><span style={{ color: GOLD, fontWeight: 700 }}>{nCities}</span> ville{nCities > 1 ? 's' : ''} placée{nCities > 1 ? 's' : ''}</div>
           <div><span style={{ color: OPAL, fontWeight: 700 }}>{visible.length}</span> / {legs.length} liaison{legs.length > 1 ? 's' : ''} active{visible.length > 1 ? 's' : ''}</div>
@@ -333,9 +362,11 @@ export default function TrilaterationMap() {
                 <line x1={A.x} y1={A.y} x2={B.x} y2={B.y}
                   stroke={tense ? ROSE : OPAL} strokeWidth={tense ? 1.4 : 1}
                   strokeDasharray={tense ? '5,3' : undefined} opacity="0.75" />
-                <text x={mx} y={my - 4} fill={tense ? ROSE : '#8fa0b8'} fontSize="8.5"
-                  fontFamily="monospace" textAnchor="middle">{fmt(l.km)} {uLabel}</text>
-                {tense && (
+                {showLabels && (
+                  <text x={mx} y={my - 4} fill={tense ? ROSE : '#8fa0b8'} fontSize="8.5"
+                    fontFamily="monospace" textAnchor="middle">{fmt(l.km)} {uLabel}</text>
+                )}
+                {showLabels && tense && (
                   <text x={mx} y={my + 7} fill={ROSE} fontSize="7.5" fontFamily="monospace" textAnchor="middle">
                     tracé {fmt(l.drawn)} ({l.gap > 0 ? '+' : ''}{fmt(l.gap)})
                   </text>
