@@ -125,6 +125,12 @@ const SEED: Leg[] = [
   { a: "New York", b: "Johannesbourg", km: 12840, on: true, src: "Aérienne (Directe) · Séparation directe — Transatlantique Nord-Sud", nat: 'separation' },
   { a: "Pékin", b: "Sydney", km: 8960, on: true, src: "Aérienne (Directe) · Séparation directe — Asie – Océanie", nat: 'separation' },
   { a: "Johannesbourg", b: "Sydney", km: 11040, on: true, src: "Aérienne (Directe) · Séparation directe — Océan Indien Sud", nat: 'separation' },
+  { a: "Pôle Nord", b: "Longyearbyen", km: 1310, on: true, src: "Géodésique / Orthodromique · Séparation directe — Pôle Nord – archipel du Svalbard", nat: 'separation' },
+  { a: "Pôle Nord", b: "Tromsø", km: 2260, on: true, src: "Géodésique / Orthodromique · Séparation directe — Pôle Nord – Norvège du Nord", nat: 'separation' },
+  { a: "Pôle Nord", b: "Reykjavík", km: 2870, on: true, src: "Géodésique / Orthodromique · Séparation directe — Pôle Nord – Islande", nat: 'separation' },
+  { a: "Pôle Nord", b: "Londres", km: 4280, on: true, src: "Géodésique / Orthodromique · Séparation directe — Pôle Nord – Londres", nat: 'separation' },
+  { a: "Longyearbyen", b: "Tromsø", km: 960, on: true, src: "Aérienne (Directe) · Séparation directe — Transversale arctique nord", nat: 'separation' },
+  { a: "Reykjavík", b: "Londres", km: 1890, on: true, src: "Aérienne (Directe) · Séparation directe — Transversale Islande – Europe", nat: 'separation' },
 ];
 
 // ── Géométrie ───────────────────────────────────────────────────
