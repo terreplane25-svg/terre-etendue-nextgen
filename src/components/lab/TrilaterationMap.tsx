@@ -135,10 +135,16 @@ const SEED: Leg[] = [
   { a: "Longyearbyen", b: "Reykjavík", km: 2010, on: true, src: "Aérienne (Directe) · Séparation directe — Svalbard – Islande", nat: 'separation' },
   { a: "Longyearbyen", b: "Londres", km: 3050, on: true, src: "Aérienne (Directe) · Séparation directe — Svalbard – Europe du Nord", nat: 'separation' },
   { a: "Tromsø", b: "Londres", km: 2280, on: true, src: "Aérienne (Directe) · Séparation directe — Norvège du Nord – Europe", nat: 'separation' },
-  { a: "Base McMurdo", b: "Base Novolazarevskaya", km: 4250, on: true, src: "Séparation directe — Transversale trans-antarctique", nat: 'separation' },
+  { a: "Base McMurdo", b: "Base Novolazarevskaya", km: 3410, on: true, src: "Séparation directe — Transversale trans-antarctique", nat: 'separation' },
   { a: "Base Novolazarevskaya", b: "Ushuaïa", km: 4610, on: true, src: "Séparation directe — Antarctique Est – Amérique du Sud", nat: 'separation' },
-  { a: "Base McMurdo", b: "Hobart", km: 2420, on: true, src: "Séparation directe — Antarctique – Tasmanie", nat: 'separation' },
+  { a: "Base McMurdo", b: "Hobart", km: 3980, on: true, src: "Séparation directe — Antarctique – Tasmanie", nat: 'separation' },
   { a: "Base Novolazarevskaya", b: "Christchurch", km: 7210, on: true, src: "Séparation directe — Trans-océanique australe", nat: 'separation' },
+  { a: "Pôle Sud", b: "Base McMurdo", km: 1350, on: true, src: "Géodésique / Orthodromique · Séparation directe — Rayon polaire sud (lat 77,84° S)", nat: 'separation' },
+  { a: "Pôle Sud", b: "Base Novolazarevskaya", km: 2140, on: true, src: "Géodésique / Orthodromique · Séparation directe — Rayon polaire sud (lat 70,78° S)", nat: 'separation' },
+  { a: "Pôle Sud", b: "Ushuaïa", km: 3920, on: true, src: "Géodésique / Orthodromique · Séparation directe — Rayon polaire sud (lat 54,80° S)", nat: 'separation' },
+  { a: "Pôle Sud", b: "Christchurch", km: 5170, on: true, src: "Géodésique / Orthodromique · Séparation directe — Rayon polaire sud (lat 43,53° S)", nat: 'separation' },
+  { a: "Pôle Sud", b: "Hobart", km: 5240, on: true, src: "Géodésique / Orthodromique · Séparation directe — Rayon polaire sud (lat 42,88° S)", nat: 'separation' },
+  { a: "Hobart", b: "Christchurch", km: 2410, on: true, src: "Aérienne (Directe) · Séparation directe — Transversale de verrouillage Océanie Sud", nat: 'separation' },
 ];
 
 // ── Géométrie ───────────────────────────────────────────────────
