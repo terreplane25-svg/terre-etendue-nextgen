@@ -68,6 +68,21 @@ const SEED: Leg[] = [
   { a: "New York", b: "Tokyo", km: 10860, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct Pacifique" },
   { a: "Londres", b: "Moscou", km: 2500, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct Europe Ouest – Est" },
   { a: "Pékin", b: "Tokyo", km: 2100, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct Asie de l'Est" },
+  { a: "Paris", b: "Rome", km: 1420, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Ligne ferroviaire via la Suisse / Alpes" },
+  { a: "Londres", b: "Rome", km: 1870, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Réseau ferroviaire continental via la France" },
+  { a: "Berlin", b: "Rome", km: 1500, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Réseau ferroviaire via l'Autriche (Brenner)" },
+  { a: "New York", b: "Miami", km: 2060, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Route I-95, côte est des États-Unis" },
+  { a: "Chicago", b: "New York", km: 1270, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Route I-80 est-ouest" },
+  { a: "Chicago", b: "Los Angeles", km: 3250, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Route 66 / I-40" },
+  { a: "Miami", b: "Los Angeles", km: 4390, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Route I-10, sud des États-Unis" },
+  { a: "Tokyo", b: "Pékin", km: 2480, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Mer du Japon / mer Jaune (port de Tianjin)" },
+  { a: "Bombay (Mumbai)", b: "Pékin", km: 6800, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Océan Indien / mer de Chine via Malacca" },
+  { a: "Le Caire", b: "Dakar", km: 6820, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Méditerranée / Atlantique via Gibraltar" },
+  { a: "Dakar", b: "Johannesbourg", km: 8150, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Atlantique Sud (via Le Cap / Durban)" },
+  { a: "Le Caire", b: "Johannesbourg", km: 10200, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Mer Rouge / océan Indien" },
+  { a: "Sydney", b: "Buenos Aires", km: 12230, on: true, src: "Aérienne (Directe) · Séparation directe — Vol transpacifique Sud" },
+  { a: "Rio de Janeiro", b: "Santiago", km: 3650, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Transcontinentale sud-américaine via l'Argentine" },
+  { a: "Santiago", b: "Buenos Aires", km: 1400, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Traversée des Andes (col de la Cumbre / route 7)" },
 ];
 
 // ── Géométrie ───────────────────────────────────────────────────
