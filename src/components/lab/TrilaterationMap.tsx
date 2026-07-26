@@ -131,6 +131,10 @@ const SEED: Leg[] = [
   { a: "Pôle Nord", b: "Londres", km: 4280, on: true, src: "Géodésique / Orthodromique · Séparation directe — Pôle Nord – Londres", nat: 'separation' },
   { a: "Longyearbyen", b: "Tromsø", km: 960, on: true, src: "Aérienne (Directe) · Séparation directe — Transversale arctique nord", nat: 'separation' },
   { a: "Reykjavík", b: "Londres", km: 1890, on: true, src: "Aérienne (Directe) · Séparation directe — Transversale Islande – Europe", nat: 'separation' },
+  { a: "Tromsø", b: "Reykjavík", km: 1880, on: true, src: "Aérienne (Directe) · Séparation directe — Transversale arctique ouest", nat: 'separation' },
+  { a: "Longyearbyen", b: "Reykjavík", km: 2010, on: true, src: "Aérienne (Directe) · Séparation directe — Svalbard – Islande", nat: 'separation' },
+  { a: "Longyearbyen", b: "Londres", km: 3050, on: true, src: "Aérienne (Directe) · Séparation directe — Svalbard – Europe du Nord", nat: 'separation' },
+  { a: "Tromsø", b: "Londres", km: 2280, on: true, src: "Aérienne (Directe) · Séparation directe — Norvège du Nord – Europe", nat: 'separation' },
 ];
 
 // ── Géométrie ───────────────────────────────────────────────────
