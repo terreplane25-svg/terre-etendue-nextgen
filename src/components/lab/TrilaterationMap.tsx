@@ -99,6 +99,22 @@ const SEED: Leg[] = [
   { a: "Los Angeles", b: "Santiago", km: 9210, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Côtière Pacifique Est", nat: 'trajet' },
   { a: "Honolulu", b: "Singapour", km: 10830, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Transpacifique Centre-Ouest via Philippines", nat: 'trajet' },
   { a: "Auckland", b: "Santiago", km: 9880, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Pacifique Sud-Est", nat: 'trajet' },
+  { a: "Londres", b: "New York", km: 5570, on: true, src: "Aérienne (Directe) · Séparation directe — Transatlantique Nord", nat: 'separation' },
+  { a: "Londres", b: "Los Angeles", km: 8780, on: true, src: "Aérienne (Directe) · Séparation directe — Transcontinental / arctique", nat: 'separation' },
+  { a: "Londres", b: "Singapour", km: 10860, on: true, src: "Aérienne (Directe) · Séparation directe — Europe – Asie du Sud-Est", nat: 'separation' },
+  { a: "Londres", b: "Johannesbourg", km: 9070, on: true, src: "Aérienne (Directe) · Séparation directe — Europe – Afrique", nat: 'separation' },
+  { a: "Paris", b: "Tokyo", km: 9710, on: true, src: "Aérienne (Directe) · Séparation directe — Europe – Asie de l'Est", nat: 'separation' },
+  { a: "Paris", b: "Le Caire", km: 3210, on: true, src: "Aérienne (Directe) · Séparation directe — Europe – Moyen-Orient", nat: 'separation' },
+  { a: "New York", b: "Los Angeles", km: 3940, on: true, src: "Aérienne (Directe) · Séparation directe — Transcontinental USA", nat: 'separation' },
+  { a: "New York", b: "Buenos Aires", km: 8530, on: true, src: "Aérienne (Directe) · Séparation directe — Amériques", nat: 'separation' },
+  { a: "Los Angeles", b: "Tokyo", km: 8820, on: true, src: "Aérienne (Directe) · Séparation directe — Transpacifique Nord", nat: 'separation' },
+  { a: "Tokyo", b: "Singapour", km: 5320, on: true, src: "Aérienne (Directe) · Séparation directe — Asie de l'Est – Sud-Est", nat: 'separation' },
+  { a: "Tokyo", b: "Sydney", km: 7830, on: true, src: "Aérienne (Directe) · Séparation directe — Asie – Océanie", nat: 'separation' },
+  { a: "Singapour", b: "Sydney", km: 6300, on: true, src: "Aérienne (Directe) · Séparation directe — Asie du Sud-Est – Océanie", nat: 'separation' },
+  { a: "Le Caire", b: "Johannesbourg", km: 6260, on: true, src: "Aérienne (Directe) · Séparation directe — Afrique Nord-Sud", nat: 'separation' },
+  { a: "Johannesbourg", b: "Buenos Aires", km: 8110, on: true, src: "Aérienne (Directe) · Séparation directe — Atlantique Sud", nat: 'separation' },
+  { a: "Santiago", b: "Buenos Aires", km: 1140, on: true, src: "Aérienne (Directe) · Séparation directe — Transandin", nat: 'separation' },
+  { a: "Pékin", b: "Singapour", km: 4470, on: true, src: "Aérienne (Directe) · Séparation directe — Asie de l'Est – Sud-Est", nat: 'separation' },
 ];
 
 // ── Géométrie ───────────────────────────────────────────────────
