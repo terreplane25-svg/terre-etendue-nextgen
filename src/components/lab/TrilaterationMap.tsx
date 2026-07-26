@@ -149,6 +149,10 @@ const SEED: Leg[] = [
   { a: "Tromsø", b: "Moscou", km: 1660, on: true, src: "Aérienne (Directe) · Séparation directe — Deuxième ancrage vers l'Europe de l'Est", nat: 'separation' },
   { a: "Paris", b: "Reykjavík", km: 2230, on: true, src: "Aérienne (Directe) · Séparation directe — Deuxième appui pour Paris", nat: 'separation' },
   { a: "Moscou", b: "Pékin", km: 5800, on: true, src: "Aérienne (Directe) · Séparation directe — Transcontinentale Asie", nat: 'separation' },
+  { a: "Ushuaïa", b: "Santiago", km: 2180, on: true, src: "Aérienne (Directe) · Séparation directe — Débloque l'ancrage Amérique du Sud", nat: 'separation' },
+  { a: "Hobart", b: "Sydney", km: 1040, on: true, src: "Aérienne (Directe) · Séparation directe — Débloque l'ancrage Océanie", nat: 'separation' },
+  { a: "Christchurch", b: "Santiago", km: 9170, on: true, src: "Aérienne (Directe) · Séparation directe — Transversale transpacifique australe", nat: 'separation' },
+  { a: "Base Novolazarevskaya", b: "Johannesbourg", km: 4270, on: true, src: "Aérienne (Directe) · Séparation directe — Pont DROMLAN Afrique du Sud – Antarctique", nat: 'separation' },
 ];
 
 // ── Géométrie ───────────────────────────────────────────────────
