@@ -384,14 +384,6 @@ export default function TrilaterationMap() {
               style={{ background: 'var(--bg)', color: 'var(--ink-soft)', border: '1px solid var(--border)', padding: '6px 12px', borderRadius: 6, cursor: 'pointer', fontFamily: MONO, fontSize: 12 }}>
               TOUT COCHER
             </button>
-            <button onClick={() => setLegs(ls => ls.map(l => ({ ...l, on: l.nat === 'trajet' })))}
-              style={{ background: 'var(--bg)', color: 'var(--ink-soft)', border: '1px solid var(--border)', padding: '6px 12px', borderRadius: 6, cursor: 'pointer', fontFamily: MONO, fontSize: 12 }}>
-              TRAJETS SEULS
-            </button>
-            <button onClick={() => setLegs(ls => ls.map(l => ({ ...l, on: l.nat === 'separation' })))}
-              style={{ background: 'var(--bg)', color: 'var(--ink-soft)', border: '1px solid var(--border)', padding: '6px 12px', borderRadius: 6, cursor: 'pointer', fontFamily: MONO, fontSize: 12 }}>
-              SÉPARATIONS SEULES
-            </button>
             <button onClick={() => setLegs(ls => ls.map(l => ({ ...l, on: false })))}
               style={{ background: 'var(--bg)', color: 'var(--ink-soft)', border: '1px solid var(--border)', padding: '6px 12px', borderRadius: 6, cursor: 'pointer', fontFamily: MONO, fontSize: 12 }}>
               TOUT DÉCOCHER
