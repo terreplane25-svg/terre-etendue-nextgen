@@ -84,12 +84,21 @@ export const TOOLS: LabTool[] = [
     tags: ['pédagogie', 'épistémologie', 'quiz', 'enseignants'],
   },
   {
+    id: 'trilat',
+    label: 'Carte par trilatération',
+    desc: "Toile vierge : les villes se placent uniquement d'après les distances saisies. Aucun centre, aucune coordonnée.",
+    icon: '📍',
+    color: '#3D9E7C',
+    num: '09',
+    tags: ['trilatération', 'distances', 'carte', 'données brutes'],
+  },
+  {
     id: 'geodesy',
     label: 'Carte par les trajets',
     desc: "Reconstruit la position des villes à partir des seules durées de vol mesurées. Aucune carte en entrée.",
     icon: '🧭',
     color: '#3D9E7C',
-    num: '09',
+    num: '10',
     tags: ['multilatération', 'données', 'distances', 'méthode'],
   },
 ];
