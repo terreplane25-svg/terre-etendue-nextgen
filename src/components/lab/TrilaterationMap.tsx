@@ -115,6 +115,16 @@ const SEED: Leg[] = [
   { a: "Johannesbourg", b: "Buenos Aires", km: 8110, on: true, src: "Aérienne (Directe) · Séparation directe — Atlantique Sud", nat: 'separation' },
   { a: "Santiago", b: "Buenos Aires", km: 1140, on: true, src: "Aérienne (Directe) · Séparation directe — Transandin", nat: 'separation' },
   { a: "Pékin", b: "Singapour", km: 4470, on: true, src: "Aérienne (Directe) · Séparation directe — Asie de l'Est – Sud-Est", nat: 'separation' },
+  { a: "Christchurch", b: "Sydney", km: 2130, on: true, src: "Aérienne (Directe) · Séparation directe — Rattachement du groupe McMurdo", nat: 'separation' },
+  { a: "Ushuaïa", b: "Buenos Aires", km: 2370, on: true, src: "Aérienne (Directe) · Séparation directe — Rattachement du groupe antarctique sud-américain", nat: 'separation' },
+  { a: "Le Cap", b: "Johannesbourg", km: 1270, on: true, src: "Aérienne (Directe) · Séparation directe — Rattachement du groupe Novolazarevskaya", nat: 'separation' },
+  { a: "Le Cap", b: "Londres", km: 9670, on: true, src: "Aérienne (Directe) · Séparation directe — Axe Europe – Afrique", nat: 'separation' },
+  { a: "Londres", b: "Buenos Aires", km: 11120, on: true, src: "Aérienne (Directe) · Séparation directe — Transatlantique", nat: 'separation' },
+  { a: "Paris", b: "Los Angeles", km: 9100, on: true, src: "Aérienne (Directe) · Séparation directe — Transcontinental", nat: 'separation' },
+  { a: "Paris", b: "Singapour", km: 10730, on: true, src: "Aérienne (Directe) · Séparation directe — Europe – Asie", nat: 'separation' },
+  { a: "New York", b: "Johannesbourg", km: 12840, on: true, src: "Aérienne (Directe) · Séparation directe — Transatlantique Nord-Sud", nat: 'separation' },
+  { a: "Pékin", b: "Sydney", km: 8960, on: true, src: "Aérienne (Directe) · Séparation directe — Asie – Océanie", nat: 'separation' },
+  { a: "Johannesbourg", b: "Sydney", km: 11040, on: true, src: "Aérienne (Directe) · Séparation directe — Océan Indien Sud", nat: 'separation' },
 ];
 
 // ── Géométrie ───────────────────────────────────────────────────
