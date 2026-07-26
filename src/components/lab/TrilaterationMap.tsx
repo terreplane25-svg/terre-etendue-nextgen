@@ -19,70 +19,70 @@ const ROSE = '#C45E6A';
 const MONO = "'JetBrains Mono', monospace";
 const NM = 1.852;
 
-interface Leg { a: string; b: string; km: number; src: string; on: boolean; }
+type Nature = 'trajet' | 'separation';
+interface Leg { a: string; b: string; km: number; src: string; on: boolean; nat: Nature; }
 
 /** Lot de données fourni — repris tel quel, sans modification. */
 const SEED: Leg[] = [
-  { a: 'Paris', b: 'Londres', km: 343, on: true, src: 'Géodésique / Directe — triangulation IGN / Ordnance Survey' },
-  { a: 'Paris', b: 'Berlin', km: 878, on: true, src: 'Terrestre (Odomètre / Rail) — via Francfort' },
-  { a: 'Paris', b: 'Moscou', km: 3217, on: true, src: 'Terrestre (Odomètre / Rail) — via Allemagne et Biélorussie' },
-  { a: 'New York', b: 'Londres', km: 5869, on: true, src: 'Maritime (NGA Pub. 151) — Bishop Rock' },
-  { a: 'New York', b: 'Rio de Janeiro', km: 8834, on: true, src: 'Maritime (NGA Pub. 151) — Atlantique' },
-  { a: 'New York', b: 'Los Angeles', km: 4491, on: true, src: 'Terrestre (Odomètre / Route) — I-80 / I-15' },
-  { a: 'Los Angeles', b: 'Tokyo', km: 8816, on: true, src: 'Maritime (NGA Pub. 151) — transpacifique' },
-  { a: 'Tokyo', b: 'Sydney', km: 8225, on: true, src: 'Maritime (NGA Pub. 151) — Pacifique Ouest' },
-  { a: 'Londres', b: 'Le Caire', km: 3510, on: true, src: 'Aérienne (Orthodromie) — trajet direct' },
-  { a: 'Sydney', b: 'Auckland', km: 2156, on: true, src: 'Maritime (NGA Pub. 151) — mer de Tasman' },
-  { a: "Buenos Aires", b: "Le Cap", km: 6880, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Route maritime Transatlantique Sud" },
-  { a: "Le Cap", b: "Sydney", km: 11010, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Route maritime Océan Indien Sud" },
-  { a: "Sydney", b: "Santiago", km: 11340, on: true, src: "Aérienne (Orthodromie) · Séparation directe — Vol transpacifique Sud" },
-  { a: "Punta Arenas", b: "Base Eduardo Frei", km: 1250, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Passage de Drake vers la péninsule Antarctique" },
-  { a: "Ushuaïa", b: "Base McMurdo", km: 5420, on: true, src: "Aérienne (Directe) · Séparation directe — Liaison directe Amérique du Sud – Antarctique" },
-  { a: "Hobart", b: "Base Casey", km: 3420, on: true, src: "Maritime / Ravitaillement · Trajet — Route maritime de ravitaillement australienne" },
-  { a: "Christchurch", b: "Base McMurdo", km: 3830, on: true, src: "Aérienne (Ravitaillement) · Séparation directe — Ligne de ravitaillement américaine / néo-zélandaise" },
-  { a: "Le Cap", b: "Base Novolazarevskaya", km: 4180, on: true, src: "Aérienne (DROMLAN) · Séparation directe — Réseau aérien intercontinental antarctique sud-africain" },
-  { a: "Dakar", b: "Rio de Janeiro", km: 5030, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Traversée la plus courte de l'Atlantique Sud" },
-  { a: "Le Caire", b: "Bombay (Mumbai)", km: 3930, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Via la mer Rouge et le golfe d'Aden" },
-  { a: "Bombay (Mumbai)", b: "Singapour", km: 3900, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Océan Indien Est / détroit de Malacca" },
-  { a: "Singapour", b: "Sydney", km: 6300, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Passage Indonésie / nord de l'Australie" },
-  { a: "Pékin", b: "Moscou", km: 7980, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Transmongolien / Transsibérien" },
-  { a: "Los Angeles", b: "Honolulu", km: 4110, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Route Pacifique Nord-Est" },
-  { a: "Honolulu", b: "Tokyo", km: 6200, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Route Pacifique Centre-Ouest" },
-  { a: "Christchurch", b: "Auckland", km: 1070, on: true, src: "Terrestre (Route / Ferry Interislander) · Trajet — Île du Sud – île du Nord via ferry du détroit de Cook" },
-  { a: "Hobart", b: "Sydney", km: 1160, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Détroit de Bass / mer de Tasman" },
-  { a: "Punta Arenas", b: "Santiago", km: 3090, on: true, src: "Terrestre (Route / Ruta 40 & Ruta 5) · Trajet — Trajet routier Chili – Argentine – Chili" },
-  { a: "Ushuaïa", b: "Buenos Aires", km: 3080, on: true, src: "Terrestre (Route / Ruta Nacional 3) · Trajet — Trajet routier direct Patagonie" },
-  { a: "Le Cap", b: "Rio de Janeiro", km: 6050, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Traversée directe Atlantique Sud" },
-  { a: "Le Cap", b: "Dakar", km: 7030, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Le long de la côte ouest-africaine" },
-  { a: "Honolulu", b: "Sydney", km: 8180, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Pacifique Sud-Ouest" },
-  { a: "Singapour", b: "Tokyo", km: 5390, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Mer de Chine méridionale / Pacifique" },
-  { a: "Buenos Aires", b: "Rio de Janeiro", km: 2180, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Côtière Amérique du Sud" },
-  { a: "Le Caire", b: "Singapour", km: 9220, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Via Suez, mer Rouge et détroit de Malacca" },
-  { a: "New York", b: "Le Cap", km: 12590, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Transatlantique Nord-Sud" },
-  { a: "Berlin", b: "Moscou", km: 1820, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Ligne directe via Varsovie et Minsk" },
-  { a: "Berlin", b: "Londres", km: 1100, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Via Bruxelles et Eurostar" },
-  { a: "Pékin", b: "Singapour", km: 4480, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Asie du Sud-Est via Viêt Nam / Laos / Thaïlande" },
-  { a: "Sydney", b: "Los Angeles", km: 12060, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct transpacifique" },
-  { a: "Paris", b: "New York", km: 5830, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct transatlantique" },
-  { a: "Londres", b: "Tokyo", km: 9560, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct Eurasie" },
-  { a: "New York", b: "Tokyo", km: 10860, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct Pacifique" },
-  { a: "Londres", b: "Moscou", km: 2500, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct Europe Ouest – Est" },
-  { a: "Pékin", b: "Tokyo", km: 2100, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct Asie de l'Est" },
-  { a: "Paris", b: "Rome", km: 1420, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Ligne ferroviaire via la Suisse / Alpes" },
-  { a: "Londres", b: "Rome", km: 1870, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Réseau ferroviaire continental via la France" },
-  { a: "Berlin", b: "Rome", km: 1500, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Réseau ferroviaire via l'Autriche (Brenner)" },
-  { a: "New York", b: "Miami", km: 2060, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Route I-95, côte est des États-Unis" },
-  { a: "Chicago", b: "New York", km: 1270, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Route I-80 est-ouest" },
-  { a: "Chicago", b: "Los Angeles", km: 3250, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Route 66 / I-40" },
-  { a: "Miami", b: "Los Angeles", km: 4390, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Route I-10, sud des États-Unis" },
-  { a: "Tokyo", b: "Pékin", km: 2480, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Mer du Japon / mer Jaune (port de Tianjin)" },
-  { a: "Bombay (Mumbai)", b: "Pékin", km: 6800, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Océan Indien / mer de Chine via Malacca" },
-  { a: "Le Caire", b: "Dakar", km: 6820, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Méditerranée / Atlantique via Gibraltar" },
-  { a: "Dakar", b: "Johannesbourg", km: 8150, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Atlantique Sud (via Le Cap / Durban)" },
-  { a: "Le Caire", b: "Johannesbourg", km: 10200, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Mer Rouge / océan Indien" },
-  { a: "Sydney", b: "Buenos Aires", km: 12230, on: true, src: "Aérienne (Directe) · Séparation directe — Vol transpacifique Sud" },
-  { a: "Rio de Janeiro", b: "Santiago", km: 3650, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Transcontinentale sud-américaine via l'Argentine" },
-  { a: "Santiago", b: "Buenos Aires", km: 1400, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Traversée des Andes (col de la Cumbre / route 7)" },
+  { a: 'Paris', b: 'Londres', km: 343, on: true, src: 'Géodésique / Directe — triangulation IGN / Ordnance Survey' , nat: 'separation' },
+  { a: 'Paris', b: 'Berlin', km: 1050, on: true, src: 'Terrestre (Odomètre / Rail) — via Francfort' , nat: 'trajet' },
+  { a: 'Paris', b: 'Moscou', km: 3217, on: true, src: 'Terrestre (Odomètre / Rail) — via Allemagne et Biélorussie' , nat: 'trajet' },
+  { a: 'New York', b: 'Londres', km: 5869, on: true, src: 'Maritime (NGA Pub. 151) — Bishop Rock' , nat: 'trajet' },
+  { a: 'New York', b: 'Rio de Janeiro', km: 8834, on: true, src: 'Maritime (NGA Pub. 151) — Atlantique' , nat: 'trajet' },
+  { a: 'New York', b: 'Los Angeles', km: 4491, on: true, src: 'Terrestre (Odomètre / Route) — I-80 / I-15' , nat: 'trajet' },
+  { a: 'Los Angeles', b: 'Tokyo', km: 8816, on: true, src: 'Maritime (NGA Pub. 151) — transpacifique' , nat: 'trajet' },
+  { a: 'Tokyo', b: 'Sydney', km: 8225, on: true, src: 'Maritime (NGA Pub. 151) — Pacifique Ouest' , nat: 'trajet' },
+  { a: 'Londres', b: 'Le Caire', km: 3510, on: true, src: 'Aérienne (Orthodromie) — trajet direct' , nat: 'separation' },
+  { a: 'Sydney', b: 'Auckland', km: 2156, on: true, src: 'Maritime (NGA Pub. 151) — mer de Tasman' , nat: 'trajet' },
+  { a: "Buenos Aires", b: "Le Cap", km: 6880, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Route maritime Transatlantique Sud" , nat: 'trajet' },
+  { a: "Le Cap", b: "Sydney", km: 11010, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Route maritime Océan Indien Sud" , nat: 'trajet' },
+  { a: "Sydney", b: "Santiago", km: 11340, on: true, src: "Aérienne (Orthodromie) · Séparation directe — Vol transpacifique Sud" , nat: 'separation' },
+  { a: "Punta Arenas", b: "Base Eduardo Frei", km: 1250, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Passage de Drake vers la péninsule Antarctique" , nat: 'trajet' },
+  { a: "Ushuaïa", b: "Base McMurdo", km: 5420, on: true, src: "Aérienne (Directe) · Séparation directe — Liaison directe Amérique du Sud – Antarctique" , nat: 'separation' },
+  { a: "Hobart", b: "Base Casey", km: 3420, on: true, src: "Maritime / Ravitaillement · Trajet — Route maritime de ravitaillement australienne" , nat: 'trajet' },
+  { a: "Christchurch", b: "Base McMurdo", km: 3830, on: true, src: "Aérienne (Ravitaillement) · Séparation directe — Ligne de ravitaillement américaine / néo-zélandaise" , nat: 'separation' },
+  { a: "Le Cap", b: "Base Novolazarevskaya", km: 4180, on: true, src: "Aérienne (DROMLAN) · Séparation directe — Réseau aérien intercontinental antarctique sud-africain" , nat: 'separation' },
+  { a: "Dakar", b: "Rio de Janeiro", km: 5030, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Traversée la plus courte de l'Atlantique Sud", nat: 'trajet' },
+  { a: "Le Caire", b: "Bombay (Mumbai)", km: 3930, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Via la mer Rouge et le golfe d'Aden", nat: 'trajet' },
+  { a: "Bombay (Mumbai)", b: "Singapour", km: 3900, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Océan Indien Est / détroit de Malacca" , nat: 'trajet' },
+  { a: "Singapour", b: "Sydney", km: 6300, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Passage Indonésie / nord de l'Australie", nat: 'trajet' },
+  { a: "Pékin", b: "Moscou", km: 7980, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Transmongolien / Transsibérien" , nat: 'trajet' },
+  { a: "Los Angeles", b: "Honolulu", km: 4110, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Route Pacifique Nord-Est" , nat: 'trajet' },
+  { a: "Honolulu", b: "Tokyo", km: 6200, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Route Pacifique Centre-Ouest" , nat: 'trajet' },
+  { a: "Christchurch", b: "Auckland", km: 1070, on: true, src: "Terrestre (Route / Ferry Interislander) · Trajet — Île du Sud – île du Nord via ferry du détroit de Cook" , nat: 'trajet' },
+  { a: "Hobart", b: "Sydney", km: 1160, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Détroit de Bass / mer de Tasman" , nat: 'trajet' },
+  { a: "Punta Arenas", b: "Santiago", km: 3090, on: true, src: "Terrestre (Route / Ruta 40 & Ruta 5) · Trajet — Trajet routier Chili – Argentine – Chili" , nat: 'trajet' },
+  { a: "Ushuaïa", b: "Buenos Aires", km: 3080, on: true, src: "Terrestre (Route / Ruta Nacional 3) · Trajet — Trajet routier direct Patagonie" , nat: 'trajet' },
+  { a: "Le Cap", b: "Rio de Janeiro", km: 6050, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Traversée directe Atlantique Sud" , nat: 'trajet' },
+  { a: "Le Cap", b: "Dakar", km: 7030, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Le long de la côte ouest-africaine" , nat: 'trajet' },
+  { a: "Honolulu", b: "Sydney", km: 8180, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Pacifique Sud-Ouest" , nat: 'trajet' },
+  { a: "Singapour", b: "Tokyo", km: 5390, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Mer de Chine méridionale / Pacifique" , nat: 'trajet' },
+  { a: "Buenos Aires", b: "Rio de Janeiro", km: 2180, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Côtière Amérique du Sud" , nat: 'trajet' },
+  { a: "Le Caire", b: "Singapour", km: 8200, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Via Suez, mer Rouge et détroit de Malacca" , nat: 'trajet' },
+  { a: "New York", b: "Le Cap", km: 12590, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Transatlantique Nord-Sud" , nat: 'trajet' },
+  { a: "Berlin", b: "Moscou", km: 1820, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Ligne directe via Varsovie et Minsk" , nat: 'trajet' },
+  { a: "Berlin", b: "Londres", km: 1100, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Via Bruxelles et Eurostar" , nat: 'trajet' },
+  { a: "Pékin", b: "Singapour", km: 4480, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Asie du Sud-Est via Viêt Nam / Laos / Thaïlande" , nat: 'trajet' },
+  { a: "Sydney", b: "Los Angeles", km: 12060, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct transpacifique" , nat: 'separation' },
+  { a: "Paris", b: "New York", km: 5830, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct transatlantique" , nat: 'separation' },
+  { a: "Londres", b: "Tokyo", km: 9560, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct Eurasie" , nat: 'separation' },
+  { a: "New York", b: "Tokyo", km: 10860, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct Pacifique" , nat: 'separation' },
+  { a: "Londres", b: "Moscou", km: 2500, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct Europe Ouest – Est" , nat: 'separation' },
+  { a: "Pékin", b: "Tokyo", km: 2100, on: true, src: "Aérienne (Directe) · Séparation directe — Vol direct Asie de l'Est", nat: 'separation' },
+  { a: "Paris", b: "Rome", km: 1420, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Ligne ferroviaire via la Suisse / Alpes" , nat: 'trajet' },
+  { a: "Londres", b: "Rome", km: 1870, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Réseau ferroviaire continental via la France" , nat: 'trajet' },
+  { a: "Berlin", b: "Rome", km: 1500, on: true, src: "Terrestre (Odomètre / Rail) · Trajet — Réseau ferroviaire via l'Autriche (Brenner)", nat: 'trajet' },
+  { a: "New York", b: "Miami", km: 2060, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Route I-95, côte est des États-Unis" , nat: 'trajet' },
+  { a: "Chicago", b: "New York", km: 1270, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Route I-80 est-ouest" , nat: 'trajet' },
+  { a: "Chicago", b: "Los Angeles", km: 3250, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Route 66 / I-40" , nat: 'trajet' },
+  { a: "Miami", b: "Los Angeles", km: 4390, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Route I-10, sud des États-Unis" , nat: 'trajet' },
+  { a: "Bombay (Mumbai)", b: "Pékin", km: 6800, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Océan Indien / mer de Chine via Malacca" , nat: 'trajet' },
+  { a: "Le Caire", b: "Dakar", km: 6820, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Méditerranée / Atlantique via Gibraltar" , nat: 'trajet' },
+  { a: "Dakar", b: "Johannesbourg", km: 8150, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Atlantique Sud (via Le Cap / Durban)" , nat: 'trajet' },
+  { a: "Le Caire", b: "Johannesbourg", km: 10200, on: true, src: "Maritime (NGA Pub. 151) · Trajet — Mer Rouge / océan Indien" , nat: 'trajet' },
+  { a: "Sydney", b: "Buenos Aires", km: 12230, on: true, src: "Aérienne (Directe) · Séparation directe — Vol transpacifique Sud" , nat: 'separation' },
+  { a: "Rio de Janeiro", b: "Santiago", km: 3650, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Transcontinentale sud-américaine via l'Argentine", nat: 'trajet' },
+  { a: "Santiago", b: "Buenos Aires", km: 1400, on: true, src: "Terrestre (Odomètre / Route) · Trajet — Traversée des Andes (col de la Cumbre / route 7)" , nat: 'trajet' },
 ];
 
 // ── Géométrie ───────────────────────────────────────────────────
@@ -270,7 +270,7 @@ export default function TrilaterationMap() {
     if (!form.a.trim() || !form.b.trim() || !km || km <= 0) return;
     setLegs(ls => [...ls, {
       a: form.a.trim(), b: form.b.trim(),
-      km: unit === 'km' ? km : km * NM, on: true,
+      km: unit === 'km' ? km : km * NM, on: true, nat: 'trajet',
       src: form.src.trim() || 'source non renseignée',
     }]);
     setForm({ a: '', b: '', km: '', src: '' });
@@ -318,6 +318,14 @@ export default function TrilaterationMap() {
             <button onClick={() => setLegs(ls => ls.map(l => ({ ...l, on: true })))}
               style={{ background: 'var(--bg)', color: 'var(--ink-soft)', border: '1px solid var(--border)', padding: '6px 12px', borderRadius: 6, cursor: 'pointer', fontFamily: MONO, fontSize: 12 }}>
               TOUT COCHER
+            </button>
+            <button onClick={() => setLegs(ls => ls.map(l => ({ ...l, on: l.nat === 'trajet' })))}
+              style={{ background: 'var(--bg)', color: 'var(--ink-soft)', border: '1px solid var(--border)', padding: '6px 12px', borderRadius: 6, cursor: 'pointer', fontFamily: MONO, fontSize: 12 }}>
+              TRAJETS SEULS
+            </button>
+            <button onClick={() => setLegs(ls => ls.map(l => ({ ...l, on: l.nat === 'separation' })))}
+              style={{ background: 'var(--bg)', color: 'var(--ink-soft)', border: '1px solid var(--border)', padding: '6px 12px', borderRadius: 6, cursor: 'pointer', fontFamily: MONO, fontSize: 12 }}>
+              SÉPARATIONS SEULES
             </button>
             <button onClick={() => setLegs(ls => ls.map(l => ({ ...l, on: false })))}
               style={{ background: 'var(--bg)', color: 'var(--ink-soft)', border: '1px solid var(--border)', padding: '6px 12px', borderRadius: 6, cursor: 'pointer', fontFamily: MONO, fontSize: 12 }}>
@@ -475,7 +483,10 @@ export default function TrilaterationMap() {
                         onChange={() => setLegs(ls => ls.map((x, k) => k === i ? { ...x, on: !x.on } : x))}
                         style={{ width: 15, height: 15, accentColor: OPAL, cursor: 'pointer' }} />
                     </td>
-                    <td style={{ padding: '4px 6px', fontFamily: MONO, color: 'var(--ink)' }}>{l.a} – {l.b}</td>
+                    <td style={{ padding: '4px 6px', fontFamily: MONO, color: 'var(--ink)' }}>
+                      <span style={{ fontSize: 8.5, fontWeight: 700, color: l.nat === 'separation' ? GOLD : OPAL, border: `1px solid ${l.nat === 'separation' ? GOLD : OPAL}55`, borderRadius: 3, padding: '1px 4px', marginRight: 6 }}>
+                        {l.nat === 'separation' ? 'SÉP' : 'TRAJ'}
+                      </span>{l.a} – {l.b}</td>
                     <td style={{ padding: '4px 6px' }}>
                       <input type="number" value={Math.round(conv(l.km))}
                         onChange={e => {
