@@ -133,6 +133,20 @@ adapté à l'identité de la page. Markup :
 - `src/lib/nexus-data.ts` — nœud + liens du graphe (si pertinent).
 - L'article apparaît automatiquement sur sa page de catégorie.
 
+## Format des réponses (préférence utilisateur)
+
+L'utilisateur transmet les réponses à une autre IA. Livrer le **corps de la réponse dans un
+seul bloc de code** (clôture à 4 backticks pour pouvoir contenir des blocs à 3 backticks),
+afin qu'un seul clic suffise à tout copier. Texte brut lisible sans rendu Markdown :
+
+- Titres en MAJUSCULES ou soulignés `===`, pas de `#`.
+- Pas de `**gras**` ni de `*italique*` — ils s'affichent tels quels dans un bloc de code.
+- Tableaux en colonnes alignées à l'espace, pas en pipes Markdown.
+- Garder les chiffres, unités et noms de fichiers exacts : c'est le contenu utile pour l'IA
+  destinataire.
+
+Hors du bloc : une ligne de contexte au maximum (ce qui a été commité / poussé).
+
 ## Vérification avant commit
 
 ```bash
