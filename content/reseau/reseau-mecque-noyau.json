@@ -20,7 +20,9 @@
       "nature": "separation",
       "methode": "méthode d'obtention",
       "statut": "calculee"
-    }
+    },
+    "statut_fichier": "CLOS — version 3.0 définitive",
+    "clos_note": "Ce fichier est verrouillé. Sa source unique est la table des 9 coordonnées WGS84 du bloc points ; les 36 distances en sont dérivées par calcul. Aucune distance ne doit être modifiée à la main : toute évolution passe par une correction de coordonnée suivie d'un recalcul complet de la matrice. Le noyau est refermé — l'extension régionale se fait dans reseau-regional-hedjaz.json, pas ici."
   },
   "points": [
     {

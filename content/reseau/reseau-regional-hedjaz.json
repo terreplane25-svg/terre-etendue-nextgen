@@ -1,0 +1,121 @@
+{
+  "_meta": {
+    "version": "0.1 — structure d'accueil, aucune donnée",
+    "titre": "Anneau régional du Hedjaz — extension discriminante du noyau de La Mecque",
+    "description": "Réseau de distances à l'échelle régionale (60 à 1 200 km) destiné à tester si la géométrie du terrain est plane ou sphérique. Le noyau local (reseau-mecque-noyau.json, v3.0, clos) sert d'ancrage topologique. Ce fichier est VIDE de distances : il définit la structure et les règles de provenance avant toute saisie.",
+    "ancrage": {
+      "fichier": "content/reseau/reseau-mecque-noyau.json",
+      "version": "3.0",
+      "role": "Le noyau fournit 9 points dont la configuration relative est établie et fermée. Il n'apporte AUCUNE contrainte de courbure — son étendue de 37 km est trop faible. Il sert uniquement de socle rigide auquel raccrocher les longues liaisons."
+    },
+
+    "_regle_fondamentale": {
+      "enonce": "Une distance CALCULÉE depuis des coordonnées géodésiques ne peut jamais servir à tester une géométrie. Elle restitue par construction le modèle qui l'a produite.",
+      "explication": "À 37 km, la méthode de la v3.0 (coordonnées WGS84 + Vincenty inverse) était légitime : l'écart entre plan et sphère y valait 30 m, sous l'incertitude, donc le choix de formule était sans conséquence. À 300 km il vaut 9 km. Calculer la distance Mecque–Médine par Vincenty revient à demander à l'ellipsoïde WGS84 quelle distance il prédit, puis à s'étonner qu'un ajustement plan échoue de 9 km. L'échec mesurerait la distorsion de la projection assumée, pas le terrain. C'est le même piège circulaire que celui des lots 6 à 8, transposé d'une échelle.",
+      "consequence": "L'extension régionale ne PEUT PAS reprendre la méthode de la v3.0. C'est le seul point où la continuité de méthode serait une faute.",
+      "corollaire_cartes": "Toute carte à l'échelle régionale est déjà une projection, donc déjà un modèle. Lire une distance sur une carte, un SIG ou un service d'itinéraire, c'est lire la sortie du modèle qu'on voulait tester."
+    },
+
+    "classes_de_source": {
+      "note": "Chaque liaison DOIT porter une classe. Seules les classes A et B ont valeur de test. Les classes C et D sont admises mais uniquement comme référence de comparaison, jamais comme donnée d'entrée du solveur.",
+      "A_mesure_terrestre_directe": {
+        "valeur_de_test": true,
+        "exemples": "Cheminement tachéométrique, télémétrie laser / EDM en cascade, triangulation optique à vue, base géodésique mesurée au ruban ou à l'invar",
+        "commentaire": "Indépendante de tout modèle de forme. C'est la seule catégorie pleinement probante. Coûteuse : campagne de terrain.",
+        "nature_produite": "separation"
+      },
+      "B_mesure_de_parcours": {
+        "valeur_de_test": true,
+        "exemples": "Odomètre routier étalonné, loch de navire, log de vol enregistré (FDR)",
+        "commentaire": "Indépendante du modèle, mais mesure un TRAJET, jamais une séparation : la route serpente, le navire dérive. Toujours supérieure à la corde. Utilisable comme borne haute stricte, pas comme distance. Ne jamais mélanger avec une classe A sur la même paire.",
+        "nature_produite": "trajet"
+      },
+      "C_derivee_de_coordonnees": {
+        "valeur_de_test": false,
+        "exemples": "Vincenty ou Karney sur coordonnées WGS84, GNSS, SIG, requête d'itinéraire",
+        "commentaire": "CIRCULAIRE à cette échelle. Admise en colonne de référence pour quantifier l'écart au modèle, jamais en entrée du solveur. Le GNSS lui-même résout sa position dans un modèle ellipsoïdal.",
+        "nature_produite": "reference_modele"
+      },
+      "D_declarative": {
+        "valeur_de_test": false,
+        "exemples": "Distance annoncée par une compagnie, un panneau routier, un article, un almanach",
+        "commentaire": "Provenance inconnue, presque toujours dérivée d'un calcul. Sans valeur, même comparative.",
+        "nature_produite": "indeterminee"
+      }
+    },
+
+    "pouvoir_discriminant_par_distance": {
+      "note": "Flèche sphérique s = R(1 − cos(d/R)) pour R = 6 371 km. C'est l'écart vertical entre la corde et l'arc : l'ordre de grandeur du signal à détecter. Colonne 'ratio' = signal divisé par l'incertitude de 250 m héritée du noyau.",
+      "table": [
+        { "paire": "Mecque – Djeddah", "distance_km": 66, "fleche_m": 342, "ratio": 1.4, "verdict": "insuffisant" },
+        { "paire": "Mecque – Taïf", "distance_km": 63, "fleche_m": 316, "ratio": 1.3, "verdict": "insuffisant" },
+        { "paire": "Mecque – Al-Lith", "distance_km": 148, "fleche_m": 1724, "ratio": 6.9, "verdict": "marginal" },
+        { "paire": "Mecque – Rabigh", "distance_km": 173, "fleche_m": 2345, "ratio": 9.4, "verdict": "marginal" },
+        { "paire": "Mecque – Médine", "distance_km": 338, "fleche_m": 8966, "ratio": 35.9, "verdict": "discriminant" },
+        { "paire": "Mecque – Yanbu", "distance_km": 347, "fleche_m": 9420, "ratio": 37.7, "verdict": "discriminant" },
+        { "paire": "Mecque – Abha", "distance_km": 453, "fleche_m": 16060, "ratio": 64.2, "verdict": "discriminant" },
+        { "paire": "Mecque – Riyad", "distance_km": 791, "fleche_m": 48997, "ratio": 196.0, "verdict": "massif" },
+        { "paire": "Mecque – Tabuk", "distance_km": 839, "fleche_m": 55141, "ratio": 220.6, "verdict": "massif" },
+        { "paire": "Mecque – Dammam", "distance_km": 1182, "fleche_m": 109295, "ratio": 437.2, "verdict": "massif" }
+      ],
+      "lecture": "Djeddah et Taïf, les deux voisines évidentes, sont inutiles pour trancher : le signal y est du même ordre que le bruit. Le seuil utile commence vers 150 km et devient franc à partir de 300 km. Les distances de la table sont elles-mêmes de classe C — elles servent à dimensionner l'expérience, pas à la conduire."
+    },
+
+    "regles_de_construction": [
+      "Aucune distance n'entre dans le fichier sans classe de source explicite et référence vérifiable.",
+      "Le solveur ne consomme que les classes A et B. Les classes C et D vivent dans un bloc séparé, _references_modele.",
+      "Ne jamais mélanger separation (classe A) et trajet (classe B) sur une même paire : ce sont deux grandeurs différentes.",
+      "Rigidité : pour N points, minimum 2N−3 liaisons, toutes valences ≥ 3, graphe 3-connexe. Un réseau en étoile depuis La Mecque n'est jamais rigide.",
+      "Ne jamais remplacer une valeur mesurée par la prédiction du solveur. Une valeur qui arrive après la prédiction et tombe dessus ne teste rien.",
+      "Une liaison prédite AVANT d'être mesurée, puis mesurée indépendamment, est le seul test réel. Consigner la prédiction avant réception de la mesure.",
+      "L'incertitude de 250 m du noyau ne se transporte pas : à l'échelle régionale elle dépend de la méthode de chaque liaison et doit être estimée liaison par liaison."
+    ],
+
+    "champs_liaison": {
+      "a": "premier point",
+      "b": "second point",
+      "distance_m": "distance mesurée en mètres (null tant que non mesurée)",
+      "incertitude_m": "marge propre à la méthode employée sur CETTE liaison",
+      "classe_source": "A | B | C | D",
+      "nature": "separation | trajet | reference_modele",
+      "methode": "description précise du dispositif de mesure",
+      "reference": "référence vérifiable : rapport, campagne, enregistrement, date",
+      "prediction_avant_mesure_m": "valeur prédite par le réseau avant réception de la mesure, si applicable",
+      "statut": "mesuree | a_mesurer | a_verifier"
+    }
+  },
+
+  "points": [
+    { "nom": "Kaaba (Masjid al-Haram)", "role": "ancrage", "anneau": 0, "source_position": "noyau v3.0", "statut": "etabli" },
+
+    { "nom": "Djeddah", "anneau": 1, "distance_indicative_km": 66, "statut": "a_mesurer" },
+    { "nom": "Taïf", "anneau": 1, "distance_indicative_km": 63, "statut": "a_mesurer" },
+
+    { "nom": "Al-Lith", "anneau": 2, "distance_indicative_km": 148, "statut": "a_mesurer" },
+    { "nom": "Rabigh", "anneau": 2, "distance_indicative_km": 173, "statut": "a_mesurer" },
+
+    { "nom": "Médine", "anneau": 3, "distance_indicative_km": 338, "statut": "a_mesurer" },
+    { "nom": "Yanbu", "anneau": 3, "distance_indicative_km": 347, "statut": "a_mesurer" },
+    { "nom": "Abha", "anneau": 3, "distance_indicative_km": 453, "statut": "a_mesurer" },
+
+    { "nom": "Riyad", "anneau": 4, "distance_indicative_km": 791, "statut": "a_mesurer" },
+    { "nom": "Tabuk", "anneau": 4, "distance_indicative_km": 839, "statut": "a_mesurer" },
+    { "nom": "Dammam", "anneau": 4, "distance_indicative_km": 1182, "statut": "a_mesurer" }
+  ],
+
+  "liaisons": [],
+
+  "_references_modele": {
+    "note": "Emplacement réservé aux valeurs de classe C et D. Elles ne sont JAMAIS lues par le solveur. Leur seul usage est la colonne de comparaison : écart entre ce que le modèle prédit et ce que la mesure de classe A ou B a donné.",
+    "valeurs": []
+  },
+
+  "_controle": {
+    "points_declares": 11,
+    "liaisons_mesurees": 0,
+    "seuil_laman_2N_3": 19,
+    "surdetermination": null,
+    "etat": "Structure seule. Aucune donnée. Le réseau n'est pas encore un réseau.",
+    "prochain_jalon": "Une première liaison de classe A ou B, sur une paire dont la flèche dépasse largement l'incertitude de la méthode employée. Sans cela, ajouter des points ne fait qu'agrandir un graphe vide."
+  }
+}
