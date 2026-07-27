@@ -8,16 +8,16 @@ entre points, et on cherche quelle figure les satisfait toutes.
 
 | | |
 |---|---|
-| Noyaux clos et verrouillés | 5 — Makkah K9, Madinah K7, Cairo K6, Paris K6, New York K6 |
-| Points relevés | 34 |
-| Distances **calculées** (classe C) | 102 |
+| Noyaux clos et verrouillés | 8 sur 5 continents — Makkah K9, Madinah K7, Cairo, Paris, New York, Tokyo, São Paulo, Sydney (K6) |
+| Points relevés | 52 |
+| Distances **calculées** (classe C) | 147 |
 | **Mesures de terrain (classe A ou B)** | **0** |
 | Modèle plan de référence | verrouillé le 2026-07-27 |
 | Cibles pré-enregistrées | 2, prédictions datées, non mesurées |
 
-**Le dossier est une infrastructure complète sans aucune donnée expérimentale.** Les cinq
+**Le dossier est une infrastructure complète sans aucune donnée expérimentale.** Les huit
 noyaux sont géométriquement irréprochables et aucun n'est discriminant : leurs étendues
-(5 à 37 km) placent le signal à 2–38 m, toujours sous l'incertitude sur la position des
+(2 à 37 km) placent le signal à 0,4–38 m, toujours sous l'incertitude sur la position des
 points. Empiler des noyaux non discriminants n'en crée pas — quel que soit le repère (UTM,
 ECEF), le continent, ou leur nombre.
 
@@ -45,9 +45,12 @@ Une seule mesure sur cet axe de 66 km vaut plus que dix noyaux supplémentaires.
 | `reseau-caire-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 22 km |
 | `reseau-paris-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 5 km |
 | `reseau-newyork-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 11 km |
+| `reseau-tokyo-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 11 km |
+| `reseau-saopaulo-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 6 km |
+| `reseau-sydney-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 2 km |
 | `jonction-makkah-madinah.json` | 0.4 | Socle topologique non discriminant | axe de 338 km |
 | `reseau-regional-hedjaz.json` | 0.3 | 2 cibles pré-enregistrées, 0 mesure | 11 points, jusqu'à 1 182 km |
-| `reseau-global-terre.json` | 0.2 | Moteur ECEF, 5 noyaux, 0 mesure | intercontinental |
+| `reseau-global-terre.json` | 0.3 | Moteur ECEF, 8 noyaux, 0 mesure | intercontinental |
 | `reseau-mecque-modele.json` | 1.0 | Archivé (schéma abandonné) | — |
 
 ### Pouvoir discriminant — correction de méthode
@@ -347,45 +350,56 @@ La corde est toujours **plus courte** que la géodésique, puisqu'elle coupe au 
 
 | Noyau | Points | Étendue | Flèche | Incertitude | Signal/bruit | Discriminant |
 |---|---|---|---|---|---|---|
+| Sydney | 6 | 2 320 m | 0,42 m | ±25 m | 1/59,2 | non |
 | Médine | 7 | 11 985 m | 11,3 m | ±250 m | 1/22,1 | non |
 | Paris | 6 | 5 194 m | 2,12 m | ±25 m | 1/11,8 | non |
+| São Paulo | 6 | 5 907 m | 2,74 m | ±25 m | 1/9,1 | non |
 | La Mecque | 9 | 37 095 m | 30,0 m | ±250 m | 1/8,3 | non |
 | Le Caire | 6 | 22 090 m | 38,3 m | ±250 m | 1/6,5 | non |
+| Tokyo | 6 | 10 752 m | 9,07 m | ±25 m | 1/2,8 | non |
 | New York | 6 | 11 288 m | 10,0 m | ±25 m | 1/2,5 | non |
 
-Le meilleur rapport des cinq — New York, 1/2,5 — reste **sous l'unité** : dans les cinq cas,
+Le meilleur rapport des huit — New York, 1/2,5 — reste **sous l'unité** : dans les huit cas,
 l'écart entre plan et sphère est plus petit que l'incertitude sur la position des points.
 
-Paris et New York portent une incertitude de ±25 m et non ±250 m : leurs six points sont des
-monuments ponctuels, dont le centre se définit à quelques mètres près. Garder ±250 m sur une
-étendue de 5 194 m aurait donné une incertitude valant 5 % de la figure.
+**Le classement suit exactement l'étendue**, pas la qualité du relevé ni le nombre de points.
+C'est la confirmation empirique que le facteur limitant est l'échelle et rien d'autre : le
+plus resserré (Sydney, 2 320 m) est le pire (1/59,2), le plus étendu à incertitude fine
+(New York) est le meilleur.
 
-La cause est structurelle : **la flèche croît comme le carré de l'étendue.** Un bassin urbain
-de 5 à 37 km produit mécaniquement un signal de 2 à 38 m. Aucun raffinement de méthode, aucun
-changement de repère et aucun nombre de noyaux ne contourne cette échelle.
+La cause est une loi, pas une contingence : **s ≈ d²/(2R)**, la flèche croît comme le carré
+de l'étendue. Pour atteindre un rapport de 1 à ±25 m il faudrait une étendue de ~18 km ; pour
+un rapport de 10, ~57 km. Aucun bassin urbain ne s'y prête, et un relevé plus fin ne
+changerait pas l'ordre de grandeur. **Ajouter un neuvième noyau donnerait le même résultat.**
 
-34 points, 102 distances calculées, **0 mesure de terrain** dans tout le projet. La cible
+52 points, 147 distances calculées, **0 mesure de terrain** dans tout le projet. La cible
 reste unique : Kaaba → Djeddah, 66 km, 28,2 % d'écart entre modèles, classe A exigée.
 
-### Les 10 cordes 3D — et pourquoi l'écart explose
+### Les 28 cordes 3D — et pourquoi l'écart explose
+
+Extraits du graphe complet K8, trié par distance croissante :
 
 | Paire de centres | Corde 3D | Géodésique | Écart | % |
 |---|---|---|---|---|
 | Kaaba – Nabawi | 337 863 m | 337 903 m | −40 m | −0,012 |
 | Nabawi – Khéops | 1 036 592 m | 1 037 739 m | −1 147 m | −0,111 |
-| Kaaba – Khéops | 1 285 067 m | 1 287 261 m | −2 194 m | −0,170 |
 | Khéops – Notre-Dame | 3 177 577 m | 3 211 416 m | −33 839 m | −1,054 |
-| Nabawi – Notre-Dame | 4 145 431 m | 4 222 189 m | −76 758 m | −1,818 |
 | Kaaba – Notre-Dame | 4 404 204 m | 4 496 942 m | −92 737 m | −2,062 |
 | Notre-Dame – Empire State | 5 647 069 m | 5 849 203 m | −202 134 m | −3,456 |
-| Khéops – Empire State | 8 300 224 m | 9 035 038 m | −734 815 m | −8,133 |
-| Nabawi – Empire State | 9 052 970 m | 10 062 298 m | −1 009 327 m | −10,031 |
-| Kaaba – Empire State | 9 232 813 m | 10 320 377 m | **−1 087 564 m** | **−10,538** |
+| Kaaba – Empire State | 9 232 813 m | 10 320 377 m | −1 087 564 m | −10,538 |
+| Khéops – Opéra de Sydney | 11 532 059 m | 14 422 884 m | −2 890 825 m | −20,043 |
+| Empire State – Opéra de Sydney | 12 107 113 m | 15 988 923 m | −3 881 810 m | −24,278 |
+| Notre-Dame – Opéra de Sydney | 12 371 964 m | 16 957 341 m | −4 585 377 m | −27,041 |
+| **Tour de Tokyo – Cathédrale de la Sé** | 12 660 221 m | 18 531 582 m | **−5 871 361 m** | **−31,683** |
 
-Les dix écarts sont négatifs : la corde coupe au travers du globe, elle est toujours plus
-courte. Contrôle de cohérence du moteur validé.
+Les 28 écarts sont négatifs : la corde coupe au travers du globe, elle est toujours plus
+courte. Contrôle de cohérence du moteur validé sur l'ensemble du graphe.
 
-Mais l'écart passe de **40 m** à 338 km à **1 088 km** sur l'axe Kaaba – Empire State
-Building. Confondre corde et géodésique à l'échelle intercontinentale n'est pas une erreur
-d'arrondi : c'est une erreur de l'ordre du millier de kilomètres. Ces deux colonnes ne
-doivent jamais entrer dans le même solveur.
+La loi : pour un angle au centre σ, `corde = 2R·sin(σ/2)` et `géodésique ≈ R·σ`. Le rapport
+vaut `sin(σ/2)/(σ/2)` — il tend vers 1 aux courtes distances et vers **2/π ≈ 0,6366** à
+l'antipode, soit −36,3 % au maximum. Les −31,7 % de Tokyo – São Paulo en sont proches : ces
+deux villes sont presque antipodales.
+
+Confondre corde et géodésique n'est donc pas une erreur d'arrondi : c'est une erreur pouvant
+atteindre **le tiers de la distance**. Ces deux colonnes ne doivent jamais entrer dans le même
+solveur ni dans la même comparaison.

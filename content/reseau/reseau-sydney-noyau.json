@@ -1,0 +1,257 @@
+{
+  "_meta": {
+    "version": "3.0",
+    "statut_fichier": "CLOS — version 3.0 définitive",
+    "titre": "Noyau de Sydney — matrice géodésique complète",
+    "description": "Huitième noyau local, Port Jackson et centre de Sydney. Les 15 distances sont CALCULÉES depuis les 6 couples de coordonnées WGS84 ci-dessous par la formule de Vincenty inverse. Source unique : la table de coordonnées. Aucune distance n'est saisie à la main.",
+    "methode_declaree": "Calcul géodésique WGS84 (Vincenty inverse) depuis coordonnées relevées au centre de chaque site",
+    "ellipsoide": {
+      "a_m": 6378137.0,
+      "f": "1/298.257223563",
+      "convergence": "1e-13 rad"
+    },
+    "incertitude_declaree_m": 25,
+    "rationnel_incertitude": "±25 m : les six points sont des monuments ou ouvrages ponctuels dont le centre géométrique se définit à quelques mètres près.",
+    "avertissement_pouvoir_discriminant": "Étendue maximale 2320 m. Flèche sphérique 0.422 m contre ±25 m d'incertitude : rapport signal/bruit 1/59.2. NON DISCRIMINANT. La flèche croît comme le carré de l'étendue : à cette échelle, aucun raffinement de méthode ne peut faire émerger le signal. Ce noyau valide la cohérence des coordonnées et fournit un socle rigide ; il ne tranche rien sur la forme.",
+    "clos_note": "Fichier verrouillé. Toute évolution passe par une correction de coordonnée suivie d'un recalcul complet de la matrice. Voir content/reseau/README.md.",
+    "champs_liaison": {
+      "a": "premier point",
+      "b": "second point",
+      "distance_m": "distance géodésique WGS84 calculée, en mètres",
+      "incertitude_m": "marge liée à la définition du centre de site",
+      "nature": "separation",
+      "classe_source": "C — dérivée de coordonnées",
+      "methode": "méthode d'obtention",
+      "statut": "calculee"
+    }
+  },
+  "points": [
+    {
+      "nom": "Opéra de Sydney",
+      "latitude": -33.85678,
+      "longitude": 151.2153,
+      "description": "Sydney Opera House — centre du noyau",
+      "statut": "releve"
+    },
+    {
+      "nom": "Harbour Bridge (pylône sud)",
+      "latitude": -33.8523,
+      "longitude": 151.21078,
+      "description": "Sydney Harbour Bridge",
+      "statut": "releve"
+    },
+    {
+      "nom": "Sydney Tower Eye",
+      "latitude": -33.87045,
+      "longitude": 151.20897,
+      "description": "Centre-ville",
+      "statut": "releve"
+    },
+    {
+      "nom": "Anzac Memorial",
+      "latitude": -33.87321,
+      "longitude": 151.21132,
+      "description": "Hyde Park",
+      "statut": "releve"
+    },
+    {
+      "nom": "Cathédrale Sainte-Marie",
+      "latitude": -33.87116,
+      "longitude": 151.21326,
+      "description": "St Mary's Cathedral",
+      "statut": "releve"
+    },
+    {
+      "nom": "Fort Denison",
+      "latitude": -33.85769,
+      "longitude": 151.22558,
+      "description": "Îlot de Port Jackson",
+      "statut": "releve"
+    }
+  ],
+  "liaisons": [
+    {
+      "a": "Opéra de Sydney",
+      "b": "Harbour Bridge (pylône sud)",
+      "distance_m": 650,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Opéra de Sydney",
+      "b": "Sydney Tower Eye",
+      "distance_m": 1625,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Opéra de Sydney",
+      "b": "Anzac Memorial",
+      "distance_m": 1859,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Opéra de Sydney",
+      "b": "Cathédrale Sainte-Marie",
+      "distance_m": 1606,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Opéra de Sydney",
+      "b": "Fort Denison",
+      "distance_m": 957,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Harbour Bridge (pylône sud)",
+      "b": "Sydney Tower Eye",
+      "distance_m": 2020,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Harbour Bridge (pylône sud)",
+      "b": "Anzac Memorial",
+      "distance_m": 2320,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Harbour Bridge (pylône sud)",
+      "b": "Cathédrale Sainte-Marie",
+      "distance_m": 2104,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Harbour Bridge (pylône sud)",
+      "b": "Fort Denison",
+      "distance_m": 1494,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Sydney Tower Eye",
+      "b": "Anzac Memorial",
+      "distance_m": 375,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Sydney Tower Eye",
+      "b": "Cathédrale Sainte-Marie",
+      "distance_m": 405,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Sydney Tower Eye",
+      "b": "Fort Denison",
+      "distance_m": 2089,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Anzac Memorial",
+      "b": "Cathédrale Sainte-Marie",
+      "distance_m": 290,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Anzac Memorial",
+      "b": "Fort Denison",
+      "distance_m": 2169,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cathédrale Sainte-Marie",
+      "b": "Fort Denison",
+      "distance_m": 1879,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    }
+  ],
+  "_controle": {
+    "points": 6,
+    "liaisons": 15,
+    "seuil_laman_2N_3": 9,
+    "surdetermination": 6,
+    "graphe": "complet K6 — forme unique, rigidité triviale",
+    "triangles_fermes": 20,
+    "violations_inegalite_triangulaire": 0,
+    "rms_ajustement_plan_m": 0.22,
+    "residu_maximal_m": 0.43,
+    "optimum_unique": true,
+    "restarts_solveur": 14,
+    "etendue_maximale_m": 2320,
+    "fleche_spherique_sur_etendue_m": 0.422,
+    "rapport_signal_sur_bruit": "1/59.2",
+    "note": "Le graphe étant complet, la rigidité n'est pas un résultat obtenu mais une propriété de départ. Le RMS mesure uniquement le défaut de planéité de la matrice, ici l'arrondi au mètre plus la convergence du solveur.",
+    "note_solveur": "Le solveur a rencontré 1 minimum(s) local(aux) sur 14 départs aléatoires (75.74 m). Ce ne sont PAS des ambiguïtés géométriques : sur un graphe complet K6 la figure est unique à une isométrie près, réflexion incluse — et une réflexion laisse toutes les distances inchangées. Ce sont des artefacts numériques du solveur à ressorts, favorisés par la forme allongée ou très resserrée du noyau. L'optimum retenu est 0.22 m."
+  }
+}

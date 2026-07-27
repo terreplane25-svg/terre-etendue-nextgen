@@ -1,0 +1,256 @@
+{
+  "_meta": {
+    "version": "3.0",
+    "statut_fichier": "CLOS — version 3.0 définitive",
+    "titre": "Noyau de Tokyo — matrice géodésique complète",
+    "description": "Sixième noyau local, baie de Tokyo. Les 15 distances sont CALCULÉES depuis les 6 couples de coordonnées WGS84 ci-dessous par la formule de Vincenty inverse. Source unique : la table de coordonnées. Aucune distance n'est saisie à la main.",
+    "methode_declaree": "Calcul géodésique WGS84 (Vincenty inverse) depuis coordonnées relevées au centre de chaque site",
+    "ellipsoide": {
+      "a_m": 6378137.0,
+      "f": "1/298.257223563",
+      "convergence": "1e-13 rad"
+    },
+    "incertitude_declaree_m": 25,
+    "rationnel_incertitude": "±25 m : les six points sont des monuments ou ouvrages ponctuels dont le centre géométrique se définit à quelques mètres près.",
+    "avertissement_pouvoir_discriminant": "Étendue maximale 10752 m. Flèche sphérique 9.073 m contre ±25 m d'incertitude : rapport signal/bruit 1/2.8. NON DISCRIMINANT. La flèche croît comme le carré de l'étendue : à cette échelle, aucun raffinement de méthode ne peut faire émerger le signal. Ce noyau valide la cohérence des coordonnées et fournit un socle rigide ; il ne tranche rien sur la forme.",
+    "clos_note": "Fichier verrouillé. Toute évolution passe par une correction de coordonnée suivie d'un recalcul complet de la matrice. Voir content/reseau/README.md.",
+    "champs_liaison": {
+      "a": "premier point",
+      "b": "second point",
+      "distance_m": "distance géodésique WGS84 calculée, en mètres",
+      "incertitude_m": "marge liée à la définition du centre de site",
+      "nature": "separation",
+      "classe_source": "C — dérivée de coordonnées",
+      "methode": "méthode d'obtention",
+      "statut": "calculee"
+    }
+  },
+  "points": [
+    {
+      "nom": "Tour de Tokyo",
+      "latitude": 35.65858,
+      "longitude": 139.74543,
+      "description": "Tōkyō Tawā, Minato — centre du noyau",
+      "statut": "releve"
+    },
+    {
+      "nom": "Tokyo Skytree",
+      "latitude": 35.71006,
+      "longitude": 139.8107,
+      "description": "Sumida",
+      "statut": "releve"
+    },
+    {
+      "nom": "Palais Impérial",
+      "latitude": 35.68518,
+      "longitude": 139.7528,
+      "description": "Ancien château d'Edo, Chiyoda",
+      "statut": "releve"
+    },
+    {
+      "nom": "Sensō-ji",
+      "latitude": 35.71477,
+      "longitude": 139.79665,
+      "description": "Asakusa, Taitō",
+      "statut": "releve"
+    },
+    {
+      "nom": "Meiji-jingū",
+      "latitude": 35.6764,
+      "longitude": 139.6993,
+      "description": "Shibuya",
+      "statut": "releve"
+    },
+    {
+      "nom": "Rainbow Bridge",
+      "latitude": 35.63656,
+      "longitude": 139.76314,
+      "description": "Odaiba, baie de Tokyo",
+      "statut": "releve"
+    }
+  ],
+  "liaisons": [
+    {
+      "a": "Tour de Tokyo",
+      "b": "Tokyo Skytree",
+      "distance_m": 8218,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Tour de Tokyo",
+      "b": "Palais Impérial",
+      "distance_m": 3026,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Tour de Tokyo",
+      "b": "Sensō-ji",
+      "distance_m": 7769,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Tour de Tokyo",
+      "b": "Meiji-jingū",
+      "distance_m": 4621,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Tour de Tokyo",
+      "b": "Rainbow Bridge",
+      "distance_m": 2923,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Tokyo Skytree",
+      "b": "Palais Impérial",
+      "distance_m": 5923,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Tokyo Skytree",
+      "b": "Sensō-ji",
+      "distance_m": 1375,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Tokyo Skytree",
+      "b": "Meiji-jingū",
+      "distance_m": 10752,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Tokyo Skytree",
+      "b": "Rainbow Bridge",
+      "distance_m": 9222,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Palais Impérial",
+      "b": "Sensō-ji",
+      "distance_m": 5151,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Palais Impérial",
+      "b": "Meiji-jingū",
+      "distance_m": 4940,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Palais Impérial",
+      "b": "Rainbow Bridge",
+      "distance_m": 5475,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Sensō-ji",
+      "b": "Meiji-jingū",
+      "distance_m": 9786,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Sensō-ji",
+      "b": "Rainbow Bridge",
+      "distance_m": 9193,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Meiji-jingū",
+      "b": "Rainbow Bridge",
+      "distance_m": 7277,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    }
+  ],
+  "_controle": {
+    "points": 6,
+    "liaisons": 15,
+    "seuil_laman_2N_3": 9,
+    "surdetermination": 6,
+    "graphe": "complet K6 — forme unique, rigidité triviale",
+    "triangles_fermes": 20,
+    "violations_inegalite_triangulaire": 0,
+    "rms_ajustement_plan_m": 0.25,
+    "residu_maximal_m": 0.48,
+    "optimum_unique": true,
+    "restarts_solveur": 14,
+    "etendue_maximale_m": 10752,
+    "fleche_spherique_sur_etendue_m": 9.073,
+    "rapport_signal_sur_bruit": "1/2.8",
+    "note": "Le graphe étant complet, la rigidité n'est pas un résultat obtenu mais une propriété de départ. Le RMS mesure uniquement le défaut de planéité de la matrice, ici l'arrondi au mètre plus la convergence du solveur."
+  }
+}

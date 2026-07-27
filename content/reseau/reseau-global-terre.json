@@ -1,20 +1,9 @@
 {
   "_meta": {
-    "version": "0.2 — 5 noyaux, 10 cordes 3D",
+    "version": "0.3 — 8 noyaux, 28 cordes 3D",
     "titre": "Réseau global — constellation des noyaux, repère ECEF 3D",
     "description": "Fichier d'accueil de tous les noyaux locaux clos, avec le moteur de conversion WGS84 → ECEF et les cordes vectorielles 3D entre centres. Ces cordes sont de CLASSE C : elles sont dérivées de l'ellipsoïde WGS84 et n'ont aucune valeur de test.",
     "noyaux_membres": [
-      {
-        "fichier": "reseau-mecque-noyau.json",
-        "version": "3.0",
-        "centre": "Kaaba (Masjid al-Haram)",
-        "points": 9,
-        "etendue_m": 37095,
-        "fleche_m": 30.0,
-        "incertitude_m": 250,
-        "signal_sur_bruit": "1/8,3",
-        "discriminant": false
-      },
       {
         "fichier": "reseau-medine-noyau.json",
         "version": "3.0",
@@ -23,7 +12,18 @@
         "etendue_m": 11985,
         "fleche_m": 11.3,
         "incertitude_m": 250,
-        "signal_sur_bruit": "1/22,1",
+        "signal_sur_bruit": "1/22.1",
+        "discriminant": false
+      },
+      {
+        "fichier": "reseau-mecque-noyau.json",
+        "version": "3.0",
+        "centre": "Kaaba (Masjid al-Haram)",
+        "points": 9,
+        "etendue_m": 37095,
+        "fleche_m": 30.0,
+        "incertitude_m": 250,
+        "signal_sur_bruit": "1/8.3",
         "discriminant": false
       },
       {
@@ -34,7 +34,7 @@
         "etendue_m": 22090,
         "fleche_m": 38.3,
         "incertitude_m": 250,
-        "signal_sur_bruit": "1/6,5",
+        "signal_sur_bruit": "1/6.5",
         "discriminant": false
       },
       {
@@ -45,7 +45,7 @@
         "etendue_m": 5194,
         "fleche_m": 2.12,
         "incertitude_m": 25,
-        "signal_sur_bruit": "1/11,8",
+        "signal_sur_bruit": "1/11.8",
         "discriminant": false
       },
       {
@@ -56,7 +56,40 @@
         "etendue_m": 11288,
         "fleche_m": 10.0,
         "incertitude_m": 25,
-        "signal_sur_bruit": "1/2,5",
+        "signal_sur_bruit": "1/2.5",
+        "discriminant": false
+      },
+      {
+        "fichier": "reseau-tokyo-noyau.json",
+        "version": "3.0",
+        "centre": "Tour de Tokyo",
+        "points": 6,
+        "etendue_m": 10752,
+        "fleche_m": 9.073,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "1/2.8",
+        "discriminant": false
+      },
+      {
+        "fichier": "reseau-saopaulo-noyau.json",
+        "version": "3.0",
+        "centre": "Cathédrale de la Sé",
+        "points": 6,
+        "etendue_m": 5907,
+        "fleche_m": 2.738,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "1/9.1",
+        "discriminant": false
+      },
+      {
+        "fichier": "reseau-sydney-noyau.json",
+        "version": "3.0",
+        "centre": "Opéra de Sydney",
+        "points": 6,
+        "etendue_m": 2320,
+        "fleche_m": 0.422,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "1/59.2",
         "discriminant": false
       }
     ],
@@ -142,12 +175,39 @@
         "X_m": 1334938.113,
         "Y_m": -4651088.736,
         "Z_m": 4141299.385
+      },
+      {
+        "nom": "Tour de Tokyo",
+        "latitude": 35.65858,
+        "longitude": 139.74543,
+        "h_m": 0,
+        "X_m": -3959515.568,
+        "Y_m": 3352519.546,
+        "Z_m": 3697477.894
+      },
+      {
+        "nom": "Cathédrale de la Sé",
+        "latitude": -23.55039,
+        "longitude": -46.63396,
+        "h_m": 0,
+        "X_m": 4016957.477,
+        "Y_m": -4252859.934,
+        "Z_m": -2532713.009
+      },
+      {
+        "nom": "Opéra de Sydney",
+        "latitude": -33.85678,
+        "longitude": 151.2153,
+        "h_m": 0,
+        "X_m": -4646969.721,
+        "Y_m": 2553077.515,
+        "Z_m": -3533265.285
       }
     ],
     "cordes_3D_entre_centres": {
       "classe_source": "C — dérivée de coordonnées. Non mesurable, donc définitivement non qualifiable.",
-      "nombre": 10,
-      "note": "Graphe complet K5 sur les centres.",
+      "nombre": 28,
+      "note": "Graphe complet K8 sur les 8 centres, trié par distance géodésique croissante.",
       "valeurs": [
         {
           "a": "Kaaba (Masjid al-Haram)",
@@ -155,7 +215,7 @@
           "corde_3D_m": 337863.2,
           "geodesique_m": 337903.1,
           "ecart_m": -39.9,
-          "ecart_pourcent": -0.0118
+          "ecart_pourcent": -0.012
         },
         {
           "a": "Al-Masjid an-Nabawi",
@@ -163,7 +223,7 @@
           "corde_3D_m": 1036592.3,
           "geodesique_m": 1037739.2,
           "ecart_m": -1146.9,
-          "ecart_pourcent": -0.1105
+          "ecart_pourcent": -0.111
         },
         {
           "a": "Kaaba (Masjid al-Haram)",
@@ -171,7 +231,7 @@
           "corde_3D_m": 1285067.3,
           "geodesique_m": 1287261.1,
           "ecart_m": -2193.8,
-          "ecart_pourcent": -0.1704
+          "ecart_pourcent": -0.17
         },
         {
           "a": "Pyramide de Khéops",
@@ -179,7 +239,7 @@
           "corde_3D_m": 3177577.0,
           "geodesique_m": 3211416.0,
           "ecart_m": -33839.0,
-          "ecart_pourcent": -1.0537
+          "ecart_pourcent": -1.054
         },
         {
           "a": "Al-Masjid an-Nabawi",
@@ -195,7 +255,7 @@
           "corde_3D_m": 4404204.3,
           "geodesique_m": 4496941.7,
           "ecart_m": -92737.4,
-          "ecart_pourcent": -2.0622
+          "ecart_pourcent": -2.062
         },
         {
           "a": "Cathédrale Notre-Dame",
@@ -203,7 +263,23 @@
           "corde_3D_m": 5647068.7,
           "geodesique_m": 5849202.5,
           "ecart_m": -202133.8,
-          "ecart_pourcent": -3.4557
+          "ecart_pourcent": -3.456
+        },
+        {
+          "a": "Empire State Building",
+          "b": "Cathédrale de la Sé",
+          "corde_3D_m": 7203766.8,
+          "geodesique_m": 7660544.8,
+          "ecart_m": -456778.1,
+          "ecart_pourcent": -5.963
+        },
+        {
+          "a": "Tour de Tokyo",
+          "b": "Opéra de Sydney",
+          "corde_3D_m": 7307212.0,
+          "geodesique_m": 7787510.1,
+          "ecart_m": -480298.1,
+          "ecart_pourcent": -6.168
         },
         {
           "a": "Pyramide de Khéops",
@@ -211,7 +287,47 @@
           "corde_3D_m": 8300223.5,
           "geodesique_m": 9035038.3,
           "ecart_m": -734814.8,
-          "ecart_pourcent": -8.1329
+          "ecart_pourcent": -8.133
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Tour de Tokyo",
+          "corde_3D_m": 8509574.6,
+          "geodesique_m": 9313802.5,
+          "ecart_m": -804227.9,
+          "ecart_pourcent": -8.635
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Cathédrale de la Sé",
+          "corde_3D_m": 8549268.3,
+          "geodesique_m": 9377988.7,
+          "ecart_m": -828720.4,
+          "ecart_pourcent": -8.837
+        },
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Tour de Tokyo",
+          "corde_3D_m": 8644723.6,
+          "geodesique_m": 9496574.6,
+          "ecart_m": -851851.0,
+          "ecart_pourcent": -8.97
+        },
+        {
+          "a": "Pyramide de Khéops",
+          "b": "Tour de Tokyo",
+          "corde_3D_m": 8722527.8,
+          "geodesique_m": 9601712.1,
+          "ecart_m": -879184.2,
+          "ecart_pourcent": -9.157
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Tour de Tokyo",
+          "corde_3D_m": 8825094.1,
+          "geodesique_m": 9741331.1,
+          "ecart_m": -916236.9,
+          "ecart_pourcent": -9.406
         },
         {
           "a": "Al-Masjid an-Nabawi",
@@ -219,7 +335,15 @@
           "corde_3D_m": 9052970.2,
           "geodesique_m": 10062297.5,
           "ecart_m": -1009327.3,
-          "ecart_pourcent": -10.0308
+          "ecart_pourcent": -10.031
+        },
+        {
+          "a": "Pyramide de Khéops",
+          "b": "Cathédrale de la Sé",
+          "corde_3D_m": 9142912.4,
+          "geodesique_m": 10200018.1,
+          "ecart_m": -1057105.7,
+          "ecart_pourcent": -10.364
         },
         {
           "a": "Kaaba (Masjid al-Haram)",
@@ -228,18 +352,101 @@
           "geodesique_m": 10320376.5,
           "ecart_m": -1087563.5,
           "ecart_pourcent": -10.538
+        },
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Cathédrale de la Sé",
+          "corde_3D_m": 9418984.0,
+          "geodesique_m": 10601104.3,
+          "ecart_m": -1182120.3,
+          "ecart_pourcent": -11.151
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Cathédrale de la Sé",
+          "corde_3D_m": 9493152.5,
+          "geodesique_m": 10712371.3,
+          "ecart_m": -1219218.8,
+          "ecart_pourcent": -11.381
+        },
+        {
+          "a": "Empire State Building",
+          "b": "Tour de Tokyo",
+          "corde_3D_m": 9606558.3,
+          "geodesique_m": 10871099.6,
+          "ecart_m": -1264541.3,
+          "ecart_pourcent": -11.632
+        },
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Opéra de Sydney",
+          "corde_3D_m": 10980564.3,
+          "geodesique_m": 13237331.5,
+          "ecart_m": -2256767.3,
+          "ecart_pourcent": -17.049
+        },
+        {
+          "a": "Cathédrale de la Sé",
+          "b": "Opéra de Sydney",
+          "corde_3D_m": 11062799.1,
+          "geodesique_m": 13377703.0,
+          "ecart_m": -2314903.9,
+          "ecart_pourcent": -17.304
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Opéra de Sydney",
+          "corde_3D_m": 11066309.4,
+          "geodesique_m": 13409655.0,
+          "ecart_m": -2343345.6,
+          "ecart_pourcent": -17.475
+        },
+        {
+          "a": "Pyramide de Khéops",
+          "b": "Opéra de Sydney",
+          "corde_3D_m": 11532059.0,
+          "geodesique_m": 14422883.9,
+          "ecart_m": -2890824.8,
+          "ecart_pourcent": -20.043
+        },
+        {
+          "a": "Empire State Building",
+          "b": "Opéra de Sydney",
+          "corde_3D_m": 12107112.6,
+          "geodesique_m": 15988922.8,
+          "ecart_m": -3881810.2,
+          "ecart_pourcent": -24.278
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Opéra de Sydney",
+          "corde_3D_m": 12371963.6,
+          "geodesique_m": 16957340.6,
+          "ecart_m": -4585377.1,
+          "ecart_pourcent": -27.041
+        },
+        {
+          "a": "Tour de Tokyo",
+          "b": "Cathédrale de la Sé",
+          "corde_3D_m": 12660221.1,
+          "geodesique_m": 18531582.3,
+          "ecart_m": -5871361.2,
+          "ecart_pourcent": -31.683
         }
       ],
-      "lecture": "La corde est toujours PLUS COURTE que la géodésique, puisqu'elle coupe au travers du globe. Les dix écarts sont négatifs : contrôle de cohérence du moteur validé.",
-      "croissance_de_l_ecart": "L'écart passe de −0,012 % à 338 km à −10,54 % sur l'axe Kaaba – Empire State Building (10 320 km). Sur cet axe la corde est plus courte que la géodésique de 1 087,6 km. Confondre les deux à l'échelle intercontinentale est une erreur de l'ordre du millier de kilomètres, pas du mètre."
+      "lecture": "La corde est toujours PLUS COURTE que la géodésique, puisqu'elle coupe au travers du globe. Les 28 écarts sont négatifs : contrôle de cohérence du moteur validé sur l'ensemble du graphe.",
+      "amplitude": "L'écart va de −39,9 m (Kaaba – Nabawi, 338 km, −0,012 %) à −5 871 361 m (Tour de Tokyo – Cathédrale de la Sé, 18 532 km, −31,68 %). Sur cette dernière paire, presque antipodale, la corde est plus courte que le chemin de surface de près de 5 900 km.",
+      "loi": "Pour un angle au centre σ, corde = 2R·sin(σ/2) et géodésique ≈ R·σ. Le rapport corde/arc vaut sin(σ/2)/(σ/2) : il tend vers 1 aux courtes distances et vers 2/π ≈ 0,6366 à l'antipode, soit −36,3 % au maximum. Les −31,7 % de Tokyo – São Paulo en sont proches, ces deux villes étant presque antipodales.",
+      "consequence": "Confondre corde et géodésique n'est pas une erreur d'arrondi mais une erreur pouvant atteindre le tiers de la distance. Ces deux colonnes ne doivent jamais entrer dans le même solveur ni dans la même comparaison."
     },
     "_ou_le_test_se_joue_reellement": {
-      "constat": "Cinq noyaux clos, 34 points, 102 distances calculées, et toujours zéro mesure de terrain. Aucun des cinq n'est discriminant.",
-      "table_signal_sur_bruit": "Médine 1/22,1 — Paris 1/11,8 — La Mecque 1/8,3 — Le Caire 1/6,5 — New York 1/2,5. Le meilleur reste sous l'unité : dans les cinq cas, l'écart entre plan et sphère est plus petit que l'incertitude sur la position des points.",
-      "regle": "Empiler des noyaux non discriminants ne produit pas de pouvoir discriminant, quel que soit le repère employé, quel que soit le continent, et quel que soit leur nombre. Passer de 3 à 5 noyaux n'a modifié aucun terme de cette arithmétique.",
-      "pourquoi_ces_noyaux_ne_peuvent_pas_discriminer": "Un noyau local est trop petit par construction : la flèche croît comme le carré de l'étendue, donc un bassin urbain de 5 à 37 km produit un signal de 2 à 38 m. Aucun raffinement de méthode ne contourne cette échelle.",
+      "constat": "Huit noyaux clos sur cinq continents, 52 points, 147 distances calculées, et toujours zéro mesure de terrain. Aucun des huit n'est discriminant.",
+      "table_signal_sur_bruit": "Sydney 1/59,2 — Médine 1/22,1 — Paris 1/11,8 — São Paulo 1/9,1 — La Mecque 1/8,3 — Le Caire 1/6,5 — Tokyo 1/2,8 — New York 1/2,5.",
+      "lecture_de_la_table": "Le meilleur rapport reste sous l'unité. Et le classement suit exactement l'étendue, pas la qualité du relevé ni le nombre de points : c'est la confirmation empirique que le facteur limitant est l'ÉCHELLE et rien d'autre. Sydney, le plus resserré (2 320 m), est le pire (1/59,2) ; New York, le plus étendu à incertitude fine, est le meilleur (1/2,5).",
+      "loi": "Flèche s ≈ d²/(2R). Elle croît comme le CARRÉ de l'étendue. Pour atteindre un rapport de 1 à ±25 m il faudrait une étendue de ~18 km ; pour un rapport de 10, ~57 km. Aucun bassin urbain ne s'y prête, et un relevé plus fin ne changerait pas l'ordre de grandeur.",
+      "regle": "Empiler des noyaux non discriminants ne produit pas de pouvoir discriminant, quel que soit le repère, le continent, ou leur nombre. Passer de 3 à 5 puis à 8 noyaux n'a modifié aucun terme de cette arithmétique.",
       "cible_reelle": "reseau-regional-hedjaz.json v0.3, cible n°1 : Kaaba → Djeddah, azimut 276,2°, 66 km. Prédictions consignées le 2026-07-27 : 66 054 m (WGS84) contre 84 660 m (modèle plan). Écart 28,2 %. Classe A exigée, classe B proscrite.",
-      "ordre_de_priorite": "Une seule mesure de classe A sur cet axe de 66 km vaut plus que la totalité des cinq noyaux et que tout noyau supplémentaire."
+      "ordre_de_priorite": "Une seule mesure de classe A sur cet axe de 66 km vaut plus que la totalité des huit noyaux et que tout noyau supplémentaire."
     },
     "regles_de_construction": [
       "Aucune corde 3D ne doit être présentée comme une donnée : ce sont toutes des sorties de modèle, classe C définitive.",
@@ -252,13 +459,14 @@
   },
   "liaisons_mesurees": [],
   "_controle": {
-    "noyaux_membres": 5,
-    "points_totaux": 34,
-    "distances_calculees": 102,
+    "noyaux_membres": 8,
+    "points_totaux": 52,
+    "distances_calculees": 147,
     "mesures_de_terrain": 0,
-    "cordes_3D_classe_C": 10,
+    "cordes_3D_classe_C": 28,
     "residu_ajustement_ECEF": "identiquement nul par construction — non rapporté comme résultat",
-    "etat": "Moteur ECEF opérationnel, cinq noyaux raccordés sur trois continents. Aucune donnée de terrain dans tout le projet.",
-    "prochain_jalon": "Une mesure de classe A sur Kaaba → Djeddah. Aucun travail de structure ne peut se substituer à cela."
+    "etat": "Moteur ECEF opérationnel, huit noyaux raccordés sur cinq continents. Aucune donnée de terrain dans tout le projet.",
+    "prochain_jalon": "Une mesure de classe A sur Kaaba → Djeddah. Aucun travail de structure ne peut s'y substituer.",
+    "detail_distances": "Makkah K9 = 36, Madinah K7 = 21, six noyaux K6 = 6 × 15 = 90. Total 147."
   }
 }

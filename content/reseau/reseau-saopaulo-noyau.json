@@ -1,0 +1,257 @@
+{
+  "_meta": {
+    "version": "3.0",
+    "statut_fichier": "CLOS — version 3.0 définitive",
+    "titre": "Noyau de São Paulo — matrice géodésique complète",
+    "description": "Septième noyau local, centre de São Paulo. Les 15 distances sont CALCULÉES depuis les 6 couples de coordonnées WGS84 ci-dessous par la formule de Vincenty inverse. Source unique : la table de coordonnées. Aucune distance n'est saisie à la main.",
+    "methode_declaree": "Calcul géodésique WGS84 (Vincenty inverse) depuis coordonnées relevées au centre de chaque site",
+    "ellipsoide": {
+      "a_m": 6378137.0,
+      "f": "1/298.257223563",
+      "convergence": "1e-13 rad"
+    },
+    "incertitude_declaree_m": 25,
+    "rationnel_incertitude": "±25 m : les six points sont des monuments ou ouvrages ponctuels dont le centre géométrique se définit à quelques mètres près.",
+    "avertissement_pouvoir_discriminant": "Étendue maximale 5907 m. Flèche sphérique 2.738 m contre ±25 m d'incertitude : rapport signal/bruit 1/9.1. NON DISCRIMINANT. La flèche croît comme le carré de l'étendue : à cette échelle, aucun raffinement de méthode ne peut faire émerger le signal. Ce noyau valide la cohérence des coordonnées et fournit un socle rigide ; il ne tranche rien sur la forme.",
+    "clos_note": "Fichier verrouillé. Toute évolution passe par une correction de coordonnée suivie d'un recalcul complet de la matrice. Voir content/reseau/README.md.",
+    "champs_liaison": {
+      "a": "premier point",
+      "b": "second point",
+      "distance_m": "distance géodésique WGS84 calculée, en mètres",
+      "incertitude_m": "marge liée à la définition du centre de site",
+      "nature": "separation",
+      "classe_source": "C — dérivée de coordonnées",
+      "methode": "méthode d'obtention",
+      "statut": "calculee"
+    }
+  },
+  "points": [
+    {
+      "nom": "Cathédrale de la Sé",
+      "latitude": -23.55039,
+      "longitude": -46.63396,
+      "description": "Catedral da Sé — centre du noyau",
+      "statut": "releve"
+    },
+    {
+      "nom": "MASP",
+      "latitude": -23.56141,
+      "longitude": -46.65588,
+      "description": "Museu de Arte, Avenida Paulista",
+      "statut": "releve"
+    },
+    {
+      "nom": "Parc Ibirapuera (obélisque)",
+      "latitude": -23.58489,
+      "longitude": -46.65528,
+      "description": "Obelisco de São Paulo",
+      "statut": "releve"
+    },
+    {
+      "nom": "Edifício Copan",
+      "latitude": -23.54639,
+      "longitude": -46.64444,
+      "description": "Centro",
+      "statut": "releve"
+    },
+    {
+      "nom": "Estação da Luz",
+      "latitude": -23.53483,
+      "longitude": -46.63533,
+      "description": "Luz",
+      "statut": "releve"
+    },
+    {
+      "nom": "Mercado Municipal",
+      "latitude": -23.54181,
+      "longitude": -46.62947,
+      "description": "Mercadão",
+      "statut": "releve"
+    }
+  ],
+  "liaisons": [
+    {
+      "a": "Cathédrale de la Sé",
+      "b": "MASP",
+      "distance_m": 2549,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cathédrale de la Sé",
+      "b": "Parc Ibirapuera (obélisque)",
+      "distance_m": 4397,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cathédrale de la Sé",
+      "b": "Edifício Copan",
+      "distance_m": 1158,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cathédrale de la Sé",
+      "b": "Estação da Luz",
+      "distance_m": 1729,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cathédrale de la Sé",
+      "b": "Mercado Municipal",
+      "distance_m": 1055,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "MASP",
+      "b": "Parc Ibirapuera (obélisque)",
+      "distance_m": 2601,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "MASP",
+      "b": "Edifício Copan",
+      "distance_m": 2033,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "MASP",
+      "b": "Estação da Luz",
+      "distance_m": 3615,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "MASP",
+      "b": "Mercado Municipal",
+      "distance_m": 3462,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Parc Ibirapuera (obélisque)",
+      "b": "Edifício Copan",
+      "distance_m": 4405,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Parc Ibirapuera (obélisque)",
+      "b": "Estação da Luz",
+      "distance_m": 5907,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Parc Ibirapuera (obélisque)",
+      "b": "Mercado Municipal",
+      "distance_m": 5450,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Edifício Copan",
+      "b": "Estação da Luz",
+      "distance_m": 1583,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Edifício Copan",
+      "b": "Mercado Municipal",
+      "distance_m": 1611,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Estação da Luz",
+      "b": "Mercado Municipal",
+      "distance_m": 978,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    }
+  ],
+  "_controle": {
+    "points": 6,
+    "liaisons": 15,
+    "seuil_laman_2N_3": 9,
+    "surdetermination": 6,
+    "graphe": "complet K6 — forme unique, rigidité triviale",
+    "triangles_fermes": 20,
+    "violations_inegalite_triangulaire": 0,
+    "rms_ajustement_plan_m": 0.19,
+    "residu_maximal_m": 0.45,
+    "optimum_unique": true,
+    "restarts_solveur": 14,
+    "etendue_maximale_m": 5907,
+    "fleche_spherique_sur_etendue_m": 2.738,
+    "rapport_signal_sur_bruit": "1/9.1",
+    "note": "Le graphe étant complet, la rigidité n'est pas un résultat obtenu mais une propriété de départ. Le RMS mesure uniquement le défaut de planéité de la matrice, ici l'arrondi au mètre plus la convergence du solveur.",
+    "note_solveur": "Le solveur a rencontré 2 minimum(s) local(aux) sur 14 départs aléatoires (176.95 m, 205.4 m). Ce ne sont PAS des ambiguïtés géométriques : sur un graphe complet K6 la figure est unique à une isométrie près, réflexion incluse — et une réflexion laisse toutes les distances inchangées. Ce sont des artefacts numériques du solveur à ressorts, favorisés par la forme allongée ou très resserrée du noyau. L'optimum retenu est 0.19 m."
+  }
+}
