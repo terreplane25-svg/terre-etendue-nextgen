@@ -10,8 +10,8 @@ entre points, et on cherche quelle figure les satisfait toutes.
 |---|---|---|---|
 | `reseau-mecque-noyau.json` | 3.0 | **CLOS — verrouillé** | 9 points, 37 km |
 | `reseau-medine-noyau.json` | 3.0 | **CLOS — verrouillé** | 7 points, 12 km |
-| `jonction-makkah-madinah.json` | 0.1 | Structure seule, 0 mesure | axe de 338 km |
-| `reseau-regional-hedjaz.json` | 0.1 | Structure seule, 0 liaison | 11 points, jusqu'à 1 182 km |
+| `jonction-makkah-madinah.json` | 0.3 | Socle topologique non discriminant | axe de 338 km |
+| `reseau-regional-hedjaz.json` | 0.3 | 2 cibles pré-enregistrées, 0 mesure | 11 points, jusqu'à 1 182 km |
 | `reseau-mecque-modele.json` | 1.0 | Archivé (schéma abandonné) | — |
 
 ### Pouvoir discriminant — correction de méthode
@@ -202,3 +202,65 @@ qu'agrandir un graphe vide.
   test réel.
 - L'incertitude ne se transporte pas d'une échelle à l'autre : elle s'estime liaison
   par liaison, selon la méthode employée.
+
+## Modèle plan de référence — VERROUILLÉ le 2026-07-27
+
+```
+Azimutale équidistante polaire nord, métrique euclidienne du plan,
+rayon calibré sur l'arc de méridien WGS84 depuis le pôle Nord.
+
+r = arc_méridien(pôle → latitude)
+angle = longitude
+d = √(r₁² + r₂² − 2·r₁·r₂·cos Δλ)
+```
+
+C'est le seul candidat qui soit une **hypothèse** et non une représentation. Les
+projections de l'ellipsoïde restituent WGS84 et ne peuvent donc pas lui servir
+d'alternative :
+
+| Candidat écarté | Prédiction Makkah–Madinah | Écart WGS84 |
+|---|---|---|
+| Azimutale équidistante centrée sur Makkah | 337 903 m | **0 m** — exact par construction |
+| Plan tangent gnomonique | 339 594 m | +1 691 m |
+| Plan tangent stéréographique | 339 353 m | +1 450 m |
+| Plan tangent orthographique | 339 113 m | +1 210 m |
+| UTM 37N euclidien direct | 337 791 m | −112 m (= le k0, corrigible) |
+| *(arc sphérique R·σ, pour repère)* | *339 273 m* | *+1 370 m* |
+
+L'essentiel de l'écart des plans tangents n'est pas un effet de projection mais l'écart
+sphère/ellipsoïde : l'arc sphérique vaut déjà +1 370 m. Un plan tangent *approche* la
+sphère, il n'en est pas une alternative.
+
+Le calibrage retenu est **délibérément favorable au modèle plan** : caler le rayon sur
+l'arc de méridien WGS84 rend ses distances nord-sud exactes. Un échec ne pourra pas être
+imputé au calibrage.
+
+## Cibles expérimentales pré-enregistrées
+
+Prédictions consignées le **2026-07-27, avant toute mesure**. Elles ne doivent plus être
+recalculées après réception d'une mesure.
+
+| # | Axe | Azimut | WGS84 | Carte plane | Écart | Classe admise |
+|---|---|---|---|---|---|---|
+| **1** | Kaaba → Djeddah (Masjid al-Juffali) | 276,2° | 66 054 m | 84 660 m | **+18 605 m (28,2 %)** | **A seule** |
+| 2 | Kaaba → Taïf (centre) | 105,4° | 63 441 m | 80 414 m | +16 973 m (26,8 %) | A ou B |
+| — | Kaaba → Al-Masjid an-Nabawi | 356,3° | 337 903 m | 338 344 m | +441 m (0,1 %) | *non discriminant* |
+
+### ⚠ Sensibilité au point de référence
+
+« Makkah–Djeddah » n'est pas une paire : Djeddah s'étend sur une vingtaine de kilomètres.
+
+| Point retenu | Azimut | WGS84 | Carte plane | Écart |
+|---|---|---|---|---|
+| Masjid al-Juffali (centre historique) | 276,2° | 66,05 km | 84,66 km | +28,2 % |
+| Corniche ouest | 279,7° | 71,59 km | 91,44 km | +27,7 % |
+| Aéroport King Abdulaziz | 292,6° | 74,98 km | 93,48 km | +24,7 % |
+| Périphérie est | 269,8° | 56,63 km | 72,75 km | +28,5 % |
+| Port islamique | 272,6° | 70,16 km | 90,10 km | +28,4 % |
+
+La distance WGS84 varie de **18,4 km** selon le point — du même ordre que le signal de
+18,6 km. Ce qui sauve le test : l'écart **relatif** reste à 25–28 % partout. Le signal est
+proportionnel, pas absolu.
+
+**Exigence :** toute mesure de classe A doit nommer ses deux bornes physiques, et la
+prédiction être recalculée sur *ces* bornes — jamais sur un centre-ville nominal.

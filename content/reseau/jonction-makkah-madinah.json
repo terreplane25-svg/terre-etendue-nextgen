@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "0.2 — axe requalifié, aucune mesure",
+    "version": "0.3 — reclassé socle topologique, modèle plan verrouillé",
     "titre": "Jonction inter-noyaux Makkah – Madinah",
     "description": "Grands maillons reliant le noyau de La Mecque (v3.0, clos) et le noyau de Médine (v3.0, clos). C'est le premier segment du projet dont la flèche sphérique dépasse largement toute incertitude raisonnable : c'est donc ici, et pas dans les noyaux, que la géométrie devient testable. Aucune mesure n'existe encore.",
     "noyaux_raccordes": [
@@ -91,6 +91,30 @@
       "avertissement": "CRITIQUE. La route Mecque – Djeddah mesure environ 84 km. La carte plane prédit 84,7 km pour la séparation. Les deux valeurs coïncident presque.",
       "pourquoi_c_est_un_piege": "C'est une coïncidence sans signification : la route serpente et monte, donc son excédent sur la corde géodésique de 66 km n'a rien à voir avec la géométrie de la Terre. Un odomètre routier donnant 84 km ne confirme PAS la carte plane — il mesure un trajet, pas une séparation.",
       "consequence_methodologique": "Sur cet axe, la classe B est non seulement insuffisante mais activement trompeuse. Seule une mesure de classe A — séparation en ligne droite, cheminement instrumental ou triangulation optique — peut trancher. Le relief entre La Mecque et Djeddah rend cela exigeant mais pas hors de portée sur 66 km."
+    },
+    "_modele_plan_de_reference": {
+      "modele_plan_reference": "Azimutale équidistante polaire nord, métrique euclidienne du plan, rayon calibré sur l'arc de méridien WGS84 depuis le pôle Nord. Formule : r = arc_méridien(pôle → latitude) ; angle = longitude ; d = √(r₁² + r₂² − 2·r₁·r₂·cos Δλ).",
+      "statut": "VERROUILLÉ — adopté le 2026-07-27, ne pas modifier sans reprise complète des prédictions",
+      "pourquoi_ce_modele": [
+        "C'est le seul candidat qui soit une HYPOTHÈSE et non une représentation. Les projections de l'ellipsoïde (azimutale centrée sur Makkah, plans tangents, UTM) restituent WGS84 à moins de 0,5 % : les comparer à WGS84 revient à comparer WGS84 à lui-même.",
+        "C'est le modèle effectivement défendu dans la littérature Terre plate, donc le test porte sur une thèse que quelqu'un soutient.",
+        "Ses prédictions sont non ambiguës et calculables au mètre pour n'importe quelle paire."
+      ],
+      "calibrage_favorable_au_modele_plan": "Le rayon est calibré sur l'arc de méridien WGS84, ce qui rend les distances nord-sud du modèle plan EXACTES par construction. C'est le meilleur calibrage possible pour lui. Un échec ne pourra donc pas être imputé au calibrage.",
+      "candidats_ecartes": {
+        "azimutale_equidistante_centree_Makkah": "Prédit 337 903 m pour Makkah–Madinah, soit exactement le géodésique. Une azimutale équidistante conserve exactement les distances depuis son centre : pouvoir discriminant NUL pour toute paire ayant La Mecque comme extrémité, c'est-à-dire toutes celles du projet.",
+        "plans_tangents_Makkah": "Gnomonique 339 594 m, stéréographique 339 353 m, orthographique 339 113 m. L'essentiel de l'écart au WGS84 (+1 210 à +1 691 m) n'est pas un effet de projection mais l'écart sphère/ellipsoïde : l'arc sphérique seul vaut déjà 339 273 m. Un plan tangent approche la sphère, il n'en est pas une alternative.",
+        "UTM_37N_euclidien_direct": "337 791 m, soit −112 m. Cet écart est exactement le retrait systématique de k0 = 0,9996 ; après division par k on retombe à +9 m du géodésique. Projection conforme conçue pour restituer le modèle : elle le restitue."
+      },
+      "facteur_etirement": "Le long d'un méridien la carte est exacte par construction. Le long d'un parallèle elle étire de θ/sin θ (θ = colatitude) : 1,2857 à la latitude de La Mecque (+28,57 %), 1,2566 à celle de Médine (+25,66 %). Le discriminant est donc l'AZIMUT, pas la longueur."
+    },
+    "role_reclasse": {
+      "ancien_role": "« Seul véritable terrain d'épreuve discriminant » (v0.1) — ERRONÉ, fondé sur la flèche sphérique.",
+      "nouveau_role": "SOCLE TOPOLOGIQUE INTER-NOYAUX NON DISCRIMINANT.",
+      "chiffres": "Azimut 356,3° (quasi plein nord). WGS84 337 903 m, carte plane 338 344 m, écart 441 m soit 0,13 %. Sous la fourchette d'incertitude de ±250 m.",
+      "usage_legitime": "Raccorder géométriquement les deux noyaux clos. Rien de plus.",
+      "usage_interdit": "Servir de test de géométrie. Une mesure de classe A parfaite y serait sans valeur démonstrative.",
+      "cible_de_remplacement": "Makkah – Djeddah, axe 276,2°, 66 km, écart entre modèles de 18 605 m soit 28,2 %. Pré-enregistrée dans reseau-regional-hedjaz.json v0.3."
     }
   },
   "liaisons": [],
@@ -109,7 +133,8 @@
         "commentaire": "Axe NON discriminant : 441 m d'écart entre les deux modèles, sous l'incertitude de ±250 m. Conservé comme raccord topologique entre les deux noyaux, pas comme test.",
         "prediction_carte_plate_polaire_nord_m": 338344,
         "ecart_entre_modeles_m": 441,
-        "ecart_entre_modeles_pourcent": 0.13
+        "ecart_entre_modeles_pourcent": 0.13,
+        "modele_plan_reference": "Azimutale équidistante polaire nord, métrique euclidienne du plan, rayon calibré sur l'arc de méridien WGS84 depuis le pôle Nord. Formule : r = arc_méridien(pôle → latitude) ; angle = longitude ; d = √(r₁² + r₂² − 2·r₁·r₂·cos Δλ)."
       }
     ]
   },
@@ -161,6 +186,7 @@
     "liaisons_classe_B": 0,
     "references_modele": 1,
     "etat": "Structure seule. Le fichier porte l'enjeu du projet mais aucune donnée.",
-    "prochain_jalon": "Abandonner l'axe Makkah – Madinah comme terrain d'épreuve : il ne discrimine pas. Viser Mecque – Djeddah (azimut 276°, 66 km, 28 % d'écart entre modèles) en classe A uniquement, la classe B y étant trompeuse par coïncidence."
+    "prochain_jalon": "Aucun sur cet axe. Le travail expérimental se déplace vers reseau-regional-hedjaz.json, cible n°1 Makkah – Djeddah.",
+    "role": "socle topologique — non discriminant"
   }
 }

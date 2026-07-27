@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "0.2 — discriminant corrigé, aucune donnée",
+    "version": "0.3 — modèle plan verrouillé, 2 cibles pré-enregistrées",
     "titre": "Anneau régional du Hedjaz — extension discriminante du noyau de La Mecque",
     "description": "Réseau de distances à l'échelle régionale (60 à 1 200 km) destiné à tester si la géométrie du terrain est plane ou sphérique. Le noyau local (reseau-mecque-noyau.json, v3.0, clos) sert d'ancrage topologique. Ce fichier est VIDE de distances : il définit la structure et les règles de provenance avant toute saisie.",
     "ancrage": {
@@ -238,6 +238,79 @@
       ],
       "lecture": "Djeddah et Taïf, les deux voisines évidentes, sont inutiles pour trancher : le signal y est du même ordre que le bruit. Le seuil utile commence vers 150 km et devient franc à partir de 300 km. Les distances de la table sont elles-mêmes de classe C — elles servent à dimensionner l'expérience, pas à la conduire.",
       "_obsolete": "OBSOLÈTE — critère erroné, conservé pour traçabilité. Voir _correction_discriminant."
+    },
+    "_modele_plan_de_reference": {
+      "modele_plan_reference": "Azimutale équidistante polaire nord, métrique euclidienne du plan, rayon calibré sur l'arc de méridien WGS84 depuis le pôle Nord. Formule : r = arc_méridien(pôle → latitude) ; angle = longitude ; d = √(r₁² + r₂² − 2·r₁·r₂·cos Δλ).",
+      "statut": "VERROUILLÉ — adopté le 2026-07-27, ne pas modifier sans reprise complète des prédictions",
+      "pourquoi_ce_modele": [
+        "C'est le seul candidat qui soit une HYPOTHÈSE et non une représentation. Les projections de l'ellipsoïde (azimutale centrée sur Makkah, plans tangents, UTM) restituent WGS84 à moins de 0,5 % : les comparer à WGS84 revient à comparer WGS84 à lui-même.",
+        "C'est le modèle effectivement défendu dans la littérature Terre plate, donc le test porte sur une thèse que quelqu'un soutient.",
+        "Ses prédictions sont non ambiguës et calculables au mètre pour n'importe quelle paire."
+      ],
+      "calibrage_favorable_au_modele_plan": "Le rayon est calibré sur l'arc de méridien WGS84, ce qui rend les distances nord-sud du modèle plan EXACTES par construction. C'est le meilleur calibrage possible pour lui. Un échec ne pourra donc pas être imputé au calibrage.",
+      "candidats_ecartes": {
+        "azimutale_equidistante_centree_Makkah": "Prédit 337 903 m pour Makkah–Madinah, soit exactement le géodésique. Une azimutale équidistante conserve exactement les distances depuis son centre : pouvoir discriminant NUL pour toute paire ayant La Mecque comme extrémité, c'est-à-dire toutes celles du projet.",
+        "plans_tangents_Makkah": "Gnomonique 339 594 m, stéréographique 339 353 m, orthographique 339 113 m. L'essentiel de l'écart au WGS84 (+1 210 à +1 691 m) n'est pas un effet de projection mais l'écart sphère/ellipsoïde : l'arc sphérique seul vaut déjà 339 273 m. Un plan tangent approche la sphère, il n'en est pas une alternative.",
+        "UTM_37N_euclidien_direct": "337 791 m, soit −112 m. Cet écart est exactement le retrait systématique de k0 = 0,9996 ; après division par k on retombe à +9 m du géodésique. Projection conforme conçue pour restituer le modèle : elle le restitue."
+      },
+      "facteur_etirement": "Le long d'un méridien la carte est exacte par construction. Le long d'un parallèle elle étire de θ/sin θ (θ = colatitude) : 1,2857 à la latitude de La Mecque (+28,57 %), 1,2566 à celle de Médine (+25,66 %). Le discriminant est donc l'AZIMUT, pas la longueur."
+    },
+    "_sensibilite_point_de_reference": {
+      "avertissement": "CRITIQUE sur les paires courtes. « Makkah – Djeddah » n'est pas une paire : Djeddah s'étend sur une vingtaine de kilomètres. Selon le point retenu, la distance WGS84 varie de 56,6 à 75,0 km — une amplitude de 18,4 km, du même ordre que le signal de 18,6 km à détecter.",
+      "table": [
+        {
+          "point_Djeddah": "Masjid al-Juffali (centre historique)",
+          "lat": 21.4858,
+          "lon": 39.1925,
+          "azimut_deg": 276.2,
+          "wgs84_km": 66.05,
+          "plate_km": 84.66,
+          "ecart_km": 18.61,
+          "ecart_pourcent": 28.2
+        },
+        {
+          "point_Djeddah": "Corniche / bord de mer ouest",
+          "lat": 21.53,
+          "lon": 39.145,
+          "azimut_deg": 279.7,
+          "wgs84_km": 71.59,
+          "plate_km": 91.44,
+          "ecart_km": 19.85,
+          "ecart_pourcent": 27.7
+        },
+        {
+          "point_Djeddah": "Aéroport King Abdulaziz",
+          "lat": 21.6796,
+          "lon": 39.1565,
+          "azimut_deg": 292.6,
+          "wgs84_km": 74.98,
+          "plate_km": 93.48,
+          "ecart_km": 18.5,
+          "ecart_pourcent": 24.7
+        },
+        {
+          "point_Djeddah": "Périphérie est (entrée route de La Mecque)",
+          "lat": 21.42,
+          "lon": 39.28,
+          "azimut_deg": 269.8,
+          "wgs84_km": 56.63,
+          "plate_km": 72.75,
+          "ecart_km": 16.13,
+          "ecart_pourcent": 28.5
+        },
+        {
+          "point_Djeddah": "Port islamique de Djeddah",
+          "lat": 21.45,
+          "lon": 39.15,
+          "azimut_deg": 272.6,
+          "wgs84_km": 70.16,
+          "plate_km": 90.1,
+          "ecart_km": 19.94,
+          "ecart_pourcent": 28.4
+        }
+      ],
+      "ce_qui_sauve_le_test": "L'écart RELATIF reste à 25–28 % quel que soit le point retenu. Le signal est proportionnel, pas absolu. Le test reste donc valide — à condition que les deux extrémités soient des points physiques précisément définis et identiques à la mesure et au calcul.",
+      "exigence": "Toute mesure de classe A doit nommer ses deux bornes (repère, monument, coordonnée) et la prédiction doit être recalculée sur CES bornes, jamais sur un centre-ville nominal."
     }
   },
   "points": [
@@ -309,17 +382,61 @@
       "statut": "a_mesurer"
     }
   ],
-  "liaisons": [],
+  "liaisons": [
+    {
+      "a": "Kaaba (Masjid al-Haram)",
+      "b": "Djeddah — Masjid al-Juffali (21.48580 N, 39.19250 E)",
+      "distance_m": null,
+      "incertitude_m": null,
+      "classe_source": "A — SEULE ADMISE sur cet axe",
+      "nature": "separation",
+      "methode": "À définir : cheminement EDM ou triangulation optique. Odomètre routier FORMELLEMENT PROSCRIT, voir _piege_de_coincidence.",
+      "reference": null,
+      "prediction_modele_spherique_m": 66054,
+      "prediction_modele_plan_m": 84660,
+      "modele_plan_reference": "Azimutale équidistante polaire nord, métrique euclidienne du plan, rayon calibré sur l'arc de méridien WGS84 depuis le pôle Nord. Formule : r = arc_méridien(pôle → latitude) ; angle = longitude ; d = √(r₁² + r₂² − 2·r₁·r₂·cos Δλ).",
+      "ecart_entre_modeles_m": 18605,
+      "ecart_entre_modeles_pourcent": 28.2,
+      "azimut_deg": 276.2,
+      "date_prediction": "2026-07-27",
+      "date_mesure": null,
+      "statut": "a_mesurer",
+      "priorite": "CIBLE EXPÉRIMENTALE N°1",
+      "_piege_de_coincidence": "La route Makkah – Djeddah mesure environ 84 km ; la carte plane prédit 84,7 km pour la SÉPARATION. Coïncidence sans signification : l'excédent routier vient du tracé et du relief, pas de la géométrie. Un odomètre donnant 84 km ne confirme RIEN. Sur cet axe la classe B n'est pas seulement insuffisante, elle est activement trompeuse."
+    },
+    {
+      "a": "Kaaba (Masjid al-Haram)",
+      "b": "Taïf — centre (21.27030 N, 40.41580 E)",
+      "distance_m": null,
+      "incertitude_m": null,
+      "classe_source": "A ou B",
+      "nature": "separation",
+      "methode": "À définir.",
+      "reference": null,
+      "prediction_modele_spherique_m": 63441,
+      "prediction_modele_plan_m": 80414,
+      "modele_plan_reference": "Azimutale équidistante polaire nord, métrique euclidienne du plan, rayon calibré sur l'arc de méridien WGS84 depuis le pôle Nord. Formule : r = arc_méridien(pôle → latitude) ; angle = longitude ; d = √(r₁² + r₂² − 2·r₁·r₂·cos Δλ).",
+      "ecart_entre_modeles_m": 16973,
+      "ecart_entre_modeles_pourcent": 26.8,
+      "azimut_deg": 105.4,
+      "date_prediction": "2026-07-27",
+      "date_mesure": null,
+      "statut": "a_mesurer",
+      "priorite": "CIBLE EXPÉRIMENTALE N°2",
+      "note": "Axe est, symétrique de Djeddah. Aucune coïncidence routière connue ici : la route de Taïf fait environ 90 km via Al-Hada, nettement au-dessus des 80,4 km de la prédiction plane. La classe B y est donc moins trompeuse qu'à Djeddah, sans être concluante."
+    }
+  ],
   "_references_modele": {
     "note": "Emplacement réservé aux valeurs de classe C et D. Elles ne sont JAMAIS lues par le solveur. Leur seul usage est la colonne de comparaison : écart entre ce que le modèle prédit et ce que la mesure de classe A ou B a donné.",
     "valeurs": []
   },
   "_controle": {
     "points_declares": 11,
+    "liaisons_pre_enregistrees": 2,
     "liaisons_mesurees": 0,
-    "seuil_laman_2N_3": 19,
-    "surdetermination": null,
-    "etat": "Structure seule. Aucune donnée. Le réseau n'est pas encore un réseau.",
-    "prochain_jalon": "Mesurer Mecque – Djeddah ou Mecque – Taïf : ~65 km, azimut est-ouest, écart entre modèles de 17 à 19 km soit 27 %. Accessible à un odomètre routier étalonné en une demi-journée. ATTENTION au piège de coïncidence documenté dans jonction-makkah-madinah.json : la route Mecque–Djeddah mesure environ 84 km, presque exactement la prédiction de la carte plane (84,7 km). Un trajet routier n'est PAS une séparation et ne peut pas valider cette prédiction."
+    "modele_plan": "VERROUILLÉ",
+    "predictions_consignees": "2026-07-27, avant toute mesure",
+    "etat": "Deux cibles pré-enregistrées avec les prédictions des deux modèles. Aucune mesure. Le protocole est armé.",
+    "prochain_jalon": "Une mesure de classe A sur l'axe Makkah – Djeddah, entre deux bornes physiques nommées. Les prédictions sont figées et datées : elles ne doivent plus être recalculées après réception de la mesure."
   }
 }
