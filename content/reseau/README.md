@@ -4,6 +4,37 @@ Ce dossier contient les réseaux de distances du projet. Un réseau de distances
 porte **aucune coordonnée et aucune projection** : il ne contient que des distances
 entre points, et on cherche quelle figure les satisfait toutes.
 
+## État en un coup d'œil
+
+| | |
+|---|---|
+| Noyaux clos et verrouillés | 3 — Makkah K9, Madinah K7, Cairo K6 |
+| Points relevés | 22 |
+| Distances **calculées** (classe C) | 72 |
+| **Mesures de terrain (classe A ou B)** | **0** |
+| Modèle plan de référence | verrouillé le 2026-07-27 |
+| Cibles pré-enregistrées | 2, prédictions datées, non mesurées |
+
+**Le dossier est une infrastructure complète sans aucune donnée expérimentale.** Les trois
+noyaux sont géométriquement irréprochables et aucun n'est discriminant : leurs étendues
+(12, 22, 37 km) placent le signal à 11–38 m contre ±250 m d'incertitude. Empiler des noyaux
+non discriminants n'en crée pas, et changer de repère (UTM, ECEF) n'y change rien non plus.
+
+### Prochain jalon — la seule cible porteuse d'un test
+
+```
+Axe            Kaaba (Makkah) → Djeddah, bornes physiques à nommer
+Azimut         276,2°  (plein ouest — c'est l'azimut qui discrimine, pas la longueur)
+Prédiction WGS84            66 054 m
+Prédiction modèle plan      84 660 m
+Signal                     +18 606 m,  soit +28,2 %
+Prédictions consignées      2026-07-27, avant toute mesure
+Classe exigée               A  (mesure directe de séparation)
+Classe proscrite            B  (odomètre — piège de coïncidence à 84 km)
+```
+
+Une seule mesure sur cet axe de 66 km vaut plus que dix noyaux supplémentaires.
+
 ## Fichiers
 
 | Fichier | Version | État | Étendue |
