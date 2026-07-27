@@ -1,8 +1,8 @@
 {
   "_meta": {
-    "version": "0.3 — reclassé socle topologique, modèle plan verrouillé",
+    "version": "0.4 — textes obsolètes purgés",
     "titre": "Jonction inter-noyaux Makkah – Madinah",
-    "description": "Grands maillons reliant le noyau de La Mecque (v3.0, clos) et le noyau de Médine (v3.0, clos). C'est le premier segment du projet dont la flèche sphérique dépasse largement toute incertitude raisonnable : c'est donc ici, et pas dans les noyaux, que la géométrie devient testable. Aucune mesure n'existe encore.",
+    "description": "Grands maillons reliant le noyau de La Mecque (v3.0, clos) et le noyau de Médine (v3.0, clos). Rôle : SOCLE TOPOLOGIQUE inter-noyaux. Cet axe n'est PAS un terrain de test — son azimut de 356,3° le place quasi le long d'un méridien, là où le modèle plan de référence et WGS84 coïncident par construction (441 m d'écart, 0,13 %). Voir role_reclasse et _correction_majeure.",
     "noyaux_raccordes": [
       {
         "fichier": "reseau-mecque-noyau.json",
@@ -20,13 +20,14 @@
       }
     ],
     "pourquoi_ce_fichier_existe": {
-      "constat": "Les deux noyaux sont géométriquement irréprochables et tous deux incapables de trancher : 30 m et 11 m de signal contre ±250 m d'incertitude. Additionner des noyaux n'y change rien — deux réseaux non discriminants restent non discriminants.",
-      "bascule": "L'axe Makkah – Madinah mesure environ 338 km. La flèche sphérique y vaut 8 959 m, soit 36 fois l'incertitude de ±250 m. Le signal cesse d'être noyé dans le bruit. Ce fichier est le premier du projet à porter un enjeu de test réel.",
-      "consequence": "Une seule liaison mesurée ici vaut plus que cent points ajoutés aux noyaux."
+      "constat": "Les deux noyaux sont géométriquement irréprochables et tous deux incapables de trancher. Additionner des noyaux n'y change rien — deux réseaux non discriminants restent non discriminants.",
+      "role_reel": "Raccorder les deux noyaux clos en une seule figure. C'est un service topologique, pas un test.",
+      "ou_est_le_test": "Sur l'axe Makkah – Djeddah (azimut 276,2°, 66 km, 28,2 % d'écart entre modèles), pré-enregistré dans reseau-regional-hedjaz.json v0.3.",
+      "_note_historique": "La v0.1 de ce fichier justifiait l'axe par une flèche sphérique de 8 959 m et le présentait comme « le premier fichier du projet à porter un enjeu de test réel ». C'était faux : la flèche est la sagitta corde-arc, elle gouverne les expériences de ligne de visée et non les mesures de distance."
     },
     "_regle_fondamentale": {
       "enonce": "À cette échelle, une distance calculée depuis des coordonnées géodésiques ne peut pas tester une géométrie. Elle restitue le modèle qui l'a produite.",
-      "detail": "Dans les deux noyaux, la méthode « coordonnées WGS84 + Vincenty » était légitime parce que le choix plan/sphère y était sans conséquence (11 et 30 m, sous l'incertitude). Sur 338 km il vaut 8 959 m : calculer Kaaba – Masjid an-Nabawi par Vincenty revient à demander à l'ellipsoïde WGS84 quelle distance il prédit. L'injecter dans un ajustement plan mesurerait la distorsion de la projection assumée, pas le terrain.",
+      "detail": "Dans les deux noyaux, la méthode « coordonnées WGS84 + Vincenty » était légitime parce que le choix plan/sphère y était sans conséquence (11 et 30 m, sous l'incertitude). Au-delà, calculer une distance par Vincenty revient à demander à l'ellipsoïde WGS84 quelle distance il prédit ; l'injecter dans un ajustement plan mesurerait la distorsion de la projection assumée, pas le terrain. Note : sur CET axe précis le problème est théorique, puisque les deux modèles ne diffèrent que de 441 m. Il devient déterminant sur les axes est-ouest.",
       "corollaire": "Toute carte, tout SIG et tout service d'itinéraire à cette échelle est déjà une projection, donc déjà un modèle. Le GNSS lui-même résout sa position dans un modèle ellipsoïdal.",
       "verrou": "Le bloc liaisons n'accepte que les classes A et B. Les valeurs de classe C sont confinées dans _references_modele et ne sont jamais lues par le solveur."
     },
@@ -51,7 +52,7 @@
         "valeur_de_test": true,
         "nature": "trajet",
         "exemples": "odomètre routier étalonné, loch, log de vol enregistré",
-        "reserve": "Mesure un TRAJET, jamais une séparation : la route serpente. C'est une BORNE HAUTE stricte. Sur l'axe Makkah – Madinah la route fait environ 420 km contre 338 km de corde présumée — un excédent de 80 km, soit neuf fois le signal de 9 km à détecter. Une seule mesure de classe B ne conclut donc rien ; il faut plusieurs itinéraires distincts sur la même paire pour resserrer la borne par le haut, et la corde reste inatteignable par le bas."
+        "reserve": "Mesure un TRAJET, jamais une séparation : la route serpente. C'est une BORNE HAUTE stricte. Sur cet axe la route fait environ 420 km contre 338 km de séparation, soit 80 km d'excédent — sans commune mesure avec les 441 m qui séparent les deux modèles. Une mesure de classe B n'a aucune portée ici. Voir aussi le piège de coïncidence documenté pour l'axe de Djeddah, où la classe B est activement trompeuse."
       },
       "C": {
         "valeur_de_test": false,
