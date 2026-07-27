@@ -1,0 +1,93 @@
+{
+  "_meta": {
+    "version": "0.1 — structure et moteur ECEF, aucune mesure",
+    "titre": "Réseau global — constellation des noyaux, repère ECEF 3D",
+    "description": "Fichier d'accueil de tous les noyaux locaux clos, avec le moteur de conversion WGS84 → ECEF et les cordes vectorielles 3D entre centres. Ces cordes sont de CLASSE C : elles sont dérivées de l'ellipsoïde WGS84 et n'ont aucune valeur de test.",
+
+    "noyaux_membres": [
+      { "fichier": "reseau-mecque-noyau.json", "version": "3.0", "centre": "Kaaba (Masjid al-Haram)", "points": 9, "etendue_m": 37095, "fleche_m": 30, "discriminant": false },
+      { "fichier": "reseau-medine-noyau.json", "version": "3.0", "centre": "Al-Masjid an-Nabawi", "points": 7, "etendue_m": 11985, "fleche_m": 11, "discriminant": false },
+      { "fichier": "reseau-caire-noyau.json", "version": "3.0", "centre": "Pyramide de Khéops", "points": 6, "etendue_m": 22090, "fleche_m": 38, "discriminant": false }
+    ],
+
+    "_avertissement_capital": {
+      "titre": "ECEF N'EST PAS UN REPÈRE NEUTRE — c'est le modèle WGS84 en coordonnées cartésiennes",
+      "enonce": "Adopter ECEF comme cadre global n'évite pas le problème des projections planes : cela le remplace par l'adoption silencieuse d'une des deux hypothèses en présence.",
+      "pourquoi": [
+        "ECEF se calcule à partir de (lat, lon, h) et du rayon de courbure N = a/√(1−e²sin²φ) de l'ellipsoïde WGS84. Le résultat est l'ellipsoïde WGS84, exprimé en X/Y/Z. Ce n'est pas un repère indépendant du modèle : c'est le modèle.",
+        "Le modèle plan de référence du projet (azimutale équidistante polaire nord) est une géométrie à DEUX dimensions. Il n'a pas de coordonnée Z et ne peut pas être exprimé en ECEF. Passer en ECEF ne met donc pas les deux hypothèses sur un pied d'égalité : cela élimine l'une des deux du cadre de calcul.",
+        "Conséquence : un réseau ECEF ne peut par construction produire aucune tension. Toute matrice de cordes dérivée de 3 coordonnées XYZ est exactement plongeable dans R³ — le solveur affichera toujours un résidu nul, pour n'importe quel jeu de coordonnées. Ce n'est pas une validation, c'est une identité."
+      ],
+      "ce_que_ECEF_apporte_reellement": "Un système de bookkeeping commode : coordonnées additives, distances par simple norme euclidienne, pas de découpage en zones, pas de facteur d'échelle. C'est un outil de calcul et d'affichage 3D, utile et légitime comme tel.",
+      "ce_qu_il_n_apporte_pas": "Aucun pouvoir de test. Le résidu nul d'un ajustement ECEF ne prouve rien sur la forme du terrain."
+    },
+
+    "_avertissement_corde_3D": {
+      "titre": "Une corde 3D n'est pas une grandeur mesurable",
+      "enonce": "La corde ECEF entre deux villes traverse l'intérieur du globe. Aucun instrument terrestre, maritime ou aérien ne peut la mesurer.",
+      "consequence": "Les cordes de ce fichier ne pourront JAMAIS être confrontées à une mesure de classe A ou B. Elles sont donc définitivement de classe C, sans échéance de qualification — contrairement aux cibles de reseau-regional-hedjaz.json, qui attendent une mesure possible.",
+      "ce_qui_reste_mesurable": "Seule la distance LE LONG DE LA SURFACE (géodésique, ou trajet) est accessible à la mesure. C'est donc elle, et non la corde, qui doit porter tout test de géométrie.",
+      "ecart_corde_geodesique": "L'écart corde/géodésique croît avec la distance : −0,012 % à 338 km, −0,17 % à 1 285 km, et il atteindrait plusieurs pourcents à l'échelle intercontinentale. Ne jamais confondre les deux dans une même colonne."
+    },
+
+    "moteur_ECEF": {
+      "reference": "WGS84 / EPSG:4978 — géocentrique cartésien",
+      "constantes": { "a_m": 6378137.0, "f": "1/298.257223563", "e2": 0.00669437999014, "b_m": 6356752.314245 },
+      "conversion_geodetique_vers_cartesien": {
+        "entrees": "latitude φ (deg), longitude λ (deg), hauteur ellipsoïdale h (m)",
+        "rayon_de_courbure_premier_vertical": "N(φ) = a / √(1 − e²·sin²φ)",
+        "X": "(N + h)·cos φ·cos λ",
+        "Y": "(N + h)·cos φ·sin λ",
+        "Z": "(N·(1 − e²) + h)·sin φ",
+        "corde": "d = √((X₂−X₁)² + (Y₂−Y₁)² + (Z₂−Z₁)²)"
+      },
+      "convention_hauteur": "h = 0 (surface de l'ellipsoïde) pour tous les points de ce fichier. ATTENTION : h est une hauteur ELLIPSOÏDALE, pas une altitude au-dessus du niveau de la mer. L'écart entre les deux (ondulation du géoïde) atteint 10 à 20 m dans la région. Renseigner une altitude topographique dans ce champ introduirait une erreur silencieuse.",
+      "note_axes": "X pointe vers l'intersection équateur / méridien de Greenwich, Y vers l'équateur à 90° E, Z vers le pôle Nord. Repère lié à la Terre (Earth-Fixed) : il tourne avec elle."
+    },
+
+    "centres_en_ECEF": [
+      { "nom": "Kaaba (Masjid al-Haram)", "latitude": 21.42250, "longitude": 39.82617, "h_m": 0, "X_m": 4561974.624, "Y_m": 3804425.438, "Z_m": 2315004.875 },
+      { "nom": "Al-Masjid an-Nabawi", "latitude": 24.46722, "longitude": 39.61111, "h_m": 0, "X_m": 4474966.931, "Y_m": 3703476.411, "Z_m": 2625473.090 },
+      { "nom": "Pyramide de Khéops", "latitude": 29.97917, "longitude": 31.13417, "h_m": 0, "X_m": 4732948.292, "Y_m": 2858948.108, "Z_m": 3168373.827 }
+    ],
+
+    "cordes_3D_entre_centres": {
+      "classe_source": "C — dérivée de coordonnées. Non mesurable, donc définitivement non qualifiable.",
+      "valeurs": [
+        { "a": "Kaaba", "b": "Al-Masjid an-Nabawi", "corde_3D_m": 337863.2, "geodesique_m": 337903.1, "ecart_m": -39.9, "ecart_pourcent": -0.0118 },
+        { "a": "Kaaba", "b": "Pyramide de Khéops", "corde_3D_m": 1285067.3, "geodesique_m": 1287261.1, "ecart_m": -2193.8, "ecart_pourcent": -0.1704 },
+        { "a": "Al-Masjid an-Nabawi", "b": "Pyramide de Khéops", "corde_3D_m": 1036592.3, "geodesique_m": 1037739.2, "ecart_m": -1146.9, "ecart_pourcent": -0.1105 }
+      ],
+      "lecture": "La corde est toujours PLUS COURTE que la géodésique, puisqu'elle coupe au travers. C'est la vérification élémentaire de cohérence du moteur : un écart positif signalerait une erreur de code."
+    },
+
+    "_ou_le_test_se_joue_reellement": {
+      "constat": "Trois noyaux clos, 22 points, 72 distances calculées, et toujours zéro mesure. Aucun des trois noyaux n'est discriminant : 30, 11 et 38 m de flèche contre ±250 m d'incertitude.",
+      "regle": "Empiler des noyaux non discriminants ne produit pas de pouvoir discriminant, quel que soit le repère employé. Passer de 2 à 3 puis à 20 noyaux ne change rien à cette arithmétique.",
+      "cible_reelle": "reseau-regional-hedjaz.json v0.3, cible n°1 : Kaaba → Djeddah, azimut 276,2°, 66 km. Prédictions consignées le 2026-07-27 : 66 054 m (WGS84) contre 84 660 m (modèle plan). Écart 28,2 %. Classe A exigée, classe B proscrite.",
+      "ordre_de_priorite": "Une seule mesure de classe A sur cet axe de 66 km vaut plus que dix noyaux supplémentaires et que n'importe quel raffinement de repère."
+    },
+
+    "regles_de_construction": [
+      "Aucune corde 3D ne doit être présentée comme une donnée : ce sont toutes des sorties de modèle, classe C définitive.",
+      "Ne jamais mélanger corde 3D et distance géodésique dans une même colonne ni dans un même solveur.",
+      "Un résidu nul d'ajustement ECEF n'est pas un résultat : il est mathématiquement garanti. Ne pas le rapporter comme une validation.",
+      "h est une hauteur ellipsoïdale, jamais une altitude au-dessus du niveau de la mer.",
+      "Tout nouveau noyau doit être clos selon la méthode v3.0 (source unique = table de coordonnées, distances dérivées) avant d'être inscrit ici.",
+      "L'ajout d'un noyau ne crée aucun pouvoir de test et ne doit pas être présenté comme un progrès expérimental."
+    ]
+  },
+
+  "liaisons_mesurees": [],
+
+  "_controle": {
+    "noyaux_membres": 3,
+    "points_totaux": 22,
+    "distances_calculees": 72,
+    "mesures_de_terrain": 0,
+    "cordes_3D_classe_C": 3,
+    "residu_ajustement_ECEF": "identiquement nul par construction — non rapporté comme résultat",
+    "etat": "Moteur ECEF opérationnel, trois noyaux raccordés. Aucune donnée de terrain dans tout le projet.",
+    "prochain_jalon": "Une mesure de classe A sur Kaaba → Djeddah. Aucun travail de structure ne peut se substituer à cela."
+  }
+}

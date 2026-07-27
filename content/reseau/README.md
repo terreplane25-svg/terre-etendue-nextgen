@@ -10,8 +10,10 @@ entre points, et on cherche quelle figure les satisfait toutes.
 |---|---|---|---|
 | `reseau-mecque-noyau.json` | 3.0 | **CLOS — verrouillé** | 9 points, 37 km |
 | `reseau-medine-noyau.json` | 3.0 | **CLOS — verrouillé** | 7 points, 12 km |
+| `reseau-caire-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 22 km |
 | `jonction-makkah-madinah.json` | 0.4 | Socle topologique non discriminant | axe de 338 km |
 | `reseau-regional-hedjaz.json` | 0.3 | 2 cibles pré-enregistrées, 0 mesure | 11 points, jusqu'à 1 182 km |
+| `reseau-global-terre.json` | 0.1 | Moteur ECEF, 3 noyaux, 0 mesure | intercontinental |
 | `reseau-mecque-modele.json` | 1.0 | Archivé (schéma abandonné) | — |
 
 ### Pouvoir discriminant — correction de méthode
@@ -264,3 +266,59 @@ proportionnel, pas absolu.
 
 **Exigence :** toute mesure de classe A doit nommer ses deux bornes physiques, et la
 prédiction être recalculée sur *ces* bornes — jamais sur un centre-ville nominal.
+
+## Réseau global — moteur ECEF 3D
+
+### ⚠ ECEF n'est pas un repère neutre
+
+Passer en ECEF (X, Y, Z géocentriques) n'évite pas le problème des projections planes : il
+le remplace par l'adoption **silencieuse** d'une des deux hypothèses.
+
+ECEF se calcule depuis (φ, λ, h) et le rayon de courbure `N = a/√(1−e²sin²φ)` **de
+l'ellipsoïde WGS84**. Le résultat est l'ellipsoïde WGS84 en cartésien. Ce n'est pas un
+repère indépendant du modèle : c'est le modèle.
+
+Et le modèle plan de référence du projet — azimutale équidistante polaire nord — est une
+géométrie à **deux** dimensions. Il n'a pas de Z et ne peut pas s'exprimer en ECEF. Passer
+en ECEF ne met donc pas les deux hypothèses à égalité : cela retire l'une des deux du cadre.
+
+**Conséquence :** un réseau ECEF ne peut produire aucune tension. Toute matrice de cordes
+dérivée de coordonnées XYZ est exactement plongeable dans ℝ³ — le résidu est nul pour
+*n'importe quel* jeu de coordonnées. Ce n'est pas une validation, c'est une identité. Ne
+jamais rapporter ce résidu comme un résultat.
+
+Ce qu'ECEF apporte réellement : un bookkeeping commode (coordonnées additives, distance
+par simple norme, pas de zones, pas de facteur d'échelle). C'est un outil de calcul et
+d'affichage 3D, légitime comme tel.
+
+### ⚠ Une corde 3D n'est pas mesurable
+
+La corde ECEF traverse l'intérieur du globe. Aucun instrument terrestre, maritime ou aérien
+ne peut la mesurer. Ces valeurs sont donc de **classe C définitive**, sans échéance de
+qualification — contrairement aux cibles du Hedjaz, qui attendent une mesure possible.
+
+Seule la distance **le long de la surface** est accessible à la mesure. C'est elle, et non
+la corde, qui doit porter tout test de géométrie.
+
+| Paire de centres | Corde 3D | Géodésique | Écart |
+|---|---|---|---|
+| Kaaba – Al-Masjid an-Nabawi | 337 863,2 m | 337 903,1 m | −39,9 m (−0,012 %) |
+| Kaaba – Khéops | 1 285 067,3 m | 1 287 261,1 m | −2 193,8 m (−0,170 %) |
+| Al-Masjid an-Nabawi – Khéops | 1 036 592,3 m | 1 037 739,2 m | −1 146,9 m (−0,111 %) |
+
+La corde est toujours **plus courte** que la géodésique, puisqu'elle coupe au travers. Un
+écart positif signalerait une erreur de code.
+
+### Les trois noyaux, et ce qu'ils ne font pas
+
+| Noyau | Points | Étendue | Flèche | Signal/bruit | Discriminant |
+|---|---|---|---|---|---|
+| Médine | 7 | 12 km | 11 m | 1/23 | non |
+| La Mecque | 9 | 37 km | 30 m | 1/8 | non |
+| Le Caire | 6 | 22 km | 38 m | 1/6,5 | non |
+
+**Empiler des noyaux non discriminants ne produit pas de pouvoir discriminant**, quel que
+soit le repère. Passer de 2 à 3 puis à 20 noyaux ne change rien à cette arithmétique.
+
+22 points, 72 distances calculées, **0 mesure de terrain** dans tout le projet. La cible
+reste unique : Kaaba → Djeddah, 66 km, 28,2 % d'écart entre modèles, classe A exigée.

@@ -1,0 +1,255 @@
+{
+  "_meta": {
+    "version": "3.0",
+    "statut_fichier": "CLOS — version 3.0 définitive",
+    "titre": "Noyau du Caire — matrice géodésique complète",
+    "description": "Troisième noyau local, bassin du grand Caire. Les 15 distances sont CALCULÉES depuis les 6 couples de coordonnées WGS84 ci-dessous par la formule de Vincenty inverse. Source unique : la table de coordonnées. Aucune distance n'est saisie à la main.",
+    "methode_declaree": "Calcul géodésique WGS84 (Vincenty inverse) depuis coordonnées relevées au centre de chaque site",
+    "ellipsoide": {
+      "a_m": 6378137.0,
+      "f": "1/298.257223563",
+      "convergence": "1e-13 rad"
+    },
+    "incertitude_declaree_m": 250,
+    "rationnel_incertitude": "L'incertitude ne porte pas sur la distance (exacte au mètre par construction) mais sur la DÉFINITION du centre de chaque site. La Grande Pyramide a un centre géométrique net (±5 m) ; « Héliopolis / Place Korba » est un quartier. ±250 m aligné sur les deux autres noyaux.",
+    "avertissement_pouvoir_discriminant": "Étendue maximale 22 090 m (Khéops – Héliopolis). Flèche sphérique 38 m, contre ±250 m d'incertitude : rapport signal/bruit 1/6,5. C'est le plus étendu des trois noyaux et il reste NON DISCRIMINANT. Comme les deux autres, il valide la cohérence des données et fournit un socle rigide ; il ne tranche rien sur la forme.",
+    "clos_note": "Fichier verrouillé. Toute évolution passe par une correction de coordonnée suivie d'un recalcul complet de la matrice. Voir content/reseau/README.md.",
+    "champs_liaison": {
+      "a": "premier point",
+      "b": "second point",
+      "distance_m": "distance géodésique WGS84 calculée, en mètres",
+      "incertitude_m": "marge liée à la définition du centre de site",
+      "nature": "separation",
+      "classe_source": "C — dérivée de coordonnées ; légitime ici car à 22 km le choix plan/sphère est sans conséquence (38 m contre ±250 m)",
+      "methode": "méthode d'obtention",
+      "statut": "calculee"
+    }
+  },
+  "points": [
+    {
+      "nom": "Pyramide de Khéops",
+      "latitude": 29.97917,
+      "longitude": 31.13417,
+      "description": "Grande Pyramide de Gizeh",
+      "statut": "releve"
+    },
+    {
+      "nom": "Tour du Caire",
+      "latitude": 30.04444,
+      "longitude": 31.225,
+      "description": "Borg al-Qahira, Gezira",
+      "statut": "releve"
+    },
+    {
+      "nom": "Citadelle de Saladin",
+      "latitude": 30.02972,
+      "longitude": 31.26139,
+      "description": "Qalʿat Salāh ad-Dīn",
+      "statut": "releve"
+    },
+    {
+      "nom": "Mosquée Al-Azhar",
+      "latitude": 30.04556,
+      "longitude": 31.26278,
+      "description": "Al-Jāmiʿ al-Azhar",
+      "statut": "releve"
+    },
+    {
+      "nom": "Église Suspendue",
+      "latitude": 30.00528,
+      "longitude": 31.23,
+      "description": "Al-Muʿallaqa, Vieux Caire",
+      "statut": "releve"
+    },
+    {
+      "nom": "Héliopolis (Place Korba)",
+      "latitude": 30.08861,
+      "longitude": 31.32556,
+      "description": "Masr al-Gadida",
+      "statut": "releve"
+    }
+  ],
+  "liaisons": [
+    {
+      "a": "Pyramide de Khéops",
+      "b": "Tour du Caire",
+      "distance_m": 11364,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Pyramide de Khéops",
+      "b": "Citadelle de Saladin",
+      "distance_m": 13493,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Pyramide de Khéops",
+      "b": "Mosquée Al-Azhar",
+      "distance_m": 14426,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Pyramide de Khéops",
+      "b": "Église Suspendue",
+      "distance_m": 9689,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Pyramide de Khéops",
+      "b": "Héliopolis (Place Korba)",
+      "distance_m": 22090,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Tour du Caire",
+      "b": "Citadelle de Saladin",
+      "distance_m": 3871,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Tour du Caire",
+      "b": "Mosquée Al-Azhar",
+      "distance_m": 3646,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Tour du Caire",
+      "b": "Église Suspendue",
+      "distance_m": 4368,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Tour du Caire",
+      "b": "Héliopolis (Place Korba)",
+      "distance_m": 10862,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Citadelle de Saladin",
+      "b": "Mosquée Al-Azhar",
+      "distance_m": 1761,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Citadelle de Saladin",
+      "b": "Église Suspendue",
+      "distance_m": 4063,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Citadelle de Saladin",
+      "b": "Héliopolis (Place Korba)",
+      "distance_m": 8995,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mosquée Al-Azhar",
+      "b": "Église Suspendue",
+      "distance_m": 5471,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mosquée Al-Azhar",
+      "b": "Héliopolis (Place Korba)",
+      "distance_m": 7708,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Église Suspendue",
+      "b": "Héliopolis (Place Korba)",
+      "distance_m": 13048,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    }
+  ],
+  "_controle": {
+    "points": 6,
+    "liaisons": 15,
+    "seuil_laman_2N_3": 9,
+    "surdetermination": 6,
+    "graphe": "complet K6 — forme unique, rigidité triviale",
+    "triangles_fermes": 20,
+    "violations_inegalite_triangulaire": 0,
+    "rms_ajustement_plan_m": 0.14,
+    "residu_maximal_m": 0.28,
+    "optimum_unique": true,
+    "restarts_solveur": 14,
+    "etendue_maximale_m": 22090,
+    "fleche_spherique_sur_etendue_m": 38.3,
+    "note": "Le graphe étant complet, la rigidité n'est pas un résultat obtenu mais une propriété de départ. Le RMS mesure uniquement le défaut de planéité de la matrice, ici l'arrondi au mètre plus la convergence du solveur."
+  }
+}
