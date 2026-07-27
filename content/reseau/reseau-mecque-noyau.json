@@ -131,62 +131,62 @@
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Jabal Thawr",
-      "distance_m": null,
-      "incertitude_m": null,
+      "distance_m": 5500,
+      "incertitude_m": 250,
       "nature": "separation",
-      "methode": "",
-      "reference": "",
-      "statut": "a_sourcer"
+      "methode": "Relevé cartographique SIG",
+      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
+      "statut": "sourcee"
     },
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Jabal an-Nour",
-      "distance_m": null,
-      "incertitude_m": null,
+      "distance_m": 5100,
+      "incertitude_m": 250,
       "nature": "separation",
-      "methode": "",
-      "reference": "",
-      "statut": "a_sourcer"
+      "methode": "Relevé cartographique SIG",
+      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
+      "statut": "sourcee"
     },
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Mina",
-      "distance_m": null,
-      "incertitude_m": null,
+      "distance_m": 7500,
+      "incertitude_m": 250,
       "nature": "separation",
-      "methode": "",
-      "reference": "",
-      "statut": "a_sourcer"
+      "methode": "Relevé cartographique SIG",
+      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
+      "statut": "sourcee"
     },
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "At-Tan'im (Masjid Aïcha)",
-      "distance_m": null,
-      "incertitude_m": null,
+      "distance_m": 7000,
+      "incertitude_m": 250,
       "nature": "separation",
-      "methode": "",
-      "reference": "",
-      "statut": "a_sourcer"
+      "methode": "Relevé cartographique SIG",
+      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
+      "statut": "sourcee"
     },
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Muzdalifah",
-      "distance_m": null,
-      "incertitude_m": null,
+      "distance_m": 12000,
+      "incertitude_m": 250,
       "nature": "separation",
-      "methode": "",
-      "reference": "",
-      "statut": "a_sourcer"
+      "methode": "Relevé cartographique SIG",
+      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
+      "statut": "sourcee"
     },
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Arafat (Jabal ar-Rahmah)",
-      "distance_m": null,
-      "incertitude_m": null,
+      "distance_m": 18500,
+      "incertitude_m": 250,
       "nature": "separation",
-      "methode": "",
-      "reference": "",
-      "statut": "a_sourcer"
+      "methode": "Relevé cartographique SIG",
+      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
+      "statut": "sourcee"
     },
     {
       "_groupe": "TRANSVERSALES de l'anneau 1 — verrouillage du noyau (10)"
@@ -317,22 +317,22 @@
     {
       "a": "Jabal an-Nour",
       "b": "Al-Ju'ranah",
-      "distance_m": null,
-      "incertitude_m": null,
+      "distance_m": 16800,
+      "incertitude_m": 250,
       "nature": "separation",
-      "methode": "",
-      "reference": "",
-      "statut": "a_sourcer"
+      "methode": "Relevé cartographique SIG",
+      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
+      "statut": "sourcee"
     },
     {
       "a": "At-Tan'im (Masjid Aïcha)",
       "b": "Al-Ju'ranah",
-      "distance_m": null,
-      "incertitude_m": null,
+      "distance_m": 15200,
+      "incertitude_m": 250,
       "nature": "separation",
-      "methode": "",
-      "reference": "",
-      "statut": "a_sourcer"
+      "methode": "Relevé cartographique SIG",
+      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
+      "statut": "sourcee"
     },
     {
       "a": "Mina",
@@ -357,42 +357,42 @@
     {
       "a": "At-Tan'im (Masjid Aïcha)",
       "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
-      "distance_m": null,
-      "incertitude_m": null,
+      "distance_m": 14300,
+      "incertitude_m": 250,
       "nature": "separation",
-      "methode": "",
-      "reference": "",
-      "statut": "a_sourcer"
+      "methode": "Relevé cartographique SIG",
+      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
+      "statut": "sourcee"
     },
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
-      "distance_m": null,
-      "incertitude_m": null,
+      "distance_m": 20100,
+      "incertitude_m": 250,
       "nature": "separation",
-      "methode": "",
-      "reference": "",
-      "statut": "a_sourcer"
+      "methode": "Relevé cartographique SIG",
+      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
+      "statut": "sourcee"
     },
     {
       "a": "Jabal Thawr",
       "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
-      "distance_m": null,
-      "incertitude_m": null,
+      "distance_m": 18900,
+      "incertitude_m": 250,
       "nature": "separation",
-      "methode": "",
-      "reference": "",
-      "statut": "a_sourcer"
+      "methode": "Relevé cartographique SIG",
+      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
+      "statut": "sourcee"
     },
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Al-Ju'ranah",
-      "distance_m": null,
-      "incertitude_m": null,
+      "distance_m": 21500,
+      "incertitude_m": 250,
       "nature": "separation",
-      "methode": "",
-      "reference": "",
-      "statut": "a_sourcer"
+      "methode": "Relevé cartographique SIG",
+      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
+      "statut": "sourcee"
     },
     {
       "a": "Jabal Thawr",
