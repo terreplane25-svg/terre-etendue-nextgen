@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "2.2",
+    "version": "2.3",
     "titre": "Noyau du bassin de La Mecque — maille courte (5 à 25 km)",
     "principe": "Réseau de distances mesurées entre lieux du bassin immédiat de La Mecque. Aucune coordonnée, aucune projection, aucun modèle présupposé : uniquement des distances entre points, et l'incertitude de chaque mesure.",
     "rigidite": {
@@ -141,7 +141,7 @@
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Jabal an-Nour",
-      "distance_m": 6250,
+      "distance_m": 6700,
       "incertitude_m": 250,
       "nature": "separation",
       "methode": "Relevé cartographique SIG",
@@ -234,7 +234,7 @@
     {
       "a": "Jabal an-Nour",
       "b": "At-Tan'im (Masjid Aïcha)",
-      "distance_m": 8000,
+      "distance_m": 7500,
       "incertitude_m": 250,
       "nature": "separation",
       "methode": "Relevé cartographique SIG",
@@ -264,20 +264,20 @@
     {
       "a": "Mina",
       "b": "At-Tan'im (Masjid Aïcha)",
-      "distance_m": 10200,
+      "distance_m": 10600,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
+      "methode": "Relevé cartographique SIG",
       "reference": "lot 1 — transversales anneau 1",
       "statut": "sourcee"
     },
     {
       "a": "At-Tan'im (Masjid Aïcha)",
       "b": "Muzdalifah",
-      "distance_m": 14100,
+      "distance_m": 14350,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
+      "methode": "Relevé cartographique SIG",
       "reference": "lot 1 — transversales anneau 1",
       "statut": "sourcee"
     },
@@ -337,22 +337,23 @@
     {
       "a": "Mina",
       "b": "Al-Ju'ranah",
-      "distance_m": null,
-      "incertitude_m": null,
+      "distance_m": 18200,
+      "incertitude_m": 250,
       "nature": "separation",
-      "methode": "",
+      "methode": "Relevé cartographique SIG",
       "reference": "",
-      "statut": "a_sourcer"
+      "statut": "a_verifier",
+      "note": "Valeur 18 200 m appliquée mais CONTREDITE par le réseau : le sous-réseau à 25 liaisons (RMS 86 m) prédisait 21 140 m, soit un écart de -2 940 m, presque 12 fois l'incertitude déclarée. Al-Ju'ranah ne peut pas être à la fois à 18 200 m de Mina et à 21 500 m de la Kaaba compte tenu du reste. À revérifier au SIG."
     },
     {
       "a": "Al-Ju'ranah",
       "b": "Arafat (Jabal ar-Rahmah)",
-      "distance_m": null,
-      "incertitude_m": null,
+      "distance_m": 23800,
+      "incertitude_m": 250,
       "nature": "separation",
-      "methode": "",
+      "methode": "Relevé cartographique SIG",
       "reference": "",
-      "statut": "a_sourcer"
+      "statut": "sourcee"
     },
     {
       "a": "At-Tan'im (Masjid Aïcha)",
@@ -397,12 +398,13 @@
     {
       "a": "Jabal Thawr",
       "b": "Arafat (Jabal ar-Rahmah)",
-      "distance_m": null,
-      "incertitude_m": null,
+      "distance_m": 15600,
+      "incertitude_m": 250,
       "nature": "separation",
-      "methode": "",
+      "methode": "Relevé cartographique SIG",
       "reference": "",
-      "statut": "a_sourcer"
+      "statut": "a_verifier",
+      "note": "Valeur 15 600 m appliquée mais CONTREDITE par le réseau : le sous-réseau à 25 liaisons (RMS 86 m) prédisait 17 694 m, soit un écart de -2 094 m. Thawr étant du côté opposé à Arafat par rapport à la Kaaba, la liaison devrait être plus longue que Kaaba-Arafat (17 900 m), pas plus courte. À revérifier au SIG."
     },
     {
       "a": "Mina",
