@@ -1,0 +1,116 @@
+{
+  "_schema": {
+    "version": "1.0",
+    "description": "Réseau de distances mesurées, propagation en couronnes concentriques depuis La Mecque. Aucune coordonnée, aucune projection : uniquement des distances entre points.",
+    "regles": [
+      "Le moyeu (La Mecque / la Kaaba) est le point d'ancrage, il ne porte pas de coordonnées.",
+      "Chaque point appartient à une couronne : couronne 1 = 0 à 50 km du moyeu, couronne 2 = 50 à 100 km, etc.",
+      "Toute liaison relie deux points distants d'au plus 50 km.",
+      "Chaque nouveau point doit avoir au moins 2 liaisons (3 recommandé) vers des points déjà posés.",
+      "Une liaison n'est valide que si elle porte une source vérifiable et son incertitude.",
+      "nature = 'separation' (ligne droite entre deux points) ou 'trajet' (longueur d'un parcours). Ne jamais mélanger les deux sur une même paire."
+    ],
+    "champs_liaison": {
+      "a": "nom du premier point",
+      "b": "nom du second point",
+      "distance_km": "distance mesurée, en kilomètres (null si non encore sourcée)",
+      "incertitude_km": "marge d'erreur estimée, en kilomètres",
+      "nature": "separation | trajet",
+      "type_source": "Géodésique | GPS/GNSS | Odomètre | Télémètre laser | Levé topographique | Aérienne | Maritime",
+      "reference": "référence précise et vérifiable de la mesure",
+      "statut": "sourcee | a_sourcer | a_verifier"
+    }
+  },
+
+  "moyeu": {
+    "nom": "La Mecque (Kaaba)",
+    "couronne": 0,
+    "note": "Point d'ancrage du réseau. Position (0,0) par convention, sans signification géographique."
+  },
+
+  "points": [
+    { "nom": "La Mecque (Kaaba)", "couronne": 0, "statut": "ancrage" },
+
+    { "nom": "At-Tan'im (mosquée Aïcha)", "couronne": 1, "statut": "a_sourcer" },
+    { "nom": "Mina", "couronne": 1, "statut": "a_sourcer" },
+    { "nom": "Muzdalifah", "couronne": 1, "statut": "a_sourcer" },
+    { "nom": "Arafat (Jabal ar-Rahmah)", "couronne": 1, "statut": "a_sourcer" },
+    { "nom": "Al-Ju'ranah", "couronne": 1, "statut": "a_sourcer" },
+    { "nom": "Ash-Shumaysi (Al-Hudaybiyyah)", "couronne": 1, "statut": "a_sourcer" },
+    { "nom": "Ash-Shara'i", "couronne": 1, "statut": "a_sourcer" },
+    { "nom": "Bahrah", "couronne": 1, "statut": "a_sourcer" },
+    { "nom": "Wadi Fatimah", "couronne": 1, "statut": "a_sourcer" }
+  ],
+
+  "liaisons": [
+    {
+      "a": "La Mecque (Kaaba)", "b": "At-Tan'im (mosquée Aïcha)",
+      "distance_km": null, "incertitude_km": null,
+      "nature": "separation", "type_source": "", "reference": "", "statut": "a_sourcer"
+    },
+    {
+      "a": "La Mecque (Kaaba)", "b": "Mina",
+      "distance_km": null, "incertitude_km": null,
+      "nature": "separation", "type_source": "", "reference": "", "statut": "a_sourcer"
+    },
+    {
+      "a": "La Mecque (Kaaba)", "b": "Muzdalifah",
+      "distance_km": null, "incertitude_km": null,
+      "nature": "separation", "type_source": "", "reference": "", "statut": "a_sourcer"
+    },
+    {
+      "a": "La Mecque (Kaaba)", "b": "Arafat (Jabal ar-Rahmah)",
+      "distance_km": null, "incertitude_km": null,
+      "nature": "separation", "type_source": "", "reference": "", "statut": "a_sourcer"
+    },
+    {
+      "a": "La Mecque (Kaaba)", "b": "Al-Ju'ranah",
+      "distance_km": null, "incertitude_km": null,
+      "nature": "separation", "type_source": "", "reference": "", "statut": "a_sourcer"
+    },
+    {
+      "a": "La Mecque (Kaaba)", "b": "Ash-Shumaysi (Al-Hudaybiyyah)",
+      "distance_km": null, "incertitude_km": null,
+      "nature": "separation", "type_source": "", "reference": "", "statut": "a_sourcer"
+    },
+
+    { "_commentaire": "Liaisons TRANSVERSALES — indispensables : sans elles le réseau est une étoile, non rigide." },
+
+    {
+      "a": "Mina", "b": "Muzdalifah",
+      "distance_km": null, "incertitude_km": null,
+      "nature": "separation", "type_source": "", "reference": "", "statut": "a_sourcer"
+    },
+    {
+      "a": "Muzdalifah", "b": "Arafat (Jabal ar-Rahmah)",
+      "distance_km": null, "incertitude_km": null,
+      "nature": "separation", "type_source": "", "reference": "", "statut": "a_sourcer"
+    },
+    {
+      "a": "Mina", "b": "At-Tan'im (mosquée Aïcha)",
+      "distance_km": null, "incertitude_km": null,
+      "nature": "separation", "type_source": "", "reference": "", "statut": "a_sourcer"
+    },
+    {
+      "a": "Arafat (Jabal ar-Rahmah)", "b": "Al-Ju'ranah",
+      "distance_km": null, "incertitude_km": null,
+      "nature": "separation", "type_source": "", "reference": "", "statut": "a_sourcer"
+    },
+    {
+      "a": "Ash-Shumaysi (Al-Hudaybiyyah)", "b": "Bahrah",
+      "distance_km": null, "incertitude_km": null,
+      "nature": "separation", "type_source": "", "reference": "", "statut": "a_sourcer"
+    },
+    {
+      "a": "Bahrah", "b": "Wadi Fatimah",
+      "distance_km": null, "incertitude_km": null,
+      "nature": "separation", "type_source": "", "reference": "", "statut": "a_sourcer"
+    }
+  ],
+
+  "_controle_rigidite": {
+    "regle": "Pour N points, il faut au moins 2N-3 liaisons pour que la forme soit déterminée.",
+    "exemple_couronne_1": "10 points -> 17 liaisons minimum. Le modèle ci-dessus en propose 12 : il en manque 5.",
+    "rappel": "Un réseau en étoile (toutes les liaisons vers le moyeu) n'est JAMAIS rigide : les branches pivotent librement. Les liaisons transversales sont ce qui donne son sens au réseau."
+  }
+}
