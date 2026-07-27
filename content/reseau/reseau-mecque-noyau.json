@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "2.0",
+    "version": "2.1",
     "titre": "Noyau du bassin de La Mecque — maille courte (5 à 25 km)",
     "principe": "Réseau de distances mesurées entre lieux du bassin immédiat de La Mecque. Aucune coordonnée, aucune projection, aucun modèle présupposé : uniquement des distances entre points, et l'incertitude de chaque mesure.",
     "rigidite": {
@@ -131,7 +131,7 @@
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Jabal Thawr",
-      "distance_m": 5500,
+      "distance_m": 4750,
       "incertitude_m": 250,
       "nature": "separation",
       "methode": "Relevé cartographique SIG",
@@ -151,7 +151,7 @@
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Mina",
-      "distance_m": 7500,
+      "distance_m": 6750,
       "incertitude_m": 250,
       "nature": "separation",
       "methode": "Relevé cartographique SIG",
@@ -171,13 +171,12 @@
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Muzdalifah",
-      "distance_m": 12000,
+      "distance_m": 11300,
       "incertitude_m": 250,
       "nature": "separation",
       "methode": "Relevé cartographique SIG",
       "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
-      "statut": "a_verifier",
-      "note": "Valeur de 12 250 m proposée NON appliquée : elle viole l'inégalité triangulaire Kaaba/Mina/Muzdalifah de 150 m (7 500 + 4 600 = 12 100 < 12 250). Valeur conservée : 12 000 m, marge +100 m."
+      "statut": "sourcee"
     },
     {
       "a": "Kaaba (Masjid al-Haram)",
@@ -187,7 +186,8 @@
       "nature": "separation",
       "methode": "Relevé cartographique SIG",
       "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
-      "statut": "sourcee"
+      "statut": "a_verifier",
+      "note": "Valeur 18 500 m conservée telle quelle, mais devenue incompatible avec les radiales réduites du lot 6 : Kaaba–Mina 6 750 + Mina–Arafat 11 200 = 17 950 m (déficit 550 m) et Kaaba–Muzdalifah 11 300 + Muzdalifah–Arafat 7 100 = 18 400 m (déficit 100 m). Le réseau demande environ 17 900–18 000 m. À revérifier au SIG."
     },
     {
       "_groupe": "TRANSVERSALES de l'anneau 1 — verrouillage du noyau (10)"
@@ -205,10 +205,10 @@
     {
       "a": "Jabal Thawr",
       "b": "Mina",
-      "distance_m": 6000,
+      "distance_m": 6700,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
+      "methode": "Relevé cartographique SIG",
       "reference": "lot 1 — transversales anneau 1",
       "statut": "sourcee"
     },
@@ -368,7 +368,7 @@
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
-      "distance_m": 18500,
+      "distance_m": 16900,
       "incertitude_m": 250,
       "nature": "separation",
       "methode": "Relevé cartographique SIG",
@@ -378,7 +378,7 @@
     {
       "a": "Jabal Thawr",
       "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
-      "distance_m": 18900,
+      "distance_m": 19850,
       "incertitude_m": 250,
       "nature": "separation",
       "methode": "Relevé cartographique SIG",
