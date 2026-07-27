@@ -13,11 +13,36 @@
     "precision": {
       "avertissement": "À cette échelle, l'écart entre une surface plane et une surface courbe est minuscule. Il faut le savoir AVANT de mesurer.",
       "table": [
-        { "maille_km": 5,  "fleche_m": 0.49,  "ecart_relatif": "0,0098 %", "precision_utile_m": 0.05 },
-        { "maille_km": 10, "fleche_m": 1.96,  "ecart_relatif": "0,0196 %", "precision_utile_m": 0.20 },
-        { "maille_km": 15, "fleche_m": 4.41,  "ecart_relatif": "0,0294 %", "precision_utile_m": 0.44 },
-        { "maille_km": 20, "fleche_m": 7.85,  "ecart_relatif": "0,0392 %", "precision_utile_m": 0.78 },
-        { "maille_km": 25, "fleche_m": 12.26, "ecart_relatif": "0,0491 %", "precision_utile_m": 1.23 }
+        {
+          "maille_km": 5,
+          "fleche_m": 0.49,
+          "ecart_relatif": "0,0098 %",
+          "precision_utile_m": 0.05
+        },
+        {
+          "maille_km": 10,
+          "fleche_m": 1.96,
+          "ecart_relatif": "0,0196 %",
+          "precision_utile_m": 0.2
+        },
+        {
+          "maille_km": 15,
+          "fleche_m": 4.41,
+          "ecart_relatif": "0,0294 %",
+          "precision_utile_m": 0.44
+        },
+        {
+          "maille_km": 20,
+          "fleche_m": 7.85,
+          "ecart_relatif": "0,0392 %",
+          "precision_utile_m": 0.78
+        },
+        {
+          "maille_km": 25,
+          "fleche_m": 12.26,
+          "ecart_relatif": "0,0491 %",
+          "precision_utile_m": 1.23
+        }
       ],
       "instruments": {
         "cartographie_web": "± 10 à 50 m — INSUFFISANT",
@@ -39,54 +64,334 @@
       "statut": "sourcee | a_sourcer | a_verifier"
     }
   },
-
   "points": [
-    { "nom": "Kaaba (Masjid al-Haram)", "anneau": 0, "distance_kaaba_approx_km": 0,  "note": "Point d'ancrage du réseau" },
-    { "nom": "Jabal Thawr",             "anneau": 1, "distance_kaaba_approx_km": 4,  "note": "Grotte de Thawr, au sud" },
-    { "nom": "Jabal an-Nour",           "anneau": 1, "distance_kaaba_approx_km": 4,  "note": "Grotte de Hira, au nord-est" },
-    { "nom": "Mina",                    "anneau": 1, "distance_kaaba_approx_km": 6,  "note": "Vallée de Mina, à l'est" },
-    { "nom": "At-Tan'im (Masjid Aïcha)","anneau": 1, "distance_kaaba_approx_km": 7,  "note": "Miqat au nord" },
-    { "nom": "Muzdalifah",              "anneau": 1, "distance_kaaba_approx_km": 9,  "note": "Entre Mina et Arafat" },
-    { "nom": "Arafat (Jabal ar-Rahmah)","anneau": 2, "distance_kaaba_approx_km": 20, "note": "Plaine d'Arafat, à l'est" },
-    { "nom": "Al-Ju'ranah",             "anneau": 2, "distance_kaaba_approx_km": 22, "note": "Miqat au nord-est" },
-    { "nom": "Al-Hudaybiyyah (Ash-Shumaysi)", "anneau": 2, "distance_kaaba_approx_km": 22, "note": "Miqat à l'ouest" }
+    {
+      "nom": "Kaaba (Masjid al-Haram)",
+      "anneau": 0,
+      "distance_kaaba_approx_km": 0,
+      "note": "Point d'ancrage du réseau"
+    },
+    {
+      "nom": "Jabal Thawr",
+      "anneau": 1,
+      "distance_kaaba_approx_km": 4,
+      "note": "Grotte de Thawr, au sud"
+    },
+    {
+      "nom": "Jabal an-Nour",
+      "anneau": 1,
+      "distance_kaaba_approx_km": 4,
+      "note": "Grotte de Hira, au nord-est"
+    },
+    {
+      "nom": "Mina",
+      "anneau": 1,
+      "distance_kaaba_approx_km": 6,
+      "note": "Vallée de Mina, à l'est"
+    },
+    {
+      "nom": "At-Tan'im (Masjid Aïcha)",
+      "anneau": 1,
+      "distance_kaaba_approx_km": 7,
+      "note": "Miqat au nord"
+    },
+    {
+      "nom": "Muzdalifah",
+      "anneau": 1,
+      "distance_kaaba_approx_km": 9,
+      "note": "Entre Mina et Arafat"
+    },
+    {
+      "nom": "Arafat (Jabal ar-Rahmah)",
+      "anneau": 2,
+      "distance_kaaba_approx_km": 20,
+      "note": "Plaine d'Arafat, à l'est"
+    },
+    {
+      "nom": "Al-Ju'ranah",
+      "anneau": 2,
+      "distance_kaaba_approx_km": 22,
+      "note": "Miqat au nord-est"
+    },
+    {
+      "nom": "Al-Hudaybiyyah (Ash-Shumaysi)",
+      "anneau": 2,
+      "distance_kaaba_approx_km": 22,
+      "note": "Miqat à l'ouest"
+    }
   ],
   "_note_points": "Les valeurs distance_kaaba_approx_km sont des ORDRES DE GRANDEUR indicatifs, destinés uniquement à choisir quelles paires sont assez proches pour être mesurées. Ce ne sont PAS des données : les mesures vont dans la section liaisons.",
-
   "liaisons": [
-    { "_groupe": "RADIALES depuis la Kaaba (6)" },
-    { "a": "Kaaba (Masjid al-Haram)", "b": "Jabal Thawr",              "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Kaaba (Masjid al-Haram)", "b": "Jabal an-Nour",            "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Kaaba (Masjid al-Haram)", "b": "Mina",                     "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Kaaba (Masjid al-Haram)", "b": "At-Tan'im (Masjid Aïcha)", "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Kaaba (Masjid al-Haram)", "b": "Muzdalifah",               "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Kaaba (Masjid al-Haram)", "b": "Arafat (Jabal ar-Rahmah)", "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-
-    { "_groupe": "TRANSVERSALES de l'anneau 1 — verrouillage du noyau (10)" },
-    { "a": "Jabal Thawr",              "b": "Jabal an-Nour",            "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Jabal Thawr",              "b": "Mina",                     "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Jabal Thawr",              "b": "At-Tan'im (Masjid Aïcha)", "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Jabal an-Nour",            "b": "Mina",                     "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Jabal an-Nour",            "b": "At-Tan'im (Masjid Aïcha)", "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Jabal an-Nour",            "b": "Muzdalifah",               "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Mina",                     "b": "Muzdalifah",               "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Mina",                     "b": "At-Tan'im (Masjid Aïcha)", "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "At-Tan'im (Masjid Aïcha)", "b": "Muzdalifah",               "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Muzdalifah",               "b": "Arafat (Jabal ar-Rahmah)", "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-
-    { "_groupe": "RACCORDEMENT de l'anneau 2 — chaque point a 3 appuis (10)" },
-    { "a": "Mina",                     "b": "Arafat (Jabal ar-Rahmah)", "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Jabal an-Nour",            "b": "Al-Ju'ranah",              "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "At-Tan'im (Masjid Aïcha)", "b": "Al-Ju'ranah",              "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Mina",                     "b": "Al-Ju'ranah",              "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Al-Ju'ranah",              "b": "Arafat (Jabal ar-Rahmah)", "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "At-Tan'im (Masjid Aïcha)", "b": "Al-Hudaybiyyah (Ash-Shumaysi)", "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Kaaba (Masjid al-Haram)",  "b": "Al-Hudaybiyyah (Ash-Shumaysi)", "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Jabal Thawr",              "b": "Al-Hudaybiyyah (Ash-Shumaysi)", "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Kaaba (Masjid al-Haram)",  "b": "Al-Ju'ranah",              "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" },
-    { "a": "Jabal Thawr",              "b": "Arafat (Jabal ar-Rahmah)", "distance_m": null, "incertitude_m": null, "nature": "separation", "methode": "", "reference": "", "statut": "a_sourcer" }
+    {
+      "_groupe": "RADIALES depuis la Kaaba (6)"
+    },
+    {
+      "a": "Kaaba (Masjid al-Haram)",
+      "b": "Jabal Thawr",
+      "distance_m": null,
+      "incertitude_m": null,
+      "nature": "separation",
+      "methode": "",
+      "reference": "",
+      "statut": "a_sourcer"
+    },
+    {
+      "a": "Kaaba (Masjid al-Haram)",
+      "b": "Jabal an-Nour",
+      "distance_m": null,
+      "incertitude_m": null,
+      "nature": "separation",
+      "methode": "",
+      "reference": "",
+      "statut": "a_sourcer"
+    },
+    {
+      "a": "Kaaba (Masjid al-Haram)",
+      "b": "Mina",
+      "distance_m": null,
+      "incertitude_m": null,
+      "nature": "separation",
+      "methode": "",
+      "reference": "",
+      "statut": "a_sourcer"
+    },
+    {
+      "a": "Kaaba (Masjid al-Haram)",
+      "b": "At-Tan'im (Masjid Aïcha)",
+      "distance_m": null,
+      "incertitude_m": null,
+      "nature": "separation",
+      "methode": "",
+      "reference": "",
+      "statut": "a_sourcer"
+    },
+    {
+      "a": "Kaaba (Masjid al-Haram)",
+      "b": "Muzdalifah",
+      "distance_m": null,
+      "incertitude_m": null,
+      "nature": "separation",
+      "methode": "",
+      "reference": "",
+      "statut": "a_sourcer"
+    },
+    {
+      "a": "Kaaba (Masjid al-Haram)",
+      "b": "Arafat (Jabal ar-Rahmah)",
+      "distance_m": null,
+      "incertitude_m": null,
+      "nature": "separation",
+      "methode": "",
+      "reference": "",
+      "statut": "a_sourcer"
+    },
+    {
+      "_groupe": "TRANSVERSALES de l'anneau 1 — verrouillage du noyau (10)"
+    },
+    {
+      "a": "Jabal Thawr",
+      "b": "Jabal an-Nour",
+      "distance_m": 9150,
+      "incertitude_m": 10,
+      "nature": "separation",
+      "methode": "a_preciser",
+      "reference": "lot 1 — transversales anneau 1",
+      "statut": "sourcee"
+    },
+    {
+      "a": "Jabal Thawr",
+      "b": "Mina",
+      "distance_m": 6400,
+      "incertitude_m": 10,
+      "nature": "separation",
+      "methode": "a_preciser",
+      "reference": "lot 1 — transversales anneau 1",
+      "statut": "sourcee"
+    },
+    {
+      "a": "Jabal Thawr",
+      "b": "At-Tan'im (Masjid Aïcha)",
+      "distance_m": 11800,
+      "incertitude_m": 10,
+      "nature": "separation",
+      "methode": "a_preciser",
+      "reference": "lot 1 — transversales anneau 1",
+      "statut": "sourcee"
+    },
+    {
+      "a": "Jabal an-Nour",
+      "b": "Mina",
+      "distance_m": 4850,
+      "incertitude_m": 10,
+      "nature": "separation",
+      "methode": "a_preciser",
+      "reference": "lot 1 — transversales anneau 1",
+      "statut": "sourcee"
+    },
+    {
+      "a": "Jabal an-Nour",
+      "b": "At-Tan'im (Masjid Aïcha)",
+      "distance_m": 8900,
+      "incertitude_m": 10,
+      "nature": "separation",
+      "methode": "a_preciser",
+      "reference": "lot 1 — transversales anneau 1",
+      "statut": "sourcee"
+    },
+    {
+      "a": "Jabal an-Nour",
+      "b": "Muzdalifah",
+      "distance_m": 7600,
+      "incertitude_m": 10,
+      "nature": "separation",
+      "methode": "a_preciser",
+      "reference": "lot 1 — transversales anneau 1",
+      "statut": "sourcee"
+    },
+    {
+      "a": "Mina",
+      "b": "Muzdalifah",
+      "distance_m": 4600,
+      "incertitude_m": 10,
+      "nature": "separation",
+      "methode": "a_preciser",
+      "reference": "lot 1 — transversales anneau 1",
+      "statut": "sourcee"
+    },
+    {
+      "a": "Mina",
+      "b": "At-Tan'im (Masjid Aïcha)",
+      "distance_m": 10200,
+      "incertitude_m": 10,
+      "nature": "separation",
+      "methode": "a_preciser",
+      "reference": "lot 1 — transversales anneau 1",
+      "statut": "sourcee"
+    },
+    {
+      "a": "At-Tan'im (Masjid Aïcha)",
+      "b": "Muzdalifah",
+      "distance_m": 14100,
+      "incertitude_m": 10,
+      "nature": "separation",
+      "methode": "a_preciser",
+      "reference": "lot 1 — transversales anneau 1",
+      "statut": "sourcee"
+    },
+    {
+      "a": "Muzdalifah",
+      "b": "Arafat (Jabal ar-Rahmah)",
+      "distance_m": 7100,
+      "incertitude_m": 10,
+      "nature": "separation",
+      "methode": "a_preciser",
+      "reference": "lot 1 — transversales anneau 1",
+      "statut": "sourcee"
+    },
+    {
+      "_groupe": "RACCORDEMENT de l'anneau 2 — chaque point a 3 appuis (10)"
+    },
+    {
+      "a": "Mina",
+      "b": "Arafat (Jabal ar-Rahmah)",
+      "distance_m": null,
+      "incertitude_m": null,
+      "nature": "separation",
+      "methode": "",
+      "reference": "",
+      "statut": "a_sourcer"
+    },
+    {
+      "a": "Jabal an-Nour",
+      "b": "Al-Ju'ranah",
+      "distance_m": null,
+      "incertitude_m": null,
+      "nature": "separation",
+      "methode": "",
+      "reference": "",
+      "statut": "a_sourcer"
+    },
+    {
+      "a": "At-Tan'im (Masjid Aïcha)",
+      "b": "Al-Ju'ranah",
+      "distance_m": null,
+      "incertitude_m": null,
+      "nature": "separation",
+      "methode": "",
+      "reference": "",
+      "statut": "a_sourcer"
+    },
+    {
+      "a": "Mina",
+      "b": "Al-Ju'ranah",
+      "distance_m": null,
+      "incertitude_m": null,
+      "nature": "separation",
+      "methode": "",
+      "reference": "",
+      "statut": "a_sourcer"
+    },
+    {
+      "a": "Al-Ju'ranah",
+      "b": "Arafat (Jabal ar-Rahmah)",
+      "distance_m": null,
+      "incertitude_m": null,
+      "nature": "separation",
+      "methode": "",
+      "reference": "",
+      "statut": "a_sourcer"
+    },
+    {
+      "a": "At-Tan'im (Masjid Aïcha)",
+      "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
+      "distance_m": null,
+      "incertitude_m": null,
+      "nature": "separation",
+      "methode": "",
+      "reference": "",
+      "statut": "a_sourcer"
+    },
+    {
+      "a": "Kaaba (Masjid al-Haram)",
+      "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
+      "distance_m": null,
+      "incertitude_m": null,
+      "nature": "separation",
+      "methode": "",
+      "reference": "",
+      "statut": "a_sourcer"
+    },
+    {
+      "a": "Jabal Thawr",
+      "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
+      "distance_m": null,
+      "incertitude_m": null,
+      "nature": "separation",
+      "methode": "",
+      "reference": "",
+      "statut": "a_sourcer"
+    },
+    {
+      "a": "Kaaba (Masjid al-Haram)",
+      "b": "Al-Ju'ranah",
+      "distance_m": null,
+      "incertitude_m": null,
+      "nature": "separation",
+      "methode": "",
+      "reference": "",
+      "statut": "a_sourcer"
+    },
+    {
+      "a": "Jabal Thawr",
+      "b": "Arafat (Jabal ar-Rahmah)",
+      "distance_m": null,
+      "incertitude_m": null,
+      "nature": "separation",
+      "methode": "",
+      "reference": "",
+      "statut": "a_sourcer"
+    }
   ],
-
   "_controle": {
     "appuis_par_point": {
       "Kaaba (Masjid al-Haram)": 8,
