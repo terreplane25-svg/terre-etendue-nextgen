@@ -51,7 +51,9 @@
         "GNSS_RTK_station_totale": "± 0,01 à 0,03 m — ADAPTÉ",
         "geodesie_de_precision": "± 0,001 m — idéal"
       },
-      "consequence": "Sur une maille de 10 km, l'effet recherché vaut 1,96 m. Une mesure au GPS grand public (± 5 m) ne peut pas le distinguer. Le champ incertitude_m est donc OBLIGATOIRE : sans lui, le réseau n'est pas interprétable."
+      "consequence": "Sur une maille de 10 km, l'effet recherché vaut 1,96 m. Une mesure au GPS grand public (± 5 m) ne peut pas le distinguer. Le champ incertitude_m est donc OBLIGATOIRE : sans lui, le réseau n'est pas interprétable.",
+      "methode_declaree": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
+      "incertitude_declaree_m": 100
     },
     "champs_liaison": {
       "a": "premier point",
@@ -191,40 +193,40 @@
     {
       "a": "Jabal Thawr",
       "b": "Jabal an-Nour",
-      "distance_m": 9150,
-      "incertitude_m": 10,
+      "distance_m": 9600,
+      "incertitude_m": 100,
       "nature": "separation",
-      "methode": "a_preciser",
+      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
       "reference": "lot 1 — transversales anneau 1",
       "statut": "sourcee"
     },
     {
       "a": "Jabal Thawr",
       "b": "Mina",
-      "distance_m": 6400,
-      "incertitude_m": 10,
+      "distance_m": 6000,
+      "incertitude_m": 100,
       "nature": "separation",
-      "methode": "a_preciser",
+      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
       "reference": "lot 1 — transversales anneau 1",
       "statut": "sourcee"
     },
     {
       "a": "Jabal Thawr",
       "b": "At-Tan'im (Masjid Aïcha)",
-      "distance_m": 11800,
-      "incertitude_m": 10,
+      "distance_m": 11650,
+      "incertitude_m": 100,
       "nature": "separation",
-      "methode": "a_preciser",
+      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
       "reference": "lot 1 — transversales anneau 1",
       "statut": "sourcee"
     },
     {
       "a": "Jabal an-Nour",
       "b": "Mina",
-      "distance_m": 4850,
-      "incertitude_m": 10,
+      "distance_m": 4350,
+      "incertitude_m": 100,
       "nature": "separation",
-      "methode": "a_preciser",
+      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
       "reference": "lot 1 — transversales anneau 1",
       "statut": "sourcee"
     },
@@ -232,9 +234,9 @@
       "a": "Jabal an-Nour",
       "b": "At-Tan'im (Masjid Aïcha)",
       "distance_m": 8900,
-      "incertitude_m": 10,
+      "incertitude_m": 100,
       "nature": "separation",
-      "methode": "a_preciser",
+      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
       "reference": "lot 1 — transversales anneau 1",
       "statut": "sourcee"
     },
@@ -242,9 +244,9 @@
       "a": "Jabal an-Nour",
       "b": "Muzdalifah",
       "distance_m": 7600,
-      "incertitude_m": 10,
+      "incertitude_m": 100,
       "nature": "separation",
-      "methode": "a_preciser",
+      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
       "reference": "lot 1 — transversales anneau 1",
       "statut": "sourcee"
     },
@@ -252,9 +254,9 @@
       "a": "Mina",
       "b": "Muzdalifah",
       "distance_m": 4600,
-      "incertitude_m": 10,
+      "incertitude_m": 100,
       "nature": "separation",
-      "methode": "a_preciser",
+      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
       "reference": "lot 1 — transversales anneau 1",
       "statut": "sourcee"
     },
@@ -262,9 +264,9 @@
       "a": "Mina",
       "b": "At-Tan'im (Masjid Aïcha)",
       "distance_m": 10200,
-      "incertitude_m": 10,
+      "incertitude_m": 100,
       "nature": "separation",
-      "methode": "a_preciser",
+      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
       "reference": "lot 1 — transversales anneau 1",
       "statut": "sourcee"
     },
@@ -272,9 +274,9 @@
       "a": "At-Tan'im (Masjid Aïcha)",
       "b": "Muzdalifah",
       "distance_m": 14100,
-      "incertitude_m": 10,
+      "incertitude_m": 100,
       "nature": "separation",
-      "methode": "a_preciser",
+      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
       "reference": "lot 1 — transversales anneau 1",
       "statut": "sourcee"
     },
@@ -282,9 +284,9 @@
       "a": "Muzdalifah",
       "b": "Arafat (Jabal ar-Rahmah)",
       "distance_m": 7100,
-      "incertitude_m": 10,
+      "incertitude_m": 100,
       "nature": "separation",
-      "methode": "a_preciser",
+      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
       "reference": "lot 1 — transversales anneau 1",
       "statut": "sourcee"
     },
@@ -294,12 +296,12 @@
     {
       "a": "Mina",
       "b": "Arafat (Jabal ar-Rahmah)",
-      "distance_m": null,
-      "incertitude_m": null,
+      "distance_m": 11200,
+      "incertitude_m": 100,
       "nature": "separation",
-      "methode": "",
-      "reference": "",
-      "statut": "a_sourcer"
+      "methode": "Relevé cartographique SIG",
+      "reference": "lot 2 — verrouillage d'Arafat",
+      "statut": "sourcee"
     },
     {
       "a": "Jabal an-Nour",
