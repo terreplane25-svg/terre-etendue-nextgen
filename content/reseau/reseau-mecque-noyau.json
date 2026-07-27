@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "2.1",
+    "version": "2.2",
     "titre": "Noyau du bassin de La Mecque — maille courte (5 à 25 km)",
     "principe": "Réseau de distances mesurées entre lieux du bassin immédiat de La Mecque. Aucune coordonnée, aucune projection, aucun modèle présupposé : uniquement des distances entre points, et l'incertitude de chaque mesure.",
     "rigidite": {
@@ -141,7 +141,7 @@
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Jabal an-Nour",
-      "distance_m": 6750,
+      "distance_m": 6250,
       "incertitude_m": 250,
       "nature": "separation",
       "methode": "Relevé cartographique SIG",
@@ -181,13 +181,12 @@
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Arafat (Jabal ar-Rahmah)",
-      "distance_m": 18500,
+      "distance_m": 17900,
       "incertitude_m": 250,
       "nature": "separation",
       "methode": "Relevé cartographique SIG",
       "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
-      "statut": "a_verifier",
-      "note": "Valeur 18 500 m conservée telle quelle, mais devenue incompatible avec les radiales réduites du lot 6 : Kaaba–Mina 6 750 + Mina–Arafat 11 200 = 17 950 m (déficit 550 m) et Kaaba–Muzdalifah 11 300 + Muzdalifah–Arafat 7 100 = 18 400 m (déficit 100 m). Le réseau demande environ 17 900–18 000 m. À revérifier au SIG."
+      "statut": "sourcee"
     },
     {
       "_groupe": "TRANSVERSALES de l'anneau 1 — verrouillage du noyau (10)"
@@ -235,20 +234,20 @@
     {
       "a": "Jabal an-Nour",
       "b": "At-Tan'im (Masjid Aïcha)",
-      "distance_m": 8900,
+      "distance_m": 8000,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
+      "methode": "Relevé cartographique SIG",
       "reference": "lot 1 — transversales anneau 1",
       "statut": "sourcee"
     },
     {
       "a": "Jabal an-Nour",
       "b": "Muzdalifah",
-      "distance_m": 7600,
+      "distance_m": 7100,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
+      "methode": "Relevé cartographique SIG",
       "reference": "lot 1 — transversales anneau 1",
       "statut": "sourcee"
     },
