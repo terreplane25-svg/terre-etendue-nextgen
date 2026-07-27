@@ -141,11 +141,11 @@
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Jabal an-Nour",
-      "distance_m": 5100,
+      "distance_m": 6750,
       "incertitude_m": 250,
       "nature": "separation",
       "methode": "Relevé cartographique SIG",
-      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
+      "reference": "lot 5 — corrections géodésiques",
       "statut": "sourcee"
     },
     {
@@ -176,7 +176,8 @@
       "nature": "separation",
       "methode": "Relevé cartographique SIG",
       "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
-      "statut": "sourcee"
+      "statut": "a_verifier",
+      "note": "Valeur de 12 250 m proposée NON appliquée : elle viole l'inégalité triangulaire Kaaba/Mina/Muzdalifah de 150 m (7 500 + 4 600 = 12 100 < 12 250). Valeur conservée : 12 000 m, marge +100 m."
     },
     {
       "a": "Kaaba (Masjid al-Haram)",
@@ -367,11 +368,11 @@
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
-      "distance_m": 20100,
+      "distance_m": 18500,
       "incertitude_m": 250,
       "nature": "separation",
       "methode": "Relevé cartographique SIG",
-      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
+      "reference": "lot 5 — corrections géodésiques",
       "statut": "sourcee"
     },
     {
@@ -403,6 +404,16 @@
       "methode": "",
       "reference": "",
       "statut": "a_sourcer"
+    },
+    {
+      "a": "Mina",
+      "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
+      "distance_m": 23200,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Relevé cartographique SIG",
+      "reference": "lot 5 — 4e appui d'Al-Hudaybiyyah",
+      "statut": "sourcee"
     }
   ],
   "_controle": {
