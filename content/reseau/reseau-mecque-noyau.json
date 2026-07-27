@@ -1,435 +1,664 @@
 {
   "_meta": {
-    "version": "2.3",
-    "titre": "Noyau du bassin de La Mecque — maille courte (5 à 25 km)",
-    "principe": "Réseau de distances mesurées entre lieux du bassin immédiat de La Mecque. Aucune coordonnée, aucune projection, aucun modèle présupposé : uniquement des distances entre points, et l'incertitude de chaque mesure.",
-    "rigidite": {
-      "points": 9,
-      "seuil_2N_3": 15,
-      "liaisons_proposees": 26,
-      "surdetermination": "+11",
-      "note": "Un réseau en étoile (tout vers la Kaaba) n'est jamais rigide : les branches pivotent. Ce sont les transversales qui verrouillent la forme."
+    "version": "3.0",
+    "titre": "Noyau de La Mecque — matrice géodésique complète",
+    "description": "Réseau local centré sur La Mecque. Les 36 distances sont CALCULÉES depuis les 9 couples de coordonnées WGS84 ci-dessous par la formule de Vincenty inverse. Source unique : la table de coordonnées. Aucune distance n'est saisie à la main.",
+    "methode_declaree": "Calcul géodésique WGS84 (Vincenty inverse) depuis coordonnées relevées au centre de chaque site",
+    "ellipsoide": {
+      "a_m": 6378137.0,
+      "f": "1/298.257223563",
+      "convergence": "1e-13 rad"
     },
-    "precision": {
-      "avertissement": "À cette échelle, l'écart entre une surface plane et une surface courbe est minuscule. Il faut le savoir AVANT de mesurer.",
-      "table": [
-        {
-          "maille_km": 5,
-          "fleche_m": 0.49,
-          "ecart_relatif": "0,0098 %",
-          "precision_utile_m": 0.05
-        },
-        {
-          "maille_km": 10,
-          "fleche_m": 1.96,
-          "ecart_relatif": "0,0196 %",
-          "precision_utile_m": 0.2
-        },
-        {
-          "maille_km": 15,
-          "fleche_m": 4.41,
-          "ecart_relatif": "0,0294 %",
-          "precision_utile_m": 0.44
-        },
-        {
-          "maille_km": 20,
-          "fleche_m": 7.85,
-          "ecart_relatif": "0,0392 %",
-          "precision_utile_m": 0.78
-        },
-        {
-          "maille_km": 25,
-          "fleche_m": 12.26,
-          "ecart_relatif": "0,0491 %",
-          "precision_utile_m": 1.23
-        }
-      ],
-      "instruments": {
-        "cartographie_web": "± 10 à 50 m — INSUFFISANT",
-        "GPS_grand_public": "± 3 à 10 m — INSUFFISANT",
-        "GNSS_differentiel": "± 0,3 à 1 m — limite basse acceptable",
-        "GNSS_RTK_station_totale": "± 0,01 à 0,03 m — ADAPTÉ",
-        "geodesie_de_precision": "± 0,001 m — idéal"
-      },
-      "consequence": "Sur une maille de 10 km, l'effet recherché vaut 1,96 m. Une mesure au GPS grand public (± 5 m) ne peut pas le distinguer. Le champ incertitude_m est donc OBLIGATOIRE : sans lui, le réseau n'est pas interprétable.",
-      "methode_declaree": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
-      "incertitude_declaree_m": 250,
-      "rationnel_incertitude": "±250 m : reflète l'emprise physique pluri-hectométrique des sommets (Jabal Thawr, Jabal an-Nour) et des sites, pour lesquels la notion de point-centre n'a pas de définition à 100 m près."
-    },
+    "incertitude_declaree_m": 250,
+    "rationnel_incertitude": "L'incertitude ne porte plus sur la mesure de distance (exacte au mètre par construction) mais sur la DÉFINITION du centre de chaque site : un campement comme Mina ou Muzdalifah n'a pas de point unique. ±250 m conservé par continuité avec les versions 2.x.",
+    "avertissement_pouvoir_discriminant": "Sur une étendue de 37 km, l'écart entre un plan et une sphère de 6 371 km vaut environ 30 m — sous l'incertitude déclarée. Ce noyau valide la COHÉRENCE des données, il ne peut pas trancher entre les deux géométries. Un RMS faible ici est attendu dans les deux modèles et ne démontre rien sur la forme.",
     "champs_liaison": {
       "a": "premier point",
       "b": "second point",
-      "distance_m": "distance mesurée, en MÈTRES (null si non sourcée)",
-      "incertitude_m": "marge d'erreur de la mesure, en mètres — obligatoire",
-      "nature": "separation (ligne droite) | trajet (longueur d'un parcours)",
-      "methode": "GNSS_RTK | GNSS_differentiel | GPS | station_totale | telemetre_laser | odometre | leve_topographique | cartographie",
-      "reference": "référence précise et vérifiable",
-      "statut": "sourcee | a_sourcer | a_verifier"
+      "distance_m": "distance géodésique WGS84 calculée, en mètres",
+      "incertitude_m": "marge liée à la définition du centre de site",
+      "nature": "separation",
+      "methode": "méthode d'obtention",
+      "statut": "calculee"
     }
   },
   "points": [
     {
       "nom": "Kaaba (Masjid al-Haram)",
-      "anneau": 0,
-      "distance_kaaba_approx_km": 0,
-      "note": "Point d'ancrage du réseau"
-    },
-    {
-      "nom": "Jabal Thawr",
-      "anneau": 1,
-      "distance_kaaba_approx_km": 4,
-      "note": "Grotte de Thawr, au sud"
-    },
-    {
-      "nom": "Jabal an-Nour",
-      "anneau": 1,
-      "distance_kaaba_approx_km": 4,
-      "note": "Grotte de Hira, au nord-est"
+      "latitude": 21.4225,
+      "longitude": 39.82617,
+      "description": "Al-Masjid al-Haram",
+      "statut": "releve"
     },
     {
       "nom": "Mina",
-      "anneau": 1,
-      "distance_kaaba_approx_km": 6,
-      "note": "Vallée de Mina, à l'est"
+      "latitude": 21.41333,
+      "longitude": 39.89333,
+      "description": "Campement de Mina",
+      "statut": "releve"
+    },
+    {
+      "nom": "Jabal an-Nour",
+      "latitude": 21.4575,
+      "longitude": 39.85917,
+      "description": "Grotte de Hira (sommet)",
+      "statut": "releve"
+    },
+    {
+      "nom": "Jabal Thawr",
+      "latitude": 21.37889,
+      "longitude": 39.84972,
+      "description": "Grotte de Thawr (sommet)",
+      "statut": "releve"
     },
     {
       "nom": "At-Tan'im (Masjid Aïcha)",
-      "anneau": 1,
-      "distance_kaaba_approx_km": 7,
-      "note": "Miqat au nord"
+      "latitude": 21.48833,
+      "longitude": 39.81306,
+      "description": "Mosquée Aïcha",
+      "statut": "releve"
     },
     {
       "nom": "Muzdalifah",
-      "anneau": 1,
-      "distance_kaaba_approx_km": 9,
-      "note": "Entre Mina et Arafat"
+      "latitude": 21.38333,
+      "longitude": 39.905,
+      "description": "Site de Muzdalifah",
+      "statut": "releve"
     },
     {
       "nom": "Arafat (Jabal ar-Rahmah)",
-      "anneau": 2,
-      "distance_kaaba_approx_km": 20,
-      "note": "Plaine d'Arafat, à l'est"
+      "latitude": 21.35472,
+      "longitude": 39.98417,
+      "description": "Jabal ar-Rahmah",
+      "statut": "releve"
     },
     {
       "nom": "Al-Ju'ranah",
-      "anneau": 2,
-      "distance_kaaba_approx_km": 22,
-      "note": "Miqat au nord-est"
+      "latitude": 21.55833,
+      "longitude": 39.92889,
+      "description": "Mosquée Al-Ju'ranah",
+      "statut": "releve"
     },
     {
       "nom": "Al-Hudaybiyyah (Ash-Shumaysi)",
-      "anneau": 2,
-      "distance_kaaba_approx_km": 22,
-      "note": "Miqat à l'ouest"
+      "latitude": 21.43944,
+      "longitude": 39.63806,
+      "description": "Ash-Shumaysi",
+      "statut": "releve"
     }
   ],
-  "_note_points": "Les valeurs distance_kaaba_approx_km sont des ORDRES DE GRANDEUR indicatifs, destinés uniquement à choisir quelles paires sont assez proches pour être mesurées. Ce ne sont PAS des données : les mesures vont dans la section liaisons.",
   "liaisons": [
     {
-      "_groupe": "RADIALES depuis la Kaaba (6)"
+      "a": "Kaaba (Masjid al-Haram)",
+      "b": "Mina",
+      "distance_m": 7037,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Kaaba (Masjid al-Haram)",
+      "b": "Jabal an-Nour",
+      "distance_m": 5169,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
     },
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Jabal Thawr",
-      "distance_m": 4750,
+      "distance_m": 5411,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
-      "statut": "sourcee"
-    },
-    {
-      "a": "Kaaba (Masjid al-Haram)",
-      "b": "Jabal an-Nour",
-      "distance_m": 6700,
-      "incertitude_m": 250,
-      "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 5 — corrections géodésiques",
-      "statut": "sourcee"
-    },
-    {
-      "a": "Kaaba (Masjid al-Haram)",
-      "b": "Mina",
-      "distance_m": 6750,
-      "incertitude_m": 250,
-      "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
-      "statut": "sourcee"
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
     },
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "At-Tan'im (Masjid Aïcha)",
-      "distance_m": 7000,
+      "distance_m": 7414,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
-      "statut": "sourcee"
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
     },
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Muzdalifah",
-      "distance_m": 11300,
+      "distance_m": 9253,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
-      "statut": "sourcee"
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
     },
     {
       "a": "Kaaba (Masjid al-Haram)",
       "b": "Arafat (Jabal ar-Rahmah)",
-      "distance_m": 17900,
+      "distance_m": 18021,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
-      "statut": "sourcee"
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
     },
     {
-      "_groupe": "TRANSVERSALES de l'anneau 1 — verrouillage du noyau (10)"
+      "a": "Kaaba (Masjid al-Haram)",
+      "b": "Al-Ju'ranah",
+      "distance_m": 18425,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
     },
     {
-      "a": "Jabal Thawr",
+      "a": "Kaaba (Masjid al-Haram)",
+      "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
+      "distance_m": 19591,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mina",
       "b": "Jabal an-Nour",
-      "distance_m": 9600,
+      "distance_m": 6038,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
-      "reference": "lot 1 — transversales anneau 1",
-      "statut": "sourcee"
-    },
-    {
-      "a": "Jabal Thawr",
-      "b": "Mina",
-      "distance_m": 6700,
-      "incertitude_m": 250,
-      "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 1 — transversales anneau 1",
-      "statut": "sourcee"
-    },
-    {
-      "a": "Jabal Thawr",
-      "b": "At-Tan'im (Masjid Aïcha)",
-      "distance_m": 11650,
-      "incertitude_m": 250,
-      "nature": "separation",
-      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
-      "reference": "lot 1 — transversales anneau 1",
-      "statut": "sourcee"
-    },
-    {
-      "a": "Jabal an-Nour",
-      "b": "Mina",
-      "distance_m": 4350,
-      "incertitude_m": 250,
-      "nature": "separation",
-      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
-      "reference": "lot 1 — transversales anneau 1",
-      "statut": "sourcee"
-    },
-    {
-      "a": "Jabal an-Nour",
-      "b": "At-Tan'im (Masjid Aïcha)",
-      "distance_m": 7500,
-      "incertitude_m": 250,
-      "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 1 — transversales anneau 1",
-      "statut": "sourcee"
-    },
-    {
-      "a": "Jabal an-Nour",
-      "b": "Muzdalifah",
-      "distance_m": 7100,
-      "incertitude_m": 250,
-      "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 1 — transversales anneau 1",
-      "statut": "sourcee"
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
     },
     {
       "a": "Mina",
-      "b": "Muzdalifah",
-      "distance_m": 4600,
+      "b": "Jabal Thawr",
+      "distance_m": 5915,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
-      "reference": "lot 1 — transversales anneau 1",
-      "statut": "sourcee"
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
     },
     {
       "a": "Mina",
       "b": "At-Tan'im (Masjid Aïcha)",
-      "distance_m": 10600,
+      "distance_m": 11755,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 1 — transversales anneau 1",
-      "statut": "sourcee"
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mina",
+      "b": "Muzdalifah",
+      "distance_m": 3535,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mina",
+      "b": "Arafat (Jabal ar-Rahmah)",
+      "distance_m": 11439,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mina",
+      "b": "Al-Ju'ranah",
+      "distance_m": 16472,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mina",
+      "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
+      "distance_m": 26622,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Jabal an-Nour",
+      "b": "Jabal Thawr",
+      "distance_m": 8759,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Jabal an-Nour",
+      "b": "At-Tan'im (Masjid Aïcha)",
+      "distance_m": 5873,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Jabal an-Nour",
+      "b": "Muzdalifah",
+      "distance_m": 9488,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Jabal an-Nour",
+      "b": "Arafat (Jabal ar-Rahmah)",
+      "distance_m": 17248,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Jabal an-Nour",
+      "b": "Al-Ju'ranah",
+      "distance_m": 13298,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Jabal an-Nour",
+      "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
+      "distance_m": 23007,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Jabal Thawr",
+      "b": "At-Tan'im (Masjid Aïcha)",
+      "distance_m": 12699,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Jabal Thawr",
+      "b": "Muzdalifah",
+      "distance_m": 5754,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Jabal Thawr",
+      "b": "Arafat (Jabal ar-Rahmah)",
+      "distance_m": 14199,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Jabal Thawr",
+      "b": "Al-Ju'ranah",
+      "distance_m": 21496,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Jabal Thawr",
+      "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
+      "distance_m": 22947,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
     },
     {
       "a": "At-Tan'im (Masjid Aïcha)",
       "b": "Muzdalifah",
-      "distance_m": 14350,
+      "distance_m": 15033,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 1 — transversales anneau 1",
-      "statut": "sourcee"
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "At-Tan'im (Masjid Aïcha)",
+      "b": "Arafat (Jabal ar-Rahmah)",
+      "distance_m": 23099,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "At-Tan'im (Masjid Aïcha)",
+      "b": "Al-Ju'ranah",
+      "distance_m": 14286,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "At-Tan'im (Masjid Aïcha)",
+      "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
+      "distance_m": 18929,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
     },
     {
       "a": "Muzdalifah",
       "b": "Arafat (Jabal ar-Rahmah)",
-      "distance_m": 7100,
+      "distance_m": 8801,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique géodésique direct (SIG / WGS84 — centre à centre)",
-      "reference": "lot 1 — transversales anneau 1",
-      "statut": "sourcee"
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
     },
     {
-      "_groupe": "RACCORDEMENT de l'anneau 2 — chaque point a 3 appuis (10)"
-    },
-    {
-      "a": "Mina",
-      "b": "Arafat (Jabal ar-Rahmah)",
-      "distance_m": 11200,
-      "incertitude_m": 250,
-      "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 2 — verrouillage d'Arafat",
-      "statut": "sourcee"
-    },
-    {
-      "a": "At-Tan'im (Masjid Aïcha)",
-      "b": "Arafat (Jabal ar-Rahmah)",
-      "distance_m": 19800,
-      "incertitude_m": 250,
-      "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 3 — 3e appui d'Arafat, levée de l'ambiguïté miroir",
-      "statut": "sourcee"
-    },
-    {
-      "a": "Jabal an-Nour",
+      "a": "Muzdalifah",
       "b": "Al-Ju'ranah",
-      "distance_m": 16800,
+      "distance_m": 19534,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
-      "statut": "sourcee"
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
     },
     {
-      "a": "At-Tan'im (Masjid Aïcha)",
-      "b": "Al-Ju'ranah",
-      "distance_m": 15200,
+      "a": "Muzdalifah",
+      "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
+      "distance_m": 28366,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
-      "statut": "sourcee"
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
     },
     {
-      "a": "Mina",
+      "a": "Arafat (Jabal ar-Rahmah)",
       "b": "Al-Ju'ranah",
-      "distance_m": 18200,
+      "distance_m": 23261,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "",
-      "statut": "a_verifier",
-      "note": "Valeur 18 200 m appliquée mais CONTREDITE par le réseau : le sous-réseau à 25 liaisons (RMS 86 m) prédisait 21 140 m, soit un écart de -2 940 m, presque 12 fois l'incertitude déclarée. Al-Ju'ranah ne peut pas être à la fois à 18 200 m de Mina et à 21 500 m de la Kaaba compte tenu du reste. À revérifier au SIG."
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Arafat (Jabal ar-Rahmah)",
+      "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
+      "distance_m": 37095,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
     },
     {
       "a": "Al-Ju'ranah",
-      "b": "Arafat (Jabal ar-Rahmah)",
-      "distance_m": 23800,
-      "incertitude_m": 250,
-      "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "",
-      "statut": "sourcee"
-    },
-    {
-      "a": "At-Tan'im (Masjid Aïcha)",
       "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
-      "distance_m": 14300,
+      "distance_m": 32886,
       "incertitude_m": 250,
       "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
-      "statut": "sourcee"
-    },
-    {
-      "a": "Kaaba (Masjid al-Haram)",
-      "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
-      "distance_m": 16900,
-      "incertitude_m": 250,
-      "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 5 — corrections géodésiques",
-      "statut": "sourcee"
-    },
-    {
-      "a": "Jabal Thawr",
-      "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
-      "distance_m": 19850,
-      "incertitude_m": 250,
-      "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
-      "statut": "sourcee"
-    },
-    {
-      "a": "Kaaba (Masjid al-Haram)",
-      "b": "Al-Ju'ranah",
-      "distance_m": 21500,
-      "incertitude_m": 250,
-      "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 4 — radiales Kaaba + raccordement anneau 2",
-      "statut": "sourcee"
-    },
-    {
-      "a": "Jabal Thawr",
-      "b": "Arafat (Jabal ar-Rahmah)",
-      "distance_m": 15600,
-      "incertitude_m": 250,
-      "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "",
-      "statut": "a_verifier",
-      "note": "Valeur 15 600 m appliquée mais CONTREDITE par le réseau : le sous-réseau à 25 liaisons (RMS 86 m) prédisait 17 694 m, soit un écart de -2 094 m. Thawr étant du côté opposé à Arafat par rapport à la Kaaba, la liaison devrait être plus longue que Kaaba-Arafat (17 900 m), pas plus courte. À revérifier au SIG."
-    },
-    {
-      "a": "Mina",
-      "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
-      "distance_m": 23200,
-      "incertitude_m": 250,
-      "nature": "separation",
-      "methode": "Relevé cartographique SIG",
-      "reference": "lot 5 — 4e appui d'Al-Hudaybiyyah",
-      "statut": "sourcee"
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
     }
   ],
   "_controle": {
-    "appuis_par_point": {
-      "Kaaba (Masjid al-Haram)": 8,
-      "Jabal Thawr": 6,
-      "Jabal an-Nour": 6,
-      "Mina": 7,
-      "At-Tan'im (Masjid Aïcha)": 7,
-      "Muzdalifah": 5,
-      "Arafat (Jabal ar-Rahmah)": 5,
-      "Al-Ju'ranah": 5,
-      "Al-Hudaybiyyah (Ash-Shumaysi)": 3
-    },
-    "verification": "9 points, 26 liaisons. Seuil de rigidité 2N-3 = 15. Surdétermination : +11. Chaque point a au moins 3 appuis.",
-    "ordre_de_saisie_conseille": "Commencer par les 10 transversales de l'anneau 1 : ce sont les plus courtes (2 à 10 km), les plus faciles à mesurer avec précision, et ce sont elles qui verrouillent la forme. Les radiales seules ne servent à rien."
+    "points": 9,
+    "liaisons": 36,
+    "seuil_laman_2N_3": 15,
+    "surdetermination": 21,
+    "graphe": "complet K9 — rigidité globale triviale, forme unique",
+    "triangles_fermes": 84,
+    "violations_inegalite_triangulaire": 0,
+    "rms_ajustement_plan_m": 0.2,
+    "note": "Le graphe étant complet, la rigidité n'est plus une question : toute matrice de distances complète et cohérente détermine une figure unique. Le RMS mesure ici uniquement le défaut de planéité de la matrice."
+  },
+  "_annexe_versions_2x": {
+    "note": "Les 28 distances saisies à la main des versions 2.0 à 2.3, conservées pour traçabilité. 26 d'entre elles s'écartent de plus de 250 m de la valeur géodésique (écart médian 1 531 m, maximum 4 629 m). Elles ne sont plus utilisées par le solveur.",
+    "valeurs": [
+      {
+        "a": "Kaaba (Masjid al-Haram)",
+        "b": "Mina",
+        "distance_m_saisie": 6750,
+        "distance_m_wgs84": 7037,
+        "ecart_m": -287
+      },
+      {
+        "a": "Kaaba (Masjid al-Haram)",
+        "b": "Jabal an-Nour",
+        "distance_m_saisie": 6700,
+        "distance_m_wgs84": 5169,
+        "ecart_m": 1531
+      },
+      {
+        "a": "Kaaba (Masjid al-Haram)",
+        "b": "Jabal Thawr",
+        "distance_m_saisie": 4750,
+        "distance_m_wgs84": 5411,
+        "ecart_m": -661
+      },
+      {
+        "a": "Kaaba (Masjid al-Haram)",
+        "b": "At-Tan'im (Masjid Aïcha)",
+        "distance_m_saisie": 7000,
+        "distance_m_wgs84": 7414,
+        "ecart_m": -414
+      },
+      {
+        "a": "Kaaba (Masjid al-Haram)",
+        "b": "Muzdalifah",
+        "distance_m_saisie": 11300,
+        "distance_m_wgs84": 9253,
+        "ecart_m": 2047
+      },
+      {
+        "a": "Kaaba (Masjid al-Haram)",
+        "b": "Arafat (Jabal ar-Rahmah)",
+        "distance_m_saisie": 17900,
+        "distance_m_wgs84": 18021,
+        "ecart_m": -121
+      },
+      {
+        "a": "Kaaba (Masjid al-Haram)",
+        "b": "Al-Ju'ranah",
+        "distance_m_saisie": 21500,
+        "distance_m_wgs84": 18425,
+        "ecart_m": 3075
+      },
+      {
+        "a": "Kaaba (Masjid al-Haram)",
+        "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
+        "distance_m_saisie": 16900,
+        "distance_m_wgs84": 19591,
+        "ecart_m": -2691
+      },
+      {
+        "a": "Mina",
+        "b": "Jabal an-Nour",
+        "distance_m_saisie": 4350,
+        "distance_m_wgs84": 6038,
+        "ecart_m": -1688
+      },
+      {
+        "a": "Mina",
+        "b": "Jabal Thawr",
+        "distance_m_saisie": 6700,
+        "distance_m_wgs84": 5915,
+        "ecart_m": 785
+      },
+      {
+        "a": "Mina",
+        "b": "At-Tan'im (Masjid Aïcha)",
+        "distance_m_saisie": 10600,
+        "distance_m_wgs84": 11755,
+        "ecart_m": -1155
+      },
+      {
+        "a": "Mina",
+        "b": "Muzdalifah",
+        "distance_m_saisie": 4600,
+        "distance_m_wgs84": 3535,
+        "ecart_m": 1065
+      },
+      {
+        "a": "Mina",
+        "b": "Arafat (Jabal ar-Rahmah)",
+        "distance_m_saisie": 11200,
+        "distance_m_wgs84": 11439,
+        "ecart_m": -239
+      },
+      {
+        "a": "Mina",
+        "b": "Al-Ju'ranah",
+        "distance_m_saisie": 18200,
+        "distance_m_wgs84": 16472,
+        "ecart_m": 1728
+      },
+      {
+        "a": "Mina",
+        "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
+        "distance_m_saisie": 23200,
+        "distance_m_wgs84": 26622,
+        "ecart_m": -3422
+      },
+      {
+        "a": "Jabal an-Nour",
+        "b": "Jabal Thawr",
+        "distance_m_saisie": 9600,
+        "distance_m_wgs84": 8759,
+        "ecart_m": 841
+      },
+      {
+        "a": "Jabal an-Nour",
+        "b": "At-Tan'im (Masjid Aïcha)",
+        "distance_m_saisie": 7500,
+        "distance_m_wgs84": 5873,
+        "ecart_m": 1627
+      },
+      {
+        "a": "Jabal an-Nour",
+        "b": "Muzdalifah",
+        "distance_m_saisie": 7100,
+        "distance_m_wgs84": 9488,
+        "ecart_m": -2388
+      },
+      {
+        "a": "Jabal an-Nour",
+        "b": "Al-Ju'ranah",
+        "distance_m_saisie": 16800,
+        "distance_m_wgs84": 13298,
+        "ecart_m": 3502
+      },
+      {
+        "a": "Jabal Thawr",
+        "b": "At-Tan'im (Masjid Aïcha)",
+        "distance_m_saisie": 11650,
+        "distance_m_wgs84": 12699,
+        "ecart_m": -1049
+      },
+      {
+        "a": "Jabal Thawr",
+        "b": "Arafat (Jabal ar-Rahmah)",
+        "distance_m_saisie": 15600,
+        "distance_m_wgs84": 14199,
+        "ecart_m": 1401
+      },
+      {
+        "a": "Jabal Thawr",
+        "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
+        "distance_m_saisie": 19850,
+        "distance_m_wgs84": 22947,
+        "ecart_m": -3097
+      },
+      {
+        "a": "At-Tan'im (Masjid Aïcha)",
+        "b": "Muzdalifah",
+        "distance_m_saisie": 14350,
+        "distance_m_wgs84": 15033,
+        "ecart_m": -683
+      },
+      {
+        "a": "At-Tan'im (Masjid Aïcha)",
+        "b": "Arafat (Jabal ar-Rahmah)",
+        "distance_m_saisie": 19800,
+        "distance_m_wgs84": 23099,
+        "ecart_m": -3299
+      },
+      {
+        "a": "At-Tan'im (Masjid Aïcha)",
+        "b": "Al-Ju'ranah",
+        "distance_m_saisie": 15200,
+        "distance_m_wgs84": 14286,
+        "ecart_m": 914
+      },
+      {
+        "a": "At-Tan'im (Masjid Aïcha)",
+        "b": "Al-Hudaybiyyah (Ash-Shumaysi)",
+        "distance_m_saisie": 14300,
+        "distance_m_wgs84": 18929,
+        "ecart_m": -4629
+      },
+      {
+        "a": "Muzdalifah",
+        "b": "Arafat (Jabal ar-Rahmah)",
+        "distance_m_saisie": 7100,
+        "distance_m_wgs84": 8801,
+        "ecart_m": -1701
+      },
+      {
+        "a": "Arafat (Jabal ar-Rahmah)",
+        "b": "Al-Ju'ranah",
+        "distance_m_saisie": 23800,
+        "distance_m_wgs84": 23261,
+        "ecart_m": 539
+      }
+    ]
   }
 }
