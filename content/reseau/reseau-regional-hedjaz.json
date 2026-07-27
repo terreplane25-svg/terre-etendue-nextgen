@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "0.1 — structure d'accueil, aucune donnée",
+    "version": "0.2 — discriminant corrigé, aucune donnée",
     "titre": "Anneau régional du Hedjaz — extension discriminante du noyau de La Mecque",
     "description": "Réseau de distances à l'échelle régionale (60 à 1 200 km) destiné à tester si la géométrie du terrain est plane ou sphérique. Le noyau local (reseau-mecque-noyau.json, v3.0, clos) sert d'ancrage topologique. Ce fichier est VIDE de distances : il définit la structure et les règles de provenance avant toute saisie.",
     "ancrage": {
@@ -8,14 +8,12 @@
       "version": "3.0",
       "role": "Le noyau fournit 9 points dont la configuration relative est établie et fermée. Il n'apporte AUCUNE contrainte de courbure — son étendue de 37 km est trop faible. Il sert uniquement de socle rigide auquel raccrocher les longues liaisons."
     },
-
     "_regle_fondamentale": {
       "enonce": "Une distance CALCULÉE depuis des coordonnées géodésiques ne peut jamais servir à tester une géométrie. Elle restitue par construction le modèle qui l'a produite.",
       "explication": "À 37 km, la méthode de la v3.0 (coordonnées WGS84 + Vincenty inverse) était légitime : l'écart entre plan et sphère y valait 30 m, sous l'incertitude, donc le choix de formule était sans conséquence. À 300 km il vaut 9 km. Calculer la distance Mecque–Médine par Vincenty revient à demander à l'ellipsoïde WGS84 quelle distance il prédit, puis à s'étonner qu'un ajustement plan échoue de 9 km. L'échec mesurerait la distorsion de la projection assumée, pas le terrain. C'est le même piège circulaire que celui des lots 6 à 8, transposé d'une échelle.",
       "consequence": "L'extension régionale ne PEUT PAS reprendre la méthode de la v3.0. C'est le seul point où la continuité de méthode serait une faute.",
       "corollaire_cartes": "Toute carte à l'échelle régionale est déjà une projection, donc déjà un modèle. Lire une distance sur une carte, un SIG ou un service d'itinéraire, c'est lire la sortie du modèle qu'on voulait tester."
     },
-
     "classes_de_source": {
       "note": "Chaque liaison DOIT porter une classe. Seules les classes A et B ont valeur de test. Les classes C et D sont admises mais uniquement comme référence de comparaison, jamais comme donnée d'entrée du solveur.",
       "A_mesure_terrestre_directe": {
@@ -43,24 +41,6 @@
         "nature_produite": "indeterminee"
       }
     },
-
-    "pouvoir_discriminant_par_distance": {
-      "note": "Flèche sphérique s = R(1 − cos(d/R)) pour R = 6 371 km. C'est l'écart vertical entre la corde et l'arc : l'ordre de grandeur du signal à détecter. Colonne 'ratio' = signal divisé par l'incertitude de 250 m héritée du noyau.",
-      "table": [
-        { "paire": "Mecque – Djeddah", "distance_km": 66, "fleche_m": 342, "ratio": 1.4, "verdict": "insuffisant" },
-        { "paire": "Mecque – Taïf", "distance_km": 63, "fleche_m": 316, "ratio": 1.3, "verdict": "insuffisant" },
-        { "paire": "Mecque – Al-Lith", "distance_km": 148, "fleche_m": 1724, "ratio": 6.9, "verdict": "marginal" },
-        { "paire": "Mecque – Rabigh", "distance_km": 173, "fleche_m": 2345, "ratio": 9.4, "verdict": "marginal" },
-        { "paire": "Mecque – Médine", "distance_km": 338, "fleche_m": 8966, "ratio": 35.9, "verdict": "discriminant" },
-        { "paire": "Mecque – Yanbu", "distance_km": 347, "fleche_m": 9420, "ratio": 37.7, "verdict": "discriminant" },
-        { "paire": "Mecque – Abha", "distance_km": 453, "fleche_m": 16060, "ratio": 64.2, "verdict": "discriminant" },
-        { "paire": "Mecque – Riyad", "distance_km": 791, "fleche_m": 48997, "ratio": 196.0, "verdict": "massif" },
-        { "paire": "Mecque – Tabuk", "distance_km": 839, "fleche_m": 55141, "ratio": 220.6, "verdict": "massif" },
-        { "paire": "Mecque – Dammam", "distance_km": 1182, "fleche_m": 109295, "ratio": 437.2, "verdict": "massif" }
-      ],
-      "lecture": "Djeddah et Taïf, les deux voisines évidentes, sont inutiles pour trancher : le signal y est du même ordre que le bruit. Le seuil utile commence vers 150 km et devient franc à partir de 300 km. Les distances de la table sont elles-mêmes de classe C — elles servent à dimensionner l'expérience, pas à la conduire."
-    },
-
     "regles_de_construction": [
       "Aucune distance n'entre dans le fichier sans classe de source explicite et référence vérifiable.",
       "Le solveur ne consomme que les classes A et B. Les classes C et D vivent dans un bloc séparé, _references_modele.",
@@ -70,7 +50,6 @@
       "Une liaison prédite AVANT d'être mesurée, puis mesurée indépendamment, est le seul test réel. Consigner la prédiction avant réception de la mesure.",
       "L'incertitude de 250 m du noyau ne se transporte pas : à l'échelle régionale elle dépend de la méthode de chaque liaison et doit être estimée liaison par liaison."
     ],
-
     "champs_liaison": {
       "a": "premier point",
       "b": "second point",
@@ -82,40 +61,265 @@
       "reference": "référence vérifiable : rapport, campagne, enregistrement, date",
       "prediction_avant_mesure_m": "valeur prédite par le réseau avant réception de la mesure, si applicable",
       "statut": "mesuree | a_mesurer | a_verifier"
+    },
+    "_correction_discriminant": {
+      "titre": "CORRECTION DE MÉTHODE — la flèche sphérique n'est pas le bon discriminant pour un réseau de distances",
+      "erreur_corrigee": "Les versions précédentes de ce fichier et du README classaient les paires par flèche sphérique s = R(1 − cos(d/R)). C'est le mauvais critère. La flèche est la sagitta : l'écart VERTICAL entre la corde et l'arc. Elle gouverne les expériences de ligne de visée (hauteur cachée, type Bedford), pas les mesures de distance. Un réseau de distances mesure des longueurs le long du sol, jamais des cordes.",
+      "bon_discriminant": "Le vrai signal est l'écart entre la distance géodésique et la distance que la carte plane candidate prédit pour la MÊME paire. Sur une carte azimutale équidistante polaire nord, les distances le long d'un méridien sont exactes par construction ; les distances le long d'un parallèle sont étirées du facteur θ/sin θ, où θ est la colatitude. À la latitude de La Mecque (colatitude 68,58°) ce facteur vaut 1,2857, soit +28,6 %.",
+      "consequence": "Le discriminant n'est pas la LONGUEUR de la liaison mais son AZIMUT. Une paire est-ouest de 60 km discrimine massivement ; une paire nord-sud de 340 km ne discrimine rien.",
+      "table_corrigee": [
+        {
+          "cible": "Djeddah",
+          "azimut_deg": 276.2,
+          "geodesique_km": 66.1,
+          "carte_plate_km": 84.7,
+          "ecart_km": 18.61,
+          "ecart_pourcent": 28.17,
+          "verdict": "MAXIMAL — et c'est la paire la plus courte du lot"
+        },
+        {
+          "cible": "Taïf",
+          "azimut_deg": 105.4,
+          "geodesique_km": 63.4,
+          "carte_plate_km": 80.4,
+          "ecart_km": 16.97,
+          "ecart_pourcent": 26.75,
+          "verdict": "MAXIMAL"
+        },
+        {
+          "cible": "Riyad",
+          "azimut_deg": 61.1,
+          "geodesique_km": 790.6,
+          "carte_plate_km": 961.5,
+          "ecart_km": 170.87,
+          "ecart_pourcent": 21.61,
+          "verdict": "fort"
+        },
+        {
+          "cible": "Dammam",
+          "azimut_deg": 59.9,
+          "geodesique_km": 1181.8,
+          "carte_plate_km": 1426.6,
+          "ecart_km": 244.77,
+          "ecart_pourcent": 20.71,
+          "verdict": "fort"
+        },
+        {
+          "cible": "Abha",
+          "azimut_deg": 141.4,
+          "geodesique_km": 452.5,
+          "carte_plate_km": 509.1,
+          "ecart_km": 56.68,
+          "ecart_pourcent": 12.53,
+          "verdict": "moyen"
+        },
+        {
+          "cible": "Yanbu",
+          "azimut_deg": 329.0,
+          "geodesique_km": 346.5,
+          "carte_plate_km": 374.6,
+          "ecart_km": 28.11,
+          "ecart_pourcent": 8.11,
+          "verdict": "moyen"
+        },
+        {
+          "cible": "Rabigh",
+          "azimut_deg": 332.1,
+          "geodesique_km": 172.9,
+          "carte_plate_km": 184.7,
+          "ecart_km": 11.81,
+          "ecart_pourcent": 6.83,
+          "verdict": "faible"
+        },
+        {
+          "cible": "Tabuk",
+          "azimut_deg": 337.6,
+          "geodesique_km": 838.8,
+          "carte_plate_km": 874.8,
+          "ecart_km": 35.97,
+          "ecart_pourcent": 4.29,
+          "verdict": "faible"
+        },
+        {
+          "cible": "Al-Lith",
+          "azimut_deg": 162.0,
+          "geodesique_km": 148.2,
+          "carte_plate_km": 152.9,
+          "ecart_km": 4.66,
+          "ecart_pourcent": 3.14,
+          "verdict": "faible"
+        },
+        {
+          "cible": "Médine",
+          "azimut_deg": 356.3,
+          "geodesique_km": 337.9,
+          "carte_plate_km": 338.3,
+          "ecart_km": 0.44,
+          "ecart_pourcent": 0.13,
+          "verdict": "NUL — quasi plein nord, les deux modèles coïncident"
+        }
+      ],
+      "inversion": "Le classement précédent est presque exactement inversé. Djeddah et Taïf, déclarées « insuffisantes » sur le critère de la flèche, sont les DEUX MEILLEURES paires. Médine, déclarée « discriminante ×36 », est la PIRE : à 356,3° d'azimut elle est quasi plein nord, donc quasi le long d'un méridien, là où la carte plane et l'ellipsoïde s'accordent par construction.",
+      "carte_plane_de_reference": "Ces chiffres valent pour l'azimutale équidistante polaire nord calibrée sur l'arc de méridien de l'ellipsoïde WGS84. Une autre carte plane donnerait d'autres chiffres : le champ modele_plan_reference reste obligatoire."
+    },
+    "_pouvoir_discriminant_par_distance_OBSOLETE": {
+      "note": "Flèche sphérique s = R(1 − cos(d/R)) pour R = 6 371 km. C'est l'écart vertical entre la corde et l'arc : l'ordre de grandeur du signal à détecter. Colonne 'ratio' = signal divisé par l'incertitude de 250 m héritée du noyau.",
+      "table": [
+        {
+          "paire": "Mecque – Djeddah",
+          "distance_km": 66,
+          "fleche_m": 342,
+          "ratio": 1.4,
+          "verdict": "insuffisant"
+        },
+        {
+          "paire": "Mecque – Taïf",
+          "distance_km": 63,
+          "fleche_m": 316,
+          "ratio": 1.3,
+          "verdict": "insuffisant"
+        },
+        {
+          "paire": "Mecque – Al-Lith",
+          "distance_km": 148,
+          "fleche_m": 1724,
+          "ratio": 6.9,
+          "verdict": "marginal"
+        },
+        {
+          "paire": "Mecque – Rabigh",
+          "distance_km": 173,
+          "fleche_m": 2345,
+          "ratio": 9.4,
+          "verdict": "marginal"
+        },
+        {
+          "paire": "Mecque – Médine",
+          "distance_km": 338,
+          "fleche_m": 8966,
+          "ratio": 35.9,
+          "verdict": "discriminant"
+        },
+        {
+          "paire": "Mecque – Yanbu",
+          "distance_km": 347,
+          "fleche_m": 9420,
+          "ratio": 37.7,
+          "verdict": "discriminant"
+        },
+        {
+          "paire": "Mecque – Abha",
+          "distance_km": 453,
+          "fleche_m": 16060,
+          "ratio": 64.2,
+          "verdict": "discriminant"
+        },
+        {
+          "paire": "Mecque – Riyad",
+          "distance_km": 791,
+          "fleche_m": 48997,
+          "ratio": 196.0,
+          "verdict": "massif"
+        },
+        {
+          "paire": "Mecque – Tabuk",
+          "distance_km": 839,
+          "fleche_m": 55141,
+          "ratio": 220.6,
+          "verdict": "massif"
+        },
+        {
+          "paire": "Mecque – Dammam",
+          "distance_km": 1182,
+          "fleche_m": 109295,
+          "ratio": 437.2,
+          "verdict": "massif"
+        }
+      ],
+      "lecture": "Djeddah et Taïf, les deux voisines évidentes, sont inutiles pour trancher : le signal y est du même ordre que le bruit. Le seuil utile commence vers 150 km et devient franc à partir de 300 km. Les distances de la table sont elles-mêmes de classe C — elles servent à dimensionner l'expérience, pas à la conduire.",
+      "_obsolete": "OBSOLÈTE — critère erroné, conservé pour traçabilité. Voir _correction_discriminant."
     }
   },
-
   "points": [
-    { "nom": "Kaaba (Masjid al-Haram)", "role": "ancrage", "anneau": 0, "source_position": "noyau v3.0", "statut": "etabli" },
-
-    { "nom": "Djeddah", "anneau": 1, "distance_indicative_km": 66, "statut": "a_mesurer" },
-    { "nom": "Taïf", "anneau": 1, "distance_indicative_km": 63, "statut": "a_mesurer" },
-
-    { "nom": "Al-Lith", "anneau": 2, "distance_indicative_km": 148, "statut": "a_mesurer" },
-    { "nom": "Rabigh", "anneau": 2, "distance_indicative_km": 173, "statut": "a_mesurer" },
-
-    { "nom": "Médine", "anneau": 3, "distance_indicative_km": 338, "statut": "a_mesurer" },
-    { "nom": "Yanbu", "anneau": 3, "distance_indicative_km": 347, "statut": "a_mesurer" },
-    { "nom": "Abha", "anneau": 3, "distance_indicative_km": 453, "statut": "a_mesurer" },
-
-    { "nom": "Riyad", "anneau": 4, "distance_indicative_km": 791, "statut": "a_mesurer" },
-    { "nom": "Tabuk", "anneau": 4, "distance_indicative_km": 839, "statut": "a_mesurer" },
-    { "nom": "Dammam", "anneau": 4, "distance_indicative_km": 1182, "statut": "a_mesurer" }
+    {
+      "nom": "Kaaba (Masjid al-Haram)",
+      "role": "ancrage",
+      "anneau": 0,
+      "source_position": "noyau v3.0",
+      "statut": "etabli"
+    },
+    {
+      "nom": "Djeddah",
+      "anneau": 1,
+      "distance_indicative_km": 66,
+      "statut": "a_mesurer"
+    },
+    {
+      "nom": "Taïf",
+      "anneau": 1,
+      "distance_indicative_km": 63,
+      "statut": "a_mesurer"
+    },
+    {
+      "nom": "Al-Lith",
+      "anneau": 2,
+      "distance_indicative_km": 148,
+      "statut": "a_mesurer"
+    },
+    {
+      "nom": "Rabigh",
+      "anneau": 2,
+      "distance_indicative_km": 173,
+      "statut": "a_mesurer"
+    },
+    {
+      "nom": "Médine",
+      "anneau": 3,
+      "distance_indicative_km": 338,
+      "statut": "a_mesurer"
+    },
+    {
+      "nom": "Yanbu",
+      "anneau": 3,
+      "distance_indicative_km": 347,
+      "statut": "a_mesurer"
+    },
+    {
+      "nom": "Abha",
+      "anneau": 3,
+      "distance_indicative_km": 453,
+      "statut": "a_mesurer"
+    },
+    {
+      "nom": "Riyad",
+      "anneau": 4,
+      "distance_indicative_km": 791,
+      "statut": "a_mesurer"
+    },
+    {
+      "nom": "Tabuk",
+      "anneau": 4,
+      "distance_indicative_km": 839,
+      "statut": "a_mesurer"
+    },
+    {
+      "nom": "Dammam",
+      "anneau": 4,
+      "distance_indicative_km": 1182,
+      "statut": "a_mesurer"
+    }
   ],
-
   "liaisons": [],
-
   "_references_modele": {
     "note": "Emplacement réservé aux valeurs de classe C et D. Elles ne sont JAMAIS lues par le solveur. Leur seul usage est la colonne de comparaison : écart entre ce que le modèle prédit et ce que la mesure de classe A ou B a donné.",
     "valeurs": []
   },
-
   "_controle": {
     "points_declares": 11,
     "liaisons_mesurees": 0,
     "seuil_laman_2N_3": 19,
     "surdetermination": null,
     "etat": "Structure seule. Aucune donnée. Le réseau n'est pas encore un réseau.",
-    "prochain_jalon": "Une première liaison de classe A ou B, sur une paire dont la flèche dépasse largement l'incertitude de la méthode employée. Sans cela, ajouter des points ne fait qu'agrandir un graphe vide."
+    "prochain_jalon": "Mesurer Mecque – Djeddah ou Mecque – Taïf : ~65 km, azimut est-ouest, écart entre modèles de 17 à 19 km soit 27 %. Accessible à un odomètre routier étalonné en une demi-journée. ATTENTION au piège de coïncidence documenté dans jonction-makkah-madinah.json : la route Mecque–Djeddah mesure environ 84 km, presque exactement la prédiction de la carte plane (84,7 km). Un trajet routier n'est PAS une séparation et ne peut pas valider cette prédiction."
   }
 }

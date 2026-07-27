@@ -14,18 +14,55 @@ entre points, et on cherche quelle figure les satisfait toutes.
 | `reseau-regional-hedjaz.json` | 0.1 | Structure seule, 0 liaison | 11 points, jusqu'à 1 182 km |
 | `reseau-mecque-modele.json` | 1.0 | Archivé (schéma abandonné) | — |
 
-### Pouvoir discriminant des trois réseaux
+### Pouvoir discriminant — correction de méthode
 
-| Réseau | Étendue | Flèche sphérique | Incertitude | Verdict |
-|---|---|---|---|---|
-| Noyau Médine | 12 km | 11 m | ±250 m | non discriminant |
-| Noyau La Mecque | 37 km | 30 m | ±250 m | non discriminant |
-| Jonction Makkah–Madinah | 338 km | 8 959 m | ±250 m | **discriminant (×36)** |
+> **La flèche sphérique n'est pas le bon discriminant pour un réseau de distances.**
+> Les premières versions de ce README et des fichiers régionaux classaient les paires par
+> flèche `s = R(1 − cos(d/R))`. C'est le mauvais critère. La flèche est la *sagitta* :
+> l'écart **vertical** entre la corde et l'arc. Elle gouverne les expériences de ligne de
+> visée (hauteur cachée, type Bedford), pas les mesures de distance. Un réseau de
+> distances mesure des longueurs **le long du sol**, jamais des cordes.
 
-Additionner des noyaux ne crée pas de pouvoir discriminant : deux réseaux non
-discriminants restent non discriminants. C'est la **jonction** qui porte l'enjeu, et
-elle exige une mesure de classe A ou B — la méthode des noyaux (coordonnées WGS84 +
-Vincenty) y devient circulaire.
+Le vrai signal est l'écart entre la distance géodésique et celle que la **carte plane
+candidate** prédit pour la même paire. Sur une azimutale équidistante polaire nord, les
+distances le long d'un méridien sont exactes par construction ; celles le long d'un
+parallèle sont étirées du facteur `θ/sin θ` (θ = colatitude). À la latitude de La Mecque
+(colatitude 68,58°) ce facteur vaut **1,2857**, soit +28,6 %.
+
+**Le discriminant n'est donc pas la longueur de la liaison mais son azimut.** Une paire
+est-ouest de 60 km discrimine massivement ; une paire nord-sud de 340 km ne discrimine rien.
+
+| Cible depuis La Mecque | Azimut | Géodésique | Carte plate | Écart | % |
+|---|---|---|---|---|---|
+| **Djeddah** | 276,2° | 66,1 km | 84,7 km | +18,61 km | **+28,2** |
+| **Taïf** | 105,4° | 63,4 km | 80,4 km | +16,97 km | **+26,8** |
+| Riyad | 61,1° | 790,6 km | 961,5 km | +170,87 km | +21,6 |
+| Dammam | 59,9° | 1 181,8 km | 1 426,6 km | +244,77 km | +20,7 |
+| Abha | 141,4° | 452,5 km | 509,1 km | +56,68 km | +12,5 |
+| Yanbu | 329,0° | 346,5 km | 374,6 km | +28,11 km | +8,1 |
+| Rabigh | 332,1° | 172,9 km | 184,7 km | +11,81 km | +6,8 |
+| Tabuk | 337,6° | 838,8 km | 874,8 km | +35,97 km | +4,3 |
+| Al-Lith | 162,0° | 148,2 km | 152,9 km | +4,66 km | +3,1 |
+| Médine | 356,3° | 337,9 km | 338,3 km | +0,44 km | **+0,1** |
+
+Le classement précédent est presque exactement **inversé**. Djeddah et Taïf, déclarées
+« insuffisantes » sur le critère de la flèche, sont les deux meilleures paires. Médine,
+déclarée « discriminante ×36 », est la pire : à 356,3° d'azimut elle longe un méridien,
+là où les deux modèles coïncident par construction.
+
+Additionner des noyaux ne crée toujours aucun pouvoir discriminant. Mais l'axe à tester
+n'est pas Makkah–Madinah : c'est **Makkah–Djeddah**, cinq fois plus court et quarante-deux
+fois plus discriminant.
+
+### ⚠ Piège de coïncidence sur Makkah–Djeddah
+
+La route mesure ~84 km. La carte plane prédit 84,7 km pour la **séparation**. Les deux
+coïncident presque — et c'est un hasard sans signification : la route serpente et monte,
+son excédent sur la corde de 66 km n'a rien à voir avec la géométrie de la Terre.
+
+Un odomètre routier donnant 84 km ne confirme **pas** la carte plane. Sur cet axe la
+classe B n'est pas seulement insuffisante, elle est **activement trompeuse**. Seule une
+mesure de classe A — séparation en ligne droite — peut trancher.
 
 ## Projection d'affichage — UTM 37N (EPSG:32637)
 
