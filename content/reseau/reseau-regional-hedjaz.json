@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.3 — modèle plan verrouillé, 2 cibles pré-enregistrées",
     "titre": "Anneau régional du Hedjaz — extension discriminante du noyau de La Mecque",
-    "description": "Réseau de distances à l'échelle régionale (60 à 1 200 km) destiné à tester si la géométrie du terrain est plane ou sphérique. Le noyau local (reseau-mecque-noyau.json, v3.0, clos) sert d'ancrage topologique. Ce fichier est VIDE de distances : il définit la structure et les règles de provenance avant toute saisie.",
+    "description": "Réseau de distances à l'échelle régionale (60 à 1 200 km) destiné à tester si la géométrie du terrain est plane ou sphérique. Le noyau de La Mecque (reseau-mecque-noyau.json v3.0, clos) sert d'ancrage topologique. Le fichier ne contient AUCUNE MESURE : ses deux liaisons sont des cibles pré-enregistrées, avec les prédictions des deux modèles consignées et datées avant toute mesure (distance_m = null).",
     "ancrage": {
       "fichier": "content/reseau/reseau-mecque-noyau.json",
       "version": "3.0",

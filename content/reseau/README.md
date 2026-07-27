@@ -10,7 +10,7 @@ entre points, et on cherche quelle figure les satisfait toutes.
 |---|---|---|---|
 | `reseau-mecque-noyau.json` | 3.0 | **CLOS — verrouillé** | 9 points, 37 km |
 | `reseau-medine-noyau.json` | 3.0 | **CLOS — verrouillé** | 7 points, 12 km |
-| `jonction-makkah-madinah.json` | 0.3 | Socle topologique non discriminant | axe de 338 km |
+| `jonction-makkah-madinah.json` | 0.4 | Socle topologique non discriminant | axe de 338 km |
 | `reseau-regional-hedjaz.json` | 0.3 | 2 cibles pré-enregistrées, 0 mesure | 11 points, jusqu'à 1 182 km |
 | `reseau-mecque-modele.json` | 1.0 | Archivé (schéma abandonné) | — |
 
