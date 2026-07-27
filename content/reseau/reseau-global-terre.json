@@ -1,15 +1,65 @@
 {
   "_meta": {
-    "version": "0.1 — structure et moteur ECEF, aucune mesure",
+    "version": "0.2 — 5 noyaux, 10 cordes 3D",
     "titre": "Réseau global — constellation des noyaux, repère ECEF 3D",
     "description": "Fichier d'accueil de tous les noyaux locaux clos, avec le moteur de conversion WGS84 → ECEF et les cordes vectorielles 3D entre centres. Ces cordes sont de CLASSE C : elles sont dérivées de l'ellipsoïde WGS84 et n'ont aucune valeur de test.",
-
     "noyaux_membres": [
-      { "fichier": "reseau-mecque-noyau.json", "version": "3.0", "centre": "Kaaba (Masjid al-Haram)", "points": 9, "etendue_m": 37095, "fleche_m": 30, "discriminant": false },
-      { "fichier": "reseau-medine-noyau.json", "version": "3.0", "centre": "Al-Masjid an-Nabawi", "points": 7, "etendue_m": 11985, "fleche_m": 11, "discriminant": false },
-      { "fichier": "reseau-caire-noyau.json", "version": "3.0", "centre": "Pyramide de Khéops", "points": 6, "etendue_m": 22090, "fleche_m": 38, "discriminant": false }
+      {
+        "fichier": "reseau-mecque-noyau.json",
+        "version": "3.0",
+        "centre": "Kaaba (Masjid al-Haram)",
+        "points": 9,
+        "etendue_m": 37095,
+        "fleche_m": 30.0,
+        "incertitude_m": 250,
+        "signal_sur_bruit": "1/8,3",
+        "discriminant": false
+      },
+      {
+        "fichier": "reseau-medine-noyau.json",
+        "version": "3.0",
+        "centre": "Al-Masjid an-Nabawi",
+        "points": 7,
+        "etendue_m": 11985,
+        "fleche_m": 11.3,
+        "incertitude_m": 250,
+        "signal_sur_bruit": "1/22,1",
+        "discriminant": false
+      },
+      {
+        "fichier": "reseau-caire-noyau.json",
+        "version": "3.0",
+        "centre": "Pyramide de Khéops",
+        "points": 6,
+        "etendue_m": 22090,
+        "fleche_m": 38.3,
+        "incertitude_m": 250,
+        "signal_sur_bruit": "1/6,5",
+        "discriminant": false
+      },
+      {
+        "fichier": "reseau-paris-noyau.json",
+        "version": "3.0",
+        "centre": "Cathédrale Notre-Dame",
+        "points": 6,
+        "etendue_m": 5194,
+        "fleche_m": 2.12,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "1/11,8",
+        "discriminant": false
+      },
+      {
+        "fichier": "reseau-newyork-noyau.json",
+        "version": "3.0",
+        "centre": "Empire State Building",
+        "points": 6,
+        "etendue_m": 11288,
+        "fleche_m": 10.0,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "1/2,5",
+        "discriminant": false
+      }
     ],
-
     "_avertissement_capital": {
       "titre": "ECEF N'EST PAS UN REPÈRE NEUTRE — c'est le modèle WGS84 en coordonnées cartésiennes",
       "enonce": "Adopter ECEF comme cadre global n'évite pas le problème des projections planes : cela le remplace par l'adoption silencieuse d'une des deux hypothèses en présence.",
@@ -21,7 +71,6 @@
       "ce_que_ECEF_apporte_reellement": "Un système de bookkeeping commode : coordonnées additives, distances par simple norme euclidienne, pas de découpage en zones, pas de facteur d'échelle. C'est un outil de calcul et d'affichage 3D, utile et légitime comme tel.",
       "ce_qu_il_n_apporte_pas": "Aucun pouvoir de test. Le résidu nul d'un ajustement ECEF ne prouve rien sur la forme du terrain."
     },
-
     "_avertissement_corde_3D": {
       "titre": "Une corde 3D n'est pas une grandeur mesurable",
       "enonce": "La corde ECEF entre deux villes traverse l'intérieur du globe. Aucun instrument terrestre, maritime ou aérien ne peut la mesurer.",
@@ -29,10 +78,14 @@
       "ce_qui_reste_mesurable": "Seule la distance LE LONG DE LA SURFACE (géodésique, ou trajet) est accessible à la mesure. C'est donc elle, et non la corde, qui doit porter tout test de géométrie.",
       "ecart_corde_geodesique": "L'écart corde/géodésique croît avec la distance : −0,012 % à 338 km, −0,17 % à 1 285 km, et il atteindrait plusieurs pourcents à l'échelle intercontinentale. Ne jamais confondre les deux dans une même colonne."
     },
-
     "moteur_ECEF": {
       "reference": "WGS84 / EPSG:4978 — géocentrique cartésien",
-      "constantes": { "a_m": 6378137.0, "f": "1/298.257223563", "e2": 0.00669437999014, "b_m": 6356752.314245 },
+      "constantes": {
+        "a_m": 6378137.0,
+        "f": "1/298.257223563",
+        "e2": 0.00669437999014,
+        "b_m": 6356752.314245
+      },
       "conversion_geodetique_vers_cartesien": {
         "entrees": "latitude φ (deg), longitude λ (deg), hauteur ellipsoïdale h (m)",
         "rayon_de_courbure_premier_vertical": "N(φ) = a / √(1 − e²·sin²φ)",
@@ -44,30 +97,150 @@
       "convention_hauteur": "h = 0 (surface de l'ellipsoïde) pour tous les points de ce fichier. ATTENTION : h est une hauteur ELLIPSOÏDALE, pas une altitude au-dessus du niveau de la mer. L'écart entre les deux (ondulation du géoïde) atteint 10 à 20 m dans la région. Renseigner une altitude topographique dans ce champ introduirait une erreur silencieuse.",
       "note_axes": "X pointe vers l'intersection équateur / méridien de Greenwich, Y vers l'équateur à 90° E, Z vers le pôle Nord. Repère lié à la Terre (Earth-Fixed) : il tourne avec elle."
     },
-
     "centres_en_ECEF": [
-      { "nom": "Kaaba (Masjid al-Haram)", "latitude": 21.42250, "longitude": 39.82617, "h_m": 0, "X_m": 4561974.624, "Y_m": 3804425.438, "Z_m": 2315004.875 },
-      { "nom": "Al-Masjid an-Nabawi", "latitude": 24.46722, "longitude": 39.61111, "h_m": 0, "X_m": 4474966.931, "Y_m": 3703476.411, "Z_m": 2625473.090 },
-      { "nom": "Pyramide de Khéops", "latitude": 29.97917, "longitude": 31.13417, "h_m": 0, "X_m": 4732948.292, "Y_m": 2858948.108, "Z_m": 3168373.827 }
+      {
+        "nom": "Kaaba (Masjid al-Haram)",
+        "latitude": 21.4225,
+        "longitude": 39.82617,
+        "h_m": 0,
+        "X_m": 4561974.624,
+        "Y_m": 3804425.438,
+        "Z_m": 2315004.875
+      },
+      {
+        "nom": "Al-Masjid an-Nabawi",
+        "latitude": 24.46722,
+        "longitude": 39.61111,
+        "h_m": 0,
+        "X_m": 4474966.931,
+        "Y_m": 3703476.411,
+        "Z_m": 2625473.09
+      },
+      {
+        "nom": "Pyramide de Khéops",
+        "latitude": 29.97917,
+        "longitude": 31.13417,
+        "h_m": 0,
+        "X_m": 4732948.292,
+        "Y_m": 2858948.108,
+        "Z_m": 3168373.827
+      },
+      {
+        "nom": "Cathédrale Notre-Dame",
+        "latitude": 48.85297,
+        "longitude": 2.3499,
+        "h_m": 0,
+        "X_m": 4201225.453,
+        "Y_m": 172403.605,
+        "Z_m": 4779815.732
+      },
+      {
+        "nom": "Empire State Building",
+        "latitude": 40.74844,
+        "longitude": -73.98566,
+        "h_m": 0,
+        "X_m": 1334938.113,
+        "Y_m": -4651088.736,
+        "Z_m": 4141299.385
+      }
     ],
-
     "cordes_3D_entre_centres": {
       "classe_source": "C — dérivée de coordonnées. Non mesurable, donc définitivement non qualifiable.",
+      "nombre": 10,
+      "note": "Graphe complet K5 sur les centres.",
       "valeurs": [
-        { "a": "Kaaba", "b": "Al-Masjid an-Nabawi", "corde_3D_m": 337863.2, "geodesique_m": 337903.1, "ecart_m": -39.9, "ecart_pourcent": -0.0118 },
-        { "a": "Kaaba", "b": "Pyramide de Khéops", "corde_3D_m": 1285067.3, "geodesique_m": 1287261.1, "ecart_m": -2193.8, "ecart_pourcent": -0.1704 },
-        { "a": "Al-Masjid an-Nabawi", "b": "Pyramide de Khéops", "corde_3D_m": 1036592.3, "geodesique_m": 1037739.2, "ecart_m": -1146.9, "ecart_pourcent": -0.1105 }
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Al-Masjid an-Nabawi",
+          "corde_3D_m": 337863.2,
+          "geodesique_m": 337903.1,
+          "ecart_m": -39.9,
+          "ecart_pourcent": -0.0118
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Pyramide de Khéops",
+          "corde_3D_m": 1036592.3,
+          "geodesique_m": 1037739.2,
+          "ecart_m": -1146.9,
+          "ecart_pourcent": -0.1105
+        },
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Pyramide de Khéops",
+          "corde_3D_m": 1285067.3,
+          "geodesique_m": 1287261.1,
+          "ecart_m": -2193.8,
+          "ecart_pourcent": -0.1704
+        },
+        {
+          "a": "Pyramide de Khéops",
+          "b": "Cathédrale Notre-Dame",
+          "corde_3D_m": 3177577.0,
+          "geodesique_m": 3211416.0,
+          "ecart_m": -33839.0,
+          "ecart_pourcent": -1.0537
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Cathédrale Notre-Dame",
+          "corde_3D_m": 4145431.4,
+          "geodesique_m": 4222189.4,
+          "ecart_m": -76757.9,
+          "ecart_pourcent": -1.818
+        },
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Cathédrale Notre-Dame",
+          "corde_3D_m": 4404204.3,
+          "geodesique_m": 4496941.7,
+          "ecart_m": -92737.4,
+          "ecart_pourcent": -2.0622
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Empire State Building",
+          "corde_3D_m": 5647068.7,
+          "geodesique_m": 5849202.5,
+          "ecart_m": -202133.8,
+          "ecart_pourcent": -3.4557
+        },
+        {
+          "a": "Pyramide de Khéops",
+          "b": "Empire State Building",
+          "corde_3D_m": 8300223.5,
+          "geodesique_m": 9035038.3,
+          "ecart_m": -734814.8,
+          "ecart_pourcent": -8.1329
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Empire State Building",
+          "corde_3D_m": 9052970.2,
+          "geodesique_m": 10062297.5,
+          "ecart_m": -1009327.3,
+          "ecart_pourcent": -10.0308
+        },
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Empire State Building",
+          "corde_3D_m": 9232813.0,
+          "geodesique_m": 10320376.5,
+          "ecart_m": -1087563.5,
+          "ecart_pourcent": -10.538
+        }
       ],
-      "lecture": "La corde est toujours PLUS COURTE que la géodésique, puisqu'elle coupe au travers. C'est la vérification élémentaire de cohérence du moteur : un écart positif signalerait une erreur de code."
+      "lecture": "La corde est toujours PLUS COURTE que la géodésique, puisqu'elle coupe au travers du globe. Les dix écarts sont négatifs : contrôle de cohérence du moteur validé.",
+      "croissance_de_l_ecart": "L'écart passe de −0,012 % à 338 km à −10,54 % sur l'axe Kaaba – Empire State Building (10 320 km). Sur cet axe la corde est plus courte que la géodésique de 1 087,6 km. Confondre les deux à l'échelle intercontinentale est une erreur de l'ordre du millier de kilomètres, pas du mètre."
     },
-
     "_ou_le_test_se_joue_reellement": {
-      "constat": "Trois noyaux clos, 22 points, 72 distances calculées, et toujours zéro mesure. Aucun des trois noyaux n'est discriminant : 30, 11 et 38 m de flèche contre ±250 m d'incertitude.",
-      "regle": "Empiler des noyaux non discriminants ne produit pas de pouvoir discriminant, quel que soit le repère employé. Passer de 2 à 3 puis à 20 noyaux ne change rien à cette arithmétique.",
+      "constat": "Cinq noyaux clos, 34 points, 102 distances calculées, et toujours zéro mesure de terrain. Aucun des cinq n'est discriminant.",
+      "table_signal_sur_bruit": "Médine 1/22,1 — Paris 1/11,8 — La Mecque 1/8,3 — Le Caire 1/6,5 — New York 1/2,5. Le meilleur reste sous l'unité : dans les cinq cas, l'écart entre plan et sphère est plus petit que l'incertitude sur la position des points.",
+      "regle": "Empiler des noyaux non discriminants ne produit pas de pouvoir discriminant, quel que soit le repère employé, quel que soit le continent, et quel que soit leur nombre. Passer de 3 à 5 noyaux n'a modifié aucun terme de cette arithmétique.",
+      "pourquoi_ces_noyaux_ne_peuvent_pas_discriminer": "Un noyau local est trop petit par construction : la flèche croît comme le carré de l'étendue, donc un bassin urbain de 5 à 37 km produit un signal de 2 à 38 m. Aucun raffinement de méthode ne contourne cette échelle.",
       "cible_reelle": "reseau-regional-hedjaz.json v0.3, cible n°1 : Kaaba → Djeddah, azimut 276,2°, 66 km. Prédictions consignées le 2026-07-27 : 66 054 m (WGS84) contre 84 660 m (modèle plan). Écart 28,2 %. Classe A exigée, classe B proscrite.",
-      "ordre_de_priorite": "Une seule mesure de classe A sur cet axe de 66 km vaut plus que dix noyaux supplémentaires et que n'importe quel raffinement de repère."
+      "ordre_de_priorite": "Une seule mesure de classe A sur cet axe de 66 km vaut plus que la totalité des cinq noyaux et que tout noyau supplémentaire."
     },
-
     "regles_de_construction": [
       "Aucune corde 3D ne doit être présentée comme une donnée : ce sont toutes des sorties de modèle, classe C définitive.",
       "Ne jamais mélanger corde 3D et distance géodésique dans une même colonne ni dans un même solveur.",
@@ -77,17 +250,15 @@
       "L'ajout d'un noyau ne crée aucun pouvoir de test et ne doit pas être présenté comme un progrès expérimental."
     ]
   },
-
   "liaisons_mesurees": [],
-
   "_controle": {
-    "noyaux_membres": 3,
-    "points_totaux": 22,
-    "distances_calculees": 72,
+    "noyaux_membres": 5,
+    "points_totaux": 34,
+    "distances_calculees": 102,
     "mesures_de_terrain": 0,
-    "cordes_3D_classe_C": 3,
+    "cordes_3D_classe_C": 10,
     "residu_ajustement_ECEF": "identiquement nul par construction — non rapporté comme résultat",
-    "etat": "Moteur ECEF opérationnel, trois noyaux raccordés. Aucune donnée de terrain dans tout le projet.",
+    "etat": "Moteur ECEF opérationnel, cinq noyaux raccordés sur trois continents. Aucune donnée de terrain dans tout le projet.",
     "prochain_jalon": "Une mesure de classe A sur Kaaba → Djeddah. Aucun travail de structure ne peut se substituer à cela."
   }
 }

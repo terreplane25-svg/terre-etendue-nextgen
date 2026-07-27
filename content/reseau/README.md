@@ -8,17 +8,18 @@ entre points, et on cherche quelle figure les satisfait toutes.
 
 | | |
 |---|---|
-| Noyaux clos et verrouillés | 3 — Makkah K9, Madinah K7, Cairo K6 |
-| Points relevés | 22 |
-| Distances **calculées** (classe C) | 72 |
+| Noyaux clos et verrouillés | 5 — Makkah K9, Madinah K7, Cairo K6, Paris K6, New York K6 |
+| Points relevés | 34 |
+| Distances **calculées** (classe C) | 102 |
 | **Mesures de terrain (classe A ou B)** | **0** |
 | Modèle plan de référence | verrouillé le 2026-07-27 |
 | Cibles pré-enregistrées | 2, prédictions datées, non mesurées |
 
-**Le dossier est une infrastructure complète sans aucune donnée expérimentale.** Les trois
+**Le dossier est une infrastructure complète sans aucune donnée expérimentale.** Les cinq
 noyaux sont géométriquement irréprochables et aucun n'est discriminant : leurs étendues
-(12, 22, 37 km) placent le signal à 11–38 m contre ±250 m d'incertitude. Empiler des noyaux
-non discriminants n'en crée pas, et changer de repère (UTM, ECEF) n'y change rien non plus.
+(5 à 37 km) placent le signal à 2–38 m, toujours sous l'incertitude sur la position des
+points. Empiler des noyaux non discriminants n'en crée pas — quel que soit le repère (UTM,
+ECEF), le continent, ou leur nombre.
 
 ### Prochain jalon — la seule cible porteuse d'un test
 
@@ -42,9 +43,11 @@ Une seule mesure sur cet axe de 66 km vaut plus que dix noyaux supplémentaires.
 | `reseau-mecque-noyau.json` | 3.0 | **CLOS — verrouillé** | 9 points, 37 km |
 | `reseau-medine-noyau.json` | 3.0 | **CLOS — verrouillé** | 7 points, 12 km |
 | `reseau-caire-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 22 km |
+| `reseau-paris-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 5 km |
+| `reseau-newyork-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 11 km |
 | `jonction-makkah-madinah.json` | 0.4 | Socle topologique non discriminant | axe de 338 km |
 | `reseau-regional-hedjaz.json` | 0.3 | 2 cibles pré-enregistrées, 0 mesure | 11 points, jusqu'à 1 182 km |
-| `reseau-global-terre.json` | 0.1 | Moteur ECEF, 3 noyaux, 0 mesure | intercontinental |
+| `reseau-global-terre.json` | 0.2 | Moteur ECEF, 5 noyaux, 0 mesure | intercontinental |
 | `reseau-mecque-modele.json` | 1.0 | Archivé (schéma abandonné) | — |
 
 ### Pouvoir discriminant — correction de méthode
@@ -342,14 +345,47 @@ La corde est toujours **plus courte** que la géodésique, puisqu'elle coupe au 
 
 ### Les trois noyaux, et ce qu'ils ne font pas
 
-| Noyau | Points | Étendue | Flèche | Signal/bruit | Discriminant |
-|---|---|---|---|---|---|
-| Médine | 7 | 12 km | 11 m | 1/23 | non |
-| La Mecque | 9 | 37 km | 30 m | 1/8 | non |
-| Le Caire | 6 | 22 km | 38 m | 1/6,5 | non |
+| Noyau | Points | Étendue | Flèche | Incertitude | Signal/bruit | Discriminant |
+|---|---|---|---|---|---|---|
+| Médine | 7 | 11 985 m | 11,3 m | ±250 m | 1/22,1 | non |
+| Paris | 6 | 5 194 m | 2,12 m | ±25 m | 1/11,8 | non |
+| La Mecque | 9 | 37 095 m | 30,0 m | ±250 m | 1/8,3 | non |
+| Le Caire | 6 | 22 090 m | 38,3 m | ±250 m | 1/6,5 | non |
+| New York | 6 | 11 288 m | 10,0 m | ±25 m | 1/2,5 | non |
 
-**Empiler des noyaux non discriminants ne produit pas de pouvoir discriminant**, quel que
-soit le repère. Passer de 2 à 3 puis à 20 noyaux ne change rien à cette arithmétique.
+Le meilleur rapport des cinq — New York, 1/2,5 — reste **sous l'unité** : dans les cinq cas,
+l'écart entre plan et sphère est plus petit que l'incertitude sur la position des points.
 
-22 points, 72 distances calculées, **0 mesure de terrain** dans tout le projet. La cible
+Paris et New York portent une incertitude de ±25 m et non ±250 m : leurs six points sont des
+monuments ponctuels, dont le centre se définit à quelques mètres près. Garder ±250 m sur une
+étendue de 5 194 m aurait donné une incertitude valant 5 % de la figure.
+
+La cause est structurelle : **la flèche croît comme le carré de l'étendue.** Un bassin urbain
+de 5 à 37 km produit mécaniquement un signal de 2 à 38 m. Aucun raffinement de méthode, aucun
+changement de repère et aucun nombre de noyaux ne contourne cette échelle.
+
+34 points, 102 distances calculées, **0 mesure de terrain** dans tout le projet. La cible
 reste unique : Kaaba → Djeddah, 66 km, 28,2 % d'écart entre modèles, classe A exigée.
+
+### Les 10 cordes 3D — et pourquoi l'écart explose
+
+| Paire de centres | Corde 3D | Géodésique | Écart | % |
+|---|---|---|---|---|
+| Kaaba – Nabawi | 337 863 m | 337 903 m | −40 m | −0,012 |
+| Nabawi – Khéops | 1 036 592 m | 1 037 739 m | −1 147 m | −0,111 |
+| Kaaba – Khéops | 1 285 067 m | 1 287 261 m | −2 194 m | −0,170 |
+| Khéops – Notre-Dame | 3 177 577 m | 3 211 416 m | −33 839 m | −1,054 |
+| Nabawi – Notre-Dame | 4 145 431 m | 4 222 189 m | −76 758 m | −1,818 |
+| Kaaba – Notre-Dame | 4 404 204 m | 4 496 942 m | −92 737 m | −2,062 |
+| Notre-Dame – Empire State | 5 647 069 m | 5 849 203 m | −202 134 m | −3,456 |
+| Khéops – Empire State | 8 300 224 m | 9 035 038 m | −734 815 m | −8,133 |
+| Nabawi – Empire State | 9 052 970 m | 10 062 298 m | −1 009 327 m | −10,031 |
+| Kaaba – Empire State | 9 232 813 m | 10 320 377 m | **−1 087 564 m** | **−10,538** |
+
+Les dix écarts sont négatifs : la corde coupe au travers du globe, elle est toujours plus
+courte. Contrôle de cohérence du moteur validé.
+
+Mais l'écart passe de **40 m** à 338 km à **1 088 km** sur l'axe Kaaba – Empire State
+Building. Confondre corde et géodésique à l'échelle intercontinentale n'est pas une erreur
+d'arrondi : c'est une erreur de l'ordre du millier de kilomètres. Ces deux colonnes ne
+doivent jamais entrer dans le même solveur.

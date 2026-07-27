@@ -1,0 +1,255 @@
+{
+  "_meta": {
+    "version": "3.0",
+    "statut_fichier": "CLOS — version 3.0 définitive",
+    "titre": "Noyau de Paris — matrice géodésique complète",
+    "description": "Quatrième noyau local, bassin parisien intra-muros. Les 15 distances sont CALCULÉES depuis les 6 couples de coordonnées WGS84 ci-dessous par la formule de Vincenty inverse. Source unique : la table de coordonnées. Aucune distance n'est saisie à la main.",
+    "methode_declaree": "Calcul géodésique WGS84 (Vincenty inverse) depuis coordonnées relevées au centre de chaque site",
+    "ellipsoide": {
+      "a_m": 6378137.0,
+      "f": "1/298.257223563",
+      "convergence": "1e-13 rad"
+    },
+    "incertitude_declaree_m": 25,
+    "rationnel_incertitude": "Incertitude ramenée à ±25 m, et non ±250 m comme les noyaux du Hedjaz et du Caire. Les six points sont des monuments ponctuels dont le centre géométrique se définit à quelques mètres près — rien de comparable à un campement comme Mina ou à un quartier comme Héliopolis. Conserver ±250 m sur une étendue de 5 194 m aurait été absurde : l'incertitude aurait valu 5 % de la figure.",
+    "avertissement_pouvoir_discriminant": "Étendue maximale 5 194 m (Sacré-Cœur – Montparnasse). Flèche sphérique 2,12 m contre ±25 m d'incertitude : rapport signal/bruit 1/12. C'est le noyau le PLUS RESSERRÉ du projet et le moins discriminant en valeur absolue. Il valide la cohérence des coordonnées et fournit un socle rigide ; il ne tranche rien sur la forme.",
+    "clos_note": "Fichier verrouillé. Toute évolution passe par une correction de coordonnée suivie d'un recalcul complet de la matrice. Voir content/reseau/README.md.",
+    "champs_liaison": {
+      "a": "premier point",
+      "b": "second point",
+      "distance_m": "distance géodésique WGS84 calculée, en mètres",
+      "incertitude_m": "marge liée à la définition du centre de site",
+      "nature": "separation",
+      "classe_source": "C — dérivée de coordonnées",
+      "methode": "méthode d'obtention",
+      "statut": "calculee"
+    }
+  },
+  "points": [
+    {
+      "nom": "Cathédrale Notre-Dame",
+      "latitude": 48.85297,
+      "longitude": 2.3499,
+      "description": "Île de la Cité — centre du noyau",
+      "statut": "releve"
+    },
+    {
+      "nom": "Tour Eiffel",
+      "latitude": 48.85837,
+      "longitude": 2.29448,
+      "description": "Champ-de-Mars",
+      "statut": "releve"
+    },
+    {
+      "nom": "Basilique du Sacré-Cœur",
+      "latitude": 48.88671,
+      "longitude": 2.3431,
+      "description": "Butte Montmartre",
+      "statut": "releve"
+    },
+    {
+      "nom": "Arc de Triomphe",
+      "latitude": 48.87379,
+      "longitude": 2.29503,
+      "description": "Place Charles-de-Gaulle",
+      "statut": "releve"
+    },
+    {
+      "nom": "Panthéon",
+      "latitude": 48.84622,
+      "longitude": 2.34641,
+      "description": "Montagne Sainte-Geneviève",
+      "statut": "releve"
+    },
+    {
+      "nom": "Tour Montparnasse",
+      "latitude": 48.84213,
+      "longitude": 2.32198,
+      "description": "Maine-Montparnasse",
+      "statut": "releve"
+    }
+  ],
+  "liaisons": [
+    {
+      "a": "Cathédrale Notre-Dame",
+      "b": "Tour Eiffel",
+      "distance_m": 4111,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cathédrale Notre-Dame",
+      "b": "Basilique du Sacré-Cœur",
+      "distance_m": 3785,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cathédrale Notre-Dame",
+      "b": "Arc de Triomphe",
+      "distance_m": 4644,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cathédrale Notre-Dame",
+      "b": "Panthéon",
+      "distance_m": 793,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cathédrale Notre-Dame",
+      "b": "Tour Montparnasse",
+      "distance_m": 2377,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Tour Eiffel",
+      "b": "Basilique du Sacré-Cœur",
+      "distance_m": 4760,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Tour Eiffel",
+      "b": "Arc de Triomphe",
+      "distance_m": 1715,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Tour Eiffel",
+      "b": "Panthéon",
+      "distance_m": 4043,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Tour Eiffel",
+      "b": "Tour Montparnasse",
+      "distance_m": 2708,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Basilique du Sacré-Cœur",
+      "b": "Arc de Triomphe",
+      "distance_m": 3807,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Basilique du Sacré-Cœur",
+      "b": "Panthéon",
+      "distance_m": 4509,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Basilique du Sacré-Cœur",
+      "b": "Tour Montparnasse",
+      "distance_m": 5194,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Arc de Triomphe",
+      "b": "Panthéon",
+      "distance_m": 4859,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Arc de Triomphe",
+      "b": "Tour Montparnasse",
+      "distance_m": 4038,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Panthéon",
+      "b": "Tour Montparnasse",
+      "distance_m": 1850,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    }
+  ],
+  "_controle": {
+    "points": 6,
+    "liaisons": 15,
+    "seuil_laman_2N_3": 9,
+    "surdetermination": 6,
+    "graphe": "complet K6 — forme unique, rigidité triviale",
+    "triangles_fermes": 20,
+    "violations_inegalite_triangulaire": 0,
+    "rms_ajustement_plan_m": 0.18,
+    "residu_maximal_m": 0.32,
+    "optimum_unique": true,
+    "restarts_solveur": 14,
+    "etendue_maximale_m": 5194,
+    "fleche_spherique_sur_etendue_m": 2.12,
+    "note": "Le graphe étant complet, la rigidité n'est pas un résultat obtenu mais une propriété de départ. Le RMS mesure uniquement le défaut de planéité de la matrice, ici l'arrondi au mètre plus la convergence du solveur."
+  }
+}
