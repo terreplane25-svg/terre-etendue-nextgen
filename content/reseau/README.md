@@ -9,8 +9,38 @@ entre points, et on cherche quelle figure les satisfait toutes.
 | Fichier | Version | État | Étendue |
 |---|---|---|---|
 | `reseau-mecque-noyau.json` | 3.0 | **CLOS — verrouillé** | 9 points, 37 km |
+| `reseau-medine-noyau.json` | 3.0 | **CLOS — verrouillé** | 7 points, 12 km |
+| `jonction-makkah-madinah.json` | 0.1 | Structure seule, 0 mesure | axe de 338 km |
 | `reseau-regional-hedjaz.json` | 0.1 | Structure seule, 0 liaison | 11 points, jusqu'à 1 182 km |
 | `reseau-mecque-modele.json` | 1.0 | Archivé (schéma abandonné) | — |
+
+### Pouvoir discriminant des trois réseaux
+
+| Réseau | Étendue | Flèche sphérique | Incertitude | Verdict |
+|---|---|---|---|---|
+| Noyau Médine | 12 km | 11 m | ±250 m | non discriminant |
+| Noyau La Mecque | 37 km | 30 m | ±250 m | non discriminant |
+| Jonction Makkah–Madinah | 338 km | 8 959 m | ±250 m | **discriminant (×36)** |
+
+Additionner des noyaux ne crée pas de pouvoir discriminant : deux réseaux non
+discriminants restent non discriminants. C'est la **jonction** qui porte l'enjeu, et
+elle exige une mesure de classe A ou B — la méthode des noyaux (coordonnées WGS84 +
+Vincenty) y devient circulaire.
+
+## Projection d'affichage — UTM 37N (EPSG:32637)
+
+Les 16 points des deux noyaux sont entre 39,54° E et 39,99° E, tous dans la zone 37N
+(36° E – 42° E) : aucun raccord de zone à gérer. Facteur d'échelle ponctuel calculé
+entre 0,9996376 et 0,9997287, soit un écart à l'unité sous **0,04 %** qui ne *varie*
+que de 0,009 % d'un bout à l'autre de la région — un facteur moyen unique suffit.
+
+Attention : ce n'est pas une erreur aléatoire mais un **retrait systématique** de
+0,035 % dû à k0 = 0,9996, soit 105 m sur les 338 km de l'axe Makkah–Madinah. Toute
+distance lue sur la carte doit être divisée par k pour redevenir une distance terrain.
+
+**Usage : affichage seulement.** Projeter, c'est déjà choisir un modèle de surface ; les
+coordonnées UTM dérivent de WGS84 et en héritent. Mesurer une distance sur la carte
+projetée pour alimenter un test de géométrie serait de la classe C déguisée.
 
 ## Le noyau de La Mecque — clos en v3.0
 

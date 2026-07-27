@@ -1,0 +1,328 @@
+{
+  "_meta": {
+    "version": "3.0",
+    "statut_fichier": "CLOS — version 3.0 définitive",
+    "titre": "Noyau de Médine — matrice géodésique complète",
+    "description": "Second noyau local, bassin de Médine. Les 21 distances sont CALCULÉES depuis les 7 couples de coordonnées WGS84 ci-dessous par la formule de Vincenty inverse. Source unique : la table de coordonnées. Aucune distance n'est saisie à la main.",
+    "methode_declaree": "Calcul géodésique WGS84 (Vincenty inverse) depuis coordonnées relevées au centre de chaque site",
+    "ellipsoide": {
+      "a_m": 6378137.0,
+      "f": "1/298.257223563",
+      "convergence": "1e-13 rad"
+    },
+    "incertitude_declaree_m": 250,
+    "rationnel_incertitude": "L'incertitude ne porte pas sur la distance (exacte au mètre par construction) mais sur la DÉFINITION du centre de chaque site. Un sommet comme Jabal Uhud ou Jabal 'Ayr est une crête, non un point ; un miqat est une zone. ±250 m aligné sur le noyau de La Mecque.",
+    "avertissement_pouvoir_discriminant": "Étendue maximale 11 985 m (Jabal Uhud – Miqat Dhu al-Hulayfah). Sur cette étendue, l'écart entre un plan et une sphère de 6 371 km vaut 11 m — soit 23 fois moins que l'incertitude déclarée, et 3 fois moins que sur le noyau de La Mecque. Ce noyau est encore MOINS discriminant que le premier. Il valide la cohérence des données et fournit un second socle rigide ; il ne tranche rien sur la forme.",
+    "clos_note": "Fichier verrouillé. Toute évolution passe par une correction de coordonnée suivie d'un recalcul complet de la matrice. Voir content/reseau/README.md.",
+    "champs_liaison": {
+      "a": "premier point",
+      "b": "second point",
+      "distance_m": "distance géodésique WGS84 calculée, en mètres",
+      "incertitude_m": "marge liée à la définition du centre de site",
+      "nature": "separation",
+      "classe_source": "C — dérivée de coordonnées ; légitime ici car à 12 km le choix plan/sphère est sans conséquence (11 m contre ±250 m)",
+      "methode": "méthode d'obtention",
+      "statut": "calculee"
+    }
+  },
+  "points": [
+    {
+      "nom": "Al-Masjid an-Nabawi",
+      "latitude": 24.46722,
+      "longitude": 39.61111,
+      "description": "Mosquée du Prophète — point central",
+      "statut": "releve"
+    },
+    {
+      "nom": "Mosquée de Quba",
+      "latitude": 24.43944,
+      "longitude": 39.61722,
+      "description": "Masjid Quba",
+      "statut": "releve"
+    },
+    {
+      "nom": "Jabal Uhud",
+      "latitude": 24.50361,
+      "longitude": 39.61139,
+      "description": "Sommet",
+      "statut": "releve"
+    },
+    {
+      "nom": "Mosquée al-Qiblatayn",
+      "latitude": 24.48417,
+      "longitude": 39.57889,
+      "description": "Masjid al-Qiblatayn",
+      "statut": "releve"
+    },
+    {
+      "nom": "Jabal 'Ayr",
+      "latitude": 24.43222,
+      "longitude": 39.57028,
+      "description": "Sommet",
+      "statut": "releve"
+    },
+    {
+      "nom": "Puits de Ghars",
+      "latitude": 24.45194,
+      "longitude": 39.63861,
+      "description": "Bi'r Ghars",
+      "statut": "releve"
+    },
+    {
+      "nom": "Miqat Dhu al-Hulayfah",
+      "latitude": 24.41444,
+      "longitude": 39.54444,
+      "description": "Abyar Ali",
+      "statut": "releve"
+    }
+  ],
+  "liaisons": [
+    {
+      "a": "Al-Masjid an-Nabawi",
+      "b": "Mosquée de Quba",
+      "distance_m": 3139,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Al-Masjid an-Nabawi",
+      "b": "Jabal Uhud",
+      "distance_m": 4031,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Al-Masjid an-Nabawi",
+      "b": "Mosquée al-Qiblatayn",
+      "distance_m": 3767,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Al-Masjid an-Nabawi",
+      "b": "Jabal 'Ayr",
+      "distance_m": 5672,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Al-Masjid an-Nabawi",
+      "b": "Puits de Ghars",
+      "distance_m": 3262,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Al-Masjid an-Nabawi",
+      "b": "Miqat Dhu al-Hulayfah",
+      "distance_m": 8938,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mosquée de Quba",
+      "b": "Jabal Uhud",
+      "distance_m": 7132,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mosquée de Quba",
+      "b": "Mosquée al-Qiblatayn",
+      "distance_m": 6297,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mosquée de Quba",
+      "b": "Jabal 'Ayr",
+      "distance_m": 4827,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mosquée de Quba",
+      "b": "Puits de Ghars",
+      "distance_m": 2573,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mosquée de Quba",
+      "b": "Miqat Dhu al-Hulayfah",
+      "distance_m": 7883,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Jabal Uhud",
+      "b": "Mosquée al-Qiblatayn",
+      "distance_m": 3936,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Jabal Uhud",
+      "b": "Jabal 'Ayr",
+      "distance_m": 8939,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Jabal Uhud",
+      "b": "Puits de Ghars",
+      "distance_m": 6354,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Jabal Uhud",
+      "b": "Miqat Dhu al-Hulayfah",
+      "distance_m": 11985,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mosquée al-Qiblatayn",
+      "b": "Jabal 'Ayr",
+      "distance_m": 5820,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mosquée al-Qiblatayn",
+      "b": "Puits de Ghars",
+      "distance_m": 7029,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mosquée al-Qiblatayn",
+      "b": "Miqat Dhu al-Hulayfah",
+      "distance_m": 8477,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Jabal 'Ayr",
+      "b": "Puits de Ghars",
+      "distance_m": 7265,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Jabal 'Ayr",
+      "b": "Miqat Dhu al-Hulayfah",
+      "distance_m": 3278,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    },
+    {
+      "a": "Puits de Ghars",
+      "b": "Miqat Dhu al-Hulayfah",
+      "distance_m": 10414,
+      "incertitude_m": 250,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b, voir bloc points",
+      "statut": "calculee"
+    }
+  ],
+  "_controle": {
+    "points": 7,
+    "liaisons": 21,
+    "seuil_laman_2N_3": 11,
+    "surdetermination": 10,
+    "graphe": "complet K7 — forme unique, rigidité triviale",
+    "triangles_fermes": 35,
+    "violations_inegalite_triangulaire": 0,
+    "rms_ajustement_plan_m": 0.15,
+    "residu_maximal_m": 0.3,
+    "optimum_unique": true,
+    "restarts_solveur": 14,
+    "etendue_maximale_m": 11985,
+    "fleche_spherique_sur_etendue_m": 11.3,
+    "note": "Le graphe étant complet, la rigidité n'est pas un résultat obtenu mais une propriété de départ. Le RMS mesure uniquement le défaut de planéité de la matrice, ici l'arrondi au mètre plus la convergence du solveur."
+  }
+}

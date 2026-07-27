@@ -1,0 +1,107 @@
+{
+  "_meta": {
+    "version": "0.1 — structure d'accueil, aucune mesure",
+    "titre": "Jonction inter-noyaux Makkah – Madinah",
+    "description": "Grands maillons reliant le noyau de La Mecque (v3.0, clos) et le noyau de Médine (v3.0, clos). C'est le premier segment du projet dont la flèche sphérique dépasse largement toute incertitude raisonnable : c'est donc ici, et pas dans les noyaux, que la géométrie devient testable. Aucune mesure n'existe encore.",
+
+    "noyaux_raccordes": [
+      { "fichier": "reseau-mecque-noyau.json", "version": "3.0", "points": 9, "etendue_m": 37095, "fleche_m": 30 },
+      { "fichier": "reseau-medine-noyau.json", "version": "3.0", "points": 7, "etendue_m": 11985, "fleche_m": 11 }
+    ],
+
+    "pourquoi_ce_fichier_existe": {
+      "constat": "Les deux noyaux sont géométriquement irréprochables et tous deux incapables de trancher : 30 m et 11 m de signal contre ±250 m d'incertitude. Additionner des noyaux n'y change rien — deux réseaux non discriminants restent non discriminants.",
+      "bascule": "L'axe Makkah – Madinah mesure environ 338 km. La flèche sphérique y vaut 8 959 m, soit 36 fois l'incertitude de ±250 m. Le signal cesse d'être noyé dans le bruit. Ce fichier est le premier du projet à porter un enjeu de test réel.",
+      "consequence": "Une seule liaison mesurée ici vaut plus que cent points ajoutés aux noyaux."
+    },
+
+    "_regle_fondamentale": {
+      "enonce": "À cette échelle, une distance calculée depuis des coordonnées géodésiques ne peut pas tester une géométrie. Elle restitue le modèle qui l'a produite.",
+      "detail": "Dans les deux noyaux, la méthode « coordonnées WGS84 + Vincenty » était légitime parce que le choix plan/sphère y était sans conséquence (11 et 30 m, sous l'incertitude). Sur 338 km il vaut 8 959 m : calculer Kaaba – Masjid an-Nabawi par Vincenty revient à demander à l'ellipsoïde WGS84 quelle distance il prédit. L'injecter dans un ajustement plan mesurerait la distorsion de la projection assumée, pas le terrain.",
+      "corollaire": "Toute carte, tout SIG et tout service d'itinéraire à cette échelle est déjà une projection, donc déjà un modèle. Le GNSS lui-même résout sa position dans un modèle ellipsoïdal.",
+      "verrou": "Le bloc liaisons n'accepte que les classes A et B. Les valeurs de classe C sont confinées dans _references_modele et ne sont jamais lues par le solveur."
+    },
+
+    "protocole_du_test": {
+      "principe": "Une liaison prédite AVANT d'être mesurée, puis mesurée indépendamment, est le seul test réel. Une valeur qui arrive après la prédiction et tombe dessus ne teste rien.",
+      "etapes": [
+        "1. Choisir la paire et fixer la méthode de mesure avant tout calcul.",
+        "2. Consigner dans prediction_modele_spherique_m et prediction_modele_plan_m les deux valeurs attendues, AVANT la mesure. Les deux champs doivent être remplis et datés.",
+        "3. Mesurer, sans consulter les prédictions.",
+        "4. Reporter la mesure et son incertitude propre. Le verdict se lit tout seul.",
+        "5. Ne jamais ajuster la mesure ni la prédiction après coup."
+      ],
+      "avertissement_plan": "La prédiction du modèle plan n'est pas définie tant qu'on n'a pas nommé la carte plane utilisée. Un plan azimutal équidistant centré au pôle Nord, un plan tangent à La Mecque et un plan tangent à Médine donnent trois valeurs différentes pour la même paire. Le champ modele_plan_reference doit préciser laquelle, sinon le test n'a pas de second terme et ne conclut rien."
+    },
+
+    "classes_de_source": {
+      "A": { "valeur_de_test": true, "nature": "separation", "exemples": "cheminement tachéométrique, EDM en cascade, triangulation optique à vue" },
+      "B": { "valeur_de_test": true, "nature": "trajet", "exemples": "odomètre routier étalonné, loch, log de vol enregistré", "reserve": "Mesure un TRAJET, jamais une séparation : la route serpente. C'est une BORNE HAUTE stricte. Sur l'axe Makkah – Madinah la route fait environ 420 km contre 338 km de corde présumée — un excédent de 80 km, soit neuf fois le signal de 9 km à détecter. Une seule mesure de classe B ne conclut donc rien ; il faut plusieurs itinéraires distincts sur la même paire pour resserrer la borne par le haut, et la corde reste inatteignable par le bas." },
+      "C": { "valeur_de_test": false, "nature": "reference_modele", "exemples": "Vincenty/Karney sur WGS84, GNSS, SIG, itinéraire" },
+      "D": { "valeur_de_test": false, "nature": "indeterminee", "exemples": "distance annoncée par une compagnie, un panneau, un article" }
+    },
+
+    "champs_liaison": {
+      "a": "point du noyau de Makkah",
+      "b": "point du noyau de Madinah",
+      "distance_m": "distance mesurée en mètres (null tant que non mesurée)",
+      "incertitude_m": "marge propre à la méthode employée sur CETTE liaison",
+      "classe_source": "A | B — les classes C et D sont interdites dans ce bloc",
+      "nature": "separation | trajet",
+      "methode": "description précise du dispositif de mesure",
+      "reference": "référence vérifiable : rapport, campagne, enregistrement, date",
+      "prediction_modele_spherique_m": "valeur attendue, consignée AVANT la mesure",
+      "prediction_modele_plan_m": "valeur attendue, consignée AVANT la mesure",
+      "modele_plan_reference": "quelle carte plane, obligatoire si prediction_modele_plan_m est renseigné",
+      "date_prediction": "date de consignation des prédictions",
+      "date_mesure": "date de la mesure",
+      "statut": "mesuree | a_mesurer"
+    }
+  },
+
+  "liaisons": [],
+
+  "_references_modele": {
+    "note": "Classe C uniquement. JAMAIS lu par le solveur. Sert exclusivement de colonne de comparaison face à une future mesure de classe A ou B. Ces valeurs sont la sortie du modèle WGS84, pas des mesures.",
+    "valeurs": [
+      {
+        "a": "Kaaba (Masjid al-Haram)",
+        "b": "Al-Masjid an-Nabawi",
+        "distance_m": 337903,
+        "classe_source": "C",
+        "nature": "reference_modele",
+        "methode": "Vincenty inverse sur coordonnées WGS84 (21.42250/39.82617 et 24.46722/39.61111)",
+        "fleche_spherique_m": 8959,
+        "ratio_fleche_sur_incertitude_250m": 35.8,
+        "commentaire": "Axe principal du test. Aucune valeur démonstrative en soi."
+      }
+    ]
+  },
+
+  "projection_pour_affichage": {
+    "systeme": "UTM zone 37N — EPSG:32637, datum WGS 84",
+    "meridien_central_deg": 39.0,
+    "facteur_echelle_central_k0": 0.9996,
+    "couverture": "Les 16 points des deux noyaux sont entre 39,54° E et 39,99° E, tous dans la zone 37N (36° E – 42° E). Aucun point ne franchit de limite de zone : pas de raccord à gérer.",
+    "facteur_echelle_ponctuel_calcule": [
+      { "site": "Miqat Dhu al-Hulayfah", "longitude": 39.54444, "k": 0.9996376, "ecart_pourcent": -0.0362 },
+      { "site": "Al-Masjid an-Nabawi", "longitude": 39.61111, "k": 0.9996474, "ecart_pourcent": -0.0353 },
+      { "site": "Al-Hudaybiyyah (Ash-Shumaysi)", "longitude": 39.63806, "k": 0.9996540, "ecart_pourcent": -0.0346 },
+      { "site": "Kaaba (Masjid al-Haram)", "longitude": 39.82617, "k": 0.9996906, "ecart_pourcent": -0.0309 },
+      { "site": "Arafat (Jabal ar-Rahmah)", "longitude": 39.98417, "k": 0.9997287, "ecart_pourcent": -0.0271 }
+    ],
+    "amplitude_variation_k_pourcent": 0.0091,
+    "ecart_maximal_a_l_unite_pourcent": 0.0362,
+    "precision_a_retenir": "L'écart d'échelle reste sous 0,04 % sur toute la région, et il ne VARIE que de 0,009 % d'un bout à l'autre : un facteur d'échelle moyen unique suffit pour l'affichage. Mais ce n'est pas une erreur aléatoire, c'est un retrait SYSTÉMATIQUE de 0,035 % dû à k0 = 0,9996. Sur les 338 km de l'axe Makkah – Madinah il vaut 105 m. Toute distance lue sur une carte UTM doit être divisée par k pour redevenir une distance terrain.",
+    "avertissement_usage": "Cette projection est destinée à l'AFFICHAGE seulement. Projeter, c'est déjà choisir un modèle de surface : les coordonnées UTM sont dérivées de WGS84 et en héritent entièrement. Aucune distance ne doit être mesurée sur la carte projetée pour alimenter un test de géométrie — ce serait de la classe C déguisée. Les distances des noyaux restent celles du calcul géodésique ; celles de la jonction devront venir d'une mesure de classe A ou B."
+  },
+
+  "_controle": {
+    "liaisons_mesurees": 0,
+    "liaisons_classe_A": 0,
+    "liaisons_classe_B": 0,
+    "references_modele": 1,
+    "etat": "Structure seule. Le fichier porte l'enjeu du projet mais aucune donnée.",
+    "prochain_jalon": "Consigner les deux prédictions sur la paire Kaaba – Al-Masjid an-Nabawi, en nommant explicitement la carte plane de référence, PUIS mesurer. Dans cet ordre."
+  }
+}
