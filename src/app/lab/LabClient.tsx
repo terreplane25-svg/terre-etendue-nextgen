@@ -12,10 +12,7 @@ import { TOOLS } from '@/lib/lab-tools';
 const CurvatureCalc = dynamic(() => import('@/components/lab/CurvatureCalc'), { ssr: false });
 const FlatEarthSim = dynamic(() => import('@/components/lab/FlatEarthSim'), { ssr: false });
 const GeoHelioSim = dynamic(() => import('@/components/lab/GeoHelioSim'), { ssr: false });
-const PerspectiveSim = dynamic(() => import('@/components/lab/PerspectiveSim'), { ssr: false });
 const DensitySim = dynamic(() => import('@/components/lab/DensitySim'), { ssr: false });
-const VisualFieldSim = dynamic(() => import('@/components/lab/VisualFieldSim'), { ssr: false });
-const LaserLakeSim = dynamic(() => import('@/components/lab/LaserLakeSim'), { ssr: false });
 const ClassifierSim = dynamic(() => import('@/components/lab/ClassifierSim'), { ssr: false });
 const TrilaterationMap = dynamic(() => import('@/components/lab/TrilaterationMap'), { ssr: false });
 
@@ -131,10 +128,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
   const renderSimulator = () => {
     switch (activeTool) {
       case 'curvature': return <CurvatureCalc />;
-      case 'perspective': return <PerspectiveSim />;
       case 'density': return <DensitySim />;
-      case 'visualfield': return <VisualFieldSim />;
-      case 'laser': return <LaserLakeSim />;
       case 'flat': return <FlatEarthSim />;
       case 'geo': return <GeoHelioSim />;
       case 'classifier': return <ClassifierSim />;
@@ -189,7 +183,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
 
       <PageIntro color={dash.opal}
         lede="Manipuler vaut mieux que croire."
-        body="Le Lab rassemble des simulateurs interactifs — courbure et réfraction, perspective, densité, champ visuel, système solaire. Faites varier les paramètres, lisez les résultats, jugez par vous-même. Chaque outil renvoie aux articles qui l'expliquent." />
+        body="Le Lab rassemble des simulateurs interactifs — courbure et réfraction, densité, système solaire, carte par trilatération. Faites varier les paramètres, lisez les résultats, jugez par vous-même. Chaque outil renvoie aux articles qui l'expliquent." />
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '36px 32px 72px' }}>
 
         {/* ── TOOL CARDS GRID ── */}

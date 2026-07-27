@@ -30,15 +30,6 @@ const SIMULATEURS = [
     color: '#2B7A5F',
   },
   {
-    id: 'perspective',
-    titre: 'Comment la taille apparente change avec la distance',
-    description: 'Deux modèles côte à côte : disparition par perspective vs occultation par courbure. L\'élève manipule et observe la différence.',
-    usage: 'Montrer que la diminution angulaire fait "disparaître" un objet avant qu\'il ne soit physiquement caché. Question : "À partir de quelle distance ne voit-on plus le bateau ?"',
-    programme: 'Cycle 4 — Optique, propagation de la lumière',
-    icon: '👁️',
-    color: '#8B7EC8',
-  },
-  {
     id: 'density',
     titre: 'Pourquoi les objets flottent ou coulent',
     description: 'Colonne de fluides interactive. Lâchez des objets de différentes densités et observez leur comportement.',
@@ -46,15 +37,6 @@ const SIMULATEURS = [
     programme: 'Cycle 3/4 — La matière, masse et volume',
     icon: '⚗️',
     color: '#3D9E7C',
-  },
-  {
-    id: 'visualfield',
-    titre: 'Les limites de résolution de l\'œil humain',
-    description: 'Taille angulaire, arc-minute et distance maximale de visibilité. Pourquoi un objet peut disparaître sans être "caché".',
-    usage: 'Montrer que l\'œil a une limite physique de résolution (~1 arc-minute). Question : "À quelle distance un objet de 1m devient-il invisible ?"',
-    programme: 'Cycle 4 — Optique, SVT (l\'œil)',
-    icon: '🔬',
-    color: '#C45E6A',
   },
   {
     id: 'curvature',
@@ -73,15 +55,6 @@ const SIMULATEURS = [
     programme: 'Cycle 3 — Le système solaire',
     icon: '🪐',
     color: '#D4943A',
-  },
-  {
-    id: 'laser',
-    titre: 'Expérience laser sur plan d\'eau',
-    description: 'Simulation d\'une expérience laser sur une surface d\'eau calme. Trajectoire droite vs écart de courbure prédit.',
-    usage: 'Montrer le protocole d\'une expérience reproductible. Question : "Comment pourriez-vous faire cette expérience vous-mêmes ?"',
-    programme: 'Cycle 4 — Optique, propagation rectiligne',
-    icon: '🔴',
-    color: '#C45E6A',
   },
 ];
 
@@ -119,11 +92,8 @@ const REFERENCES = [
 
 const SIM_LABELS: Record<string, string> = {
   density: 'Simulateur de densité',
-  perspective: 'Simulateur de perspective',
-  visualfield: 'Champ visuel',
   curvature: 'Calculateur de courbure',
   geo: 'Système solaire 3D',
-  laser: 'Expérience laser',
   classifier: 'Trieur Fait/Modèle/Hypothèse',
 };
 
