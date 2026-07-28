@@ -1,37 +1,66 @@
 {
   "_meta": {
-    "version": "0.1 — structure d'accueil, aucune donnée",
+    "version": "0.2 — certification visuelle obligatoire, grille d'acceptation",
     "titre": "Mesures brutes de terrain — registre agnostique",
     "description": "Registre des OBSERVATIONS DE TERRAIN publiées, avant tout ajustement et avant toute conversion en coordonnées. Ce fichier ne contient aucune valeur calculée depuis un modèle. Il est vide tant qu'aucune observation sourcée n'y a été versée.",
     "date_creation": "2026-07-28",
-
     "_pourquoi_ce_fichier": {
       "constat": "Les 342 distances du dépôt sont calculées depuis des coordonnées WGS84 par la formule de Vincenty. Elles restituent l'ellipsoïde qui les a produites : elles ne peuvent pas le tester. C'est une circularité assumée et documentée, mais elle plafonne le projet.",
       "changement": "Ce fichier ne reçoit que des observations : angles lus, bases mesurées, différences de temps, longueurs chaînées. Aucune coordonnée, aucun datum, aucune projection. C'est le seul matériau qui puisse trancher.",
       "principe": "Une observation est brute si sa valeur ne change pas selon le modèle de Terre qu'on adopte. Un angle horizontal lu au théodolite est brut. Une latitude est un produit."
     },
-
     "_l_observable_decisif": {
       "titre": "L'excès sphérique — le meilleur test disponible, et il est déjà mesuré depuis 1820",
       "enonce": "La somme des angles d'un triangle est un observable PUREMENT LOCAL : trois lectures au théodolite, aucune coordonnée, aucun datum, aucune projection, aucune échelle. Et les deux modèles en font des prédictions incompatibles.",
       "prediction_modele_plan": "Somme = 180° exactement. Excès nul. Toujours, quelle que soit la taille du triangle.",
       "prediction_modele_spherique": "Excès ε = A/R², où A est l'aire du triangle et R le rayon. Croît comme le carré de la taille.",
       "table_excès": [
-        { "cote_km": 1, "aire_km2": 0.4, "exces_secondes_arc": 0.002 },
-        { "cote_km": 5, "aire_km2": 10.8, "exces_secondes_arc": 0.055 },
-        { "cote_km": 10, "aire_km2": 43.3, "exces_secondes_arc": 0.22 },
-        { "cote_km": 30, "aire_km2": 389.7, "exces_secondes_arc": 1.98 },
-        { "cote_km": 50, "aire_km2": 1082.5, "exces_secondes_arc": 5.5 },
-        { "cote_km": 100, "aire_km2": 4330.1, "exces_secondes_arc": 22.0 },
-        { "cote_km": 200, "aire_km2": 17320.5, "exces_secondes_arc": 88.0 },
-        { "cote_km": 300, "aire_km2": 38971.1, "exces_secondes_arc": 198.0 }
+        {
+          "cote_km": 1,
+          "aire_km2": 0.4,
+          "exces_secondes_arc": 0.002
+        },
+        {
+          "cote_km": 5,
+          "aire_km2": 10.8,
+          "exces_secondes_arc": 0.055
+        },
+        {
+          "cote_km": 10,
+          "aire_km2": 43.3,
+          "exces_secondes_arc": 0.22
+        },
+        {
+          "cote_km": 30,
+          "aire_km2": 389.7,
+          "exces_secondes_arc": 1.98
+        },
+        {
+          "cote_km": 50,
+          "aire_km2": 1082.5,
+          "exces_secondes_arc": 5.5
+        },
+        {
+          "cote_km": 100,
+          "aire_km2": 4330.1,
+          "exces_secondes_arc": 22.0
+        },
+        {
+          "cote_km": 200,
+          "aire_km2": 17320.5,
+          "exces_secondes_arc": 88.0
+        },
+        {
+          "cote_km": 300,
+          "aire_km2": 38971.1,
+          "exces_secondes_arc": 198.0
+        }
       ],
       "precision_instrumentale": "Théodolites de Ramsden et Struve (1820-1850) : 0,5 à 1″ par direction, moyennée sur des dizaines de séries, soit une incertitude finale bien inférieure à la seconde. Wild T3 : 0,2″. Station totale moderne : 0,5″.",
       "consequence": "Dès 30 km de côté l'excès dépasse 2″ et devient mesurable ; à 100 km il atteint 22″, soit cent fois l'incertitude instrumentale. Les grands réseaux de triangulation des XIXᵉ et XXᵉ siècles ont mesuré ces excès systématiquement et les ont PUBLIÉS, triangle par triangle, avant ajustement.",
-      "pourquoi_c_est_different_des_distances":"Une distance mesurée doit être comparée à une distance prédite, ce qui suppose de savoir où sont les points — donc un modèle. Un excès angulaire se compare à zéro. Il n'y a rien à supposer.",
+      "pourquoi_c_est_different_des_distances": "Une distance mesurée doit être comparée à une distance prédite, ce qui suppose de savoir où sont les points — donc un modèle. Un excès angulaire se compare à zéro. Il n'y a rien à supposer.",
       "avertissement_honnete": "Ce test est décisif dans les deux sens. Il peut réfuter le modèle plan aussi bien que le modèle sphérique. Si les excès publiés sont conformes à A/R² sur des dizaines de triangles indépendants, à des latitudes et des échelles différentes, cela constitue une réfutation directe de la géométrie plane à ces échelles — sans coordonnées, sans datum, sans satellite. Il faut accepter cette issue avant de commencer, sinon la collecte n'a pas de sens."
     },
-
     "classes_de_donnee": {
       "note": "Reprend la grille du dépôt, appliquée aux observations et non plus aux distances.",
       "A_observation_directe": {
@@ -48,7 +77,12 @@
       "B_parcours_mesure": {
         "admis": true,
         "definition": "Longueur d'un trajet réellement parcouru. Borne haute stricte, jamais une séparation.",
-        "exemples": ["odomètre étalonné", "loch", "log de vol enregistré", "kilométrage ferroviaire d'origine"]
+        "exemples": [
+          "odomètre étalonné",
+          "loch",
+          "log de vol enregistré",
+          "kilométrage ferroviaire d'origine"
+        ]
       },
       "C_produit_d_ajustement": {
         "admis": false,
@@ -61,9 +95,11 @@
         ],
         "note_importante": "Les fiches signalétiques modernes (NGS datasheets, fiches IGN, RGF93) ne contiennent QUE des produits d'ajustement. Elles ne servent à rien ici. Les observations brutes sont dans les volumes originaux des campagnes, pas dans les bases de coordonnées."
       },
-      "D_declarative": { "admis": false, "definition": "Valeur annoncée sans procès-verbal de mesure." }
+      "D_declarative": {
+        "admis": false,
+        "definition": "Valeur annoncée sans procès-verbal de mesure."
+      }
     },
-
     "champs_observation_angulaire": {
       "id": "identifiant court et stable",
       "type": "angle_horizontal | somme_triangle | azimut_observe",
@@ -81,7 +117,6 @@
       "lien": "URL de numérisation si disponible",
       "classe": "A"
     },
-
     "champs_base_mesuree": {
       "id": "identifiant court et stable",
       "nom": "nom de la base",
@@ -96,7 +131,6 @@
       "source": "référence exacte",
       "classe": "A"
     },
-
     "_verifications_a_faire_sur_les_donnees": [
       "Cohérence interne : deux campagnes différentes qui recouvrent la même zone donnent-elles le même excès sur des triangles communs ?",
       "Dépendance à l'échelle : l'excès croît-il bien comme le carré du côté, sur au moins une décade de tailles ?",
@@ -104,18 +138,92 @@
       "Antériorité : les campagnes du XIXᵉ siècle, antérieures à toute mesure spatiale, donnent-elles les mêmes excès que les campagnes modernes ?",
       "Biais possible : la correction de réduction au niveau de la mer suppose un rayon. Repérer systématiquement si elle a été appliquée avant publication.",
       "Contradictions : y a-t-il des campagnes publiées dont les excès sont incompatibles entre elles ?"
-    ]
+    ],
+    "_regle_de_certification_visuelle": {
+      "regle": "CAPTURE D'ÉCRAN DE LA PAGE ORIGINALE, OU RIEN. Aucune retranscription textuelle n'est recevable, quelle que soit sa qualité apparente.",
+      "motif": "Cinq blocs retranscrits ont été soumis, cinq ont été rejetés, zéro versé. Motifs : recyclage du gabarit d'exemple (blocs 1-3, prouvé par comparaison de chaînes sur STRUVE-T042), calcul de contrôle faux d'un facteur 2,6 avec conclusion posée d'avance (bloc 4), violation de la loi des sinus de 10,2 % avec des côtés imprimés au dixième de toise (bloc 5).",
+      "ce_que_l_image_doit_montrer": [
+        "Le tableau d'angles lui-même, lisible.",
+        "Le numéro de page imprimé, dans la même image ou dans une seconde image contiguë.",
+        "L'en-tête ou le titre courant qui identifie le volume.",
+        "Le contexte immédiat : le nom du triangle et la mention « observés » / « avant compensation » doivent être VISIBLES, pas rapportés."
+      ],
+      "interdits_absolus": [
+        "Aucun calcul joint : ni aire, ni excès prédit, ni rayon, ni verdict de cohérence. Ce sont des calculs, donc du travail d'audit, pas de collecte.",
+        "Aucune interprétation : si un nom de lieu est ambigu, la réponse est « ambigu, non résolu ».",
+        "Aucune conversion d'unité : recopier les toises, pieds ou modules tels quels.",
+        "Aucun arrondi, aucune reformulation."
+      ]
+    },
+    "champs_certification": {
+      "image_page": "fichier image de la page, joint",
+      "image_contexte": "seconde image si le contexte est sur une page voisine",
+      "lien_profond": "URL de la vue exacte du document numérisé (Gallica /fNNN.item, Archive.org /page/nNNN, Google Books &pg=)",
+      "cote_du_volume": "cote de la bibliothèque ou identifiant pérenne (ark, OCLC, ISBN)",
+      "page_imprimee": "numéro tel qu'imprimé sur la page",
+      "vue_numerisee": "numéro de vue du fichier numérique, s'il diffère de la page imprimée"
+    },
+    "_grille_d_acceptation": {
+      "note": "Un bloc est versé s'il passe les six contrôles. Les contrôles 1 à 4 ne demandent aucun accès aux archives — c'est ce qui rend l'audit fiable malgré un accès réseau restreint.",
+      "controles": [
+        {
+          "n": 1,
+          "nom": "Certification visuelle",
+          "test": "L'image montre le tableau, la page et la mention « observés ». Sans image : rejet immédiat, sans examen."
+        },
+        {
+          "n": 2,
+          "nom": "Somme des angles",
+          "test": "La somme des trois angles recalculée doit reproduire la somme imprimée à 0,01″ près."
+        },
+        {
+          "n": 3,
+          "nom": "Loi des sinus",
+          "test": "Si les côtés sont fournis : c/sin(A) constant. Dispersion tolérée = celle de l'arrondi des côtés imprimés, jamais davantage. Le plus grand angle DOIT faire face au plus grand côté."
+        },
+        {
+          "n": 4,
+          "nom": "Vraisemblance de la fermeture",
+          "test": "Excès observé − A/R² doit rester compatible avec σ·√3, où σ est la précision annoncée de l'instrument. Un écart supérieur à 4 σ est signalé, sans être rédhibitoire à lui seul."
+        },
+        {
+          "n": 5,
+          "nom": "Cohérence géographique",
+          "test": "Les côtés imprimés doivent être compatibles avec la position réelle des sommets nommés."
+        },
+        {
+          "n": 6,
+          "nom": "Absence de calcul joint",
+          "test": "Le bloc ne contient ni aire, ni excès prédit, ni verdict, ni interprétation."
+        }
+      ]
+    },
+    "_ce_que_l_assemblage_pourra_et_ne_pourra_pas_faire": {
+      "avertissement": "Point de méthode à trancher avant la collecte, sinon des dizaines de triangles seront rassemblés pour rien.",
+      "1_assembler_a_plat_ne_teste_rien": "Assembler des triangles par trigonométrie plane produit une figure plane PAR CONSTRUCTION. La carte se fermera à plat parce qu'on l'y aura forcée. Ce n'est pas un test, c'est une conséquence du procédé de dessin.",
+      "2_le_test_est_deja_dans_chaque_triangle": "L'excès de fermeture, triangle par triangle, contient toute l'information. Il n'y a pas besoin de l'assemblage global pour trancher : trois angles suffisent.",
+      "3_ce_que_l_assemblage_apporte_quand_meme": "Un réseau de N triangles assemblés à plat accumule l'erreur de fermeture. Sur une chaîne longue, l'écart entre les deux extrémités calculées par deux chemins différents devient mesurable et croît avec la surface embrassée. C'est le contrôle de fermeture de réseau des géomètres. Il vaut confirmation indépendante, pas test primaire.",
+      "4_condition_de_validite": "Ne jamais compenser. Un réseau publié après compensation a été forcé à fermer : sa fermeture ne dit plus rien. C'est le même piège que le firmware de station totale qui ferme à 180° en silence."
+    },
+    "_couverture_archivistique_reelle": {
+      "avertissement": "L'ordre d'extension souhaité — depuis La Mecque vers le Moyen-Orient — se heurte à la disponibilité réelle des archives.",
+      "peninsule_arabique": "Il n'existe pas de triangulation historique publiée couvrant La Mecque. Les réseaux géodésiques saoudiens sont modernes (datum Ain el Abd 1970, levés Aramco des années 1950-1960) et leurs observations brutes ne sont pas publiques. Partir de La Mecque avec des archives n'est pas réalisable.",
+      "egypte": "Survey of Egypt, triangulation primaire à partir de 1907, base d'Ismaïlia. Publications de H. G. Lyons et du Survey Department. C'est la source la plus proche et la mieux documentée de la zone.",
+      "levant": "Survey of Palestine, Mandat britannique, années 1920-1940. Raccordement au réseau égyptien documenté.",
+      "afrique": "Arc du 30e méridien, du Cap au Caire, campagnes britanniques et sud-africaines — la plus longue chaîne continue disponible, et elle traverse de nombreuses latitudes.",
+      "europe": "Struve (1816-1855), Ordnance Survey (Clarke 1858), Ostpreußische Gradmessung (Bessel 1838), Méridienne de France (Delambre-Méchain).",
+      "inde": "Great Trigonometrical Survey, volumes d'Everest et Walker.",
+      "consequence": "Le maillage doit démarrer là où les archives existent — Égypte, Levant, arc du 30e méridien — et non à La Mecque. La convention d'origine à la Kaaba reste valable : elle ne concerne que l'affichage et l'ordre d'insertion, et ne contraint aucune mesure. Voir reseau-global-terre.json, bloc _origine_du_repere."
+    }
   },
-
   "observations_angulaires": [],
   "bases_mesurees": [],
   "distances_mesurees": [],
-
   "_controle": {
     "observations_angulaires": 0,
     "bases_mesurees": 0,
     "distances_mesurees": 0,
     "etat": "Structure seule. Aucune observation. Le fichier ne dit rien tant qu'il est vide.",
-    "prochain_jalon": "Verser les excès observés publiés d'une première campagne de triangulation, avant ajustement, avec référence de page."
+    "prochain_jalon": "Un premier triangle certifié par image, issu du Survey of Egypt ou de l'arc du 30e méridien. Six contrôles à passer, voir _grille_d_acceptation."
   }
 }

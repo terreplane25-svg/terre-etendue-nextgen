@@ -81,7 +81,7 @@ prédit `θ/sin θ → 1` au pôle Nord. **Une mesure faite là ne trancherait r
 | `reseau-tokyo-noyau.json` | 3.0 | **CLOS** | 6 points, 11 km |
 | `reseau-vancouver-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 24 km |
 | `cibles-experimentales.json` | 2.0 | 10 cibles pré-enregistrées, 0 mesure | mondial |
-| `mesures-brutes.json` | 0.1 | **Registre des observations de terrain** — vide | — |
+| `mesures-brutes.json` | 0.2 | **Registre des observations de terrain** — vide | — |
 | `protocole-triangulation-terrain.json` | 1.0 | **Protocole de mesure d'excès** — 5 triplets, 0 mesure | 42–136 km |
 | `lettre-ecoles-geometres.md` | 1.0 | Proposition de projet aux écoles de géomètres | — |
 | `jonction-makkah-madinah.json` | 0.4 | Socle topologique non discriminant | axe de 338 km |
@@ -734,3 +734,55 @@ obtenus par des contrôles ne nécessitant aucun accès aux archives :
 Le bloc 5 présentait le plus grand angle face au plus petit côté — impossible dans tout
 triangle, plan ou sphérique. C'est cette indépendance à l'accès réseau qui rend l'audit fiable :
 tant qu'un bloc porte des angles, des côtés et une somme, sa cohérence interne est testable.
+
+## Grille d'acceptation d'un bloc d'archive
+
+`mesures-brutes.json` v0.2. Six contrôles. **Les quatre premiers ne demandent aucun accès aux
+archives** — c'est ce qui rend l'audit fiable malgré un accès réseau restreint.
+
+| # | Contrôle | Test |
+|---|---|---|
+| 1 | Certification visuelle | L'image montre le tableau, la page et la mention « observés ». **Sans image : rejet immédiat, sans examen.** |
+| 2 | Somme des angles | La somme recalculée reproduit la somme imprimée à 0,01″ près |
+| 3 | Loi des sinus | `c/sin A` constant ; dispersion ≤ celle de l'arrondi des côtés. Le plus grand angle **doit** faire face au plus grand côté |
+| 4 | Vraisemblance de fermeture | `excès − A/R²` compatible avec `σ·√3` ; au-delà de 4 σ, signalé |
+| 5 | Cohérence géographique | Les côtés imprimés compatibles avec la position réelle des sommets nommés |
+| 6 | Absence de calcul joint | Ni aire, ni excès prédit, ni verdict, ni interprétation |
+
+Interdits absolus côté collecte : aucun calcul, aucune interprétation, aucune conversion
+d'unité, aucun arrondi. Si un nom de lieu est ambigu, la réponse est « ambigu, non résolu ».
+
+## Deux avertissements sur l'assemblage
+
+### Assembler à plat ne teste rien
+
+Assembler des triangles par trigonométrie plane produit une figure plane **par construction**.
+La carte se fermera à plat parce qu'on l'y aura forcée. Ce n'est pas un test, c'est une
+conséquence du procédé de dessin.
+
+**Le test est déjà dans chaque triangle.** L'excès de fermeture contient toute l'information :
+trois angles suffisent, l'assemblage global n'y ajoute rien de primaire.
+
+Ce que l'assemblage apporte quand même : sur une chaîne longue, l'écart entre deux extrémités
+calculées par deux chemins différents s'accumule et croît avec la surface embrassée. C'est le
+contrôle de fermeture de réseau des géomètres — une confirmation indépendante, pas un test
+primaire. Condition : **ne jamais compenser**. Un réseau publié après compensation a été forcé
+à fermer ; sa fermeture ne dit plus rien.
+
+### Le maillage ne peut pas démarrer à La Mecque
+
+| Zone | Archives disponibles |
+|---|---|
+| **Péninsule arabique** | **aucune.** Réseaux saoudiens modernes (datum Ain el Abd 1970, levés Aramco 1950-60), observations brutes non publiques |
+| Égypte | Survey of Egypt à partir de 1907, base d'Ismaïlia, publications de H. G. Lyons |
+| Levant | Survey of Palestine, Mandat britannique, 1920-1940, raccordé au réseau égyptien |
+| Afrique | Arc du 30ᵉ méridien, du Cap au Caire — la plus longue chaîne continue, et elle traverse de nombreuses latitudes |
+| Europe | Struve (1816-1855), Ordnance Survey (Clarke 1858), Bessel (1838), Delambre-Méchain |
+| Inde | Great Trigonometrical Survey, volumes d'Everest et Walker |
+
+Il n'existe pas de triangulation historique publiée couvrant La Mecque. **Le maillage doit
+démarrer là où les archives existent** — Égypte, Levant, arc du 30ᵉ méridien.
+
+Cela ne remet pas en cause la convention d'origine : la Kaaba reste `(0,0)`, mais uniquement
+pour l'affichage et l'ordre d'insertion. Elle ne contraint aucune mesure — voir le bloc
+`_origine_du_repere` de `reseau-global-terre.json`.
