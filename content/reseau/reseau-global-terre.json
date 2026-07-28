@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "0.6 — critère de discrimination corrigé",
+    "version": "0.7 — origine du repère fixée à la Kaaba",
     "titre": "Réseau global — constellation des noyaux, repère ECEF 3D",
     "description": "Fichier d'accueil de tous les noyaux locaux clos, avec le moteur de conversion WGS84 → ECEF et les cordes vectorielles 3D entre centres. Ces cordes sont de CLASSE C : elles sont dérivées de l'ellipsoïde WGS84 et n'ont aucune valeur de test.",
     "noyaux_membres": [
@@ -2614,6 +2614,30 @@
       "ampleur": "9 noyaux sur 21 étaient mal classés. 7 déclarés non discriminants le sont (Sydney +158,1 %, São Paulo +106,9 %, La Mecque +28,3 %, Médine +25,0 %, Le Caire +20,8 %, Tokyo +16,1 %, New York +11,6 %) et 2 déclarés discriminants ne le sont pas (Vancouver +8,9 %, Reykjavík +3,3 %).",
       "pourquoi_l_ancien_critere_trompait": "La flèche sphérique croît comme le carré de l'étendue et ne dépend pas de la latitude. L'écart entre les deux modèles dépend, lui, presque uniquement de la latitude et de l'azimut. Les deux grandeurs sont décorrélées : Reykjavík maximise la première et minimise la seconde.",
       "seuil_retenu": "10 % d'écart maximal entre les deux modèles. En dessous, aucune mesure de terrain raisonnable ne tranche ; au-dessus, l'écart dépasse toute incertitude instrumentale même sur une base courte."
+    },
+    "_origine_du_repere": {
+      "point": "La Kaaba, Masjid al-Haram, La Mecque",
+      "latitude": 21.4225,
+      "longitude": 39.82617,
+      "coordonnees_dans_le_repere_du_projet": [
+        0,
+        0
+      ],
+      "date_adoption": "2026-07-28",
+      "statut": "CONVENTION D'ORIGINE — fixée par choix de cadrage du projet",
+      "ordre_d_extension": "Le maillage s'étend de proche en proche depuis ce point : Moyen-Orient, puis Afrique, puis Europe, puis le reste du monde.",
+      "_ce_que_cette_convention_fait": [
+        "Elle fixe le point que l'affichage place au centre et l'ordre dans lequel les nouveaux points se raccrochent au réseau.",
+        "Elle donne un repère commun à tous les fichiers : (0,0) désigne la Kaaba, partout.",
+        "Elle rend les positions relatives lisibles et comparables d'un lot de données au suivant."
+      ],
+      "_ce_que_cette_convention_ne_fait_pas": [
+        "Elle ne contraint AUCUNE mesure. Une distance mesurée et un angle observé ne changent pas de valeur selon l'origine choisie.",
+        "Elle ne privilégie aucun modèle. Un réseau de distances et d'angles détermine sa figure à une isométrie près : translation, rotation et symétrie sont libres. Choisir l'origine ne fait que fixer la translation.",
+        "Elle ne peut donc ni favoriser ni défavoriser l'hypothèse plane ou l'hypothèse sphérique. Si elle avait un tel effet, ce serait le signe d'une erreur dans le solveur, pas d'une propriété du terrain."
+      ],
+      "verrou": "Aucun calcul du dépôt ne doit prendre l'origine comme donnée d'entrée. Elle intervient uniquement à l'affichage et dans l'ordre d'insertion. Un résultat qui changerait si l'on déplaçait l'origine serait un bug à corriger, et non un résultat.",
+      "test_de_non_regression": "Rejouer un ajustement avec une origine différente doit reproduire les mêmes distances ajustées et les mêmes résidus, à la convergence près du solveur."
     }
   },
   "liaisons_mesurees": [],

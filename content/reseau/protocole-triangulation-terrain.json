@@ -1,0 +1,122 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "titre": "Protocole de mesure d'excès sphérique par triangulation optique",
+    "description": "Protocole complet pour mesurer, avec une station totale moderne, la somme des angles d'un grand triangle de sommets intervisibles. C'est le seul test du projet qui produise une donnée de classe A sans dépendre d'aucune archive.",
+    "date":"2026-07-28",
+
+    "_l_observable": {
+      "grandeur":"Somme des trois angles horizontaux d'un triangle, mesurés depuis ses trois sommets.",
+      "pourquoi_elle_est_brute":"Trois lectures d'angle. Aucune coordonnée, aucun datum, aucune projection, aucune échelle, pas même une unité de longueur. La valeur ne change pas selon le modèle de Terre adopté.",
+      "prediction_modele_plan":"Somme = 180° exactement. Excès nul, quelle que soit la taille du triangle.",
+      "prediction_modele_spherique":"Excès ε = A/R², A étant l'aire du triangle et R le rayon terrestre. Croît comme le carré de la taille.",
+      "ce_qui_se_lit_directement":"Les deux prédictions ne se recouvrent pas. Il n'y a pas de zone grise : soit la somme vaut 180° aux erreurs de mesure près, soit elle dépasse de la quantité prédite."
+    },
+
+    "triplets_candidats": {
+      "note":"Sommets français, choisis pour l'intervisibilité, l'accès routier ou pédestre et l'absence d'obstacle. Les distances et excès sont calculés sur l'ellipsoïde WGS84 : ce sont des valeurs de PLANIFICATION (classe C), destinées à dimensionner la campagne, pas à la conduire.",
+      "liste":[
+        { "rang":1, "sommets":["Mont Mézenc","Mont Ventoux","Pic Saint-Loup"],
+          "cotes_km":[119.5,129.3,125.6], "aire_km2":6723, "exces_attendu_secondes":34.16,
+          "altitudes_m":[1753,1912,658],
+          "commentaire":"Le meilleur du lot : excès de 34″, soit 68 σ avec une station à 1″ et 12 séries. Visées longues (120-130 km) exigeant une transparence atmosphérique exceptionnelle — mistral, lendemain de pluie, aube ou crépuscule." },
+        { "rang":2, "sommets":["Mont Aigoual","Mont Mézenc","Mont Ventoux"],
+          "cotes_km":[100.3,135.9,119.5], "aire_km2":5810, "exces_attendu_secondes":29.52,
+          "altitudes_m":[1567,1753,1912],
+          "commentaire":"Trois sommets accessibles en voiture, tous équipés (observatoire, tables d'orientation). Altitudes homogènes : visées quasi horizontales, ce qui minimise l'effet de la déviation de la verticale." },
+        { "rang":3, "sommets":["Mont Lozère (Finiels)","Mont Ventoux","Pic Saint-Loup"],
+          "cotes_km":[127.0,71.8,125.6], "aire_km2":4344, "exces_attendu_secondes":22.08,
+          "altitudes_m":[1699,1912,658] },
+        { "rang":4, "sommets":["Mont Lozère (Finiels)","Mont Caroux","Pic Saint-Loup"],
+          "cotes_km":[107.0,71.8,67.3], "aire_km2":2376, "exces_attendu_secondes":12.07,
+          "altitudes_m":[1699,1091,658],
+          "commentaire":"Repli si les très longues visées échouent. 12″ reste 24 σ." },
+        { "rang":5, "sommets":["Mont Aigoual","Mont Caroux","Pic Saint-Loup"],
+          "cotes_km":[72.9,42.0,67.3], "aire_km2":1392, "exces_attendu_secondes":7.07,
+          "altitudes_m":[1567,1091,658],
+          "commentaire":"Le plus facile logistiquement, le plus faible en signal. 7″ reste 14 σ, donc largement suffisant." }
+      ],
+      "portee_optique":"Toutes les paires retenues sont très en deçà de la limite d'horizon géométrique. Le facteur limitant n'est PAS la courbure mais l'obstruction du relief intermédiaire et la transparence de l'air. À vérifier sur profil topographique avant de monter."
+    },
+
+    "exigence_instrumentale": {
+      "materiel":"Station totale ou théodolite de précision angulaire 1″ ou meilleure. Trépied forcé-centrage, cibles de visée à réflecteur ou héliotropes.",
+      "series":"12 séries par angle minimum (double retournement, cercle gauche et cercle droit).",
+      "precision_resultante":"σ par direction = 1″/√12 ≈ 0,29″. σ sur la somme des trois angles = √3 × 0,29 ≈ 0,50″.",
+      "table_detection":[
+        { "triplet":1, "exces":34.16, "sigma_somme":0.50, "detection_sigma":68.3 },
+        { "triplet":2, "exces":29.52, "sigma_somme":0.50, "detection_sigma":59.0 },
+        { "triplet":3, "exces":22.08, "sigma_somme":0.50, "detection_sigma":44.2 },
+        { "triplet":4, "exces":12.07, "sigma_somme":0.50, "detection_sigma":24.1 },
+        { "triplet":5, "exces":7.07, "sigma_somme":0.50, "detection_sigma":14.1 }
+      ],
+      "conclusion":"Même le plus faible des cinq triplets se détecte à 14 σ. Un matériel de géomètre courant suffit très largement."
+    },
+
+    "_corrections_et_objections": {
+      "avertissement":"C'est ici que se joue la validité du test. Ces corrections doivent être documentées AVANT la mesure, sinon elles serviront à contester le résultat après coup.",
+      "deviation_de_la_verticale": {
+        "probleme":"Le théodolite se cale sur la verticale locale — le fil à plomb, donc la direction de la pesanteur —, pas sur une normale théorique. En terrain montagneux l'écart atteint 5 à 30″.",
+        "effet_sur_un_angle":"η · tan(z), où η est la composante est-ouest de la déviation et z l'inclinaison de la visée.",
+        "table":[
+          { "deviation_secondes":10, "inclinaison_deg":1, "effet_secondes":0.17 },
+          { "deviation_secondes":10, "inclinaison_deg":3, "effet_secondes":0.52 },
+          { "deviation_secondes":30, "inclinaison_deg":1, "effet_secondes":0.52 },
+          { "deviation_secondes":30, "inclinaison_deg":3, "effet_secondes":1.57 }
+        ],
+        "parade":"Choisir des sommets d'altitudes comparables pour que les visées restent sous 1° d'inclinaison. Consigner l'inclinaison réelle de chaque visée."
+      },
+      "hauteur_de_la_cible": {
+        "probleme":"Viser une cible située en altitude introduit un terme dit de « normale gauche ».",
+        "ordre_de_grandeur":"0,054″ pour 500 m, 0,108″ pour 1 000 m, 0,216″ pour 2 000 m, à 44° de latitude.",
+        "verdict":"Négligeable devant 30″. Non négligeable devant 2″."
+      },
+      "refraction_laterale":"La réfraction horizontale différentielle le long de visées rasantes au-dessus de terrain chauffé peut atteindre plusieurs dixièmes de seconde. Parade : mesurer à l'aube ou en fin de journée, et répéter à deux moments distincts.",
+      "regle_qui_en_decoule":"PRIVILÉGIER LES GRANDS TRIANGLES. À 34″ d'excès, toutes ces corrections réunies pèsent moins de 1″ et ne peuvent pas fabriquer le signal. À 2″ d'excès — un triangle de 30 km — elles sont du même ordre que le signal et le test devient contestable. C'est l'argument décisif contre les petits triangles, malgré leur facilité."
+    },
+
+    "protocole_de_pre_enregistrement": {
+      "principe":"Une mesure prédite avant d'être faite est le seul test réel. Les prédictions ci-dessous sont consignées et datées ; elles ne doivent plus être recalculées après réception de la mesure.",
+      "etapes":[
+        "1. Choisir le triplet et le figer. Consigner les trois sommets et le matériel.",
+        "2. Vérifier l'intervisibilité sur profil topographique. Si un côté est obstrué, changer de triplet AVANT de mesurer, jamais après.",
+        "3. Les deux prédictions sont déjà inscrites dans ce fichier : 180°00′00,00″ pour le modèle plan, 180°00′XX,XX″ pour le modèle sphérique selon le triplet.",
+        "4. Mesurer les trois angles, chacun depuis son sommet, 12 séries, sans consulter les prédictions sur le terrain.",
+        "5. Reporter les valeurs brutes, l'écart-type observé, l'inclinaison des visées, l'heure et les conditions atmosphériques.",
+        "6. Ne jamais ajuster, ne jamais compenser, ne jamais fermer à 180°. La fermeture brute EST le résultat.",
+        "7. Publier le carnet complet, y compris les séries écartées et la raison de leur rejet."
+      ],
+      "piege_a_eviter":"Certains logiciels de station totale appliquent automatiquement une compensation de fermeture ou une correction de projection. Désactiver toute compensation et exporter les lectures brutes. Vérifier ce point AVANT la campagne."
+    },
+
+    "feuille_de_releve": {
+      "en_tete":["Triplet","Sommet occupé","Date","Heure début","Heure fin","Opérateur","Instrument (marque, modèle, n° de série)","Dernier étalonnage","Température","Pression","Vent","Visibilité estimée"],
+      "par_visee":["Cible visée","Série n°","Cercle gauche (lecture)","Cercle droit (lecture)","Moyenne","Écart à la moyenne des séries","Distance zénithale","Remarque"],
+      "par_station":["Angle horizontal final","Nombre de séries retenues","Séries rejetées et motif","Écart-type observé"],
+      "synthese":["Angle sommet 1","Angle sommet 2","Angle sommet 3","SOMME BRUTE","Excès observé (somme − 180°)","σ sur la somme","Excès prédit modèle sphérique","Excès prédit modèle plan (= 0)","Écart au modèle sphérique en σ","Écart au modèle plan en σ"]
+    },
+
+    "_ce_que_le_resultat_etablira": {
+      "si_l_exces_est_nul":"La somme mesurée vaut 180° aux erreurs près. Le modèle sphérique est réfuté à cette échelle, et le résultat est publiable tel quel.",
+      "si_l_exces_correspond_a_A_sur_R2":"La géométrie plane est réfutée à cette échelle. Le rayon R se déduit de la mesure par R = √(A/ε) — un nombre obtenu depuis trois angles et une aire, sans avoir supposé aucun modèle.",
+      "si_l_exces_est_intermediaire_ou_disperse":"Les corrections instrumentales dominent ou le protocole a été mal appliqué. Recommencer avec un triangle plus grand.",
+      "engagement":"Le protocole est symétrique et ne peut pas être orienté. Cette symétrie doit être acceptée avant de monter sur le terrain, sinon la mesure n'a pas de sens."
+    },
+
+    "partenaires_possibles":[
+      "Géomètres-experts (ordre régional) : disposent du matériel et des compétences de mise en station.",
+      "Écoles d'ingénieurs géomètres et topographes (ESGT Le Mans, INSA Strasbourg, ENSG Marne-la-Vallée) : campagnes de terrain régulières, un tel sujet peut faire un projet étudiant.",
+      "Clubs d'astronomie et sociétés savantes locales : accès aux sommets, connaissance des conditions de transparence.",
+      "Services topographiques départementaux."
+    ]
+  },
+
+  "mesures": [],
+
+  "_controle": {
+    "triplets_proposes":5,
+    "mesures_effectuees":0,
+    "etat":"Protocole complet. Aucune mesure réalisée.",
+    "prochain_jalon":"Une campagne sur le triplet n°2 (Aigoual / Mézenc / Ventoux) : trois sommets accessibles en voiture, altitudes homogènes, excès attendu 29,52″ soit 59 σ."
+  }
+}

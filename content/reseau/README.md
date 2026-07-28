@@ -82,9 +82,10 @@ prédit `θ/sin θ → 1` au pôle Nord. **Une mesure faite là ne trancherait r
 | `reseau-vancouver-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 24 km |
 | `cibles-experimentales.json` | 2.0 | 10 cibles pré-enregistrées, 0 mesure | mondial |
 | `mesures-brutes.json` | 0.1 | **Registre des observations de terrain** — vide | — |
+| `protocole-triangulation-terrain.json` | 1.0 | **Protocole de mesure d'excès** — 5 triplets, 0 mesure | 42–136 km |
 | `jonction-makkah-madinah.json` | 0.4 | Socle topologique non discriminant | axe de 338 km |
 | `reseau-regional-hedjaz.json` | 0.3 | 2 cibles pré-enregistrées, 0 mesure | jusqu'à 1 182 km |
-| `reseau-global-terre.json` | 0.6 | Moteur ECEF, 21 noyaux + Point Nemo | intercontinental |
+| `reseau-global-terre.json` | 0.7 | Moteur ECEF, 21 noyaux, origine Kaaba | intercontinental |
 | `reseau-mecque-modele.json` | 1.0 | Archivé (schéma abandonné) | — |
 
 ## Les 21 noyaux — classés par pouvoir discriminant réel
@@ -612,3 +613,80 @@ campagnes**, pas dans les bases de coordonnées.
 Deuxième piège, plus discret : la **réduction au niveau de la mer** appliquée aux bases mesurées
 suppose déjà un rayon terrestre. Une base publiée « réduite » n'est plus brute. Il faut la
 longueur *avant* réduction.
+
+## Origine du repère — la Kaaba
+
+Adoptée le 28 juillet 2026. `(0,0)` désigne la Kaaba (21,42250° N / 39,82617° E) dans tous
+les fichiers, et le maillage s'étend de proche en proche depuis ce point : Moyen-Orient,
+Afrique, Europe, puis le reste du monde.
+
+**Ce que cette convention fait :** elle fixe le point centré à l'affichage, l'ordre
+d'insertion des nouveaux points, et donne un repère commun à tous les fichiers.
+
+**Ce qu'elle ne fait pas :** elle ne contraint aucune mesure. Une distance mesurée et un angle
+observé ne changent pas de valeur selon l'origine. Un réseau de distances et d'angles détermine
+sa figure **à une isométrie près** — translation, rotation et symétrie restent libres ; choisir
+l'origine ne fixe que la translation. Elle ne peut donc ni favoriser ni défavoriser l'hypothèse
+plane ou sphérique.
+
+> **Verrou.** Aucun calcul du dépôt ne doit prendre l'origine comme donnée d'entrée. Un
+> résultat qui changerait si l'on déplaçait l'origine serait un **bug**, pas un résultat.
+> Test de non-régression : rejouer un ajustement depuis une autre origine doit reproduire les
+> mêmes distances ajustées et les mêmes résidus.
+
+## Protocole de terrain — mesurer l'excès sphérique soi-même
+
+`protocole-triangulation-terrain.json` v1.0. C'est le seul test du projet qui produise une
+donnée de classe A **sans dépendre d'aucune archive**.
+
+### Cinq triplets de sommets français
+
+Valeurs de planification (classe C — calculées sur WGS84 pour dimensionner la campagne, pas
+pour la conduire).
+
+| # | Sommets | Côtés (km) | Aire | Excès attendu | Détection |
+|---|---|---|---|---|---|
+| 1 | Mézenc / Ventoux / Saint-Loup | 119 / 129 / 126 | 6 723 km² | **34,16″** | 68 σ |
+| **2** | **Aigoual / Mézenc / Ventoux** | 100 / 136 / 120 | 5 810 km² | **29,52″** | 59 σ |
+| 3 | Lozère / Ventoux / Saint-Loup | 127 / 72 / 126 | 4 344 km² | 22,08″ | 44 σ |
+| 4 | Lozère / Caroux / Saint-Loup | 107 / 72 / 67 | 2 376 km² | 12,07″ | 24 σ |
+| 5 | Aigoual / Caroux / Saint-Loup | 73 / 42 / 67 | 1 392 km² | 7,07″ | 14 σ |
+
+Détection calculée pour une station totale à 1″ et 12 séries par angle : σ par direction
+1″/√12 ≈ 0,29″, σ sur la somme √3 × 0,29 ≈ 0,50″. **Même le plus faible des cinq se détecte
+à 14 σ.** Du matériel de géomètre courant suffit très largement.
+
+Le triplet **n°2 est recommandé** : trois sommets accessibles en voiture et équipés, altitudes
+homogènes (1 567 / 1 753 / 1 912 m) donc visées quasi horizontales.
+
+### L'objection technique, et pourquoi elle impose les grands triangles
+
+| Correction | Ordre de grandeur | Verdict |
+|---|---|---|
+| Déviation de la verticale (visée à 1°) | 0,17 à 0,52″ | maîtrisable |
+| Déviation de la verticale (visée à 3°) | 0,52 à 1,57″ | à éviter |
+| Hauteur de cible (1 000 m) | 0,108″ | négligeable |
+| Réfraction latérale | quelques dixièmes | mesurer à l'aube |
+
+Le théodolite se cale sur la **verticale locale** — le fil à plomb —, pas sur une normale
+théorique ; en montagne l'écart atteint 5 à 30″, et son effet sur un angle vaut `η·tan z`.
+
+**D'où la règle : privilégier les grands triangles.** À 34″ d'excès, toutes ces corrections
+réunies pèsent moins de 1″ et ne peuvent pas fabriquer le signal. À 2″ d'excès — un triangle
+de 30 km — elles sont du **même ordre que le signal** et le test devient contestable. C'est
+l'argument décisif contre les petits triangles malgré leur facilité logistique.
+
+### Ce que le résultat établira
+
+| Résultat | Conclusion |
+|---|---|
+| Somme = 180° aux erreurs près | Le modèle sphérique est réfuté à cette échelle |
+| Excès = A/R² | La géométrie plane est réfutée ; et `R = √(A/ε)` donne un **rayon mesuré**, obtenu de trois angles et d'une aire, sans supposer aucun modèle |
+| Excès intermédiaire ou dispersé | Les corrections dominent ou le protocole a été mal appliqué — recommencer plus grand |
+
+Le protocole est symétrique et ne peut pas être orienté. Cette symétrie doit être acceptée
+avant de monter sur le terrain.
+
+**Piège logiciel à désactiver avant la campagne :** certaines stations totales appliquent
+automatiquement une compensation de fermeture ou une correction de projection. Il faut exporter
+les lectures brutes, et **ne jamais fermer à 180°** — la fermeture brute *est* le résultat.
