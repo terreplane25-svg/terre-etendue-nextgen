@@ -251,6 +251,19 @@
     "etendue_maximale_m": 10752,
     "fleche_spherique_sur_etendue_m": 9.073,
     "rapport_signal_sur_bruit": "1/2.8",
-    "note": "Le graphe étant complet, la rigidité n'est pas un résultat obtenu mais une propriété de départ. Le RMS mesure uniquement le défaut de planéité de la matrice, ici l'arrondi au mètre plus la convergence du solveur."
+    "note": "Le graphe étant complet, la rigidité n'est pas un résultat obtenu mais une propriété de départ. Le RMS mesure uniquement le défaut de planéité de la matrice, ici l'arrondi au mètre plus la convergence du solveur.",
+    "etendue_superieure_a_incertitude": false,
+    "ecart_maximal_entre_modeles_pourcent": 16.1,
+    "facteur_etirement_modele_plan": 1.1673,
+    "discriminant": true,
+    "critere_de_discrimination": "CRITÈRE CORRIGÉ. Le champ discriminant reposait sur « flèche sphérique > incertitude », qui ne mesure que l'ÉTENDUE du noyau. Ce critère s'est révélé faux sur 9 des 21 noyaux : Reykjavík (78 km d'étendue) y passait pour discriminant alors que les deux modèles n'y diffèrent que de 3,3 %, et Sydney (2,3 km) y passait pour non discriminant alors qu'il offre +158,1 %. Le bon critère est l'écart maximal entre les deux modèles sur les paires du noyau, seuil 10 %. L'ancien champ est conservé sous etendue_superieure_a_incertitude.",
+    "meilleure_paire_discriminante": {
+      "a": "Palais Impérial",
+      "b": "Meiji-jingū",
+      "azimut_deg": 258.6,
+      "modele_spherique_m": 4940,
+      "modele_plan_m": 5734,
+      "ecart_pourcent": 16.1
+    }
   }
 }

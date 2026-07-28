@@ -252,6 +252,19 @@
     "fleche_spherique_sur_etendue_m": 2.738,
     "rapport_signal_sur_bruit": "1/9.1",
     "note": "Le graphe étant complet, la rigidité n'est pas un résultat obtenu mais une propriété de départ. Le RMS mesure uniquement le défaut de planéité de la matrice, ici l'arrondi au mètre plus la convergence du solveur.",
-    "note_solveur": "Le solveur a rencontré 2 minimum(s) local(aux) sur 14 départs aléatoires (176.95 m, 205.4 m). Ce ne sont PAS des ambiguïtés géométriques : sur un graphe complet K6 la figure est unique à une isométrie près, réflexion incluse — et une réflexion laisse toutes les distances inchangées. Ce sont des artefacts numériques du solveur à ressorts, favorisés par la forme allongée ou très resserrée du noyau. L'optimum retenu est 0.19 m."
+    "note_solveur": "Le solveur a rencontré 2 minimum(s) local(aux) sur 14 départs aléatoires (176.95 m, 205.4 m). Ce ne sont PAS des ambiguïtés géométriques : sur un graphe complet K6 la figure est unique à une isométrie près, réflexion incluse — et une réflexion laisse toutes les distances inchangées. Ce sont des artefacts numériques du solveur à ressorts, favorisés par la forme allongée ou très resserrée du noyau. L'optimum retenu est 0.19 m.",
+    "etendue_superieure_a_incertitude": false,
+    "ecart_maximal_entre_modeles_pourcent": 106.9,
+    "facteur_etirement_modele_plan": 2.1619,
+    "discriminant": true,
+    "critere_de_discrimination": "CRITÈRE CORRIGÉ. Le champ discriminant reposait sur « flèche sphérique > incertitude », qui ne mesure que l'ÉTENDUE du noyau. Ce critère s'est révélé faux sur 9 des 21 noyaux : Reykjavík (78 km d'étendue) y passait pour discriminant alors que les deux modèles n'y diffèrent que de 3,3 %, et Sydney (2,3 km) y passait pour non discriminant alors qu'il offre +158,1 %. Le bon critère est l'écart maximal entre les deux modèles sur les paires du noyau, seuil 10 %. L'ancien champ est conservé sous etendue_superieure_a_incertitude.",
+    "meilleure_paire_discriminante": {
+      "a": "Edifício Copan",
+      "b": "Mercado Municipal",
+      "azimut_deg": 71.5,
+      "modele_spherique_m": 1611,
+      "modele_plan_m": 3333,
+      "ecart_pourcent": 106.9
+    }
   }
 }

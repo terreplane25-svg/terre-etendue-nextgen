@@ -251,6 +251,19 @@
     "etendue_maximale_m": 11288,
     "fleche_spherique_sur_etendue_m": 10.0,
     "note": "Le graphe étant complet, la rigidité n'est pas un résultat obtenu mais une propriété de départ. Le RMS mesure uniquement le défaut de planéité de la matrice, ici l'arrondi au mètre plus la convergence du solveur.",
-    "note_solveur": "Le solveur a rencontré un second optimum à 71,23 m sur 14 départs aléatoires. Ce n'est PAS une ambiguïté géométrique : sur un graphe complet K6 la figure est unique à une isométrie près, réflexion incluse (qui laisse toutes les distances inchangées). C'est un minimum local du solveur à ressorts, artefact numérique dû à la forme très allongée du noyau. L'optimum retenu est 0,18 m."
+    "note_solveur": "Le solveur a rencontré un second optimum à 71,23 m sur 14 départs aléatoires. Ce n'est PAS une ambiguïté géométrique : sur un graphe complet K6 la figure est unique à une isométrie près, réflexion incluse (qui laisse toutes les distances inchangées). C'est un minimum local du solveur à ressorts, artefact numérique dû à la forme très allongée du noyau. L'optimum retenu est 0,18 m.",
+    "etendue_superieure_a_incertitude": false,
+    "ecart_maximal_entre_modeles_pourcent": 11.6,
+    "facteur_etirement_modele_plan": 1.1347,
+    "discriminant": true,
+    "critere_de_discrimination": "CRITÈRE CORRIGÉ. Le champ discriminant reposait sur « flèche sphérique > incertitude », qui ne mesure que l'ÉTENDUE du noyau. Ce critère s'est révélé faux sur 9 des 21 noyaux : Reykjavík (78 km d'étendue) y passait pour discriminant alors que les deux modèles n'y diffèrent que de 3,3 %, et Sydney (2,3 km) y passait pour non discriminant alors qu'il offre +158,1 %. Le bon critère est l'écart maximal entre les deux modèles sur les paires du noyau, seuil 10 %. L'ancien champ est conservé sous etendue_superieure_a_incertitude.",
+    "meilleure_paire_discriminante": {
+      "a": "Empire State Building",
+      "b": "Chrysler Building",
+      "azimut_deg": 67.7,
+      "modele_spherique_m": 944,
+      "modele_plan_m": 1054,
+      "ecart_pourcent": 11.6
+    }
   }
 }

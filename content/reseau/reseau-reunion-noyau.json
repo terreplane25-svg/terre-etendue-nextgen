@@ -252,6 +252,19 @@
     "etendue_maximale_m": 51300,
     "fleche_spherique_sur_etendue_m": 206.54,
     "rapport_signal_sur_bruit": "8.3/1 — AU-DESSUS DU SEUIL",
-    "note_solveur": "Minimum local du solveur à ressorts à 1013.4 m. Artefact numérique, non ambiguïté géométrique : sur K6 la figure est unique à une isométrie près. Optimum retenu : 0.13 m."
+    "note_solveur": "Minimum local du solveur à ressorts à 1013.4 m. Artefact numérique, non ambiguïté géométrique : sur K6 la figure est unique à une isométrie près. Optimum retenu : 0.13 m.",
+    "etendue_superieure_a_incertitude": true,
+    "ecart_maximal_entre_modeles_pourcent": 105.0,
+    "facteur_etirement_modele_plan": 2.0712,
+    "discriminant": true,
+    "critere_de_discrimination": "CRITÈRE CORRIGÉ. Le champ discriminant reposait sur « flèche sphérique > incertitude », qui ne mesure que l'ÉTENDUE du noyau. Ce critère s'est révélé faux sur 9 des 21 noyaux : Reykjavík (78 km d'étendue) y passait pour discriminant alors que les deux modèles n'y diffèrent que de 3,3 %, et Sydney (2,3 km) y passait pour non discriminant alors qu'il offre +158,1 %. Le bon critère est l'écart maximal entre les deux modèles sur les paires du noyau, seuil 10 %. L'ancien champ est conservé sous etendue_superieure_a_incertitude.",
+    "meilleure_paire_discriminante": {
+      "a": "Cathédrale de Saint-Denis",
+      "b": "Aéroport Roland-Garros",
+      "azimut_deg": 98.1,
+      "modele_spherique_m": 6568,
+      "modele_plan_m": 13462,
+      "ecart_pourcent": 105.0
+    }
   }
 }

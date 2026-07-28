@@ -35,11 +35,6 @@ function fmt(m: number): string {
   return `${Math.round(m).toLocaleString('fr-FR')} m`;
 }
 
-function etirementLat(lat: number): number {
-  const th = ((90 - lat) * Math.PI) / 180;
-  return th / Math.sin(th);
-}
-
 function courtNom(titre: string): string {
   return titre.replace(/^Noyau (de la |de l'|des |du |de |d')?/i, '').split(' —')[0];
 }
@@ -540,13 +535,9 @@ export default function CarteClient({ data }: { data: ReseauData }) {
               <L k="Étendue" v={fmt(selection.etendueM)} />
               <L k="Flèche sphérique" v={fmt(selection.flecheM)} />
               <L k="Incertitude" v={`± ${selection.incertitudeM} m`} />
-              <L k="Signal / bruit" v={selection.signalSurBruit} />
               <L k="Latitude" v={`${selection.centre.latitude.toFixed(2)}°`} />
-              <L
-                k="Étirement du plan"
-                v={`× ${etirementLat(selection.centre.latitude).toFixed(3)}`}
-                fort
-              />
+              <L k="Étirement du plan" v={`× ${selection.etirement.toFixed(3)}`} />
+              <L k="Écart entre modèles" v={`+${selection.ecartMaxPct} %`} fort />
             </dl>
             <p
               style={{
@@ -557,8 +548,8 @@ export default function CarteClient({ data }: { data: ReseauData }) {
               }}
             >
               {selection.discriminant
-                ? 'Étendue suffisante : une mesure de classe A faite ici aurait valeur de test.'
-                : "Étendue trop faible : la flèche reste sous l'incertitude de position. Aucune mesure faite ici ne peut trancher sur ce critère."}
+                ? `Discriminant : sur sa meilleure paire, le modèle plan s'écarte de ${selection.ecartMaxPct} % du modèle sphérique. Une mesure de classe A faite ici trancherait.`
+                : `Non discriminant : ${selection.ecartMaxPct} % d'écart maximal entre les deux modèles. Trop peu pour trancher, quelle que soit la précision de la mesure. C'est la latitude qui l'impose, pas la qualité du relevé.`}
             </p>
             <button
               onClick={() => allerA(selection.centre.latitude, selection.centre.longitude, 12)}

@@ -22,6 +22,9 @@ export interface Noyau {
   flecheM: number;
   incertitudeM: number;
   signalSurBruit: string;
+  ecartMaxPct: number;
+  etirement: number;
+  etendueSuffisante: boolean;
   discriminant: boolean;
 }
 
@@ -96,6 +99,9 @@ export function getReseau(): ReseauData {
       flecheM: m.fleche_m,
       incertitudeM: m.incertitude_m,
       signalSurBruit: m.signal_sur_bruit,
+      ecartMaxPct: m.ecart_maximal_entre_modeles_pourcent,
+      etirement: m.facteur_etirement,
+      etendueSuffisante: m.etendue_superieure_a_incertitude === true,
       discriminant: m.discriminant === true,
     };
   });

@@ -260,6 +260,10 @@
       "modele_spherique_m": 10365,
       "modele_plan_m": 11799,
       "ecart_pourcent": 13.8
-    }
+    },
+    "etendue_superieure_a_incertitude": true,
+    "ecart_maximal_entre_modeles_pourcent": 13.8,
+    "discriminant": true,
+    "critere_de_discrimination": "CRITÈRE CORRIGÉ. Le champ discriminant reposait sur « flèche sphérique > incertitude », qui ne mesure que l'ÉTENDUE du noyau. Ce critère s'est révélé faux sur 9 des 21 noyaux : Reykjavík (78 km d'étendue) y passait pour discriminant alors que les deux modèles n'y diffèrent que de 3,3 %, et Sydney (2,3 km) y passait pour non discriminant alors qu'il offre +158,1 %. Le bon critère est l'écart maximal entre les deux modèles sur les paires du noyau, seuil 10 %. L'ancien champ est conservé sous etendue_superieure_a_incertitude."
   }
 }

@@ -9,7 +9,7 @@ entre points, et on cherche quelle figure les satisfait toutes.
 | | |
 |---|---|
 | Noyaux clos et verrouillés | **21** — 6 continents, 4 océans |
-| **dont discriminants** | **13** |
+| **dont discriminants** | **18** (critère corrigé) |
 | Points relevés | 130 |
 | Distances **calculées** (classe C) | 342 |
 | **Mesures de terrain (classe A ou B)** | **0** |
@@ -82,42 +82,58 @@ prédit `θ/sin θ → 1` au pôle Nord. **Une mesure faite là ne trancherait r
 | `cibles-experimentales.json` | 2.0 | 10 cibles pré-enregistrées, 0 mesure | mondial |
 | `jonction-makkah-madinah.json` | 0.4 | Socle topologique non discriminant | axe de 338 km |
 | `reseau-regional-hedjaz.json` | 0.3 | 2 cibles pré-enregistrées, 0 mesure | jusqu'à 1 182 km |
-| `reseau-global-terre.json` | 0.5 | Moteur ECEF, 21 noyaux + Point Nemo | intercontinental |
+| `reseau-global-terre.json` | 0.6 | Moteur ECEF, 21 noyaux + Point Nemo | intercontinental |
 | `reseau-mecque-modele.json` | 1.0 | Archivé (schéma abandonné) | — |
 
-## Les 21 noyaux
+## Les 21 noyaux — classés par pouvoir discriminant réel
 
-Triés par rapport signal/bruit décroissant. Le facteur d'étirement est celui du modèle plan
-de référence à la latitude du centre.
+> ### ⚠ Correction de critère
+>
+> Le champ `discriminant` reposait jusqu'ici sur « flèche sphérique > incertitude », qui ne
+> mesure que l'**étendue** du noyau. **Ce critère était faux sur 9 des 21 noyaux.** Reykjavík
+> (78 km d'étendue, meilleur rapport signal/bruit du lot après les Açores) y passait pour
+> discriminant alors que les deux modèles n'y diffèrent que de 3,3 % ; Sydney (2,3 km, pire
+> rapport du lot) y passait pour non discriminant alors qu'il offre +158,1 %.
+>
+> Le bon critère est l'**écart maximal entre les deux modèles** sur les paires du noyau,
+> seuil fixé à 10 %. L'ancien champ est conservé sous `etendue_superieure_a_incertitude`.
+>
+> Bilan de la correction : 7 noyaux déclarés non discriminants le sont (Sydney, São Paulo,
+> La Mecque, Médine, Le Caire, Tokyo, New York) et 2 déclarés discriminants ne le sont pas
+> (Vancouver, Reykjavík). Le compte passe de 13 à **18 discriminants sur 21**.
 
-| Noyau | Pts | Étendue | Flèche | Incertitude | Signal/bruit | Étirement | Discriminant |
-|---|---|---|---|---|---|---|---|
-| des Açores | 6 | 593 163 m | 27592.8 m | ±25 m | 1103.7/1 | ×1.153 | **oui** |
-| des Kerguelen | 6 | 133 652 m | 1401.83 m | ±25 m | 56.1/1 | ×3.734 | **oui** |
-| de Reykjavík | 6 | 77 948 m | 476.83 m | ±25 m | 19.1/1 | ×1.035 | **oui** |
-| d'Hawaï | 6 | 71 729 m | 403.78 m | ±25 m | 16.2/1 | ×1.287 | **oui** |
-| de Pékin | 6 | 62 228 m | 303.9 m | ±25 m | 12.2/1 | ×1.140 | **oui** |
-| du Cap | 6 | 62 216 m | 303.78 m | ±25 m | 12.2/1 | ×2.607 | **oui** |
-| de Maurice | 6 | 60 208 m | 284.49 m | ±25 m | 11.4/1 | ×2.048 | **oui** |
-| de La Réunion | 6 | 51 300 m | 206.5 m | ±25 m | 8.3/1 | ×2.071 | **oui** |
-| de Tahiti | 6 | 48 330 m | 183.3 m | ±25 m | 7.3/1 | ×1.968 | **oui** |
-| de Buenos Aires | 6 | 44 154 m | 153 m | ±25 m | 6.1/1 | ×2.642 | **oui** |
-| de Mumbai | 6 | 32 600 m | 83.41 m | ±25 m | 3.3/1 | ×1.311 | **oui** |
-| de l'île de Pâques | 6 | 25 733 m | 51.97 m | ±25 m | 2.1/1 | ×2.298 | **oui** |
-| de Vancouver | 6 | 24 481 m | 47.03 m | ±25 m | 1.9/1 | ×1.089 | **oui** |
-| de New York | 6 | 11 288 m | 10 m | ±25 m | 1/2.5 | ×1.135 | non |
-| de Tokyo | 6 | 10 752 m | 9.073 m | ±25 m | 1/2.8 | ×1.167 | non |
-| du Caire | 6 | 22 090 m | 38.3 m | ±250 m | 1/6.5 | ×1.209 | non |
-| de La Mecque | 9 | 37 095 m | 30 m | ±250 m | 1/8.3 | ×1.286 | non |
-| de São Paulo | 6 | 5 907 m | 2.738 m | ±25 m | 1/9.1 | ×2.162 | non |
-| de Paris | 6 | 5 194 m | 2.12 m | ±25 m | 1/11.8 | ×1.091 | non |
-| de Médine | 7 | 11 985 m | 11.3 m | ±250 m | 1/22.1 | ×1.257 | non |
-| de Sydney | 6 | 2 320 m | 0.422 m | ±25 m | 1/59.2 | ×2.603 | non |
+| Noyau | Étirement | Écart max | Sphérique | Plan | Étendue | Discriminant |
+|---|---|---|---|---|---|---|
+| des Kerguelen | 3.734 | **+274.2 %** | 49 861 m | 186 572 m | 134 km | **oui** |
+| du Cap | 2.607 | **+159.3 %** | 18 457 m | 47 854 m | 62 km | **oui** |
+| de Sydney | 2.603 | **+158.1 %** | 957 m | 2 469 m | 2 km | **oui** |
+| de Buenos Aires | 2.642 | **+141.8 %** | 1 155 m | 2 794 m | 44 km | **oui** |
+| de l'île de Pâques | 2.298 | **+126.5 %** | 15 018 m | 34 008 m | 26 km | **oui** |
+| de São Paulo | 2.162 | **+106.9 %** | 1 611 m | 3 333 m | 6 km | **oui** |
+| de La Réunion | 2.071 | **+105.0 %** | 6 568 m | 13 462 m | 51 km | **oui** |
+| de Maurice | 2.048 | **+104.7 %** | 37 437 m | 76 628 m | 60 km | **oui** |
+| de Tahiti | 1.968 | **+96.4 %** | 7 025 m | 13 793 m | 48 km | **oui** |
+| de Mumbai | 1.311 | **+29.3 %** | 10 418 m | 13 472 m | 33 km | **oui** |
+| d'Hawaï | 1.287 | **+28.6 %** | 22 569 m | 29 022 m | 72 km | **oui** |
+| de La Mecque | 1.286 | **+28.3 %** | 5 754 m | 7 384 m | 37 km | **oui** |
+| de Médine | 1.257 | **+25.0 %** | 4 827 m | 6 033 m | 12 km | **oui** |
+| du Caire | 1.209 | **+20.8 %** | 3 646 m | 4 404 m | 22 km | **oui** |
+| de Tokyo | 1.167 | **+16.1 %** | 4 940 m | 5 734 m | 11 km | **oui** |
+| des Açores | 1.153 | **+14.6 %** | 123 550 m | 141 596 m | 593 km | **oui** |
+| de Pékin | 1.140 | **+13.8 %** | 10 365 m | 11 799 m | 62 km | **oui** |
+| de New York | 1.135 | **+11.6 %** | 944 m | 1 054 m | 11 km | **oui** |
+| de Paris | 1.091 | **+8.9 %** | 4 111 m | 4 479 m | 5 km | non |
+| de Vancouver | 1.089 | **+8.9 %** | 24 481 m | 26 664 m | 24 km | non |
+| de Reykjavík | 1.035 | **+3.3 %** | 44 489 m | 45 945 m | 78 km | non |
 
-**Le classement par signal/bruit ne dit pas où mesurer.** Il ne mesure que l'étendue : un
-noyau très étendu à haute latitude nord (Reykjavík, 78 km, 19,1/1) est parfaitement inutile,
-parce que les deux modèles y coïncident. C'est l'**étirement** — dernière colonne — qui
-décide, et il ne dépend que de la latitude.
+**Le tableau est trié par écart décroissant — et il reproduit exactement l'ordre du facteur
+d'étirement.** C'est la vérification la plus nette du principe : sur 21 cas indépendants
+répartis de 64° N à 49° S, le pouvoir discriminant d'un noyau est déterminé par sa latitude
+seule. Ni l'étendue, ni le nombre de points, ni la finesse du relevé n'y changent quoi que ce
+soit — la colonne « Étendue » saute de 2 km à 593 km sans perturber l'ordre.
+
+Les trois derniers du classement (Paris, Vancouver, Reykjavík) sont tous à haute latitude
+nord, où `θ/sin θ → 1`. Aucune mesure faite là ne peut trancher, quelle que soit sa précision.
 
 ### Pouvoir discriminant — correction de méthode
 
