@@ -81,7 +81,7 @@ prédit `θ/sin θ → 1` au pôle Nord. **Une mesure faite là ne trancherait r
 | `reseau-tokyo-noyau.json` | 3.0 | **CLOS** | 6 points, 11 km |
 | `reseau-vancouver-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 24 km |
 | `cibles-experimentales.json` | 2.0 | 10 cibles pré-enregistrées, 0 mesure | mondial |
-| `mesures-brutes.json` | 0.2 | **Registre des observations de terrain** — vide | — |
+| `mesures-brutes.json` | 0.3 | **Registre des observations de terrain** — vide | — |
 | `protocole-triangulation-terrain.json` | 1.0 | **Protocole de mesure d'excès** — 5 triplets, 0 mesure | 42–136 km |
 | `lettre-ecoles-geometres.md` | 1.0 | Proposition de projet aux écoles de géomètres | — |
 | `jonction-makkah-madinah.json` | 0.4 | Socle topologique non discriminant | axe de 338 km |
@@ -786,3 +786,54 @@ démarrer là où les archives existent** — Égypte, Levant, arc du 30ᵉ mér
 Cela ne remet pas en cause la convention d'origine : la Kaaba reste `(0,0)`, mais uniquement
 pour l'affichage et l'ordre d'insertion. Elle ne contraint aucune mesure — voir le bloc
 `_origine_du_repere` de `reseau-global-terre.json`.
+
+## Cibles bibliographiques vérifiées
+
+Références confirmées par recherche le 28 juillet 2026. « Texte intégral en ligne » signifie
+que la présence du document numérisé est confirmée — **pas** que la page cherchée a été lue :
+mon accès réseau ne permet pas d'ouvrir les fac-similés.
+
+### 1. Survey of Egypt — texte intégral vérifié
+
+H. G. Lyons, *The Cadastral Survey of Egypt, 1892-1907*, Le Caire, National Printing
+Department, 1908. Chapitres **Triangulation** et **Base Measurements** (base d'Ismaïlia).
+
+- Notice : `archive.org/details/ldpd_10923847_000`
+- Texte brut : `archive.org/stream/ldpd_10923847_000/ldpd_10923847_000_djvu.txt`
+
+C'est la source la plus proche du (0,0) qui soit publiée, numérisée **et** en texte intégral.
+
+**Méthode conseillée :** chercher dans le texte brut les mots `observed`, `spherical excess`,
+`triangle`, `closing error` pour repérer le tableau et relever le numéro de page, *puis*
+capturer le fac-similé de la vue correspondante. Localiser d'abord dans le texte, capturer
+ensuite — cela réduit le risque d'erreur de page.
+
+### 2. Arc du 30ᵉ méridien — le meilleur candidat mondial
+
+Lancé par Sir David Gill, Astronomer Royal at the Cape, en 1879 ; Geodetic Survey of South
+Africa achevé à son départ en 1907, l'arc atteignant alors le sud du lac Tanganyika ; mesures
+finales au Soudan en 1954. Traverse Botswana, Mozambique, Zimbabwe, Zambie, Tanzanie, Burundi,
+Ouganda, RDC, Soudan, jusqu'aux environs du Caire.
+
+**Géométrie :** chaîne continue, côtés moyens **50 à 80 km**, plus long côté **160 km** dans
+le Karoo.
+
+| Côté | Aire | Excès attendu |
+|---|---|---|
+| 50 km | 1 083 km² | 5,50″ |
+| 65 km | 1 830 km² | 9,30″ |
+| 80 km | 2 771 km² | 14,08″ |
+| 160 km | 11 085 km² | **56,33″** |
+
+Trois raisons d'en faire la cible principale : côtés très longs donc excès très supérieurs au
+bruit instrumental ; chaîne continue sur près de 65° de latitude ; campagnes échelonnées de
+1879 à 1954 avec des équipes et des instruments différents — un contrôle d'indépendance
+intégré à la source.
+
+> **Réserve à lever d'abord.** Je n'ai *pas* vérifié qu'un volume contenant les **angles
+> observés avant compensation** soit numérisé et accessible. Les publications de synthèse
+> donnent généralement le réseau final ajusté ; les carnets bruts sont dans les volumes
+> annexes, beaucoup moins numérisés. C'est le premier point à établir, avant toute extraction.
+
+Ces références disent **où chercher**. Elles ne dispensent d'aucun des six contrôles, et en
+particulier pas de l'image.

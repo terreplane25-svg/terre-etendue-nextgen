@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "0.2 — certification visuelle obligatoire, grille d'acceptation",
+    "version": "0.3 — cibles bibliographiques vérifiées",
     "titre": "Mesures brutes de terrain — registre agnostique",
     "description": "Registre des OBSERVATIONS DE TERRAIN publiées, avant tout ajustement et avant toute conversion en coordonnées. Ce fichier ne contient aucune valeur calculée depuis un modèle. Il est vide tant qu'aucune observation sourcée n'y a été versée.",
     "date_creation": "2026-07-28",
@@ -214,6 +214,57 @@
       "europe": "Struve (1816-1855), Ordnance Survey (Clarke 1858), Ostpreußische Gradmessung (Bessel 1838), Méridienne de France (Delambre-Méchain).",
       "inde": "Great Trigonometrical Survey, volumes d'Everest et Walker.",
       "consequence": "Le maillage doit démarrer là où les archives existent — Égypte, Levant, arc du 30e méridien — et non à La Mecque. La convention d'origine à la Kaaba reste valable : elle ne concerne que l'affichage et l'ordre d'insertion, et ne contraint aucune mesure. Voir reseau-global-terre.json, bloc _origine_du_repere."
+    },
+    "_cibles_bibliographiques": {
+      "note": "Références vérifiées par recherche web le 2026-07-28. Le statut de chacune est indiqué : « texte intégral en ligne » signifie que j'ai confirmé la présence du document numérisé, PAS que j'ai lu la page cherchée — mon accès réseau ne me permet pas d'ouvrir les fac-similés.",
+      "cible_1_survey_of_egypt": {
+        "titre": "H. G. Lyons, « The Cadastral Survey of Egypt, 1892-1907 », Le Caire, National Printing Department, 1908",
+        "statut": "TEXTE INTÉGRAL EN LIGNE — vérifié",
+        "archive_org": "https://archive.org/details/ldpd_10923847_000",
+        "texte_brut": "https://archive.org/stream/ldpd_10923847_000/ldpd_10923847_000_djvu.txt",
+        "chapitres_pertinents": [
+          "Triangulation",
+          "Base Measurements (comprend la base d'Ismaïlia)"
+        ],
+        "pourquoi": "La source la plus proche du (0,0) qui soit à la fois publiée, numérisée et en texte intégral. Le texte brut permet de localiser la page AVANT d'aller chercher le fac-similé, ce qui réduit le risque d'erreur.",
+        "methode_conseillee": "Chercher dans le texte brut les mots « observed », « spherical excess », « triangle », « closing error » pour repérer le tableau, noter le numéro de page, puis capturer le fac-similé correspondant sur la vue Archive.org."
+      },
+      "cible_2_arc_30e_meridien": {
+        "titre": "Arc géodésique du 30e méridien — du Cap au Caire",
+        "statut": "EXISTENCE ET GÉOMÉTRIE VÉRIFIÉES — localisation des volumes numérisés NON vérifiée",
+        "historique": "Lancé par Sir David Gill, Astronomer Royal at the Cape, en 1879. Geodetic Survey of South Africa achevé à son départ en 1907, l'arc atteignant alors le sud du lac Tanganyika. Mesures finales au Soudan en 1954. Traverse Botswana, Mozambique, Zimbabwe, Zambie, Tanzanie, Burundi, Ouganda, RDC, Soudan, jusqu'aux environs du Caire.",
+        "geometrie": "Chaîne continue de triangles, côtés moyens de 50 à 80 km, plus long côté 160 km dans le Karoo.",
+        "exces_attendus": [
+          {
+            "cote_km": 50,
+            "aire_km2": 1083,
+            "exces_secondes": 5.5
+          },
+          {
+            "cote_km": 65,
+            "aire_km2": 1830,
+            "exces_secondes": 9.3
+          },
+          {
+            "cote_km": 80,
+            "aire_km2": 2771,
+            "exces_secondes": 14.08
+          },
+          {
+            "cote_km": 160,
+            "aire_km2": 11085,
+            "exces_secondes": 56.33
+          }
+        ],
+        "pourquoi": "Le meilleur candidat du monde pour ce test : chaîne continue sur près de 65° de latitude, côtés très longs donc excès très supérieurs au bruit, et campagnes échelonnées de 1879 à 1954 avec des instruments et des équipes différents — donc contrôle d'indépendance intégré.",
+        "documents_a_localiser": [
+          "Geodetic Survey of South Africa, volumes de rapport (Gill, à partir de 1896)",
+          "« The African Arc of the 30th Meridian », Empire Survey Review, vol. 11 n° 82, 1951",
+          "Rapports des sections rhodésiennes, ougandaises et soudanaises"
+        ],
+        "avertissement": "Je n'ai PAS vérifié qu'un volume contenant les angles observés avant compensation soit numérisé et accessible. C'est le premier point à établir, avant toute extraction."
+      },
+      "regle_rappelee": "Ces références indiquent OÙ chercher. Elles ne dispensent d'aucun des six contrôles, et en particulier pas de l'image."
     }
   },
   "observations_angulaires": [],
