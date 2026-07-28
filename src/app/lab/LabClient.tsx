@@ -14,7 +14,6 @@ const FlatEarthSim = dynamic(() => import('@/components/lab/FlatEarthSim'), { ss
 const GeoHelioSim = dynamic(() => import('@/components/lab/GeoHelioSim'), { ssr: false });
 const DensitySim = dynamic(() => import('@/components/lab/DensitySim'), { ssr: false });
 const ClassifierSim = dynamic(() => import('@/components/lab/ClassifierSim'), { ssr: false });
-const TrilaterationMap = dynamic(() => import('@/components/lab/TrilaterationMap'), { ssr: false });
 
 interface A { slug: string; title: string; description: string; tags: string[]; pinned: boolean; readTime: number; }
 
@@ -132,7 +131,6 @@ export default function LabClient({ articles }: { articles: A[] }) {
       case 'flat': return <FlatEarthSim />;
       case 'geo': return <GeoHelioSim />;
       case 'classifier': return <ClassifierSim />;
-      case 'trilat': return <TrilaterationMap />;
       default: return null;
     }
   };
@@ -183,7 +181,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
 
       <PageIntro color={dash.opal}
         lede="Manipuler vaut mieux que croire."
-        body="Le Lab rassemble des simulateurs interactifs — courbure et réfraction, densité, système solaire, carte par trilatération. Faites varier les paramètres, lisez les résultats, jugez par vous-même. Chaque outil renvoie aux articles qui l'expliquent." />
+        body="Le Lab rassemble des simulateurs interactifs — courbure et réfraction, densité, système solaire. Faites varier les paramètres, lisez les résultats, jugez par vous-même. Chaque outil renvoie aux articles qui l'expliquent." />
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '36px 32px 72px' }}>
 
         {/* ── TOOL CARDS GRID ── */}

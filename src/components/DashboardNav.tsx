@@ -42,7 +42,9 @@ const SECTIONS = [
   },
   {
     label: 'Outils', href: '/lab', color: '#3D9E7C',
-    subs: [],
+    subs: [
+      { label: '🗺️ La carte du réseau', href: '/carte' },
+    ],
   },
   {
     label: 'Laboratoire', href: '/laboratoire', color: '#8B7EC8',

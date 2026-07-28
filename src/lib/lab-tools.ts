@@ -56,13 +56,4 @@ export const TOOLS: LabTool[] = [
     num: '05',
     tags: ['pédagogie', 'épistémologie', 'quiz', 'enseignants'],
   },
-  {
-    id: 'trilat',
-    label: 'Carte par trilatération',
-    desc: "Toile vierge : les villes se placent uniquement d'après les distances saisies. Aucun centre, aucune coordonnée.",
-    icon: '📍',
-    color: '#3D9E7C',
-    num: '06',
-    tags: ['trilatération', 'distances', 'carte', 'données brutes'],
-  },
 ];
