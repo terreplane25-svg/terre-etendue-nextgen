@@ -1,9 +1,20 @@
 {
   "_meta": {
-    "version": "0.3 — 8 noyaux, 28 cordes 3D",
+    "version": "0.4 — 11 noyaux, Point Nemo, 66 cordes 3D",
     "titre": "Réseau global — constellation des noyaux, repère ECEF 3D",
     "description": "Fichier d'accueil de tous les noyaux locaux clos, avec le moteur de conversion WGS84 → ECEF et les cordes vectorielles 3D entre centres. Ces cordes sont de CLASSE C : elles sont dérivées de l'ellipsoïde WGS84 et n'ont aucune valeur de test.",
     "noyaux_membres": [
+      {
+        "fichier": "reseau-sydney-noyau.json",
+        "version": "3.0",
+        "centre": "Opéra de Sydney",
+        "points": 6,
+        "etendue_m": 2320,
+        "fleche_m": 0.422,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "1/59.2",
+        "discriminant": false
+      },
       {
         "fichier": "reseau-medine-noyau.json",
         "version": "3.0",
@@ -13,6 +24,28 @@
         "fleche_m": 11.3,
         "incertitude_m": 250,
         "signal_sur_bruit": "1/22.1",
+        "discriminant": false
+      },
+      {
+        "fichier": "reseau-paris-noyau.json",
+        "version": "3.0",
+        "centre": "Cathédrale Notre-Dame",
+        "points": 6,
+        "etendue_m": 5194,
+        "fleche_m": 2.12,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "1/11.8",
+        "discriminant": false
+      },
+      {
+        "fichier": "reseau-saopaulo-noyau.json",
+        "version": "3.0",
+        "centre": "Cathédrale de la Sé",
+        "points": 6,
+        "etendue_m": 5907,
+        "fleche_m": 2.738,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "1/9.1",
         "discriminant": false
       },
       {
@@ -38,14 +71,14 @@
         "discriminant": false
       },
       {
-        "fichier": "reseau-paris-noyau.json",
+        "fichier": "reseau-tokyo-noyau.json",
         "version": "3.0",
-        "centre": "Cathédrale Notre-Dame",
+        "centre": "Tour de Tokyo",
         "points": 6,
-        "etendue_m": 5194,
-        "fleche_m": 2.12,
+        "etendue_m": 10752,
+        "fleche_m": 9.073,
         "incertitude_m": 25,
-        "signal_sur_bruit": "1/11.8",
+        "signal_sur_bruit": "1/2.8",
         "discriminant": false
       },
       {
@@ -60,37 +93,37 @@
         "discriminant": false
       },
       {
-        "fichier": "reseau-tokyo-noyau.json",
+        "fichier": "reseau-tahiti-noyau.json",
         "version": "3.0",
-        "centre": "Tour de Tokyo",
+        "centre": "Cathédrale de Papeete",
         "points": 6,
-        "etendue_m": 10752,
-        "fleche_m": 9.073,
+        "etendue_m": 48330,
+        "fleche_m": 183.3,
         "incertitude_m": 25,
-        "signal_sur_bruit": "1/2.8",
-        "discriminant": false
+        "signal_sur_bruit": "7.3/1",
+        "discriminant": true
       },
       {
-        "fichier": "reseau-saopaulo-noyau.json",
+        "fichier": "reseau-reunion-noyau.json",
         "version": "3.0",
-        "centre": "Cathédrale de la Sé",
+        "centre": "Cathédrale de Saint-Denis",
         "points": 6,
-        "etendue_m": 5907,
-        "fleche_m": 2.738,
+        "etendue_m": 51300,
+        "fleche_m": 206.5,
         "incertitude_m": 25,
-        "signal_sur_bruit": "1/9.1",
-        "discriminant": false
+        "signal_sur_bruit": "8.3/1",
+        "discriminant": true
       },
       {
-        "fichier": "reseau-sydney-noyau.json",
+        "fichier": "reseau-acores-noyau.json",
         "version": "3.0",
-        "centre": "Opéra de Sydney",
+        "centre": "Ponta Delgada",
         "points": 6,
-        "etendue_m": 2320,
-        "fleche_m": 0.422,
+        "etendue_m": 593163,
+        "fleche_m": 27592.8,
         "incertitude_m": 25,
-        "signal_sur_bruit": "1/59.2",
-        "discriminant": false
+        "signal_sur_bruit": "1103.7/1",
+        "discriminant": true
       }
     ],
     "_avertissement_capital": {
@@ -136,6 +169,7 @@
         "latitude": 21.4225,
         "longitude": 39.82617,
         "h_m": 0,
+        "source": "reseau-mecque-noyau.json",
         "X_m": 4561974.624,
         "Y_m": 3804425.438,
         "Z_m": 2315004.875
@@ -145,6 +179,7 @@
         "latitude": 24.46722,
         "longitude": 39.61111,
         "h_m": 0,
+        "source": "reseau-medine-noyau.json",
         "X_m": 4474966.931,
         "Y_m": 3703476.411,
         "Z_m": 2625473.09
@@ -154,6 +189,7 @@
         "latitude": 29.97917,
         "longitude": 31.13417,
         "h_m": 0,
+        "source": "reseau-caire-noyau.json",
         "X_m": 4732948.292,
         "Y_m": 2858948.108,
         "Z_m": 3168373.827
@@ -163,6 +199,7 @@
         "latitude": 48.85297,
         "longitude": 2.3499,
         "h_m": 0,
+        "source": "reseau-paris-noyau.json",
         "X_m": 4201225.453,
         "Y_m": 172403.605,
         "Z_m": 4779815.732
@@ -172,6 +209,7 @@
         "latitude": 40.74844,
         "longitude": -73.98566,
         "h_m": 0,
+        "source": "reseau-newyork-noyau.json",
         "X_m": 1334938.113,
         "Y_m": -4651088.736,
         "Z_m": 4141299.385
@@ -181,6 +219,7 @@
         "latitude": 35.65858,
         "longitude": 139.74543,
         "h_m": 0,
+        "source": "reseau-tokyo-noyau.json",
         "X_m": -3959515.568,
         "Y_m": 3352519.546,
         "Z_m": 3697477.894
@@ -190,6 +229,7 @@
         "latitude": -23.55039,
         "longitude": -46.63396,
         "h_m": 0,
+        "source": "reseau-saopaulo-noyau.json",
         "X_m": 4016957.477,
         "Y_m": -4252859.934,
         "Z_m": -2532713.009
@@ -199,15 +239,56 @@
         "latitude": -33.85678,
         "longitude": 151.2153,
         "h_m": 0,
+        "source": "reseau-sydney-noyau.json",
         "X_m": -4646969.721,
         "Y_m": 2553077.515,
         "Z_m": -3533265.285
+      },
+      {
+        "nom": "Cathédrale de Papeete",
+        "latitude": -17.5375,
+        "longitude": -149.56694,
+        "h_m": 0,
+        "source": "reseau-tahiti-noyau.json",
+        "X_m": -5245350.603,
+        "Y_m": -3081498.69,
+        "Z_m": -1909638.034
+      },
+      {
+        "nom": "Cathédrale de Saint-Denis",
+        "latitude": -20.87917,
+        "longitude": 55.44778,
+        "h_m": 0,
+        "source": "reseau-reunion-noyau.json",
+        "X_m": 3381303.517,
+        "Y_m": 4910233.87,
+        "Z_m": -2258900.68
+      },
+      {
+        "nom": "Ponta Delgada",
+        "latitude": 37.74111,
+        "longitude": -25.67861,
+        "h_m": 0,
+        "source": "reseau-acores-noyau.json",
+        "X_m": 4551318.66,
+        "Y_m": -2188309.451,
+        "Z_m": 3882760.396
+      },
+      {
+        "nom": "Point Nemo",
+        "latitude": -48.87667,
+        "longitude": -123.39333,
+        "h_m": 0,
+        "source": "— repère océanique, sans noyau",
+        "X_m": -2313138.964,
+        "Y_m": -3508948.162,
+        "Z_m": -4781549.535
       }
     ],
     "cordes_3D_entre_centres": {
       "classe_source": "C — dérivée de coordonnées. Non mesurable, donc définitivement non qualifiable.",
-      "nombre": 28,
-      "note": "Graphe complet K8 sur les 8 centres, trié par distance géodésique croissante.",
+      "nombre": 66,
+      "note": "Graphe complet K12 sur les 11 centres de noyaux plus le Point Nemo, trié par distance géodésique croissante.",
       "valeurs": [
         {
           "a": "Kaaba (Masjid al-Haram)",
@@ -234,12 +315,36 @@
           "ecart_pourcent": -0.17
         },
         {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 2549556.8,
+          "geodesique_m": 2566816.9,
+          "ecart_m": -17260.1,
+          "ecart_pourcent": -0.672
+        },
+        {
           "a": "Pyramide de Khéops",
           "b": "Cathédrale Notre-Dame",
           "corde_3D_m": 3177577.0,
           "geodesique_m": 3211416.0,
           "ecart_m": -33839.0,
           "ecart_pourcent": -1.054
+        },
+        {
+          "a": "Empire State Building",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 4059215.2,
+          "geodesique_m": 4130838.1,
+          "ecart_m": -71622.9,
+          "ecart_pourcent": -1.734
+        },
+        {
+          "a": "Cathédrale de Papeete",
+          "b": "Point Nemo",
+          "corde_3D_m": 4126554.7,
+          "geodesique_m": 4202490.6,
+          "ecart_m": -75935.9,
+          "ecart_pourcent": -1.807
         },
         {
           "a": "Al-Masjid an-Nabawi",
@@ -258,12 +363,92 @@
           "ecart_pourcent": -2.062
         },
         {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Cathédrale de Saint-Denis",
+          "corde_3D_m": 4851536.7,
+          "geodesique_m": 4978381.9,
+          "ecart_m": -126845.2,
+          "ecart_pourcent": -2.548
+        },
+        {
+          "a": "Pyramide de Khéops",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 5100798.6,
+          "geodesique_m": 5247242.3,
+          "ecart_m": -146443.7,
+          "ecart_pourcent": -2.791
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Cathédrale de Saint-Denis",
+          "corde_3D_m": 5148734.8,
+          "geodesique_m": 5301793.2,
+          "ecart_m": -153058.3,
+          "ecart_pourcent": -2.887
+        },
+        {
           "a": "Cathédrale Notre-Dame",
           "b": "Empire State Building",
           "corde_3D_m": 5647068.7,
           "geodesique_m": 5849202.5,
           "ecart_m": -202133.8,
           "ecart_pourcent": -3.456
+        },
+        {
+          "a": "Opéra de Sydney",
+          "b": "Cathédrale de Papeete",
+          "corde_3D_m": 5894291.7,
+          "geodesique_m": 6127089.0,
+          "ecart_m": -232797.3,
+          "ecart_pourcent": -3.799
+        },
+        {
+          "a": "Pyramide de Khéops",
+          "b": "Cathédrale de Saint-Denis",
+          "corde_3D_m": 5957350.5,
+          "geodesique_m": 6201209.7,
+          "ecart_m": -243859.2,
+          "ecart_pourcent": -3.932
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 6024926.7,
+          "geodesique_m": 6274552.6,
+          "ecart_m": -249625.9,
+          "ecart_pourcent": -3.978
+        },
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 6194420.3,
+          "geodesique_m": 6467726.5,
+          "ecart_m": -273306.2,
+          "ecart_pourcent": -4.226
+        },
+        {
+          "a": "Opéra de Sydney",
+          "b": "Point Nemo",
+          "corde_3D_m": 6614615.2,
+          "geodesique_m": 6952856.9,
+          "ecart_m": -338241.6,
+          "ecart_pourcent": -4.865
+        },
+        {
+          "a": "Cathédrale de la Sé",
+          "b": "Point Nemo",
+          "corde_3D_m": 6758756.6,
+          "geodesique_m": 7122720.4,
+          "ecart_m": -363963.7,
+          "ecart_pourcent": -5.11
+        },
+        {
+          "a": "Cathédrale de la Sé",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 6760636.8,
+          "geodesique_m": 7130101.2,
+          "ecart_m": -369464.4,
+          "ecart_pourcent": -5.182
         },
         {
           "a": "Empire State Building",
@@ -290,6 +475,14 @@
           "ecart_pourcent": -8.133
         },
         {
+          "a": "Opéra de Sydney",
+          "b": "Cathédrale de Saint-Denis",
+          "corde_3D_m": 8463649.5,
+          "geodesique_m": 9252773.0,
+          "ecart_m": -789123.5,
+          "ecart_pourcent": -8.529
+        },
+        {
           "a": "Al-Masjid an-Nabawi",
           "b": "Tour de Tokyo",
           "corde_3D_m": 8509574.6,
@@ -299,11 +492,27 @@
         },
         {
           "a": "Cathédrale Notre-Dame",
+          "b": "Cathédrale de Saint-Denis",
+          "corde_3D_m": 8524249.9,
+          "geodesique_m": 9343533.5,
+          "ecart_m": -819283.6,
+          "ecart_pourcent": -8.768
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
           "b": "Cathédrale de la Sé",
           "corde_3D_m": 8549268.3,
           "geodesique_m": 9377988.7,
           "ecart_m": -828720.4,
           "ecart_pourcent": -8.837
+        },
+        {
+          "a": "Tour de Tokyo",
+          "b": "Cathédrale de Papeete",
+          "corde_3D_m": 8630742.2,
+          "geodesique_m": 9484657.5,
+          "ecart_m": -853915.3,
+          "ecart_pourcent": -9.003
         },
         {
           "a": "Kaaba (Masjid al-Haram)",
@@ -338,12 +547,28 @@
           "ecart_pourcent": -10.031
         },
         {
+          "a": "Empire State Building",
+          "b": "Cathédrale de Papeete",
+          "corde_3D_m": 9076213.8,
+          "geodesique_m": 10105061.4,
+          "ecart_m": -1028847.6,
+          "ecart_pourcent": -10.182
+        },
+        {
           "a": "Pyramide de Khéops",
           "b": "Cathédrale de la Sé",
           "corde_3D_m": 9142912.4,
           "geodesique_m": 10200018.1,
           "ecart_m": -1057105.7,
           "ecart_pourcent": -10.364
+        },
+        {
+          "a": "Cathédrale de la Sé",
+          "b": "Cathédrale de Saint-Denis",
+          "corde_3D_m": 9189195.7,
+          "geodesique_m": 10258347.3,
+          "ecart_m": -1069151.7,
+          "ecart_pourcent": -10.422
         },
         {
           "a": "Kaaba (Masjid al-Haram)",
@@ -354,12 +579,28 @@
           "ecart_pourcent": -10.538
         },
         {
+          "a": "Cathédrale de la Sé",
+          "b": "Cathédrale de Papeete",
+          "corde_3D_m": 9356851.0,
+          "geodesique_m": 10502661.0,
+          "ecart_m": -1145810.0,
+          "ecart_pourcent": -10.91
+        },
+        {
           "a": "Kaaba (Masjid al-Haram)",
           "b": "Cathédrale de la Sé",
           "corde_3D_m": 9418984.0,
           "geodesique_m": 10601104.3,
           "ecart_m": -1182120.3,
           "ecart_pourcent": -11.151
+        },
+        {
+          "a": "Cathédrale de Saint-Denis",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 9459294.6,
+          "geodesique_m": 10663831.4,
+          "ecart_m": -1204536.8,
+          "ecart_pourcent": -11.296
         },
         {
           "a": "Al-Masjid an-Nabawi",
@@ -370,6 +611,14 @@
           "ecart_pourcent": -11.381
         },
         {
+          "a": "Tour de Tokyo",
+          "b": "Cathédrale de Saint-Denis",
+          "corde_3D_m": 9580842.6,
+          "geodesique_m": 10846261.0,
+          "ecart_m": -1265418.4,
+          "ecart_pourcent": -11.667
+        },
+        {
           "a": "Empire State Building",
           "b": "Tour de Tokyo",
           "corde_3D_m": 9606558.3,
@@ -378,12 +627,44 @@
           "ecart_pourcent": -11.632
         },
         {
+          "a": "Empire State Building",
+          "b": "Point Nemo",
+          "corde_3D_m": 9707223.3,
+          "geodesique_m": 11049803.4,
+          "ecart_m": -1342580.1,
+          "ecart_pourcent": -12.15
+        },
+        {
+          "a": "Tour de Tokyo",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 10157234.6,
+          "geodesique_m": 11740407.8,
+          "ecart_m": -1583173.2,
+          "ecart_pourcent": -13.485
+        },
+        {
+          "a": "Cathédrale de Saint-Denis",
+          "b": "Point Nemo",
+          "corde_3D_m": 10472490.6,
+          "geodesique_m": 12277466.4,
+          "ecart_m": -1804975.9,
+          "ecart_pourcent": -14.702
+        },
+        {
           "a": "Kaaba (Masjid al-Haram)",
           "b": "Opéra de Sydney",
           "corde_3D_m": 10980564.3,
           "geodesique_m": 13237331.5,
           "ecart_m": -2256767.3,
           "ecart_pourcent": -17.049
+        },
+        {
+          "a": "Tour de Tokyo",
+          "b": "Point Nemo",
+          "corde_3D_m": 11031056.2,
+          "geodesique_m": 13350695.9,
+          "ecart_m": -2319639.7,
+          "ecart_pourcent": -17.375
         },
         {
           "a": "Cathédrale de la Sé",
@@ -402,12 +683,52 @@
           "ecart_pourcent": -17.475
         },
         {
+          "a": "Ponta Delgada",
+          "b": "Point Nemo",
+          "corde_3D_m": 11132615.7,
+          "geodesique_m": 13558124.1,
+          "ecart_m": -2425508.4,
+          "ecart_pourcent": -17.89
+        },
+        {
+          "a": "Cathédrale de Papeete",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 11415971.1,
+          "geodesique_m": 14149467.8,
+          "ecart_m": -2733496.7,
+          "ecart_pourcent": -19.319
+        },
+        {
           "a": "Pyramide de Khéops",
           "b": "Opéra de Sydney",
           "corde_3D_m": 11532059.0,
           "geodesique_m": 14422883.9,
           "ecart_m": -2890824.8,
           "ecart_pourcent": -20.043
+        },
+        {
+          "a": "Empire State Building",
+          "b": "Cathédrale de Saint-Denis",
+          "corde_3D_m": 11686276.7,
+          "geodesique_m": 14792834.7,
+          "ecart_m": -3106558.1,
+          "ecart_pourcent": -21.0
+        },
+        {
+          "a": "Cathédrale de Papeete",
+          "b": "Cathédrale de Saint-Denis",
+          "corde_3D_m": 11764732.7,
+          "geodesique_m": 14962202.1,
+          "ecart_m": -3197469.4,
+          "ecart_pourcent": -21.37
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Cathédrale de Papeete",
+          "corde_3D_m": 12023912.5,
+          "geodesique_m": 15712246.7,
+          "ecart_m": -3688334.2,
+          "ecart_pourcent": -23.474
         },
         {
           "a": "Empire State Building",
@@ -419,11 +740,43 @@
         },
         {
           "a": "Cathédrale Notre-Dame",
+          "b": "Point Nemo",
+          "corde_3D_m": 12141210.8,
+          "geodesique_m": 16122973.3,
+          "ecart_m": -3981762.4,
+          "ecart_pourcent": -24.696
+        },
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Point Nemo",
+          "corde_3D_m": 12292831.4,
+          "geodesique_m": 16617118.5,
+          "ecart_m": -4324287.0,
+          "ecart_pourcent": -26.023
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Point Nemo",
+          "corde_3D_m": 12367757.8,
+          "geodesique_m": 16918985.6,
+          "ecart_m": -4551227.7,
+          "ecart_pourcent": -26.9
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
           "b": "Opéra de Sydney",
           "corde_3D_m": 12371963.6,
           "geodesique_m": 16957340.6,
           "ecart_m": -4585377.1,
           "ecart_pourcent": -27.041
+        },
+        {
+          "a": "Pyramide de Khéops",
+          "b": "Point Nemo",
+          "corde_3D_m": 12385424.1,
+          "geodesique_m": 17005877.8,
+          "ecart_m": -4620453.7,
+          "ecart_pourcent": -27.17
         },
         {
           "a": "Tour de Tokyo",
@@ -432,21 +785,49 @@
           "geodesique_m": 18531582.3,
           "ecart_m": -5871361.2,
           "ecart_pourcent": -31.683
+        },
+        {
+          "a": "Pyramide de Khéops",
+          "b": "Cathédrale de Papeete",
+          "corde_3D_m": 12674445.2,
+          "geodesique_m": 18624151.5,
+          "ecart_m": -5949706.3,
+          "ecart_pourcent": -31.946
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Cathédrale de Papeete",
+          "corde_3D_m": 12692032.7,
+          "geodesique_m": 18797649.8,
+          "ecart_m": -6105617.2,
+          "ecart_pourcent": -32.481
+        },
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Cathédrale de Papeete",
+          "corde_3D_m": 12706187.0,
+          "geodesique_m": 18953261.6,
+          "ecart_m": -6247074.6,
+          "ecart_pourcent": -32.96
+        },
+        {
+          "a": "Opéra de Sydney",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 12731327.4,
+          "geodesique_m": 19495837.8,
+          "ecart_m": -6764510.5,
+          "ecart_pourcent": -34.697
         }
       ],
-      "lecture": "La corde est toujours PLUS COURTE que la géodésique, puisqu'elle coupe au travers du globe. Les 28 écarts sont négatifs : contrôle de cohérence du moteur validé sur l'ensemble du graphe.",
-      "amplitude": "L'écart va de −39,9 m (Kaaba – Nabawi, 338 km, −0,012 %) à −5 871 361 m (Tour de Tokyo – Cathédrale de la Sé, 18 532 km, −31,68 %). Sur cette dernière paire, presque antipodale, la corde est plus courte que le chemin de surface de près de 5 900 km.",
-      "loi": "Pour un angle au centre σ, corde = 2R·sin(σ/2) et géodésique ≈ R·σ. Le rapport corde/arc vaut sin(σ/2)/(σ/2) : il tend vers 1 aux courtes distances et vers 2/π ≈ 0,6366 à l'antipode, soit −36,3 % au maximum. Les −31,7 % de Tokyo – São Paulo en sont proches, ces deux villes étant presque antipodales.",
-      "consequence": "Confondre corde et géodésique n'est pas une erreur d'arrondi mais une erreur pouvant atteindre le tiers de la distance. Ces deux colonnes ne doivent jamais entrer dans le même solveur ni dans la même comparaison."
+      "controle": "Les 66 écarts sont strictement négatifs — la corde coupe au travers du globe. Vérifié par assertion.",
+      "amplitude": "De −39,9 m (Kaaba – Nabawi, 338 km, −0,012 %) à −6 764 510 m (Opéra de Sydney – Ponta Delgada, 19 496 km, −34,70 %). Cette dernière paire est presque antipodale : elle approche la borne théorique de 2/π ≈ 0,6366, soit −36,3 %.",
+      "loi": "corde/arc = sin(σ/2)/(σ/2). Tend vers 1 aux courtes distances, vers 2/π à l'antipode."
     },
     "_ou_le_test_se_joue_reellement": {
-      "constat": "Huit noyaux clos sur cinq continents, 52 points, 147 distances calculées, et toujours zéro mesure de terrain. Aucun des huit n'est discriminant.",
-      "table_signal_sur_bruit": "Sydney 1/59,2 — Médine 1/22,1 — Paris 1/11,8 — São Paulo 1/9,1 — La Mecque 1/8,3 — Le Caire 1/6,5 — Tokyo 1/2,8 — New York 1/2,5.",
-      "lecture_de_la_table": "Le meilleur rapport reste sous l'unité. Et le classement suit exactement l'étendue, pas la qualité du relevé ni le nombre de points : c'est la confirmation empirique que le facteur limitant est l'ÉCHELLE et rien d'autre. Sydney, le plus resserré (2 320 m), est le pire (1/59,2) ; New York, le plus étendu à incertitude fine, est le meilleur (1/2,5).",
-      "loi": "Flèche s ≈ d²/(2R). Elle croît comme le CARRÉ de l'étendue. Pour atteindre un rapport de 1 à ±25 m il faudrait une étendue de ~18 km ; pour un rapport de 10, ~57 km. Aucun bassin urbain ne s'y prête, et un relevé plus fin ne changerait pas l'ordre de grandeur.",
-      "regle": "Empiler des noyaux non discriminants ne produit pas de pouvoir discriminant, quel que soit le repère, le continent, ou leur nombre. Passer de 3 à 5 puis à 8 noyaux n'a modifié aucun terme de cette arithmétique.",
-      "cible_reelle": "reseau-regional-hedjaz.json v0.3, cible n°1 : Kaaba → Djeddah, azimut 276,2°, 66 km. Prédictions consignées le 2026-07-27 : 66 054 m (WGS84) contre 84 660 m (modèle plan). Écart 28,2 %. Classe A exigée, classe B proscrite.",
-      "ordre_de_priorite": "Une seule mesure de classe A sur cet axe de 66 km vaut plus que la totalité des huit noyaux et que tout noyau supplémentaire."
+      "constat": "Onze noyaux, 70 points, 192 distances calculées, zéro mesure de terrain. Mais trois des onze noyaux sont désormais géométriquement discriminants.",
+      "changement": "C'est le premier tour du projet à déplacer la cible expérimentale. Voir _decouverte_phase_3_3 et le bloc cibles_experimentales de reseau-regional-hedjaz.json.",
+      "regle_maintenue": "Empiler des noyaux ne crée pas de pouvoir discriminant — mais choisir leur ÉTENDUE et leur LATITUDE en crée. Les huit noyaux urbains échouaient sur l'étendue ; les trois insulaires réussissent sur l'étendue, et les deux austraux réussissent en plus sur la latitude.",
+      "ordre_de_priorite": "1. Saint-Denis – Roland-Garros (La Réunion), 6,6 km, +105,0 %. 2. Mont Orohena – Marae Arahurahu (Tahiti), 7,0 km, +96,4 %. 3. Kaaba – Djeddah, 66 km, +28,2 %."
     },
     "regles_de_construction": [
       "Aucune corde 3D ne doit être présentée comme une donnée : ce sont toutes des sorties de modèle, classe C définitive.",
@@ -455,18 +836,39 @@
       "h est une hauteur ellipsoïdale, jamais une altitude au-dessus du niveau de la mer.",
       "Tout nouveau noyau doit être clos selon la méthode v3.0 (source unique = table de coordonnées, distances dérivées) avant d'être inscrit ici.",
       "L'ajout d'un noyau ne crée aucun pouvoir de test et ne doit pas être présenté comme un progrès expérimental."
-    ]
+    ],
+    "reperes_sans_noyau": [
+      {
+        "nom": "Point Nemo",
+        "latitude": -48.87667,
+        "longitude": -123.39333,
+        "description": "Pôle océanique d'inaccessibilité, Pacifique sud. Point le plus éloigné de toute terre émergée (~2 688 km des îles Ducie, Motu Nui et Maher).",
+        "role": "Repère de couverture uniquement. Aucun noyau : il n'y a rien à y mesurer, ni monument, ni base, ni accès.",
+        "note_geometrique": "À 48,88° de latitude sud, le facteur d'étirement tangentiel du modèle plan de référence vaut 3,686, soit +268,6 %. C'est la zone où les deux modèles divergent le plus fortement — et la moins accessible à toute mesure. Coïncidence défavorable, pas fortuite : la divergence croît vers le sud, où les terres émergées se raréfient."
+      }
+    ],
+    "_decouverte_phase_3_3": {
+      "titre": "Les trois noyaux insulaires franchissent le seuil discriminant — et le meilleur test du projet est désormais à La Réunion",
+      "constat": "Contrairement aux huit noyaux urbains, Tahiti (48 km), La Réunion (51 km) et les Açores (593 km) dépassent tous le seuil : rapports de 7,3, 8,3 et 1 104 pour 1. Ce ne sont pas des bassins urbains mais des étendues insulaires.",
+      "facteur_aggravant_hemisphere_sud": "Sur le modèle plan de référence (azimutale équidistante polaire nord), le facteur d'étirement tangentiel θ/sin θ croît fortement vers le sud : 1,286 à La Mecque (21° N), 1,967 à Tahiti (17,5° S), 2,078 à La Réunion (21,1° S), 2,603 à Sydney (33,9° S), 3,686 au Point Nemo (48,9° S). Les paires est-ouest australes sont DOUBLÉES par le modèle plan.",
+      "cible_superieure": "Cathédrale de Saint-Denis – Aéroport Roland-Garros, La Réunion. 6 568 m (WGS84) contre 13 462 m (modèle plan). Écart +6 894 m, soit +105,0 %, sur une base de 6,6 km. Un facteur DEUX sur une distance mesurable en une demi-journée au télémètre.",
+      "comparaison": "L'ancienne cible n°1 (Kaaba – Djeddah) offre +28,2 % sur 66 km. La nouvelle offre +105,0 % sur 6,6 km : signal relatif 3,7 fois plus grand, base 10 fois plus courte, donc mesure incomparablement plus facile.",
+      "rappel": "Ces valeurs restent de classe C. Elles indiquent OÙ une mesure aurait de la valeur, elles ne constituent pas cette mesure."
+    }
   },
   "liaisons_mesurees": [],
   "_controle": {
-    "noyaux_membres": 8,
-    "points_totaux": 52,
-    "distances_calculees": 147,
+    "noyaux_membres": 11,
+    "reperes_sans_noyau": 1,
+    "points_totaux": 70,
+    "distances_calculees": 192,
+    "detail_distances": "Makkah K9 = 36, Madinah K7 = 21, neuf noyaux K6 = 9 × 15 = 135. Total 192.",
     "mesures_de_terrain": 0,
-    "cordes_3D_classe_C": 28,
+    "cordes_3D_classe_C": 66,
+    "noyaux_discriminants": 3,
+    "noyaux_non_discriminants": 8,
     "residu_ajustement_ECEF": "identiquement nul par construction — non rapporté comme résultat",
-    "etat": "Moteur ECEF opérationnel, huit noyaux raccordés sur cinq continents. Aucune donnée de terrain dans tout le projet.",
-    "prochain_jalon": "Une mesure de classe A sur Kaaba → Djeddah. Aucun travail de structure ne peut s'y substituer.",
-    "detail_distances": "Makkah K9 = 36, Madinah K7 = 21, six noyaux K6 = 6 × 15 = 90. Total 147."
+    "etat": "Onze noyaux sur cinq continents et trois océans, plus le Point Nemo. Aucune donnée de terrain. Trois noyaux désormais discriminants.",
+    "prochain_jalon": "Une mesure de classe A sur Saint-Denis – Roland-Garros (La Réunion), 6,6 km, azimut 98°. Les deux modèles diffèrent d'un facteur 2."
   }
 }

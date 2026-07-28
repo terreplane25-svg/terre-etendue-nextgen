@@ -1,0 +1,256 @@
+{
+  "_meta": {
+    "version": "3.0",
+    "statut_fichier": "CLOS — version 3.0 définitive",
+    "titre": "Noyau de Tahiti — matrice géodésique complète",
+    "description": "Neuvième noyau, île de Tahiti (Polynésie française, Pacifique sud). Les 15 distances sont CALCULÉES depuis les 6 couples de coordonnées WGS84 par la formule de Vincenty inverse. Source unique : la table de coordonnées.",
+    "methode_declaree": "Calcul géodésique WGS84 (Vincenty inverse) depuis coordonnées relevées",
+    "ellipsoide": {
+      "a_m": 6378137.0,
+      "f": "1/298.257223563",
+      "convergence": "1e-13 rad"
+    },
+    "incertitude_declaree_m": 25,
+    "rationnel_incertitude": "±25 m : points remarquables (sommets, monuments, aérodromes) dont la position se définit à quelques mètres près.",
+    "avertissement_pouvoir_discriminant": "DISCRIMINANT. Étendue 48 330 m, flèche sphérique 183,3 m contre ±25 m : rapport 7,3 pour 1. C'est le PREMIER noyau du projet dont l'étendue dépasse le seuil. Et surtout, à 17,5° de latitude SUD, le facteur d'étirement tangentiel du modèle plan vaut 1,967 : les paires est-ouest y sont doublées. Sur Mont Orohena – Marae Arahurahu (7,02 km, azimut 267°), le modèle plan prédit 13,79 km, soit +96,4 %.",
+    "rappel_classe_C": "ATTENTION : les 15 distances de ce fichier restent de CLASSE C — calculées depuis des coordonnées WGS84, donc circulaires. Le fait que ce noyau soit géométriquement discriminant ne le rend pas probant : il indique seulement qu'une MESURE de classe A ou B faite ici aurait valeur de test.",
+    "clos_note": "Fichier verrouillé. Toute évolution passe par une correction de coordonnée suivie d'un recalcul complet. Voir content/reseau/README.md.",
+    "champs_liaison": {
+      "a": "premier point",
+      "b": "second point",
+      "distance_m": "distance géodésique WGS84 calculée",
+      "incertitude_m": "marge de position",
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "méthode d'obtention",
+      "statut": "calculee"
+    }
+  },
+  "points": [
+    {
+      "nom": "Cathédrale de Papeete",
+      "latitude": -17.5375,
+      "longitude": -149.56694,
+      "description": "Notre-Dame de Papeete — centre du noyau",
+      "statut": "releve"
+    },
+    {
+      "nom": "Mont Orohena",
+      "latitude": -17.61361,
+      "longitude": -149.48389,
+      "description": "Point culminant de Tahiti, 2 241 m",
+      "statut": "releve"
+    },
+    {
+      "nom": "Pointe Vénus",
+      "latitude": -17.49361,
+      "longitude": -149.48944,
+      "description": "Mahina — site du transit de Vénus de 1769",
+      "statut": "releve"
+    },
+    {
+      "nom": "Aéroport de Faaa",
+      "latitude": -17.55694,
+      "longitude": -149.61139,
+      "description": "Tahiti-Faaa",
+      "statut": "releve"
+    },
+    {
+      "nom": "Teahupoo",
+      "latitude": -17.84306,
+      "longitude": -149.26722,
+      "description": "Tahiti Iti",
+      "statut": "releve"
+    },
+    {
+      "nom": "Marae Arahurahu",
+      "latitude": -17.61667,
+      "longitude": -149.55,
+      "description": "Paea",
+      "statut": "releve"
+    }
+  ],
+  "liaisons": [
+    {
+      "a": "Cathédrale de Papeete",
+      "b": "Mont Orohena",
+      "distance_m": 12193,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cathédrale de Papeete",
+      "b": "Pointe Vénus",
+      "distance_m": 9556,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cathédrale de Papeete",
+      "b": "Aéroport de Faaa",
+      "distance_m": 5187,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cathédrale de Papeete",
+      "b": "Teahupoo",
+      "distance_m": 46419,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cathédrale de Papeete",
+      "b": "Marae Arahurahu",
+      "distance_m": 8945,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mont Orohena",
+      "b": "Pointe Vénus",
+      "distance_m": 13294,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mont Orohena",
+      "b": "Aéroport de Faaa",
+      "distance_m": 14917,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mont Orohena",
+      "b": "Teahupoo",
+      "distance_m": 34250,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mont Orohena",
+      "b": "Marae Arahurahu",
+      "distance_m": 7025,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Pointe Vénus",
+      "b": "Aéroport de Faaa",
+      "distance_m": 14724,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Pointe Vénus",
+      "b": "Teahupoo",
+      "distance_m": 45296,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Pointe Vénus",
+      "b": "Marae Arahurahu",
+      "distance_m": 15061,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Aéroport de Faaa",
+      "b": "Teahupoo",
+      "distance_m": 48330,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Aéroport de Faaa",
+      "b": "Marae Arahurahu",
+      "distance_m": 9283,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Teahupoo",
+      "b": "Marae Arahurahu",
+      "distance_m": 39082,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    }
+  ],
+  "_controle": {
+    "points": 6,
+    "liaisons": 15,
+    "seuil_laman_2N_3": 9,
+    "surdetermination": 6,
+    "graphe": "complet K6 — forme unique, rigidité triviale",
+    "triangles_fermes": 20,
+    "violations_inegalite_triangulaire": 0,
+    "rms_ajustement_plan_m": 0.18,
+    "residu_maximal_m": 0.34,
+    "optimum_unique": true,
+    "restarts_solveur": 14,
+    "etendue_maximale_m": 48330,
+    "fleche_spherique_sur_etendue_m": 183.31,
+    "rapport_signal_sur_bruit": "7.3/1 — AU-DESSUS DU SEUIL"
+  }
+}

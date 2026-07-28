@@ -8,33 +8,40 @@ entre points, et on cherche quelle figure les satisfait toutes.
 
 | | |
 |---|---|
-| Noyaux clos et verrouillés | 8 sur 5 continents — Makkah K9, Madinah K7, Cairo, Paris, New York, Tokyo, São Paulo, Sydney (K6) |
-| Points relevés | 52 |
-| Distances **calculées** (classe C) | 147 |
+| Noyaux clos et verrouillés | **11** — 8 urbains + Tahiti, La Réunion, Açores |
+| **dont discriminants** | **3** (les trois insulaires) |
+| Points relevés | 70 |
+| Distances **calculées** (classe C) | 192 |
 | **Mesures de terrain (classe A ou B)** | **0** |
 | Modèle plan de référence | verrouillé le 2026-07-27 |
-| Cibles pré-enregistrées | 2, prédictions datées, non mesurées |
+| Cibles pré-enregistrées | 5, prédictions datées, non mesurées |
+| Page web | `/carte` |
 
-**Le dossier est une infrastructure complète sans aucune donnée expérimentale.** Les huit
-noyaux sont géométriquement irréprochables et aucun n'est discriminant : leurs étendues
-(2 à 37 km) placent le signal à 0,4–38 m, toujours sous l'incertitude sur la position des
-points. Empiler des noyaux non discriminants n'en crée pas — quel que soit le repère (UTM,
-ECEF), le continent, ou leur nombre.
+**Le dossier reste sans aucune donnée expérimentale** — mais depuis la phase 3.3 il sait
+enfin *où* mesurer. Les huit noyaux urbains (2 à 37 km d'étendue) ne discriminent rien : leur
+signal de 0,4 à 38 m reste sous l'incertitude de position. Les trois noyaux insulaires ajoutés
+ensuite franchissent le seuil — non parce qu'ils sont mieux relevés, mais parce qu'ils sont plus
+**étendus** et, pour deux d'entre eux, **australs**.
 
-### Prochain jalon — la seule cible porteuse d'un test
+### Prochain jalon — cible n°1, La Réunion
 
 ```
-Axe            Kaaba (Makkah) → Djeddah, bornes physiques à nommer
-Azimut         276,2°  (plein ouest — c'est l'azimut qui discrimine, pas la longueur)
-Prédiction WGS84            66 054 m
-Prédiction modèle plan      84 660 m
-Signal                     +18 606 m,  soit +28,2 %
-Prédictions consignées      2026-07-27, avant toute mesure
-Classe exigée               A  (mesure directe de séparation)
-Classe proscrite            B  (odomètre — piège de coïncidence à 84 km)
+Axe            Cathédrale de Saint-Denis → Aéroport Roland-Garros (Sainte-Marie)
+Azimut         98,1°   (quasi plein est, à 21,1° de latitude SUD)
+Prédiction WGS84             6 568 m
+Prédiction modèle plan      13 462 m
+Signal                      +6 894 m,  soit +105,0 %  — un facteur DEUX
+Prédictions consignées       2026-07-28, avant toute mesure
+Classe exigée                A  (mesure directe de séparation)
 ```
 
-Une seule mesure sur cet axe de 66 km vaut plus que dix noyaux supplémentaires.
+**6,6 km de base, et les deux modèles diffèrent d'un facteur 2.** Territoire français, zone
+urbanisée côtière, mesurable au télémètre laser ou par cheminement en quelques stations.
+C'est de très loin le test le plus accessible et le plus tranchant du projet.
+
+L'ancienne cible n°1 (Kaaba → Djeddah, +28,2 % sur 66 km) passe en n°5 : signal relatif
+3,7 fois plus faible sur une base 10 fois plus longue. Les cinq cibles sont dans
+`cibles-experimentales.json` et visibles sur la page `/carte`.
 
 ## Fichiers
 
@@ -48,9 +55,13 @@ Une seule mesure sur cet axe de 66 km vaut plus que dix noyaux supplémentaires.
 | `reseau-tokyo-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 11 km |
 | `reseau-saopaulo-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 6 km |
 | `reseau-sydney-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 2 km |
+| `reseau-tahiti-noyau.json` | 3.0 | **CLOS — discriminant** | 6 points, 48 km |
+| `reseau-reunion-noyau.json` | 3.0 | **CLOS — discriminant** | 6 points, 51 km |
+| `reseau-acores-noyau.json` | 3.0 | **CLOS — discriminant** | 6 points, 593 km |
+| `cibles-experimentales.json` | 1.0 | 5 cibles pré-enregistrées, 0 mesure | mondial |
 | `jonction-makkah-madinah.json` | 0.4 | Socle topologique non discriminant | axe de 338 km |
 | `reseau-regional-hedjaz.json` | 0.3 | 2 cibles pré-enregistrées, 0 mesure | 11 points, jusqu'à 1 182 km |
-| `reseau-global-terre.json` | 0.3 | Moteur ECEF, 8 noyaux, 0 mesure | intercontinental |
+| `reseau-global-terre.json` | 0.4 | Moteur ECEF, 11 noyaux + Point Nemo | intercontinental |
 | `reseau-mecque-modele.json` | 1.0 | Archivé (schéma abandonné) | — |
 
 ### Pouvoir discriminant — correction de méthode
@@ -403,3 +414,65 @@ deux villes sont presque antipodales.
 Confondre corde et géodésique n'est donc pas une erreur d'arrondi : c'est une erreur pouvant
 atteindre **le tiers de la distance**. Ces deux colonnes ne doivent jamais entrer dans le même
 solveur ni dans la même comparaison.
+
+## Phase 3.3 — ce qui a déplacé la cible
+
+Les trois noyaux insulaires ne sont pas des bassins urbains : Tahiti fait 48 km d'étendue,
+La Réunion 51 km, les Açores **593 km**. Tous trois franchissent le seuil discriminant.
+
+| Noyau | Étendue | Flèche | Incertitude | Signal/bruit | Discriminant |
+|---|---|---|---|---|---|
+| Tahiti | 48 330 m | 183,3 m | ±25 m | **7,3 / 1** | oui |
+| La Réunion | 51 300 m | 206,5 m | ±25 m | **8,3 / 1** | oui |
+| Açores | 593 163 m | 27 592,8 m | ±25 m | **1 104 / 1** | oui |
+
+### Le facteur austral
+
+Le vrai levier n'est pas seulement l'étendue : c'est la **latitude**. Sur l'azimutale
+équidistante polaire nord, une paire est-ouest est multipliée par `θ/sin θ` (θ = colatitude),
+et ce facteur explose vers le sud.
+
+| Lieu | Latitude | Colatitude | Facteur | Étirement |
+|---|---|---|---|---|
+| Flores, Açores | 39,45° N | 50,55° | 1,1426 | +14,3 % |
+| La Mecque | 21,42° N | 68,58° | 1,2858 | +28,6 % |
+| Tahiti | 17,50° S | 107,50° | 1,9673 | **+96,7 %** |
+| La Réunion | 21,10° S | 111,10° | 2,0784 | **+107,8 %** |
+| Sydney | 33,86° S | 123,86° | 2,6033 | +160,3 % |
+| Point Nemo | 48,88° S | 138,88° | 3,6858 | +268,6 % |
+
+**Une base est-ouest de 6 km dans l'hémisphère sud discrimine mieux qu'une base de 66 km dans
+l'hémisphère nord.** C'est ce qui fait passer La Réunion devant Djeddah.
+
+Coïncidence défavorable, et pas fortuite : la divergence croît vers le sud, là où les terres
+émergées se raréfient. Le Point Nemo, où le facteur atteint 3,686, est le point le plus éloigné
+de toute terre — inscrit comme repère de couverture, sans noyau : il n'y a rien à y mesurer.
+
+### Les cinq cibles pré-enregistrées
+
+| # | Axe | Azimut | Sphérique | Plan | Écart |
+|---|---|---|---|---|---|
+| **1** | Saint-Denis → Roland-Garros (La Réunion) | 98,1° | 6 568 m | 13 462 m | **+105,0 %** |
+| 2 | Mont Orohena → Marae Arahurahu (Tahiti) | 267,2° | 7 025 m | 13 793 m | +96,4 % |
+| 3 | Cathédrale de Papeete → Aéroport de Faaa | 245,4° | 5 187 m | 9 512 m | +83,4 % |
+| 4 | Angra do Heroísmo → Horta (Açores) | 264,3° | 123 550 m | 141 596 m | +14,6 % |
+| 5 | Kaaba → Djeddah | 276,2° | 66 054 m | 84 660 m | +28,2 % |
+
+La cible n°4 est la seule mesurable **sans se déplacer à terre** : liaison inter-îles, donc
+qualifiable en classe B (loch, log de vol) et potentiellement en classe A (câbles sous-marins).
+
+> **Rappel indispensable.** Ces 192 distances restent de **classe C** — calculées depuis des
+> coordonnées WGS84, donc circulaires. Qu'un noyau soit géométriquement discriminant ne le rend
+> pas probant : cela indique seulement qu'une *mesure* de classe A ou B faite là aurait valeur
+> de test. Le dépôt dit où mesurer. Il ne mesure pas.
+
+## Page web — `/carte`
+
+`src/app/carte/` + `src/lib/reseau.ts`. Lit directement les JSON de ce dossier, sans duplication
+de données. SVG inline, **aucune dépendance externe et aucune tuile distante** : bascule entre
+la projection équirectangulaire (WGS84) et l'azimutale équidistante polaire nord — c'est-à-dire
+entre les deux hypothèses, l'une à côté de l'autre.
+
+Ce choix est délibéré. Une carte Leaflet ou MapLibre affiche ses tuiles en Web Mercator, une
+projection de l'ellipsoïde WGS84 : le fond de carte trancherait visuellement la question avant
+même qu'on la pose. Ici les deux projections sont dessinées à égalité, sur une grille nue.

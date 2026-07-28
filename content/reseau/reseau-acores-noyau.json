@@ -1,0 +1,257 @@
+{
+  "_meta": {
+    "version": "3.0",
+    "statut_fichier": "CLOS — version 3.0 définitive",
+    "titre": "Noyau des Açores — matrice géodésique complète",
+    "description": "Onzième noyau, archipel des Açores (Atlantique nord). Ce n'est pas un noyau urbain mais un réseau ARCHIPÉLAGIQUE de 593 km d'étendue. Les 15 distances sont CALCULÉES depuis les 6 couples de coordonnées WGS84 par la formule de Vincenty inverse. Source unique : la table de coordonnées.",
+    "methode_declaree": "Calcul géodésique WGS84 (Vincenty inverse) depuis coordonnées relevées",
+    "ellipsoide": {
+      "a_m": 6378137.0,
+      "f": "1/298.257223563",
+      "convergence": "1e-13 rad"
+    },
+    "incertitude_declaree_m": 25,
+    "rationnel_incertitude": "±25 m : points remarquables (sommets, monuments, aérodromes) dont la position se définit à quelques mètres près.",
+    "avertissement_pouvoir_discriminant": "DISCRIMINANT. Étendue 593 163 m (Flores – Santa Maria), flèche 27 592,8 m contre ±25 m : rapport 1 104 pour 1. Sur Angra do Heroísmo – Horta (123,6 km, azimut 264°), le modèle plan prédit 141,6 km, soit +14,6 %. L'intérêt de cet archipel est que ses liaisons inter-îles sont mesurables par voie maritime, aérienne et par câble sous-marin — donc qualifiables en classe A ou B, contrairement aux noyaux urbains.",
+    "rappel_classe_C": "ATTENTION : les 15 distances de ce fichier restent de CLASSE C — calculées depuis des coordonnées WGS84, donc circulaires. Le fait que ce noyau soit géométriquement discriminant ne le rend pas probant : il indique seulement qu'une MESURE de classe A ou B faite ici aurait valeur de test.",
+    "clos_note": "Fichier verrouillé. Toute évolution passe par une correction de coordonnée suivie d'un recalcul complet. Voir content/reseau/README.md.",
+    "champs_liaison": {
+      "a": "premier point",
+      "b": "second point",
+      "distance_m": "distance géodésique WGS84 calculée",
+      "incertitude_m": "marge de position",
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "méthode d'obtention",
+      "statut": "calculee"
+    }
+  },
+  "points": [
+    {
+      "nom": "Ponta Delgada",
+      "latitude": 37.74111,
+      "longitude": -25.67861,
+      "description": "São Miguel — centre du noyau",
+      "statut": "releve"
+    },
+    {
+      "nom": "Angra do Heroísmo",
+      "latitude": 38.65528,
+      "longitude": -27.21556,
+      "description": "Terceira",
+      "statut": "releve"
+    },
+    {
+      "nom": "Horta",
+      "latitude": 38.5375,
+      "longitude": -28.62583,
+      "description": "Faial",
+      "statut": "releve"
+    },
+    {
+      "nom": "Pico (sommet)",
+      "latitude": 38.46861,
+      "longitude": -28.39889,
+      "description": "Montanha do Pico, 2 351 m",
+      "statut": "releve"
+    },
+    {
+      "nom": "Santa Cruz das Flores",
+      "latitude": 39.45278,
+      "longitude": -31.12639,
+      "description": "Flores — extrémité ouest",
+      "statut": "releve"
+    },
+    {
+      "nom": "Vila do Porto",
+      "latitude": 36.94361,
+      "longitude": -25.14528,
+      "description": "Santa Maria — extrémité sud-est",
+      "statut": "releve"
+    }
+  ],
+  "liaisons": [
+    {
+      "a": "Ponta Delgada",
+      "b": "Angra do Heroísmo",
+      "distance_m": 168584,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Ponta Delgada",
+      "b": "Horta",
+      "distance_m": 273059,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Ponta Delgada",
+      "b": "Pico (sommet)",
+      "distance_m": 251871,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Ponta Delgada",
+      "b": "Santa Cruz das Flores",
+      "distance_m": 511098,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Ponta Delgada",
+      "b": "Vila do Porto",
+      "distance_m": 100336,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Angra do Heroísmo",
+      "b": "Horta",
+      "distance_m": 123550,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Angra do Heroísmo",
+      "b": "Pico (sommet)",
+      "distance_m": 105197,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Angra do Heroísmo",
+      "b": "Santa Cruz das Flores",
+      "distance_m": 349876,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Angra do Heroísmo",
+      "b": "Vila do Porto",
+      "distance_m": 263306,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Horta",
+      "b": "Pico (sommet)",
+      "distance_m": 21221,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Horta",
+      "b": "Santa Cruz das Flores",
+      "distance_m": 239263,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Horta",
+      "b": "Vila do Porto",
+      "distance_m": 354093,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Pico (sommet)",
+      "b": "Santa Cruz das Flores",
+      "distance_m": 260415,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Pico (sommet)",
+      "b": "Vila do Porto",
+      "distance_m": 333083,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Santa Cruz das Flores",
+      "b": "Vila do Porto",
+      "distance_m": 593163,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    }
+  ],
+  "_controle": {
+    "points": 6,
+    "liaisons": 15,
+    "seuil_laman_2N_3": 9,
+    "surdetermination": 6,
+    "graphe": "complet K6 — forme unique, rigidité triviale",
+    "triangles_fermes": 20,
+    "violations_inegalite_triangulaire": 0,
+    "rms_ajustement_plan_m": 0.58,
+    "residu_maximal_m": 1.28,
+    "optimum_unique": true,
+    "restarts_solveur": 14,
+    "etendue_maximale_m": 593163,
+    "fleche_spherique_sur_etendue_m": 27592.83,
+    "rapport_signal_sur_bruit": "1103.7/1 — AU-DESSUS DU SEUIL",
+    "note_solveur": "Minimum local du solveur à ressorts à 4255.94 m. Artefact numérique, non ambiguïté géométrique : sur K6 la figure est unique à une isométrie près. Optimum retenu : 0.58 m."
+  }
+}
