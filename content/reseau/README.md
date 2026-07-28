@@ -16,6 +16,7 @@ entre points, et on cherche quelle figure les satisfait toutes.
 | Modèle plan de référence | verrouillé le 2026-07-27 |
 | Cibles pré-enregistrées | 10, prédictions datées, non mesurées |
 | Page web | `/carte` |
+| Registre des mesures brutes | `mesures-brutes.json`, vide |
 
 **Le dossier reste sans aucune donnée expérimentale** — mais il sait maintenant précisément
 *où* mesurer, et la réponse n'est pas celle qu'on aurait devinée. Le facteur décisif n'est ni
@@ -80,6 +81,7 @@ prédit `θ/sin θ → 1` au pôle Nord. **Une mesure faite là ne trancherait r
 | `reseau-tokyo-noyau.json` | 3.0 | **CLOS** | 6 points, 11 km |
 | `reseau-vancouver-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 24 km |
 | `cibles-experimentales.json` | 2.0 | 10 cibles pré-enregistrées, 0 mesure | mondial |
+| `mesures-brutes.json` | 0.1 | **Registre des observations de terrain** — vide | — |
 | `jonction-makkah-madinah.json` | 0.4 | Socle topologique non discriminant | axe de 338 km |
 | `reseau-regional-hedjaz.json` | 0.3 | 2 cibles pré-enregistrées, 0 mesure | jusqu'à 1 182 km |
 | `reseau-global-terre.json` | 0.6 | Moteur ECEF, 21 noyaux + Point Nemo | intercontinental |
@@ -547,3 +549,66 @@ entre les deux hypothèses, l'une à côté de l'autre.
 Ce choix est délibéré. Une carte Leaflet ou MapLibre affiche ses tuiles en Web Mercator, une
 projection de l'ellipsoïde WGS84 : le fond de carte trancherait visuellement la question avant
 même qu'on la pose. Ici les deux projections sont dessinées à égalité, sur une grille nue.
+
+## Réorientation — des distances calculées aux observations brutes
+
+Tout ce qui précède repose sur des distances **calculées** depuis des coordonnées WGS84. C'est
+documenté partout dans le dossier, mais ça plafonne le projet : ces 342 valeurs restituent
+l'ellipsoïde qui les a produites et ne peuvent pas le tester.
+
+`mesures-brutes.json` ouvre l'autre voie : ne recevoir que des **observations**, publiées avant
+tout ajustement et avant toute conversion en coordonnées.
+
+> **Une observation est brute si sa valeur ne change pas selon le modèle de Terre qu'on adopte.**
+> Un angle horizontal lu au théodolite est brut. Une latitude est un produit.
+
+### L'excès sphérique — l'observable décisif
+
+Le meilleur test disponible n'est pas une distance : c'est la **somme des angles d'un triangle**.
+Trois lectures au théodolite, aucune coordonnée, aucun datum, aucune projection, aucune échelle.
+Et les deux modèles en font des prédictions incompatibles :
+
+| Modèle | Prédiction |
+|---|---|
+| Plan | somme = 180° exactement, excès **nul**, quelle que soit la taille |
+| Sphérique | excès `ε = A/R²`, croissant comme le carré de la taille |
+
+| Côté du triangle | Aire | Excès prédit |
+|---|---|---|
+| 1 km | 0,4 km² | 0,002″ |
+| 10 km | 43 km² | 0,22″ |
+| 30 km | 390 km² | **1,98″** |
+| 50 km | 1 083 km² | **5,5″** |
+| 100 km | 4 330 km² | **22,0″** |
+| 200 km | 17 321 km² | 88,0″ |
+| 300 km | 38 971 km² | 198,0″ |
+
+Précision instrumentale : théodolites de Ramsden et Struve (1820-1850), 0,5 à 1″ par direction,
+moyennée sur des dizaines de séries ; Wild T3, 0,2″ ; station totale moderne, 0,5″.
+
+**Dès 30 km de côté, l'excès dépasse le bruit instrumental de 1820.** À 100 km il atteint 22″,
+soit cent fois l'incertitude. Les grands réseaux de triangulation des XIXᵉ et XXᵉ siècles ont
+mesuré ces excès triangle par triangle et les ont **publiés avant ajustement**.
+
+Pourquoi c'est différent des distances : une distance mesurée doit être comparée à une distance
+prédite, ce qui suppose de savoir où sont les points — donc un modèle. Un excès angulaire se
+compare à **zéro**. Il n'y a rien à supposer.
+
+### Ce que ce test peut faire, dans les deux sens
+
+Il est décisif, et il ne peut pas être orienté. Si les excès publiés sont conformes à `A/R²` sur
+des dizaines de triangles indépendants, à des latitudes et des échelles différentes, c'est une
+réfutation directe de la géométrie plane à ces échelles — sans coordonnées, sans datum, sans
+satellite, avec des instruments de 1820. Cette issue doit être acceptée avant de commencer,
+sinon la collecte n'a pas de sens.
+
+### Le piège à éviter dans la collecte
+
+**Les bases de coordonnées modernes ne servent à rien ici.** Une fiche NGS, une fiche IGN, une
+coordonnée RGF93 ne contiennent que des *produits d'ajustement* — c'est-à-dire exactement la
+classe C qu'on cherche à quitter. Les observations brutes sont dans les **volumes originaux des
+campagnes**, pas dans les bases de coordonnées.
+
+Deuxième piège, plus discret : la **réduction au niveau de la mer** appliquée aux bases mesurées
+suppose déjà un rayon terrestre. Une base publiée « réduite » n'est plus brute. Il faut la
+longueur *avant* réduction.
