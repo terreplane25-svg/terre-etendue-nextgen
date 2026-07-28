@@ -167,9 +167,21 @@ def main(chemin):
             print(ligne(ok, f"contrôle 4 — résidu à {n:.2f} σ (σ somme = {ss:.3f}″, seuil 4 σ)"))
         else:
             print("  [n/a  ] contrôle 4 — σ instrumental non fourni")
-        if pred > 0:
-            print(f"\n  RAYON DÉDUIT R = √(A/ε) : {math.sqrt(aire / (exces_obs / ARCSEC))/1000:.1f} km"
-                  if exces_obs > 0 else "\n  excès négatif — rayon non calculable")
+        if exces_obs > 0:
+            Rd = math.sqrt(aire / (exces_obs / ARCSEC))
+            print(f"\n  RAYON DÉDUIT  R = √(A/ε) : {Rd/1000:.1f} km", end="")
+            if sig:
+                # dR/R = (1/2)·(σ_somme / ε)
+                rel = 0.5 * (math.sqrt(3) * sig) / exces_obs
+                print(f"  ± {Rd*rel/1000:.0f} km  ({rel*100:.1f} %)")
+                if rel > 0.15:
+                    print("         >>> incertitude sur R supérieure à 15 % : cet indicateur")
+                    print("             n'est PAS un critère de rejet sur ce triangle. Le résidu")
+                    print("             de mesure y domine l'excès. Voir contrôle 4.")
+            else:
+                print()
+        else:
+            print("\n  excès observé négatif ou nul — rayon non calculable")
     else:
         print("  [n/a  ] contrôle 4 — côtés non fournis")
 

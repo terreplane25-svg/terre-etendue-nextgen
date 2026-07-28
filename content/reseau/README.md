@@ -925,3 +925,28 @@ des sommets fixe cet appariement.
 
 Test de non-régression : le script rejette le bloc 5 sur les contrôles 3 et 4, et signale que
 le plus grand angle ne fait pas face au plus grand côté.
+
+### Le rayon déduit n'est pas un critère universel
+
+`R = √(A/ε)` sort de trois angles et trois côtés, sans qu'aucun rayon n'ait été supposé. Mais
+sa précision dépend entièrement de la taille du triangle :
+
+```
+δR/R = ½ · (σ_somme / ε)
+```
+
+| Côté | Excès | σ somme | δR/R | R connu à |
+|---|---|---|---|---|
+| 20 km | 1,00″ | 0,69″ | **34,5 %** | ± 2 198 km |
+| 50 km | 5,50″ | 0,52″ | 4,7 % | ± 301 km |
+| 65 km | 9,30″ | 0,52″ | 2,8 % | ± 178 km |
+| 80 km | 14,08″ | 0,52″ | 1,8 % | ± 118 km |
+| **160 km** | 56,33″ | 0,52″ | **0,5 %** | **± 29 km** |
+
+Sur un petit triangle, le résidu de mesure domine l'excès et **R part dans tous les sens sans
+que le bloc soit pour autant douteux**. Ce n'est un juge de paix que sur les grands triangles :
+sur un triangle du Karoo, R serait déterminé à ± 29 km.
+
+Le script affiche désormais l'incertitude sur R et avertit explicitement quand elle dépasse
+15 % — dans ce cas l'indicateur ne doit pas servir de motif de rejet, seul le contrôle 4
+tranche.
