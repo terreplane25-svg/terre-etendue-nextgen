@@ -83,6 +83,7 @@ prédit `θ/sin θ → 1` au pôle Nord. **Une mesure faite là ne trancherait r
 | `cibles-experimentales.json` | 2.0 | 10 cibles pré-enregistrées, 0 mesure | mondial |
 | `mesures-brutes.json` | 0.1 | **Registre des observations de terrain** — vide | — |
 | `protocole-triangulation-terrain.json` | 1.0 | **Protocole de mesure d'excès** — 5 triplets, 0 mesure | 42–136 km |
+| `lettre-ecoles-geometres.md` | 1.0 | Proposition de projet aux écoles de géomètres | — |
 | `jonction-makkah-madinah.json` | 0.4 | Socle topologique non discriminant | axe de 338 km |
 | `reseau-regional-hedjaz.json` | 0.3 | 2 cibles pré-enregistrées, 0 mesure | jusqu'à 1 182 km |
 | `reseau-global-terre.json` | 0.7 | Moteur ECEF, 21 noyaux, origine Kaaba | intercontinental |
@@ -690,3 +691,46 @@ avant de monter sur le terrain.
 **Piège logiciel à désactiver avant la campagne :** certaines stations totales appliquent
 automatiquement une compensation de fermeture ou une correction de projection. Il faut exporter
 les lectures brutes, et **ne jamais fermer à 180°** — la fermeture brute *est* le résultat.
+
+## Démarche institutionnelle
+
+`lettre-ecoles-geometres.md` — proposition de projet d'application destinée à l'ESGT Le Mans,
+l'ENSG Marne-la-Vallée, l'INSA Strasbourg et l'Ordre des géomètres-experts, fondée sur le
+triplet n°2 (Aigoual / Mézenc / Ventoux, excès attendu 29,52″, détection à 59 σ).
+
+Deux décisions de cadrage y sont assumées et documentées :
+
+1. **Le contexte du site est dit en ouverture.** Il est découvrable en une recherche ; sa
+   découverte après la campagne détruirait la crédibilité de la donnée et exposerait
+   l'établissement. Une donnée obtenue sur un malentendu ne vaut rien pour un projet dont le
+   seul capital est la vérifiabilité.
+
+2. **L'issue attendue est annoncée.** La discipline considère la question tranchée depuis deux
+   siècles et mesure ces fermetures en travaux pratiques. Présenter la mesure comme un test à
+   l'issue incertaine décrédibiliserait l'ensemble auprès d'un géodésien. L'intérêt réel est de
+   produire une **reproduction publique, datée, pré-enregistrée et francophone**.
+
+Engagements pris dans la lettre, quel que soit le résultat : publication du carnet brut
+intégral, publication du résultat même contraire, aucun droit de regard éditorial sur le
+rapport technique, crédit ou anonymat au choix de l'équipe, licence ouverte.
+
+## Statut des deux voies de collecte
+
+| Voie | État | Verdict |
+|---|---|---|
+| Archives retranscrites | **arrêtée** | 5 blocs reçus, 5 rejetés, 0 versé |
+| Mesure de terrain | active | protocole prêt, lettre rédigée |
+
+**Règle désormais absolue pour les archives : capture d'écran de la page originale, ou rien.**
+Aucune retranscription textuelle n'est plus recevable. Les cinq rejets successifs ont été
+obtenus par des contrôles ne nécessitant aucun accès aux archives :
+
+| Bloc | Motif de rejet | Contrôle utilisé |
+|---|---|---|
+| 1–3 | recyclage du gabarit d'exemple | comparaison de chaînes |
+| 4 | A/R² faux d'un facteur 2,6 ; conclusion posée d'avance | arithmétique |
+| 5 | loi des sinus violée de 10,2 % avec des côtés imprimés au dixième de toise | géométrie |
+
+Le bloc 5 présentait le plus grand angle face au plus petit côté — impossible dans tout
+triangle, plan ou sphérique. C'est cette indépendance à l'accès réseau qui rend l'audit fiable :
+tant qu'un bloc porte des angles, des côtés et une somme, sa cohérence interne est testable.
