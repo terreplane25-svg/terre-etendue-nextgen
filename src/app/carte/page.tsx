@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/carte' },
   title: 'La carte du réseau',
   description:
-    "11 noyaux géodésiques clos sur cinq continents et trois océans, 70 points, 192 distances calculées — et les cinq paires où le modèle sphérique et le modèle plan cessent d'être d'accord.",
+    "21 noyaux géodésiques clos sur six continents et quatre océans, 130 points, 342 distances calculées — et les dix paires où le modèle sphérique et le modèle plan cessent d'être d'accord.",
 };
 
 export default function CartePage() {

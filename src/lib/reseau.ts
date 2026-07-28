@@ -35,6 +35,8 @@ export interface Corde {
 }
 
 export interface Cible {
+  rang: number;
+  lieu: string;
   a: string;
   aLat: number;
   aLon: number;
@@ -46,7 +48,6 @@ export interface Cible {
   plan: number;
   ecart: number;
   ecartPct: number;
-  priorite: string;
   classeExigee: string;
   pourquoi: string;
   accessibilite: string;
@@ -57,6 +58,7 @@ export interface ReseauData {
   cordes: Corde[];
   cibles: Cible[];
   reperes: ReseauPoint[];
+  etirement: { lieu: string; latitude: number; facteur: number; pourcent: number }[];
   stats: {
     noyaux: number;
     points: number;
@@ -115,6 +117,8 @@ export function getReseau(): ReseauData {
   }));
 
   const cibles: Cible[] = lire('cibles-experimentales.json').cibles.map((c: any) => ({
+    rang: c.rang,
+    lieu: c.lieu,
     a: c.a,
     aLat: c.a_lat,
     aLon: c.a_lon,
@@ -126,10 +130,16 @@ export function getReseau(): ReseauData {
     plan: c.prediction_modele_plan_m,
     ecart: c.ecart_m,
     ecartPct: c.ecart_pourcent,
-    priorite: c.priorite,
     classeExigee: c.classe_exigee,
     pourquoi: c.pourquoi,
     accessibilite: c.accessibilite,
+  }));
+
+  const etirement = global._meta._table_etirement_par_latitude.valeurs.map((t: any) => ({
+    lieu: t.lieu,
+    latitude: t.latitude_deg,
+    facteur: t.facteur,
+    pourcent: t.etirement_pourcent,
   }));
 
   const ctrl = global._controle;
@@ -138,6 +148,7 @@ export function getReseau(): ReseauData {
     cordes,
     cibles,
     reperes,
+    etirement,
     stats: {
       noyaux: ctrl.noyaux_membres,
       points: ctrl.points_totaux,

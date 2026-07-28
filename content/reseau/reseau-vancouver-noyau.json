@@ -1,0 +1,266 @@
+{
+  "_meta": {
+    "version": "3.0",
+    "statut_fichier": "CLOS — version 3.0 définitive",
+    "titre": "Noyau de Vancouver — matrice géodésique complète",
+    "description": "Dix-septième noyau, basse vallée du Fraser (Canada). Les 15 distances sont CALCULÉES depuis les 6 couples de coordonnées WGS84 par la formule de Vincenty inverse. Source unique : la table de coordonnées.",
+    "methode_declaree": "Calcul géodésique WGS84 (Vincenty inverse) depuis coordonnées relevées",
+    "ellipsoide": {
+      "a_m": 6378137.0,
+      "f": "1/298.257223563",
+      "convergence": "1e-13 rad"
+    },
+    "incertitude_declaree_m": 25,
+    "rationnel_incertitude": "±25 m : points remarquables (monuments, sommets, aérodromes, phares) dont la position se définit à quelques mètres près.",
+    "avertissement_pouvoir_discriminant": "DISCRIMINANT. Étendue 24481 m, flèche sphérique 47.03 m contre ±25 m : rapport 1.9 pour 1. Facteur d'étirement du modèle plan à cette latitude : ×1.089. Meilleure paire : UBC Rose Garden – Université Simon Fraser (azimut 87.4°), 24481 m en WGS84 contre 26664 m sur la carte plane, soit +8.9 %.",
+    "rappel_classe_C": "ATTENTION : les 15 distances restent de CLASSE C — calculées depuis des coordonnées WGS84, donc circulaires. Qu'un noyau soit géométriquement discriminant ne le rend pas probant : cela indique seulement qu'une MESURE de classe A ou B faite ici aurait valeur de test.",
+    "clos_note": "Fichier verrouillé. Toute évolution passe par une correction de coordonnée suivie d'un recalcul complet. Voir content/reseau/README.md.",
+    "champs_liaison": {
+      "a": "premier point",
+      "b": "second point",
+      "distance_m": "distance géodésique WGS84 calculée",
+      "incertitude_m": "marge de position",
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "méthode d'obtention",
+      "statut": "calculee"
+    }
+  },
+  "points": [
+    {
+      "nom": "Canada Place",
+      "latitude": 49.28889,
+      "longitude": -123.11139,
+      "description": "Centre-ville — centre du noyau",
+      "statut": "releve"
+    },
+    {
+      "nom": "Prospect Point (Stanley Park)",
+      "latitude": 49.315,
+      "longitude": -123.14139,
+      "description": "Burrard Inlet",
+      "statut": "releve"
+    },
+    {
+      "nom": "UBC Rose Garden",
+      "latitude": 49.26917,
+      "longitude": -123.25583,
+      "description": "Point Grey",
+      "statut": "releve"
+    },
+    {
+      "nom": "Grouse Mountain",
+      "latitude": 49.38028,
+      "longitude": -123.08056,
+      "description": "North Vancouver, 1 231 m",
+      "statut": "releve"
+    },
+    {
+      "nom": "Aéroport de Vancouver",
+      "latitude": 49.19472,
+      "longitude": -123.17889,
+      "description": "YVR, Richmond",
+      "statut": "releve"
+    },
+    {
+      "nom": "Université Simon Fraser",
+      "latitude": 49.27861,
+      "longitude": -122.91972,
+      "description": "Burnaby Mountain",
+      "statut": "releve"
+    }
+  ],
+  "liaisons": [
+    {
+      "a": "Canada Place",
+      "b": "Prospect Point (Stanley Park)",
+      "distance_m": 3632,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Canada Place",
+      "b": "UBC Rose Garden",
+      "distance_m": 10736,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Canada Place",
+      "b": "Grouse Mountain",
+      "distance_m": 10408,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Canada Place",
+      "b": "Aéroport de Vancouver",
+      "distance_m": 11569,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Canada Place",
+      "b": "Université Simon Fraser",
+      "distance_m": 13992,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Prospect Point (Stanley Park)",
+      "b": "UBC Rose Garden",
+      "distance_m": 9761,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Prospect Point (Stanley Park)",
+      "b": "Grouse Mountain",
+      "distance_m": 8500,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Prospect Point (Stanley Park)",
+      "b": "Aéroport de Vancouver",
+      "distance_m": 13653,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Prospect Point (Stanley Park)",
+      "b": "Université Simon Fraser",
+      "distance_m": 16624,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "UBC Rose Garden",
+      "b": "Grouse Mountain",
+      "distance_m": 17749,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "UBC Rose Garden",
+      "b": "Aéroport de Vancouver",
+      "distance_m": 9998,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "UBC Rose Garden",
+      "b": "Université Simon Fraser",
+      "distance_m": 24481,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Grouse Mountain",
+      "b": "Aéroport de Vancouver",
+      "distance_m": 21842,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Grouse Mountain",
+      "b": "Université Simon Fraser",
+      "distance_m": 16265,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Aéroport de Vancouver",
+      "b": "Université Simon Fraser",
+      "distance_m": 21054,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    }
+  ],
+  "_controle": {
+    "points": 6,
+    "liaisons": 15,
+    "seuil_laman_2N_3": 9,
+    "surdetermination": 6,
+    "graphe": "complet K6 — forme unique, rigidité triviale",
+    "triangles_fermes": 20,
+    "violations_inegalite_triangulaire": 0,
+    "rms_ajustement_plan_m": 0.13,
+    "residu_maximal_m": 0.25,
+    "optimum_unique": true,
+    "restarts_solveur": 14,
+    "etendue_maximale_m": 24481,
+    "fleche_spherique_sur_etendue_m": 47.03,
+    "rapport_signal_sur_bruit": "1.9/1",
+    "facteur_etirement_modele_plan": 1.0894,
+    "meilleure_paire_discriminante": {
+      "a": "UBC Rose Garden",
+      "b": "Université Simon Fraser",
+      "azimut_deg": 87.4,
+      "modele_spherique_m": 24481,
+      "modele_plan_m": 26664,
+      "ecart_pourcent": 8.9
+    },
+    "note_solveur": "Minimum local du solveur à ressorts à 1976.98 m, 4443.3 m. Artefact numérique, non ambiguïté géométrique : sur K6 la figure est unique à une isométrie près. Optimum retenu : 0.13 m."
+  }
+}

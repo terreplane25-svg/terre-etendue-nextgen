@@ -1,0 +1,265 @@
+{
+  "_meta": {
+    "version": "3.0",
+    "statut_fichier": "CLOS — version 3.0 définitive",
+    "titre": "Noyau d'Hawaï — matrice géodésique complète",
+    "description": "Dix-huitième noyau, île d'Oahu (Pacifique nord). Les 15 distances sont CALCULÉES depuis les 6 couples de coordonnées WGS84 par la formule de Vincenty inverse. Source unique : la table de coordonnées.",
+    "methode_declaree": "Calcul géodésique WGS84 (Vincenty inverse) depuis coordonnées relevées",
+    "ellipsoide": {
+      "a_m": 6378137.0,
+      "f": "1/298.257223563",
+      "convergence": "1e-13 rad"
+    },
+    "incertitude_declaree_m": 25,
+    "rationnel_incertitude": "±25 m : points remarquables (monuments, sommets, aérodromes, phares) dont la position se définit à quelques mètres près.",
+    "avertissement_pouvoir_discriminant": "DISCRIMINANT. Étendue 71729 m, flèche sphérique 403.78 m contre ±25 m : rapport 16.2 pour 1. Facteur d'étirement du modèle plan à cette latitude : ×1.287. Meilleure paire : Aloha Tower – Phare de Makapuʻu (azimut 89.2°), 22569 m en WGS84 contre 29022 m sur la carte plane, soit +28.6 %.",
+    "rappel_classe_C": "ATTENTION : les 15 distances restent de CLASSE C — calculées depuis des coordonnées WGS84, donc circulaires. Qu'un noyau soit géométriquement discriminant ne le rend pas probant : cela indique seulement qu'une MESURE de classe A ou B faite ici aurait valeur de test.",
+    "clos_note": "Fichier verrouillé. Toute évolution passe par une correction de coordonnée suivie d'un recalcul complet. Voir content/reseau/README.md.",
+    "champs_liaison": {
+      "a": "premier point",
+      "b": "second point",
+      "distance_m": "distance géodésique WGS84 calculée",
+      "incertitude_m": "marge de position",
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "méthode d'obtention",
+      "statut": "calculee"
+    }
+  },
+  "points": [
+    {
+      "nom": "Aloha Tower",
+      "latitude": 21.30722,
+      "longitude": -157.86694,
+      "description": "Port de Honolulu — centre du noyau",
+      "statut": "releve"
+    },
+    {
+      "nom": "Diamond Head",
+      "latitude": 21.26194,
+      "longitude": -157.80556,
+      "description": "Lēʻahi, cratère",
+      "statut": "releve"
+    },
+    {
+      "nom": "USS Arizona Memorial",
+      "latitude": 21.365,
+      "longitude": -157.95,
+      "description": "Pearl Harbor",
+      "statut": "releve"
+    },
+    {
+      "nom": "Aéroport de Honolulu",
+      "latitude": 21.31861,
+      "longitude": -157.9225,
+      "description": "Daniel K. Inouye",
+      "statut": "releve"
+    },
+    {
+      "nom": "Kaʻena Point",
+      "latitude": 21.57389,
+      "longitude": -158.28139,
+      "description": "Pointe ouest d’Oahu",
+      "statut": "releve"
+    },
+    {
+      "nom": "Phare de Makapuʻu",
+      "latitude": 21.31,
+      "longitude": -157.64944,
+      "description": "Pointe est d’Oahu",
+      "statut": "releve"
+    }
+  ],
+  "liaisons": [
+    {
+      "a": "Aloha Tower",
+      "b": "Diamond Head",
+      "distance_m": 8106,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Aloha Tower",
+      "b": "USS Arizona Memorial",
+      "distance_m": 10732,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Aloha Tower",
+      "b": "Aéroport de Honolulu",
+      "distance_m": 5901,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Aloha Tower",
+      "b": "Kaʻena Point",
+      "distance_m": 52131,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Aloha Tower",
+      "b": "Phare de Makapuʻu",
+      "distance_m": 22569,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Diamond Head",
+      "b": "USS Arizona Memorial",
+      "distance_m": 18836,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Diamond Head",
+      "b": "Aéroport de Honolulu",
+      "distance_m": 13661,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Diamond Head",
+      "b": "Kaʻena Point",
+      "distance_m": 60223,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Diamond Head",
+      "b": "Phare de Makapuʻu",
+      "distance_m": 17052,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "USS Arizona Memorial",
+      "b": "Aéroport de Honolulu",
+      "distance_m": 5875,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "USS Arizona Memorial",
+      "b": "Kaʻena Point",
+      "distance_m": 41408,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "USS Arizona Memorial",
+      "b": "Phare de Makapuʻu",
+      "distance_m": 31768,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Aéroport de Honolulu",
+      "b": "Kaʻena Point",
+      "distance_m": 46722,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Aéroport de Honolulu",
+      "b": "Phare de Makapuʻu",
+      "distance_m": 28346,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Kaʻena Point",
+      "b": "Phare de Makapuʻu",
+      "distance_m": 71729,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    }
+  ],
+  "_controle": {
+    "points": 6,
+    "liaisons": 15,
+    "seuil_laman_2N_3": 9,
+    "surdetermination": 6,
+    "graphe": "complet K6 — forme unique, rigidité triviale",
+    "triangles_fermes": 20,
+    "violations_inegalite_triangulaire": 0,
+    "rms_ajustement_plan_m": 0.13,
+    "residu_maximal_m": 0.25,
+    "optimum_unique": true,
+    "restarts_solveur": 14,
+    "etendue_maximale_m": 71729,
+    "fleche_spherique_sur_etendue_m": 403.78,
+    "rapport_signal_sur_bruit": "16.2/1",
+    "facteur_etirement_modele_plan": 1.2869,
+    "meilleure_paire_discriminante": {
+      "a": "Aloha Tower",
+      "b": "Phare de Makapuʻu",
+      "azimut_deg": 89.2,
+      "modele_spherique_m": 22569,
+      "modele_plan_m": 29022,
+      "ecart_pourcent": 28.6
+    }
+  }
+}

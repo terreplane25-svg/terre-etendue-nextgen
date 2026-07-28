@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "0.4 — 11 noyaux, Point Nemo, 66 cordes 3D",
+    "version": "0.5 — 21 noyaux, Point Nemo, 231 cordes 3D",
     "titre": "Réseau global — constellation des noyaux, repère ECEF 3D",
     "description": "Fichier d'accueil de tous les noyaux locaux clos, avec le moteur de conversion WGS84 → ECEF et les cordes vectorielles 3D entre centres. Ces cordes sont de CLASSE C : elles sont dérivées de l'ellipsoïde WGS84 et n'ont aucune valeur de test.",
     "noyaux_membres": [
@@ -93,6 +93,50 @@
         "discriminant": false
       },
       {
+        "fichier": "reseau-vancouver-noyau.json",
+        "version": "3.0",
+        "centre": "Canada Place",
+        "points": 6,
+        "etendue_m": 24481,
+        "fleche_m": 47.03,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "1.9/1",
+        "discriminant": true
+      },
+      {
+        "fichier": "reseau-paques-noyau.json",
+        "version": "3.0",
+        "centre": "Hanga Roa",
+        "points": 6,
+        "etendue_m": 25733,
+        "fleche_m": 51.97,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "2.1/1",
+        "discriminant": true
+      },
+      {
+        "fichier": "reseau-mumbai-noyau.json",
+        "version": "3.0",
+        "centre": "Gateway of India",
+        "points": 6,
+        "etendue_m": 32600,
+        "fleche_m": 83.41,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "3.3/1",
+        "discriminant": true
+      },
+      {
+        "fichier": "reseau-buenosaires-noyau.json",
+        "version": "3.0",
+        "centre": "Obelisco",
+        "points": 6,
+        "etendue_m": 44154,
+        "fleche_m": 153.0,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "6.1/1",
+        "discriminant": true
+      },
+      {
         "fichier": "reseau-tahiti-noyau.json",
         "version": "3.0",
         "centre": "Cathédrale de Papeete",
@@ -112,6 +156,72 @@
         "fleche_m": 206.5,
         "incertitude_m": 25,
         "signal_sur_bruit": "8.3/1",
+        "discriminant": true
+      },
+      {
+        "fichier": "reseau-maurice-noyau.json",
+        "version": "3.0",
+        "centre": "Cathédrale de Port-Louis",
+        "points": 6,
+        "etendue_m": 60208,
+        "fleche_m": 284.49,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "11.4/1",
+        "discriminant": true
+      },
+      {
+        "fichier": "reseau-lecap-noyau.json",
+        "version": "3.0",
+        "centre": "Castle of Good Hope",
+        "points": 6,
+        "etendue_m": 62216,
+        "fleche_m": 303.78,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "12.2/1",
+        "discriminant": true
+      },
+      {
+        "fichier": "reseau-pekin-noyau.json",
+        "version": "3.0",
+        "centre": "Place Tian’anmen",
+        "points": 6,
+        "etendue_m": 62228,
+        "fleche_m": 303.9,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "12.2/1",
+        "discriminant": true
+      },
+      {
+        "fichier": "reseau-hawaii-noyau.json",
+        "version": "3.0",
+        "centre": "Aloha Tower",
+        "points": 6,
+        "etendue_m": 71729,
+        "fleche_m": 403.78,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "16.2/1",
+        "discriminant": true
+      },
+      {
+        "fichier": "reseau-reykjavik-noyau.json",
+        "version": "3.0",
+        "centre": "Hallgrímskirkja",
+        "points": 6,
+        "etendue_m": 77948,
+        "fleche_m": 476.83,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "19.1/1",
+        "discriminant": true
+      },
+      {
+        "fichier": "reseau-kerguelen-noyau.json",
+        "version": "3.0",
+        "centre": "Port-aux-Français",
+        "points": 6,
+        "etendue_m": 133652,
+        "fleche_m": 1401.83,
+        "incertitude_m": 25,
+        "signal_sur_bruit": "56.1/1",
         "discriminant": true
       },
       {
@@ -165,14 +275,14 @@
     },
     "centres_en_ECEF": [
       {
-        "nom": "Kaaba (Masjid al-Haram)",
-        "latitude": 21.4225,
-        "longitude": 39.82617,
+        "nom": "Opéra de Sydney",
+        "latitude": -33.85678,
+        "longitude": 151.2153,
         "h_m": 0,
-        "source": "reseau-mecque-noyau.json",
-        "X_m": 4561974.624,
-        "Y_m": 3804425.438,
-        "Z_m": 2315004.875
+        "source": "reseau-sydney-noyau.json",
+        "X_m": -4646969.721,
+        "Y_m": 2553077.515,
+        "Z_m": -3533265.285
       },
       {
         "nom": "Al-Masjid an-Nabawi",
@@ -185,16 +295,6 @@
         "Z_m": 2625473.09
       },
       {
-        "nom": "Pyramide de Khéops",
-        "latitude": 29.97917,
-        "longitude": 31.13417,
-        "h_m": 0,
-        "source": "reseau-caire-noyau.json",
-        "X_m": 4732948.292,
-        "Y_m": 2858948.108,
-        "Z_m": 3168373.827
-      },
-      {
         "nom": "Cathédrale Notre-Dame",
         "latitude": 48.85297,
         "longitude": 2.3499,
@@ -203,26 +303,6 @@
         "X_m": 4201225.453,
         "Y_m": 172403.605,
         "Z_m": 4779815.732
-      },
-      {
-        "nom": "Empire State Building",
-        "latitude": 40.74844,
-        "longitude": -73.98566,
-        "h_m": 0,
-        "source": "reseau-newyork-noyau.json",
-        "X_m": 1334938.113,
-        "Y_m": -4651088.736,
-        "Z_m": 4141299.385
-      },
-      {
-        "nom": "Tour de Tokyo",
-        "latitude": 35.65858,
-        "longitude": 139.74543,
-        "h_m": 0,
-        "source": "reseau-tokyo-noyau.json",
-        "X_m": -3959515.568,
-        "Y_m": 3352519.546,
-        "Z_m": 3697477.894
       },
       {
         "nom": "Cathédrale de la Sé",
@@ -235,14 +315,84 @@
         "Z_m": -2532713.009
       },
       {
-        "nom": "Opéra de Sydney",
-        "latitude": -33.85678,
-        "longitude": 151.2153,
+        "nom": "Kaaba (Masjid al-Haram)",
+        "latitude": 21.4225,
+        "longitude": 39.82617,
         "h_m": 0,
-        "source": "reseau-sydney-noyau.json",
-        "X_m": -4646969.721,
-        "Y_m": 2553077.515,
-        "Z_m": -3533265.285
+        "source": "reseau-mecque-noyau.json",
+        "X_m": 4561974.624,
+        "Y_m": 3804425.438,
+        "Z_m": 2315004.875
+      },
+      {
+        "nom": "Pyramide de Khéops",
+        "latitude": 29.97917,
+        "longitude": 31.13417,
+        "h_m": 0,
+        "source": "reseau-caire-noyau.json",
+        "X_m": 4732948.292,
+        "Y_m": 2858948.108,
+        "Z_m": 3168373.827
+      },
+      {
+        "nom": "Tour de Tokyo",
+        "latitude": 35.65858,
+        "longitude": 139.74543,
+        "h_m": 0,
+        "source": "reseau-tokyo-noyau.json",
+        "X_m": -3959515.568,
+        "Y_m": 3352519.546,
+        "Z_m": 3697477.894
+      },
+      {
+        "nom": "Empire State Building",
+        "latitude": 40.74844,
+        "longitude": -73.98566,
+        "h_m": 0,
+        "source": "reseau-newyork-noyau.json",
+        "X_m": 1334938.113,
+        "Y_m": -4651088.736,
+        "Z_m": 4141299.385
+      },
+      {
+        "nom": "Canada Place",
+        "latitude": 49.28889,
+        "longitude": -123.11139,
+        "h_m": 0,
+        "source": "reseau-vancouver-noyau.json",
+        "X_m": -2276920.482,
+        "Y_m": -3491271.675,
+        "Z_m": 4811575.518
+      },
+      {
+        "nom": "Hanga Roa",
+        "latitude": -27.14778,
+        "longitude": -109.42611,
+        "h_m": 0,
+        "source": "reseau-paques-noyau.json",
+        "X_m": -1888928.075,
+        "Y_m": -5356110.154,
+        "Z_m": -2892795.952
+      },
+      {
+        "nom": "Gateway of India",
+        "latitude": 18.92194,
+        "longitude": 72.83472,
+        "h_m": 0,
+        "source": "reseau-mumbai-noyau.json",
+        "X_m": 1781279.905,
+        "Y_m": 5766754.032,
+        "Z_m": 2055177.714
+      },
+      {
+        "nom": "Obelisco",
+        "latitude": -34.60361,
+        "longitude": -58.38167,
+        "h_m": 0,
+        "source": "reseau-buenosaires-noyau.json",
+        "X_m": 2755252.752,
+        "Y_m": -4475390.676,
+        "Z_m": -3601758.313
       },
       {
         "nom": "Cathédrale de Papeete",
@@ -265,6 +415,66 @@
         "Z_m": -2258900.68
       },
       {
+        "nom": "Cathédrale de Port-Louis",
+        "latitude": -20.16194,
+        "longitude": 57.49889,
+        "h_m": 0,
+        "source": "reseau-maurice-noyau.json",
+        "X_m": 3218351.11,
+        "Y_m": 5051583.352,
+        "Z_m": -2184534.549
+      },
+      {
+        "nom": "Castle of Good Hope",
+        "latitude": -33.92583,
+        "longitude": 18.42583,
+        "h_m": 0,
+        "source": "reseau-lecap-noyau.json",
+        "X_m": 5026252.589,
+        "Y_m": 1674528.748,
+        "Z_m": -3539623.043
+      },
+      {
+        "nom": "Place Tian’anmen",
+        "latitude": 39.90833,
+        "longitude": 116.39139,
+        "h_m": 0,
+        "source": "reseau-pekin-noyau.json",
+        "X_m": -2177716.743,
+        "Y_m": 4388637.724,
+        "Z_m": 4070183.186
+      },
+      {
+        "nom": "Aloha Tower",
+        "latitude": 21.30722,
+        "longitude": -157.86694,
+        "h_m": 0,
+        "source": "reseau-hawaii-noyau.json",
+        "X_m": -5506726.876,
+        "Y_m": -2239752.092,
+        "Z_m": 2303118.018
+      },
+      {
+        "nom": "Hallgrímskirkja",
+        "latitude": 64.14194,
+        "longitude": -21.92667,
+        "h_m": 0,
+        "source": "reseau-reykjavik-noyau.json",
+        "X_m": 2587577.228,
+        "Y_m": -1041598.745,
+        "Z_m": 5716633.769
+      },
+      {
+        "nom": "Port-aux-Français",
+        "latitude": -49.35139,
+        "longitude": 70.21944,
+        "h_m": 0,
+        "source": "reseau-kerguelen-noyau.json",
+        "X_m": 1408790.572,
+        "Y_m": 3917236.022,
+        "Z_m": -4816106.398
+      },
+      {
         "nom": "Ponta Delgada",
         "latitude": 37.74111,
         "longitude": -25.67861,
@@ -279,7 +489,7 @@
         "latitude": -48.87667,
         "longitude": -123.39333,
         "h_m": 0,
-        "source": "— repère océanique, sans noyau",
+        "source": "repere oceanique, sans noyau",
         "X_m": -2313138.964,
         "Y_m": -3508948.162,
         "Z_m": -4781549.535
@@ -287,12 +497,20 @@
     ],
     "cordes_3D_entre_centres": {
       "classe_source": "C — dérivée de coordonnées. Non mesurable, donc définitivement non qualifiable.",
-      "nombre": 66,
-      "note": "Graphe complet K12 sur les 11 centres de noyaux plus le Point Nemo, trié par distance géodésique croissante.",
+      "nombre": 231,
+      "note": "Graphe complet K22 sur les 21 centres de noyaux plus le Point Nemo, trié par distance géodésique croissante.",
       "valeurs": [
         {
-          "a": "Kaaba (Masjid al-Haram)",
-          "b": "Al-Masjid an-Nabawi",
+          "a": "Cathédrale de Saint-Denis",
+          "b": "Cathédrale de Port-Louis",
+          "corde_3D_m": 228174.2,
+          "geodesique_m": 228186.4,
+          "ecart_m": -12.2,
+          "ecart_pourcent": -0.005
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Kaaba (Masjid al-Haram)",
           "corde_3D_m": 337863.2,
           "geodesique_m": 337903.1,
           "ecart_m": -39.9,
@@ -315,6 +533,30 @@
           "ecart_pourcent": -0.17
         },
         {
+          "a": "Cathédrale de la Sé",
+          "b": "Obelisco",
+          "corde_3D_m": 1668615.2,
+          "geodesique_m": 1673429.7,
+          "ecart_m": -4814.5,
+          "ecart_pourcent": -0.288
+        },
+        {
+          "a": "Tour de Tokyo",
+          "b": "Place Tian’anmen",
+          "corde_3D_m": 2094578.0,
+          "geodesique_m": 2104085.9,
+          "ecart_m": -9507.9,
+          "ecart_pourcent": -0.452
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 2226048.1,
+          "geodesique_m": 2237477.5,
+          "ecart_m": -11429.4,
+          "ecart_pourcent": -0.511
+        },
+        {
           "a": "Cathédrale Notre-Dame",
           "b": "Ponta Delgada",
           "corde_3D_m": 2549556.8,
@@ -323,12 +565,76 @@
           "ecart_pourcent": -0.672
         },
         {
-          "a": "Pyramide de Khéops",
-          "b": "Cathédrale Notre-Dame",
+          "a": "Hanga Roa",
+          "b": "Point Nemo",
+          "corde_3D_m": 2675696.6,
+          "geodesique_m": 2695800.5,
+          "ecart_m": -20103.8,
+          "ecart_pourcent": -0.746
+        },
+        {
+          "a": "Hallgrímskirkja",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 2921355.4,
+          "geodesique_m": 2947548.6,
+          "ecart_m": -26193.2,
+          "ecart_pourcent": -0.889
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Pyramide de Khéops",
           "corde_3D_m": 3177577.0,
           "geodesique_m": 3211416.0,
           "ecart_m": -33839.0,
           "ecart_pourcent": -1.054
+        },
+        {
+          "a": "Cathédrale de Saint-Denis",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 3378779.8,
+          "geodesique_m": 3419817.6,
+          "ecart_m": -41037.7,
+          "ecart_pourcent": -1.2
+        },
+        {
+          "a": "Cathédrale de Port-Louis",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 3389162.7,
+          "geodesique_m": 3430607.2,
+          "ecart_m": -41444.6,
+          "ecart_pourcent": -1.208
+        },
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Gateway of India",
+          "corde_3D_m": 3413283.9,
+          "geodesique_m": 3455353.0,
+          "ecart_m": -42069.1,
+          "ecart_pourcent": -1.218
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Gateway of India",
+          "corde_3D_m": 3440683.2,
+          "geodesique_m": 3483804.6,
+          "ecart_m": -43121.3,
+          "ecart_pourcent": -1.238
+        },
+        {
+          "a": "Cathédrale de Saint-Denis",
+          "b": "Castle of Good Hope",
+          "corde_3D_m": 3849142.1,
+          "geodesique_m": 3910084.1,
+          "ecart_m": -60942.0,
+          "ecart_pourcent": -1.559
+        },
+        {
+          "a": "Empire State Building",
+          "b": "Canada Place",
+          "corde_3D_m": 3852267.9,
+          "geodesique_m": 3913167.7,
+          "ecart_m": -60899.7,
+          "ecart_pourcent": -1.556
         },
         {
           "a": "Empire State Building",
@@ -339,12 +645,28 @@
           "ecart_pourcent": -1.734
         },
         {
+          "a": "Cathédrale de Port-Louis",
+          "b": "Castle of Good Hope",
+          "corde_3D_m": 4063160.1,
+          "geodesique_m": 4135208.3,
+          "ecart_m": -72048.1,
+          "ecart_pourcent": -1.742
+        },
+        {
           "a": "Cathédrale de Papeete",
           "b": "Point Nemo",
           "corde_3D_m": 4126554.7,
           "geodesique_m": 4202490.6,
           "ecart_m": -75935.9,
           "ecart_pourcent": -1.807
+        },
+        {
+          "a": "Empire State Building",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 4132699.0,
+          "geodesique_m": 4208451.5,
+          "ecart_m": -75752.4,
+          "ecart_pourcent": -1.8
         },
         {
           "a": "Al-Masjid an-Nabawi",
@@ -355,12 +677,84 @@
           "ecart_pourcent": -1.818
         },
         {
-          "a": "Kaaba (Masjid al-Haram)",
-          "b": "Cathédrale Notre-Dame",
+          "a": "Hanga Roa",
+          "b": "Cathédrale de Papeete",
+          "corde_3D_m": 4172053.3,
+          "geodesique_m": 4250235.4,
+          "ecart_m": -78182.1,
+          "ecart_pourcent": -1.839
+        },
+        {
+          "a": "Canada Place",
+          "b": "Aloha Tower",
+          "corde_3D_m": 4276717.2,
+          "geodesique_m": 4361383.5,
+          "ecart_m": -84666.4,
+          "ecart_pourcent": -1.941
+        },
+        {
+          "a": "Pyramide de Khéops",
+          "b": "Gateway of India",
+          "corde_3D_m": 4290324.8,
+          "geodesique_m": 4375599.8,
+          "ecart_m": -85274.9,
+          "ecart_pourcent": -1.949
+        },
+        {
+          "a": "Cathédrale de Papeete",
+          "b": "Aloha Tower",
+          "corde_3D_m": 4303971.2,
+          "geodesique_m": 4391258.9,
+          "ecart_m": -87287.7,
+          "ecart_pourcent": -1.988
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Kaaba (Masjid al-Haram)",
           "corde_3D_m": 4404204.3,
           "geodesique_m": 4496941.7,
           "ecart_m": -92737.4,
           "ecart_pourcent": -2.062
+        },
+        {
+          "a": "Castle of Good Hope",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 4443554.6,
+          "geodesique_m": 4538512.9,
+          "ecart_m": -94958.3,
+          "ecart_pourcent": -2.092
+        },
+        {
+          "a": "Gateway of India",
+          "b": "Cathédrale de Port-Louis",
+          "corde_3D_m": 4533409.6,
+          "geodesique_m": 4635931.4,
+          "ecart_m": -102521.7,
+          "ecart_pourcent": -2.211
+        },
+        {
+          "a": "Gateway of India",
+          "b": "Place Tian’anmen",
+          "corde_3D_m": 4651140.3,
+          "geodesique_m": 4760990.1,
+          "ecart_m": -109849.8,
+          "ecart_pourcent": -2.307
+        },
+        {
+          "a": "Gateway of India",
+          "b": "Cathédrale de Saint-Denis",
+          "corde_3D_m": 4680275.1,
+          "geodesique_m": 4793519.2,
+          "ecart_m": -113244.1,
+          "ecart_pourcent": -2.362
+        },
+        {
+          "a": "Hanga Roa",
+          "b": "Obelisco",
+          "corde_3D_m": 4779823.2,
+          "geodesique_m": 4899191.2,
+          "ecart_m": -119367.9,
+          "ecart_pourcent": -2.436
         },
         {
           "a": "Kaaba (Masjid al-Haram)",
@@ -371,6 +765,14 @@
           "ecart_pourcent": -2.548
         },
         {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Cathédrale de Port-Louis",
+          "corde_3D_m": 4858660.5,
+          "geodesique_m": 4986038.1,
+          "ecart_m": -127377.6,
+          "ecart_pourcent": -2.555
+        },
+        {
           "a": "Pyramide de Khéops",
           "b": "Ponta Delgada",
           "corde_3D_m": 5100798.6,
@@ -379,12 +781,44 @@
           "ecart_pourcent": -2.791
         },
         {
+          "a": "Pyramide de Khéops",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 5129377.3,
+          "geodesique_m": 5278691.6,
+          "ecart_m": -149314.3,
+          "ecart_pourcent": -2.829
+        },
+        {
           "a": "Al-Masjid an-Nabawi",
           "b": "Cathédrale de Saint-Denis",
           "corde_3D_m": 5148734.8,
           "geodesique_m": 5301793.2,
           "ecart_m": -153058.3,
           "ecart_pourcent": -2.887
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Cathédrale de Port-Louis",
+          "corde_3D_m": 5150985.3,
+          "geodesique_m": 5304196.1,
+          "ecart_m": -153210.9,
+          "ecart_pourcent": -2.888
+        },
+        {
+          "a": "Obelisco",
+          "b": "Point Nemo",
+          "corde_3D_m": 5292873.8,
+          "geodesique_m": 5457425.8,
+          "ecart_m": -164552.0,
+          "ecart_pourcent": -3.015
+        },
+        {
+          "a": "Canada Place",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 5521174.3,
+          "geodesique_m": 5708984.2,
+          "ecart_m": -187809.9,
+          "ecart_pourcent": -3.29
         },
         {
           "a": "Cathédrale Notre-Dame",
@@ -411,12 +845,52 @@
           "ecart_pourcent": -3.932
         },
         {
+          "a": "Tour de Tokyo",
+          "b": "Aloha Tower",
+          "corde_3D_m": 5967545.9,
+          "geodesique_m": 6209672.5,
+          "ecart_m": -242126.6,
+          "ecart_pourcent": -3.899
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 5969359.5,
+          "geodesique_m": 6212032.1,
+          "ecart_m": -242672.6,
+          "ecart_pourcent": -3.906
+        },
+        {
+          "a": "Pyramide de Khéops",
+          "b": "Cathédrale de Port-Louis",
+          "corde_3D_m": 5979572.1,
+          "geodesique_m": 6226287.9,
+          "ecart_m": -246715.9,
+          "ecart_pourcent": -3.962
+        },
+        {
+          "a": "Cathédrale de la Sé",
+          "b": "Hanga Roa",
+          "corde_3D_m": 6018829.2,
+          "geodesique_m": 6267663.7,
+          "ecart_m": -248834.5,
+          "ecart_pourcent": -3.97
+        },
+        {
           "a": "Al-Masjid an-Nabawi",
           "b": "Ponta Delgada",
           "corde_3D_m": 6024926.7,
           "geodesique_m": 6274552.6,
           "ecart_m": -249625.9,
           "ecart_pourcent": -3.978
+        },
+        {
+          "a": "Cathédrale de la Sé",
+          "b": "Castle of Good Hope",
+          "corde_3D_m": 6096431.8,
+          "geodesique_m": 6355811.6,
+          "ecart_m": -259379.8,
+          "ecart_pourcent": -4.081
         },
         {
           "a": "Kaaba (Masjid al-Haram)",
@@ -427,12 +901,68 @@
           "ecart_pourcent": -4.226
         },
         {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 6241255.9,
+          "geodesique_m": 6521891.9,
+          "ecart_m": -280636.1,
+          "ecart_pourcent": -4.303
+        },
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Castle of Good Hope",
+          "corde_3D_m": 6247294.0,
+          "geodesique_m": 6532068.9,
+          "ecart_m": -284774.9,
+          "ecart_pourcent": -4.36
+        },
+        {
+          "a": "Opéra de Sydney",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 6338678.3,
+          "geodesique_m": 6632733.8,
+          "ecart_m": -294055.6,
+          "ecart_pourcent": -4.433
+        },
+        {
+          "a": "Tour de Tokyo",
+          "b": "Gateway of India",
+          "corde_3D_m": 6440684.0,
+          "geodesique_m": 6751245.8,
+          "ecart_m": -310561.8,
+          "ecart_pourcent": -4.6
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Castle of Good Hope",
+          "corde_3D_m": 6513751.2,
+          "geodesique_m": 6840423.1,
+          "ecart_m": -326671.9,
+          "ecart_pourcent": -4.776
+        },
+        {
+          "a": "Obelisco",
+          "b": "Castle of Good Hope",
+          "corde_3D_m": 6556127.7,
+          "geodesique_m": 6884760.3,
+          "ecart_m": -328632.6,
+          "ecart_pourcent": -4.773
+        },
+        {
           "a": "Opéra de Sydney",
           "b": "Point Nemo",
           "corde_3D_m": 6614615.2,
           "geodesique_m": 6952856.9,
           "ecart_m": -338241.6,
           "ecart_pourcent": -4.865
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Gateway of India",
+          "corde_3D_m": 6676566.9,
+          "geodesique_m": 7026472.5,
+          "ecart_m": -349905.6,
+          "ecart_pourcent": -4.98
         },
         {
           "a": "Cathédrale de la Sé",
@@ -451,20 +981,252 @@
           "ecart_pourcent": -5.182
         },
         {
-          "a": "Empire State Building",
-          "b": "Cathédrale de la Sé",
+          "a": "Pyramide de Khéops",
+          "b": "Castle of Good Hope",
+          "corde_3D_m": 6818071.5,
+          "geodesique_m": 7198481.9,
+          "ecart_m": -380410.4,
+          "ecart_pourcent": -5.285
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Place Tian’anmen",
+          "corde_3D_m": 6842136.6,
+          "geodesique_m": 7221068.9,
+          "ecart_m": -378932.3,
+          "ecart_pourcent": -5.248
+        },
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Place Tian’anmen",
+          "corde_3D_m": 6988948.0,
+          "geodesique_m": 7395920.4,
+          "ecart_m": -406972.4,
+          "ecart_pourcent": -5.503
+        },
+        {
+          "a": "Canada Place",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 7013220.2,
+          "geodesique_m": 7423868.9,
+          "ecart_m": -410648.6,
+          "ecart_pourcent": -5.531
+        },
+        {
+          "a": "Hanga Roa",
+          "b": "Aloha Tower",
+          "corde_3D_m": 7056747.0,
+          "geodesique_m": 7480981.6,
+          "ecart_m": -424234.6,
+          "ecart_pourcent": -5.671
+        },
+        {
+          "a": "Gateway of India",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 7125588.4,
+          "geodesique_m": 7566167.0,
+          "ecart_m": -440578.6,
+          "ecart_pourcent": -5.823
+        },
+        {
+          "a": "Tour de Tokyo",
+          "b": "Canada Place",
+          "corde_3D_m": 7135111.6,
+          "geodesique_m": 7570348.7,
+          "ecart_m": -435237.0,
+          "ecart_pourcent": -5.749
+        },
+        {
+          "a": "Pyramide de Khéops",
+          "b": "Place Tian’anmen",
+          "corde_3D_m": 7135159.5,
+          "geodesique_m": 7570853.3,
+          "ecart_m": -435693.8,
+          "ecart_pourcent": -5.755
+        },
+        {
+          "a": "Cathédrale de la Sé",
+          "b": "Empire State Building",
           "corde_3D_m": 7203766.8,
           "geodesique_m": 7660544.8,
           "ecart_m": -456778.1,
           "ecart_pourcent": -5.963
         },
         {
-          "a": "Tour de Tokyo",
-          "b": "Opéra de Sydney",
+          "a": "Opéra de Sydney",
+          "b": "Tour de Tokyo",
           "corde_3D_m": 7307212.0,
           "geodesique_m": 7787510.1,
           "ecart_m": -480298.1,
           "ecart_pourcent": -6.168
+        },
+        {
+          "a": "Canada Place",
+          "b": "Cathédrale de Papeete",
+          "corde_3D_m": 7358953.9,
+          "geodesique_m": 7849649.7,
+          "ecart_m": -490695.7,
+          "ecart_pourcent": -6.251
+        },
+        {
+          "a": "Place Tian’anmen",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 7409878.2,
+          "geodesique_m": 7904018.5,
+          "ecart_m": -494140.3,
+          "ecart_pourcent": -6.252
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Canada Place",
+          "corde_3D_m": 7442439.1,
+          "geodesique_m": 7943771.2,
+          "ecart_m": -501332.1,
+          "ecart_pourcent": -6.311
+        },
+        {
+          "a": "Empire State Building",
+          "b": "Aloha Tower",
+          "corde_3D_m": 7483437.4,
+          "geodesique_m": 7996246.7,
+          "ecart_m": -512809.4,
+          "ecart_pourcent": -6.413
+        },
+        {
+          "a": "Opéra de Sydney",
+          "b": "Aloha Tower",
+          "corde_3D_m": 7600905.7,
+          "geodesique_m": 8147342.7,
+          "ecart_m": -546437.0,
+          "ecart_pourcent": -6.707
+        },
+        {
+          "a": "Place Tian’anmen",
+          "b": "Aloha Tower",
+          "corde_3D_m": 7624983.9,
+          "geodesique_m": 8171811.6,
+          "ecart_m": -546827.7,
+          "ecart_pourcent": -6.692
+        },
+        {
+          "a": "Gateway of India",
+          "b": "Castle of Good Hope",
+          "corde_3D_m": 7653623.4,
+          "geodesique_m": 8212757.8,
+          "ecart_m": -559134.4,
+          "ecart_pourcent": -6.808
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Place Tian’anmen",
+          "corde_3D_m": 7679265.1,
+          "geodesique_m": 8237963.8,
+          "ecart_m": -558698.7,
+          "ecart_pourcent": -6.782
+        },
+        {
+          "a": "Gateway of India",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 7772389.8,
+          "geodesique_m": 8357318.3,
+          "ecart_m": -584928.5,
+          "ecart_pourcent": -6.999
+        },
+        {
+          "a": "Empire State Building",
+          "b": "Hanga Roa",
+          "corde_3D_m": 7769740.4,
+          "geodesique_m": 8361250.1,
+          "ecart_m": -591509.7,
+          "ecart_pourcent": -7.074
+        },
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 7797951.3,
+          "geodesique_m": 8396923.0,
+          "ecart_m": -598971.7,
+          "ecart_pourcent": -7.133
+        },
+        {
+          "a": "Aloha Tower",
+          "b": "Point Nemo",
+          "corde_3D_m": 7874158.8,
+          "geodesique_m": 8493521.8,
+          "ecart_m": -619363.0,
+          "ecart_pourcent": -7.292
+        },
+        {
+          "a": "Empire State Building",
+          "b": "Obelisco",
+          "corde_3D_m": 7874205.1,
+          "geodesique_m": 8495235.6,
+          "ecart_m": -621030.5,
+          "ecart_pourcent": -7.31
+        },
+        {
+          "a": "Canada Place",
+          "b": "Place Tian’anmen",
+          "corde_3D_m": 7915331.7,
+          "geodesique_m": 8535854.5,
+          "ecart_m": -620522.8,
+          "ecart_pourcent": -7.27
+        },
+        {
+          "a": "Canada Place",
+          "b": "Hanga Roa",
+          "corde_3D_m": 7936340.5,
+          "geodesique_m": 8574300.7,
+          "ecart_m": -637960.2,
+          "ecart_pourcent": -7.44
+        },
+        {
+          "a": "Obelisco",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 8029608.6,
+          "geodesique_m": 8693703.8,
+          "ecart_m": -664095.2,
+          "ecart_pourcent": -7.639
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 8051349.9,
+          "geodesique_m": 8721447.6,
+          "ecart_m": -670097.7,
+          "ecart_pourcent": -7.683
+        },
+        {
+          "a": "Tour de Tokyo",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 8139391.3,
+          "geodesique_m": 8823853.6,
+          "ecart_m": -684462.4,
+          "ecart_pourcent": -7.757
+        },
+        {
+          "a": "Opéra de Sydney",
+          "b": "Place Tian’anmen",
+          "corde_3D_m": 8202372.8,
+          "geodesique_m": 8918250.4,
+          "ecart_m": -715877.6,
+          "ecart_pourcent": -8.027
+        },
+        {
+          "a": "Cathédrale de Port-Louis",
+          "b": "Place Tian’anmen",
+          "corde_3D_m": 8287251.6,
+          "geodesique_m": 9026508.6,
+          "ecart_m": -739257.0,
+          "ecart_pourcent": -8.19
+        },
+        {
+          "a": "Obelisco",
+          "b": "Cathédrale de Papeete",
+          "corde_3D_m": 8295532.5,
+          "geodesique_m": 9030304.5,
+          "ecart_m": -734772.0,
+          "ecart_pourcent": -8.137
         },
         {
           "a": "Pyramide de Khéops",
@@ -475,12 +1237,60 @@
           "ecart_pourcent": -8.133
         },
         {
+          "a": "Port-aux-Français",
+          "b": "Point Nemo",
+          "corde_3D_m": 8306754.2,
+          "geodesique_m": 9041581.6,
+          "ecart_m": -734827.4,
+          "ecart_pourcent": -8.127
+        },
+        {
+          "a": "Opéra de Sydney",
+          "b": "Cathédrale de Port-Louis",
+          "corde_3D_m": 8362109.6,
+          "geodesique_m": 9117864.6,
+          "ecart_m": -755754.9,
+          "ecart_pourcent": -8.289
+        },
+        {
+          "a": "Castle of Good Hope",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 8380862.6,
+          "geodesique_m": 9153072.0,
+          "ecart_m": -772209.5,
+          "ecart_pourcent": -8.437
+        },
+        {
+          "a": "Opéra de Sydney",
+          "b": "Hanga Roa",
+          "corde_3D_m": 8400728.8,
+          "geodesique_m": 9168379.7,
+          "ecart_m": -767650.9,
+          "ecart_pourcent": -8.373
+        },
+        {
+          "a": "Cathédrale de Saint-Denis",
+          "b": "Place Tian’anmen",
+          "corde_3D_m": 8439909.4,
+          "geodesique_m": 9229066.1,
+          "ecart_m": -789156.7,
+          "ecart_pourcent": -8.551
+        },
+        {
           "a": "Opéra de Sydney",
           "b": "Cathédrale de Saint-Denis",
           "corde_3D_m": 8463649.5,
           "geodesique_m": 9252773.0,
           "ecart_m": -789123.5,
           "ecart_pourcent": -8.529
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Castle of Good Hope",
+          "corde_3D_m": 8494122.2,
+          "geodesique_m": 9306615.5,
+          "ecart_m": -812493.4,
+          "ecart_pourcent": -8.73
         },
         {
           "a": "Al-Masjid an-Nabawi",
@@ -507,6 +1317,30 @@
           "ecart_pourcent": -8.837
         },
         {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Cathédrale de Port-Louis",
+          "corde_3D_m": 8560059.1,
+          "geodesique_m": 9391611.7,
+          "ecart_m": -831552.6,
+          "ecart_pourcent": -8.854
+        },
+        {
+          "a": "Obelisco",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 8586255.6,
+          "geodesique_m": 9415272.0,
+          "ecart_m": -829016.5,
+          "ecart_pourcent": -8.805
+        },
+        {
+          "a": "Gateway of India",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 8619524.8,
+          "geodesique_m": 9462677.4,
+          "ecart_m": -843152.6,
+          "ecart_pourcent": -8.91
+        },
+        {
           "a": "Tour de Tokyo",
           "b": "Cathédrale de Papeete",
           "corde_3D_m": 8630742.2,
@@ -531,12 +1365,44 @@
           "ecart_pourcent": -9.157
         },
         {
+          "a": "Pyramide de Khéops",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 8713318.7,
+          "geodesique_m": 9603083.4,
+          "ecart_m": -889764.7,
+          "ecart_pourcent": -9.265
+        },
+        {
           "a": "Cathédrale Notre-Dame",
           "b": "Tour de Tokyo",
           "corde_3D_m": 8825094.1,
           "geodesique_m": 9741331.1,
           "ecart_m": -916236.9,
           "ecart_pourcent": -9.406
+        },
+        {
+          "a": "Aloha Tower",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 8865969.8,
+          "geodesique_m": 9800357.6,
+          "ecart_m": -934387.8,
+          "ecart_pourcent": -9.534
+        },
+        {
+          "a": "Cathédrale de la Sé",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 8875071.1,
+          "geodesique_m": 9812544.4,
+          "ecart_m": -937473.2,
+          "ecart_pourcent": -9.554
+        },
+        {
+          "a": "Cathédrale de la Sé",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 8966997.7,
+          "geodesique_m": 9955926.0,
+          "ecart_m": -988928.3,
+          "ecart_pourcent": -9.933
         },
         {
           "a": "Al-Masjid an-Nabawi",
@@ -547,6 +1413,14 @@
           "ecart_pourcent": -10.031
         },
         {
+          "a": "Castle of Good Hope",
+          "b": "Point Nemo",
+          "corde_3D_m": 9070693.6,
+          "geodesique_m": 10085480.4,
+          "ecart_m": -1014786.8,
+          "ecart_pourcent": -10.062
+        },
+        {
           "a": "Empire State Building",
           "b": "Cathédrale de Papeete",
           "corde_3D_m": 9076213.8,
@@ -555,8 +1429,16 @@
           "ecart_pourcent": -10.182
         },
         {
-          "a": "Pyramide de Khéops",
-          "b": "Cathédrale de la Sé",
+          "a": "Opéra de Sydney",
+          "b": "Gateway of India",
+          "corde_3D_m": 9103889.6,
+          "geodesique_m": 10143734.8,
+          "ecart_m": -1039845.2,
+          "ecart_pourcent": -10.251
+        },
+        {
+          "a": "Cathédrale de la Sé",
+          "b": "Pyramide de Khéops",
           "corde_3D_m": 9142912.4,
           "geodesique_m": 10200018.1,
           "ecart_m": -1057105.7,
@@ -580,6 +1462,14 @@
         },
         {
           "a": "Cathédrale de la Sé",
+          "b": "Cathédrale de Port-Louis",
+          "corde_3D_m": 9345141.3,
+          "geodesique_m": 10485170.8,
+          "ecart_m": -1140029.5,
+          "ecart_pourcent": -10.873
+        },
+        {
+          "a": "Cathédrale de la Sé",
           "b": "Cathédrale de Papeete",
           "corde_3D_m": 9356851.0,
           "geodesique_m": 10502661.0,
@@ -587,12 +1477,28 @@
           "ecart_pourcent": -10.91
         },
         {
-          "a": "Kaaba (Masjid al-Haram)",
-          "b": "Cathédrale de la Sé",
+          "a": "Place Tian’anmen",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 9411231.5,
+          "geodesique_m": 10578624.6,
+          "ecart_m": -1167393.1,
+          "ecart_pourcent": -11.035
+        },
+        {
+          "a": "Cathédrale de la Sé",
+          "b": "Kaaba (Masjid al-Haram)",
           "corde_3D_m": 9418984.0,
           "geodesique_m": 10601104.3,
           "ecart_m": -1182120.3,
           "ecart_pourcent": -11.151
+        },
+        {
+          "a": "Tour de Tokyo",
+          "b": "Cathédrale de Port-Louis",
+          "corde_3D_m": 9434334.0,
+          "geodesique_m": 10626017.7,
+          "ecart_m": -1191683.7,
+          "ecart_pourcent": -11.215
         },
         {
           "a": "Cathédrale de Saint-Denis",
@@ -611,6 +1517,22 @@
           "ecart_pourcent": -11.381
         },
         {
+          "a": "Obelisco",
+          "b": "Cathédrale de Saint-Denis",
+          "corde_3D_m": 9501850.0,
+          "geodesique_m": 10716599.0,
+          "ecart_m": -1214749.0,
+          "ecart_pourcent": -11.335
+        },
+        {
+          "a": "Cathédrale de Port-Louis",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 9539649.8,
+          "geodesique_m": 10784165.1,
+          "ecart_m": -1244515.3,
+          "ecart_pourcent": -11.54
+        },
+        {
           "a": "Tour de Tokyo",
           "b": "Cathédrale de Saint-Denis",
           "corde_3D_m": 9580842.6,
@@ -619,12 +1541,76 @@
           "ecart_pourcent": -11.667
         },
         {
-          "a": "Empire State Building",
-          "b": "Tour de Tokyo",
+          "a": "Pyramide de Khéops",
+          "b": "Canada Place",
+          "corde_3D_m": 9600190.8,
+          "geodesique_m": 10861756.7,
+          "ecart_m": -1261565.9,
+          "ecart_pourcent": -11.615
+        },
+        {
+          "a": "Tour de Tokyo",
+          "b": "Empire State Building",
           "corde_3D_m": 9606558.3,
           "geodesique_m": 10871099.6,
           "ecart_m": -1264541.3,
           "ecart_pourcent": -11.632
+        },
+        {
+          "a": "Place Tian’anmen",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 9594341.9,
+          "geodesique_m": 10876481.9,
+          "ecart_m": -1282139.9,
+          "ecart_pourcent": -11.788
+        },
+        {
+          "a": "Canada Place",
+          "b": "Point Nemo",
+          "corde_3D_m": 9593209.7,
+          "geodesique_m": 10877701.8,
+          "ecart_m": -1284492.1,
+          "ecart_pourcent": -11.808
+        },
+        {
+          "a": "Obelisco",
+          "b": "Cathédrale de Port-Louis",
+          "corde_3D_m": 9642936.1,
+          "geodesique_m": 10929882.3,
+          "ecart_m": -1286946.2,
+          "ecart_pourcent": -11.775
+        },
+        {
+          "a": "Empire State Building",
+          "b": "Place Tian’anmen",
+          "corde_3D_m": 9698477.0,
+          "geodesique_m": 11010555.1,
+          "ecart_m": -1312078.1,
+          "ecart_pourcent": -11.917
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Obelisco",
+          "corde_3D_m": 9692451.3,
+          "geodesique_m": 11024751.8,
+          "ecart_m": -1332300.5,
+          "ecart_pourcent": -12.085
+        },
+        {
+          "a": "Opéra de Sydney",
+          "b": "Castle of Good Hope",
+          "corde_3D_m": 9713038.6,
+          "geodesique_m": 11034941.0,
+          "ecart_m": -1321902.4,
+          "ecart_pourcent": -11.979
+        },
+        {
+          "a": "Cathédrale de la Sé",
+          "b": "Canada Place",
+          "corde_3D_m": 9702138.4,
+          "geodesique_m": 11035557.9,
+          "ecart_m": -1333419.5,
+          "ecart_pourcent": -12.083
         },
         {
           "a": "Empire State Building",
@@ -635,12 +1621,172 @@
           "ecart_pourcent": -12.15
         },
         {
+          "a": "Canada Place",
+          "b": "Obelisco",
+          "corde_3D_m": 9852687.1,
+          "geodesique_m": 11274894.1,
+          "ecart_m": -1422206.9,
+          "ecart_pourcent": -12.614
+        },
+        {
+          "a": "Hanga Roa",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 9870152.1,
+          "geodesique_m": 11296670.8,
+          "ecart_m": -1426518.6,
+          "ecart_pourcent": -12.628
+        },
+        {
+          "a": "Hanga Roa",
+          "b": "Castle of Good Hope",
+          "corde_3D_m": 9882711.8,
+          "geodesique_m": 11300459.0,
+          "ecart_m": -1417747.2,
+          "ecart_pourcent": -12.546
+        },
+        {
+          "a": "Obelisco",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 9932344.8,
+          "geodesique_m": 11404903.4,
+          "ecart_m": -1472558.6,
+          "ecart_pourcent": -12.912
+        },
+        {
+          "a": "Castle of Good Hope",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 9950013.9,
+          "geodesique_m": 11432880.7,
+          "ecart_m": -1482866.8,
+          "ecart_pourcent": -12.97
+        },
+        {
+          "a": "Cathédrale de Saint-Denis",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 9983159.0,
+          "geodesique_m": 11479722.1,
+          "ecart_m": -1496563.2,
+          "ecart_pourcent": -13.037
+        },
+        {
+          "a": "Cathédrale de Port-Louis",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 9997660.0,
+          "geodesique_m": 11502726.0,
+          "ecart_m": -1505066.0,
+          "ecart_pourcent": -13.084
+        },
+        {
+          "a": "Hanga Roa",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 10028410.7,
+          "geodesique_m": 11531146.9,
+          "ecart_m": -1502736.2,
+          "ecart_pourcent": -13.032
+        },
+        {
+          "a": "Cathédrale de Papeete",
+          "b": "Place Tian’anmen",
+          "corde_3D_m": 10048461.4,
+          "geodesique_m": 11579538.8,
+          "ecart_m": -1531077.3,
+          "ecart_pourcent": -13.222
+        },
+        {
+          "a": "Cathédrale de Papeete",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 10085010.7,
+          "geodesique_m": 11626130.1,
+          "ecart_m": -1541119.4,
+          "ecart_pourcent": -13.256
+        },
+        {
+          "a": "Tour de Tokyo",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 10080611.7,
+          "geodesique_m": 11641708.0,
+          "ecart_m": -1561096.2,
+          "ecart_pourcent": -13.41
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Canada Place",
+          "corde_3D_m": 10106009.5,
+          "geodesique_m": 11657939.6,
+          "ecart_m": -1551930.1,
+          "ecart_pourcent": -13.312
+        },
+        {
           "a": "Tour de Tokyo",
           "b": "Ponta Delgada",
           "corde_3D_m": 10157234.6,
           "geodesique_m": 11740407.8,
           "ecart_m": -1583173.2,
           "ecart_pourcent": -13.485
+        },
+        {
+          "a": "Aloha Tower",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 10181463.4,
+          "geodesique_m": 11784094.5,
+          "ecart_m": -1602631.2,
+          "ecart_pourcent": -13.6
+        },
+        {
+          "a": "Pyramide de Khéops",
+          "b": "Obelisco",
+          "corde_3D_m": 10175386.7,
+          "geodesique_m": 11791377.3,
+          "ecart_m": -1615990.6,
+          "ecart_pourcent": -13.705
+        },
+        {
+          "a": "Opéra de Sydney",
+          "b": "Obelisco",
+          "corde_3D_m": 10207690.9,
+          "geodesique_m": 11824900.6,
+          "ecart_m": -1617209.7,
+          "ecart_pourcent": -13.676
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Aloha Tower",
+          "corde_3D_m": 10305186.3,
+          "geodesique_m": 11990025.8,
+          "ecart_m": -1684839.4,
+          "ecart_pourcent": -14.052
+        },
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Canada Place",
+          "corde_3D_m": 10306820.4,
+          "geodesique_m": 11992706.3,
+          "ecart_m": -1685885.8,
+          "ecart_pourcent": -14.058
+        },
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Obelisco",
+          "corde_3D_m": 10335747.9,
+          "geodesique_m": 12058455.0,
+          "ecart_m": -1722707.0,
+          "ecart_pourcent": -14.286
+        },
+        {
+          "a": "Obelisco",
+          "b": "Aloha Tower",
+          "corde_3D_m": 10398362.9,
+          "geodesique_m": 12166050.4,
+          "ecart_m": -1767687.5,
+          "ecart_pourcent": -14.53
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Obelisco",
+          "corde_3D_m": 10422557.0,
+          "geodesique_m": 12209222.9,
+          "ecart_m": -1786665.9,
+          "ecart_pourcent": -14.634
         },
         {
           "a": "Cathédrale de Saint-Denis",
@@ -651,8 +1797,88 @@
           "ecart_pourcent": -14.702
         },
         {
-          "a": "Kaaba (Masjid al-Haram)",
-          "b": "Opéra de Sydney",
+          "a": "Canada Place",
+          "b": "Gateway of India",
+          "corde_3D_m": 10477488.2,
+          "geodesique_m": 12287018.6,
+          "ecart_m": -1809530.4,
+          "ecart_pourcent": -14.727
+        },
+        {
+          "a": "Cathédrale de Port-Louis",
+          "b": "Point Nemo",
+          "corde_3D_m": 10517821.5,
+          "geodesique_m": 12357214.5,
+          "ecart_m": -1839393.0,
+          "ecart_pourcent": -14.885
+        },
+        {
+          "a": "Opéra de Sydney",
+          "b": "Canada Place",
+          "corde_3D_m": 10572968.3,
+          "geodesique_m": 12483485.3,
+          "ecart_m": -1910517.0,
+          "ecart_pourcent": -15.304
+        },
+        {
+          "a": "Empire State Building",
+          "b": "Castle of Good Hope",
+          "corde_3D_m": 10613001.9,
+          "geodesique_m": 12552722.0,
+          "ecart_m": -1939720.1,
+          "ecart_pourcent": -15.453
+        },
+        {
+          "a": "Empire State Building",
+          "b": "Gateway of India",
+          "corde_3D_m": 10634029.0,
+          "geodesique_m": 12565756.8,
+          "ecart_m": -1931727.9,
+          "ecart_pourcent": -15.373
+        },
+        {
+          "a": "Hanga Roa",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 10619622.8,
+          "geodesique_m": 12567487.1,
+          "ecart_m": -1947864.3,
+          "ecart_pourcent": -15.499
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 10672543.5,
+          "geodesique_m": 12671302.8,
+          "ecart_m": -1998759.3,
+          "ecart_pourcent": -15.774
+        },
+        {
+          "a": "Gateway of India",
+          "b": "Aloha Tower",
+          "corde_3D_m": 10829619.5,
+          "geodesique_m": 12930047.8,
+          "ecart_m": -2100428.4,
+          "ecart_pourcent": -16.245
+        },
+        {
+          "a": "Castle of Good Hope",
+          "b": "Place Tian’anmen",
+          "corde_3D_m": 10824634.5,
+          "geodesique_m": 12944248.6,
+          "ecart_m": -2119614.1,
+          "ecart_pourcent": -16.375
+        },
+        {
+          "a": "Cathédrale de la Sé",
+          "b": "Aloha Tower",
+          "corde_3D_m": 10869150.3,
+          "geodesique_m": 13017914.7,
+          "ecart_m": -2148764.3,
+          "ecart_pourcent": -16.506
+        },
+        {
+          "a": "Opéra de Sydney",
+          "b": "Kaaba (Masjid al-Haram)",
           "corde_3D_m": 10980564.3,
           "geodesique_m": 13237331.5,
           "ecart_m": -2256767.3,
@@ -667,20 +1893,44 @@
           "ecart_pourcent": -17.375
         },
         {
-          "a": "Cathédrale de la Sé",
-          "b": "Opéra de Sydney",
+          "a": "Opéra de Sydney",
+          "b": "Cathédrale de la Sé",
           "corde_3D_m": 11062799.1,
           "geodesique_m": 13377703.0,
           "ecart_m": -2314903.9,
           "ecart_pourcent": -17.304
         },
         {
-          "a": "Al-Masjid an-Nabawi",
-          "b": "Opéra de Sydney",
+          "a": "Opéra de Sydney",
+          "b": "Al-Masjid an-Nabawi",
           "corde_3D_m": 11066309.4,
           "geodesique_m": 13409655.0,
           "ecart_m": -2343345.6,
           "ecart_pourcent": -17.475
+        },
+        {
+          "a": "Port-aux-Français",
+          "b": "Ponta Delgada",
+          "corde_3D_m": 11082574.2,
+          "geodesique_m": 13455983.6,
+          "ecart_m": -2373409.4,
+          "ecart_pourcent": -17.638
+        },
+        {
+          "a": "Tour de Tokyo",
+          "b": "Hanga Roa",
+          "corde_3D_m": 11115721.9,
+          "geodesique_m": 13512000.3,
+          "ecart_m": -2396278.4,
+          "ecart_pourcent": -17.734
+        },
+        {
+          "a": "Cathédrale de Papeete",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 11120969.9,
+          "geodesique_m": 13523167.2,
+          "ecart_m": -2402197.3,
+          "ecart_pourcent": -17.764
         },
         {
           "a": "Ponta Delgada",
@@ -691,6 +1941,22 @@
           "ecart_pourcent": -17.89
         },
         {
+          "a": "Cathédrale de la Sé",
+          "b": "Gateway of India",
+          "corde_3D_m": 11244539.1,
+          "geodesique_m": 13772078.9,
+          "ecart_m": -2527539.8,
+          "ecart_pourcent": -18.353
+        },
+        {
+          "a": "Cathédrale Notre-Dame",
+          "b": "Hanga Roa",
+          "corde_3D_m": 11248262.3,
+          "geodesique_m": 13793132.1,
+          "ecart_m": -2544869.8,
+          "ecart_pourcent": -18.45
+        },
+        {
           "a": "Cathédrale de Papeete",
           "b": "Ponta Delgada",
           "corde_3D_m": 11415971.1,
@@ -699,12 +1965,68 @@
           "ecart_pourcent": -19.319
         },
         {
+          "a": "Cathédrale de Papeete",
+          "b": "Castle of Good Hope",
+          "corde_3D_m": 11436016.8,
+          "geodesique_m": 14169327.8,
+          "ecart_m": -2733311.0,
+          "ecart_pourcent": -19.29
+        },
+        {
           "a": "Pyramide de Khéops",
-          "b": "Opéra de Sydney",
+          "b": "Aloha Tower",
+          "corde_3D_m": 11471545.6,
+          "geodesique_m": 14248555.2,
+          "ecart_m": -2777009.6,
+          "ecart_pourcent": -19.49
+        },
+        {
+          "a": "Opéra de Sydney",
+          "b": "Pyramide de Khéops",
           "corde_3D_m": 11532059.0,
           "geodesique_m": 14422883.9,
           "ecart_m": -2890824.8,
           "ecart_pourcent": -20.043
+        },
+        {
+          "a": "Hanga Roa",
+          "b": "Cathédrale de Saint-Denis",
+          "corde_3D_m": 11557464.4,
+          "geodesique_m": 14448376.7,
+          "ecart_m": -2890912.3,
+          "ecart_pourcent": -20.009
+        },
+        {
+          "a": "Hanga Roa",
+          "b": "Cathédrale de Port-Louis",
+          "corde_3D_m": 11614905.0,
+          "geodesique_m": 14585118.0,
+          "ecart_m": -2970213.0,
+          "ecart_pourcent": -20.365
+        },
+        {
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Aloha Tower",
+          "corde_3D_m": 11621535.6,
+          "geodesique_m": 14601751.8,
+          "ecart_m": -2980216.2,
+          "ecart_pourcent": -20.41
+        },
+        {
+          "a": "Tour de Tokyo",
+          "b": "Castle of Good Hope",
+          "corde_3D_m": 11659130.0,
+          "geodesique_m": 14732978.2,
+          "ecart_m": -3073848.2,
+          "ecart_pourcent": -20.864
+        },
+        {
+          "a": "Aloha Tower",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 11679736.3,
+          "geodesique_m": 14779327.6,
+          "ecart_m": -3099591.3,
+          "ecart_pourcent": -20.972
         },
         {
           "a": "Empire State Building",
@@ -715,12 +2037,84 @@
           "ecart_pourcent": -21.0
         },
         {
+          "a": "Hallgrímskirkja",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 11701204.9,
+          "geodesique_m": 14866499.0,
+          "ecart_m": -3165294.1,
+          "ecart_pourcent": -21.291
+        },
+        {
+          "a": "Cathédrale de Papeete",
+          "b": "Cathédrale de Port-Louis",
+          "corde_3D_m": 11741245.2,
+          "geodesique_m": 14902584.2,
+          "ecart_m": -3161339.1,
+          "ecart_pourcent": -21.213
+        },
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Aloha Tower",
+          "corde_3D_m": 11743550.3,
+          "geodesique_m": 14905228.3,
+          "ecart_m": -3161678.0,
+          "ecart_pourcent": -21.212
+        },
+        {
+          "a": "Empire State Building",
+          "b": "Cathédrale de Port-Louis",
+          "corde_3D_m": 11734788.7,
+          "geodesique_m": 14914955.5,
+          "ecart_m": -3180166.8,
+          "ecart_pourcent": -21.322
+        },
+        {
+          "a": "Gateway of India",
+          "b": "Obelisco",
+          "corde_3D_m": 11740999.8,
+          "geodesique_m": 14927907.5,
+          "ecart_m": -3186907.7,
+          "ecart_pourcent": -21.349
+        },
+        {
           "a": "Cathédrale de Papeete",
           "b": "Cathédrale de Saint-Denis",
           "corde_3D_m": 11764732.7,
           "geodesique_m": 14962202.1,
           "ecart_m": -3197469.4,
           "ecart_pourcent": -21.37
+        },
+        {
+          "a": "Hallgrímskirkja",
+          "b": "Point Nemo",
+          "corde_3D_m": 11845534.4,
+          "geodesique_m": 15246563.0,
+          "ecart_m": -3401028.7,
+          "ecart_pourcent": -22.307
+        },
+        {
+          "a": "Place Tian’anmen",
+          "b": "Point Nemo",
+          "corde_3D_m": 11863531.3,
+          "geodesique_m": 15278874.0,
+          "ecart_m": -3415342.7,
+          "ecart_pourcent": -22.353
+        },
+        {
+          "a": "Gateway of India",
+          "b": "Cathédrale de Papeete",
+          "corde_3D_m": 11974342.4,
+          "geodesique_m": 15557126.5,
+          "ecart_m": -3582784.1,
+          "ecart_pourcent": -23.03
+        },
+        {
+          "a": "Hanga Roa",
+          "b": "Place Tian’anmen",
+          "corde_3D_m": 11980258.3,
+          "geodesique_m": 15592348.2,
+          "ecart_m": -3612089.9,
+          "ecart_pourcent": -23.166
         },
         {
           "a": "Cathédrale Notre-Dame",
@@ -731,8 +2125,8 @@
           "ecart_pourcent": -23.474
         },
         {
-          "a": "Empire State Building",
-          "b": "Opéra de Sydney",
+          "a": "Opéra de Sydney",
+          "b": "Empire State Building",
           "corde_3D_m": 12107112.6,
           "geodesique_m": 15988922.8,
           "ecart_m": -3881810.2,
@@ -747,12 +2141,84 @@
           "ecart_pourcent": -24.696
         },
         {
+          "a": "Pyramide de Khéops",
+          "b": "Hanga Roa",
+          "corde_3D_m": 12168574.6,
+          "geodesique_m": 16175967.0,
+          "ecart_m": -4007392.4,
+          "ecart_pourcent": -24.774
+        },
+        {
+          "a": "Cathédrale de Port-Louis",
+          "b": "Aloha Tower",
+          "corde_3D_m": 12224139.4,
+          "geodesique_m": 16354942.5,
+          "ecart_m": -4130803.1,
+          "ecart_pourcent": -25.257
+        },
+        {
+          "a": "Gateway of India",
+          "b": "Point Nemo",
+          "corde_3D_m": 12228808.5,
+          "geodesique_m": 16378780.0,
+          "ecart_m": -4149971.5,
+          "ecart_pourcent": -25.337
+        },
+        {
+          "a": "Canada Place",
+          "b": "Castle of Good Hope",
+          "corde_3D_m": 12237824.5,
+          "geodesique_m": 16438392.5,
+          "ecart_m": -4200568.0,
+          "ecart_pourcent": -25.553
+        },
+        {
+          "a": "Cathédrale de Saint-Denis",
+          "b": "Aloha Tower",
+          "corde_3D_m": 12285414.0,
+          "geodesique_m": 16577448.9,
+          "ecart_m": -4292034.8,
+          "ecart_pourcent": -25.891
+        },
+        {
+          "a": "Opéra de Sydney",
+          "b": "Hallgrímskirkja",
+          "corde_3D_m": 12280920.1,
+          "geodesique_m": 16603489.7,
+          "ecart_m": -4322569.6,
+          "ecart_pourcent": -26.034
+        },
+        {
           "a": "Kaaba (Masjid al-Haram)",
           "b": "Point Nemo",
           "corde_3D_m": 12292831.4,
           "geodesique_m": 16617118.5,
           "ecart_m": -4324287.0,
           "ecart_pourcent": -26.023
+        },
+        {
+          "a": "Canada Place",
+          "b": "Cathédrale de Port-Louis",
+          "corde_3D_m": 12333853.3,
+          "geodesique_m": 16772017.9,
+          "ecart_m": -4438164.6,
+          "ecart_pourcent": -26.462
+        },
+        {
+          "a": "Canada Place",
+          "b": "Cathédrale de Saint-Denis",
+          "corde_3D_m": 12352830.8,
+          "geodesique_m": 16849313.0,
+          "ecart_m": -4496482.3,
+          "ecart_pourcent": -26.686
+        },
+        {
+          "a": "Kaaba (Masjid al-Haram)",
+          "b": "Hanga Roa",
+          "corde_3D_m": 12355191.1,
+          "geodesique_m": 16853318.0,
+          "ecart_m": -4498126.9,
+          "ecart_pourcent": -26.69
         },
         {
           "a": "Al-Masjid an-Nabawi",
@@ -763,8 +2229,16 @@
           "ecart_pourcent": -26.9
         },
         {
-          "a": "Cathédrale Notre-Dame",
-          "b": "Opéra de Sydney",
+          "a": "Al-Masjid an-Nabawi",
+          "b": "Hanga Roa",
+          "corde_3D_m": 12370390.5,
+          "geodesique_m": 16919188.7,
+          "ecart_m": -4548798.2,
+          "ecart_pourcent": -26.885
+        },
+        {
+          "a": "Opéra de Sydney",
+          "b": "Cathédrale Notre-Dame",
           "corde_3D_m": 12371963.6,
           "geodesique_m": 16957340.6,
           "ecart_m": -4585377.1,
@@ -779,12 +2253,44 @@
           "ecart_pourcent": -27.17
         },
         {
+          "a": "Empire State Building",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 12395836.5,
+          "geodesique_m": 17072838.0,
+          "ecart_m": -4677001.5,
+          "ecart_pourcent": -27.394
+        },
+        {
+          "a": "Cathédrale de la Sé",
+          "b": "Place Tian’anmen",
+          "corde_3D_m": 12515898.2,
+          "geodesique_m": 17598691.5,
+          "ecart_m": -5082793.3,
+          "ecart_pourcent": -28.882
+        },
+        {
           "a": "Tour de Tokyo",
-          "b": "Cathédrale de la Sé",
+          "b": "Obelisco",
+          "corde_3D_m": 12634996.7,
+          "geodesique_m": 18372198.6,
+          "ecart_m": -5737201.9,
+          "ecart_pourcent": -31.228
+        },
+        {
+          "a": "Cathédrale de la Sé",
+          "b": "Tour de Tokyo",
           "corde_3D_m": 12660221.1,
           "geodesique_m": 18531582.3,
           "ecart_m": -5871361.2,
           "ecart_pourcent": -31.683
+        },
+        {
+          "a": "Castle of Good Hope",
+          "b": "Aloha Tower",
+          "corde_3D_m": 12665025.6,
+          "geodesique_m": 18560458.4,
+          "ecart_m": -5895432.8,
+          "ecart_pourcent": -31.763
         },
         {
           "a": "Pyramide de Khéops",
@@ -811,6 +2317,30 @@
           "ecart_pourcent": -32.96
         },
         {
+          "a": "Canada Place",
+          "b": "Port-aux-Français",
+          "corde_3D_m": 12694987.6,
+          "geodesique_m": 19050201.6,
+          "ecart_m": -6355213.9,
+          "ecart_pourcent": -33.36
+        },
+        {
+          "a": "Hanga Roa",
+          "b": "Gateway of India",
+          "corde_3D_m": 12714990.3,
+          "geodesique_m": 19065647.4,
+          "ecart_m": -6350657.1,
+          "ecart_pourcent": -33.309
+        },
+        {
+          "a": "Obelisco",
+          "b": "Place Tian’anmen",
+          "corde_3D_m": 12718642.8,
+          "geodesique_m": 19262684.3,
+          "ecart_m": -6544041.5,
+          "ecart_pourcent": -33.973
+        },
+        {
           "a": "Opéra de Sydney",
           "b": "Ponta Delgada",
           "corde_3D_m": 12731327.4,
@@ -819,9 +2349,9 @@
           "ecart_pourcent": -34.697
         }
       ],
-      "controle": "Les 66 écarts sont strictement négatifs — la corde coupe au travers du globe. Vérifié par assertion.",
-      "amplitude": "De −39,9 m (Kaaba – Nabawi, 338 km, −0,012 %) à −6 764 510 m (Opéra de Sydney – Ponta Delgada, 19 496 km, −34,70 %). Cette dernière paire est presque antipodale : elle approche la borne théorique de 2/π ≈ 0,6366, soit −36,3 %.",
-      "loi": "corde/arc = sin(σ/2)/(σ/2). Tend vers 1 aux courtes distances, vers 2/π à l'antipode."
+      "controle": "Les 231 écarts sont strictement négatifs — la corde coupe au travers du globe. Vérifié par assertion.",
+      "amplitude": "De -12.2 m (Cathédrale de Saint-Denis – Cathédrale de Port-Louis) à -6764510 m (Opéra de Sydney – Ponta Delgada, 19496 km, soit -34.70 %).",
+      "loi": "corde/arc = sin(σ/2)/(σ/2). Tend vers 1 aux courtes distances, vers 2/π ≈ 0,6366 à l'antipode, soit −36,3 % au maximum."
     },
     "_ou_le_test_se_joue_reellement": {
       "constat": "Onze noyaux, 70 points, 192 distances calculées, zéro mesure de terrain. Mais trois des onze noyaux sont désormais géométriquement discriminants.",
@@ -854,21 +2384,180 @@
       "cible_superieure": "Cathédrale de Saint-Denis – Aéroport Roland-Garros, La Réunion. 6 568 m (WGS84) contre 13 462 m (modèle plan). Écart +6 894 m, soit +105,0 %, sur une base de 6,6 km. Un facteur DEUX sur une distance mesurable en une demi-journée au télémètre.",
       "comparaison": "L'ancienne cible n°1 (Kaaba – Djeddah) offre +28,2 % sur 66 km. La nouvelle offre +105,0 % sur 6,6 km : signal relatif 3,7 fois plus grand, base 10 fois plus courte, donc mesure incomparablement plus facile.",
       "rappel": "Ces valeurs restent de classe C. Elles indiquent OÙ une mesure aurait de la valeur, elles ne constituent pas cette mesure."
+    },
+    "_table_etirement_par_latitude": {
+      "formule": "facteur = θ / sin θ, θ = colatitude en radians. Rapport entre la distance que la carte plane de référence attribue à une paire est-ouest et sa distance géodésique.",
+      "lecture": "Vaut 1 au pôle Nord (exact par construction), croît de façon monotone vers le sud, franchit ×2 vers 18° S, diverge à l'approche du pôle Sud. C'est le seul discriminant utilisable pour un réseau de distances.",
+      "valeurs": [
+        {
+          "lieu": "Port-aux-Français",
+          "latitude_deg": -49.3514,
+          "colatitude_deg": 139.351,
+          "facteur": 3.7336,
+          "etirement_pourcent": 273.4
+        },
+        {
+          "lieu": "Point Nemo",
+          "latitude_deg": -48.8767,
+          "colatitude_deg": 138.877,
+          "facteur": 3.6855,
+          "etirement_pourcent": 268.5
+        },
+        {
+          "lieu": "Obelisco",
+          "latitude_deg": -34.6036,
+          "colatitude_deg": 124.604,
+          "facteur": 2.6421,
+          "etirement_pourcent": 164.2
+        },
+        {
+          "lieu": "Castle of Good Hope",
+          "latitude_deg": -33.9258,
+          "colatitude_deg": 123.926,
+          "facteur": 2.6067,
+          "etirement_pourcent": 160.7
+        },
+        {
+          "lieu": "Opéra de Sydney",
+          "latitude_deg": -33.8568,
+          "colatitude_deg": 123.857,
+          "facteur": 2.6031,
+          "etirement_pourcent": 160.3
+        },
+        {
+          "lieu": "Hanga Roa",
+          "latitude_deg": -27.1478,
+          "colatitude_deg": 117.148,
+          "facteur": 2.2978,
+          "etirement_pourcent": 129.8
+        },
+        {
+          "lieu": "Cathédrale de la Sé",
+          "latitude_deg": -23.5504,
+          "colatitude_deg": 113.55,
+          "facteur": 2.1619,
+          "etirement_pourcent": 116.2
+        },
+        {
+          "lieu": "Cathédrale de Saint-Denis",
+          "latitude_deg": -20.8792,
+          "colatitude_deg": 110.879,
+          "facteur": 2.0712,
+          "etirement_pourcent": 107.1
+        },
+        {
+          "lieu": "Cathédrale de Port-Louis",
+          "latitude_deg": -20.1619,
+          "colatitude_deg": 110.162,
+          "facteur": 2.0482,
+          "etirement_pourcent": 104.8
+        },
+        {
+          "lieu": "Cathédrale de Papeete",
+          "latitude_deg": -17.5375,
+          "colatitude_deg": 107.537,
+          "facteur": 1.9684,
+          "etirement_pourcent": 96.8
+        },
+        {
+          "lieu": "Gateway of India",
+          "latitude_deg": 18.9219,
+          "colatitude_deg": 71.078,
+          "facteur": 1.3114,
+          "etirement_pourcent": 31.1
+        },
+        {
+          "lieu": "Aloha Tower",
+          "latitude_deg": 21.3072,
+          "colatitude_deg": 68.693,
+          "facteur": 1.2869,
+          "etirement_pourcent": 28.7
+        },
+        {
+          "lieu": "Kaaba (Masjid al-Haram)",
+          "latitude_deg": 21.4225,
+          "colatitude_deg": 68.578,
+          "facteur": 1.2857,
+          "etirement_pourcent": 28.6
+        },
+        {
+          "lieu": "Al-Masjid an-Nabawi",
+          "latitude_deg": 24.4672,
+          "colatitude_deg": 65.533,
+          "facteur": 1.2566,
+          "etirement_pourcent": 25.7
+        },
+        {
+          "lieu": "Pyramide de Khéops",
+          "latitude_deg": 29.9792,
+          "colatitude_deg": 60.021,
+          "facteur": 1.2094,
+          "etirement_pourcent": 20.9
+        },
+        {
+          "lieu": "Tour de Tokyo",
+          "latitude_deg": 35.6586,
+          "colatitude_deg": 54.341,
+          "facteur": 1.1673,
+          "etirement_pourcent": 16.7
+        },
+        {
+          "lieu": "Ponta Delgada",
+          "latitude_deg": 37.7411,
+          "colatitude_deg": 52.259,
+          "facteur": 1.1534,
+          "etirement_pourcent": 15.3
+        },
+        {
+          "lieu": "Place Tian’anmen",
+          "latitude_deg": 39.9083,
+          "colatitude_deg": 50.092,
+          "facteur": 1.1397,
+          "etirement_pourcent": 14.0
+        },
+        {
+          "lieu": "Empire State Building",
+          "latitude_deg": 40.7484,
+          "colatitude_deg": 49.252,
+          "facteur": 1.1347,
+          "etirement_pourcent": 13.5
+        },
+        {
+          "lieu": "Cathédrale Notre-Dame",
+          "latitude_deg": 48.853,
+          "colatitude_deg": 41.147,
+          "facteur": 1.0914,
+          "etirement_pourcent": 9.1
+        },
+        {
+          "lieu": "Canada Place",
+          "latitude_deg": 49.2889,
+          "colatitude_deg": 40.711,
+          "facteur": 1.0894,
+          "etirement_pourcent": 8.9
+        },
+        {
+          "lieu": "Hallgrímskirkja",
+          "latitude_deg": 64.1419,
+          "colatitude_deg": 25.858,
+          "facteur": 1.0348,
+          "etirement_pourcent": 3.5
+        }
+      ]
     }
   },
   "liaisons_mesurees": [],
   "_controle": {
-    "noyaux_membres": 11,
+    "noyaux_membres": 21,
     "reperes_sans_noyau": 1,
-    "points_totaux": 70,
-    "distances_calculees": 192,
-    "detail_distances": "Makkah K9 = 36, Madinah K7 = 21, neuf noyaux K6 = 9 × 15 = 135. Total 192.",
+    "points_totaux": 130,
+    "distances_calculees": 342,
     "mesures_de_terrain": 0,
-    "cordes_3D_classe_C": 66,
-    "noyaux_discriminants": 3,
+    "cordes_3D_classe_C": 231,
+    "noyaux_discriminants": 13,
     "noyaux_non_discriminants": 8,
     "residu_ajustement_ECEF": "identiquement nul par construction — non rapporté comme résultat",
-    "etat": "Onze noyaux sur cinq continents et trois océans, plus le Point Nemo. Aucune donnée de terrain. Trois noyaux désormais discriminants.",
-    "prochain_jalon": "Une mesure de classe A sur Saint-Denis – Roland-Garros (La Réunion), 6,6 km, azimut 98°. Les deux modèles diffèrent d'un facteur 2."
+    "etat": "Vingt-et-un noyaux sur six continents et quatre océans, plus le Point Nemo. Aucune donnée de terrain.",
+    "prochain_jalon": "Une mesure de classe A sur Obelisco – Casa Rosada (Buenos Aires), 1 155 m, azimut 115°. Le modèle plan prédit 2 794 m."
   }
 }

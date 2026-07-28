@@ -1,0 +1,265 @@
+{
+  "_meta": {
+    "version": "3.0",
+    "statut_fichier": "CLOS — version 3.0 définitive",
+    "titre": "Noyau de Mumbai — matrice géodésique complète",
+    "description": "Quatorzième noyau, presqu'île de Mumbai (Inde). Les 15 distances sont CALCULÉES depuis les 6 couples de coordonnées WGS84 par la formule de Vincenty inverse. Source unique : la table de coordonnées.",
+    "methode_declaree": "Calcul géodésique WGS84 (Vincenty inverse) depuis coordonnées relevées",
+    "ellipsoide": {
+      "a_m": 6378137.0,
+      "f": "1/298.257223563",
+      "convergence": "1e-13 rad"
+    },
+    "incertitude_declaree_m": 25,
+    "rationnel_incertitude": "±25 m : points remarquables (monuments, sommets, aérodromes, phares) dont la position se définit à quelques mètres près.",
+    "avertissement_pouvoir_discriminant": "DISCRIMINANT. Étendue 32600 m, flèche sphérique 83.41 m contre ±25 m : rapport 3.3 pour 1. Facteur d'étirement du modèle plan à cette latitude : ×1.311. Meilleure paire : Chhatrapati Shivaji Terminus – Grottes d’Elephanta (azimut 75.5°), 10418 m en WGS84 contre 13472 m sur la carte plane, soit +29.3 %.",
+    "rappel_classe_C": "ATTENTION : les 15 distances restent de CLASSE C — calculées depuis des coordonnées WGS84, donc circulaires. Qu'un noyau soit géométriquement discriminant ne le rend pas probant : cela indique seulement qu'une MESURE de classe A ou B faite ici aurait valeur de test.",
+    "clos_note": "Fichier verrouillé. Toute évolution passe par une correction de coordonnée suivie d'un recalcul complet. Voir content/reseau/README.md.",
+    "champs_liaison": {
+      "a": "premier point",
+      "b": "second point",
+      "distance_m": "distance géodésique WGS84 calculée",
+      "incertitude_m": "marge de position",
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "méthode d'obtention",
+      "statut": "calculee"
+    }
+  },
+  "points": [
+    {
+      "nom": "Gateway of India",
+      "latitude": 18.92194,
+      "longitude": 72.83472,
+      "description": "Colaba — centre du noyau",
+      "statut": "releve"
+    },
+    {
+      "nom": "Chhatrapati Shivaji Terminus",
+      "latitude": 18.94,
+      "longitude": 72.83556,
+      "description": "Gare, patrimoine mondial",
+      "statut": "releve"
+    },
+    {
+      "nom": "Bandra-Worli Sea Link",
+      "latitude": 19.03389,
+      "longitude": 72.81722,
+      "description": "Pont sur la baie de Mahim",
+      "statut": "releve"
+    },
+    {
+      "nom": "Grottes d’Elephanta",
+      "latitude": 18.96333,
+      "longitude": 72.93139,
+      "description": "Île de Gharapuri",
+      "statut": "releve"
+    },
+    {
+      "nom": "Aéroport Chhatrapati Shivaji",
+      "latitude": 19.08861,
+      "longitude": 72.86806,
+      "description": "Santacruz",
+      "statut": "releve"
+    },
+    {
+      "nom": "Grottes de Kanheri",
+      "latitude": 19.20833,
+      "longitude": 72.90694,
+      "description": "Parc national Sanjay Gandhi",
+      "statut": "releve"
+    }
+  ],
+  "liaisons": [
+    {
+      "a": "Gateway of India",
+      "b": "Chhatrapati Shivaji Terminus",
+      "distance_m": 2001,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Gateway of India",
+      "b": "Bandra-Worli Sea Link",
+      "distance_m": 12528,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Gateway of India",
+      "b": "Grottes d’Elephanta",
+      "distance_m": 11165,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Gateway of India",
+      "b": "Aéroport Chhatrapati Shivaji",
+      "distance_m": 18780,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Gateway of India",
+      "b": "Grottes de Kanheri",
+      "distance_m": 32600,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Chhatrapati Shivaji Terminus",
+      "b": "Bandra-Worli Sea Link",
+      "distance_m": 10571,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Chhatrapati Shivaji Terminus",
+      "b": "Grottes d’Elephanta",
+      "distance_m": 10418,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Chhatrapati Shivaji Terminus",
+      "b": "Aéroport Chhatrapati Shivaji",
+      "distance_m": 16802,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Chhatrapati Shivaji Terminus",
+      "b": "Grottes de Kanheri",
+      "distance_m": 30638,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Bandra-Worli Sea Link",
+      "b": "Grottes d’Elephanta",
+      "distance_m": 14336,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Bandra-Worli Sea Link",
+      "b": "Aéroport Chhatrapati Shivaji",
+      "distance_m": 8082,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Bandra-Worli Sea Link",
+      "b": "Grottes de Kanheri",
+      "distance_m": 21493,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Grottes d’Elephanta",
+      "b": "Aéroport Chhatrapati Shivaji",
+      "distance_m": 15387,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Grottes d’Elephanta",
+      "b": "Grottes de Kanheri",
+      "distance_m": 27242,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Aéroport Chhatrapati Shivaji",
+      "b": "Grottes de Kanheri",
+      "distance_m": 13869,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    }
+  ],
+  "_controle": {
+    "points": 6,
+    "liaisons": 15,
+    "seuil_laman_2N_3": 9,
+    "surdetermination": 6,
+    "graphe": "complet K6 — forme unique, rigidité triviale",
+    "triangles_fermes": 20,
+    "violations_inegalite_triangulaire": 0,
+    "rms_ajustement_plan_m": 0.15,
+    "residu_maximal_m": 0.29,
+    "optimum_unique": true,
+    "restarts_solveur": 14,
+    "etendue_maximale_m": 32600,
+    "fleche_spherique_sur_etendue_m": 83.41,
+    "rapport_signal_sur_bruit": "3.3/1",
+    "facteur_etirement_modele_plan": 1.3114,
+    "meilleure_paire_discriminante": {
+      "a": "Chhatrapati Shivaji Terminus",
+      "b": "Grottes d’Elephanta",
+      "azimut_deg": 75.5,
+      "modele_spherique_m": 10418,
+      "modele_plan_m": 13472,
+      "ecart_pourcent": 29.3
+    }
+  }
+}

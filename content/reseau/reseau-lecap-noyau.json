@@ -1,0 +1,265 @@
+{
+  "_meta": {
+    "version": "3.0",
+    "statut_fichier": "CLOS — version 3.0 définitive",
+    "titre": "Noyau du Cap — matrice géodésique complète",
+    "description": "Douzième noyau, péninsule du Cap (Afrique du Sud). Les 15 distances sont CALCULÉES depuis les 6 couples de coordonnées WGS84 par la formule de Vincenty inverse. Source unique : la table de coordonnées.",
+    "methode_declaree": "Calcul géodésique WGS84 (Vincenty inverse) depuis coordonnées relevées",
+    "ellipsoide": {
+      "a_m": 6378137.0,
+      "f": "1/298.257223563",
+      "convergence": "1e-13 rad"
+    },
+    "incertitude_declaree_m": 25,
+    "rationnel_incertitude": "±25 m : points remarquables (monuments, sommets, aérodromes, phares) dont la position se définit à quelques mètres près.",
+    "avertissement_pouvoir_discriminant": "DISCRIMINANT. Étendue 62216 m, flèche sphérique 303.78 m contre ±25 m : rapport 12.2 pour 1. Facteur d'étirement du modèle plan à cette latitude : ×2.607. Meilleure paire : Table Mountain (station haute) – Aéroport du Cap (azimut 94.3°), 18457 m en WGS84 contre 47854 m sur la carte plane, soit +159.3 %.",
+    "rappel_classe_C": "ATTENTION : les 15 distances restent de CLASSE C — calculées depuis des coordonnées WGS84, donc circulaires. Qu'un noyau soit géométriquement discriminant ne le rend pas probant : cela indique seulement qu'une MESURE de classe A ou B faite ici aurait valeur de test.",
+    "clos_note": "Fichier verrouillé. Toute évolution passe par une correction de coordonnée suivie d'un recalcul complet. Voir content/reseau/README.md.",
+    "champs_liaison": {
+      "a": "premier point",
+      "b": "second point",
+      "distance_m": "distance géodésique WGS84 calculée",
+      "incertitude_m": "marge de position",
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "méthode d'obtention",
+      "statut": "calculee"
+    }
+  },
+  "points": [
+    {
+      "nom": "Castle of Good Hope",
+      "latitude": -33.92583,
+      "longitude": 18.42583,
+      "description": "Centre historique du Cap — centre du noyau",
+      "statut": "releve"
+    },
+    {
+      "nom": "Table Mountain (station haute)",
+      "latitude": -33.95722,
+      "longitude": 18.40306,
+      "description": "Téléphérique, 1 067 m",
+      "statut": "releve"
+    },
+    {
+      "nom": "Cape Point",
+      "latitude": -34.35694,
+      "longitude": 18.49722,
+      "description": "Phare, extrémité sud de la péninsule",
+      "statut": "releve"
+    },
+    {
+      "nom": "Robben Island",
+      "latitude": -33.80667,
+      "longitude": 18.36667,
+      "description": "Île de la baie de la Table",
+      "statut": "releve"
+    },
+    {
+      "nom": "Signal Hill",
+      "latitude": -33.91667,
+      "longitude": 18.40333,
+      "description": "Lion’s Rump",
+      "statut": "releve"
+    },
+    {
+      "nom": "Aéroport du Cap",
+      "latitude": -33.96944,
+      "longitude": 18.60222,
+      "description": "Cape Town International",
+      "statut": "releve"
+    }
+  ],
+  "liaisons": [
+    {
+      "a": "Castle of Good Hope",
+      "b": "Table Mountain (station haute)",
+      "distance_m": 4069,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Castle of Good Hope",
+      "b": "Cape Point",
+      "distance_m": 48272,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Castle of Good Hope",
+      "b": "Robben Island",
+      "distance_m": 14306,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Castle of Good Hope",
+      "b": "Signal Hill",
+      "distance_m": 2315,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Castle of Good Hope",
+      "b": "Aéroport du Cap",
+      "distance_m": 17008,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Table Mountain (station haute)",
+      "b": "Cape Point",
+      "distance_m": 45181,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Table Mountain (station haute)",
+      "b": "Robben Island",
+      "distance_m": 17035,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Table Mountain (station haute)",
+      "b": "Signal Hill",
+      "distance_m": 4498,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Table Mountain (station haute)",
+      "b": "Aéroport du Cap",
+      "distance_m": 18457,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cape Point",
+      "b": "Robben Island",
+      "distance_m": 62216,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cape Point",
+      "b": "Signal Hill",
+      "distance_m": 49599,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cape Point",
+      "b": "Aéroport du Cap",
+      "distance_m": 44060,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Robben Island",
+      "b": "Signal Hill",
+      "distance_m": 12664,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Robben Island",
+      "b": "Aéroport du Cap",
+      "distance_m": 28298,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Signal Hill",
+      "b": "Aéroport du Cap",
+      "distance_m": 19296,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    }
+  ],
+  "_controle": {
+    "points": 6,
+    "liaisons": 15,
+    "seuil_laman_2N_3": 9,
+    "surdetermination": 6,
+    "graphe": "complet K6 — forme unique, rigidité triviale",
+    "triangles_fermes": 20,
+    "violations_inegalite_triangulaire": 0,
+    "rms_ajustement_plan_m": 0.13,
+    "residu_maximal_m": 0.28,
+    "optimum_unique": true,
+    "restarts_solveur": 14,
+    "etendue_maximale_m": 62216,
+    "fleche_spherique_sur_etendue_m": 303.78,
+    "rapport_signal_sur_bruit": "12.2/1",
+    "facteur_etirement_modele_plan": 2.6067,
+    "meilleure_paire_discriminante": {
+      "a": "Table Mountain (station haute)",
+      "b": "Aéroport du Cap",
+      "azimut_deg": 94.3,
+      "modele_spherique_m": 18457,
+      "modele_plan_m": 47854,
+      "ecart_pourcent": 159.3
+    }
+  }
+}

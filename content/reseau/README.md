@@ -8,61 +8,116 @@ entre points, et on cherche quelle figure les satisfait toutes.
 
 | | |
 |---|---|
-| Noyaux clos et verrouillés | **11** — 8 urbains + Tahiti, La Réunion, Açores |
-| **dont discriminants** | **3** (les trois insulaires) |
-| Points relevés | 70 |
-| Distances **calculées** (classe C) | 192 |
+| Noyaux clos et verrouillés | **21** — 6 continents, 4 océans |
+| **dont discriminants** | **13** |
+| Points relevés | 130 |
+| Distances **calculées** (classe C) | 342 |
 | **Mesures de terrain (classe A ou B)** | **0** |
 | Modèle plan de référence | verrouillé le 2026-07-27 |
-| Cibles pré-enregistrées | 5, prédictions datées, non mesurées |
+| Cibles pré-enregistrées | 10, prédictions datées, non mesurées |
 | Page web | `/carte` |
 
-**Le dossier reste sans aucune donnée expérimentale** — mais depuis la phase 3.3 il sait
-enfin *où* mesurer. Les huit noyaux urbains (2 à 37 km d'étendue) ne discriminent rien : leur
-signal de 0,4 à 38 m reste sous l'incertitude de position. Les trois noyaux insulaires ajoutés
-ensuite franchissent le seuil — non parce qu'ils sont mieux relevés, mais parce qu'ils sont plus
-**étendus** et, pour deux d'entre eux, **australs**.
+**Le dossier reste sans aucune donnée expérimentale** — mais il sait maintenant précisément
+*où* mesurer, et la réponse n'est pas celle qu'on aurait devinée. Le facteur décisif n'est ni
+la qualité du relevé ni l'étendue du noyau : c'est la **latitude**, via le facteur d'étirement
+`θ/sin θ` du modèle plan. Deux monuments distants de 1 155 m à Buenos Aires discriminent mieux
+qu'une base de 44 km à Reykjavík.
 
-### Prochain jalon — cible n°1, La Réunion
+### Prochain jalon — cible n°1, Buenos Aires
 
 ```
-Axe            Cathédrale de Saint-Denis → Aéroport Roland-Garros (Sainte-Marie)
-Azimut         98,1°   (quasi plein est, à 21,1° de latitude SUD)
-Prédiction WGS84             6 568 m
-Prédiction modèle plan      13 462 m
-Signal                      +6 894 m,  soit +105,0 %  — un facteur DEUX
+Axe            Obelisco → Casa Rosada (Plaza de Mayo)
+Azimut         115,4°  (est-sud-est, à 34,6° de latitude SUD)
+Prédiction WGS84             1 155 m
+Prédiction modèle plan       2 794 m
+Signal                      +1 639 m,  soit +141,8 %  — un facteur 2,4
 Prédictions consignées       2026-07-28, avant toute mesure
 Classe exigée                A  (mesure directe de séparation)
 ```
 
-**6,6 km de base, et les deux modèles diffèrent d'un facteur 2.** Territoire français, zone
-urbanisée côtière, mesurable au télémètre laser ou par cheminement en quelques stations.
-C'est de très loin le test le plus accessible et le plus tranchant du projet.
+**1,2 km de base en plein centre-ville, et les deux modèles diffèrent d'un facteur 2,4.**
+Deux monuments majeurs, terrain plat et dégagé, quinze minutes de marche. Mesurable au
+télémètre laser, voire au décamètre. C'est le meilleur rapport accessibilité / signal de tout
+le projet.
 
-L'ancienne cible n°1 (Kaaba → Djeddah, +28,2 % sur 66 km) passe en n°5 : signal relatif
-3,7 fois plus faible sur une base 10 fois plus longue. Les cinq cibles sont dans
-`cibles-experimentales.json` et visibles sur la page `/carte`.
+Les dix cibles sont dans `cibles-experimentales.json` v2.0 et visibles sur `/carte`.
+
+Trois repères pour situer :
+
+| | Base | Écart entre modèles | Accessibilité |
+|---|---|---|---|
+| **Signal maximal** — Kerguelen, Mont Ross → Rallier du Baty | 49 861 m | **+274,2 %** | quasi nulle |
+| **Meilleur compromis** — Buenos Aires, Obelisco → Casa Rosada | 1 155 m | **+141,8 %** | triviale |
+| **Contre-exemple** — Reykjavík, Þingvellir → Grótta | 44 489 m | +3,3 % | facile, mais inutile |
+
+Le contre-exemple est le plus instructif du lot : 44 km d'étendue, un relevé irréprochable,
+et un écart de 3,3 % seulement. À 64° N les deux modèles convergent — c'est exactement ce que
+prédit `θ/sin θ → 1` au pôle Nord. **Une mesure faite là ne trancherait rien.**
 
 ## Fichiers
 
 | Fichier | Version | État | Étendue |
 |---|---|---|---|
-| `reseau-mecque-noyau.json` | 3.0 | **CLOS — verrouillé** | 9 points, 37 km |
-| `reseau-medine-noyau.json` | 3.0 | **CLOS — verrouillé** | 7 points, 12 km |
-| `reseau-caire-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 22 km |
-| `reseau-paris-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 5 km |
-| `reseau-newyork-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 11 km |
-| `reseau-tokyo-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 11 km |
-| `reseau-saopaulo-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 6 km |
-| `reseau-sydney-noyau.json` | 3.0 | **CLOS — verrouillé** | 6 points, 2 km |
-| `reseau-tahiti-noyau.json` | 3.0 | **CLOS — discriminant** | 6 points, 48 km |
-| `reseau-reunion-noyau.json` | 3.0 | **CLOS — discriminant** | 6 points, 51 km |
-| `reseau-acores-noyau.json` | 3.0 | **CLOS — discriminant** | 6 points, 593 km |
-| `cibles-experimentales.json` | 1.0 | 5 cibles pré-enregistrées, 0 mesure | mondial |
+| `reseau-acores-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 593 km |
+| `reseau-buenosaires-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 44 km |
+| `reseau-caire-noyau.json` | 3.0 | **CLOS** | 6 points, 22 km |
+| `reseau-hawaii-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 72 km |
+| `reseau-kerguelen-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 134 km |
+| `reseau-lecap-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 62 km |
+| `reseau-maurice-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 60 km |
+| `reseau-mecque-noyau.json` | 3.0 | **CLOS** | 9 points, 37 km |
+| `reseau-medine-noyau.json` | 3.0 | **CLOS** | 7 points, 12 km |
+| `reseau-mumbai-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 33 km |
+| `reseau-newyork-noyau.json` | 3.0 | **CLOS** | 6 points, 11 km |
+| `reseau-paques-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 26 km |
+| `reseau-paris-noyau.json` | 3.0 | **CLOS** | 6 points, 5 km |
+| `reseau-pekin-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 62 km |
+| `reseau-reunion-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 51 km |
+| `reseau-reykjavik-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 78 km |
+| `reseau-saopaulo-noyau.json` | 3.0 | **CLOS** | 6 points, 6 km |
+| `reseau-sydney-noyau.json` | 3.0 | **CLOS** | 6 points, 2 km |
+| `reseau-tahiti-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 48 km |
+| `reseau-tokyo-noyau.json` | 3.0 | **CLOS** | 6 points, 11 km |
+| `reseau-vancouver-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 24 km |
+| `cibles-experimentales.json` | 2.0 | 10 cibles pré-enregistrées, 0 mesure | mondial |
 | `jonction-makkah-madinah.json` | 0.4 | Socle topologique non discriminant | axe de 338 km |
-| `reseau-regional-hedjaz.json` | 0.3 | 2 cibles pré-enregistrées, 0 mesure | 11 points, jusqu'à 1 182 km |
-| `reseau-global-terre.json` | 0.4 | Moteur ECEF, 11 noyaux + Point Nemo | intercontinental |
+| `reseau-regional-hedjaz.json` | 0.3 | 2 cibles pré-enregistrées, 0 mesure | jusqu'à 1 182 km |
+| `reseau-global-terre.json` | 0.5 | Moteur ECEF, 21 noyaux + Point Nemo | intercontinental |
 | `reseau-mecque-modele.json` | 1.0 | Archivé (schéma abandonné) | — |
+
+## Les 21 noyaux
+
+Triés par rapport signal/bruit décroissant. Le facteur d'étirement est celui du modèle plan
+de référence à la latitude du centre.
+
+| Noyau | Pts | Étendue | Flèche | Incertitude | Signal/bruit | Étirement | Discriminant |
+|---|---|---|---|---|---|---|---|
+| des Açores | 6 | 593 163 m | 27592.8 m | ±25 m | 1103.7/1 | ×1.153 | **oui** |
+| des Kerguelen | 6 | 133 652 m | 1401.83 m | ±25 m | 56.1/1 | ×3.734 | **oui** |
+| de Reykjavík | 6 | 77 948 m | 476.83 m | ±25 m | 19.1/1 | ×1.035 | **oui** |
+| d'Hawaï | 6 | 71 729 m | 403.78 m | ±25 m | 16.2/1 | ×1.287 | **oui** |
+| de Pékin | 6 | 62 228 m | 303.9 m | ±25 m | 12.2/1 | ×1.140 | **oui** |
+| du Cap | 6 | 62 216 m | 303.78 m | ±25 m | 12.2/1 | ×2.607 | **oui** |
+| de Maurice | 6 | 60 208 m | 284.49 m | ±25 m | 11.4/1 | ×2.048 | **oui** |
+| de La Réunion | 6 | 51 300 m | 206.5 m | ±25 m | 8.3/1 | ×2.071 | **oui** |
+| de Tahiti | 6 | 48 330 m | 183.3 m | ±25 m | 7.3/1 | ×1.968 | **oui** |
+| de Buenos Aires | 6 | 44 154 m | 153 m | ±25 m | 6.1/1 | ×2.642 | **oui** |
+| de Mumbai | 6 | 32 600 m | 83.41 m | ±25 m | 3.3/1 | ×1.311 | **oui** |
+| de l'île de Pâques | 6 | 25 733 m | 51.97 m | ±25 m | 2.1/1 | ×2.298 | **oui** |
+| de Vancouver | 6 | 24 481 m | 47.03 m | ±25 m | 1.9/1 | ×1.089 | **oui** |
+| de New York | 6 | 11 288 m | 10 m | ±25 m | 1/2.5 | ×1.135 | non |
+| de Tokyo | 6 | 10 752 m | 9.073 m | ±25 m | 1/2.8 | ×1.167 | non |
+| du Caire | 6 | 22 090 m | 38.3 m | ±250 m | 1/6.5 | ×1.209 | non |
+| de La Mecque | 9 | 37 095 m | 30 m | ±250 m | 1/8.3 | ×1.286 | non |
+| de São Paulo | 6 | 5 907 m | 2.738 m | ±25 m | 1/9.1 | ×2.162 | non |
+| de Paris | 6 | 5 194 m | 2.12 m | ±25 m | 1/11.8 | ×1.091 | non |
+| de Médine | 7 | 11 985 m | 11.3 m | ±250 m | 1/22.1 | ×1.257 | non |
+| de Sydney | 6 | 2 320 m | 0.422 m | ±25 m | 1/59.2 | ×2.603 | non |
+
+**Le classement par signal/bruit ne dit pas où mesurer.** Il ne mesure que l'étendue : un
+noyau très étendu à haute latitude nord (Reykjavík, 78 km, 19,1/1) est parfaitement inutile,
+parce que les deux modèles y coïncident. C'est l'**étirement** — dernière colonne — qui
+décide, et il ne dépend que de la latitude.
 
 ### Pouvoir discriminant — correction de méthode
 

@@ -1,0 +1,265 @@
+{
+  "_meta": {
+    "version": "3.0",
+    "statut_fichier": "CLOS — version 3.0 définitive",
+    "titre": "Noyau des Kerguelen — matrice géodésique complète",
+    "description": "Vingt-et-unième noyau, archipel des Kerguelen (Terres australes françaises). Les 15 distances sont CALCULÉES depuis les 6 couples de coordonnées WGS84 par la formule de Vincenty inverse. Source unique : la table de coordonnées.",
+    "methode_declaree": "Calcul géodésique WGS84 (Vincenty inverse) depuis coordonnées relevées",
+    "ellipsoide": {
+      "a_m": 6378137.0,
+      "f": "1/298.257223563",
+      "convergence": "1e-13 rad"
+    },
+    "incertitude_declaree_m": 25,
+    "rationnel_incertitude": "±25 m : points remarquables (monuments, sommets, aérodromes, phares) dont la position se définit à quelques mètres près.",
+    "avertissement_pouvoir_discriminant": "DISCRIMINANT. Étendue 133652 m, flèche sphérique 1401.83 m contre ±25 m : rapport 56.1 pour 1. Facteur d'étirement du modèle plan à cette latitude : ×3.734. Meilleure paire : Mont Ross – Presqu’île Rallier du Baty (azimut 270.6°), 49861 m en WGS84 contre 186572 m sur la carte plane, soit +274.2 %.",
+    "rappel_classe_C": "ATTENTION : les 15 distances restent de CLASSE C — calculées depuis des coordonnées WGS84, donc circulaires. Qu'un noyau soit géométriquement discriminant ne le rend pas probant : cela indique seulement qu'une MESURE de classe A ou B faite ici aurait valeur de test.",
+    "clos_note": "Fichier verrouillé. Toute évolution passe par une correction de coordonnée suivie d'un recalcul complet. Voir content/reseau/README.md.",
+    "champs_liaison": {
+      "a": "premier point",
+      "b": "second point",
+      "distance_m": "distance géodésique WGS84 calculée",
+      "incertitude_m": "marge de position",
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "méthode d'obtention",
+      "statut": "calculee"
+    }
+  },
+  "points": [
+    {
+      "nom": "Port-aux-Français",
+      "latitude": -49.35139,
+      "longitude": 70.21944,
+      "description": "Base scientifique — centre du noyau",
+      "statut": "releve"
+    },
+    {
+      "nom": "Mont Ross",
+      "latitude": -49.60667,
+      "longitude": 69.55639,
+      "description": "Point culminant, 1 850 m",
+      "statut": "releve"
+    },
+    {
+      "nom": "Cap Digby",
+      "latitude": -49.29444,
+      "longitude": 70.55583,
+      "description": "Extrémité est",
+      "statut": "releve"
+    },
+    {
+      "nom": "Île Longue",
+      "latitude": -49.53333,
+      "longitude": 69.9,
+      "description": "Golfe du Morbihan",
+      "statut": "releve"
+    },
+    {
+      "nom": "Cap d’Estaing",
+      "latitude": -48.68333,
+      "longitude": 68.98333,
+      "description": "Extrémité nord-ouest",
+      "statut": "releve"
+    },
+    {
+      "nom": "Presqu’île Rallier du Baty",
+      "latitude": -49.6,
+      "longitude": 68.86667,
+      "description": "Calotte glaciaire sud-ouest",
+      "statut": "releve"
+    }
+  ],
+  "liaisons": [
+    {
+      "a": "Port-aux-Français",
+      "b": "Mont Ross",
+      "distance_m": 55811,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Port-aux-Français",
+      "b": "Cap Digby",
+      "distance_m": 25262,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Port-aux-Français",
+      "b": "Île Longue",
+      "distance_m": 30759,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Port-aux-Français",
+      "b": "Cap d’Estaing",
+      "distance_m": 117023,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Port-aux-Français",
+      "b": "Presqu’île Rallier du Baty",
+      "distance_m": 101861,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mont Ross",
+      "b": "Cap Digby",
+      "distance_m": 80358,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mont Ross",
+      "b": "Île Longue",
+      "distance_m": 26159,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mont Ross",
+      "b": "Cap d’Estaing",
+      "distance_m": 110872,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Mont Ross",
+      "b": "Presqu’île Rallier du Baty",
+      "distance_m": 49861,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cap Digby",
+      "b": "Île Longue",
+      "distance_m": 54503,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cap Digby",
+      "b": "Cap d’Estaing",
+      "distance_m": 133652,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cap Digby",
+      "b": "Presqu’île Rallier du Baty",
+      "distance_m": 127112,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Île Longue",
+      "b": "Cap d’Estaing",
+      "distance_m": 115823,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Île Longue",
+      "b": "Presqu’île Rallier du Baty",
+      "distance_m": 75115,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Cap d’Estaing",
+      "b": "Presqu’île Rallier du Baty",
+      "distance_m": 102300,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    }
+  ],
+  "_controle": {
+    "points": 6,
+    "liaisons": 15,
+    "seuil_laman_2N_3": 9,
+    "surdetermination": 6,
+    "graphe": "complet K6 — forme unique, rigidité triviale",
+    "triangles_fermes": 20,
+    "violations_inegalite_triangulaire": 0,
+    "rms_ajustement_plan_m": 0.28,
+    "residu_maximal_m": 0.5,
+    "optimum_unique": true,
+    "restarts_solveur": 14,
+    "etendue_maximale_m": 133652,
+    "fleche_spherique_sur_etendue_m": 1401.83,
+    "rapport_signal_sur_bruit": "56.1/1",
+    "facteur_etirement_modele_plan": 3.7336,
+    "meilleure_paire_discriminante": {
+      "a": "Mont Ross",
+      "b": "Presqu’île Rallier du Baty",
+      "azimut_deg": 270.6,
+      "modele_spherique_m": 49861,
+      "modele_plan_m": 186572,
+      "ecart_pourcent": 274.2
+    }
+  }
+}

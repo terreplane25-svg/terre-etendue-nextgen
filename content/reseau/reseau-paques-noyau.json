@@ -1,0 +1,265 @@
+{
+  "_meta": {
+    "version": "3.0",
+    "statut_fichier": "CLOS — version 3.0 définitive",
+    "titre": "Noyau de l'île de Pâques — matrice géodésique complète",
+    "description": "Dix-neuvième noyau, Rapa Nui (Pacifique sud). Les 15 distances sont CALCULÉES depuis les 6 couples de coordonnées WGS84 par la formule de Vincenty inverse. Source unique : la table de coordonnées.",
+    "methode_declaree": "Calcul géodésique WGS84 (Vincenty inverse) depuis coordonnées relevées",
+    "ellipsoide": {
+      "a_m": 6378137.0,
+      "f": "1/298.257223563",
+      "convergence": "1e-13 rad"
+    },
+    "incertitude_declaree_m": 25,
+    "rationnel_incertitude": "±25 m : points remarquables (monuments, sommets, aérodromes, phares) dont la position se définit à quelques mètres près.",
+    "avertissement_pouvoir_discriminant": "DISCRIMINANT. Étendue 25733 m, flèche sphérique 51.97 m contre ±25 m : rapport 2.1 pour 1. Facteur d'étirement du modèle plan à cette latitude : ×2.298. Meilleure paire : Hanga Roa – Ahu Tongariki (azimut 80.5°), 15018 m en WGS84 contre 34008 m sur la carte plane, soit +126.5 %.",
+    "rappel_classe_C": "ATTENTION : les 15 distances restent de CLASSE C — calculées depuis des coordonnées WGS84, donc circulaires. Qu'un noyau soit géométriquement discriminant ne le rend pas probant : cela indique seulement qu'une MESURE de classe A ou B faite ici aurait valeur de test.",
+    "clos_note": "Fichier verrouillé. Toute évolution passe par une correction de coordonnée suivie d'un recalcul complet. Voir content/reseau/README.md.",
+    "champs_liaison": {
+      "a": "premier point",
+      "b": "second point",
+      "distance_m": "distance géodésique WGS84 calculée",
+      "incertitude_m": "marge de position",
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "méthode d'obtention",
+      "statut": "calculee"
+    }
+  },
+  "points": [
+    {
+      "nom": "Hanga Roa",
+      "latitude": -27.14778,
+      "longitude": -109.42611,
+      "description": "Église de Hanga Roa — centre du noyau",
+      "statut": "releve"
+    },
+    {
+      "nom": "Ahu Tongariki",
+      "latitude": -27.12556,
+      "longitude": -109.27667,
+      "description": "Quinze moai, côte est",
+      "statut": "releve"
+    },
+    {
+      "nom": "Rano Kau",
+      "latitude": -27.185,
+      "longitude": -109.44306,
+      "description": "Cratère et Orongo",
+      "statut": "releve"
+    },
+    {
+      "nom": "Anakena",
+      "latitude": -27.07306,
+      "longitude": -109.32361,
+      "description": "Plage nord",
+      "statut": "releve"
+    },
+    {
+      "nom": "Aéroport de Mataveri",
+      "latitude": -27.16472,
+      "longitude": -109.42167,
+      "description": "Mataveri",
+      "statut": "releve"
+    },
+    {
+      "nom": "Poike",
+      "latitude": -27.09472,
+      "longitude": -109.20389,
+      "description": "Maunga Puakatiki, extrémité est",
+      "statut": "releve"
+    }
+  ],
+  "liaisons": [
+    {
+      "a": "Hanga Roa",
+      "b": "Ahu Tongariki",
+      "distance_m": 15018,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Hanga Roa",
+      "b": "Rano Kau",
+      "distance_m": 4453,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Hanga Roa",
+      "b": "Anakena",
+      "distance_m": 13109,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Hanga Roa",
+      "b": "Aéroport de Mataveri",
+      "distance_m": 1928,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Hanga Roa",
+      "b": "Poike",
+      "distance_m": 22804,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Ahu Tongariki",
+      "b": "Rano Kau",
+      "distance_m": 17759,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Ahu Tongariki",
+      "b": "Anakena",
+      "distance_m": 7450,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Ahu Tongariki",
+      "b": "Aéroport de Mataveri",
+      "distance_m": 15014,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Ahu Tongariki",
+      "b": "Poike",
+      "distance_m": 7985,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Rano Kau",
+      "b": "Anakena",
+      "distance_m": 17149,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Rano Kau",
+      "b": "Aéroport de Mataveri",
+      "distance_m": 3089,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Rano Kau",
+      "b": "Poike",
+      "distance_m": 25733,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Anakena",
+      "b": "Aéroport de Mataveri",
+      "distance_m": 14060,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Anakena",
+      "b": "Poike",
+      "distance_m": 12114,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    },
+    {
+      "a": "Aéroport de Mataveri",
+      "b": "Poike",
+      "distance_m": 22942,
+      "incertitude_m": 25,
+      "nature": "separation",
+      "classe_source": "C",
+      "methode": "Calcul géodésique WGS84 (Vincenty inverse)",
+      "reference": "Coordonnées WGS84 des points a et b",
+      "statut": "calculee"
+    }
+  ],
+  "_controle": {
+    "points": 6,
+    "liaisons": 15,
+    "seuil_laman_2N_3": 9,
+    "surdetermination": 6,
+    "graphe": "complet K6 — forme unique, rigidité triviale",
+    "triangles_fermes": 20,
+    "violations_inegalite_triangulaire": 0,
+    "rms_ajustement_plan_m": 0.13,
+    "residu_maximal_m": 0.29,
+    "optimum_unique": true,
+    "restarts_solveur": 14,
+    "etendue_maximale_m": 25733,
+    "fleche_spherique_sur_etendue_m": 51.97,
+    "rapport_signal_sur_bruit": "2.1/1",
+    "facteur_etirement_modele_plan": 2.2978,
+    "meilleure_paire_discriminante": {
+      "a": "Hanga Roa",
+      "b": "Ahu Tongariki",
+      "azimut_deg": 80.5,
+      "modele_spherique_m": 15018,
+      "modele_plan_m": 34008,
+      "ecart_pourcent": 126.5
+    }
+  }
+}
