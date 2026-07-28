@@ -895,3 +895,33 @@ par le proxy sortant. Je ne peux ni lire les fac-similés ni faire la recherche 
 
 Cela ne change rien au dispositif : les cinq rejets précédents ont tous été obtenus sans accès
 aux archives, par les seuls contrôles internes.
+
+## Audit reproductible — `scripts/audit-triangle.py`
+
+L'audit était refait à la main à chaque bloc. Il est désormais scriptable et versionné : le
+contrôle est lui-même auditable.
+
+```bash
+python3 scripts/audit-triangle.py bloc.json
+```
+
+Le script couvre les contrôles **2 à 5**. Les contrôles **1** (image) et **6** (aucun calcul
+joint) restent humains — ils se font en regardant le bloc reçu.
+
+Deux formes de bloc acceptées, selon ce que publie la source :
+
+- **Forme A** — trois angles observés, somme imprimée, côtés.
+- **Forme B** — les deux colonnes `Spherical excess` et `Error of triangle`, dont la somme
+  observée se reconstitue.
+
+**Ordre imposé sur les côtés :** `cotes_km[i]` est le côté **opposé** à `angles[i]`. Le nommage
+des sommets fixe cet appariement.
+
+> Le script a d'abord été écrit avec une recherche de la meilleure permutation des côtés. Testé
+> sur le bloc 5 déjà rejeté à la main, il le déclarait à **0,92 %** de dispersion au lieu de
+> **10,2 %** : en permutant librement, il fabriquait un accord qui n'existe pas et laissait
+> passer le bloc. La permutation a été retirée. C'est exactement le défaut que le projet traque
+> depuis le début — un degré de liberté en trop qui produit un bon score sans rien mesurer.
+
+Test de non-régression : le script rejette le bloc 5 sur les contrôles 3 et 4, et signale que
+le plus grand angle ne fait pas face au plus grand côté.
