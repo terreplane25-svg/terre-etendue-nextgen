@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "0.3 — cibles bibliographiques vérifiées",
+    "version": "0.4 — vocabulaire de recherche des rapports de triangulation",
     "titre": "Mesures brutes de terrain — registre agnostique",
     "description": "Registre des OBSERVATIONS DE TERRAIN publiées, avant tout ajustement et avant toute conversion en coordonnées. Ce fichier ne contient aucune valeur calculée depuis un modèle. Il est vide tant qu'aucune observation sourcée n'y a été versée.",
     "date_creation": "2026-07-28",
@@ -265,6 +265,63 @@
         "avertissement": "Je n'ai PAS vérifié qu'un volume contenant les angles observés avant compensation soit numérisé et accessible. C'est le premier point à établir, avant toute extraction."
       },
       "regle_rappelee": "Ces références indiquent OÙ chercher. Elles ne dispensent d'aucun des six contrôles, et en particulier pas de l'image."
+    },
+    "_vocabulaire_de_recherche": {
+      "pourquoi": "Les rapports de triangulation britanniques et coloniaux du XIXe et du XXe siècle emploient un vocabulaire stable. Chercher « observed » seul fait rater les tableaux, qui portent des intitulés de colonnes normalisés.",
+      "termes_prioritaires": [
+        {
+          "terme": "Error of triangle",
+          "note": "LE terme le plus fréquent. Colonne standard des tableaux de triangulation britanniques."
+        },
+        {
+          "terme": "Triangular error",
+          "note": "Variante, même sens."
+        },
+        {
+          "terme": "Spherical excess",
+          "note": "Souvent une colonne à part, juxtaposée à l'erreur de triangle."
+        },
+        {
+          "terme": "Closing error",
+          "note": "Variante."
+        },
+        {
+          "terme": "Sum of angles",
+          "note": "Parfois la somme brute est donnée en clair."
+        },
+        {
+          "terme": "Observed angles",
+          "note": "Par opposition à « Corrected angles » ou « Adjusted angles »."
+        },
+        {
+          "terme": "Abstract of angles",
+          "note": "Titre courant des tableaux récapitulatifs."
+        },
+        {
+          "terme": "List of triangles",
+          "note": "Titre de la table qu'on cherche."
+        }
+      ],
+      "_ce_que_publient_reellement_ces_rapports": {
+        "constat": "C'est le point qui va décider du succès. Les rapports publient rarement les trois angles bruts un par un. Ce qu'ils publient presque toujours, triangle par triangle, ce sont DEUX colonnes juxtaposées :",
+        "colonne_1": "Spherical excess — l'excès CALCULÉ par l'auteur à partir de l'aire du triangle.",
+        "colonne_2": "Error of triangle — la différence entre la somme observée et (180° + excès calculé). C'est le résidu de fermeture, l'erreur de mesure pure.",
+        "consequence_capitale": "Cette paire de colonnes SUFFIT et vaut autant que les angles bruts. La somme observée se reconstruit exactement : somme = 180° + excès sphérique + erreur de triangle. Les deux colonnes sont donc admissibles au même titre qu'un tableau d'angles.",
+        "avertissement": "L'excès de la colonne 1 est CALCULÉ par l'auteur — il n'est pas observé. La grandeur observée est la SOMME, reconstituée depuis les deux colonnes. C'est elle qu'on compare à 180°. Ne jamais présenter la colonne 1 comme une mesure.",
+        "ce_qui_rend_le_test_valide_quand_meme": "Si l'erreur de triangle est de l'ordre de la seconde ou moins alors que l'excès calculé vaut 5 à 50 secondes, cela signifie que la somme observée dépasse 180° d'une quantité conforme à A/R², à l'erreur de mesure près. C'est exactement le résultat cherché, et il est lisible directement dans les deux colonnes."
+      },
+      "_probabilite_par_source": {
+        "Lyons 1908, Cadastral Survey of Egypt": "MODÉRÉE. C'est un rapport de survey CADASTRAL : l'essentiel porte sur l'enregistrement foncier. Le chapitre Triangulation peut se contenter d'une synthèse, sans tableau par triangle. À vérifier en priorité puisque le texte intégral est accessible, mais sans surprise si le résultat est négatif.",
+        "Geodetic Survey of South Africa (Gill), arc du 30e méridien": "ÉLEVÉE. Les rapports d'arc géodésique existent précisément pour publier ces tableaux. C'est leur objet. Côtés de 50 à 160 km, donc excès de 5,5″ à 56″.",
+        "Great Trigonometrical Survey of India": "ÉLEVÉE. Volumes d'Everest et Walker, tableaux de triangles standardisés.",
+        "Ordnance Survey, Clarke 1858": "ÉLEVÉE. Publication de référence sur la triangulation principale britannique.",
+        "recommandation": "Si Lyons ne donne rien, ne pas insister et basculer sur Gill ou l'Inde. C'est en cherchant sans trouver et sans pouvoir le dire que les cinq blocs précédents ont été fabriqués."
+      }
+    },
+    "_acces_reseau_de_l_auditeur": {
+      "constat": "Vérifié le 2026-07-28 : archive.org est inaccessible depuis l'environnement d'audit. Quatre routes testées (stream, download, BookReader, endpoint fulltext), toutes rejetées en 403 par le proxy sortant.",
+      "consequence": "Je ne peux ni lire les fac-similés ni faire la recherche plein texte moi-même. L'audit repose donc entièrement sur les contrôles internes — somme, loi des sinus, vraisemblance de fermeture, cohérence géographique — plus l'image fournie.",
+      "ce_que_ca_ne_change_pas": "Les cinq rejets précédents ont tous été obtenus sans accès aux archives. Le dispositif de contrôle ne dépend pas de cet accès."
     }
   },
   "observations_angulaires": [],

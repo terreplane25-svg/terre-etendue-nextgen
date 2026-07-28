@@ -81,7 +81,7 @@ prédit `θ/sin θ → 1` au pôle Nord. **Une mesure faite là ne trancherait r
 | `reseau-tokyo-noyau.json` | 3.0 | **CLOS** | 6 points, 11 km |
 | `reseau-vancouver-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 24 km |
 | `cibles-experimentales.json` | 2.0 | 10 cibles pré-enregistrées, 0 mesure | mondial |
-| `mesures-brutes.json` | 0.3 | **Registre des observations de terrain** — vide | — |
+| `mesures-brutes.json` | 0.4 | **Registre des observations de terrain** — vide | — |
 | `protocole-triangulation-terrain.json` | 1.0 | **Protocole de mesure d'excès** — 5 triplets, 0 mesure | 42–136 km |
 | `lettre-ecoles-geometres.md` | 1.0 | Proposition de projet aux écoles de géomètres | — |
 | `jonction-makkah-madinah.json` | 0.4 | Socle topologique non discriminant | axe de 338 km |
@@ -837,3 +837,61 @@ intégré à la source.
 
 Ces références disent **où chercher**. Elles ne dispensent d'aucun des six contrôles, et en
 particulier pas de l'image.
+
+## Ce que publient réellement les rapports de triangulation
+
+Point décisif pour la recherche, et il change ce qu'il faut chercher.
+
+**Ces rapports publient rarement les trois angles bruts un par un.** Ce qu'ils publient presque
+toujours, triangle par triangle, ce sont deux colonnes juxtaposées :
+
+| Colonne | Contenu | Nature |
+|---|---|---|
+| `Spherical excess` | excès **calculé** par l'auteur depuis l'aire | calcul de l'auteur |
+| `Error of triangle` | somme observée − (180° + excès calculé) | **résidu de mesure pur** |
+
+**Cette paire de colonnes suffit, et vaut autant qu'un tableau d'angles bruts.** La somme
+observée se reconstruit exactement :
+
+```
+somme observée = 180° + excès sphérique + erreur de triangle
+```
+
+*Attention à la nature des deux colonnes :* l'excès de la colonne 1 est **calculé**, pas
+observé. La grandeur observée est la **somme**, reconstituée depuis les deux colonnes. C'est
+elle qu'on compare à 180°. Ne jamais présenter la colonne 1 comme une mesure.
+
+Ce qui rend le test valide quand même : si l'erreur de triangle vaut une seconde ou moins
+tandis que l'excès calculé vaut 5 à 50 secondes, alors la somme observée dépasse 180° d'une
+quantité conforme à `A/R²` à l'erreur de mesure près. Le résultat se lit directement dans les
+deux colonnes.
+
+### Vocabulaire de recherche
+
+Chercher « observed » seul fait rater les tableaux. Les intitulés normalisés sont :
+
+`Error of triangle` · `Triangular error` · `Spherical excess` · `Closing error` ·
+`Sum of angles` · `Observed angles` (par opposition à `Corrected` / `Adjusted`) ·
+`Abstract of angles` · `List of triangles`
+
+### Probabilité de succès par source
+
+| Source | Probabilité | Motif |
+|---|---|---|
+| Lyons 1908, *Cadastral Survey of Egypt* | **modérée** | rapport **cadastral** — l'essentiel porte sur le foncier ; le chapitre Triangulation peut n'être qu'une synthèse |
+| Gill, *Geodetic Survey of South Africa* (arc du 30ᵉ) | **élevée** | un rapport d'arc géodésique existe précisément pour publier ces tableaux |
+| Great Trigonometrical Survey of India | élevée | volumes d'Everest et Walker, tableaux standardisés |
+| Ordnance Survey, Clarke 1858 | élevée | publication de référence de la triangulation principale |
+
+Vérifier Lyons en premier puisque son texte intégral est accessible — mais **sans surprise si
+le résultat est négatif**, et sans insister. C'est en cherchant sans trouver, et sans pouvoir
+le dire, que les cinq blocs précédents ont été fabriqués.
+
+### Accès réseau de l'auditeur
+
+Vérifié le 28 juillet 2026 : **archive.org est inaccessible depuis l'environnement d'audit.**
+Quatre routes testées (stream, download, BookReader, endpoint fulltext), toutes rejetées en 403
+par le proxy sortant. Je ne peux ni lire les fac-similés ni faire la recherche plein texte.
+
+Cela ne change rien au dispositif : les cinq rejets précédents ont tous été obtenus sans accès
+aux archives, par les seuls contrôles internes.
