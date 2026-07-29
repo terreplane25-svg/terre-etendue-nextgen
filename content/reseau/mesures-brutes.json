@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "0.7 — blocage réseau documenté, voie terrain rouverte",
+    "version": "0.8 — collecte par intermédiaire IA close, priorité terrain",
     "titre": "Mesures brutes de terrain — registre agnostique",
     "description": "Registre des OBSERVATIONS DE TERRAIN publiées, avant tout ajustement et avant toute conversion en coordonnées. Ce fichier ne contient aucune valeur calculée depuis un modèle. Il est vide tant qu'aucune observation sourcée n'y a été versée.",
     "date_creation": "2026-07-28",
@@ -401,9 +401,36 @@
           "detail": "12 hôtes de bibliothèques numériques testés, 12 refus de la passerelle. Aucune extraction d'archive n'est possible depuis cet environnement, ni par moi, ni par un agent délégué.",
           "consequence": "La voie archives dépend entièrement d'un opérateur humain disposant d'un accès web normal, OU d'une ouverture de la politique réseau de l'environnement.",
           "piste": "CONTRAINTE PERMANENTE"
+        },
+        {
+          "date": "2026-07-29",
+          "source": "Collecte d'archives par intermédiaire IA",
+          "issue": "CLOSE — décision de méthode",
+          "bilan": "6 blocs reçus, 0 versé. 5 fabriqués (recyclage du gabarit d'exemple sur 3 d'entre eux, calcul de contrôle faux d'un facteur 2,6 sur un autre, loi des sinus violée de 10,2 % sur le dernier), 1 « non trouvé » honnête sur Lyons. Les consignes ont été durcies six fois sans supprimer le problème.",
+          "motif_de_cloture": "Le maillon fabrique quand il ne trouve pas, et aucune consigne ne corrige cela. Le filtre d'audit a intercepté 100 % des tentatives, mais intercepter n'est pas produire.",
+          "piste": "CLOSE — ne pas rouvrir"
         }
       ],
       "regle": "Toute piste explorée est consignée ici, y compris et surtout les négatives. Ne jamais rouvrir une piste close sans motif nouveau."
+    },
+    "_orientation": {
+      "date": "2026-07-29",
+      "voie_1_reseau": {
+        "statut": "EN RÉSERVE",
+        "condition": "Ouverture de la politique réseau du conteneur à archive.org, gallica.bnf.fr et hathitrust.org. Extraction et audit se feraient alors sans intermédiaire.",
+        "fichier": "voir _acces_reseau_de_l_auditeur"
+      },
+      "voie_2_terrain": {
+        "statut": "PRIORITAIRE",
+        "cible": "Triplet n°2 — Mont Aigoual / Mont Mézenc / Mont Ventoux",
+        "exces_attendu_secondes": 29.52,
+        "detection": "59 σ avec une station totale à 1″ et 12 séries par angle",
+        "fichiers": [
+          "protocole-triangulation-terrain.json v1.0",
+          "lettre-ecoles-geometres.md v1.0"
+        ],
+        "prochain_geste": "Envoyer la lettre. Elle est rédigée, avec ses deux décisions de cadrage assumées (contexte du site dit en ouverture, issue attendue annoncée) et ses engagements de publication."
+      }
     }
   },
   "observations_angulaires": [],
@@ -414,6 +441,6 @@
     "bases_mesurees": 0,
     "distances_mesurees": 0,
     "etat": "Structure seule. Aucune observation. Le fichier ne dit rien tant qu'il est vide.",
-    "prochain_jalon": "Deux voies restent ouvertes, aucune ne dépend d'un collecteur IA : (1) ouvrir la politique réseau de l'environnement à archive.org / gallica / hathitrust, ce qui permettrait de faire extraction et audit d'un seul geste ; (2) la voie terrain, protocole-triangulation-terrain.json v1.0, qui ne dépend d'aucune archive."
+    "prochain_jalon": "Envoyer lettre-ecoles-geometres.md à l'ESGT, l'ENSG et l'INSA Strasbourg. Le dépôt n'a plus rien à produire tant qu'aucune mesure n'existe."
   }
 }
