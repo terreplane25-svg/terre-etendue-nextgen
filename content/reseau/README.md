@@ -81,7 +81,7 @@ prédit `θ/sin θ → 1` au pôle Nord. **Une mesure faite là ne trancherait r
 | `reseau-tokyo-noyau.json` | 3.0 | **CLOS** | 6 points, 11 km |
 | `reseau-vancouver-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 24 km |
 | `cibles-experimentales.json` | 2.0 | 10 cibles pré-enregistrées, 0 mesure | mondial |
-| `mesures-brutes.json` | 0.6 | **Registre des observations de terrain** — vide | — |
+| `mesures-brutes.json` | 0.7 | **Registre des observations de terrain** — vide | — |
 | `protocole-triangulation-terrain.json` | 1.0 | **Protocole de mesure d'excès** — 5 triplets, 0 mesure | 42–136 km |
 | `lettre-ecoles-geometres.md` | 1.0 | Proposition de projet aux écoles de géomètres | — |
 | `jonction-makkah-madinah.json` | 0.4 | Socle topologique non discriminant | axe de 338 km |
@@ -959,7 +959,8 @@ Un résultat négatif est un résultat : il ferme une piste et évite qu'on la r
 |---|---|---|---|
 | 2026-07-28 | Lyons, *Cadastral Survey of Egypt* 1908 | non concluant | **close** |
 | 2026-07-28 | Gill, *Geodetic Survey of South Africa* | accès non établi | en attente |
-| 2026-07-28 | GTS India, volumes de Walker | **accès confirmé** | **prioritaire** |
+| 2026-07-28 | GTS India, volumes de Walker | accès aux vues non établi | close (temp.) |
+| 2026-07-29 | **Diagnostic réseau de l'environnement** | **blocage structurel** | contrainte permanente |
 
 **Lyons 1908 — clos.** Rapport axé sur l'enregistrement foncier ; le chapitre Triangulation ne
 présente ni tableau d'angles bruts par triangle, ni le couple `Spherical excess` /
@@ -996,3 +997,34 @@ l'historique et les bases mesurées, pas les fermetures.
 *Réserve :* la présence effective du couple `Spherical excess` / `Error of triangle` dans un
 volume donné n'est pas vérifiée — mon accès à Archive.org est bloqué. C'est le premier point à
 établir, volume ouvert à l'appui.
+
+## Le blocage est structurel, pas méthodologique
+
+Diagnostic complet du 29 juillet 2026. L'environnement d'exécution applique une politique
+réseau restrictive : la passerelle répond **403 à tout CONNECT** vers un hôte non autorisé.
+
+**Hôtes autorisés :** uniquement des dépôts de paquets et les services Anthropic —
+`registry.npmjs.org`, `jsr.io`, `pypi.org`, `files.pythonhosted.org`, `index.crates.io`,
+`proxy.golang.org`, `anthropic.com`. **Aucune bibliothèque numérique.**
+
+**Douze hôtes testés, douze refus :** archive.org, `ia*.us.archive.org`, gallica.bnf.fr,
+books.google.com, babel.hathitrust.org, catalog.hathitrust.org, en.wikisource.org,
+biodiversitylibrary.org, openlibrary.org, pahar.in, journals.co.za, fig.net.
+
+> **Un agent délégué n'y changerait rien.** Un sous-agent s'exécute dans le *même*
+> environnement, derrière le *même* proxy. Déléguer la collecte d'archives est sans effet.
+
+Ce qui fonctionne : la **recherche web**. Elle a permis de vérifier l'existence des sources, la
+géométrie de l'arc du 30ᵉ méridien et la structure des volumes de la GTS India. Mais elle ne
+donne que des notices, jamais le contenu des pages.
+
+### Les deux voies qui restent — aucune ne dépend d'un collecteur IA
+
+1. **Ouvrir la politique réseau de l'environnement** à `archive.org`, `gallica.bnf.fr` et
+   `hathitrust.org`. C'est un paramètre choisi à la création de l'environnement
+   ([documentation](https://code.claude.com/docs/en/claude-code-on-the-web)). Extraction et
+   audit se feraient alors d'un seul geste, sans intermédiaire et sans risque de fabrication.
+
+2. **La voie terrain** — `protocole-triangulation-terrain.json` v1.0. Elle ne dépend d'aucune
+   archive, d'aucun accès réseau et d'aucun intermédiaire. Triplet n°2 : Aigoual / Mézenc /
+   Ventoux, excès attendu 29,52″, détection à 59 σ avec une station totale à 1″.

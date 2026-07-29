@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "0.6 — accès GTS India établi, volumes ciblés",
+    "version": "0.7 — blocage réseau documenté, voie terrain rouverte",
     "titre": "Mesures brutes de terrain — registre agnostique",
     "description": "Registre des OBSERVATIONS DE TERRAIN publiées, avant tout ajustement et avant toute conversion en coordonnées. Ce fichier ne contient aucune valeur calculée depuis un modèle. Il est vide tant qu'aucune observation sourcée n'y a été versée.",
     "date_creation": "2026-07-28",
@@ -340,9 +340,26 @@
       }
     },
     "_acces_reseau_de_l_auditeur": {
-      "constat": "Vérifié le 2026-07-28 : archive.org est inaccessible depuis l'environnement d'audit. Quatre routes testées (stream, download, BookReader, endpoint fulltext), toutes rejetées en 403 par le proxy sortant.",
-      "consequence": "Je ne peux ni lire les fac-similés ni faire la recherche plein texte moi-même. L'audit repose donc entièrement sur les contrôles internes — somme, loi des sinus, vraisemblance de fermeture, cohérence géographique — plus l'image fournie.",
-      "ce_que_ca_ne_change_pas": "Les cinq rejets précédents ont tous été obtenus sans accès aux archives. Le dispositif de contrôle ne dépend pas de cet accès."
+      "constat": "Diagnostic complet le 2026-07-29. L'environnement d'exécution applique une politique réseau restrictive : la passerelle répond 403 à tout CONNECT vers un hôte non autorisé.",
+      "hotes_autorises": "Uniquement les dépôts de paquets et les services Anthropic : registry.npmjs.org, jsr.io, pypi.org, files.pythonhosted.org, index.crates.io, proxy.golang.org, anthropic.com. Aucune bibliothèque numérique.",
+      "hotes_refuses_testes": [
+        "archive.org",
+        "ia*.us.archive.org",
+        "gallica.bnf.fr",
+        "books.google.com",
+        "babel.hathitrust.org",
+        "catalog.hathitrust.org",
+        "en.wikisource.org",
+        "biodiversitylibrary.org",
+        "openlibrary.org",
+        "pahar.in",
+        "journals.co.za",
+        "fig.net"
+      ],
+      "consequence_pour_les_sous_agents": "Un agent délégué s'exécute dans le MÊME environnement et derrière le MÊME proxy. Il ne peut donc pas ouvrir ces archives non plus. Déléguer la collecte d'archives à un agent est sans effet.",
+      "ce_qui_fonctionne": "La recherche web (WebSearch) fonctionne : elle a permis de vérifier l'existence des sources, la géométrie de l'arc du 30e méridien et la structure des volumes de la GTS India. Mais elle ne donne que des notices, jamais le contenu des pages.",
+      "levee_possible": "La politique réseau est un paramètre de l'environnement, choisi à sa création. L'ouvrir à archive.org, gallica.bnf.fr et hathitrust.org permettrait de faire l'extraction et l'audit dans le même mouvement, sans intermédiaire. Voir https://code.claude.com/docs/en/claude-code-on-the-web",
+      "regle_du_proxy": "Le README du proxy est explicite : ne jamais réessayer un refus de politique 403/407, le signaler. C'est fait ici."
     },
     "_journal_des_pistes": {
       "note": "Trace des sources explorées et de leur issue. Un résultat négatif est un résultat : il ferme une piste et évite de la rouvrir.",
@@ -370,6 +387,20 @@
           "issue": "OUVERTE — accès confirmé",
           "acquis": "Numérisation confirmée sur archive.org et sur la collection pahar.in. Volumes cibles identifiés : ceux intitulés « Principal Triangulation of the … Quadrilateral » (vol. III, IV et suivants), et non les volumes I et II qui portent sur les bases et sur l'historique.",
           "piste": "PRIORITAIRE"
+        },
+        {
+          "date": "2026-07-29",
+          "source": "GTS India, volumes III et IV (Principal Triangulation)",
+          "issue": "NON CONCLUANT — accès aux vues numérisées non établi",
+          "piste": "TEMPORAIREMENT CLOSE"
+        },
+        {
+          "date": "2026-07-29",
+          "source": "Diagnostic réseau de l'environnement d'audit",
+          "issue": "BLOCAGE STRUCTUREL CONFIRMÉ",
+          "detail": "12 hôtes de bibliothèques numériques testés, 12 refus de la passerelle. Aucune extraction d'archive n'est possible depuis cet environnement, ni par moi, ni par un agent délégué.",
+          "consequence": "La voie archives dépend entièrement d'un opérateur humain disposant d'un accès web normal, OU d'une ouverture de la politique réseau de l'environnement.",
+          "piste": "CONTRAINTE PERMANENTE"
         }
       ],
       "regle": "Toute piste explorée est consignée ici, y compris et surtout les négatives. Ne jamais rouvrir une piste close sans motif nouveau."
@@ -383,6 +414,6 @@
     "bases_mesurees": 0,
     "distances_mesurees": 0,
     "etat": "Structure seule. Aucune observation. Le fichier ne dit rien tant qu'il est vide.",
-    "prochain_jalon": "Un premier triangle certifié par image, issu du Survey of Egypt ou de l'arc du 30e méridien. Six contrôles à passer, voir _grille_d_acceptation."
+    "prochain_jalon": "Deux voies restent ouvertes, aucune ne dépend d'un collecteur IA : (1) ouvrir la politique réseau de l'environnement à archive.org / gallica / hathitrust, ce qui permettrait de faire extraction et audit d'un seul geste ; (2) la voie terrain, protocole-triangulation-terrain.json v1.0, qui ne dépend d'aucune archive."
   }
 }
