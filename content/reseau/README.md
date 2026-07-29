@@ -81,7 +81,7 @@ prédit `θ/sin θ → 1` au pôle Nord. **Une mesure faite là ne trancherait r
 | `reseau-tokyo-noyau.json` | 3.0 | **CLOS** | 6 points, 11 km |
 | `reseau-vancouver-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 24 km |
 | `cibles-experimentales.json` | 2.0 | 10 cibles pré-enregistrées, 0 mesure | mondial |
-| `mesures-brutes.json` | 0.4 | **Registre des observations de terrain** — vide | — |
+| `mesures-brutes.json` | 0.5 | **Registre des observations de terrain** — vide | — |
 | `protocole-triangulation-terrain.json` | 1.0 | **Protocole de mesure d'excès** — 5 triplets, 0 mesure | 42–136 km |
 | `lettre-ecoles-geometres.md` | 1.0 | Proposition de projet aux écoles de géomètres | — |
 | `jonction-makkah-madinah.json` | 0.4 | Socle topologique non discriminant | axe de 338 km |
@@ -950,3 +950,25 @@ sur un triangle du Karoo, R serait déterminé à ± 29 km.
 Le script affiche désormais l'incertitude sur R et avertit explicitement quand elle dépasse
 15 % — dans ce cas l'indicateur ne doit pas servir de motif de rejet, seul le contrôle 4
 tranche.
+
+## Journal des pistes
+
+Un résultat négatif est un résultat : il ferme une piste et évite qu'on la rouvre.
+
+| Date | Source | Issue | Piste |
+|---|---|---|---|
+| 2026-07-28 | Lyons, *Cadastral Survey of Egypt* 1908 | non concluant | **close** |
+| 2026-07-28 | Gill, *Geodetic Survey of South Africa* | en cours | ouverte |
+
+**Lyons 1908 — clos.** Rapport axé sur l'enregistrement foncier ; le chapitre Triangulation ne
+présente ni tableau d'angles bruts par triangle, ni le couple `Spherical excess` /
+`Error of triangle`. C'est exactement le résultat que la probabilité annoncée laissait
+attendre pour un rapport *cadastral*.
+
+*Statut de vérification : déclaré, non vérifié.* La capture de la table des matières du
+chapitre, demandée pour une réponse B, n'a pas été jointe. Le résultat est accepté à titre
+provisoire — le coût d'une acceptation erronée est faible ici (on saute une source), sans
+commune mesure avec celui d'une donnée fabriquée.
+
+**Ce qui compte le plus dans ce tour :** c'est la première fois qu'un « non trouvé » est rendu
+au lieu d'un bloc plausible. Le dispositif de collecte fonctionne.

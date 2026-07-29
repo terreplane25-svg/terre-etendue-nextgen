@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "0.4 — vocabulaire de recherche des rapports de triangulation",
+    "version": "0.5 — journal des pistes",
     "titre": "Mesures brutes de terrain — registre agnostique",
     "description": "Registre des OBSERVATIONS DE TERRAIN publiées, avant tout ajustement et avant toute conversion en coordonnées. Ce fichier ne contient aucune valeur calculée depuis un modèle. Il est vide tant qu'aucune observation sourcée n'y a été versée.",
     "date_creation": "2026-07-28",
@@ -322,6 +322,29 @@
       "constat": "Vérifié le 2026-07-28 : archive.org est inaccessible depuis l'environnement d'audit. Quatre routes testées (stream, download, BookReader, endpoint fulltext), toutes rejetées en 403 par le proxy sortant.",
       "consequence": "Je ne peux ni lire les fac-similés ni faire la recherche plein texte moi-même. L'audit repose donc entièrement sur les contrôles internes — somme, loi des sinus, vraisemblance de fermeture, cohérence géographique — plus l'image fournie.",
       "ce_que_ca_ne_change_pas": "Les cinq rejets précédents ont tous été obtenus sans accès aux archives. Le dispositif de contrôle ne dépend pas de cet accès."
+    },
+    "_journal_des_pistes": {
+      "note": "Trace des sources explorées et de leur issue. Un résultat négatif est un résultat : il ferme une piste et évite de la rouvrir.",
+      "entrees": [
+        {
+          "date": "2026-07-28",
+          "source": "H. G. Lyons, The Cadastral Survey of Egypt 1892-1907, Le Caire 1908",
+          "issue": "NON CONCLUANT — déclaré",
+          "motif": "Rapport axé sur l'enregistrement foncier. Le chapitre Triangulation ne présente ni tableau d'angles bruts par triangle, ni le couple de colonnes « Spherical excess » / « Error of triangle ».",
+          "statut_de_verification": "DÉCLARÉ, NON VÉRIFIÉ. La capture de la table des matières du chapitre Triangulation, demandée pour la réponse B, n'a pas été jointe. Le résultat est accepté à titre provisoire : le coût d'une acceptation erronée est faible (on saute une source), contrairement à celui d'une donnée fabriquée.",
+          "conforme_au_protocole": "Oui — aucune donnée n'a été inventée pour combler le vide. C'est la première fois qu'un « non trouvé » est rendu au lieu d'un bloc plausible.",
+          "piste": "CLOSE"
+        },
+        {
+          "date": "2026-07-28",
+          "source": "Geodetic Survey of South Africa (Sir David Gill), arc du 30e méridien",
+          "issue": "EN COURS",
+          "contexte_verifie": "Gill est His Majesty's Astronomer at the Cape de 1879 à 1907. Le schéma est accepté par les gouvernements du Cap et du Natal en 1883 ; les travaux débutent sous le colonel Sir William Morris (Royal Engineers) et s'achèvent en 1893 pour la première phase, puis se poursuivent sur l'État libre et le Transvaal en 1903. 530 stations géodésiques établies au total, triangulation principale de l'Afrique du Sud achevée.",
+          "reserve": "La localisation d'un volume NUMÉRISÉ contenant les angles observés ou le couple de colonnes n'est PAS établie. Les recherches ramènent des synthèses historiques et des cartes, pas les volumes de rapport eux-mêmes.",
+          "piste": "OUVERTE"
+        }
+      ],
+      "regle": "Toute piste explorée est consignée ici, y compris et surtout les négatives. Ne jamais rouvrir une piste close sans motif nouveau."
     }
   },
   "observations_angulaires": [],
