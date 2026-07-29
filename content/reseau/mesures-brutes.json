@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "0.5 — journal des pistes",
+    "version": "0.6 — accès GTS India établi, volumes ciblés",
     "titre": "Mesures brutes de terrain — registre agnostique",
     "description": "Registre des OBSERVATIONS DE TERRAIN publiées, avant tout ajustement et avant toute conversion en coordonnées. Ce fichier ne contient aucune valeur calculée depuis un modèle. Il est vide tant qu'aucune observation sourcée n'y a été versée.",
     "date_creation": "2026-07-28",
@@ -264,7 +264,28 @@
         ],
         "avertissement": "Je n'ai PAS vérifié qu'un volume contenant les angles observés avant compensation soit numérisé et accessible. C'est le premier point à établir, avant toute extraction."
       },
-      "regle_rappelee": "Ces références indiquent OÙ chercher. Elles ne dispensent d'aucun des six contrôles, et en particulier pas de l'image."
+      "regle_rappelee": "Ces références indiquent OÙ chercher. Elles ne dispensent d'aucun des six contrôles, et en particulier pas de l'image.",
+      "cible_3_gts_india": {
+        "titre": "J. T. Walker et al., « Account of the Operations of the Great Trigonometrical Survey of India », 1870-1910, environ 20 volumes",
+        "statut": "NUMÉRISATION CONFIRMÉE — plusieurs volumes en ligne",
+        "exemple_verifie": "https://archive.org/details/accountoftheoper029767mbp (vol. XVIII, Burrard)",
+        "collection": "https://pahar.in/account-of-operations-of-great-trigonometrical-survey/ — collection réunissant les volumes",
+        "_quels_volumes_ouvrir": {
+          "avertissement": "Point décisif. Les 20 volumes n'ont pas le même contenu, et ouvrir le mauvais fait perdre du temps.",
+          "a_eviter": [
+            "Vol. I (1870) — Standards of Measure and Base-Lines & Early Operations. Contient les BASES mesurées, utile pour un autre usage, mais pas les tableaux de triangles.",
+            "Vol. II (1879) — History and general description of the principal triangulation and of its reduction. Historique et description de méthode, pas les tableaux."
+          ],
+          "a_ouvrir": [
+            "Vol. III (1873) — Principal Triangulation of the North-West Quadrilateral",
+            "Vol. IV (1876) — Principal Triangulation of the North-West Quadrilateral",
+            "Les volumes suivants, tous intitulés « Principal Triangulation of the [X] Quadrilateral »"
+          ],
+          "regle": "Ce sont les volumes « Principal Triangulation of the … Quadrilateral » qui tabulent triangle par triangle. Leur objet est précisément de publier ces tables."
+        },
+        "pourquoi_cette_cible": "Triangles très étendus, volumes largement numérisés, série longue et homogène. C'est désormais la cible prioritaire, devant Gill dont l'accès n'est pas établi.",
+        "reserve": "La présence effective du couple « Spherical excess » / « Error of triangle » dans un volume donné n'est pas vérifiée — mon accès à archive.org est bloqué. C'est le premier point à établir, volume ouvert à l'appui."
+      }
     },
     "_vocabulaire_de_recherche": {
       "pourquoi": "Les rapports de triangulation britanniques et coloniaux du XIXe et du XXe siècle emploient un vocabulaire stable. Chercher « observed » seul fait rater les tableaux, qui portent des intitulés de colonnes normalisés.",
@@ -342,6 +363,13 @@
           "contexte_verifie": "Gill est His Majesty's Astronomer at the Cape de 1879 à 1907. Le schéma est accepté par les gouvernements du Cap et du Natal en 1883 ; les travaux débutent sous le colonel Sir William Morris (Royal Engineers) et s'achèvent en 1893 pour la première phase, puis se poursuivent sur l'État libre et le Transvaal en 1903. 530 stations géodésiques établies au total, triangulation principale de l'Afrique du Sud achevée.",
           "reserve": "La localisation d'un volume NUMÉRISÉ contenant les angles observés ou le couple de colonnes n'est PAS établie. Les recherches ramènent des synthèses historiques et des cartes, pas les volumes de rapport eux-mêmes.",
           "piste": "OUVERTE"
+        },
+        {
+          "date": "2026-07-28",
+          "source": "Great Trigonometrical Survey of India, volumes de Walker",
+          "issue": "OUVERTE — accès confirmé",
+          "acquis": "Numérisation confirmée sur archive.org et sur la collection pahar.in. Volumes cibles identifiés : ceux intitulés « Principal Triangulation of the … Quadrilateral » (vol. III, IV et suivants), et non les volumes I et II qui portent sur les bases et sur l'historique.",
+          "piste": "PRIORITAIRE"
         }
       ],
       "regle": "Toute piste explorée est consignée ici, y compris et surtout les négatives. Ne jamais rouvrir une piste close sans motif nouveau."

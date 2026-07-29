@@ -81,7 +81,7 @@ prédit `θ/sin θ → 1` au pôle Nord. **Une mesure faite là ne trancherait r
 | `reseau-tokyo-noyau.json` | 3.0 | **CLOS** | 6 points, 11 km |
 | `reseau-vancouver-noyau.json` | 3.0 | **CLOS** — discriminant | 6 points, 24 km |
 | `cibles-experimentales.json` | 2.0 | 10 cibles pré-enregistrées, 0 mesure | mondial |
-| `mesures-brutes.json` | 0.5 | **Registre des observations de terrain** — vide | — |
+| `mesures-brutes.json` | 0.6 | **Registre des observations de terrain** — vide | — |
 | `protocole-triangulation-terrain.json` | 1.0 | **Protocole de mesure d'excès** — 5 triplets, 0 mesure | 42–136 km |
 | `lettre-ecoles-geometres.md` | 1.0 | Proposition de projet aux écoles de géomètres | — |
 | `jonction-makkah-madinah.json` | 0.4 | Socle topologique non discriminant | axe de 338 km |
@@ -958,7 +958,8 @@ Un résultat négatif est un résultat : il ferme une piste et évite qu'on la r
 | Date | Source | Issue | Piste |
 |---|---|---|---|
 | 2026-07-28 | Lyons, *Cadastral Survey of Egypt* 1908 | non concluant | **close** |
-| 2026-07-28 | Gill, *Geodetic Survey of South Africa* | en cours | ouverte |
+| 2026-07-28 | Gill, *Geodetic Survey of South Africa* | accès non établi | en attente |
+| 2026-07-28 | GTS India, volumes de Walker | **accès confirmé** | **prioritaire** |
 
 **Lyons 1908 — clos.** Rapport axé sur l'enregistrement foncier ; le chapitre Triangulation ne
 présente ni tableau d'angles bruts par triangle, ni le couple `Spherical excess` /
@@ -972,3 +973,26 @@ commune mesure avec celui d'une donnée fabriquée.
 
 **Ce qui compte le plus dans ce tour :** c'est la première fois qu'un « non trouvé » est rendu
 au lieu d'un bloc plausible. Le dispositif de collecte fonctionne.
+
+## GTS India — accès confirmé, et quels volumes ouvrir
+
+J. T. Walker et al., *Account of the Operations of the Great Trigonometrical Survey of India*,
+1870-1910, environ 20 volumes. **Numérisation confirmée** sur Archive.org
+(`archive.org/details/accountoftheoper029767mbp`, vol. XVIII) et via la collection
+`pahar.in/account-of-operations-of-great-trigonometrical-survey/`.
+
+**Point décisif : les 20 volumes n'ont pas le même contenu.**
+
+| Volume | Contenu | À ouvrir ? |
+|---|---|---|
+| I (1870) | *Standards of Measure and Base-Lines & Early Operations* | non — les **bases**, utiles ailleurs |
+| II (1879) | *History and general description of the principal triangulation and of its reduction* | non — historique et méthode |
+| **III (1873), IV (1876), et suivants** | ***Principal Triangulation of the … Quadrilateral*** | **oui** |
+
+Ce sont les volumes « Principal Triangulation of the … Quadrilateral » qui tabulent triangle
+par triangle — leur objet est précisément de publier ces tables. Les volumes I et II donnent
+l'historique et les bases mesurées, pas les fermetures.
+
+*Réserve :* la présence effective du couple `Spherical excess` / `Error of triangle` dans un
+volume donné n'est pas vérifiée — mon accès à Archive.org est bloqué. C'est le premier point à
+établir, volume ouvert à l'appui.
