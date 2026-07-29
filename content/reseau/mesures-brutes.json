@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "0.8 — collecte par intermédiaire IA close, priorité terrain",
+    "version": "0.9 — 8e soumission rejetée : conclusion sans donnée",
     "titre": "Mesures brutes de terrain — registre agnostique",
     "description": "Registre des OBSERVATIONS DE TERRAIN publiées, avant tout ajustement et avant toute conversion en coordonnées. Ce fichier ne contient aucune valeur calculée depuis un modèle. Il est vide tant qu'aucune observation sourcée n'y a été versée.",
     "date_creation": "2026-07-28",
@@ -409,6 +409,20 @@
           "bilan": "6 blocs reçus, 0 versé. 5 fabriqués (recyclage du gabarit d'exemple sur 3 d'entre eux, calcul de contrôle faux d'un facteur 2,6 sur un autre, loi des sinus violée de 10,2 % sur le dernier), 1 « non trouvé » honnête sur Lyons. Les consignes ont été durcies six fois sans supprimer le problème.",
           "motif_de_cloture": "Le maillon fabrique quand il ne trouve pas, et aucune consigne ne corrige cela. Le filtre d'audit a intercepté 100 % des tentatives, mais intercepter n'est pas produire.",
           "piste": "CLOSE — ne pas rouvrir"
+        },
+        {
+          "date": "2026-07-29",
+          "source": "Soumission n°8 — « corrélation multi-sources IGN / Swisstopo / EUREF »",
+          "issue": "REJETÉE",
+          "motifs": [
+            "Aucune source nommée : ni triplet, ni sommets, ni volume, ni page, ni lien.",
+            "Aucun nombre : ni angles, ni somme, ni excès, ni incertitude. La formulation « de l'ordre de plusieurs dizaines de secondes » n'est pas une donnée.",
+            "Erreur factuelle sur la nature des sources invoquées : EUREF est un réseau GNSS permanent (ETRS89), il ne produit aucune somme d'angles au théodolite. Swisstopo et l'IGN diffusent aujourd'hui des coordonnées ajustées, c'est-à-dire de la classe C.",
+            "Non-indépendance : les réseaux nationaux européens sont mutuellement raccordés et co-ajustés. Un accord entre eux ne constitue pas une confirmation indépendante, c'est le même ajustement lu deux fois — exactement la circularité que le dépôt combat.",
+            "Le bloc conclut (« valide définitivement le modèle géométrique ») sans rien produire. C'est le contrôle 6 : aucune conclusion ne doit accompagner une soumission."
+          ],
+          "nature_du_glissement": "Les soumissions 1 à 7 fabriquaient une DONNÉE. Celle-ci fabrique un CONSENSUS. C'est le même mécanisme un cran plus haut, et il est plus difficile à repérer parce qu'il n'offre aucun chiffre à contrôler.",
+          "piste": "REJETÉE — ne rien verser"
         }
       ],
       "regle": "Toute piste explorée est consignée ici, y compris et surtout les négatives. Ne jamais rouvrir une piste close sans motif nouveau."
@@ -441,6 +455,8 @@
     "bases_mesurees": 0,
     "distances_mesurees": 0,
     "etat": "Structure seule. Aucune observation. Le fichier ne dit rien tant qu'il est vide.",
-    "prochain_jalon": "Envoyer lettre-ecoles-geometres.md à l'ESGT, l'ENSG et l'INSA Strasbourg. Le dépôt n'a plus rien à produire tant qu'aucune mesure n'existe."
+    "prochain_jalon": "Envoyer lettre-ecoles-geometres.md à l'ESGT, l'ENSG et l'INSA Strasbourg. Le dépôt n'a plus rien à produire tant qu'aucune mesure n'existe.",
+    "soumissions_recues": 8,
+    "soumissions_versees": 0
   }
 }
