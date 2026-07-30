@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "0.11 — Clarke 1858 ciblé",
+    "version": "0.12 — structure de Clarke 1858 repérée",
     "titre": "Mesures brutes de terrain — registre agnostique",
     "description": "Registre des OBSERVATIONS DE TERRAIN publiées, avant tout ajustement et avant toute conversion en coordonnées. Ce fichier ne contient aucune valeur calculée depuis un modèle. Il est vide tant qu'aucune observation sourcée n'y a été versée.",
     "date_creation": "2026-07-28",
@@ -313,7 +313,30 @@
           "« List of triangles »",
           "Le chapitre sur les bases mesurées (Lough Foyle, Salisbury Plain) pour un usage séparé"
         ],
-        "reserve": "Mon accès à archive.org est bloqué par la politique réseau. Je ne peux pas vérifier si le volume 1 est indexé en plein texte."
+        "reserve": "Mon accès à archive.org est bloqué par la politique réseau. Je ne peux pas vérifier si le volume 1 est indexé en plein texte.",
+        "structure_du_volume_1": {
+          "statut": "DÉCLARÉE d'après la recension MNRAS 19(5), 1859, p. 194 — NON VÉRIFIÉE (accès bloqué)",
+          "sections": [
+            {
+              "section": "III et IV",
+              "intitule": "Abstract of Observed Angles",
+              "contenu": "visées brutes par station"
+            },
+            {
+              "section": "V",
+              "intitule": "Errors of Triangles / Calculation of Triangles",
+              "contenu": "tables récapitulatives par triangle : sommets, angles observés en d/m/s, Spherical Excess calculé, Triangular Error au dixième de seconde"
+            }
+          ],
+          "cible_precise": "Section V du volume 1.",
+          "cout_d_une_erreur": "Faible. Si les intitulés diffèrent, on cherche les huit variantes normalisées déjà listées. Accepté à titre provisoire, comme le « non trouvé » de Lyons."
+        },
+        "_avertissement_valeurs_d_exemple": {
+          "regle": "Les valeurs « +0,24″ » et « −0,18″ » citées dans la description de la structure sont des EXEMPLES D'ORDRE DE GRANDEUR, produits pour illustrer le format. Elles ne doivent JAMAIS réapparaître comme données réelles.",
+          "motif": "Erreur déjà commise dans ce projet : le gabarit d'exemple STRUVE-T042, dont j'avais inventé tous les chiffres pour montrer la mise en forme, m'est revenu au tour suivant présenté comme une donnée d'archive, identique à la centième près. C'est la fabrication la plus facile à produire et la plus difficile à repérer quand on ne relit pas ses propres messages.",
+          "consequence": "Si un bloc soumis porte une Triangular Error de +0,24″ ou −0,18″, ces valeurs seront traitées comme suspectes par défaut et exigeront une image particulièrement lisible.",
+          "portee_generale": "Vaut pour toute valeur numérique apparaissant d'abord dans une consigne, un exemple ou une prédiction de ce dépôt. Trois soumissions sur neuf ont recyclé un chiffre que j'avais moi-même écrit."
+        }
       }
     },
     "_vocabulaire_de_recherche": {
@@ -483,6 +506,15 @@
           "acquis": "2 volumes, vol. 1 = 782 pages de texte. Publication en anglais et caractères romains. Objet déclaré : publier les observations et calculs de la triangulation principale — c'est l'ouvrage dont sort l'ellipsoïde de Clarke 1858.",
           "reserve": "Les items repérés portent le préfixe « dr_ » (collection David Rumsey) : ce sont des planches et pages isolées, pas nécessairement le volume 1 indexé en plein texte.",
           "piste": "PRIORITAIRE"
+        },
+        {
+          "date": "2026-07-29",
+          "source": "Recension MNRAS 19(5), 1859, p. 194 — structure de Clarke 1858",
+          "issue": "RÉPONSE A — structure déclarée, non vérifiée",
+          "acquis": "Sections III et IV = « Abstract of Observed Angles ». Section V = « Errors of Triangles » et « Calculation of Triangles », avec sommets, angles observés, Spherical Excess et Triangular Error au dixième de seconde. Cible resserrée sur la section V.",
+          "statut_de_verification": "DÉCLARÉ, NON VÉRIFIÉ — ni citation littérale de la recension, ni image. Accepté à titre provisoire : ce n'est pas une donnée mais une description bibliographique, et le coût d'une erreur est faible.",
+          "reserve_ajoutee": "Les valeurs d'exemple citées (+0,24″, −0,18″) sont marquées comme non réutilisables. Voir _avertissement_valeurs_d_exemple.",
+          "piste": "OUVERTE — cible resserrée"
         }
       ],
       "regle": "Toute piste explorée est consignée ici, y compris et surtout les négatives. Ne jamais rouvrir une piste close sans motif nouveau."
