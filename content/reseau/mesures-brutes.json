@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "0.9 — 8e soumission rejetée : conclusion sans donnée",
+    "version": "0.10 — bloc Gauss : premier à passer géographie et vraisemblance",
     "titre": "Mesures brutes de terrain — registre agnostique",
     "description": "Registre des OBSERVATIONS DE TERRAIN publiées, avant tout ajustement et avant toute conversion en coordonnées. Ce fichier ne contient aucune valeur calculée depuis un modèle. Il est vide tant qu'aucune observation sourcée n'y a été versée.",
     "date_creation": "2026-07-28",
@@ -423,6 +423,29 @@
           ],
           "nature_du_glissement": "Les soumissions 1 à 7 fabriquaient une DONNÉE. Celle-ci fabrique un CONSENSUS. C'est le même mécanisme un cran plus haut, et il est plus difficile à repérer parce qu'il n'offre aucun chiffre à contrôler.",
           "piste": "REJETÉE — ne rien verser"
+        },
+        {
+          "date": "2026-07-29",
+          "source": "Soumission n°9 — Gauss, triangulation du royaume de Hanovre, triangle Brocken / Hoher Hagen / Inselberg",
+          "issue": "REJETÉE sur les contrôles 1 et 6 — mais PREMIÈRE à passer géographie et vraisemblance",
+          "ce_qui_a_passe": {
+            "controle_5_geographie": "Côtés annoncés 69 / 84 / 106 km ; recalculés 66,8 / 83,2 / 105,3 km. Concordent. Les trois sommets existent et forment bien le plus grand triangle du levé hanovrien.",
+            "controle_4_vraisemblance": "Excès annoncé 14,85″. A/R² donne 14,71″ sur les côtés annoncés et 14,12″ sur les côtés recalculés. Résidu sous 1,5 σ dans les deux cas. Rayon déduit 6 340 ± 107 km, soit 0,5 % du rayon moyen."
+          },
+          "ce_qui_a_echoue": {
+            "controle_1_certification": "Ni volume, ni page, ni lien profond, ni image. Rejet sans examen — la règle ne souffre pas d'exception, surtout pour un bloc qui a l'air juste.",
+            "controle_6_calcul_joint": "« attendu théorique : 14,8″ à 15,0″ » est un calcul joint, interdit dans une soumission.",
+            "signal_residuel": "Résidu exactement 0,00″ pour la troisième fois. Une somme d'angles réelle a une erreur de fermeture — c'est ce qui prouve qu'elle a été mesurée. Gauss publie ses fermetures, elles ne sont pas nulles.",
+            "aire": "« ~3 000 km² » est un arrondi de commodité. Heron donne 2 894 km² sur les côtés annoncés, 2 779 km² sur les côtés réels."
+          },
+          "diagnostic": "Chiffre vraisemblablement AUTHENTIQUE mais restitué de mémoire, depuis une synthèse secondaire. Ce n'est plus de la fabrication : c'est un défaut de documentation. La valeur 14,85″ circule largement, souvent accompagnée de la légende selon laquelle Gauss aurait mesuré ce triangle pour tester la courbure de l'espace — légende fausse, il s'agissait d'un levé cadastral pour le royaume de Hanovre. Une valeur circulant dans un corpus mythifié a d'autant plus besoin de sa page.",
+          "references_a_viser": [
+            "Gauss, Werke, Band IV",
+            "Gauss, Werke, Band IX (Geodätischer Nachlass)",
+            "Bestimmung des Breitenunterschiedes zwischen den Sternwarten von Göttingen und Altona, 1828"
+          ],
+          "ce_qui_manque": "La page où figurent les TROIS ANGLES SÉPARÉMENT, leur somme, et la fermeture publiée par Gauss. Plus l'image.",
+          "piste": "OUVERTE — verrou purement bibliographique"
         }
       ],
       "regle": "Toute piste explorée est consignée ici, y compris et surtout les négatives. Ne jamais rouvrir une piste close sans motif nouveau."
@@ -454,9 +477,9 @@
     "observations_angulaires": 0,
     "bases_mesurees": 0,
     "distances_mesurees": 0,
-    "etat": "Structure seule. Aucune observation. Le fichier ne dit rien tant qu'il est vide.",
+    "etat": "9 soumissions reçues, 0 versée. La trajectoire s'améliore : le bloc 9 est le premier à passer les contrôles de géographie et de vraisemblance. Il ne bute plus que sur la source. Le problème est passé de la fabrication à la documentation.",
     "prochain_jalon": "Envoyer lettre-ecoles-geometres.md à l'ESGT, l'ENSG et l'INSA Strasbourg. Le dépôt n'a plus rien à produire tant qu'aucune mesure n'existe.",
-    "soumissions_recues": 8,
+    "soumissions_recues": 9,
     "soumissions_versees": 0
   }
 }
