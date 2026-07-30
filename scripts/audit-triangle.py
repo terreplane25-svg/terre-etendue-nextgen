@@ -164,7 +164,23 @@ def main(chemin):
             n = abs(residu) / ss if ss else float("inf")
             ok = n <= 4
             verdicts.append(ok)
-            print(ligne(ok, f"contrôle 4 — résidu à {n:.2f} σ (σ somme = {ss:.3f}″, seuil 4 σ)"))
+            print(ligne(ok, f"contrôle 4 — résidu à {n:.2f} σ (σ somme = {ss:.3f}″, seuil haut 4 σ)"))
+            # CONTRÔLE 4bis — résidu anormalement PETIT.
+            # Une mesure réelle a une erreur de fermeture. Un résidu quasi nul
+            # est la signature d'une valeur reconstruite depuis A/R².
+            # Ce n'est PAS un motif de rejet automatique : sur un triangle isolé,
+            # P(|r| < 0,05 σ) ≈ 4 %, ce qui arrive. C'est la RÉPÉTITION qui
+            # condamne : trois fois de suite, p ≈ 6·10⁻⁵.
+            if n < 0.05:
+                print("  [ALERTE] contrôle 4bis — résidu à moins de 0,05 σ.")
+                print(f"           P(|r| < 0,05 σ) sur une mesure réelle ≈ 4 %. Possible,")
+                print(f"           mais c'est aussi la signature exacte d'une valeur")
+                print(f"           reconstruite depuis A/R². EXIGER L'IMAGE.")
+                print(f"           Trois occurrences consécutives : p ≈ 6e-5 — c'est arrivé")
+                print(f"           dans ce dépôt (blocs 7, 9 et un autre).")
+            elif n < 0.15:
+                print("  [note   ] contrôle 4bis — résidu inhabituellement petit "
+                      f"({n:.2f} σ). Surveiller.")
         else:
             print("  [n/a  ] contrôle 4 — σ instrumental non fourni")
         if exces_obs > 0:

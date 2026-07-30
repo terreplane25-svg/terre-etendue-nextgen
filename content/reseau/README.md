@@ -1044,3 +1044,27 @@ intercepter n'est pas produire.
 
 **Prochain geste : envoyer la lettre.** Triplet n°2, Aigoual / Mézenc / Ventoux, excès attendu
 29,52″, détection à 59 σ. Le dépôt n'a plus rien à produire tant qu'aucune mesure n'existe.
+
+## Contrôle 4bis — le résidu trop parfait
+
+Ajouté à `scripts/audit-triangle.py`. Une mesure réelle a une **erreur de fermeture** ; un
+résidu quasi nul est la signature d'une valeur reconstruite depuis `A/R²`.
+
+| Seuil | P sur une mesure réelle | P sur 3 soumissions consécutives |
+|---|---|---|
+| \|r\| < 0,02 σ | 1,60 % | 0,0004 % |
+| \|r\| < 0,05 σ | 3,99 % | 0,006 % |
+| \|r\| < 0,10 σ | 7,97 % | 0,05 % |
+| \|r\| < 0,20 σ | 15,85 % | 0,40 % |
+
+**Ce n'est pas un motif de rejet automatique.** Sur un triangle isolé, un résidu sous 0,05 σ
+arrive dans 4 % des cas — rejeter là-dessus écarterait de vraies données. Le script émet donc
+une **alerte** qui exige l'image, pas un rejet.
+
+**C'est la répétition qui condamne.** Trois fois de suite, la probabilité tombe à 6·10⁻⁵. C'est
+exactement ce qui s'est produit ici : trois soumissions successives sont tombées à moins de
+0,05 σ de la prédiction, en recyclant chacune un chiffre que j'avais moi-même écrit.
+
+Le contrôle 4 garde son seuil haut à 4 σ. Le 4bis surveille le bas. Un résidu à 0,00 σ est
+aussi suspect qu'un résidu à 6 σ — dans un cas la donnée est fausse, dans l'autre elle n'a pas
+été mesurée.
