@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "0.10 — bloc Gauss : premier à passer géographie et vraisemblance",
+    "version": "0.11 — Clarke 1858 ciblé",
     "titre": "Mesures brutes de terrain — registre agnostique",
     "description": "Registre des OBSERVATIONS DE TERRAIN publiées, avant tout ajustement et avant toute conversion en coordonnées. Ce fichier ne contient aucune valeur calculée depuis un modèle. Il est vide tant qu'aucune observation sourcée n'y a été versée.",
     "date_creation": "2026-07-28",
@@ -285,6 +285,35 @@
         },
         "pourquoi_cette_cible": "Triangles très étendus, volumes largement numérisés, série longue et homogène. C'est désormais la cible prioritaire, devant Gill dont l'accès n'est pas établi.",
         "reserve": "La présence effective du couple « Spherical excess » / « Error of triangle » dans un volume donné n'est pas vérifiée — mon accès à archive.org est bloqué. C'est le premier point à établir, volume ouvert à l'appui."
+      },
+      "cible_4_clarke_1858": {
+        "titre": "A. R. Clarke, « Ordnance Trigonometrical Survey of Great Britain and Ireland — Account of the Observations and Calculations of the Principal Triangulation; and of the Figure, Dimensions, and Mean Specific Gravity of the Earth as derived therefrom », Londres, 1858, sous la direction du Lt-Col. H. James",
+        "statut": "PRÉSENT SUR ARCHIVE.ORG — mais attention à la nature des items",
+        "structure": "2 volumes. Volume 1 = TEXTE, 782 pages, in-4°. Volume 2 = PLANCHES.",
+        "_nuance_importante": {
+          "constat": "Les items repérés sur archive.org portent le préfixe « dr_ », qui désigne la collection cartographique David Rumsey. Ce sont des NUMÉRISATIONS DE PLANCHES ISOLÉES et de pages détachées, pas nécessairement le volume 1 complet indexé en plein texte.",
+          "exemples": [
+            "archive.org/details/dr_text-page-to-ordnance-trigonometrical-survey-of-great-britain-and-ireland-6877007 — une page de texte détachée",
+            "archive.org/details/dr_principal-triangulation-plate-xxi-sections-through-arthurs-seat-engrave-6877043 — planche XXI",
+            "archive.org/details/dr_principal-triangulation-plate-xxvi-to-accompany-v-2-plates-ordnance-6877048 — planche XXVI"
+          ],
+          "consequence": "La première question n'est pas « quelle page ouvrir » mais « le VOLUME 1 COMPLET est-il disponible en plein texte quelque part, ou seulement en pages isolées ? ». Une collection de planches détachées ne permet pas de chercher « Error of triangle » dans 782 pages."
+        },
+        "autres_pistes_de_localisation": [
+          "Notice Stanford SearchWorks : searchworks.stanford.edu/view/11524971",
+          "Recension contemporaine dans MNRAS vol. 19 n° 5, p. 194 (1859) — academic.oup.com/mnras/article/19/5/194/1039968 ; utile pour savoir ce que le volume contient exactement",
+          "The National Archives, notice du volume",
+          "Google Books, HathiTrust — non vérifiés"
+        ],
+        "pourquoi_cette_cible": "Publication en anglais et en caractères romains, plus accessible que Gauss en Fraktur. Son objet déclaré est précisément la publication des observations et des calculs de la triangulation principale. C'est aussi l'ouvrage d'où sort l'ellipsoïde de Clarke 1858, ce qui garantit qu'il contient les tableaux détaillés.",
+        "ce_qu_il_faut_chercher_dans_le_volume_1": [
+          "« Error of triangle » ou « Triangular error » — colonne standard",
+          "« Spherical excess »",
+          "« Abstract of angles »",
+          "« List of triangles »",
+          "Le chapitre sur les bases mesurées (Lough Foyle, Salisbury Plain) pour un usage séparé"
+        ],
+        "reserve": "Mon accès à archive.org est bloqué par la politique réseau. Je ne peux pas vérifier si le volume 1 est indexé en plein texte."
       }
     },
     "_vocabulaire_de_recherche": {
@@ -446,6 +475,14 @@
           ],
           "ce_qui_manque": "La page où figurent les TROIS ANGLES SÉPARÉMENT, leur somme, et la fermeture publiée par Gauss. Plus l'image.",
           "piste": "OUVERTE — verrou purement bibliographique"
+        },
+        {
+          "date": "2026-07-29",
+          "source": "Clarke 1858, Ordnance Trigonometrical Survey of Great Britain and Ireland",
+          "issue": "OUVERTE — présence sur archive.org confirmée, nature des items à établir",
+          "acquis": "2 volumes, vol. 1 = 782 pages de texte. Publication en anglais et caractères romains. Objet déclaré : publier les observations et calculs de la triangulation principale — c'est l'ouvrage dont sort l'ellipsoïde de Clarke 1858.",
+          "reserve": "Les items repérés portent le préfixe « dr_ » (collection David Rumsey) : ce sont des planches et pages isolées, pas nécessairement le volume 1 indexé en plein texte.",
+          "piste": "PRIORITAIRE"
         }
       ],
       "regle": "Toute piste explorée est consignée ici, y compris et surtout les négatives. Ne jamais rouvrir une piste close sans motif nouveau."
