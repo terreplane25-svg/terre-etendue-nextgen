@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, Suspense, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -107,13 +108,18 @@ export default function LabClient({ articles }: { articles: A[] }) {
   const filtered = articles.filter(a => !EXCLUDED_PATTERNS.some(p => a.slug.includes(p)));
 
   // Ouverture directe depuis la navigation : /lab?sim=<id>
+  // useSearchParams est RÉACTIF : il suit les changements de query même quand
+  // Next reste sur la même route et ne remonte pas le composant. Un simple
+  // useEffect([]) sur window.location ne se déclencherait qu'au premier rendu,
+  // et passer d'un simulateur à l'autre depuis le menu ne ferait rien.
+  const params = useSearchParams();
+  const simParam = params.get('sim');
   useEffect(() => {
-    const id = new URLSearchParams(window.location.search).get('sim');
-    if (id && TOOLS.some(t => t.id === id)) setActiveTool(id);
-  }, []);
+    if (simParam && TOOLS.some(t => t.id === simParam)) setActiveTool(simParam);
+    else if (!simParam) setActiveTool(null);
+  }, [simParam]);
 
-  // Refléter l'outil ouvert dans l'URL, pour que le lien soit partageable
-  // et que le bouton Retour du navigateur referme le simulateur.
+  // Refléter l'outil ouvert dans l'URL, pour que le lien reste partageable.
   useEffect(() => {
     const url = new URL(window.location.href);
     if (activeTool) url.searchParams.set('sim', activeTool);

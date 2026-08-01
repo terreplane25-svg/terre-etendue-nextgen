@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { getArticlesByCategory } from '@/lib/articles';
 import LabClient from './LabClient';
 import type { Metadata } from 'next';
@@ -16,5 +17,11 @@ export default function LabPage() {
     tags: a.tags || [], pinned: a.pinned || false, readTime: a.readTime || 5,
   }));
 
-  return <LabClient articles={formatted} />;
+  // LabClient lit ?sim= via useSearchParams : Suspense obligatoire pour
+  // que la page reste prérendue statiquement.
+  return (
+    <Suspense fallback={null}>
+      <LabClient articles={formatted} />
+    </Suspense>
+  );
 }
