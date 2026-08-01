@@ -3,6 +3,9 @@ import { getReseau } from '@/lib/reseau';
 import CarteClient from './CarteClient';
 
 export const metadata: Metadata = {
+  // Page mise de côté : plus liée depuis la navigation ni le sitemap.
+  // Elle reste accessible par URL directe, mais n'est plus indexée.
+  robots: { index: false, follow: true },
   alternates: { canonical: '/carte' },
   title: 'La carte du réseau',
   description:

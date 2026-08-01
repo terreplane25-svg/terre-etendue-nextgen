@@ -106,6 +106,21 @@ export default function LabClient({ articles }: { articles: A[] }) {
   const [activeTool, setActiveTool] = useState<string | null>(null);
   const filtered = articles.filter(a => !EXCLUDED_PATTERNS.some(p => a.slug.includes(p)));
 
+  // Ouverture directe depuis la navigation : /lab?sim=<id>
+  useEffect(() => {
+    const id = new URLSearchParams(window.location.search).get('sim');
+    if (id && TOOLS.some(t => t.id === id)) setActiveTool(id);
+  }, []);
+
+  // Refléter l'outil ouvert dans l'URL, pour que le lien soit partageable
+  // et que le bouton Retour du navigateur referme le simulateur.
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (activeTool) url.searchParams.set('sim', activeTool);
+    else url.searchParams.delete('sim');
+    window.history.replaceState(null, '', url.toString());
+  }, [activeTool]);
+
   useEffect(()=>{
     if (activeTool) {
       document.body.style.overflow = 'hidden';

@@ -18,7 +18,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/laboratoire`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${SITE_URL}/enseignants`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/lab`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${SITE_URL}/carte`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/nexus`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITE_URL}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
   ];
