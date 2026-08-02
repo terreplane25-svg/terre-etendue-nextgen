@@ -18,6 +18,41 @@ DISTANCES_M = [1000, 1500, 2000, 3000, 5000, 7000, 10000]
 def f(D, k=0.0): return (1.0 - k) * D*D / (8.0 * R)
 def sec(x): return x * 206264.806
 
+# ── budget d'erreur ────────────────────────────────────────────────────────────
+ARCSEC       = 1 / 206264.806
+SIG_POINTE   = 2.0 * ARCSEC   # precision de pointe, une visee, lunette de niveau
+SIG_EAU_LIBRE = 0.100         # lecture de la ligne d'eau, clapot libre
+SIG_EAU_TUBE  = 0.005         # lecture dans un puits de tranquillisation
+SIG_LONGUEUR  = 0.001         # longueur d'une perche
+SIG_K         = 0.12          # dispersion de terrain du coefficient de refraction
+NLEC          = 3             # lectures par seance
+
+def budget(D, sig_eau, n_seances=1):
+    """Postes d'erreur sur une fleche, en metres. Retourne (postes, sigma total)."""
+    n = NLEC * n_seances
+    sig_h = math.hypot(SIG_LONGUEUR, sig_eau / math.sqrt(NLEC))
+    postes = {
+        # direction A->C entachee de SIG_POINTE, lue a mi-distance ; plus la
+        # lecture de la graduation de B, elle aussi a mi-distance.
+        "pointe":       SIG_POINTE * (D / 2) * math.sqrt(2) / math.sqrt(n),
+        # f = (hA + hC)/2 - hB  ->  coefficient sqrt(1/4 + 1/4 + 1)
+        "hauteur_eau":  sig_h * math.sqrt(1.5) / math.sqrt(n_seances),
+        "verticalite":  4.0 * (1 - math.cos(math.asin(0.010 / 4.0))) / math.sqrt(n_seances),
+        "milieu_B":     f(D) * 2 * (0.005 ** 2),
+        # multiplicative : ne se moyenne que si les seances echantillonnent des
+        # etats atmospheriques reellement independants (jours distincts).
+        "refraction":   f(D, 0) * SIG_K / math.sqrt(n_seances),
+    }
+    return postes, math.sqrt(sum(v * v for v in postes.values()))
+
+def sigma_pente(sig_eau, n_seances, distances):
+    """Incertitude sur la pente de la droite log(f) = a.log(D) + b."""
+    lx = [math.log10(x) for x in distances]
+    mx = sum(lx) / len(lx)
+    Sxx = sum((v - mx) ** 2 for v in lx)
+    w = [budget(x, sig_eau, n_seances)[1] / f(x) / math.log(10) for x in distances]
+    return math.sqrt(sum(v * v for v in w) / len(w)) / math.sqrt(Sxx)
+
 table = []
 for D in DISTANCES_M:
     f0, fj, fn, fr = (f(D, k) for k in (0.0, K_JOUR, K_NUIT, K_REF))
@@ -41,9 +76,72 @@ au_dela = [{"D_km": D/1000,
             "hauteur_de_mire_minimale_m": round(f(D) + 2.0, 2)}
            for D in (15000, 20000, 30000, 50000)]
 
+def bloc_budget(sig_eau, n):
+    lignes = []
+    for D in DISTANCES_M:
+        postes, tot = budget(D, sig_eau, n)
+        lignes.append({
+            "D_km": D / 1000,
+            "fleche_mm": round(f(D) * 1000, 2),
+            "postes_mm": {k: round(v * 1000, 3) for k, v in postes.items()},
+            "sigma_total_mm": round(tot * 1000, 2),
+            "rapport_signal_bruit": round(f(D) / tot, 1),
+        })
+    return lignes
+
+BUDGET = {
+  "_avertissement": (
+    "Ce budget a ete calcule APRES la redaction v1.0 et il a corrige le protocole : "
+    "avec la tolerance de clapot initiale (10 cm), la lecture de la ligne d'eau ecrasait "
+    "le signal en dessous de 5 km et le rapport signal/bruit ne depassait jamais 7. "
+    "Le puits de tranquillisation devient donc OBLIGATOIRE, et ce n'est pas un detail "
+    "de confort : c'est l'element qui rend la campagne concluante."
+  ),
+  "hypotheses": {
+    "precision_de_pointe_par_visee_secondes": 2.0,
+    "lecture_ligne_d_eau_clapot_libre_mm": SIG_EAU_LIBRE * 1000,
+    "lecture_ligne_d_eau_avec_puits_mm": SIG_EAU_TUBE * 1000,
+    "longueur_de_perche_mm": SIG_LONGUEUR * 1000,
+    "dispersion_du_coefficient_de_refraction": SIG_K,
+    "lectures_par_seance": NLEC,
+    "note_sur_la_refraction": (
+      "La refraction est traitee comme une erreur multiplicative de moyenne nulle qui se "
+      "reduit en 1/racine(n). Cette reduction n'est legitime que si les seances "
+      "echantillonnent des etats atmospheriques independants — d'ou l'exigence de cinq "
+      "journees distinctes au minimum et des creneaux matin ET apres-midi. Dix seances "
+      "faites le meme jour ne valent pas dix seances."
+    ),
+  },
+  "A_sans_puits_une_seance": bloc_budget(SIG_EAU_LIBRE, 1),
+  "B_avec_puits_une_seance": bloc_budget(SIG_EAU_TUBE, 1),
+  "C_avec_puits_dix_seances_RETENU": bloc_budget(SIG_EAU_TUBE, 10),
+  "pouvoir_de_discrimination": {
+    "grandeur": "incertitude sur la pente a de log(f) = a.log(D) + b",
+    "par_nombre_de_seances": {
+      str(n): {
+        "sigma_pente": round(sigma_pente(SIG_EAU_TUBE, n, DISTANCES_M), 4),
+        "sigma_separant_2000_de_1000": round(1.0 / sigma_pente(SIG_EAU_TUBE, n, DISTANCES_M), 1),
+        "sigma_separant_2000_de_0_modele_plan": round(2.0 / sigma_pente(SIG_EAU_TUBE, n, DISTANCES_M), 1),
+      } for n in (1, 5, 10, 20)
+    },
+    "lecture": (
+      "Des une seance par distance, une pente de 2,000 se separe d'une pente de 1,000 — "
+      "signature d'un artefact de perspective ou d'un gradient thermique regulier — a plus "
+      "de 10 sigma. Le protocole a dix seances porte cette separation au-dela de 30 sigma. "
+      "Ce n'est pas la precision sur la fleche qui fait la force du dispositif, c'est le "
+      "bras de levier de la decade en distance."
+    ),
+  },
+  "volume_de_travail": {
+    "lectures_totales": len(DISTANCES_M) * 10 * NLEC,
+    "heures_d_observation": round(len(DISTANCES_M) * 10 * 12 / 60, 1),
+    "journees_de_terrain_estimees": "5 a 8, selon la meteo et le temps de deplacement des perches",
+  },
+}
+
 doc = {
   "_meta": {
-    "version": "1.0",
+    "version": "1.1",
     "titre": "Protocole cote — mesure de la fleche sur trois mires de hauteur egale au-dessus de l'eau",
     "description": (
       "Pre-enregistrement, AVANT toute mesure, des predictions des deux modeles pour une "
@@ -52,7 +150,7 @@ doc = {
       "distance. Aucun chiffre de ce fichier n'a ete saisi a la main ; ils sont tous produits "
       "par scripts/generer-protocole-cote.py, qui est verse dans le depot."
     ),
-    "date": "2026-08-02",
+    "date": "2026-08-02", "date_revision": "2026-08-02 — v1.1, ajout du budget d'erreur et du puits de tranquillisation",
     "statut": "PRE-ENREGISTRE — aucune mesure effectuee a ce jour",
     "regle_d_immuabilite": (
       "Les predictions de ce fichier ne seront jamais recalculees apres reception d'une mesure. "
@@ -119,6 +217,8 @@ doc = {
 
   "table_de_pre_enregistrement": table,
 
+  "_budget_d_erreur": BUDGET,
+
   "_test_de_l_exposant": {
     "principe": (
       "C'est le coeur du protocole, et c'est ce qu'aucune campagne connue n'a publie. On ne "
@@ -154,6 +254,7 @@ doc = {
     "materiel": [
       "Trois perches identiques de 4,00 m, section constante, verticalite verifiee au fil a plomb.",
       "La perche B porte une mire graduee au millimetre sur ses 2,50 m superieurs.",
+      "Un puits de tranquillisation par perche : tube plongeur de 50 a 100 mm perce de trous fins en partie basse, solidaire de la perche. Il amortit le clapot et fait passer la lecture de la ligne d'eau de 100 mm a 5 mm — c'est l'element decisif du dispositif.",
       "Lunette de visee ou theodolite sur trepied, oculaire cale au sommet exact de la perche A.",
       "Reflecteur ou cible contrastee au sommet exact de la perche C.",
       "Thermometre, barometre, anemometre a chaque station.",
@@ -183,7 +284,9 @@ doc = {
     "regles_de_rejet_ECRITES_A_L_AVANCE": [
       "Rejet si les trois lectures d'une seance s'ecartent de plus de 20 % de leur mediane — refraction instable.",
       "Rejet si un mirage superieur est visible a l'oeil ou au capteur (image dedoublee, inversion, etirement vertical).",
-      "Rejet si le vent depasse 8 m/s (vibration des perches) ou si le clapot depasse 10 cm (ligne d'eau indeterminee).",
+      "OBLIGATOIRE : chaque perche est equipee d'un puits de tranquillisation — un simple tube plongeur perce en bas, qui amortit le clapot et rend la ligne d'eau lisible a 5 mm. Sans lui la campagne n'est pas concluante : voir _budget_d_erreur.",
+      "Rejet si le vent depasse 8 m/s (vibration des perches).",
+      "Rejet si les trois lectures de ligne d'eau d'une meme station s'ecartent de plus de 10 mm.",
       "Rejet si l'ecart de temperature air-eau depasse 5 K.",
       "Rejet si la verticalite d'une perche s'ecarte de plus de 1 cm sur 4 m."
     ],

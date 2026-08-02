@@ -64,6 +64,7 @@ const IMG: Record<string, string> = {
   "ligo-londe-qui-nexistait-pas": `${UNSPLASH}/photo-1462332420958-a05d1e002413?w=600&h=400&fit=crop`,
   "neptune-et-pluton-les-faux-triomphes": `${HOSTINGER}/2026/04/pluto_neptune.jpeg`,
   "pourquoi-tout-remettre-en-question": `${HOSTINGER}/2026/04/interrogation.avif`,
+  "par-rapport-a-quoi-mesure-t-on-une-altitude": `${HOSTINGER}/2026/08/teodolite2-e1785710240343.png`,
 
   // ── Observatory extra ──
   "vols-avion-et-courbure-terrestre": `${HOSTINGER}/2026/06/Six_flight_instruments.jpg`,

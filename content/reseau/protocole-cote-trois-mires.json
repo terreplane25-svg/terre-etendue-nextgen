@@ -1,9 +1,10 @@
 {
   "_meta": {
-    "version": "1.0",
+    "version": "1.1",
     "titre": "Protocole cote — mesure de la fleche sur trois mires de hauteur egale au-dessus de l'eau",
     "description": "Pre-enregistrement, AVANT toute mesure, des predictions des deux modeles pour une campagne de sept configurations de distance, de 1 km a 10 km, sur un plan d'eau sans maree. L'observable n'est pas une fleche isolee : c'est la LOI qui relie la fleche a la distance. Aucun chiffre de ce fichier n'a ete saisi a la main ; ils sont tous produits par scripts/generer-protocole-cote.py, qui est verse dans le depot.",
     "date": "2026-08-02",
+    "date_revision": "2026-08-02 — v1.1, ajout du budget d'erreur et du puits de tranquillisation",
     "statut": "PRE-ENREGISTRE — aucune mesure effectuee a ce jour",
     "regle_d_immuabilite": "Les predictions de ce fichier ne seront jamais recalculees apres reception d'une mesure. Toute modification resterait visible dans l'historique Git, avec sa date.",
     "constantes_du_modele_spherique": {
@@ -138,6 +139,328 @@
       "rotation_de_la_verticale_A_vers_C_secondes": 323.76
     }
   ],
+  "_budget_d_erreur": {
+    "_avertissement": "Ce budget a ete calcule APRES la redaction v1.0 et il a corrige le protocole : avec la tolerance de clapot initiale (10 cm), la lecture de la ligne d'eau ecrasait le signal en dessous de 5 km et le rapport signal/bruit ne depassait jamais 7. Le puits de tranquillisation devient donc OBLIGATOIRE, et ce n'est pas un detail de confort : c'est l'element qui rend la campagne concluante.",
+    "hypotheses": {
+      "precision_de_pointe_par_visee_secondes": 2.0,
+      "lecture_ligne_d_eau_clapot_libre_mm": 100.0,
+      "lecture_ligne_d_eau_avec_puits_mm": 5.0,
+      "longueur_de_perche_mm": 1.0,
+      "dispersion_du_coefficient_de_refraction": 0.12,
+      "lectures_par_seance": 3,
+      "note_sur_la_refraction": "La refraction est traitee comme une erreur multiplicative de moyenne nulle qui se reduit en 1/racine(n). Cette reduction n'est legitime que si les seances echantillonnent des etats atmospheriques independants — d'ou l'exigence de cinq journees distinctes au minimum et des creneaux matin ET apres-midi. Dix seances faites le meme jour ne valent pas dix seances."
+    },
+    "A_sans_puits_une_seance": [
+      {
+        "D_km": 1.0,
+        "fleche_mm": 19.62,
+        "postes_mm": {
+          "pointe": 3.958,
+          "hauteur_eau": 70.721,
+          "verticalite": 0.013,
+          "milieu_B": 0.001,
+          "refraction": 2.354
+        },
+        "sigma_total_mm": 70.87,
+        "rapport_signal_bruit": 0.3
+      },
+      {
+        "D_km": 1.5,
+        "fleche_mm": 44.15,
+        "postes_mm": {
+          "pointe": 5.938,
+          "hauteur_eau": 70.721,
+          "verticalite": 0.013,
+          "milieu_B": 0.002,
+          "refraction": 5.297
+        },
+        "sigma_total_mm": 71.17,
+        "rapport_signal_bruit": 0.6
+      },
+      {
+        "D_km": 2.0,
+        "fleche_mm": 78.48,
+        "postes_mm": {
+          "pointe": 7.917,
+          "hauteur_eau": 70.721,
+          "verticalite": 0.013,
+          "milieu_B": 0.004,
+          "refraction": 9.418
+        },
+        "sigma_total_mm": 71.78,
+        "rapport_signal_bruit": 1.1
+      },
+      {
+        "D_km": 3.0,
+        "fleche_mm": 176.58,
+        "postes_mm": {
+          "pointe": 11.875,
+          "hauteur_eau": 70.721,
+          "verticalite": 0.013,
+          "milieu_B": 0.009,
+          "refraction": 21.19
+        },
+        "sigma_total_mm": 74.78,
+        "rapport_signal_bruit": 2.4
+      },
+      {
+        "D_km": 5.0,
+        "fleche_mm": 490.5,
+        "postes_mm": {
+          "pointe": 19.792,
+          "hauteur_eau": 70.721,
+          "verticalite": 0.013,
+          "milieu_B": 0.025,
+          "refraction": 58.86
+        },
+        "sigma_total_mm": 94.12,
+        "rapport_signal_bruit": 5.2
+      },
+      {
+        "D_km": 7.0,
+        "fleche_mm": 961.39,
+        "postes_mm": {
+          "pointe": 27.709,
+          "hauteur_eau": 70.721,
+          "verticalite": 0.013,
+          "milieu_B": 0.048,
+          "refraction": 115.366
+        },
+        "sigma_total_mm": 138.13,
+        "rapport_signal_bruit": 7.0
+      },
+      {
+        "D_km": 10.0,
+        "fleche_mm": 1962.01,
+        "postes_mm": {
+          "pointe": 39.585,
+          "hauteur_eau": 70.721,
+          "verticalite": 0.013,
+          "milieu_B": 0.098,
+          "refraction": 235.442
+        },
+        "sigma_total_mm": 249.0,
+        "rapport_signal_bruit": 7.9
+      }
+    ],
+    "B_avec_puits_une_seance": [
+      {
+        "D_km": 1.0,
+        "fleche_mm": 19.62,
+        "postes_mm": {
+          "pointe": 3.958,
+          "hauteur_eau": 3.742,
+          "verticalite": 0.013,
+          "milieu_B": 0.001,
+          "refraction": 2.354
+        },
+        "sigma_total_mm": 5.93,
+        "rapport_signal_bruit": 3.3
+      },
+      {
+        "D_km": 1.5,
+        "fleche_mm": 44.15,
+        "postes_mm": {
+          "pointe": 5.938,
+          "hauteur_eau": 3.742,
+          "verticalite": 0.013,
+          "milieu_B": 0.002,
+          "refraction": 5.297
+        },
+        "sigma_total_mm": 8.79,
+        "rapport_signal_bruit": 5.0
+      },
+      {
+        "D_km": 2.0,
+        "fleche_mm": 78.48,
+        "postes_mm": {
+          "pointe": 7.917,
+          "hauteur_eau": 3.742,
+          "verticalite": 0.013,
+          "milieu_B": 0.004,
+          "refraction": 9.418
+        },
+        "sigma_total_mm": 12.86,
+        "rapport_signal_bruit": 6.1
+      },
+      {
+        "D_km": 3.0,
+        "fleche_mm": 176.58,
+        "postes_mm": {
+          "pointe": 11.875,
+          "hauteur_eau": 3.742,
+          "verticalite": 0.013,
+          "milieu_B": 0.009,
+          "refraction": 21.19
+        },
+        "sigma_total_mm": 24.58,
+        "rapport_signal_bruit": 7.2
+      },
+      {
+        "D_km": 5.0,
+        "fleche_mm": 490.5,
+        "postes_mm": {
+          "pointe": 19.792,
+          "hauteur_eau": 3.742,
+          "verticalite": 0.013,
+          "milieu_B": 0.025,
+          "refraction": 58.86
+        },
+        "sigma_total_mm": 62.21,
+        "rapport_signal_bruit": 7.9
+      },
+      {
+        "D_km": 7.0,
+        "fleche_mm": 961.39,
+        "postes_mm": {
+          "pointe": 27.709,
+          "hauteur_eau": 3.742,
+          "verticalite": 0.013,
+          "milieu_B": 0.048,
+          "refraction": 115.366
+        },
+        "sigma_total_mm": 118.71,
+        "rapport_signal_bruit": 8.1
+      },
+      {
+        "D_km": 10.0,
+        "fleche_mm": 1962.01,
+        "postes_mm": {
+          "pointe": 39.585,
+          "hauteur_eau": 3.742,
+          "verticalite": 0.013,
+          "milieu_B": 0.098,
+          "refraction": 235.442
+        },
+        "sigma_total_mm": 238.78,
+        "rapport_signal_bruit": 8.2
+      }
+    ],
+    "C_avec_puits_dix_seances_RETENU": [
+      {
+        "D_km": 1.0,
+        "fleche_mm": 19.62,
+        "postes_mm": {
+          "pointe": 1.252,
+          "hauteur_eau": 1.183,
+          "verticalite": 0.004,
+          "milieu_B": 0.001,
+          "refraction": 0.745
+        },
+        "sigma_total_mm": 1.88,
+        "rapport_signal_bruit": 10.5
+      },
+      {
+        "D_km": 1.5,
+        "fleche_mm": 44.15,
+        "postes_mm": {
+          "pointe": 1.878,
+          "hauteur_eau": 1.183,
+          "verticalite": 0.004,
+          "milieu_B": 0.002,
+          "refraction": 1.675
+        },
+        "sigma_total_mm": 2.78,
+        "rapport_signal_bruit": 15.9
+      },
+      {
+        "D_km": 2.0,
+        "fleche_mm": 78.48,
+        "postes_mm": {
+          "pointe": 2.504,
+          "hauteur_eau": 1.183,
+          "verticalite": 0.004,
+          "milieu_B": 0.004,
+          "refraction": 2.978
+        },
+        "sigma_total_mm": 4.07,
+        "rapport_signal_bruit": 19.3
+      },
+      {
+        "D_km": 3.0,
+        "fleche_mm": 176.58,
+        "postes_mm": {
+          "pointe": 3.755,
+          "hauteur_eau": 1.183,
+          "verticalite": 0.004,
+          "milieu_B": 0.009,
+          "refraction": 6.701
+        },
+        "sigma_total_mm": 7.77,
+        "rapport_signal_bruit": 22.7
+      },
+      {
+        "D_km": 5.0,
+        "fleche_mm": 490.5,
+        "postes_mm": {
+          "pointe": 6.259,
+          "hauteur_eau": 1.183,
+          "verticalite": 0.004,
+          "milieu_B": 0.025,
+          "refraction": 18.613
+        },
+        "sigma_total_mm": 19.67,
+        "rapport_signal_bruit": 24.9
+      },
+      {
+        "D_km": 7.0,
+        "fleche_mm": 961.39,
+        "postes_mm": {
+          "pointe": 8.762,
+          "hauteur_eau": 1.183,
+          "verticalite": 0.004,
+          "milieu_B": 0.048,
+          "refraction": 36.482
+        },
+        "sigma_total_mm": 37.54,
+        "rapport_signal_bruit": 25.6
+      },
+      {
+        "D_km": 10.0,
+        "fleche_mm": 1962.01,
+        "postes_mm": {
+          "pointe": 12.518,
+          "hauteur_eau": 1.183,
+          "verticalite": 0.004,
+          "milieu_B": 0.098,
+          "refraction": 74.453
+        },
+        "sigma_total_mm": 75.51,
+        "rapport_signal_bruit": 26.0
+      }
+    ],
+    "pouvoir_de_discrimination": {
+      "grandeur": "incertitude sur la pente a de log(f) = a.log(D) + b",
+      "par_nombre_de_seances": {
+        "1": {
+          "sigma_pente": 0.0866,
+          "sigma_separant_2000_de_1000": 11.6,
+          "sigma_separant_2000_de_0_modele_plan": 23.1
+        },
+        "5": {
+          "sigma_pente": 0.0387,
+          "sigma_separant_2000_de_1000": 25.8,
+          "sigma_separant_2000_de_0_modele_plan": 51.7
+        },
+        "10": {
+          "sigma_pente": 0.0274,
+          "sigma_separant_2000_de_1000": 36.5,
+          "sigma_separant_2000_de_0_modele_plan": 73.1
+        },
+        "20": {
+          "sigma_pente": 0.0194,
+          "sigma_separant_2000_de_1000": 51.7,
+          "sigma_separant_2000_de_0_modele_plan": 103.3
+        }
+      },
+      "lecture": "Des une seance par distance, une pente de 2,000 se separe d'une pente de 1,000 — signature d'un artefact de perspective ou d'un gradient thermique regulier — a plus de 10 sigma. Le protocole a dix seances porte cette separation au-dela de 30 sigma. Ce n'est pas la precision sur la fleche qui fait la force du dispositif, c'est le bras de levier de la decade en distance."
+    },
+    "volume_de_travail": {
+      "lectures_totales": 210,
+      "heures_d_observation": 14.0,
+      "journees_de_terrain_estimees": "5 a 8, selon la meteo et le temps de deplacement des perches"
+    }
+  },
   "_test_de_l_exposant": {
     "principe": "C'est le coeur du protocole, et c'est ce qu'aucune campagne connue n'a publie. On ne cherche pas a mesurer une fleche : on cherche a mesurer l'EXPOSANT de la loi f(D).",
     "methode": "Porter log(f) contre log(D) sur les sept configurations, avec la mediane des seances retenues pour chaque distance. Ajustement des moindres carres. Lire la pente.",
@@ -155,6 +478,7 @@
     "materiel": [
       "Trois perches identiques de 4,00 m, section constante, verticalite verifiee au fil a plomb.",
       "La perche B porte une mire graduee au millimetre sur ses 2,50 m superieurs.",
+      "Un puits de tranquillisation par perche : tube plongeur de 50 a 100 mm perce de trous fins en partie basse, solidaire de la perche. Il amortit le clapot et fait passer la lecture de la ligne d'eau de 100 mm a 5 mm — c'est l'element decisif du dispositif.",
       "Lunette de visee ou theodolite sur trepied, oculaire cale au sommet exact de la perche A.",
       "Reflecteur ou cible contrastee au sommet exact de la perche C.",
       "Thermometre, barometre, anemometre a chaque station.",
@@ -171,7 +495,9 @@
     "regles_de_rejet_ECRITES_A_L_AVANCE": [
       "Rejet si les trois lectures d'une seance s'ecartent de plus de 20 % de leur mediane — refraction instable.",
       "Rejet si un mirage superieur est visible a l'oeil ou au capteur (image dedoublee, inversion, etirement vertical).",
-      "Rejet si le vent depasse 8 m/s (vibration des perches) ou si le clapot depasse 10 cm (ligne d'eau indeterminee).",
+      "OBLIGATOIRE : chaque perche est equipee d'un puits de tranquillisation — un simple tube plongeur perce en bas, qui amortit le clapot et rend la ligne d'eau lisible a 5 mm. Sans lui la campagne n'est pas concluante : voir _budget_d_erreur.",
+      "Rejet si le vent depasse 8 m/s (vibration des perches).",
+      "Rejet si les trois lectures de ligne d'eau d'une meme station s'ecartent de plus de 10 mm.",
       "Rejet si l'ecart de temperature air-eau depasse 5 K.",
       "Rejet si la verticalite d'une perche s'ecarte de plus de 1 cm sur 4 m."
     ],
