@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { annotateGlossary } from './glossary';
 
 const articlesDirectory = path.join(process.cwd(), 'content/articles');
 
@@ -93,6 +94,10 @@ export async function getArticle(slug: string): Promise<Article | null> {
   if (fs.existsSync(jsonPath)) {
     const fileContents = fs.readFileSync(jsonPath, 'utf8');
     const data = JSON.parse(fileContents);
+    // Annotation des termes du glossaire (survol -> définition), faite une
+    // seule fois : les identifiants d'infobulle doivent rester uniques dans
+    // le document si les deux champs venaient à être rendus ensemble.
+    const annote = annotateGlossary(data.htmlBody || '', slug);
     return {
       slug,
       title: data.title || slug,
@@ -101,8 +106,8 @@ export async function getArticle(slug: string): Promise<Article | null> {
       author: data.author || 'Terre Etendue',
       category: data.category || 'headquarters',
       tags: data.tags || [],
-      content: data.htmlBody || '',
-      htmlContent: data.htmlBody || '',
+      content: annote,
+      htmlContent: annote,
     };
   }
 
