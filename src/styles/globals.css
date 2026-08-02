@@ -18,6 +18,11 @@
   --cyan: #3B8FD4;
   --rose: #C45E6A;
   --gold: #B8941F;
+  /* Soulignement et libellé du glossaire. Le doré tombe à 2,88:1 sur blanc,
+     sous le seuil de 3:1 des composants d'interface ; cet orange donne 4,31:1
+     sur blanc et 3,96:1 sur --bg. En mode sombre le doré passe très bien
+     (6,57:1) et reste donc en place. */
+  --gloss: #CC5500;
   --bez: cubic-bezier(0.32, 0.72, 0, 1);
   --font-main: 'Plus Jakarta Sans', 'DM Sans', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
@@ -35,6 +40,7 @@
   --ink-ghost: #4A5568;
   --border: #2A3344;
   --border-soft: #1E2738;
+  --gloss: #B8941F;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -229,13 +235,13 @@ html, body { overflow-x: hidden; }
    occurrence seulement). Aucun JavaScript : hover, focus clavier et tap
    mobile passent tous par :hover / :focus-within. */
 .prose-dash .tei-gloss {
-  border-bottom: 1px dotted var(--gold);
+  border-bottom: 1px dotted var(--gloss);
   cursor: help;
   outline: none;
 }
 .prose-dash .tei-gloss:hover,
 .prose-dash .tei-gloss:focus-within { border-bottom-style: solid; }
-.prose-dash .tei-gloss:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 2px; }
+.prose-dash .tei-gloss:focus-visible { outline: 2px solid var(--gloss); outline-offset: 2px; border-radius: 2px; }
 
 /* La bulle est en `position: fixed`, pas `absolute`. C'est délibéré : le corps
    d'article traverse cinq conteneurs qui rognent (.prose-dash, .tei-infobox et
@@ -255,7 +261,7 @@ html, body { overflow-x: hidden; }
   background: var(--card);
   color: var(--ink-soft);
   border: 1px solid var(--border);
-  border-top: 3px solid var(--gold);
+  border-top: 3px solid var(--gloss);
   border-radius: 10px;
   box-shadow: 0 10px 28px rgba(0,0,0,0.18);
   font-size: 13.5px;
@@ -276,7 +282,7 @@ html, body { overflow-x: hidden; }
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gloss);
   margin-bottom: 6px;
 }
 .prose-dash .tei-gloss:hover .tei-gloss-bulle,
@@ -299,7 +305,7 @@ html, body { overflow-x: hidden; }
 }
 
 /* Échantillon inerte, pour la page du glossaire. */
-.prose-dash .tei-gloss-demo { border-bottom: 1px dotted var(--gold); }
+.prose-dash .tei-gloss-demo { border-bottom: 1px dotted var(--gloss); }
 
 @media print {
   .prose-dash .tei-gloss { border-bottom: none; }
