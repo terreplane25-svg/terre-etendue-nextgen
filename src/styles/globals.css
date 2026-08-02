@@ -44,7 +44,11 @@ a { color: inherit; text-decoration: none; }
 html, body { overflow-x: hidden; }
 
 /* ═══ PROSE ═══ */
-.prose-dash { font-family: var(--font-main); font-size: 16px; line-height: 1.85; color: var(--ink-soft); max-width: 100%; overflow-x: hidden; content-visibility: auto; contain-intrinsic-size: auto 5000px; }
+/* Pas de `content-visibility: auto` ici : il applique la containment de peinture,
+   ce qui rognerait les bulles du glossaire (qui sont en position: fixed et
+   doivent pouvoir sortir de la colonne). Le gain était de toute façon nul —
+   le corps de l'article est presque toujours à l'écran. */
+.prose-dash { font-family: var(--font-main); font-size: 16px; line-height: 1.85; color: var(--ink-soft); max-width: 100%; overflow-x: hidden; }
 .prose-dash h2 { font-size: 22px; font-weight: 750; color: var(--ink); margin: 2.4em 0 0.8em; line-height: 1.3; letter-spacing: -0.01em; }
 .prose-dash h3 { font-size: 17px; font-weight: 700; color: var(--ink); margin: 1.8em 0 0.6em; }
 .prose-dash p { margin-bottom: 1.15em; }
@@ -225,7 +229,6 @@ html, body { overflow-x: hidden; }
    occurrence seulement). Aucun JavaScript : hover, focus clavier et tap
    mobile passent tous par :hover / :focus-within. */
 .prose-dash .tei-gloss {
-  position: relative;
   border-bottom: 1px dotted var(--gold);
   cursor: help;
   outline: none;
@@ -234,15 +237,21 @@ html, body { overflow-x: hidden; }
 .prose-dash .tei-gloss:focus-within { border-bottom-style: solid; }
 .prose-dash .tei-gloss:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 2px; }
 
+/* La bulle est en `position: fixed`, pas `absolute`. C'est délibéré : le corps
+   d'article traverse cinq conteneurs qui rognent (.prose-dash, .tei-infobox et
+   consorts, les tableaux, les cartes, et le conteneur de ArticleReader). Un
+   élément absolu y est coupé dès qu'il déborde ; un élément fixe échappe à
+   `overflow: hidden`. En contrepartie il ne peut plus être ancré au mot :
+   il se pose en carte au bas de la fenêtre, toujours entièrement lisible. */
 .prose-dash .tei-gloss-bulle {
-  position: absolute;
-  bottom: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
-  z-index: 60;
+  position: fixed;
+  bottom: 88px;          /* dégage le bouton de sommaire, fixe en bas à droite */
+  left: 24px;
+  transform: translateY(10px);
+  z-index: 200;          /* au-dessus de la nav (100) et du sommaire (80) */
   width: max-content;
-  max-width: min(360px, 78vw);
-  padding: 12px 14px;
+  max-width: min(560px, calc(100vw - 48px));
+  padding: 14px 18px;
   background: var(--card);
   color: var(--ink-soft);
   border: 1px solid var(--border);
@@ -274,24 +283,19 @@ html, body { overflow-x: hidden; }
 .prose-dash .tei-gloss:focus-within .tei-gloss-bulle {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
 }
 
-/* Sur mobile la bulle devient une carte en bas d'écran : jamais de débordement. */
+/* Sur mobile, la carte occupe toute la largeur disponible. */
 @media (max-width: 640px) {
   .prose-dash .tei-gloss-bulle {
-    position: fixed;
     left: 12px;
     right: 12px;
-    bottom: 12px;
-    top: auto;
+    bottom: 84px;
     width: auto;
     max-width: none;
-    transform: translateY(8px);
-    box-shadow: 0 -6px 32px rgba(0,0,0,0.28);
+    font-size: 14px;
   }
-  .prose-dash .tei-gloss:hover .tei-gloss-bulle,
-  .prose-dash .tei-gloss:focus-within .tei-gloss-bulle { transform: translateY(0); }
 }
 
 /* Échantillon inerte, pour la page du glossaire. */
