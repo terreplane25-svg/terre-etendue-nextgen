@@ -135,17 +135,18 @@ adapté à l'identité de la page. Markup :
 
 ## Format des réponses (préférence utilisateur)
 
-L'utilisateur transmet les réponses à une autre IA. Livrer le **corps de la réponse dans un
-seul bloc de code** (clôture à 4 backticks pour pouvoir contenir des blocs à 3 backticks),
-afin qu'un seul clic suffise à tout copier. Texte brut lisible sans rendu Markdown :
+🔴 **Répondre en Markdown normal. NE PAS enfermer la réponse dans un bloc de code.**
 
-- Titres en MAJUSCULES ou soulignés `===`, pas de `#`.
-- Pas de `**gras**` ni de `*italique*` — ils s'affichent tels quels dans un bloc de code.
-- Tableaux en colonnes alignées à l'espace, pas en pipes Markdown.
-- Garder les chiffres, unités et noms de fichiers exacts : c'est le contenu utile pour l'IA
-  destinataire.
+Motif : l'utilisateur écoute les réponses avec la lecture à voix haute de l'interface.
+Un bloc de code n'est pas lu — le lecteur annonce seulement « bloc de code » et saute le
+contenu. La réponse doit donc rester du texte courant.
 
-Hors du bloc : une ligne de contexte au maximum (ce qui a été commité / poussé).
+- Titres, listes, gras, tableaux Markdown : autorisés et souhaités.
+- Réserver les blocs de code au vrai code, aux commandes shell et aux extraits de fichiers.
+- Garder les chiffres, unités et noms de fichiers exacts.
+
+*(Historique : une consigne inverse — tout en bloc de code pour copier-coller vers une autre
+IA — a été en vigueur puis annulée. Ne pas y revenir sans demande explicite.)*
 
 ## Vérification avant commit
 
