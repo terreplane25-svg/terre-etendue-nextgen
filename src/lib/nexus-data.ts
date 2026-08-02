@@ -571,6 +571,21 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
+    "id": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
+    "title": "Mesurer la courbure sur l'eau : cinq campagnes, et celle qui manque",
+    "category": "observatory",
+    "pillar": "OBS",
+    "pillarNum": "02",
+    "color": "#3B8FD4",
+    "primaryDomain": "geometrie",
+    "topDomains": ["geometrie", "optique", "hydrologie"],
+    "quranRefs": 0,
+    "wordCount": 0,
+    "x": -212.5,
+    "y": -256.8,
+    "size": 8
+  },
+  {
     "id": "leau-ne-ment-pas",
     "title": "L'eau ne ment pas",
     "category": "observatory",
@@ -1641,6 +1656,34 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 139.7,
     "strength": "medium",
     "sharedDomains": ["epistemologie", "cosmologie"]
+  },
+  {
+    "source": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
+    "target": "leau-ne-ment-pas",
+    "score": 168.0,
+    "strength": "strong",
+    "sharedDomains": ["geometrie", "hydrologie", "optique"]
+  },
+  {
+    "source": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
+    "target": "lhorizon-la-perspective-et-la-refraction",
+    "score": 152.0,
+    "strength": "strong",
+    "sharedDomains": ["optique", "geometrie"]
+  },
+  {
+    "source": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
+    "target": "par-rapport-a-quoi-mesure-t-on-une-altitude",
+    "score": 148.0,
+    "strength": "medium",
+    "sharedDomains": ["geometrie", "metrologie"]
+  },
+  {
+    "source": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
+    "target": "methodologie",
+    "score": 141.0,
+    "strength": "medium",
+    "sharedDomains": ["epistemologie"]
   },
   {
     "source": "leau-ne-ment-pas",

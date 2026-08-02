@@ -67,6 +67,9 @@ const IMG: Record<string, string> = {
 
   // ── Observatory extra ──
   "vols-avion-et-courbure-terrestre": `${HOSTINGER}/2026/06/Six_flight_instruments.jpg`,
+  // TODO couverture dédiée : viser 1200×630 paysage (trois mires sur un plan d'eau).
+  // En attendant, réemploi de l'horizon marin déjà hébergé.
+  "mesurer-la-courbure-sur-l-eau-cinq-campagnes": `${HOSTINGER}/2026/06/mer_horizon.png`,
   "la-perspective-pourquoi-les-objets-disparaissent": `${HOSTINGER}/2026/07/perspective.png`,
 
   // ── Meta ──
