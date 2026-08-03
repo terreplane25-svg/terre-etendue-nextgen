@@ -2,242 +2,344 @@
 # -*- coding: utf-8 -*-
 """Genere les schemas du dispositif de la campagne cote, dans public/schemas/.
 
-Trois vues :
-  1. dispositif-ensemble.svg  — les trois perches sur le plan d'eau
+  1. dispositif-ensemble.svg    — les trois perches sur le plan d'eau
   2. puits-tranquillisation.svg — coupe d'une perche et de son puits
-  3. lecture-visee.svg        — ce que voit l'observateur dans la lunette
+  3. lecture-visee.svg          — ce que voit l'observateur dans la lunette
 
 Fond sombre #0d1117, police mono, palette Observatoire. Chaque fichier porte
-data-zoomable pour la lightbox du site.
+data-zoomable="true" : la valeur est OBLIGATOIRE, un .svg autonome etant parse
+en XML strict et non en HTML, ou l'attribut nu serait accepte.
+
+Le script verifie deux choses avant d'ecrire :
+  - aucun texte ne sort du viewBox ;
+  - aucun texte n'en chevauche un autre (boites englobantes).
 """
-import math, os, re
+import math, os, re, sys
 
 BG, GRID, INK, MUT = "#0d1117", "#1f2733", "#c9d4e0", "#7b8a9c"
 CY, RO, GO, LV, OP = "#3B8FD4", "#C45E6A", "#B8941F", "#8B7EC8", "#3D9E7C"
 MONO = "ui-monospace, SFMono-Regular, Menlo, monospace"
-R = 6_371_008.8
+CHW = 0.605          # largeur d'un caractere, en fraction de la taille de police
 
-def txt(x, y, s, fill=INK, size=12, weight="400", anchor="start", style=""):
-    a = f' text-anchor="{anchor}"' if anchor != "start" else ""
-    st = f' font-style="{style}"' if style else ""
-    return (f'<text x="{x}" y="{y}" fill="{fill}" font-family="{MONO}" '
-            f'font-size="{size}" font-weight="{weight}"{a}{st}>{s}</text>')
+class Vue:
+    """Accumule le SVG et les boites de texte, pour le controle de collision."""
+    def __init__(self, w, h, titre, sous, aria):
+        self.w, self.h, self.g, self.boxes = w, h, [], []
+        self.rect(0, 0, w, h, BG)
+        self.txt(28, 36, titre, INK, 16, "700")
+        self.txt(28, 58, sous, MUT, 11.5)
+        self.aria = aria
 
-def cote(x1, y1, x2, y2, label, col=MUT, size=11, dy=-6):
-    """Ligne de cote avec embouts."""
-    g = f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{col}" stroke-width="1"/>'
-    if y1 == y2:
-        g += (f'<line x1="{x1}" y1="{y1-4}" x2="{x1}" y2="{y1+4}" stroke="{col}" stroke-width="1"/>'
-              f'<line x1="{x2}" y1="{y2-4}" x2="{x2}" y2="{y2+4}" stroke="{col}" stroke-width="1"/>')
-        g += txt((x1+x2)/2, y1+dy, label, col, size, anchor="middle")
-    else:
-        g += (f'<line x1="{x1-4}" y1="{y1}" x2="{x1+4}" y2="{y1}" stroke="{col}" stroke-width="1"/>'
-              f'<line x1="{x2-4}" y1="{y2}" x2="{x2+4}" y2="{y2}" stroke="{col}" stroke-width="1"/>')
-        g += txt(x1+8, (y1+y2)/2+4, label, col, size)
-    return g
+    def raw(self, s): self.g.append(s)
+    def rect(self, x, y, w, h, fill, stroke=None, sw=1, rx=0, op=1):
+        st = f' stroke="{stroke}" stroke-width="{sw}"' if stroke else ''
+        self.g.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{rx}" '
+                      f'fill="{fill}" opacity="{op}"{st}/>')
+    def line(self, x1, y1, x2, y2, col, sw=1, dash=None, cap=None):
+        d = f' stroke-dasharray="{dash}"' if dash else ''
+        c = f' stroke-linecap="{cap}"' if cap else ''
+        self.g.append(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" '
+                      f'stroke="{col}" stroke-width="{sw}"{d}{c}/>')
+    def circ(self, cx, cy, r, fill="none", stroke=None, sw=1, op=1):
+        st = f' stroke="{stroke}" stroke-width="{sw}"' if stroke else ''
+        self.g.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r}" fill="{fill}" opacity="{op}"{st}/>')
+
+    def txt(self, x, y, s, fill=INK, size=12, weight="400", anchor="start"):
+        larg = len(s) * size * CHW
+        x0 = x - larg / 2 if anchor == "middle" else (x - larg if anchor == "end" else x)
+        self.boxes.append((x0, y - size * 0.80, x0 + larg, y + size * 0.28, s))
+        a = f' text-anchor="{anchor}"' if anchor != "start" else ''
+        self.g.append(f'<text x="{x:.1f}" y="{y:.1f}" fill="{fill}" font-family="{MONO}" '
+                      f'font-size="{size}" font-weight="{weight}"{a}>{s}</text>')
+
+    def bloc(self, x, y, lignes, inter=19):
+        """Paragraphe d'annotation : liste de (texte, couleur, taille, graisse)."""
+        for i, l in enumerate(lignes):
+            t, c, sz, w = (l + (None,) * 4)[:4]
+            self.txt(x, y + i * inter, t, c or MUT, sz or 11.5, w or "400")
+        return y + (len(lignes) - 1) * inter
+
+    def amorce(self, x1, y1, x2, y2, col=MUT):
+        """Ligne d'amorce entre une annotation et l'element qu'elle designe."""
+        self.line(x1, y1, x2, y2, col, 0.9, "3 3")
+
+    def cote_h(self, x1, x2, y, label, col=MUT, size=11):
+        self.line(x1, y, x2, y, col, 1)
+        for x in (x1, x2): self.line(x, y - 4, x, y + 4, col, 1)
+        self.txt((x1 + x2) / 2, y - 7, label, col, size, anchor="middle")
+
+    def cote_v(self, x, y1, y2, label, col=MUT, size=11):
+        self.line(x, y1, x, y2, col, 1)
+        for y in (y1, y2): self.line(x - 4, y, x + 4, y, col, 1)
+        self.txt(x - 8, (y1 + y2) / 2 + 4, label, col, size, anchor="end")
+
+    def rendu(self):
+        return (f'<svg viewBox="0 0 {self.w} {self.h}" xmlns="http://www.w3.org/2000/svg" '
+                f'data-zoomable="true" role="img" aria-label="{self.aria}">\n'
+                + "\n".join(self.g) + "\n</svg>\n")
+
+    def controle(self, nom):
+        pb = 0
+        for x0, y0, x1, y1, s in self.boxes:
+            if x0 < -1 or x1 > self.w + 1 or y0 < 0 or y1 > self.h:
+                print(f"  [{nom}] HORS CADRE  «{s[:46]}»  x[{x0:.0f},{x1:.0f}] y[{y0:.0f},{y1:.0f}]")
+                pb += 1
+        for i in range(len(self.boxes)):
+            for j in range(i + 1, len(self.boxes)):
+                a, b = self.boxes[i], self.boxes[j]
+                ox = min(a[2], b[2]) - max(a[0], b[0])
+                oy = min(a[3], b[3]) - max(a[1], b[1])
+                if ox > 2 and oy > 1:
+                    print(f"  [{nom}] CHEVAUCHE   «{a[4][:34]}» / «{b[4][:34]}»  ({ox:.0f}x{oy:.0f} px)")
+                    pb += 1
+        return pb
+
 
 # ═══════════════════════════════════════════════════════════════════════════
 # 1. VUE D'ENSEMBLE
 # ═══════════════════════════════════════════════════════════════════════════
-W, H = 920, 560
-def arc(x):                       # surface de l'eau, courbure exageree
-    t = (x - 460) / 380.0
-    return 372 + 62 * t * t
+def vue_ensemble():
+    v = Vue(1040, 600,
+            "DISPOSITIF A TROIS MIRES — VUE D'ENSEMBLE",
+            "Courbure verticale fortement exageree. A 10 km la fleche reelle vaut 1,96 m pour 4,00 m de perche.",
+            "Vue d ensemble du dispositif a trois perches sur un plan d eau")
 
-pts = " ".join(f"{x},{arc(x):.1f}" for x in range(50, 871, 8))
-XA, XB, XC = 110, 460, 810
-yA, yB, yC = arc(XA), arc(XB), arc(XC)
-HP = 168                          # 4,00 m a l'echelle du dessin
-sA, sB, sC = yA - HP, yB - HP, yC - HP
-sMid = (sA + sC) / 2
+    XA, XB, XC = 150, 500, 850
+    EAU_MIL, BOMBE, HP = 420, 58, 150     # y de l'eau au milieu, bombement, hauteur perche
+    def eau(x):
+        t = (x - XB) / (XC - XB)
+        return EAU_MIL + BOMBE * t * t
 
-def perche(x, ybase, ysom, coul, lettre, graduee=False):
-    g = f'<line x1="{x}" y1="{ybase:.1f}" x2="{x}" y2="{ysom:.1f}" stroke="{coul}" stroke-width="3.5" stroke-linecap="round"/>'
-    # puits de tranquillisation
-    g += (f'<rect x="{x-9}" y="{ybase-26:.1f}" width="18" height="52" rx="3" fill="none" '
-          f'stroke="{OP}" stroke-width="1.6"/>')
-    for dy in (12, 19, 26):
-        g += (f'<line x1="{x-9}" y1="{ybase+dy:.1f}" x2="{x-4}" y2="{ybase+dy:.1f}" stroke="{OP}" stroke-width="1"/>'
-              f'<line x1="{x+4}" y1="{ybase+dy:.1f}" x2="{x+9}" y2="{ybase+dy:.1f}" stroke="{OP}" stroke-width="1"/>')
-    # lest
-    g += f'<rect x="{x-13}" y="{ybase+30:.1f}" width="26" height="9" rx="2" fill="{MUT}" opacity="0.55"/>'
-    if graduee:
-        for i in range(11):
-            yy = ysom + i * 9
-            lg = 11 if i % 5 == 0 else 6
-            g += f'<line x1="{x+3}" y1="{yy:.1f}" x2="{x+3+lg}" y2="{yy:.1f}" stroke="{GO}" stroke-width="1.3"/>'
-    g += txt(x, ybase + 58, lettre, coul, 15, "700", "middle")
-    return g
+    yA, yB, yC = eau(XA), eau(XB), eau(XC)
+    sA, sB, sC = yA - HP, yB - HP, yC - HP
+    sMid = (sA + sC) / 2                   # la corde, a l'aplomb de B
 
-svg1 = f'''<svg viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" data-zoomable role="img" aria-label="Vue d ensemble du dispositif a trois perches sur un plan d eau">
-<rect width="{W}" height="{H}" fill="{BG}"/>
-{txt(28, 36, "DISPOSITIF A TROIS MIRES — VUE D'ENSEMBLE", INK, 16, "700")}
-{txt(28, 58, "Courbure verticale fortement exageree. A 10 km la fleche reelle vaut 1,96 m pour 4,00 m de perche.", MUT, 11.5)}
+    # ── plan d'eau ────────────────────────────────────────────────────────
+    pts = " ".join(f"{x},{eau(x):.1f}" for x in range(70, 971, 10))
+    v.raw(f'<path d="M 70,{eau(70):.1f} L {pts.replace(" ", " L ")} L 970,{v.h-70} L 70,{v.h-70} Z" '
+          f'fill="{CY}" opacity="0.055"/>')
+    v.raw(f'<polyline points="{pts}" fill="none" stroke="{CY}" stroke-width="2.5"/>')
 
-<polyline points="{pts}" fill="none" stroke="{CY}" stroke-width="2.5" opacity="0.9"/>
-<path d="M50,{arc(50):.1f} {pts.replace(' ', ' L')} L870,{arc(870):.1f} L870,{H-70} L50,{H-70} Z" fill="{CY}" opacity="0.05"/>
-{txt(700, arc(760)+78, "plan d'eau sans maree", CY, 11.5)}
+    # ── perches ───────────────────────────────────────────────────────────
+    def perche(x, yb, ys, col, graduee=False):
+        v.line(x, yb, x, ys, col, 3.5, cap="round")
+        v.rect(x - 9, yb - 22, 18, 46, "none", OP, 1.6, 3)          # puits
+        for dy in (10, 17, 24):
+            v.line(x - 9, yb + dy, x - 4.5, yb + dy, OP, 1)
+            v.line(x + 4.5, yb + dy, x + 9, yb + dy, OP, 1)
+        v.rect(x - 12, yb + 28, 24, 8, MUT, rx=2, op=0.55)          # lest
+        if graduee:
+            for i in range(13):
+                yy = ys + i * 8
+                v.line(x + 3, yy, x + 3 + (11 if i % 4 == 0 else 6), yy, GO, 1.3)
 
-{perche(XA, yA, sA, INK, "A")}
-{perche(XB, yB, sB, GO, "B", graduee=True)}
-{perche(XC, yC, sC, INK, "C")}
+    perche(XA, yA, sA, INK)
+    perche(XB, yB, sB, GO, graduee=True)
+    perche(XC, yC, sC, INK)
+    v.txt(XA, yA + 52, "A", INK, 15, "700", "middle")
+    v.txt(XB, yB + 52, "B", GO, 15, "700", "middle")
+    v.txt(XC, yC + 52, "C", INK, 15, "700", "middle")
 
-<line x1="{XA}" y1="{sA:.1f}" x2="{XC}" y2="{sC:.1f}" stroke="{RO}" stroke-width="2" stroke-dasharray="8 5"/>
-{txt(178, sA-16, "ligne de visee A vers C — une droite geometrique", RO, 12, "700")}
+    # ── visee et fleche ───────────────────────────────────────────────────
+    v.line(XA, sA, XC, sC, RO, 2, "8 5")
+    v.circ(XB, sB, 4.5, GO); v.circ(XB, sMid, 4.5, RO)
+    # cote laterale : sans elle, la fleche se confond avec le mat
+    XF = XB - 26
+    v.line(XB - 6, sB, XF - 8, sB, GO, 0.9, "3 3")
+    v.line(XB - 6, sMid, XF - 8, sMid, GO, 0.9, "3 3")
+    v.line(XF, sB, XF, sMid, GO, 2.4)
+    v.line(XF - 6, sB, XF + 6, sB, GO, 2)
+    v.line(XF - 6, sMid, XF + 6, sMid, GO, 2)
+    v.txt(XF - 12, (sB + sMid) / 2 + 5, "f", GO, 15, "700", "end")
 
-<line x1="{XB}" y1="{sB:.1f}" x2="{XB}" y2="{sMid:.1f}" stroke="{GO}" stroke-width="2.5"/>
-<circle cx="{XB}" cy="{sB:.1f}" r="4.5" fill="{GO}"/>
-<circle cx="{XB}" cy="{sMid:.1f}" r="4.5" fill="{RO}"/>
-{txt(XB+16, (sB+sMid)/2+5, "f  =  la fleche", GO, 13, "700")}
-{txt(XB+16, (sB+sMid)/2+21, "lecture sur la graduation", MUT, 11)}
+    # lunette
+    v.circ(XA, sA, 7, "none", LV, 2)
+    v.line(XA - 24, sA - 15, XA - 7, sA - 4, LV, 2)
 
-<circle cx="{XA}" cy="{sA:.1f}" r="7" fill="none" stroke="{LV}" stroke-width="2"/>
-<line x1="{XA-22}" y1="{sA-14:.1f}" x2="{XA-7}" y2="{sA-4:.1f}" stroke="{LV}" stroke-width="2"/>
-{txt(XA-30, sA-20, "lunette", LV, 11.5, anchor="end")}
+    # ── annotations, toutes au-dessus de la visee ou hors du dessin ───────
+    v.txt(XA - 30, sA - 20, "lunette", LV, 11.5, anchor="end")
+    v.txt(360, 120, "ligne de visee A vers C", RO, 13, "700")
+    v.txt(360, 139, "une droite — rien ne la recale en chemin", MUT, 11.5)
+    v.amorce(430, 146, 430, sA - 4, RO)
 
-{cote(XA, H-52, XB, H-52, "D / 2")}
-{cote(XB, H-52, XC, H-52, "D / 2")}
-{cote(XA, H-26, XC, H-26, "D  =  1 · 1,5 · 2 · 3 · 5 · 7 · 10 km — sept configurations", GO, 12)}
+    v.txt(560, 214, "f — LA FLECHE", GO, 13, "700")
+    v.txt(560, 233, "de combien le sommet de B", MUT, 11.5)
+    v.txt(560, 252, "depasse la corde A-C", MUT, 11.5)
+    v.txt(560, 271, "c'est le seul nombre a relever", INK, 11.5)
+    v.amorce(552, 240, XB + 8, (sB + sMid) / 2, GO)
 
-{cote(XC+42, sC, XC+42, yC, "4,00 m", MUT)}
-<line x1="{XC}" y1="{sC:.1f}" x2="{XC+46}" y2="{sC:.1f}" stroke="{MUT}" stroke-width="0.8" stroke-dasharray="3 3"/>
-<line x1="{XC}" y1="{yC:.1f}" x2="{XC+46}" y2="{yC:.1f}" stroke="{MUT}" stroke-width="0.8" stroke-dasharray="3 3"/>
+    v.txt(772, 120, "puits de tranquillisation", OP, 12, "700")
+    v.txt(772, 139, "a la base de chaque perche", MUT, 11.5)
+    v.amorce(850, 146, XC - 6, yC - 26, OP)
 
-<rect x="28" y="{H-160}" width="300" height="86" rx="6" fill="none" stroke="{GRID}" stroke-width="1"/>
-{txt(42, H-140, "MODELE PLAN", RO, 11, "700")}
-{txt(42, H-122, "f = 0. La lecture vaut 4,000 m", INK, 11.5)}
-{txt(42, H-106, "a toute distance.", INK, 11.5)}
-{txt(42, H-86, "MODELE SPHERIQUE   f = (1-k) D2 / 8R", CY, 11, "700")}
-</svg>'''
+    v.txt(268, eau(410) - 22, "plan d'eau sans maree", CY, 11.5)
+
+    # ── cotes ─────────────────────────────────────────────────────────────
+    v.line(XC, sC, XC + 62, sC, MUT, 0.8, "3 3")
+    v.line(XC, yC, XC + 62, yC, MUT, 0.8, "3 3")
+    v.cote_v(XC + 56, sC, yC, "4,00 m", MUT, 12)
+
+    v.cote_h(XA, XB, v.h - 54, "D / 2")
+    v.cote_h(XB, XC, v.h - 54, "D / 2")
+    v.cote_h(XA, XC, v.h - 20, "D  =  1 · 1,5 · 2 · 3 · 5 · 7 · 10 km — sept configurations", GO, 12)
+
+    # ── encart des deux predictions, en haut a gauche (zone libre) ────────
+    v.rect(28, 92, 300, 92, "none", GRID, 1, 6)
+    v.txt(44, 114, "MODELE PLAN", RO, 11.5, "700")
+    v.txt(44, 133, "f = 0 — la lecture vaut 4,000 m", INK, 11.5)
+    v.txt(44, 152, "a toute distance", INK, 11.5)
+    v.txt(44, 173, "SPHERIQUE   f = (1-k) · D² / 8R", CY, 11.5, "700")
+    return v
+
 
 # ═══════════════════════════════════════════════════════════════════════════
 # 2. PUITS DE TRANQUILLISATION — coupe
 # ═══════════════════════════════════════════════════════════════════════════
-W2, H2 = 900, 620
-XT = 300          # axe de la perche
-EAU = 300         # niveau moyen
+def vue_puits():
+    v = Vue(1080, 640,
+            "LE PUITS DE TRANQUILLISATION — COUPE D'UNE PERCHE",
+            "La piece qui decide de tout : sans elle, la lecture de la ligne d'eau vaut 100 mm et ecrase le signal.",
+            "Coupe d une perche et de son puits de tranquillisation")
 
-vagues = "M 40 %d" % EAU
-for x in range(40, 261, 10):
-    vagues += f" Q {x+5},{EAU-13 if (x//10)%2==0 else EAU+13} {x+10},{EAU}"
-vagues2 = "M 500 %d" % EAU
-for x in range(500, 861, 10):
-    vagues2 += f" Q {x+5},{EAU-13 if (x//10)%2==0 else EAU+13} {x+10},{EAU}"
+    XT, EAU = 300, 330          # axe de la perche, niveau moyen
+    TR, SOM, FOND = 44, 108, 560   # demi-largeur du tube, sommet, fond du tube
+    COL = 470                   # colonne d'annotations
+    BOX = 790                   # encart chiffre
 
-svg2 = f'''<svg viewBox="0 0 {W2} {H2}" xmlns="http://www.w3.org/2000/svg" data-zoomable role="img" aria-label="Coupe d une perche et de son puits de tranquillisation">
-<rect width="{W2}" height="{H2}" fill="{BG}"/>
-{txt(28, 36, "LE PUITS DE TRANQUILLISATION — COUPE D'UNE PERCHE", INK, 16, "700")}
-{txt(28, 58, "La piece qui decide de tout. Sans elle, la lecture de la ligne d'eau vaut 100 mm et ecrase le signal.", MUT, 11.5)}
+    # ── eau libre, de part et d'autre du tube ─────────────────────────────
+    BORD_EAU = 452                # le plan d'eau s'arrete avant la colonne de texte
+    v.rect(40, EAU, BORD_EAU - 40, v.h - EAU - 46, CY, op=0.06)
+    for x0, x1 in ((40, XT - TR), (XT + TR, BORD_EAU)):
+        d = f"M {x0} {EAU}"
+        for x in range(int(x0), int(x1), 12):
+            d += f" Q {x+3},{EAU-11} {x+6},{EAU} T {x+12},{EAU}"
+        v.raw(f'<path d="{d}" fill="none" stroke="{CY}" stroke-width="2.2"/>')
 
-<rect x="40" y="{EAU}" width="820" height="{H2-EAU-60}" fill="{CY}" opacity="0.07"/>
-<path d="{vagues}" fill="none" stroke="{CY}" stroke-width="2.2"/>
-<path d="{vagues2}" fill="none" stroke="{CY}" stroke-width="2.2"/>
-{txt(60, EAU+46, "clapot libre  ±100 mm", CY, 12, "700")}
-{txt(60, EAU+64, "la ligne d'eau est indeterminee", MUT, 11)}
-{txt(620, EAU+46, "clapot libre  ±100 mm", CY, 12, "700")}
+    # ── tube ──────────────────────────────────────────────────────────────
+    v.rect(XT - TR, EAU - 54, 2 * TR, FOND - EAU + 54, BG, OP, 2.4, 5)
+    v.rect(XT - TR, EAU - 54, 2 * TR, 54, OP, op=0.05)
+    v.line(XT - TR, EAU, XT + TR, EAU, OP, 2.8)
+    for i in range(6):
+        yy = EAU + 62 + i * 30
+        v.circ(XT - TR, yy, 3.4, "none", OP, 1.4)
+        v.circ(XT + TR, yy, 3.4, "none", OP, 1.4)
 
-<rect x="{XT-46}" y="{EAU-58}" width="92" height="{H2-EAU-40}" rx="5" fill="{BG}" stroke="{OP}" stroke-width="2.4"/>
-<line x1="{XT-46}" y1="{EAU}" x2="{XT+46}" y2="{EAU}" stroke="{OP}" stroke-width="2.6"/>
-{txt(XT+62, EAU+4, "eau calme dans le tube  ±5 mm", OP, 12, "700")}
-{txt(XT+62, EAU+22, "-> la ligne d'eau devient lisible", MUT, 11)}
+    # ── perche et mire ────────────────────────────────────────────────────
+    v.line(XT, FOND - 20, XT, SOM, GO, 5, cap="round")
+    for i in range(23):
+        yy = SOM + i * 8.6
+        v.line(XT + 6, yy, XT + 6 + (17 if i % 5 == 0 else 10), yy, GO, 1.4)
+    v.circ(XT, SOM, 5.5, RO)
+    v.rect(XT - 34, v.h - 40, 68, 12, MUT, rx=3, op=0.6)
 
-<rect x="{XT-46}" y="{EAU-58}" width="92" height="58" fill="{OP}" opacity="0.05"/>
-{txt(XT+62, EAU-30, "puits de tranquillisation", OP, 12, "700")}
-{txt(XT+62, EAU-12, "tube PVC 75 a 100 mm", MUT, 11)}
+    # ── cote 4,00 m, a gauche, dans une bande libre ───────────────────────
+    v.line(XT - 6, SOM, XT - 136, SOM, INK, 0.8, "3 3")
+    v.line(XT - TR, EAU, XT - 136, EAU, INK, 0.8, "3 3")
+    v.cote_v(XT - 130, SOM, EAU, "4,00 m", INK, 13)
 
-<g>
-{"".join(f'<circle cx="{XT-46}" cy="{EAU+40+i*26}" r="3.4" fill="none" stroke="{OP}" stroke-width="1.4"/><circle cx="{XT+46}" cy="{EAU+40+i*26}" r="3.4" fill="none" stroke="{OP}" stroke-width="1.4"/>' for i in range(6))}
-</g>
-{txt(XT-62, EAU+130, "percements fins", OP, 11, anchor="end")}
-{txt(XT-62, EAU+148, "8 mm — ils laissent", MUT, 10.5, anchor="end")}
-{txt(XT-62, EAU+166, "passer le niveau moyen,", MUT, 10.5, anchor="end")}
-{txt(XT-62, EAU+184, "pas les vagues", MUT, 10.5, anchor="end")}
+    # ── colonne d'annotations ─────────────────────────────────────────────
+    v.txt(COL, 118, "sommet — origine de la mesure", RO, 12, "700")
+    v.amorce(COL - 10, 114, XT + 10, SOM, RO)
 
-<line x1="{XT}" y1="{EAU+200}" x2="{XT}" y2="96" stroke="{GO}" stroke-width="5" stroke-linecap="round"/>
-<rect x="{XT-38}" y="{H2-56}" width="76" height="14" rx="3" fill="{MUT}" opacity="0.6"/>
-{txt(XT+50, H2-44, "lest / ancrage sur le fond", MUT, 11)}
+    y = v.bloc(COL, 166, [("mire graduee au millimetre", GO, 12, "700"),
+                          ("sur les 2,50 m superieurs", None, 11.5, None),
+                          ("perche B uniquement", None, 11.5, None)])
+    v.amorce(COL - 10, 170, XT + 26, 180, GO)
 
-<g>
-{"".join(f'<line x1="{XT+6}" y1="{96+i*10.4:.1f}" x2="{XT+(20 if i%5==0 else 13)}" y2="{96+i*10.4:.1f}" stroke="{GO}" stroke-width="1.4"/>' for i in range(25))}
-</g>
-{txt(XT+30, 118, "mire graduee au millimetre", GO, 12, "700")}
-{txt(XT+30, 136, "sur les 2,50 m superieurs", MUT, 11)}
-{txt(XT+30, 154, "(perche B uniquement)", MUT, 11)}
+    y = v.bloc(COL, 258, [("eau calme dans le tube  ±5 mm", OP, 12, "700"),
+                          ("c'est la ligne que l'on lit", None, 11.5, None)])
+    v.amorce(COL - 10, 262, XT + TR + 6, EAU, OP)
 
-<circle cx="{XT}" cy="96" r="5" fill="{RO}"/>
-{txt(XT+16, 88, "sommet — origine de la mesure", RO, 11.5, "700")}
+    y = v.bloc(COL, 330, [("puits de tranquillisation", OP, 12, "700"),
+                          ("tube PVC de 75 a 100 mm,", None, 11.5, None),
+                          ("solidaire de la perche", None, 11.5, None)])
+    v.amorce(COL - 10, 334, XT + TR + 6, EAU + 40, OP)
 
-{cote(XT-92, 96, XT-92, EAU, "4,00 m", INK, 12)}
-<line x1="{XT-96}" y1="96" x2="{XT-6}" y2="96" stroke="{INK}" stroke-width="0.8" stroke-dasharray="3 3"/>
-<line x1="{XT-96}" y1="{EAU}" x2="{XT-50}" y2="{EAU}" stroke="{INK}" stroke-width="0.8" stroke-dasharray="3 3"/>
-{txt(XT-88, 176, "mesures DEPUIS", MUT, 10.5)}
-{txt(XT-88, 192, "la ligne d'eau,", MUT, 10.5)}
-{txt(XT-88, 208, "jamais depuis le fond", MUT, 10.5)}
+    y = v.bloc(COL, 428, [("percements fins de 8 mm", OP, 12, "700"),
+                          ("ils laissent passer le niveau", None, 11.5, None),
+                          ("moyen, pas les vagues", None, 11.5, None)])
+    v.amorce(COL - 10, 432, XT + TR + 6, EAU + 122, OP)
 
-<rect x="560" y="120" width="310" height="132" rx="6" fill="none" stroke="{GRID}" stroke-width="1"/>
-{txt(576, 144, "CE QUE CA CHANGE, A 1 km", GO, 11.5, "700")}
-{txt(576, 168, "sans puits    sigma = 70,9 mm   S/B  0,3", MUT, 11.5)}
-{txt(576, 188, "avec puits    sigma =  5,9 mm   S/B  2,9", INK, 11.5)}
-{txt(576, 208, "+ 10 seances  sigma =  1,9 mm   S/B 10,5", OP, 11.5, "700")}
-{txt(576, 234, "fleche attendue a 1 km : 19,6 mm", CY, 11.5)}
-</svg>'''
+    v.txt(COL, 526, "lest et ancrage sur le fond", MUT, 12, "700")
+    v.amorce(COL - 10, 522, XT + 40, v.h - 34, MUT)
+
+    v.txt(48, EAU + 46, "clapot libre  ±100 mm", CY, 12, "700")
+    v.txt(48, EAU + 65, "la ligne d'eau y est", MUT, 11)
+    v.txt(48, EAU + 82, "indeterminee", MUT, 11)
+    v.txt(48, 556, "tout se mesure", MUT, 11)
+    v.txt(48, 573, "DEPUIS la ligne d'eau,", MUT, 11)
+    v.txt(48, 590, "jamais depuis le fond", MUT, 11)
+
+    # ── encart chiffre ────────────────────────────────────────────────────
+    v.rect(BOX, 100, 262, 168, "none", GRID, 1, 6)
+    v.txt(BOX + 16, 126, "CE QUE CA CHANGE, A 1 km", GO, 11.5, "700")
+    v.txt(BOX + 16, 152, "fleche attendue", CY, 11)
+    v.txt(BOX + 16, 170, "19,6 mm", CY, 13, "700")
+    v.txt(BOX + 16, 198, "sans puits      70,9 mm   S/B  0,3", MUT, 10.5)
+    v.txt(BOX + 16, 218, "avec puits       5,9 mm   S/B  2,9", INK, 10.5)
+    v.txt(BOX + 16, 238, "+ 10 seances     1,9 mm   S/B 10,5", OP, 10.5, "700")
+    v.txt(BOX + 16, 258, "ecart-type d'une lecture", MUT, 10)
+    return v
+
 
 # ═══════════════════════════════════════════════════════════════════════════
 # 3. CE QUE VOIT L'OBSERVATEUR
 # ═══════════════════════════════════════════════════════════════════════════
-W3, H3 = 900, 430
-CX1, CX2, CYY, RR = 240, 660, 235, 130
+def vue_lecture():
+    v = Vue(980, 600,
+            "CE QUE VOIT L'OBSERVATEUR — MEME VISEE, DEUX MODELES",
+            "Oeil au sommet de A, reticule pose sur le sommet de C. On lit la graduation de B au croisement.",
+            "Ce que voit l observateur dans la lunette sous chaque modele")
 
-def oculaire(cx, titre, coul, lecture, ecart, sous):
-    g = f'<circle cx="{cx}" cy="{CYY}" r="{RR}" fill="#070b10" stroke="{coul}" stroke-width="2.5"/>'
-    g += f'<line x1="{cx-RR+14}" y1="{CYY}" x2="{cx+RR-14}" y2="{CYY}" stroke="{MUT}" stroke-width="0.9" stroke-dasharray="4 4"/>'
-    g += f'<line x1="{cx}" y1="{CYY-RR+14}" x2="{cx}" y2="{CYY+RR-14}" stroke="{MUT}" stroke-width="0.9" stroke-dasharray="4 4"/>'
-    # mire B
-    bx = cx - 6
-    g += f'<rect x="{bx}" y="{CYY-96}" width="13" height="180" fill="{GO}" opacity="0.20"/>'
-    for i in range(19):
-        yy = CYY - 96 + i * 10
-        lg = 15 if i % 5 == 0 else 8
-        g += f'<line x1="{bx+13}" y1="{yy}" x2="{bx+13+lg}" y2="{yy}" stroke="{GO}" stroke-width="1.2"/>'
-    # sommet de C, sur le reticule
-    g += f'<circle cx="{cx+RR-34}" cy="{CYY}" r="5" fill="{RO}"/>'
-    g += txt(cx+RR-46, CYY-14, "C", RO, 12, "700", "end")
-    # trait de lecture
-    g += f'<line x1="{cx-RR+20}" y1="{CYY+ecart}" x2="{cx+RR-20}" y2="{CYY+ecart}" stroke="{coul}" stroke-width="2"/>'
-    g += f'<circle cx="{bx+6}" cy="{CYY+ecart}" r="4.5" fill="{coul}"/>'
-    g += txt(cx, CYY - RR - 40, titre, coul, 14, "700", "middle")
-    g += txt(cx, CYY - RR - 20, sous, MUT, 11, anchor="middle")
-    g += txt(cx, CYY + RR + 30, lecture, coul, 13, "700", "middle")
-    return g
+    CYY, RR = 320, 132
+    def oculaire(cx, titre, sous, coul, f_px, lecture):
+        v.circ(cx, CYY, RR, "#060a0f", coul, 2.5)
+        # reticule : la visee A vers C
+        v.line(cx - RR + 12, CYY, cx + RR - 12, CYY, MUT, 1, "5 4")
+        v.line(cx, CYY - RR + 12, cx, CYY + RR - 12, MUT, 1, "5 4")
+        # mire B, sommet a f_px au-dessus du reticule
+        top = CYY - f_px
+        v.rect(cx - 7, top, 14, RR - 14 + f_px, GO, op=0.22)
+        n = int((RR - 20 + f_px) / 9)
+        for i in range(n):
+            yy = top + i * 9
+            v.line(cx + 7, yy, cx + 7 + (14 if i % 5 == 0 else 8), yy, GO, 1.2)
+        v.circ(cx, top, 4.5, GO)
+        # sommet de C, sur le reticule
+        v.circ(cx + RR - 40, CYY, 5, RO)
+        v.txt(cx + RR - 40, CYY + 24, "C", RO, 12, "700", "middle")
+        # point de lecture
+        v.circ(cx, CYY, 5, coul)
+        v.txt(cx, CYY - RR - 44, titre, coul, 14, "700", "middle")
+        v.txt(cx, CYY - RR - 24, sous, MUT, 11, anchor="middle")
+        v.txt(cx, CYY + RR + 34, lecture, coul, 13, "700", "middle")
+        return top
 
-svg3 = f'''<svg viewBox="0 0 {W3} {H3}" xmlns="http://www.w3.org/2000/svg" data-zoomable role="img" aria-label="Ce que voit l observateur dans la lunette, sous chaque modele">
-<rect width="{W3}" height="{H3}" fill="{BG}"/>
-{txt(28, 34, "CE QUE VOIT L'OBSERVATEUR — MEME VISEE, DEUX MODELES", INK, 16, "700")}
-{txt(28, 56, "Oeil au sommet de A. Le reticule est pose sur le sommet de C. On lit la graduation de B.", MUT, 11.5)}
-{oculaire(CX1, "MODELE PLAN", RO, "lecture = 4,000 m", 0, "les trois sommets sont alignes")}
-{oculaire(CX2, "MODELE SPHERIQUE", CY, "lecture = 2,293 m  a 10 km", -58, "B depasse la visee de la fleche")}
-<line x1="{CX2-6}" y1="{CYY}" x2="{CX2-6}" y2="{CYY-58}" stroke="{GO}" stroke-width="2.5"/>
-{txt(CX2+34, CYY-30, "f = 1,707 m", GO, 12.5, "700")}
-{txt(450, 400, "Un seul nombre a relever. Pas d'angle, pas de reduction, pas de systeme de coordonnees.", MUT, 11.5, anchor="middle")}
-</svg>'''
+    oculaire(250, "MODELE PLAN", "le sommet de B est sur le reticule", RO, 0,
+             "lecture = 4,000 m")
+    top = oculaire(730, "MODELE SPHERIQUE", "le sommet de B monte au-dessus", CY, 62,
+                   "lecture = 2,293 m   (a 10 km)")
+    v.line(730 - 18, CYY, 730 - 18, top, GO, 3)
+    v.line(730 - 26, CYY, 730 - 10, CYY, GO, 1.6)
+    v.line(730 - 26, top, 730 - 10, top, GO, 1.6)
+    v.txt(730 - 34, CYY - 28, "f = 1,707 m", GO, 12.5, "700", anchor="end")
 
-# ── ecriture + controle de debordement ────────────────────────────────────
-os.makedirs("public/schemas", exist_ok=True)
-fichiers = {"dispositif-ensemble.svg": svg1,
-            "puits-tranquillisation.svg": svg2,
-            "lecture-visee.svg": svg3}
-bad = 0
-for nom, s in fichiers.items():
-    vw = int(re.search(r'viewBox="0 0 (\d+)', s).group(1))
-    vh = int(re.search(r'viewBox="0 0 \d+ (\d+)', s).group(1))
-    for m in re.finditer(r'<text x="([\d.-]+)" y="([\d.-]+)"[^>]*font-size="([\d.]+)"[^>]*>([^<]*)</text>', s):
-        x, y, fs, t = float(m.group(1)), float(m.group(2)), float(m.group(3)), m.group(4)
-        anc = 'text-anchor="middle"' in m.group(0), 'text-anchor="end"' in m.group(0)
-        larg = len(t) * fs * 0.61
-        x0 = x - larg / 2 if anc[0] else (x - larg if anc[1] else x)
-        if x0 < 0 or x0 + larg > vw or y > vh or y < 0:
-            print(f"  DEBORDEMENT {nom}: «{t[:44]}» -> [{x0:.0f}, {x0+larg:.0f}] / {vw}, y={y}")
-            bad += 1
-    open(f"public/schemas/{nom}", "w", encoding="utf-8").write(s + "\n")
-    print(f"  ecrit  public/schemas/{nom}  ({len(s)} octets, {vw}x{vh})")
-print("controle debordement :", "OK" if bad == 0 else f"{bad} PROBLEME(S)")
+    v.txt(490, 526, "Un seul nombre a relever. Pas d'angle, pas de reduction,", MUT, 12, anchor="middle")
+    v.txt(490, 548, "pas de systeme de coordonnees, pas d'unite imposee.", MUT, 12, anchor="middle")
+    return v
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+if __name__ == "__main__":
+    os.makedirs("public/schemas", exist_ok=True)
+    pb = 0
+    for nom, fn in [("dispositif-ensemble", vue_ensemble),
+                    ("puits-tranquillisation", vue_puits),
+                    ("lecture-visee", vue_lecture)]:
+        v = fn()
+        pb += v.controle(nom)
+        s = v.rendu()
+        open(f"public/schemas/{nom}.svg", "w", encoding="utf-8").write(s)
+        print(f"  ecrit  public/schemas/{nom}.svg  ({len(s)} octets, {v.w}x{v.h}, {len(v.boxes)} textes)")
+    print("controle :", "AUCUN DEBORDEMENT NI CHEVAUCHEMENT" if pb == 0 else f"{pb} PROBLEME(S)")
+    sys.exit(1 if pb else 0)
