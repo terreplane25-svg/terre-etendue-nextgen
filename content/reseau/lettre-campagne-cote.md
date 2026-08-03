@@ -4,7 +4,7 @@
 topographie, IUT génie civil, associations d'astronomie, cabinets de géomètres-experts et
 gestionnaires de plans d'eau.*
 
-*Version 1.1 — 2 août 2026. Fondée sur `content/reseau/protocole-cote-trois-mires.json` v1.1,
+*Version 1.2 — 3 août 2026. Fondée sur `content/reseau/protocole-cote-trois-mires.json` v1.2,
 pré-enregistré et horodaté dans un dépôt public. Schémas du dispositif dans
 `public/schemas/`.*
 
@@ -182,6 +182,48 @@ mécaniquement avec la distance. La **hauteur/eau** est constante, et c'est elle
 version sans puits. La **réfraction** domine au-delà de 3 km, et c'est irréductible — d'où le
 choix de mesurer la pente plutôt que l'amplitude.
 
+## Pourquoi pas un capteur de pression
+
+C'est l'objection que vous formulerez sans doute avant toutes les autres, et elle est légitime :
+il existe des sondes piézométriques immergées qui font exactement ce travail. Placées à
+profondeur fixe, elles enregistrent la pression de la colonne d'eau et la convertissent en
+hauteur ; un enregistrement continu moyenne le clapot statistiquement, et la précision annoncée
+sur les modèles courants est de l'ordre de **± 0,5 cm H₂O** — soit précisément notre cible.
+
+Nous les avons écartées comme instrument de mesure, pour une raison qui tient à la nature de
+l'observable et non au budget.
+
+**Un capteur de pression ne mesure pas une hauteur.** Il mesure une pression, et il la convertit
+en hauteur en supposant la densité du fluide et l'accélération locale de la pesanteur. Il
+introduit donc ρ et g dans une chaîne de mesure dont tout l'intérêt est de ne rien supposer en
+amont. Le tube plongeur, lui, ne suppose rien : il montre la ligne d'eau, et on la lit.
+
+Ce n'est pas un scrupule théorique. Comme dh/h = dρ/ρ, l'erreur est proportionnelle à
+l'immersion du capteur :
+
+| Immersion du capteur | Eau douce supposée en milieu salé | Saumâtre, ρ à ± 2 % | Saumâtre, ρ à ± 1 % |
+|---|---|---|---|
+| 0,5 m | 12 mm | 10 mm | 5 mm |
+| 1,0 m | 25 mm | 20 mm | 10 mm |
+| 1,5 m | 38 mm | 30 mm | 15 mm |
+| 2,0 m | 50 mm | 40 mm | 20 mm |
+
+Or **les trois meilleurs sites candidats sont des étangs saumâtres à salinité saisonnière** :
+Vaccarès oscille entre 5 et 30 g/L selon l'année, Thau entre 30 et 40, Berre entre 10 et 30. À
+un mètre d'immersion, l'incertitude sur la seule densité coûte donc 20 mm — quatre fois notre
+cible de 5 mm — à quoi s'ajouterait la compensation barométrique si le capteur est non ventilé.
+Il faudrait un étalonnage de densité in situ à chaque séance pour redescendre au niveau que le
+tube atteint sans rien mesurer.
+
+**En revanche, un capteur reste utile pour caractériser les conditions**, et nous en prendrons
+un si vous en disposez : un seul enregistreur, sur une seule perche, documente l'amplitude
+réelle du clapot pendant la séance et prouve que le puits de tranquillisation fait son travail.
+Il ne remplace aucune lecture ; il valide le dispositif.
+
+Signalons enfin, puisque le sujet s'y prête, que **la mire graduée n'est pas une pièce à
+fabriquer** : les mires limnimétriques sont un produit courant du matériel hydrologique, conçues
+pour rester plantées dans un plan d'eau et se lire à distance.
+
 ## Le pouvoir de discrimination
 
 C'est le chiffre qui justifie la campagne. Incertitude sur la pente *a* de log(f) = *a*·log(D) + *b* :
@@ -203,19 +245,23 @@ pas imiter.
 1. Trois perches identiques de 4,00 m, verticalité vérifiée au fil à plomb, chacune munie de son
    puits de tranquillisation. La perche B graduée au millimètre sur ses 2,50 m supérieurs.
 2. Positionnement de B au milieu de A–C à 0,5 % près ; D relevée au télémètre ou au GPS.
-3. Trois lectures par séance, espacées de dix minutes, avec température de l'air, température de
+3. Vérifier la lecture de l'instrument à vide avant la séance, et **laisser la lunette atteindre
+   la température ambiante avant la première visée** — dix minutes minimum. Une optique sortie
+   d'un coffre chaud dérive pendant sa mise en température, exactement comme les thermistances
+   des sondes hydrologiques, qui demandent le même délai.
+4. Trois lectures par séance, espacées de dix minutes, avec température de l'air, température de
    l'eau, pression, vent et visibilité à chaque lecture.
-4. **Dix séances retenues minimum par distance**, réparties sur cinq journées distinctes au
+5. **Dix séances retenues minimum par distance**, réparties sur cinq journées distinctes au
    moins, matin et après-midi obligatoirement représentés.
-5. **Aucun compensateur, aucune bulle, aucune horizontale instrumentale entre A et C.** La visée
+6. **Aucun compensateur, aucune bulle, aucune horizontale instrumentale entre A et C.** La visée
    A→C doit être une droite géométrique. Un compensateur se cale sur la verticale locale, qui
    tourne avec la surface, et réintroduirait exactement l'aveuglement que ce montage sert à
    contourner. Ce point mérite une vérification avant la campagne : plusieurs firmwares
    appliquent une correction en silence.
-6. **Pas de laser.** C'est ce qui a fait échouer la campagne FECORE de 2018 : à 20 km la tache
+7. **Pas de laser.** C'est ce qui a fait échouer la campagne FECORE de 2018 : à 20 km la tache
    atteint plusieurs mètres et une erreur d'inclinaison d'un centième de degré produit 3,50 m
    d'écart. Mire graduée et visée optique uniquement.
-7. Publier le carnet complet, y compris les séances écartées et le motif de leur rejet.
+8. Publier le carnet complet, y compris les séances écartées et le motif de leur rejet.
 
 ### Règles de rejet, écrites avant les séances
 
@@ -271,7 +317,7 @@ club, ou d'une série de week-ends.
 - Les scripts de calcul, versionnés, qui reproduisent chaque chiffre de cette lettre à l'octet
   près — aucun nombre n'y est saisi à la main.
 - Le dépôt Git public où tout est horodaté.
-- Les trois perches, les puits de tranquillisation et la mire graduée, ou leur financement.
+- Les trois perches, les puits de tranquillisation et la mire limnimétrique graduée, ou leur financement.
 - La prise en charge des frais de déplacement, si le cadre de votre structure le permet.
 
 ## Ce que je m'engage à faire du résultat

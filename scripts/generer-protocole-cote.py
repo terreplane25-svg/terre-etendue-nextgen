@@ -45,6 +45,14 @@ def budget(D, sig_eau, n_seances=1):
     }
     return postes, math.sqrt(sum(v * v for v in postes.values()))
 
+def erreur_densite(immersion_m, incertitude_relative):
+    """Erreur sur le niveau deduit d'une pression, en m.
+
+    h = P / (rho . g)  ->  dh/h = drho/rho. L'erreur est donc PROPORTIONNELLE
+    a l'immersion du capteur : plus il est profond, plus elle est grande."""
+    return immersion_m * incertitude_relative
+
+
 def sigma_pente(sig_eau, n_seances, distances):
     """Incertitude sur la pente de la droite log(f) = a.log(D) + b."""
     lx = [math.log10(x) for x in distances]
@@ -139,9 +147,61 @@ BUDGET = {
   },
 }
 
+ALTERNATIVE_CAPTEUR = {
+  "_question": (
+    "Pourquoi un tube de PVC perce plutot qu'un capteur de pression immerge, "
+    "instrument professionnel courant qui atteint la meme precision de 5 mm ?"
+  ),
+  "ce_que_fait_un_capteur_de_pression": (
+    "Immerge a profondeur fixe, il enregistre la pression de la colonne d'eau "
+    "au-dessus de lui et la convertit en hauteur. Un enregistrement continu "
+    "moyenne le clapot statistiquement. Precision annoncee de l'ordre de "
+    "±0,5 cm H2O sur les modeles courants — soit exactement notre cible."
+  ),
+  "motif_du_rejet_comme_instrument_de_mesure": (
+    "Un capteur de pression ne mesure pas une hauteur : il mesure une pression, "
+    "et la convertit EN SUPPOSANT la densite du fluide et l'acceleration locale "
+    "de la pesanteur. Il introduit donc rho et g dans une chaine de mesure dont "
+    "tout l'interet est de ne rien supposer en amont. Le tube, lui, montre la "
+    "ligne d'eau : on la lit."
+  ),
+  "_chiffrage": {
+    "formule": "dh = immersion x (drho / rho)",
+    "table": [
+      {"immersion_m": h,
+       "eau_douce_supposee_en_milieu_sale_mm": round(erreur_densite(h, 0.025) * 1000),
+       "saumatre_rho_a_2_pourcent_mm": round(erreur_densite(h, 0.020) * 1000),
+       "saumatre_rho_a_1_pourcent_mm": round(erreur_densite(h, 0.010) * 1000)}
+      for h in (0.5, 1.0, 1.5, 2.0)
+    ],
+    "lecture": (
+      "A un metre d'immersion, une incertitude de 2 % sur la densite coute deja "
+      "20 mm — quatre fois la cible de 5 mm. Et les trois meilleurs sites "
+      "candidats sont des etangs SAUMATRES a salinite saisonniere : Vaccares "
+      "oscille entre 5 et 30 g/L, Thau entre 30 et 40, Berre entre 10 et 30. "
+      "Un capteur y exigerait un etalonnage de densite in situ a chaque seance, "
+      "plus une compensation barometrique s'il est non ventile."
+    )
+  },
+  "usage_retenu_malgre_tout": (
+    "OPTIONNEL et utile : un seul enregistreur, sur une seule perche, pour "
+    "CARACTERISER les conditions — il documente l'amplitude reelle du clapot et "
+    "prouve que le puits de tranquillisation fait son travail. Il ne remplace "
+    "aucune lecture ; il valide le dispositif."
+  ),
+  "source": (
+    "Kerloc'h, J. (1er fevrier 2024). « Comment mesurer precisement le niveau de "
+    "l'eau ? L'utilisation des capteurs de pression ». SDEC France. Documentation "
+    "COMMERCIALE, non revue par des pairs : les ordres de grandeur y sont fiables, "
+    "les recommandations de produits sont celles d'un vendeur. C'est de cette "
+    "source que vient le chiffre de 17 mm d'erreur pour de l'eau douce supposee "
+    "en milieu sale, que nous avons recalcule et generalise ci-dessus."
+  )
+}
+
 doc = {
   "_meta": {
-    "version": "1.1",
+    "version": "1.2",
     "titre": "Protocole cote — mesure de la fleche sur trois mires de hauteur egale au-dessus de l'eau",
     "description": (
       "Pre-enregistrement, AVANT toute mesure, des predictions des deux modeles pour une "
@@ -150,7 +210,7 @@ doc = {
       "distance. Aucun chiffre de ce fichier n'a ete saisi a la main ; ils sont tous produits "
       "par scripts/generer-protocole-cote.py, qui est verse dans le depot."
     ),
-    "date": "2026-08-02", "date_revision": "2026-08-02 — v1.1, ajout du budget d'erreur et du puits de tranquillisation",
+    "date": "2026-08-02", "date_revision": "2026-08-03 — v1.2, alternative capteur de pression et son motif de rejet, mire limnimetrique nommee, stabilisation thermique",
     "statut": "PRE-ENREGISTRE — aucune mesure effectuee a ce jour",
     "regle_d_immuabilite": (
       "Les predictions de ce fichier ne seront jamais recalculees apres reception d'une mesure. "
@@ -219,6 +279,8 @@ doc = {
 
   "_budget_d_erreur": BUDGET,
 
+  "_alternative_capteur_de_pression": ALTERNATIVE_CAPTEUR,
+
   "_test_de_l_exposant": {
     "principe": (
       "C'est le coeur du protocole, et c'est ce qu'aucune campagne connue n'a publie. On ne "
@@ -253,7 +315,7 @@ doc = {
   "montage": {
     "materiel": [
       "Trois perches identiques de 4,00 m, section constante, verticalite verifiee au fil a plomb.",
-      "La perche B porte une mire graduee au millimetre sur ses 2,50 m superieurs.",
+      "La perche B porte une mire graduee au millimetre sur ses 2,50 m superieurs. Ce n'est pas une piece a fabriquer : les MIRES LIMNIMETRIQUES sont un produit courant du materiel hydrologique, concues pour rester plantees dans un plan d'eau et se lire a distance.",
       "Un puits de tranquillisation par perche : tube plongeur de 50 a 100 mm perce de trous fins en partie basse, solidaire de la perche. Il amortit le clapot et fait passer la lecture de la ligne d'eau de 100 mm a 5 mm — c'est l'element decisif du dispositif.",
       "Lunette de visee ou theodolite sur trepied, oculaire cale au sommet exact de la perche A.",
       "Reflecteur ou cible contrastee au sommet exact de la perche C.",
@@ -280,6 +342,8 @@ doc = {
   "protocole_de_seance": {
     "repetition_exigee": "Dix seances retenues minimum par configuration, reparties sur au moins cinq journees distinctes.",
     "fenetres": "Matin et apres-midi obligatoirement representes. Les seances de nuit sont enregistrees separement (k y atteint 0,34).",
+    "controle_avant_seance": "Verifier la lecture de l'instrument a vide avant chaque seance, pour attraper une derive avant qu'elle contamine les donnees.",
+    "stabilisation_thermique": "Laisser la lunette atteindre la temperature ambiante AVANT la premiere lecture — compter dix minutes minimum. Une optique sortie d'un coffre chaud derive pendant sa mise en temperature. Le principe est celui des thermistances des sondes hydrologiques, qui demandent le meme delai.",
     "duree_d_une_seance": "Trois lectures espacees de dix minutes, plus les parametres meteo a chaque lecture.",
     "regles_de_rejet_ECRITES_A_L_AVANCE": [
       "Rejet si les trois lectures d'une seance s'ecartent de plus de 20 % de leur mediane — refraction instable.",
