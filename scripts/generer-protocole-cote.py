@@ -45,6 +45,31 @@ def budget(D, sig_eau, n_seances=1):
     }
     return postes, math.sqrt(sum(v * v for v in postes.values()))
 
+# ── rayons de courbure de l'ellipsoide ────────────────────────────────────────
+A_WGS84, E2_WGS84 = 6378137.0, 0.00669437999014
+
+def rayons_ellipsoide(lat_deg):
+    """Rayons de courbure a une latitude : meridien M, transverse N, Gauss.
+
+    M sert aux lignes nord-sud, N aux lignes est-ouest. Pour un azimut
+    quelconque, R_alpha = 1 / (cos2(alpha)/M + sin2(alpha)/N) — formule d'Euler."""
+    phi = math.radians(lat_deg)
+    W = 1 - E2_WGS84 * math.sin(phi) ** 2
+    N = A_WGS84 / math.sqrt(W)
+    M = A_WGS84 * (1 - E2_WGS84) / W ** 1.5
+    return M, N, math.sqrt(M * N)
+
+def rayon_azimut(lat_deg, azimut_deg):
+    M, N, _ = rayons_ellipsoide(lat_deg)
+    a = math.radians(azimut_deg)
+    return 1.0 / (math.cos(a) ** 2 / M + math.sin(a) ** 2 / N)
+
+def fleche_exacte(D, hauteur, R_loc):
+    """Fleche sans aucune approximation : f = (R+h)(1 - cos theta), theta = (D/2)/R."""
+    theta = (D / 2) / R_loc
+    return (R_loc + hauteur) * (1 - math.cos(theta))
+
+
 def erreur_densite(immersion_m, incertitude_relative):
     """Erreur sur le niveau deduit d'une pression, en m.
 
@@ -147,6 +172,126 @@ BUDGET = {
   },
 }
 
+LAT_REF = 43.5     # latitude des etangs candidats (Camargue, Berre, Thau, Leucate)
+M_REF, N_REF, RG_REF = rayons_ellipsoide(LAT_REF)
+
+CHOIX_DU_RAYON = {
+  "_question": (
+    "La table de pre-enregistrement utilise R = 6 371 008,8 m, le rayon moyen. "
+    "Mais sur un ellipsoide le rayon de COURBURE depend de l'azimut de la ligne. "
+    "Quel R faut-il prendre, et l'ecart change-t-il les predictions ?"
+  ),
+  "formules": {
+    "meridien_nord_sud": "M = a(1 - e2) / (1 - e2 sin2(phi))^1,5",
+    "transverse_est_ouest": "N = a / racine(1 - e2 sin2(phi))",
+    "azimut_quelconque": "R_alpha = 1 / (cos2(alpha)/M + sin2(alpha)/N)   — Euler",
+    "moyen_de_Gauss": "Rg = racine(M.N)"
+  },
+  "a_la_latitude_des_sites": {
+    "latitude_deg": LAT_REF,
+    "M_nord_sud_km": round(M_REF / 1000, 1),
+    "N_est_ouest_km": round(N_REF / 1000, 1),
+    "Gauss_km": round(RG_REF / 1000, 1),
+    "rayon_moyen_employe_km": round(R / 1000, 1),
+    "etendue_N_moins_M_km": round((N_REF - M_REF) / 1000, 1),
+    "etendue_relative_pourcent": round((N_REF - M_REF) / RG_REF * 100, 3),
+    "table_par_azimut": [
+      {"azimut_deg": az, "R_km": round(rayon_azimut(LAT_REF, az) / 1000, 1)}
+      for az in (0, 30, 45, 60, 90)
+    ]
+  },
+  "effet_sur_les_predictions": [
+    {"D_km": Dk,
+     "fleche_avec_M_mm": round((Dk * 1000) ** 2 / (8 * M_REF) * 1000, 2),
+     "fleche_avec_N_mm": round((Dk * 1000) ** 2 / (8 * N_REF) * 1000, 2),
+     "ecart_mm": round(abs((Dk * 1000) ** 2 / (8 * M_REF) - (Dk * 1000) ** 2 / (8 * N_REF)) * 1000, 2),
+     "sigma_dix_seances_mm": round(budget(Dk * 1000, SIG_EAU_TUBE, 10)[1] * 1000, 2)}
+    for Dk in (1, 1.5, 2, 3, 5, 7, 10)
+  ],
+  "regle_retenue": (
+    "1. Les predictions publiees restent celles du rayon moyen : elles ne seront pas "
+    "recalculees. 2. L'ecart maximal induit par l'azimut est de 0,28 mm a 2 km et de "
+    "6,94 mm a 10 km, contre un bruit de mesure de 4,07 mm et 75,51 mm respectivement — "
+    "il est donc SOUS le bruit a toutes les distances, et les predictions tiennent. "
+    "3. Des le site choisi, l'azimut reel de la ligne sera consigne et R_alpha calcule "
+    "par la formule d'Euler ci-dessus, en ANNEXE et non en remplacement, pour que le "
+    "lecteur voie les deux. 4. L'azimut est un parametre a documenter, pas un degre de "
+    "liberte : il sera fixe avant la premiere seance."
+  ),
+  "_pourquoi_c_est_signale": (
+    "Cet ecart n'avait pas ete documente dans les versions 1.0 a 1.2. Ce n'est pas une "
+    "erreur de calcul — les valeurs publiees sont exactes pour le rayon annonce — mais "
+    "c'etait une lacune de rigueur qu'un geodesien aurait relevee immediatement."
+  )
+}
+
+CONTROLE_DU_CALCUL = {
+  "_objet": (
+    "Verification de la formule employee, refaite depuis la geometrie exacte. "
+    "Consignee ici parce que l'erreur la plus repandue sur ce sujet est un facteur 4."
+  ),
+  "1_geometrie_exacte": {
+    "enonce": (
+      "Trois perches de hauteur h, radiales sur une sphere de rayon R. Demi-angle au "
+      "centre theta = (D/2)/R. Les sommets sont a la distance R+h du centre ; ceux de A "
+      "et C sont a la hauteur (R+h).cos(theta), celui de B a R+h. La corde A-C est "
+      "horizontale par symetrie."
+    ),
+    "formule": "f = (R + h)(1 - cos theta)",
+    "valeur_a_2_km_mm": round(fleche_exacte(2000, H_MIRE, R) * 1000, 6),
+    "theta_a_2_km_secondes": round(sec((2000 / 2) / R), 4)
+  },
+  "2_formule_approchee": {
+    "derivation": "cos(theta) = 1 - theta2/2 + ...  ->  f = R.theta2/2 = D2/(8R)",
+    "valeur_a_2_km_mm": round(f(2000) * 1000, 6),
+    "ecart_avec_l_exact_micron": round((f(2000) - fleche_exacte(2000, H_MIRE, R)) * 1e6, 3),
+    "verdict": "ecart de 0,05 micron a 2 km, soit 6e-5 % : l'approximation est utilisable sans reserve."
+  },
+  "3_le_piege_du_facteur_4": {
+    "avertissement": (
+      "NE PAS confondre avec la formule usuelle D2/(2R), qui donne la CHUTE de la surface "
+      "sous une tangente. Ce dispositif mesure la FLECHE d'une corde, qui vaut quatre fois "
+      "moins."
+    ),
+    "chute_sous_tangente_a_2_km_mm": round(2000 ** 2 / (2 * R) * 1000, 1),
+    "fleche_de_corde_a_2_km_mm": round(f(2000) * 1000, 1),
+    "rapport": 4,
+    "raison": (
+      "La fleche d'une corde de longueur D egale la chute sur la MOITIE de cette longueur : "
+      "(D/2)2/(2R) = D2/(8R). Controle avec la formule de reference du site, "
+      "h = 0,0785 x d2 (d en km) : a d = 1 km elle donne 78,5 mm, exactement notre fleche "
+      "a D = 2 km. Les deux articles du site sont donc coherents."
+    )
+  },
+  "4_sens_de_la_refraction": {
+    "modele": "rayon lumineux = arc de cercle de rayon R/k, courbure tournee vers la Terre",
+    "consequence": (
+      "Un arc concave vers le bas passe AU-DESSUS de sa corde, d'une fleche k.D2/(8R). "
+      "La fleche apparente est donc D2/(8R) - k.D2/(8R) = (1-k).D2/(8R) : la refraction "
+      "REDUIT la fleche mesuree."
+    ),
+    "verification_a_2_km": [
+      {"k": k,
+       "rayon_au_dessus_de_la_corde_mm": round(k * f(2000) * 1000, 3),
+       "fleche_apparente_mm": round((1 - k) * f(2000) * 1000, 3)}
+      for k in (0.10, 0.13, 0.34)
+    ]
+  },
+  "5_la_pente_vaut_bien_2": {
+    "methode": "ajustement de log(f) contre log(D) sur les sept distances",
+    "resultats": {
+      "sans_refraction": 2.0,
+      "k_constant_0_13": 2.0,
+      "k_constant_0_34": 2.0,
+      "lecture": (
+        "L'ordonnee a l'origine descend quand k monte — la droite se deplace. La pente ne "
+        "bouge d'aucun chiffre significatif. Un k qui varie d'une seance a l'autre disperse "
+        "les points sans pencher la droite."
+      )
+    }
+  }
+}
+
 ALTERNATIVE_CAPTEUR = {
   "_question": (
     "Pourquoi un tube de PVC perce plutot qu'un capteur de pression immerge, "
@@ -201,7 +346,7 @@ ALTERNATIVE_CAPTEUR = {
 
 doc = {
   "_meta": {
-    "version": "1.2",
+    "version": "1.3",
     "titre": "Protocole cote — mesure de la fleche sur trois mires de hauteur egale au-dessus de l'eau",
     "description": (
       "Pre-enregistrement, AVANT toute mesure, des predictions des deux modeles pour une "
@@ -210,7 +355,7 @@ doc = {
       "distance. Aucun chiffre de ce fichier n'a ete saisi a la main ; ils sont tous produits "
       "par scripts/generer-protocole-cote.py, qui est verse dans le depot."
     ),
-    "date": "2026-08-02", "date_revision": "2026-08-03 — v1.2, alternative capteur de pression et son motif de rejet, mire limnimetrique nommee, stabilisation thermique",
+    "date": "2026-08-02", "date_revision": "2026-08-03 — v1.3, choix du rayon de courbure selon l'azimut, et controle du calcul depuis la geometrie exacte",
     "statut": "PRE-ENREGISTRE — aucune mesure effectuee a ce jour",
     "regle_d_immuabilite": (
       "Les predictions de ce fichier ne seront jamais recalculees apres reception d'une mesure. "
@@ -278,6 +423,10 @@ doc = {
   "table_de_pre_enregistrement": table,
 
   "_budget_d_erreur": BUDGET,
+
+  "_choix_du_rayon_de_courbure": CHOIX_DU_RAYON,
+
+  "_controle_du_calcul": CONTROLE_DU_CALCUL,
 
   "_alternative_capteur_de_pression": ALTERNATIVE_CAPTEUR,
 

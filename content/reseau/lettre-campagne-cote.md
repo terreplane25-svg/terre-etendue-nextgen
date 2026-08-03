@@ -4,7 +4,7 @@
 topographie, IUT génie civil, associations d'astronomie, cabinets de géomètres-experts et
 gestionnaires de plans d'eau.*
 
-*Version 1.2 — 3 août 2026. Fondée sur `content/reseau/protocole-cote-trois-mires.json` v1.2,
+*Version 1.3 — 3 août 2026. Fondée sur `content/reseau/protocole-cote-trois-mires.json` v1.3,
 pré-enregistré et horodaté dans un dépôt public. Schémas du dispositif dans
 `public/schemas/`.*
 
@@ -239,6 +239,41 @@ Ce qui fait la force du dispositif n'est pas la précision sur une flèche. C'es
 levier de la décade en distance** : de 1 à 10 km, la flèche prédite passe de 19,6 mm à 1 962 mm,
 soit un facteur 100 pour un facteur 10 en distance. C'est ce rapport que la réfraction ne sait
 pas imiter.
+
+## Quel rayon de courbure, et pourquoi ça se voit à 10 km
+
+Un point que vous relèverez sans doute, et qu'il vaut mieux poser nous-mêmes.
+
+Les prédictions ci-dessus emploient R = 6 371 km, le rayon moyen. Or sur un ellipsoïde le rayon
+de **courbure** dépend de l'azimut de la ligne. À la latitude de nos sites, 43,5° :
+
+| Azimut de la ligne | Rayon de courbure |
+|---|---|
+| 0° — nord-sud (méridien M) | 6 365,7 km |
+| 30° | 6 371,3 km |
+| 45° — moyen de Gauss | 6 377,0 km |
+| 90° — est-ouest (transverse N) | 6 388,3 km |
+
+L'étendue vaut 22,6 km, soit 0,354 %. Effet sur les prédictions, comparé au bruit de mesure :
+
+| D | f avec M | f avec N | Écart | σ à dix séances |
+|---|---|---|---|---|
+| 2 km | 78,55 mm | 78,27 mm | 0,28 mm | 4,07 mm |
+| 5 km | 490,91 mm | 489,18 mm | 1,73 mm | 19,67 mm |
+| 10 km | 1 963,65 mm | 1 956,71 mm | 6,94 mm | 75,51 mm |
+
+**L'écart reste sous le bruit à toutes les distances**, donc les prédictions publiées tiennent
+telles quelles et ne seront pas recalculées. Mais à 10 km il vaut 7 mm contre 76 mm : c'est le
+même ordre de grandeur, et cela mérite d'être traité.
+
+La règle que nous adoptons : dès le site choisi, **l'azimut réel de la ligne est consigné et
+R fixé par la formule d'Euler** — 1/R = cos²α/M + sin²α/N — en annexe et non en remplacement,
+pour que le lecteur voie les deux valeurs. L'azimut est un paramètre à documenter, pas un degré
+de liberté : il sera fixé avant la première séance.
+
+Notons au passage qu'une ligne orientée à environ 30° du nord donne R = 6 371,3 km, soit à
+300 mètres près le rayon moyen employé dans la table. Une orientation de ce type annulerait la
+question.
 
 ## Protocole demandé
 
