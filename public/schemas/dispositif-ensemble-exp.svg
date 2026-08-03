@@ -1,6 +1,6 @@
 <svg viewBox="0 0 1040 600" xmlns="http://www.w3.org/2000/svg" data-zoomable="true" role="img" aria-label="Vue d ensemble du dispositif a trois perches sur un plan d eau">
 <rect x="0" y="0" width="1040" height="600" rx="0" fill="#0d1117" opacity="1"/>
-<rect x="0" y="0" width="5" height="600" rx="0" fill="#3B8FD4" opacity="0.85"/>
+<rect x="0" y="0" width="5" height="600" rx="0" fill="#C45E6A" opacity="0.85"/>
 <text x="28.0" y="36.0" fill="#c9d4e0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" font-weight="700">DISPOSITIF A TROIS MIRES — VUE D'ENSEMBLE</text>
 <text x="28.0" y="58.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400">Courbure verticale fortement exageree. A 10 km la fleche reelle vaut 1,96 m pour 4,00 m de perche.</text>
 <path d="M 70,507.5 L 70,507.5 L 80,503.5 L 90,499.6 L 100,495.8 L 110,492.0 L 120,488.4 L 130,484.8 L 140,481.4 L 150,478.0 L 160,474.7 L 170,471.6 L 180,468.5 L 190,465.5 L 200,462.6 L 210,459.8 L 220,457.1 L 230,454.5 L 240,452.0 L 250,449.6 L 260,447.3 L 270,445.0 L 280,442.9 L 290,440.9 L 300,438.9 L 310,437.1 L 320,435.3 L 330,433.7 L 340,432.1 L 350,430.7 L 360,429.3 L 370,428.0 L 380,426.8 L 390,425.7 L 400,424.7 L 410,423.8 L 420,423.0 L 430,422.3 L 440,421.7 L 450,421.2 L 460,420.8 L 470,420.4 L 480,420.2 L 490,420.0 L 500,420.0 L 510,420.0 L 520,420.2 L 530,420.4 L 540,420.8 L 550,421.2 L 560,421.7 L 570,422.3 L 580,423.0 L 590,423.8 L 600,424.7 L 610,425.7 L 620,426.8 L 630,428.0 L 640,429.3 L 650,430.7 L 660,432.1 L 670,433.7 L 680,435.3 L 690,437.1 L 700,438.9 L 710,440.9 L 720,442.9 L 730,445.0 L 740,447.3 L 750,449.6 L 760,452.0 L 770,454.5 L 780,457.1 L 790,459.8 L 800,462.6 L 810,465.5 L 820,468.5 L 830,471.6 L 840,474.7 L 850,478.0 L 860,481.4 L 870,484.8 L 880,488.4 L 890,492.0 L 900,495.8 L 910,499.6 L 920,503.5 L 930,507.5 L 940,511.7 L 950,515.9 L 960,520.2 L 970,524.6 L 970,530 L 70,530 Z" fill="#3B8FD4" opacity="0.055"/>
@@ -48,7 +48,7 @@
 <text x="150.0" y="530.0" fill="#c9d4e0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15" font-weight="700" text-anchor="middle">A</text>
 <text x="500.0" y="472.0" fill="#B8941F" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15" font-weight="700" text-anchor="middle">B</text>
 <text x="850.0" y="530.0" fill="#c9d4e0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15" font-weight="700" text-anchor="middle">C</text>
-<line x1="150.0" y1="328.0" x2="850.0" y2="328.0" stroke="#C45E6A" stroke-width="2" stroke-dasharray="8 5"/>
+<line x1="150.0" y1="328.0" x2="850.0" y2="328.0" stroke="#8B7EC8" stroke-width="2" stroke-dasharray="8 5"/>
 <circle cx="500.0" cy="270.0" r="4.5" fill="#B8941F" opacity="1"/>
 <circle cx="500.0" cy="328.0" r="4.5" fill="#C45E6A" opacity="1"/>
 <line x1="494.0" y1="270.0" x2="466.0" y2="270.0" stroke="#B8941F" stroke-width="0.9" stroke-dasharray="3 3"/>
@@ -57,12 +57,12 @@
 <line x1="468.0" y1="270.0" x2="480.0" y2="270.0" stroke="#B8941F" stroke-width="2"/>
 <line x1="468.0" y1="328.0" x2="480.0" y2="328.0" stroke="#B8941F" stroke-width="2"/>
 <text x="462.0" y="304.0" fill="#B8941F" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15" font-weight="700" text-anchor="end">f</text>
-<circle cx="150.0" cy="328.0" r="7" fill="none" opacity="1" stroke="#8B7EC8" stroke-width="2"/>
-<line x1="126.0" y1="313.0" x2="143.0" y2="324.0" stroke="#8B7EC8" stroke-width="2"/>
-<text x="120.0" y="308.0" fill="#8B7EC8" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400" text-anchor="end">lunette</text>
-<text x="360.0" y="120.0" fill="#C45E6A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" font-weight="700">ligne de visee A vers C</text>
+<circle cx="150.0" cy="328.0" r="7" fill="none" opacity="1" stroke="#7b8a9c" stroke-width="2"/>
+<line x1="126.0" y1="313.0" x2="143.0" y2="324.0" stroke="#7b8a9c" stroke-width="2"/>
+<text x="120.0" y="308.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400" text-anchor="end">lunette</text>
+<text x="360.0" y="120.0" fill="#8B7EC8" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" font-weight="700">ligne de visee A vers C</text>
 <text x="360.0" y="139.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400">une droite — rien ne la recale en chemin</text>
-<line x1="430.0" y1="146.0" x2="430.0" y2="324.0" stroke="#C45E6A" stroke-width="0.9" stroke-dasharray="3 3"/>
+<line x1="430.0" y1="146.0" x2="430.0" y2="324.0" stroke="#8B7EC8" stroke-width="0.9" stroke-dasharray="3 3"/>
 <text x="560.0" y="214.0" fill="#B8941F" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" font-weight="700">f — LA FLECHE</text>
 <text x="560.0" y="233.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400">de combien le sommet de B</text>
 <text x="560.0" y="252.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400">depasse la corde A-C</text>
@@ -90,8 +90,8 @@
 <line x1="150.0" y1="576.0" x2="150.0" y2="584.0" stroke="#B8941F" stroke-width="1"/>
 <line x1="850.0" y1="576.0" x2="850.0" y2="584.0" stroke="#B8941F" stroke-width="1"/>
 <text x="500.0" y="573.0" fill="#B8941F" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="400" text-anchor="middle">D  =  1 · 1,5 · 2 · 3 · 5 · 7 · 10 km — sept configurations</text>
-<rect x="28" y="92" width="300" height="92" rx="6" fill="none" opacity="1" stroke="#3B8FD4" stroke-width="1"/>
-<text x="44.0" y="114.0" fill="#C45E6A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="700">MODELE PLAN</text>
+<rect x="28" y="92" width="300" height="92" rx="6" fill="none" opacity="1" stroke="#C45E6A" stroke-width="1"/>
+<text x="44.0" y="114.0" fill="#8B7EC8" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="700">MODELE PLAN</text>
 <text x="44.0" y="133.0" fill="#c9d4e0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400">f = 0 — la lecture vaut 4,000 m</text>
 <text x="44.0" y="152.0" fill="#c9d4e0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400">a toute distance</text>
 <text x="44.0" y="173.0" fill="#3B8FD4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="700">SPHERIQUE   f = (1-k) · D² / 8R</text>

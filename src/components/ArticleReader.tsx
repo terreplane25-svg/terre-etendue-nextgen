@@ -9,7 +9,7 @@ interface ArticleReaderProps { article?: any; title?: string; description?: stri
 
 interface TocItem { id: string; text: string; level: number; }
 
-const CAT_LABEL: Record<string, string> = { headquarters: 'Centre de Recherche', observatory: 'Observatoire', library: 'Bibliothèque', lab: 'Outils' };
+const CAT_LABEL: Record<string, string> = { headquarters: 'Centre de Recherche', observatory: 'Observatoire', library: 'Bibliothèque', lab: 'Outils', experiences: 'Expériences', meta: 'TEI' };
 
 function Lightbox({ content, type, onClose }: { content: string; type: 'svg' | 'img'; onClose: () => void }) {
   useEffect(() => {

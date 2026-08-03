@@ -33,6 +33,8 @@ const IMG: Record<string, string> = {
   "principe-action-reaction": `${HOSTINGER}/2026/07/action_reaction.png`,
   "magnetisme-et-electromagnetisme": `${HOSTINGER}/2026/07/electromagnetisme.png`,
   "electricite-statique-attraction-repulsion": `${HOSTINGER}/2026/07/electricite.png`,
+  // TODO couverture dédiée 1200×630 : une perche et son puits sur un plan d'eau.
+  "monter-l-experience-des-trois-mires": `${HOSTINGER}/2026/06/mer_horizon-e1784751872495.png`,
 
   // ── Library (Islamic) ──
   "debut-de-la-creation-selon-le-coran-et-la-sunna": `${HOSTINGER}/2026/06/mer_horizon.png`,

@@ -20,12 +20,22 @@ BG, GRID, INK, MUT = "#0d1117", "#1f2733", "#c9d4e0", "#7b8a9c"
 CY, RO, GO, LV, OP = "#3B8FD4", "#C45E6A", "#B8941F", "#8B7EC8", "#3D9E7C"
 MONO = "ui-monospace, SFMono-Regular, Menlo, monospace"
 CHW = 0.605          # largeur d'un caractere, en fraction de la taille de police
+R = 6_371_008.8      # rayon du modele spherique, m
+DISTANCES_M = [1000, 1500, 2000, 3000, 5000, 7000, 10000]   # les sept configurations
+
+# Une palette par pilier. Les couleurs fonctionnelles (eau, puits, mire) ne
+# bougent pas — seul l'accent d'identite change, plus la couleur de la visee
+# quand elle entrerait en conflit avec cet accent.
+PAL_OBS = dict(acc=CY,  visee=RO,  lunette=LV,  suffixe="")
+PAL_EXP = dict(acc=RO,  visee=LV,  lunette=MUT, suffixe="-exp")
+
 
 class Vue:
     """Accumule le SVG et les boites de texte, pour le controle de collision."""
-    def __init__(self, w, h, titre, sous, aria):
-        self.w, self.h, self.g, self.boxes = w, h, [], []
+    def __init__(self, w, h, titre, sous, aria, acc=CY):
+        self.w, self.h, self.g, self.boxes, self.acc = w, h, [], [], acc
         self.rect(0, 0, w, h, BG)
+        self.rect(0, 0, 5, h, acc, op=0.85)          # filet d'identite du pilier
         self.txt(28, 36, titre, INK, 16, "700")
         self.txt(28, 58, sous, MUT, 11.5)
         self.aria = aria
@@ -98,11 +108,11 @@ class Vue:
 # ═══════════════════════════════════════════════════════════════════════════
 # 1. VUE D'ENSEMBLE
 # ═══════════════════════════════════════════════════════════════════════════
-def vue_ensemble():
+def vue_ensemble(P=PAL_OBS):
     v = Vue(1040, 600,
             "DISPOSITIF A TROIS MIRES — VUE D'ENSEMBLE",
             "Courbure verticale fortement exageree. A 10 km la fleche reelle vaut 1,96 m pour 4,00 m de perche.",
-            "Vue d ensemble du dispositif a trois perches sur un plan d eau")
+            "Vue d ensemble du dispositif a trois perches sur un plan d eau", P["acc"])
 
     XA, XB, XC = 150, 500, 850
     EAU_MIL, BOMBE, HP = 420, 58, 150     # y de l'eau au milieu, bombement, hauteur perche
@@ -141,7 +151,7 @@ def vue_ensemble():
     v.txt(XC, yC + 52, "C", INK, 15, "700", "middle")
 
     # ── visee et fleche ───────────────────────────────────────────────────
-    v.line(XA, sA, XC, sC, RO, 2, "8 5")
+    v.line(XA, sA, XC, sC, P["visee"], 2, "8 5")
     v.circ(XB, sB, 4.5, GO); v.circ(XB, sMid, 4.5, RO)
     # cote laterale : sans elle, la fleche se confond avec le mat
     XF = XB - 26
@@ -153,14 +163,14 @@ def vue_ensemble():
     v.txt(XF - 12, (sB + sMid) / 2 + 5, "f", GO, 15, "700", "end")
 
     # lunette
-    v.circ(XA, sA, 7, "none", LV, 2)
-    v.line(XA - 24, sA - 15, XA - 7, sA - 4, LV, 2)
+    v.circ(XA, sA, 7, "none", P["lunette"], 2)
+    v.line(XA - 24, sA - 15, XA - 7, sA - 4, P["lunette"], 2)
 
     # ── annotations, toutes au-dessus de la visee ou hors du dessin ───────
-    v.txt(XA - 30, sA - 20, "lunette", LV, 11.5, anchor="end")
-    v.txt(360, 120, "ligne de visee A vers C", RO, 13, "700")
+    v.txt(XA - 30, sA - 20, "lunette", P["lunette"], 11.5, anchor="end")
+    v.txt(360, 120, "ligne de visee A vers C", P["visee"], 13, "700")
     v.txt(360, 139, "une droite — rien ne la recale en chemin", MUT, 11.5)
-    v.amorce(430, 146, 430, sA - 4, RO)
+    v.amorce(430, 146, 430, sA - 4, P["visee"])
 
     v.txt(560, 214, "f — LA FLECHE", GO, 13, "700")
     v.txt(560, 233, "de combien le sommet de B", MUT, 11.5)
@@ -184,8 +194,8 @@ def vue_ensemble():
     v.cote_h(XA, XC, v.h - 20, "D  =  1 · 1,5 · 2 · 3 · 5 · 7 · 10 km — sept configurations", GO, 12)
 
     # ── encart des deux predictions, en haut a gauche (zone libre) ────────
-    v.rect(28, 92, 300, 92, "none", GRID, 1, 6)
-    v.txt(44, 114, "MODELE PLAN", RO, 11.5, "700")
+    v.rect(28, 92, 300, 92, "none", P["acc"], 1, 6)
+    v.txt(44, 114, "MODELE PLAN", P["visee"], 11.5, "700")
     v.txt(44, 133, "f = 0 — la lecture vaut 4,000 m", INK, 11.5)
     v.txt(44, 152, "a toute distance", INK, 11.5)
     v.txt(44, 173, "SPHERIQUE   f = (1-k) · D² / 8R", CY, 11.5, "700")
@@ -195,11 +205,11 @@ def vue_ensemble():
 # ═══════════════════════════════════════════════════════════════════════════
 # 2. PUITS DE TRANQUILLISATION — coupe
 # ═══════════════════════════════════════════════════════════════════════════
-def vue_puits():
+def vue_puits(P=PAL_OBS):
     v = Vue(1080, 640,
             "LE PUITS DE TRANQUILLISATION — COUPE D'UNE PERCHE",
             "La piece qui decide de tout : sans elle, la lecture de la ligne d'eau vaut 100 mm et ecrase le signal.",
-            "Coupe d une perche et de son puits de tranquillisation")
+            "Coupe d une perche et de son puits de tranquillisation", P["acc"])
 
     XT, EAU = 300, 330          # axe de la perche, niveau moyen
     TR, SOM, FOND = 44, 108, 560   # demi-largeur du tube, sommet, fond du tube
@@ -229,7 +239,7 @@ def vue_puits():
     for i in range(23):
         yy = SOM + i * 8.6
         v.line(XT + 6, yy, XT + 6 + (17 if i % 5 == 0 else 10), yy, GO, 1.4)
-    v.circ(XT, SOM, 5.5, RO)
+    v.circ(XT, SOM, 5.5, P["acc"])
     v.rect(XT - 34, v.h - 40, 68, 12, MUT, rx=3, op=0.6)
 
     # ── cote 4,00 m, a gauche, dans une bande libre ───────────────────────
@@ -238,8 +248,8 @@ def vue_puits():
     v.cote_v(XT - 130, SOM, EAU, "4,00 m", INK, 13)
 
     # ── colonne d'annotations ─────────────────────────────────────────────
-    v.txt(COL, 118, "sommet — origine de la mesure", RO, 12, "700")
-    v.amorce(COL - 10, 114, XT + 10, SOM, RO)
+    v.txt(COL, 118, "sommet — origine de la mesure", P["acc"], 12, "700")
+    v.amorce(COL - 10, 114, XT + 10, SOM, P["acc"])
 
     y = v.bloc(COL, 166, [("mire graduee au millimetre", GO, 12, "700"),
                           ("sur les 2,50 m superieurs", None, 11.5, None),
@@ -271,13 +281,13 @@ def vue_puits():
     v.txt(48, 590, "jamais depuis le fond", MUT, 11)
 
     # ── encart chiffre ────────────────────────────────────────────────────
-    v.rect(BOX, 100, 262, 168, "none", GRID, 1, 6)
+    v.rect(BOX, 100, 262, 168, "none", P["acc"], 1, 6)
     v.txt(BOX + 16, 126, "CE QUE CA CHANGE, A 1 km", GO, 11.5, "700")
     v.txt(BOX + 16, 152, "fleche attendue", CY, 11)
     v.txt(BOX + 16, 170, "19,6 mm", CY, 13, "700")
-    v.txt(BOX + 16, 198, "sans puits      70,9 mm   S/B  0,3", MUT, 10.5)
-    v.txt(BOX + 16, 218, "avec puits       5,9 mm   S/B  2,9", INK, 10.5)
-    v.txt(BOX + 16, 238, "+ 10 seances     1,9 mm   S/B 10,5", OP, 10.5, "700")
+    v.txt(BOX + 16, 198, "sans puits · 70,9 mm · S/B 0,3", MUT, 10.5)
+    v.txt(BOX + 16, 218, "avec puits ·  5,9 mm · S/B 2,9", INK, 10.5)
+    v.txt(BOX + 16, 238, "+ 10 seances ·  1,9 mm · S/B 10,5", OP, 10.5, "700")
     v.txt(BOX + 16, 258, "ecart-type d'une lecture", MUT, 10)
     return v
 
@@ -285,11 +295,11 @@ def vue_puits():
 # ═══════════════════════════════════════════════════════════════════════════
 # 3. CE QUE VOIT L'OBSERVATEUR
 # ═══════════════════════════════════════════════════════════════════════════
-def vue_lecture():
+def vue_lecture(P=PAL_OBS):
     v = Vue(980, 600,
             "CE QUE VOIT L'OBSERVATEUR — MEME VISEE, DEUX MODELES",
             "Oeil au sommet de A, reticule pose sur le sommet de C. On lit la graduation de B au croisement.",
-            "Ce que voit l observateur dans la lunette sous chaque modele")
+            "Ce que voit l observateur dans la lunette sous chaque modele", P["acc"])
 
     CYY, RR = 320, 132
     def oculaire(cx, titre, sous, coul, f_px, lecture):
@@ -330,13 +340,84 @@ def vue_lecture():
 
 
 # ═══════════════════════════════════════════════════════════════════════════
+# 4. LE NIVEAU A BULLE — pourquoi il ne voit rien
+#    (portage du script de travail : ce schema n'etait pas reproductible)
+# ═══════════════════════════════════════════════════════════════════════════
+def vue_bulle(P=PAL_OBS):
+    v = Vue(880, 340,
+            "POURQUOI LE NIVEAU A BULLE NE VOIT RIEN",
+            "La bulle se recale a chaque station : elle epouse la surface au lieu de la mesurer.",
+            "Le niveau a bulle suit la surface au lieu de la mesurer", P["acc"])
+    def sol(x):
+        t = (x - 440) / 380.0
+        return 216 + 52 * t * t
+    pts = " ".join(f"{x},{sol(x):.1f}" for x in range(60, 821, 8))
+    v.raw(f'<polyline points="{pts}" fill="none" stroke="{CY}" stroke-width="2.5" opacity="0.9"/>')
+    for x in (130, 285, 440, 595, 750):
+        y = sol(x)
+        a = math.degrees(math.atan2((sol(x + 1) - sol(x - 1)) / 2.0, 1.0))
+        v.raw(f'<g transform="translate({x},{y:.1f}) rotate({a:.2f})">'
+              f'<rect x="-32" y="-15" width="64" height="13" rx="3" fill="none" stroke="{GO}" stroke-width="2"/>'
+              f'<circle cx="0" cy="-8.5" r="3.6" fill="{GO}"/>'
+              f'<line x1="0" y1="-2" x2="0" y2="40" stroke="{P["visee"]}" stroke-width="1.6" stroke-dasharray="4 3"/>'
+              f'</g>')
+    v.txt(28, 300, "A chaque pas, le denivele lu vaut 0,000 mm — a 10 cm comme a 100 km.", GO, 12, "700")
+    v.txt(28, 320, "Ce qui a tourne, c'est la verticale locale (en pointilles) : de D/R a chaque pas.", MUT, 11)
+    return v
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# 5. LA LOI f(D) EN ECHELLE LOG-LOG
+# ═══════════════════════════════════════════════════════════════════════════
+def vue_loi(P=PAL_OBS):
+    v = Vue(880, 440,
+            "LA LOI f(D) — ECHELLE LOGARITHMIQUE",
+            "C'est la PENTE qu'on mesure, pas la valeur. La refraction deplace la droite, elle ne la penche pas.",
+            "Fleche attendue en fonction de la distance, echelle logarithmique", P["acc"])
+    x0, y0, x1, y1 = 118, 350, 820, 96
+    lx = lambda D: x0 + math.log10(D / 1000.0) * (x1 - x0)
+    ly = lambda mm: y0 - (math.log10(max(mm, 1.0)) / 4.0) * (y0 - y1)
+    for dec, lbl in enumerate(["1 mm", "10 mm", "100 mm", "1 m", "10 m"]):
+        yy = y0 - dec * (y0 - y1) / 4.0
+        v.line(x0, yy, x1, yy, GRID, 1)
+        v.txt(x0 - 12, yy + 4, lbl, MUT, 11, anchor="end")
+    for D, lbl in [(1000, "1 km"), (2000, "2"), (3000, "3"), (5000, "5"), (10000, "10 km")]:
+        v.line(lx(D), y1, lx(D), y0, GRID, 1)
+        v.txt(lx(D), y0 + 20, lbl, MUT, 11, anchor="middle")
+    v.line(x0, y0, x1, y0, MUT, 1.5)
+    v.line(x0, y1, x0, y0, MUT, 1.5)
+    f = lambda D, k=0.0: (1 - k) * D * D / (8 * R) * 1000.0
+    for k, col, sw, dash in [(0.0, CY, 2.5, None), (0.34, LV, 2, "6 4")]:
+        pts = " ".join(f"{lx(D):.1f},{ly(f(D, k)):.1f}" for D in DISTANCES_M)
+        v.raw(f'<polyline points="{pts}" fill="none" stroke="{col}" stroke-width="{sw}"'
+              + (f' stroke-dasharray="{dash}"' if dash else '') + '/>')
+    for D in DISTANCES_M:
+        v.circ(lx(D), ly(f(D)), 4, CY)
+    v.line(x0, y0 - 2, x1, y0 - 2, P["visee"], 2.5)
+    v.txt(lx(1150), 168, "spherique — pente 2,000", CY, 12, "700")
+    v.amorce(lx(1600), 174, lx(1900), ly(f(1900)) - 8, CY)
+    v.txt(lx(4000), 300, "avec k = 0,34 (nuit)", LV, 11)
+    v.amorce(lx(4300), 294, lx(4600), ly(f(4600, 0.34)) + 8, LV)
+    v.txt(x0 + 14, y0 - 12, "plan — f = 0 partout", P["visee"], 12, "700")
+    v.txt(x0, 404, "1 km : 19,6 mm  ·  10 km : 1 962 mm  ·  facteur 10 en distance, facteur 100 en fleche", MUT, 11)
+    v.txt(x0, 424, "Un artefact de perspective ou un gradient thermique regulier donneraient une pente 1.", MUT, 11)
+    return v
+
+
+# ═══════════════════════════════════════════════════════════════════════════
 if __name__ == "__main__":
     os.makedirs("public/schemas", exist_ok=True)
     pb = 0
-    for nom, fn in [("dispositif-ensemble", vue_ensemble),
-                    ("puits-tranquillisation", vue_puits),
-                    ("lecture-visee", vue_lecture)]:
-        v = fn()
+    sorties = [("dispositif-ensemble", vue_ensemble, PAL_OBS),
+               ("puits-tranquillisation", vue_puits, PAL_OBS),
+               ("lecture-visee", vue_lecture, PAL_OBS),
+               ("niveau-a-bulle", vue_bulle, PAL_OBS),
+               ("loi-fleche-distance", vue_loi, PAL_OBS),
+               # variantes pour la page Experiences (accent rose du pilier)
+               ("dispositif-ensemble-exp", vue_ensemble, PAL_EXP),
+               ("puits-tranquillisation-exp", vue_puits, PAL_EXP)]
+    for nom, fn, P in sorties:
+        v = fn(P)
         pb += v.controle(nom)
         s = v.rendu()
         open(f"public/schemas/{nom}.svg", "w", encoding="utf-8").write(s)

@@ -6,7 +6,7 @@
 export interface NexusNodeData {
   id: string;
   title: string;
-  category: 'headquarters' | 'observatory' | 'library' | 'lab' | 'meta';
+  category: 'headquarters' | 'observatory' | 'library' | 'lab' | 'meta' | 'experiences';
   pillar: string;
   pillarNum: string;
   color: string;
@@ -568,6 +568,21 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "wordCount": 0,
     "x": -362.1,
     "y": -144.6,
+    "size": 8
+  },
+  {
+    "id": "monter-l-experience-des-trois-mires",
+    "title": "Monter l'expérience des trois mires",
+    "category": "experiences",
+    "pillar": "EXP",
+    "pillarNum": "04",
+    "color": "#C45E6A",
+    "primaryDomain": "geometrie",
+    "topDomains": ["geometrie", "hydrologie", "optique"],
+    "quranRefs": 0,
+    "wordCount": 0,
+    "x": -244.0,
+    "y": -218.5,
     "size": 8
   },
   {
@@ -1656,6 +1671,27 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 139.7,
     "strength": "medium",
     "sharedDomains": ["epistemologie", "cosmologie"]
+  },
+  {
+    "source": "monter-l-experience-des-trois-mires",
+    "target": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
+    "score": 186.0,
+    "strength": "strong",
+    "sharedDomains": ["geometrie", "hydrologie", "optique"]
+  },
+  {
+    "source": "monter-l-experience-des-trois-mires",
+    "target": "leau-ne-ment-pas",
+    "score": 158.0,
+    "strength": "strong",
+    "sharedDomains": ["hydrologie", "geometrie"]
+  },
+  {
+    "source": "monter-l-experience-des-trois-mires",
+    "target": "par-rapport-a-quoi-mesure-t-on-une-altitude",
+    "score": 144.0,
+    "strength": "medium",
+    "sharedDomains": ["geometrie", "metrologie"]
   },
   {
     "source": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
