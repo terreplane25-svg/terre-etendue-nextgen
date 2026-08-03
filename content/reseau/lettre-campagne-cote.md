@@ -4,8 +4,9 @@
 topographie, IUT génie civil, associations d'astronomie, cabinets de géomètres-experts et
 gestionnaires de plans d'eau.*
 
-*Version 1.0 — 2 août 2026. Fondée sur `content/reseau/protocole-cote-trois-mires.json` v1.1,
-pré-enregistré et horodaté dans un dépôt public.*
+*Version 1.1 — 2 août 2026. Fondée sur `content/reseau/protocole-cote-trois-mires.json` v1.1,
+pré-enregistré et horodaté dans un dépôt public. Schémas du dispositif dans
+`public/schemas/`.*
 
 ---
 
@@ -40,13 +41,28 @@ leurs qualités et leurs défauts.
 
 | Campagne | Année | Distance | Ce qui manque |
 |---|---|---|---|
-| Wallace, canal Old Bedford | 1870 | 9,66 km | observation unique, non répétée, non instrumentée |
+| Canal Old Bedford, de Rowbotham à Blount | 1838-1904 | 9,66 km | hauteur d'œil non contrôlée d'une observation à l'autre, et test d'occultation peu discriminant à cette distance |
 | Rainy Lake (Minnesota) | 2018 | 10 km | prédictions non horodatées, une seule distance |
 | FECORE, lacs Balaton et IJssel | 2018 | 12 à 40 km | laser divergent et mal calibré, aucun instrument normalisé |
-| Lac Pontchartrain (Louisiane) | 2017 | 24,27 km | photographique, non métrique |
+| Lac Pontchartrain (Louisiane) | 2017 | 24,27 km | une seule distance, conditions atmosphériques non consignées |
 | Hirt *et al.*, *J. Geophys. Res.* | 2010 | 4 à 23 km | porte sur la réfraction, pas sur la forme |
 
-Le point commun saute aux yeux quand on les met côte à côte. **Chacune mesure une valeur à une
+Un mot sur la première ligne, parce qu'elle est souvent mal citée dans les deux camps. Le
+canal Old Bedford a vu des dizaines d'observations entre 1838 et 1904 — Rowbotham à répétition,
+puis Wallace en 1870, puis Lady Blount en 1904. Ce ne sont pas des répétitions d'un même
+protocole : la hauteur de l'œil change à chaque fois, et c'est elle qui commande le résultat.
+Sur les 9,66 km du canal, avec une cible de 1,52 m et k = 0,13, le modèle sphérique masque
+4,31 m depuis un œil à 20 cm, 3,06 m depuis 60 cm, et seulement **0,26 m** depuis les 4,04 m de
+la lunette de Wallace. Autrement dit : au ras de l'eau on se place dans la couche où la
+réfraction est ingérable — il faudrait k = 0,615 pour tout voir, ce qui n'est pas impossible en
+régime de superréfraction sur un canal ; et à quatre mètres, le test d'occultation ne
+discrimine presque plus, puisque le globe lui-même ne masque plus qu'un quart de mètre.
+
+C'est précisément l'argument qui commande le choix de l'observable de cette campagne. Au même
+endroit, à la même distance, la flèche vaut **1,59 m** contre 0,26 m pour l'occultation : six
+fois plus de signal, pour un montage plus simple.
+
+Le point commun aux cinq lignes saute aux yeux quand on les met côte à côte. **Chacune mesure une valeur à une
 distance. Aucune ne mesure la loi.**
 
 C'est précisément là que se trouve la place à prendre, et c'est un argument technique et non

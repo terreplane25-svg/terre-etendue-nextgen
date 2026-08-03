@@ -1,0 +1,57 @@
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" data-zoomable role="img" aria-label="Coupe d une perche et de son puits de tranquillisation">
+<rect width="900" height="620" fill="#0d1117"/>
+<text x="28" y="36" fill="#c9d4e0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" font-weight="700">LE PUITS DE TRANQUILLISATION — COUPE D'UNE PERCHE</text>
+<text x="28" y="58" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400">La piece qui decide de tout. Sans elle, la lecture de la ligne d'eau vaut 100 mm et ecrase le signal.</text>
+
+<rect x="40" y="300" width="820" height="260" fill="#3B8FD4" opacity="0.07"/>
+<path d="M 40 300 Q 45,287 50,300 Q 55,313 60,300 Q 65,287 70,300 Q 75,313 80,300 Q 85,287 90,300 Q 95,313 100,300 Q 105,287 110,300 Q 115,313 120,300 Q 125,287 130,300 Q 135,313 140,300 Q 145,287 150,300 Q 155,313 160,300 Q 165,287 170,300 Q 175,313 180,300 Q 185,287 190,300 Q 195,313 200,300 Q 205,287 210,300 Q 215,313 220,300 Q 225,287 230,300 Q 235,313 240,300 Q 245,287 250,300 Q 255,313 260,300 Q 265,287 270,300" fill="none" stroke="#3B8FD4" stroke-width="2.2"/>
+<path d="M 500 300 Q 505,287 510,300 Q 515,313 520,300 Q 525,287 530,300 Q 535,313 540,300 Q 545,287 550,300 Q 555,313 560,300 Q 565,287 570,300 Q 575,313 580,300 Q 585,287 590,300 Q 595,313 600,300 Q 605,287 610,300 Q 615,313 620,300 Q 625,287 630,300 Q 635,313 640,300 Q 645,287 650,300 Q 655,313 660,300 Q 665,287 670,300 Q 675,313 680,300 Q 685,287 690,300 Q 695,313 700,300 Q 705,287 710,300 Q 715,313 720,300 Q 725,287 730,300 Q 735,313 740,300 Q 745,287 750,300 Q 755,313 760,300 Q 765,287 770,300 Q 775,313 780,300 Q 785,287 790,300 Q 795,313 800,300 Q 805,287 810,300 Q 815,313 820,300 Q 825,287 830,300 Q 835,313 840,300 Q 845,287 850,300 Q 855,313 860,300 Q 865,287 870,300" fill="none" stroke="#3B8FD4" stroke-width="2.2"/>
+<text x="60" y="346" fill="#3B8FD4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="700">clapot libre  ±100 mm</text>
+<text x="60" y="364" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="400">la ligne d'eau est indeterminee</text>
+<text x="620" y="346" fill="#3B8FD4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="700">clapot libre  ±100 mm</text>
+
+<rect x="254" y="242" width="92" height="280" rx="5" fill="#0d1117" stroke="#3D9E7C" stroke-width="2.4"/>
+<line x1="254" y1="300" x2="346" y2="300" stroke="#3D9E7C" stroke-width="2.6"/>
+<text x="362" y="304" fill="#3D9E7C" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="700">eau calme dans le tube  ±5 mm</text>
+<text x="362" y="322" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="400">-> la ligne d'eau devient lisible</text>
+
+<rect x="254" y="242" width="92" height="58" fill="#3D9E7C" opacity="0.05"/>
+<text x="362" y="270" fill="#3D9E7C" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="700">puits de tranquillisation</text>
+<text x="362" y="288" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="400">tube PVC 75 a 100 mm</text>
+
+<g>
+<circle cx="254" cy="340" r="3.4" fill="none" stroke="#3D9E7C" stroke-width="1.4"/><circle cx="346" cy="340" r="3.4" fill="none" stroke="#3D9E7C" stroke-width="1.4"/><circle cx="254" cy="366" r="3.4" fill="none" stroke="#3D9E7C" stroke-width="1.4"/><circle cx="346" cy="366" r="3.4" fill="none" stroke="#3D9E7C" stroke-width="1.4"/><circle cx="254" cy="392" r="3.4" fill="none" stroke="#3D9E7C" stroke-width="1.4"/><circle cx="346" cy="392" r="3.4" fill="none" stroke="#3D9E7C" stroke-width="1.4"/><circle cx="254" cy="418" r="3.4" fill="none" stroke="#3D9E7C" stroke-width="1.4"/><circle cx="346" cy="418" r="3.4" fill="none" stroke="#3D9E7C" stroke-width="1.4"/><circle cx="254" cy="444" r="3.4" fill="none" stroke="#3D9E7C" stroke-width="1.4"/><circle cx="346" cy="444" r="3.4" fill="none" stroke="#3D9E7C" stroke-width="1.4"/><circle cx="254" cy="470" r="3.4" fill="none" stroke="#3D9E7C" stroke-width="1.4"/><circle cx="346" cy="470" r="3.4" fill="none" stroke="#3D9E7C" stroke-width="1.4"/>
+</g>
+<text x="238" y="430" fill="#3D9E7C" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="400" text-anchor="end">percements fins</text>
+<text x="238" y="448" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400" text-anchor="end">8 mm — ils laissent</text>
+<text x="238" y="466" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400" text-anchor="end">passer le niveau moyen,</text>
+<text x="238" y="484" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400" text-anchor="end">pas les vagues</text>
+
+<line x1="300" y1="500" x2="300" y2="96" stroke="#B8941F" stroke-width="5" stroke-linecap="round"/>
+<rect x="262" y="564" width="76" height="14" rx="3" fill="#7b8a9c" opacity="0.6"/>
+<text x="350" y="576" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="400">lest / ancrage sur le fond</text>
+
+<g>
+<line x1="306" y1="96.0" x2="320" y2="96.0" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="106.4" x2="313" y2="106.4" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="116.8" x2="313" y2="116.8" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="127.2" x2="313" y2="127.2" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="137.6" x2="313" y2="137.6" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="148.0" x2="320" y2="148.0" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="158.4" x2="313" y2="158.4" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="168.8" x2="313" y2="168.8" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="179.2" x2="313" y2="179.2" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="189.6" x2="313" y2="189.6" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="200.0" x2="320" y2="200.0" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="210.4" x2="313" y2="210.4" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="220.8" x2="313" y2="220.8" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="231.2" x2="313" y2="231.2" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="241.6" x2="313" y2="241.6" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="252.0" x2="320" y2="252.0" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="262.4" x2="313" y2="262.4" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="272.8" x2="313" y2="272.8" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="283.2" x2="313" y2="283.2" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="293.6" x2="313" y2="293.6" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="304.0" x2="320" y2="304.0" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="314.4" x2="313" y2="314.4" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="324.8" x2="313" y2="324.8" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="335.2" x2="313" y2="335.2" stroke="#B8941F" stroke-width="1.4"/><line x1="306" y1="345.6" x2="313" y2="345.6" stroke="#B8941F" stroke-width="1.4"/>
+</g>
+<text x="330" y="118" fill="#B8941F" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="700">mire graduee au millimetre</text>
+<text x="330" y="136" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="400">sur les 2,50 m superieurs</text>
+<text x="330" y="154" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="400">(perche B uniquement)</text>
+
+<circle cx="300" cy="96" r="5" fill="#C45E6A"/>
+<text x="316" y="88" fill="#C45E6A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="700">sommet — origine de la mesure</text>
+
+<line x1="208" y1="96" x2="208" y2="300" stroke="#c9d4e0" stroke-width="1"/><line x1="204" y1="96" x2="212" y2="96" stroke="#c9d4e0" stroke-width="1"/><line x1="204" y1="300" x2="212" y2="300" stroke="#c9d4e0" stroke-width="1"/><text x="216" y="202.0" fill="#c9d4e0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="400">4,00 m</text>
+<line x1="204" y1="96" x2="294" y2="96" stroke="#c9d4e0" stroke-width="0.8" stroke-dasharray="3 3"/>
+<line x1="204" y1="300" x2="250" y2="300" stroke="#c9d4e0" stroke-width="0.8" stroke-dasharray="3 3"/>
+<text x="212" y="176" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">mesures DEPUIS</text>
+<text x="212" y="192" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">la ligne d'eau,</text>
+<text x="212" y="208" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">jamais depuis le fond</text>
+
+<rect x="560" y="120" width="310" height="132" rx="6" fill="none" stroke="#1f2733" stroke-width="1"/>
+<text x="576" y="144" fill="#B8941F" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="700">CE QUE CA CHANGE, A 1 km</text>
+<text x="576" y="168" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400">sans puits    sigma = 70,9 mm   S/B  0,3</text>
+<text x="576" y="188" fill="#c9d4e0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400">avec puits    sigma =  5,9 mm   S/B  2,9</text>
+<text x="576" y="208" fill="#3D9E7C" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="700">+ 10 seances  sigma =  1,9 mm   S/B 10,5</text>
+<text x="576" y="234" fill="#3B8FD4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400">fleche attendue a 1 km : 19,6 mm</text>
+</svg>
