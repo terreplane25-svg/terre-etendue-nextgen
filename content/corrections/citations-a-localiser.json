@@ -1,0 +1,613 @@
+{
+  "_meta": {
+    "titre": "Citations à localiser",
+    "objet": "Ces citations portent leur attribution — l'ouvrage est nommé — mais aucune localisation précise : ni volume, ni page, ni numéro. Elles ne sont donc pas vérifiables par un lecteur.",
+    "regle": "Ne jamais inventer une pagination. En cas de doute, retirer la citation plutôt que la sourcer approximativement.",
+    "genere_par": "scripts/lister-citations-a-localiser.py",
+    "total": 86
+  },
+  "citations": [
+    {
+      "article": "200-ans-de-resultats-nuls-darago-a-einstein",
+      "categorie": "headquarters",
+      "n": 1,
+      "attribution": "— E.T. Whittaker, A History of the Theories of Aether and Electricity, résumant les résultats d'Arago",
+      "extrait": "« La lumière venant de n'importe quelle étoile se comporte dans tous les cas de réflexion et de réfraction pré"
+    },
+    {
+      "article": "200-ans-de-resultats-nuls-darago-a-einstein",
+      "categorie": "headquarters",
+      "n": 6,
+      "attribution": "— Nicolas Copernic, De Revolutionibus (1543), préface",
+      "extrait": "« Et aussi loin que les hypothèses vont, que personne n'attende rien de certain de l'astronomie, puisque l'ast"
+    },
+    {
+      "article": "cartes-routes-boussoles-et-le-mystere-antarctique",
+      "categorie": "observatory",
+      "n": 1,
+      "attribution": "— Journal de bord du Capitaine James Cook, 3 février 1774",
+      "extrait": "Le Capitaine James Cook, à bord du HMS Resolution, a parcouru plus de 60 000 milles nautiques (~111 000 km) du"
+    },
+    {
+      "article": "chronologie-de-la-tromperie-du-globe",
+      "categorie": "headquarters",
+      "n": 1,
+      "attribution": "— Aristote, Sur le Ciel",
+      "extrait": "« La forme parfaite est la sphère. Puisque la nature tend vers la perfection, la Terre doit être sphérique. »"
+    },
+    {
+      "article": "chronologie-de-la-tromperie-du-globe",
+      "categorie": "headquarters",
+      "n": 2,
+      "attribution": "— Neil deGrasse Tyson (paraphrasé)",
+      "extrait": "« L'expérience d'Ératosthène fonctionnerait aussi sur une Terre plate, avec une source lumineuse locale suffis"
+    },
+    {
+      "article": "chronologie-de-la-tromperie-du-globe",
+      "categorie": "headquarters",
+      "n": 3,
+      "attribution": "— Nicolas Copernic, De revolutionibus, 1543",
+      "extrait": "« Il n'est pas nécessaire que ces hypothèses soient vraies, ni même vraisemblables ; une seule chose suffit : "
+    },
+    {
+      "article": "chronologie-de-la-tromperie-du-globe",
+      "categorie": "headquarters",
+      "n": 4,
+      "attribution": "— Johannes Kepler",
+      "extrait": "« J'ai démontré la rotondité de la Terre et son mouvement autour du Soleil — grâce à la philosophie. »"
+    },
+    {
+      "article": "chronologie-de-la-tromperie-du-globe",
+      "categorie": "headquarters",
+      "n": 5,
+      "attribution": "— Isaac Newton, Lettre à Bentley, 1693",
+      "extrait": "« L'idée que la gravité soit inhérente à la matière, et qu'un corps puisse agir sur un autre à distance dans l"
+    },
+    {
+      "article": "chronologie-de-la-tromperie-du-globe",
+      "categorie": "headquarters",
+      "n": 6,
+      "attribution": "— Albert Michelson",
+      "extrait": "« Il semble que la Terre soit en état de repos relatif par rapport à l'éther luminifère. »"
+    },
+    {
+      "article": "chronologie-de-la-tromperie-du-globe",
+      "categorie": "headquarters",
+      "n": 7,
+      "attribution": "— Albert Einstein",
+      "extrait": "« J'ai appris l'étrange résultat de l'expérience de Michelson. Bientôt je suis arrivé à la conclusion que notr"
+    },
+    {
+      "article": "chronologie-de-la-tromperie-du-globe",
+      "categorie": "headquarters",
+      "n": 8,
+      "attribution": "— Edwin Hubble",
+      "extrait": "« Une telle condition impliquerait que nous occupions une position unique dans l'univers, analogue à l'ancienn"
+    },
+    {
+      "article": "chronologie-de-la-tromperie-du-globe",
+      "categorie": "headquarters",
+      "n": 9,
+      "attribution": "— Psaume 19:1 (gravé sur la pierre tombale de Wernher von Braun)",
+      "extrait": "« Les cieux racontent la gloire de Dieu, et le firmament annonce l'œuvre de ses mains. »"
+    },
+    {
+      "article": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
+      "categorie": "library",
+      "n": 2,
+      "attribution": "— Al-Bukhārī 3199, Ṣaḥīḥ",
+      "extrait": "Le Prophète ﷺ dit à Abū Dharr au moment où le soleil se couchait : « Sais-tu où il se couche ? » — Allāh et So"
+    },
+    {
+      "article": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
+      "categorie": "library",
+      "n": 3,
+      "attribution": "— Muslim 636, Ṣaḥīḥ",
+      "extrait": "D'après Salama ibn al-Aqwaʿ, le Prophète ﷺ priait le maghrib dès que le soleil se couchait et disparaissait de"
+    },
+    {
+      "article": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
+      "categorie": "library",
+      "n": 4,
+      "attribution": "— Al-Bukhārī 581, Muslim 831, Ṣaḥīḥ",
+      "extrait": "ʿAbdallāh ibn ʿUmar rapporte que le Messager ﷺ a dit : « Ne cherchez pas à prier lors du lever du soleil ni à "
+    },
+    {
+      "article": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
+      "categorie": "library",
+      "n": 5,
+      "attribution": "— As-Saḥīḥa 202, Ṣaḥīḥ",
+      "extrait": "D'après Abū Hurayra, le Messager ﷺ a dit : « Certes, le soleil n'a été retenu pour aucun être humain, excepté "
+    },
+    {
+      "article": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
+      "categorie": "library",
+      "n": 6,
+      "attribution": "— Muslim 2653, Ṣaḥīḥ",
+      "extrait": "D'après ʿAbdallāh ibn ʿAmr ibn al-ʿĀṣ, le Prophète ﷺ a dit : « Allāh a écrit les destinées des créatures cinqu"
+    },
+    {
+      "article": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
+      "categorie": "library",
+      "n": 11,
+      "attribution": "— Muslim 2901, Ṣaḥīḥ",
+      "extrait": "D'après Ḥudhayfa ibn Asīd, le Prophète ﷺ dit : « L'Heure ne viendra pas avant l'apparition de dix signes : un "
+    },
+    {
+      "article": "debut-de-la-creation-selon-le-coran-et-la-sunna",
+      "categorie": "library",
+      "n": 1,
+      "attribution": "— Sourate Al-A'raf, 7:54",
+      "extrait": "إِنَّ رَبَّكُمُ اللَّهُ الَّذِي خَلَقَ السَّمَاوَاتِ وَالْأَرْضَ فِي سِتَّةِ أَيَّامٍ ثُمَّ اسْتَوَىٰ عَلَى ال"
+    },
+    {
+      "article": "debut-de-la-creation-selon-le-coran-et-la-sunna",
+      "categorie": "library",
+      "n": 2,
+      "attribution": "— Sourate Al-Mulk, 67:3",
+      "extrait": "الَّذِي خَلَقَ سَبْعَ سَمَاوَاتٍ طِبَاقًا ۖ مَّا تَرَىٰ فِي خَلْقِ الرَّحْمَـٰنِ مِن تَفَاوُتٍ « Celui qui a c"
+    },
+    {
+      "article": "debut-de-la-creation-selon-le-coran-et-la-sunna",
+      "categorie": "library",
+      "n": 3,
+      "attribution": "— Sourate Al-Ghashiyah, 88:20",
+      "extrait": "وَإِلَى الْأَرْضِ كَيْفَ سُطِحَتْ « Et la terre, comment elle a été étendue ? »"
+    },
+    {
+      "article": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
+      "categorie": "library",
+      "n": 1,
+      "attribution": "— Sunan Abī Dāwūd, authentique",
+      "extrait": "Le courant concordiste moderne interprète ce verset métaphoriquement : Dhū al-Qarnayn aurait simplement « vu l"
+    },
+    {
+      "article": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
+      "categorie": "library",
+      "n": 2,
+      "attribution": "— Sunan Abī Dāwūd, hadith 4002",
+      "extrait": "« [Le Prophète ﷺ] dit : \"Ô Abū Dharr, sais-tu où se couche [le soleil] ?\" Je répondis : \"Allah et Son Messager"
+    },
+    {
+      "article": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
+      "categorie": "library",
+      "n": 3,
+      "attribution": "— Umayya ibn Abī al-Ṣalt, poète ḥanīf pré-islamique de Ṭāʾif",
+      "extrait": "La localisation de cette barrière est un problème non résolu. Sur un globe, toute la surface terrestre est car"
+    },
+    {
+      "article": "dune-terre-plate-universelle-a-la-sphere-grecque",
+      "categorie": "headquarters",
+      "n": 1,
+      "attribution": "— Huainanzi (淮南子), IIᵉ siècle av. J.-C.",
+      "extrait": "« Le Ciel est rond, la Terre est carrée. Le Ciel recouvre, la Terre supporte. Le Ciel tourne, la Terre reste i"
+    },
+    {
+      "article": "dune-terre-plate-universelle-a-la-sphere-grecque",
+      "categorie": "headquarters",
+      "n": 2,
+      "attribution": "Sourate Al-Ghashiyah — 88:20",
+      "extrait": "La position majoritaire dans le monde musulman classique est le rejet de la cosmologie grecque au nom de la Ré"
+    },
+    {
+      "article": "dune-terre-plate-universelle-a-la-sphere-grecque",
+      "categorie": "headquarters",
+      "n": 3,
+      "attribution": "— Ibn Taymiyyah, Darʾ Taʿāruḍ al-ʿAql wa al-Naql",
+      "extrait": "Ibn Taymiyyah (1263–1328), imam hanbalite et l'une des figures intellectuelles majeures de l'islam sunnite, sy"
+    },
+    {
+      "article": "dune-terre-plate-universelle-a-la-sphere-grecque",
+      "categorie": "headquarters",
+      "n": 4,
+      "attribution": "Sourate Al-ʿAnkabūt — 29:20",
+      "extrait": "قُلْ سِيرُوا۟ فِى ٱلْأَرْضِ فَٱنظُرُوا۟ كَيْفَ بَدَأَ ٱلْخَلْقَ « Dis : Parcourez la terre et observez comment"
+    },
+    {
+      "article": "etat-des-lieux-ou-en-sommes-nous",
+      "categorie": "meta",
+      "n": 1,
+      "attribution": "Sourate Al-Ghashiyah — 88:17-20",
+      "extrait": "Si une seule chose devait rester de ce site, que ce soit celle-ci : la vérité n'a pas besoin d'être protégée —"
+    },
+    {
+      "article": "la-cosmologie-comme-instrument-de-domination",
+      "categorie": "headquarters",
+      "n": 1,
+      "attribution": "— Stephen Hawking, Festival Starmus, 2014",
+      "extrait": "« Il est tout à fait naturel de croire que Dieu a créé l’univers avant que nous comprenions la science. Mais l"
+    },
+    {
+      "article": "la-cosmologie-comme-instrument-de-domination",
+      "categorie": "headquarters",
+      "n": 2,
+      "attribution": "— Richard Dawkins, River Out of Eden, 1995",
+      "extrait": "« L’univers que nous observons possède exactement les propriétés auxquelles on devrait s’attendre s’il n’y a, "
+    },
+    {
+      "article": "la-cosmologie-comme-instrument-de-domination",
+      "categorie": "headquarters",
+      "n": 3,
+      "attribution": "— Richard Dawkins, Le Gène Égoïste, 1976",
+      "extrait": "« Si vous voulez construire une société dans laquelle les individus coopèrent généreusement pour réaliser le b"
+    },
+    {
+      "article": "la-cosmologie-comme-instrument-de-domination",
+      "categorie": "headquarters",
+      "n": 4,
+      "attribution": "— Sourate Al-Ghashiyah, 88:17-20",
+      "extrait": "أَفَلَا يَنظُرُونَ إِلَى الْإِبِلِ كَيْفَ خُلِقَتْ ۝ وَإِلَى السَّمَاءِ كَيْفَ رُفِعَتْ ۝ وَإِلَى الْجِبَالِ ك"
+    },
+    {
+      "article": "la-cosmologie-comme-instrument-de-domination",
+      "categorie": "headquarters",
+      "n": 5,
+      "attribution": "— Sourate Al-A’raf, 7:179",
+      "extrait": "وَلَقَدْ ذَرَأْنَا لِجَهَنَّمَ كَثِيرًا مِّنَ الْجِنِّ وَالْإِنسِ « Et Nous avons destiné à la Géhenne beaucou"
+    },
+    {
+      "article": "la-gravite-70-theories-et-aucune-preuve",
+      "categorie": "headquarters",
+      "n": 1,
+      "attribution": "— Richard Feynman (Prix Nobel 1965), Feynman Lectures on Gravitation, 1995",
+      "extrait": "« C'est l'un des plus grands mystères de la physique que la gravité ait une description mathématique aussi sim"
+    },
+    {
+      "article": "la-gravite-70-theories-et-aucune-preuve",
+      "categorie": "headquarters",
+      "n": 2,
+      "attribution": "— Isaac Newton, Lettre à Richard Bentley, 25 février 1693",
+      "extrait": "« Qu'un corps puisse agir sur un autre à distance à travers le vide, sans la médiation de quoi que ce soit d'a"
+    },
+    {
+      "article": "la-gravite-70-theories-et-aucune-preuve",
+      "categorie": "headquarters",
+      "n": 6,
+      "attribution": "— Henri Poincaré, La Science et l'Hypothèse (1902)",
+      "extrait": "« Ces deux propositions, \"la Terre tourne\" et \"il est plus commode de supposer que la Terre tourne\", ont une s"
+    },
+    {
+      "article": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
+      "categorie": "observatory",
+      "n": 1,
+      "attribution": "Sourate Yūnus — 10:5",
+      "extrait": "Le modèle standard affirme que la Lune ne fait que réfléchir la lumière solaire. Or leurs propriétés physiques"
+    },
+    {
+      "article": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
+      "categorie": "observatory",
+      "n": 2,
+      "attribution": "Sourate Nūḥ — 71:16",
+      "extrait": "Le crépuscule long et progressif (parfois plus d'une heure) correspond également à la perspective d'un project"
+    },
+    {
+      "article": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
+      "categorie": "observatory",
+      "n": 3,
+      "attribution": "Sourate Al-Naḥl — 16:16",
+      "extrait": "L'Étoile Polaire (Polaris) est le seul astre qui ne semble jamais bouger. Toutes les autres étoiles tournent a"
+    },
+    {
+      "article": "la-rotation-terrestre-deux-experiences-zero-preuve",
+      "categorie": "headquarters",
+      "n": 2,
+      "attribution": "— Henri Poincaré, La Science et l'Hypothèse, 1902",
+      "extrait": "« Cette affirmation : \"la Terre tourne\", n'a aucun sens, puisqu'aucune expérience ne permettra de la vérifier "
+    },
+    {
+      "article": "la-rotation-terrestre-deux-experiences-zero-preuve",
+      "categorie": "headquarters",
+      "n": 4,
+      "attribution": "— Albert Einstein, lettre à Ernst Mach, 25 juin 1913",
+      "extrait": "« Si l'on fait tourner [une coquille massive] par rapport aux étoiles fixes autour d'un axe passant par son ce"
+    },
+    {
+      "article": "la-rotation-terrestre-deux-experiences-zero-preuve",
+      "categorie": "headquarters",
+      "n": 8,
+      "attribution": "— A.C. Longden, The Physical Review, avril 1919",
+      "extrait": "« Le pendule commençait toujours à tourner dans le sens horaire. Ce fait demeura un mystère jusqu'à ce qu'on s"
+    },
+    {
+      "article": "la-rotation-terrestre-deux-experiences-zero-preuve",
+      "categorie": "headquarters",
+      "n": 9,
+      "attribution": "— Lee, 2005",
+      "extrait": "« Le plan du pendule de Foucault ne reste, en tout état de cause, qu'une hypothèse. Quelqu'un a-t-il vérifié q"
+    },
+    {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 2,
+      "attribution": "— Tafsīr al-Qurṭubī",
+      "extrait": "« C'est-à-dire étendue et aplanie. »"
+    },
+    {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 3,
+      "attribution": "— Tafsīr al-Ṭabarī",
+      "extrait": "« Et comment la terre a été aplanie. On dit d'une montagne qu'elle est aplanie lorsque son sommet est nivelé. "
+    },
+    {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 4,
+      "attribution": "— Tafsīr Ibn Kathīr",
+      "extrait": "« C'est-à-dire étendue et aplanie. »"
+    },
+    {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 6,
+      "attribution": "— Tafsīr al-Ṭabarī",
+      "extrait": "« Pour Abū Jaʿfar, Allāh a aplani la terre en long et en large. »"
+    },
+    {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 7,
+      "attribution": "— Tafsīr al-Jalālayn",
+      "extrait": "« Il a étendu c'est-à-dire aplani. »"
+    },
+    {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 9,
+      "attribution": "— Tafsīr al-Jalālayn",
+      "extrait": "« Nous l'avons étendue c'est-à-dire aplanie. »"
+    },
+    {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 10,
+      "attribution": "— Tafsīr al-Baghawī",
+      "extrait": "« Nous l'avons nivelée au-dessus de l'eau. Il fut dit qu'elle a été élargie d'une distance de 500 ans de march"
+    },
+    {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 12,
+      "attribution": "— Tafsīr al-Ṭabarī",
+      "extrait": "« Nous avons fait de la terre un tapis pour les créatures. »"
+    },
+    {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 15,
+      "attribution": "— Tafsīr Ibn Kathīr",
+      "extrait": "« Ce dernier avis — l'aplanissement — est le plus répandu et celui que privilégie la plupart des exégètes et d"
+    },
+    {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 16,
+      "attribution": "— Tafsīr al-Qurṭubī",
+      "extrait": "Zoologique : L'autruche ne construit pas de nid. Elle gratte et aplanit le sol avec ses pattes pour créer une "
+    },
+    {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 17,
+      "attribution": "— Tafsīr al-Baghawī",
+      "extrait": "« Il l'a aplani. Elle a été conçue sans aplanissement avant la création des cieux. Pour Ibn ʿAbbās, Allāh a cr"
+    },
+    {
+      "article": "le-concordisme",
+      "categorie": "headquarters",
+      "n": 1,
+      "attribution": "Sourate Al-Māʾida — 5:48",
+      "extrait": "Le concordisme, c'est l'idée que le Coran « prédit » les découvertes scientifiques modernes. Par exemple : « L"
+    },
+    {
+      "article": "le-concordisme",
+      "categorie": "headquarters",
+      "n": 4,
+      "attribution": "Rapporté par Al-Bukhari et Muslim",
+      "extrait": "Celui qui élève les hypothèses humaines au-dessus du Livre d'Allah a porté atteinte à la Révélation et à sa pr"
+    },
+    {
+      "article": "le-concordisme",
+      "categorie": "headquarters",
+      "n": 5,
+      "attribution": "Sourate Al-Anbiyāʾ — 21:30",
+      "extrait": "Le verset 21:30 est l'argument central du concordisme cosmologique : أَوَلَمْ يَرَ الَّذِينَ كَفَرُوا أَنَّ ال"
+    },
+    {
+      "article": "le-concordisme",
+      "categorie": "headquarters",
+      "n": 6,
+      "attribution": "— Al-Ṭabarī (m. 310H), Jāmiʿ al-Bayān, commentaire de 21:30",
+      "extrait": "Le vocabulaire des Salaf est systématiquement concret : adhérence, soudure, fermeture. Aucun n'emploie de term"
+    },
+    {
+      "article": "le-concordisme",
+      "categorie": "headquarters",
+      "n": 7,
+      "attribution": "Sourate Al-Ikhlāṣ — 112:1-4",
+      "extrait": "La Parole d'Allah n'a pas besoin du Big Bang pour être crédible. Elle était vérité avant ces théories et le re"
+    },
+    {
+      "article": "le-consensus-sur-la-sphericite",
+      "categorie": "library",
+      "n": 4,
+      "attribution": "— Ibn Taymiyyah, Bayān Talbīs al-Jahmiyyah",
+      "extrait": "Et dans Bayān Talbīs al-Jahmiyyah , il formule explicitement : « La parole d'aucun d'entre eux [les cosmologue"
+    },
+    {
+      "article": "le-consensus-sur-la-sphericite",
+      "categorie": "library",
+      "n": 6,
+      "attribution": "— Sourate Az-Zumar, 39:5",
+      "extrait": "يُكَوِّرُ اللَّيْلَ عَلَى النَّهَارِ وَيُكَوِّرُ النَّهَارَ عَلَى اللَّيْلِ « Il enroule la nuit sur le jour e"
+    },
+    {
+      "article": "le-theodolite-celeste",
+      "categorie": "observatory",
+      "n": 1,
+      "attribution": "— Henning Umland, A Short Guide to Celestial Navigation (2015)",
+      "extrait": "Ptolémée, dans sa Cosmographia , explique que l'horizon de chaque observateur peut être imaginé comme un plan "
+    },
+    {
+      "article": "leau-ne-ment-pas",
+      "categorie": "experiences",
+      "n": 1,
+      "attribution": "— Décision de l'arbitre M. Walsh, The Field, 1er avril 1870",
+      "extrait": "« Prenant en considération la théorie de la rotondité de la Terre, M. Wallace a droit aux enjeux. »"
+    },
+    {
+      "article": "les-distances-cosmiques-au-dela-de-la-regle",
+      "categorie": "headquarters",
+      "n": 1,
+      "attribution": "— Edwin Hubble, The Observational Approach to Cosmology, Oxford, 1937",
+      "extrait": "« Si le facteur de récession est abandonné, si les décalages spectraux ne sont pas principalement des décalage"
+    },
+    {
+      "article": "les-marees-contre-lheliocentrisme",
+      "categorie": "observatory",
+      "n": 1,
+      "attribution": "— Robert Bennett, The Geocentric Testimony of Our Tides",
+      "extrait": "« La montée et la descente des marées dans le monde entier sont une démonstration semi-diurne, mixte et répéti"
+    },
+    {
+      "article": "levolution-et-lislam",
+      "categorie": "library",
+      "n": 1,
+      "attribution": "— Sourate Al-Imran, 3:59",
+      "extrait": "إِنَّ مَثَلَ عِيسَىٰ عِندَ اللَّهِ كَمَثَلِ آدَمَ ۖ خَلَقَهُ مِن تُرَابٍ ثُمَّ قَالَ لَهُ كُن فَيَكُونُ « Le c"
+    },
+    {
+      "article": "levolution-et-lislam",
+      "categorie": "library",
+      "n": 2,
+      "attribution": "— Sourate Sad, 38:71",
+      "extrait": "إِذْ قَالَ رَبُّكَ لِلْمَلَائِكَةِ إِنّي خَالِقٌ بَشَرًا مِّن طينٍ « Quand ton Seigneur dit aux anges : “Je va"
+    },
+    {
+      "article": "lhypothese-nulle-dynamique-et-cinematique",
+      "categorie": "headquarters",
+      "n": 6,
+      "attribution": "— Ernst Mach, La Mécanique (1883), Chapitre II",
+      "extrait": "« Les mouvements de l'univers sont les mêmes que l'on adopte le mode de vue ptoléméen ou copernicien. Les deux"
+    },
+    {
+      "article": "lhypothese-nulle-dynamique-et-cinematique",
+      "categorie": "headquarters",
+      "n": 7,
+      "attribution": "— Henri Poincaré, La Science et l'Hypothèse (1902), Chapitre VII",
+      "extrait": "« Ces deux propositions, \"la Terre tourne\" et \"il est plus commode de supposer que la Terre tourne\", ont une s"
+    },
+    {
+      "article": "ligo-londe-qui-nexistait-pas",
+      "categorie": "headquarters",
+      "n": 1,
+      "attribution": "— Creswell et al., arXiv:1706.04191v2, Niels Bohr Institute, 2017",
+      "extrait": "« Une distinction claire entre signal et bruit reste à établir afin de déterminer la contribution des ondes gr"
+    },
+    {
+      "article": "ligo-londe-qui-nexistait-pas",
+      "categorie": "headquarters",
+      "n": 2,
+      "attribution": "— Principe épistémologique fondamental",
+      "extrait": "« Une découverte scientifique n'est pas validée par le consensus d'une collaboration de mille personnes finanç"
+    },
+    {
+      "article": "mise-en-garde-la-kaaba-et-saturne",
+      "categorie": "library",
+      "n": 1,
+      "attribution": "— Sourate Fussilat, 41:37",
+      "extrait": "لَا تَسْجُدُوا لِلشَّمْسِ وَلَا لِلْقَمَرِ وَاسْجُدُوا لِلَّهِ الَّذِي خَلَقَهُنَّ « Ne vous prosternez ni dev"
+    },
+    {
+      "article": "neptune-et-pluton-les-faux-triomphes",
+      "categorie": "headquarters",
+      "n": 2,
+      "attribution": "— E.M. Standish, « Planet X: No Dynamical Evidence in the Optical Observations », The Astronomical Journal, 105(5), 1993",
+      "extrait": "En 1993, E. Myles Standish du Jet Propulsion Laboratory (JPL) publie l'analyse définitive : « Il est démontré "
+    },
+    {
+      "article": "neptune-et-pluton-les-faux-triomphes",
+      "categorie": "headquarters",
+      "n": 4,
+      "attribution": "— JHU Applied Physics Laboratory, matériaux éducatifs New Horizons",
+      "extrait": "Et en 2015, le laboratoire de physique appliquée de Johns Hopkins (JHU APL), qui a construit et opéré la sonde"
+    },
+    {
+      "article": "pourquoi-tout-remettre-en-question",
+      "categorie": "headquarters",
+      "n": 1,
+      "attribution": "— Claude Bernard, Introduction à l'étude de la médecine expérimentale, 1865",
+      "extrait": "L'une des confusions les plus répandues dans le discours scientifique populaire est l'assimilation entre obser"
+    },
+    {
+      "article": "pourquoi-tout-remettre-en-question",
+      "categorie": "headquarters",
+      "n": 2,
+      "attribution": "— Francis Bacon, Novum Organum, 1620, Livre I, Aphorisme 98",
+      "extrait": "La distinction n'est pas secondaire. Claude Bernard soulignait déjà un danger : l'observation passive peut eng"
+    },
+    {
+      "article": "pourquoi-tout-remettre-en-question",
+      "categorie": "headquarters",
+      "n": 3,
+      "attribution": "— Karl Popper, La logique de la découverte scientifique, 1934",
+      "extrait": "Le philosophe Larry Laudan a baptisé cette récurrence la « méta-induction pessimiste » : les théories passées "
+    },
+    {
+      "article": "pourquoi-tout-remettre-en-question",
+      "categorie": "headquarters",
+      "n": 4,
+      "attribution": "— James Woodward, Making Things Happen, 2003",
+      "extrait": "Accumuler des observations favorables ne prouve jamais rien de façon définitive. La vérification est asymétriq"
+    },
+    {
+      "article": "pourquoi-tout-remettre-en-question",
+      "categorie": "headquarters",
+      "n": 5,
+      "attribution": "— Ian Hacking, Representing and Intervening, 1983",
+      "extrait": "Cette définition est radicale : elle exclut les corrélations observationnelles de l'établissement de relations"
+    },
+    {
+      "article": "pourquoi-tout-remettre-en-question",
+      "categorie": "headquarters",
+      "n": 6,
+      "attribution": "— Edwin Hubble, The Observational Approach to Cosmology, 1937",
+      "extrait": "Le décalage vers le rouge (redshift) est un fait observationnel : la lumière d'une galaxie lointaine arrive av"
+    },
+    {
+      "article": "pourquoi-tout-remettre-en-question",
+      "categorie": "headquarters",
+      "n": 11,
+      "attribution": "— Ernst Mach, La Mécanique (1883)",
+      "extrait": "« Les mouvements de l'univers sont les mêmes que l'on adopte le mode de vue ptoléméen ou copernicien. Les deux"
+    },
+    {
+      "article": "pourquoi-tout-remettre-en-question",
+      "categorie": "headquarters",
+      "n": 12,
+      "attribution": "— Henri Poincaré, La Science et l'Hypothèse (1902)",
+      "extrait": "« Ces deux propositions, \"la Terre tourne\" et \"il est plus commode de supposer que la Terre tourne\", ont une s"
+    },
+    {
+      "article": "pourquoi-tout-remettre-en-question",
+      "categorie": "headquarters",
+      "n": 13,
+      "attribution": "Sourate Al-Ghashiyah — 88:17-20",
+      "extrait": "Ces principes ne sont pas anti-scientifiques. Ils sont scientifiques — au sens le plus classique du terme. C'e"
+    },
+    {
+      "article": "pres-de-cent-savants-de-lislam",
+      "categorie": "library",
+      "n": 2,
+      "attribution": "Sourate Al-Nisāʾ — 4:115",
+      "extrait": "95 savants — des Compagnons du Prophète ﷺ aux savants de notre époque, en passant par les quatre écoles juridi"
+    },
+    {
+      "article": "pres-de-cent-savants-de-lislam",
+      "categorie": "library",
+      "n": 3,
+      "attribution": "— Ibn Rajab al-Ḥanbalī, Ar-Radd",
+      "extrait": "« C'est par la sagesse d'Allah qu'Il établit la religion et la protégea en suscitant pour les gens des imāms p"
+    }
+  ]
+}

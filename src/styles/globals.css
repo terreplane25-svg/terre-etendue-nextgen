@@ -312,6 +312,26 @@ html, body { overflow-x: hidden; }
   .prose-dash .tei-gloss-bulle { display: none; }
 }
 
+/* ═══ Citations : l'attribution en pied ═══
+   La charte impose un <footer> en pied de citation. Ni <cite> ni <footer>
+   n'étaient stylés : l'attribution se confondait avec le corps de la citation. */
+.prose-dash blockquote footer,
+.prose-dash .tei-citation footer {
+  display: block;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--ink-muted);
+  letter-spacing: 0.01em;
+}
+/* Une attribution sans localisation précise — ni page, ni volume, ni numéro —
+   n'est pas vérifiable. Voir content/corrections/citations-a-paginer.json. */
+.prose-dash blockquote footer em { font-style: normal; color: var(--ink-ghost); }
+
 /* ═══ Index thématique généré ═══ */
 .prose-dash ul.tei-index { list-style: none; margin-left: 0; }
 .prose-dash ul.tei-index li { padding: 7px 0; border-bottom: 1px solid var(--border-soft); }

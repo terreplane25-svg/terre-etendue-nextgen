@@ -139,6 +139,14 @@
       "erreur": "Les versions 1.0 à 1.2 employaient le rayon moyen sans documenter que le rayon de courbure dépend de l'azimut de la ligne.",
       "correction": "Écart chiffré et publié : à 43,5° de latitude, de 6 365,7 km nord-sud à 6 388,3 km est-ouest. L'effet reste sous le bruit de mesure à toutes les distances, donc les prédictions publiées tiennent, mais l'azimut réel sera consigné dès le site choisi. Ce n'était pas une erreur de calcul mais une lacune de rigueur.",
       "commit": "b814e64"
+    },
+    {
+      "date": "2026-08-03",
+      "categorie": "source",
+      "ou": "Ensemble du corpus — attribution des citations",
+      "erreur": "74 citations portaient leur attribution dans une balise <cite> au lieu du <footer> imposé par la charte, et ni l'une ni l'autre n'était stylée : l'attribution se confondait visuellement avec le corps de la citation. Un premier audit avait par ailleurs conclu à tort que 27 citations étaient sans attribution — le détecteur ne comptait que les <footer>.",
+      "correction": "Balisage normalisé sur les 74 citations, sans qu'aucune attribution soit ajoutée, modifiée ni retirée. Style dédié pour l'attribution. L'audit erroné est rectifié ici : aucune citation du corpus n'est sans attribution. En revanche 86 citations ne portent aucune localisation vérifiable — ni volume, ni page, ni numéro — et sont listées dans content/corrections/citations-a-localiser.json.",
+      "commit": "à venir"
     }
   ]
 }
