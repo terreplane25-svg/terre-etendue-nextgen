@@ -5,7 +5,7 @@ import AudioPlayer from '@/components/AudioPlayer';
 
 const AUDIO_SLUGS: string[] = [];
 
-interface ArticleReaderProps { article?: any; title?: string; description?: string; content?: string; category?: string; tags?: string[]; readTime?: number; date?: string; author?: string; }
+interface ArticleReaderProps { article?: any; title?: string; description?: string; content?: string; category?: string; tags?: string[]; readTime?: number; date?: string; updated?: string; author?: string; }
 
 interface TocItem { id: string; text: string; level: number; }
 
@@ -84,6 +84,7 @@ export default function ArticleReader(props: ArticleReaderProps) {
   const tags = a.tags || [];
   const readTime = a.readTime;
   const date = a.date;
+  const updated = a.updated;
   const author = a.author;
   const slug = a.slug || '';
   const heroImg = getArticleImage(slug);
@@ -220,6 +221,10 @@ export default function ArticleReader(props: ArticleReaderProps) {
         <div style={{ fontSize: 13, color: 'var(--ink-muted)', marginBottom: 24 }}>
           {author && <span>{author} | </span>}
           {date && <span>{new Date(date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })} | </span>}
+          {updated && updated !== date && (
+            <span title="Date de la dernière révision de fond">
+              révisé le {new Date(updated).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })} | </span>
+          )}
           {readTime && <span>{readTime} min</span>}
         </div>
 

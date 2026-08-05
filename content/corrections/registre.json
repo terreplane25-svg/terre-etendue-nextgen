@@ -1,0 +1,144 @@
+{
+  "_meta": {
+    "titre": "Registre des corrections",
+    "description": "Toute erreur identifiée sur ce site est consignée ici, datée, avec ce qui était affirmé, ce qui l'a remplacé, et le commit qui le prouve. Aucune entrée n'est jamais retirée.",
+    "regle": "Une entrée n'est jamais supprimée ni réécrite. Si une correction est elle-même corrigée, une nouvelle entrée est ajoutée.",
+    "genere_par": "scripts/generer-corrections.py"
+  },
+  "categories": {
+    "fait": "Erreur de fait ou de chiffre dans un article publié",
+    "methode": "Erreur de méthode : le raisonnement lui-même était fautif",
+    "source": "Source mal citée, mal attribuée, ou absente là où une affirmation en exigeait une",
+    "technique": "Défaut d'affichage ou de rendu qui altérait la lecture",
+    "conception": "Défaut dans un protocole ou un dispositif proposé, avant toute mesure"
+  },
+  "entrees": [
+    {
+      "date": "2026-07-14",
+      "categorie": "source",
+      "ou": "LIGO, l'onde qui n'existait pas — et La gravité, 70 théories et aucune preuve",
+      "erreur": "Une citation était attribuée de façon erronée.",
+      "correction": "Citation vérifiée et rétablie ; l'ensemble des références des deux articles a été repris et doté de DOI.",
+      "commit": "18251de"
+    },
+    {
+      "date": "2026-07-14",
+      "categorie": "source",
+      "ou": "La rotation terrestre — deux expériences, zéro preuve",
+      "erreur": "Plusieurs références n'étaient pas vérifiables en l'état.",
+      "correction": "Références reprises, DOI ajoutés, corrections vérifiées une à une.",
+      "commit": "657acfd"
+    },
+    {
+      "date": "2026-07-15",
+      "categorie": "source",
+      "ou": "Le concordisme, Vols d'avion et courbure terrestre, D'une Terre plate universelle à la sphère grecque",
+      "erreur": "Sourçage insuffisant sur plusieurs affirmations.",
+      "correction": "Sources fiabilisées, DOI ajoutés, une correction de fond appliquée.",
+      "commit": "b04027f"
+    },
+    {
+      "date": "2026-07-25",
+      "categorie": "fait",
+      "ou": "Vols d'avion et courbure terrestre",
+      "erreur": "L'accélération centripète d'un avion de ligne était donnée à 0,056 m/s². La valeur était surestimée d'un facteur 5,7.",
+      "correction": "a = v²/R = 250² / 6 371 000 = 0,0098 m/s², soit environ un milli-g. La valeur initiale correspondrait à une vitesse d'environ 2 150 km/h.",
+      "commit": "a0fe4b1",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-07-26",
+      "categorie": "source",
+      "ou": "Réseau de trilatération",
+      "erreur": "Trois valeurs du sourçage austral étaient mal attribuées.",
+      "correction": "Sources reprises et corrigées ; un filtre par nature de source a été ajouté au traitement.",
+      "commit": "45c5120"
+    },
+    {
+      "date": "2026-07-27",
+      "categorie": "methode",
+      "ou": "Réseau géodésique — critère de discrimination",
+      "erreur": "La flèche avait été retenue comme discriminant d'un réseau de distances. C'est faux : la flèche gouverne les expériences de ligne de visée, pas les réseaux de distances.",
+      "correction": "Le discriminant réel est le rapport θ/sin θ, qui dépend de l'azimut et de la latitude, non de la longueur. Le classement des cibles s'en est trouvé presque exactement inversé, et les textes que cette erreur avait produits ont été purgés.",
+      "commit": "3dfc4bf, 1c4e100",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-07-28",
+      "categorie": "methode",
+      "ou": "Réseau géodésique — classement des noyaux",
+      "erreur": "Conséquence directe de l'erreur précédente : 9 noyaux sur 21 étaient mal classés.",
+      "correction": "Reclassement complet avec un seuil d'écart de 10 %. Le nombre de noyaux discriminants est passé de 13 à 18.",
+      "commit": "4731ab9"
+    },
+    {
+      "date": "2026-07-28",
+      "categorie": "methode",
+      "ou": "scripts/audit-triangle.py",
+      "erreur": "Le script d'audit cherchait la meilleure permutation des côtés d'un triangle avant d'appliquer la loi des sinus. Il fabriquait ainsi un accord qui n'existait pas, et affaiblissait son propre contrôle.",
+      "correction": "La permutation a été supprimée : le nommage des sommets impose l'appariement. C'est ce contrôle rétabli qui a permis de rejeter un bloc de données soumis.",
+      "commit": "566a64c, 8c8e1df, 08fbe37",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-01",
+      "categorie": "technique",
+      "ou": "Article sur l'altitude — schéma des trois surfaces",
+      "erreur": "Deux libellés dépassaient du cadre du schéma et étaient tronqués à l'affichage.",
+      "correction": "Cadre élargi, libellés repositionnés, et un contrôle automatique de débordement ajouté au générateur.",
+      "commit": "0a8be74"
+    },
+    {
+      "date": "2026-08-02",
+      "categorie": "conception",
+      "ou": "Protocole côte à trois mires v1.1",
+      "erreur": "La version 1.0 tolérait un clapot de 10 cm. Le budget d'erreur, calculé après coup, a montré que la lecture de la ligne d'eau écrasait alors le signal : rapport signal sur bruit de 0,3 à 1 km, jamais plus de 8 à 10 km. La campagne n'aurait rien conclu.",
+      "correction": "Le puits de tranquillisation devient obligatoire. La lecture passe de 100 mm à 5 mm et le rapport signal sur bruit à 26 à 10 km. Aucune mesure n'avait été effectuée : la correction est intervenue avant tout relevé.",
+      "commit": "906c16b",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-02",
+      "categorie": "source",
+      "ou": "L'eau ne ment pas — section 05",
+      "erreur": "L'article affirmait que « les mesures laser sur lac aboutissent systématiquement au même constat », sans nommer une seule campagne ni citer de source.",
+      "correction": "Remplacé par le relevé nominatif des campagnes réelles — FECORE 2018 sur les lacs Balaton et IJssel, Rainy Lake 2018 — avec leurs résultats et leurs défauts. Le bon argument de la section, sur l'impossibilité pour la réfraction de s'ajuster à toutes les distances, a été conservé et rendu mesurable.",
+      "commit": "906c16b",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-02",
+      "categorie": "technique",
+      "ou": "Glossaire interactif",
+      "erreur": "Les bulles de définition étaient rognées par les conteneurs de la page, et le soulignement doré offrait un contraste de 2,88:1 sur fond clair, sous le seuil de 3:1 exigé pour un composant d'interface.",
+      "correction": "Bulles passées en position fixe, qui échappe au rognage ; couleur dédiée portant le contraste à 4,31:1 en mode clair.",
+      "commit": "af11330, bdfbc14"
+    },
+    {
+      "date": "2026-08-03",
+      "categorie": "technique",
+      "ou": "Schémas du dispositif de mesure",
+      "erreur": "Les fichiers SVG autonomes portaient un attribut booléen sans valeur, ce qui est valide en HTML mais pas en XML. Les trois fichiers étaient donc invalides et ne s'affichaient pas du tout.",
+      "correction": "Attribut corrigé, validation XML ajoutée au générateur, et rendu vérifié par capture au lieu d'être supposé d'après le code.",
+      "commit": "3a2054b",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-03",
+      "categorie": "fait",
+      "ou": "Lettre de campagne — tableau de l'état de l'art",
+      "erreur": "Deux cellules étaient fautives. Le canal Old Bedford était décrit comme « une observation unique » alors qu'il a vu des dizaines d'observations entre 1838 et 1904. Le lac Pontchartrain était décrit comme « non métrique » alors que l'espacement connu des pylônes fournit une échelle.",
+      "correction": "Bedford : le vrai défaut est que la hauteur de l'œil change d'une observation à l'autre, et elle commande tout — 4,31 m masqués depuis 20 cm contre 0,26 m depuis 4,04 m. Pontchartrain : une seule distance, conditions atmosphériques non consignées.",
+      "commit": "9e1dd85",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-03",
+      "categorie": "conception",
+      "ou": "Protocole côte à trois mires v1.3",
+      "erreur": "Les versions 1.0 à 1.2 employaient le rayon moyen sans documenter que le rayon de courbure dépend de l'azimut de la ligne.",
+      "correction": "Écart chiffré et publié : à 43,5° de latitude, de 6 365,7 km nord-sud à 6 388,3 km est-ouest. L'effet reste sous le bruit de mesure à toutes les distances, donc les prédictions publiées tiennent, mais l'azimut réel sera consigné dès le site choisi. Ce n'était pas une erreur de calcul mais une lacune de rigueur.",
+      "commit": "b814e64"
+    }
+  ]
+}

@@ -312,6 +312,49 @@ html, body { overflow-x: hidden; }
   .prose-dash .tei-gloss-bulle { display: none; }
 }
 
+/* ═══ Index thématique généré ═══ */
+.prose-dash ul.tei-index { list-style: none; margin-left: 0; }
+.prose-dash ul.tei-index li { padding: 7px 0; border-bottom: 1px solid var(--border-soft); }
+.prose-dash .tei-index-pilier {
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em;
+  color: var(--ink-muted); text-transform: uppercase; margin-left: 6px;
+}
+.prose-dash .tei-index-tags { display: block; font-size: 12px; color: var(--ink-ghost); margin-top: 2px; }
+.prose-dash .tei-index-compte {
+  font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--ink-muted);
+}
+
+/* ═══ Registre des corrections ═══ */
+.prose-dash .tei-correction {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--ink-muted);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 18px 0;
+  background: var(--cream);
+}
+.prose-dash .tei-correction-tete { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+.prose-dash .tei-correction-date {
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.04em; color: var(--ink-muted);
+}
+.prose-dash .tei-correction-cat {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.1em; padding: 3px 8px; border-radius: 4px;
+  border: 1px solid currentColor;
+}
+.prose-dash .cat-fait       { color: var(--rose); }
+.prose-dash .cat-methode    { color: var(--lavender); }
+.prose-dash .cat-source     { color: var(--saffron); }
+.prose-dash .cat-conception { color: var(--cyan); }
+.prose-dash .cat-technique  { color: var(--ink-muted); }
+.prose-dash .tei-correction-ou { font-weight: 700; color: var(--ink); margin-bottom: 10px; font-size: 15px; }
+.prose-dash .tei-correction p { margin-bottom: 8px; font-size: 14.5px; }
+.prose-dash .tei-correction-ref {
+  font-family: var(--font-mono); font-size: 11px; color: var(--ink-ghost);
+  margin: 10px 0 0 !important;
+}
+
 /* ═══ Bouton PDF / carte document ═══ */
 .prose-dash .tei-doc-card { background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin: 1.5em 0; }
 .prose-dash .tei-doc-card .tei-doc-icon { font-size: 24px; line-height: 1; margin-bottom: 6px; }

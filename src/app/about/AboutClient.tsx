@@ -46,7 +46,7 @@ const ETHIQUE = [
 export default function AboutClient() {
   return (
     <div>
-      <SectionHeader pillar="À PROPOS" pillarNum="06" subtitle="Qui sommes-nous" title="Terre Étendue Islam" color={dash.opal} count={5} countLabel="sections — manifeste, méthodologie, FAQ, éthique et liens" />
+      <SectionHeader pillar="À PROPOS" pillarNum="06" subtitle="Qui sommes-nous" title="Terre Étendue Islam" color={dash.opal} count={5} countLabel="sections — présentation, méthode, état des lieux, standards et FAQ" />
 
       <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 80px' }}>
 
@@ -161,13 +161,16 @@ export default function AboutClient() {
           </div>
         </motion.section>
 
-        {/* ── ÉTHIQUE ── */}
+        {/* ── STANDARDS ET CORRECTIONS ── */}
+        {/* La section « Éthique intellectuelle » qui figurait ici dupliquait un
+            article. Elle est remplacée par un renvoi vers les deux pages qui
+            font foi : les standards, et le registre public des corrections. */}
         <motion.section {...fade(3)} style={{ marginTop: 48 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
             <div style={{ width: 4, height: 28, borderRadius: 2, background: dash.opal }} />
-            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.01em' }}>Éthique intellectuelle</h2>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.01em' }}>Ce que nous nous imposons</h2>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 18 }}>
             {ETHIQUE.map((e, i) => (
               <motion.div key={i} {...fade(i + 3)} style={{
                 display: 'flex', alignItems: 'flex-start', gap: 14,
@@ -184,6 +187,20 @@ export default function AboutClient() {
                 </div>
               </motion.div>
             ))}
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 12 }}>
+            <Link href="/article/standards-et-methode" className="dash-card" style={{ padding: '20px 22px', display: 'block' }}>
+              <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.08em', color: dash.opal, fontFamily: dash.fontMono, marginBottom: 8 }}>STANDARDS ET MÉTHODE</div>
+              <div style={{ fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.6 }}>
+                Financement, grille de classement des sources, disponibilité des données, pré-enregistrement des prédictions.
+              </div>
+            </Link>
+            <Link href="/article/corrections" className="dash-card" style={{ padding: '20px 22px', display: 'block' }}>
+              <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.08em', color: dash.rose, fontFamily: dash.fontMono, marginBottom: 8 }}>REGISTRE DES CORRECTIONS</div>
+              <div style={{ fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.6 }}>
+                Toute erreur identifiée, datée, avec ce qui était affirmé et ce qui l&apos;a remplacé. Aucune entrée n&apos;est retirée.
+              </div>
+            </Link>
           </div>
         </motion.section>
 

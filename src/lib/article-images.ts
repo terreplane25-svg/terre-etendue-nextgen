@@ -76,9 +76,8 @@ const IMG: Record<string, string> = {
   "la-perspective-pourquoi-les-objets-disparaissent": `${HOSTINGER}/2026/07/perspective.png`,
 
   // ── Meta ──
-  "manifeste": `${UNSPLASH}/photo-1457364887197-9150188c107b?w=600&h=400&fit=crop`,
-  "methodologie": `${UNSPLASH}/photo-1507413245164-6160d8298b31?w=600&h=400&fit=crop`,
-  "ethique-intellectuelle": `${UNSPLASH}/photo-1524995997946-a1c2e315a42f?w=600&h=400&fit=crop`,
+  "standards-et-methode": `${UNSPLASH}/photo-1457364887197-9150188c107b?w=600&h=400&fit=crop`,
+  "corrections": `${UNSPLASH}/photo-1507413245164-6160d8298b31?w=600&h=400&fit=crop`,
   "etat-des-lieux-ou-en-sommes-nous": `${UNSPLASH}/photo-1504711434969-e33886168d9c?w=600&h=400&fit=crop`,
   "glossaire": `${UNSPLASH}/photo-1524995997946-a1c2e315a42f?w=600&h=400&fit=crop`,
   "index-thematique": `${UNSPLASH}/photo-1524995997946-a1c2e315a42f?w=600&h=400&fit=crop`,

@@ -29,6 +29,8 @@ export interface ArticleMeta {
   title: string;
   description: string;
   date: string;
+  /** Date de dernière révision de fond. Absente si l'article n'a pas été repris. */
+  updated?: string;
   author: string;
   category: 'headquarters' | 'observatory' | 'library' | 'lab' | 'meta' | 'experiences';
   tags: string[];
@@ -57,6 +59,7 @@ function readArticleFile(fileName: string): ArticleMeta | null {
       title: data.title || slug,
       description: sanitizeDescription(data.description || ''),
       date: data.date || '',
+      updated: data.updated || undefined,
       author: data.author || 'Terre Etendue',
       category: data.category || 'headquarters',
       tags: data.tags || [],
@@ -103,6 +106,7 @@ export async function getArticle(slug: string): Promise<Article | null> {
       title: data.title || slug,
       description: sanitizeDescription(data.description || ''),
       date: data.date || '',
+      updated: data.updated || undefined,
       author: data.author || 'Terre Etendue',
       category: data.category || 'headquarters',
       tags: data.tags || [],

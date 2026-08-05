@@ -51,13 +51,12 @@ const SECTIONS = [
     ],
   },
   {
-    label: 'Laboratoire', href: '/laboratoire', color: '#8B7EC8',
+    label: 'Décryptage', href: '/laboratoire', color: '#8B7EC8',
     subs: [
       { label: '🎬 Vidéos', href: '/laboratoire?tab=video' },
       { label: '🖼️ Images', href: '/laboratoire?tab=image' },
     ],
   },
-  // { label: 'Projets', href: '/projets', color: '#D4943A', subs: [] },
   {
     label: 'Enseignants', href: '/enseignants', color: '#2B7A5F',
     subs: [
