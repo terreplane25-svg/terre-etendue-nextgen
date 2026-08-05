@@ -3,7 +3,8 @@
     "titre": "Registre des corrections",
     "description": "Toute erreur identifiée sur ce site est consignée ici, datée, avec ce qui était affirmé, ce qui l'a remplacé, et le commit qui le prouve. Aucune entrée n'est jamais retirée.",
     "regle": "Une entrée n'est jamais supprimée ni réécrite. Si une correction est elle-même corrigée, une nouvelle entrée est ajoutée.",
-    "genere_par": "scripts/generer-corrections.py"
+    "genere_par": "scripts/generer-corrections.py",
+    "derniere_mise_a_jour": "2026-08-05"
   },
   "categories": {
     "fait": "Erreur de fait ou de chiffre dans un article publié",
@@ -257,6 +258,42 @@
       "ou": "Le « consensus » sur la sphéricité — axe sur la filiation ptoléméenne",
       "erreur": "L'article affirmait que le contenu du « consensus » est « traçable directement jusqu'à l'Almageste de Ptolémée, transmis en arabe via al-Farghānī et Ibn Rustah », sans montrer cette traçabilité. L'affirmation la plus forte de l'article était donc la moins démontrée.",
       "correction": "Nouvelle section 10 : collation phrase par phrase des huit segments, al-Farghānī d'un côté — conservé par Ibn Rustah, al-Aʿlāq al-Nafīsa p. 9 — et Ibn al-Munādī de l'autre. Deux segments sont identiques au mot près, six sont réduits ou reformulés sans que l'ordre ni les images changent. Ajout d'un schéma des deux chaînes de transmission, premier schéma de la Bibliothèque, qui montre qu'aucun maillon de la chaîne astronomique n'est un mujtahid de la Loi et que la chaîne des exégètes est à la fois indépendante et antérieure. Signalé aussi : la référence du Majmūʿ varie selon l'édition, 6/586-587 ou 25/195, et les deux sont désormais mentionnées.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "source",
+      "ou": "Bibliothèque — nouvel article « La mobilité de la Terre attribuée à Ibn Taymiyyah »",
+      "erreur": "Le dossier de la leçon ḥarakātihā / ajzāʾihā tenait en un seul « axe » de l'article sur le consensus, où il était présenté comme acquis. Or les trois témoins antérieurs — al-Farghānī, Ibn Rustah, al-Masʿūdī — nous parviennent d'un traité de seconde main qui ne les pagine pas : l'affirmation était plus assurée que sa documentation.",
+      "correction": "Article dédié, avec la collation en tableau et le grade de chaque témoin. Les trois témoins antérieurs sont explicitement classés D (cités de seconde main, sans pagination) et un tableau nomme les éditions à consulter pour clore le dossier (de Goeje BGA VII 1892, Golius 1669, Pellat). L'article distingue ce qui est établi sur le texte imprimé lui-même — incohérence de sens, pluriel anachronique, silence de l'œuvre entière — de ce qui reste à vérifier en bibliothèque. L'argument paléographique ج/ح est explicitement rétrogradé au rang d'appui : entre أجزائها et حركاتها la ressemblance graphique n'est que partielle, et le prétendre décisif aurait été une facilité.",
+      "commit": "à venir",
+      "gravite": "moyenne"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "fait",
+      "ou": "Bibliothèque — nouvel article « Un traité ottoman contre la sphéricité (1314 H) »",
+      "erreur": "Le manuscrit d'İsmail Ferid va dans le sens de nos hypothèses, et la tentation était de le publier comme témoignage sans vérifier son arithmétique. Recalcul fait, la plupart de ses valeurs sont fausses : sa formule de flèche est d²/C au lieu de πd²/(4C), soit 27 % de surestimation ; sa distance Istanbul–équateur est 3,2 fois trop grande ; son § 8 annonce 800 farsakhs là où sa propre formule donne 4 503 ; et le traité contient quatre valeurs incompatibles du degré de latitude, écartées d'un facteur onze.",
+      "correction": "L'article publie la vérification poste par poste dans deux tableaux, avec l'écart au réel pour chaque grandeur, et dit explicitement que sur sept valeurs recalculées une seule est à moins de 12 % du réel. Il signale aussi que la conclusion de l'auteur se retourne contre lui : la flèche réelle sur 560 km vaut 6,15 km, du même ordre que les 7 km qu'il déclare indétectables. Les 33 vérifications numériques sont recalculées à chaque génération par scripts/generer-etape4-articles.py et comparées aux valeurs écrites dans le HTML.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "technique",
+      "ou": "src/styles/globals.css — .tei-arabic et .arabic-quote",
+      "erreur": "Ces deux classes sont employées dans toute la Bibliothèque depuis l'origine, mais n'avaient jamais été définies dans la feuille de style. L'arabe s'affichait donc dans la police latine du corps de texte, à la taille du corps, et — inséré au milieu d'une phrase française — son sens de lecture n'était pas isolé, ce qui déplaçait la ponctuation adjacente. Une classe inexistante ne provoque aucune erreur de build : le défaut est resté invisible.",
+      "correction": "Ajout des règles : police arabe (Amiri), 1,14 em, direction rtl avec unicode-bidi isolate pour l'inline, paragraphe entier en rtl quand l'arabe en est l'unique contenu, liséré or pour blockquote.arabic-quote. Le générateur d'articles vérifie désormais que toute classe employée dans un htmlBody existe bien dans globals.css.",
+      "commit": "à venir",
+      "gravite": "moyenne"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "technique",
+      "ou": "src/lib/nexus-data.ts — graphe de connaissances",
+      "erreur": "Le graphe portait 9 nœuds pointant vers des articles supprimés ou fusionnés (manifeste, methodologie, ethique-intellectuelle, masse-et-volume, persistance-retinienne, accommodation-oculaire, vision-binoculaire-stereoscopie, champ-visuel-central-peripherique, pourquoi-les-choses-montent-et-descendent) et 37 liens vers ces nœuds : autant d'entrées menant à une page inexistante. Inversement, 5 articles publiés n'avaient aucun nœud, dont par-rapport-a-quoi-mesure-t-on-une-altitude vers lequel deux liens pointaient déjà.",
+      "correction": "Retrait des 9 nœuds morts et des 37 liens correspondants, ajout des 5 nœuds manquants et de 12 liens pour qu'aucun nœud ne reste isolé. Le graphe compte désormais 58 nœuds pour 58 articles, 128 liens, aucun orphelin.",
       "commit": "à venir",
       "gravite": "haute"
     }

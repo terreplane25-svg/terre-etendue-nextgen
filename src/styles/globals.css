@@ -352,6 +352,39 @@ html, body { overflow-x: hidden; }
    n'est pas vérifiable. Voir content/corrections/citations-a-paginer.json. */
 .prose-dash blockquote footer em { font-style: normal; color: var(--ink-ghost); }
 
+/* ═══ Arabe dans le corps du texte ═══
+   .tei-arabic et .arabic-quote sont employés dans toute la Bibliothèque depuis
+   l'origine, mais n'avaient jamais été stylés : l'arabe s'affichait dans la
+   police latine du corps, à la taille du corps, et — inséré dans une phrase
+   française — son sens de lecture n'était pas isolé du texte environnant, ce
+   qui déplaçait la ponctuation adjacente. */
+.prose-dash .tei-arabic {
+  font-family: var(--font-arabic);
+  font-size: 1.14em;
+  font-style: normal;
+  line-height: 1.9;
+  /* isolate : l'arabe garde son sens de lecture sans réordonner la phrase
+     française qui l'entoure, ni entraîner la ponctuation voisine. */
+  direction: rtl;
+  unicode-bidi: isolate;
+}
+/* Un paragraphe dont l'arabe est l'unique contenu se lit de droite à gauche. */
+.prose-dash blockquote p:has(> .tei-arabic:only-child),
+.prose-dash p.tei-arabic-bloc {
+  direction: rtl;
+  text-align: right;
+  font-style: normal;
+}
+/* Citation coranique ou de hadith : arabe, puis traduction, puis attribution.
+   Le liséré reprend l'or de la Bibliothèque plutôt que la lavande générique. */
+.prose-dash blockquote.arabic-quote {
+  border-left-color: var(--gold);
+  background: #A6851C0A;
+}
+.prose-dash blockquote.arabic-quote > p:not(:has(> .tei-arabic:only-child)) {
+  font-style: italic;
+}
+
 /* ═══ Index thématique généré ═══ */
 .prose-dash ul.tei-index { list-style: none; margin-left: 0; }
 .prose-dash ul.tei-index li { padding: 7px 0; border-bottom: 1px solid var(--border-soft); }

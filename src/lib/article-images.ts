@@ -46,6 +46,11 @@ const IMG: Record<string, string> = {
   "levolution-et-lislam": `${UNSPLASH}/photo-1530026405186-ed1f139313f8?w=600&h=400&fit=crop`,
   "mise-en-garde-la-kaaba-et-saturne": `${UNSPLASH}/photo-1564769625905-50e93615e769?w=600&h=400&fit=crop`,
   "le-consensus-sur-la-sphericite": `${HOSTINGER}/2025/10/Ibn_Taymiyyah.jpg`,
+  // TODO couverture dédiée 1200×630 : le folio du Majmūʿ al-Fatāwā, mot surligné.
+  "la-mobilite-de-la-terre-attribuee-a-ibn-taymiyyah": `${HOSTINGER}/2025/10/Ibn_Taymiyyah.jpg`,
+  // TODO couverture dédiée 1200×630 : un folio de la Risāla (cote 3.1.13),
+  // dès que les images du manuscrit seront obtenues.
+  "un-traite-ottoman-contre-la-sphericite-1314h": `${UNSPLASH}/photo-1524995997946-a1c2e315a42f?w=600&h=400&fit=crop`,
   "sources-historiques-fonds-documentaire": `${UNSPLASH}/photo-1524995997946-a1c2e315a42f?w=600&h=400&fit=crop`,
 
   // ── Headquarters ──

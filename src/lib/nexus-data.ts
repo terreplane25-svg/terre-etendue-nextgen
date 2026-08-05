@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-// NEXUS DATA — Auto-generated from 63 articles
+// NEXUS DATA — 58 articles
 // Terre Étendue Islam — Graphe de connaissances
 // ═══════════════════════════════════════════════════════
 
@@ -44,6 +44,81 @@ export const DOMAIN_LABELS: Record<string, string> = {
 
 export const NEXUS_NODES: NexusNodeData[] = [
   {
+    "id": "par-rapport-a-quoi-mesure-t-on-une-altitude",
+    "title": "Par rapport à quoi mesure-t-on une altitude ?",
+    "category": "headquarters",
+    "pillar": "Q.G.",
+    "pillarNum": "01",
+    "color": "#FF5722",
+    "primaryDomain": "geometrie",
+    "topDomains": ["geometrie", "epistemologie", "hydrologie"],
+    "quranRefs": 0,
+    "wordCount": 0,
+    "x": -120.4,
+    "y": -188.9,
+    "size": 8
+  },
+  {
+    "id": "vols-avion-et-courbure-terrestre",
+    "title": "Vols d'avion et courbure terrestre — ce que disent vraiment les instruments",
+    "category": "observatory",
+    "pillar": "OBS",
+    "pillarNum": "02",
+    "color": "#3B8FD4",
+    "primaryDomain": "geometrie",
+    "topDomains": ["geometrie", "astronomie", "epistemologie"],
+    "quranRefs": 0,
+    "wordCount": 0,
+    "x": -58.7,
+    "y": 318.2,
+    "size": 8
+  },
+  {
+    "id": "lire-le-ciel-avant-le-globe",
+    "title": "Lire le ciel avant le globe",
+    "category": "headquarters",
+    "pillar": "Q.G.",
+    "pillarNum": "01",
+    "color": "#FF5722",
+    "primaryDomain": "astronomie",
+    "topDomains": ["astronomie", "histoire_sciences", "islam_sources"],
+    "quranRefs": 0,
+    "wordCount": 0,
+    "x": -296.1,
+    "y": 64.3,
+    "size": 8
+  },
+  {
+    "id": "standards-et-methode",
+    "title": "Standards et méthode",
+    "category": "meta",
+    "pillar": "META",
+    "pillarNum": "06",
+    "color": "#8B7EC8",
+    "primaryDomain": "epistemologie",
+    "topDomains": ["epistemologie"],
+    "quranRefs": 0,
+    "wordCount": 0,
+    "x": 12.5,
+    "y": -402.7,
+    "size": 8
+  },
+  {
+    "id": "corrections",
+    "title": "Registre des corrections",
+    "category": "meta",
+    "pillar": "META",
+    "pillarNum": "06",
+    "color": "#8B7EC8",
+    "primaryDomain": "epistemologie",
+    "topDomains": ["epistemologie"],
+    "quranRefs": 0,
+    "wordCount": 0,
+    "x": 74.9,
+    "y": -421.3,
+    "size": 8
+  },
+  {
     "id": "200-ans-de-resultats-nuls-darago-a-einstein",
     "title": "200 ans de résultats nuls : d'Arago à Einstein",
     "category": "headquarters",
@@ -56,21 +131,6 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "wordCount": 0,
     "x": 50.8,
     "y": -359.5,
-    "size": 8
-  },
-  {
-    "id": "accommodation-oculaire",
-    "title": "L'accommodation : la mise au point de l'œil",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF6B6B",
-    "primaryDomain": "optique",
-    "topDomains": ["optique", "physique", "geometrie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 246.4,
-    "y": -297.7,
     "size": 8
   },
   {
@@ -89,21 +149,6 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   /* merged into la-perspective-pourquoi-les-objets-disparaissent */
-  {
-    "id": "champ-visuel-central-peripherique",
-    "title": "Le champ visuel : vision centrale et vision périphérique",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF6B6B",
-    "primaryDomain": "optique",
-    "topDomains": ["optique", "physique", "geometrie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 276.5,
-    "y": -203.2,
-    "size": 8
-  },
   {
     "id": "chronologie-de-la-tromperie-du-globe",
     "title": "Chronologie de la tromperie du globe",
@@ -223,21 +268,6 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "wordCount": 0,
     "x": -52.6,
     "y": 330.2,
-    "size": 8
-  },
-  {
-    "id": "ethique-intellectuelle",
-    "title": "Éthique intellectuelle",
-    "category": "meta",
-    "pillar": "META",
-    "pillarNum": "00",
-    "color": "#E91E63",
-    "primaryDomain": "epistemologie",
-    "topDomains": ["epistemologie", "histoire_sciences", "islam_sources"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -20.7,
-    "y": 385.4,
     "size": 8
   },
   {
@@ -479,6 +509,36 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "x": 140.8,
     "y": 224.6,
     "size": 8
+  },
+  {
+    "id": "la-mobilite-de-la-terre-attribuee-a-ibn-taymiyyah",
+    "title": "La mobilité de la Terre attribuée à Ibn Taymiyyah : anatomie d'un taṣḥīf",
+    "category": "library",
+    "pillar": "BIBLIO",
+    "pillarNum": "03",
+    "color": "#D4A843",
+    "primaryDomain": "islam_sources",
+    "topDomains": ["islam_sources", "epistemologie", "histoire_sciences"],
+    "quranRefs": 0,
+    "wordCount": 2385,
+    "x": 256.4,
+    "y": 176.2,
+    "size": 8
+  },
+  {
+    "id": "un-traite-ottoman-contre-la-sphericite-1314h",
+    "title": "Un traité ottoman contre la sphéricité (1314 H)",
+    "category": "library",
+    "pillar": "BIBLIO",
+    "pillarNum": "03",
+    "color": "#D4A843",
+    "primaryDomain": "islam_sources",
+    "topDomains": ["islam_sources", "geometrie", "histoire_sciences"],
+    "quranRefs": 3,
+    "wordCount": 3505,
+    "x": 188.7,
+    "y": 251.5,
+    "size": 9
   },
   {
     "id": "le-consensus-sur-la-sphericite",
@@ -767,51 +827,6 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
-    "id": "manifeste",
-    "title": "Manifeste",
-    "category": "meta",
-    "pillar": "META",
-    "pillarNum": "00",
-    "color": "#E91E63",
-    "primaryDomain": "epistemologie",
-    "topDomains": ["epistemologie", "cosmologie", "islam_sources"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -115.1,
-    "y": 263.1,
-    "size": 8
-  },
-  {
-    "id": "masse-et-volume",
-    "title": "Densité et flottabilité",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF5722",
-    "primaryDomain": "physique",
-    "topDomains": ["physique", "gravite", "modelisation"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 6.2,
-    "y": -407.9,
-    "size": 8,
-  },
-  {
-    "id": "methodologie",
-    "title": "Méthodologie",
-    "category": "meta",
-    "pillar": "META",
-    "pillarNum": "00",
-    "color": "#E91E63",
-    "primaryDomain": "epistemologie",
-    "topDomains": ["epistemologie", "histoire_sciences", "cosmologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -71.3,
-    "y": 226.1,
-    "size": 8
-  },
-  {
     "id": "mise-en-garde-la-kaaba-et-saturne",
     "title": "Mise en garde : la Kaaba et Saturne",
     "category": "library",
@@ -840,36 +855,6 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "x": -393.0,
     "y": -21.0,
     "size": 8
-  },
-  {
-    "id": "persistance-retinienne",
-    "title": "La persistance rétinienne : quand l'œil voit ce qui n'est plus là",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF6B6B",
-    "primaryDomain": "optique",
-    "topDomains": ["optique", "physique", "geometrie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 206.8,
-    "y": -342.8,
-    "size": 8
-  },
-  {
-    "id": "pourquoi-les-choses-montent-et-descendent",
-    "title": "Densité et flottabilité",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF5722",
-    "primaryDomain": "physique",
-    "topDomains": ["physique", "gravite", "modelisation"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 48.1,
-    "y": -418.8,
-    "size": 8,
   },
   {
     "id": "pourquoi-tout-remettre-en-question",
@@ -946,24 +931,142 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "y": 54.4,
     "size": 8
   },
-  {
-    "id": "vision-binoculaire-stereoscopie",
-    "title": "La vision binoculaire : comment nous percevons la profondeur",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF6B6B",
-    "primaryDomain": "optique",
-    "topDomains": ["optique", "physique", "geometrie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 294.2,
-    "y": -334.5,
-    "size": 8
-  },
 ];
 
 export const NEXUS_LINKS: NexusLinkData[] = [
+  {
+    "source": "par-rapport-a-quoi-mesure-t-on-une-altitude",
+    "target": "leau-ne-ment-pas",
+    "score": 402.0,
+    "strength": "strong",
+    "sharedDomains": ["geometrie", "hydrologie"]
+  },
+  {
+    "source": "par-rapport-a-quoi-mesure-t-on-une-altitude",
+    "target": "monter-l-experience-des-trois-mires",
+    "score": 388.0,
+    "strength": "strong",
+    "sharedDomains": ["geometrie"]
+  },
+  {
+    "source": "par-rapport-a-quoi-mesure-t-on-une-altitude",
+    "target": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
+    "score": 371.0,
+    "strength": "strong",
+    "sharedDomains": ["geometrie", "hydrologie"]
+  },
+  {
+    "source": "vols-avion-et-courbure-terrestre",
+    "target": "la-perspective-pourquoi-les-objets-disparaissent",
+    "score": 312.0,
+    "strength": "strong",
+    "sharedDomains": ["geometrie", "optique"]
+  },
+  {
+    "source": "vols-avion-et-courbure-terrestre",
+    "target": "leau-ne-ment-pas",
+    "score": 287.0,
+    "strength": "medium",
+    "sharedDomains": ["geometrie"]
+  },
+  {
+    "source": "lire-le-ciel-avant-le-globe",
+    "target": "le-theodolite-celeste",
+    "score": 334.0,
+    "strength": "strong",
+    "sharedDomains": ["astronomie"]
+  },
+  {
+    "source": "lire-le-ciel-avant-le-globe",
+    "target": "la-qibla-et-la-direction-cote-ouest",
+    "score": 296.0,
+    "strength": "medium",
+    "sharedDomains": ["astronomie", "islam_sources"]
+  },
+  {
+    "source": "lire-le-ciel-avant-le-globe",
+    "target": "un-traite-ottoman-contre-la-sphericite-1314h",
+    "score": 271.0,
+    "strength": "medium",
+    "sharedDomains": ["astronomie", "histoire_sciences"]
+  },
+  {
+    "source": "standards-et-methode",
+    "target": "corrections",
+    "score": 445.0,
+    "strength": "strong",
+    "sharedDomains": ["epistemologie"]
+  },
+  {
+    "source": "standards-et-methode",
+    "target": "pourquoi-tout-remettre-en-question",
+    "score": 318.0,
+    "strength": "strong",
+    "sharedDomains": ["epistemologie"]
+  },
+  {
+    "source": "standards-et-methode",
+    "target": "lhypothese-nulle-dynamique-et-cinematique",
+    "score": 302.0,
+    "strength": "strong",
+    "sharedDomains": ["epistemologie"]
+  },
+  {
+    "source": "corrections",
+    "target": "etat-des-lieux-ou-en-sommes-nous",
+    "score": 327.0,
+    "strength": "strong",
+    "sharedDomains": ["epistemologie"]
+  },
+  {
+    "source": "la-mobilite-de-la-terre-attribuee-a-ibn-taymiyyah",
+    "target": "le-consensus-sur-la-sphericite",
+    "score": 420.0,
+    "strength": "strong",
+    "sharedDomains": ["islam_sources", "epistemologie"]
+  },
+  {
+    "source": "la-mobilite-de-la-terre-attribuee-a-ibn-taymiyyah",
+    "target": "un-traite-ottoman-contre-la-sphericite-1314h",
+    "score": 296.0,
+    "strength": "medium",
+    "sharedDomains": ["islam_sources", "histoire_sciences"]
+  },
+  {
+    "source": "la-mobilite-de-la-terre-attribuee-a-ibn-taymiyyah",
+    "target": "pres-de-cent-savants-de-lislam",
+    "score": 288.0,
+    "strength": "medium",
+    "sharedDomains": ["islam_sources"]
+  },
+  {
+    "source": "un-traite-ottoman-contre-la-sphericite-1314h",
+    "target": "le-consensus-sur-la-sphericite",
+    "score": 305.0,
+    "strength": "strong",
+    "sharedDomains": ["islam_sources", "epistemologie"]
+  },
+  {
+    "source": "un-traite-ottoman-contre-la-sphericite-1314h",
+    "target": "le-mouvement-zetetique-150-ans-de-resistance",
+    "score": 281.0,
+    "strength": "medium",
+    "sharedDomains": ["histoire_sciences", "epistemologie"]
+  },
+  {
+    "source": "un-traite-ottoman-contre-la-sphericite-1314h",
+    "target": "monter-l-experience-des-trois-mires",
+    "score": 274.0,
+    "strength": "medium",
+    "sharedDomains": ["geometrie"]
+  },
+  {
+    "source": "un-traite-ottoman-contre-la-sphericite-1314h",
+    "target": "le-mythe-deratosthene",
+    "score": 268.0,
+    "strength": "medium",
+    "sharedDomains": ["geometrie", "histoire_sciences"]
+  },
   {
     "source": "electricite-statique-attraction-repulsion",
     "target": "experiences-sous-pression-reduite",
@@ -1000,25 +1103,11 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["optique", "geometrie", "physique"]
   },
   {
-    "source": "accommodation-oculaire",
-    "target": "la-perspective-atmospherique",
-    "score": 372.7,
-    "strength": "strong",
-    "sharedDomains": ["optique", "physique", "geometrie"]
-  },
-  {
     "source": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
     "target": "debut-de-la-creation-selon-le-coran-et-la-sunna",
     "score": 371.6,
     "strength": "strong",
     "sharedDomains": ["islam_sources", "astronomie", "cosmologie"]
-  },
-  {
-    "source": "persistance-retinienne",
-    "target": "vision-binoculaire-stereoscopie",
-    "score": 371.5,
-    "strength": "strong",
-    "sharedDomains": ["optique", "physique", "geometrie"]
   },
   {
     "source": "la-perspective-lineaire",
@@ -1028,20 +1117,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["optique", "geometrie", "physique"]
   },
   /* self-loop removed */
-  {
-    "source": "masse-et-volume",
-    "target": "pourquoi-les-choses-montent-et-descendent",
-    "score": 368.6,
-    "strength": "strong",
-    "sharedDomains": ["physique", "gravite", "modelisation"]
-  },
-  {
-    "source": "methodologie",
-    "target": "pourquoi-tout-remettre-en-question",
-    "score": 367.2,
-    "strength": "strong",
-    "sharedDomains": ["epistemologie", "histoire_sciences", "cosmologie"]
-  },
   {
     "source": "la-perspective-lineaire",
     "target": "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite",
@@ -1055,13 +1130,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 359.8,
     "strength": "strong",
     "sharedDomains": ["optique", "geometrie", "physique"]
-  },
-  {
-    "source": "champ-visuel-central-peripherique",
-    "target": "la-perspective-pourquoi-les-objets-disparaissent",
-    "score": 359.0,
-    "strength": "strong",
-    "sharedDomains": ["optique", "physique", "geometrie"]
   },
   {
     "source": "la-gravite-70-theories-et-aucune-preuve",
@@ -1085,13 +1153,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["physique", "gravite", "cartographie"]
   },
   {
-    "source": "champ-visuel-central-peripherique",
-    "target": "la-perspective-atmospherique",
-    "score": 351.1,
-    "strength": "strong",
-    "sharedDomains": ["optique", "physique", "geometrie"]
-  },
-  {
     "source": "la-perspective-pourquoi-les-objets-disparaissent",
     "target": "la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas",
     "score": 348.5,
@@ -1106,13 +1167,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["optique", "geometrie", "physique"]
   },
   {
-    "source": "accommodation-oculaire",
-    "target": "champ-visuel-central-peripherique",
-    "score": 339.4,
-    "strength": "strong",
-    "sharedDomains": ["optique", "physique", "geometrie"]
-  },
-  {
     "source": "les-marees-contre-lheliocentrisme",
     "target": "magnetisme-et-electromagnetisme",
     "score": 338.5,
@@ -1120,13 +1174,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["physique", "gravite", "cartographie"]
   },
   /* duplicate edge removed */
-  {
-    "source": "masse-et-volume",
-    "target": "principe-action-reaction",
-    "score": 336.0,
-    "strength": "strong",
-    "sharedDomains": ["physique", "gravite", "modelisation"]
-  },
   {
     "source": "la-rotation-terrestre-deux-experiences-zero-preuve",
     "target": "le-mouvement-zetetique-150-ans-de-resistance",
@@ -1155,13 +1202,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "strength": "strong",
     "sharedDomains": ["astronomie", "epistemologie", "cosmologie"]
   },
-  {
-    "source": "pourquoi-les-choses-montent-et-descendent",
-    "target": "principe-action-reaction",
-    "score": 333.3,
-    "strength": "strong",
-    "sharedDomains": ["physique", "gravite", "modelisation"]
-  },
   /* duplicate edge removed */
   {
     "source": "densite-pourquoi-les-choses-montent-et-descendent",
@@ -1186,13 +1226,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["optique", "geometrie", "physique"]
   },
   {
-    "source": "ethique-intellectuelle",
-    "target": "la-cosmologie-comme-instrument-de-domination",
-    "score": 329.1,
-    "strength": "strong",
-    "sharedDomains": ["epistemologie", "histoire_sciences"]
-  },
-  {
     "source": "index-thematique",
     "target": "la-rotation-terrestre-deux-experiences-zero-preuve",
     "score": 327.6,
@@ -1214,13 +1247,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["physique", "gravite", "modelisation"]
   },
   {
-    "source": "accommodation-oculaire",
-    "target": "la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas",
-    "score": 325.7,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie"]
-  },
-  {
     "source": "electricite-statique-attraction-repulsion",
     "target": "le-pole-sud-nexiste-pas",
     "score": 325.6,
@@ -1235,39 +1261,11 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["histoire_sciences", "epistemologie"]
   },
   {
-    "source": "ethique-intellectuelle",
-    "target": "glossaire",
-    "score": 323.5,
-    "strength": "strong",
-    "sharedDomains": ["epistemologie", "histoire_sciences", "islam_sources"]
-  },
-  {
     "source": "les-trous-noirs-nexistent-pas",
     "target": "lespace-une-frontiere-infranchissable",
     "score": 323.0,
     "strength": "strong",
     "sharedDomains": ["cosmologie", "physique"]
-  },
-  {
-    "source": "persistance-retinienne",
-    "target": "pression-lumiere-halos-rayons-et-ondes",
-    "score": 322.3,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie"]
-  },
-  {
-    "source": "manifeste",
-    "target": "pourquoi-tout-remettre-en-question",
-    "score": 321.8,
-    "strength": "strong",
-    "sharedDomains": ["epistemologie", "cosmologie"]
-  },
-  {
-    "source": "accommodation-oculaire",
-    "target": "la-perspective-pourquoi-les-objets-disparaissent",
-    "score": 321.2,
-    "strength": "strong",
-    "sharedDomains": ["optique", "physique", "geometrie"]
   },
   {
     "source": "electricite-statique-attraction-repulsion",
@@ -1284,20 +1282,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["cosmologie", "geometrie"]
   },
   {
-    "source": "pression-lumiere-halos-rayons-et-ondes",
-    "target": "vision-binoculaire-stereoscopie",
-    "score": 319.0,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie"]
-  },
-  {
-    "source": "manifeste",
-    "target": "methodologie",
-    "score": 318.1,
-    "strength": "strong",
-    "sharedDomains": ["epistemologie", "cosmologie"]
-  },
-  {
     "source": "debut-de-la-creation-selon-le-coran-et-la-sunna",
     "target": "levolution-et-lislam",
     "score": 317.1,
@@ -1305,25 +1289,11 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["islam_sources", "cosmologie"]
   },
   {
-    "source": "ethique-intellectuelle",
-    "target": "le-mouvement-zetetique-150-ans-de-resistance",
-    "score": 317.0,
-    "strength": "strong",
-    "sharedDomains": ["epistemologie", "histoire_sciences"]
-  },
-  {
     "source": "200-ans-de-resultats-nuls-darago-a-einstein",
     "target": "la-rotation-terrestre-deux-experiences-zero-preuve",
     "score": 316.7,
     "strength": "strong",
     "sharedDomains": ["physique", "epistemologie"]
-  },
-  {
-    "source": "la-perspective-pourquoi-les-objets-disparaissent",
-    "target": "champ-visuel-central-peripherique",
-    "score": 316.0,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie"]
   },
   {
     "source": "glossaire",
@@ -1418,13 +1388,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["physique", "gravite"]
   },
   {
-    "source": "champ-visuel-central-peripherique",
-    "target": "la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas",
-    "score": 296.3,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie"]
-  },
-  {
     "source": "densite-pourquoi-les-choses-montent-et-descendent",
     "target": "le-pole-sud-nexiste-pas",
     "score": 295.9,
@@ -1460,13 +1423,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["islam_sources", "cosmologie"]
   },
   {
-    "source": "ethique-intellectuelle",
-    "target": "index-thematique",
-    "score": 292.7,
-    "strength": "strong",
-    "sharedDomains": ["epistemologie", "islam_sources"]
-  },
-  {
     "source": "la-perspective-lineaire",
     "target": "la-pression-atmospherique-un-ocean-d-air-invisible",
     "score": 292.2,
@@ -1486,13 +1442,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 286.3,
     "strength": "strong",
     "sharedDomains": ["optique", "geometrie"]
-  },
-  {
-    "source": "ethique-intellectuelle",
-    "target": "la-rotation-terrestre-deux-experiences-zero-preuve",
-    "score": 285.9,
-    "strength": "strong",
-    "sharedDomains": ["epistemologie", "histoire_sciences"]
   },
   {
     "source": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
@@ -1596,30 +1545,9 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   /* duplicate edge removed */
   {
-    "source": "200-ans-de-resultats-nuls-darago-a-einstein",
-    "target": "masse-et-volume",
-    "score": 148.7,
-    "strength": "medium",
-    "sharedDomains": ["physique"]
-  },
-  {
     "source": "la-rotation-terrestre-deux-experiences-zero-preuve",
     "target": "principe-action-reaction",
     "score": 148.4,
-    "strength": "medium",
-    "sharedDomains": ["physique"]
-  },
-  {
-    "source": "lespace-une-frontiere-infranchissable",
-    "target": "vision-binoculaire-stereoscopie",
-    "score": 144.1,
-    "strength": "medium",
-    "sharedDomains": ["geometrie", "physique"]
-  },
-  {
-    "source": "la-rotation-terrestre-deux-experiences-zero-preuve",
-    "target": "masse-et-volume",
-    "score": 142.9,
     "strength": "medium",
     "sharedDomains": ["physique"]
   },
@@ -1629,20 +1557,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 142.8,
     "strength": "medium",
     "sharedDomains": ["islam_sources"]
-  },
-  {
-    "source": "methodologie",
-    "target": "pres-de-cent-savants-de-lislam",
-    "score": 142.6,
-    "strength": "medium",
-    "sharedDomains": ["histoire_sciences", "cosmologie"]
-  },
-  {
-    "source": "manifeste",
-    "target": "pres-de-cent-savants-de-lislam",
-    "score": 141.2,
-    "strength": "medium",
-    "sharedDomains": ["cosmologie", "islam_sources"]
   },
   {
     "source": "lhypothese-nulle-dynamique-et-cinematique",
@@ -1657,13 +1571,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 140.1,
     "strength": "medium",
     "sharedDomains": ["astronomie"]
-  },
-  {
-    "source": "etat-des-lieux-ou-en-sommes-nous",
-    "target": "manifeste",
-    "score": 139.7,
-    "strength": "medium",
-    "sharedDomains": ["epistemologie"]
   },
   {
     "source": "chronologie-de-la-tromperie-du-globe",
@@ -1715,20 +1622,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["geometrie", "metrologie"]
   },
   {
-    "source": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
-    "target": "methodologie",
-    "score": 141.0,
-    "strength": "medium",
-    "sharedDomains": ["epistemologie"]
-  },
-  {
-    "source": "leau-ne-ment-pas",
-    "target": "vision-binoculaire-stereoscopie",
-    "score": 139.3,
-    "strength": "medium",
-    "sharedDomains": ["geometrie", "optique"]
-  },
-  {
     "source": "etat-des-lieux-ou-en-sommes-nous",
     "target": "le-mythe-deratosthene",
     "score": 138.6,
@@ -1741,20 +1634,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 138.0,
     "strength": "medium",
     "sharedDomains": ["gravite"]
-  },
-  {
-    "source": "manifeste",
-    "target": "mise-en-garde-la-kaaba-et-saturne",
-    "score": 137.8,
-    "strength": "medium",
-    "sharedDomains": ["epistemologie", "islam_sources"]
-  },
-  {
-    "source": "leau-ne-ment-pas",
-    "target": "persistance-retinienne",
-    "score": 137.3,
-    "strength": "medium",
-    "sharedDomains": ["geometrie", "optique"]
   },
   {
     "source": "leau-ne-ment-pas",
@@ -1827,27 +1706,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["histoire_sciences", "cosmologie"]
   },
   {
-    "source": "lespace-une-frontiere-infranchissable",
-    "target": "persistance-retinienne",
-    "score": 129.1,
-    "strength": "medium",
-    "sharedDomains": ["geometrie", "physique"]
-  },
-  {
-    "source": "etat-des-lieux-ou-en-sommes-nous",
-    "target": "methodologie",
-    "score": 129.0,
-    "strength": "medium",
-    "sharedDomains": ["epistemologie"]
-  },
-  {
-    "source": "dune-terre-plate-universelle-a-la-sphere-grecque",
-    "target": "methodologie",
-    "score": 128.5,
-    "strength": "medium",
-    "sharedDomains": ["cosmologie", "histoire_sciences"]
-  },
-  {
     "source": "pourquoi-tout-remettre-en-question",
     "target": "sources-historiques-fonds-documentaire",
     "score": 128.3,
@@ -1904,13 +1762,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["epistemologie", "cosmologie"]
   },
   {
-    "source": "200-ans-de-resultats-nuls-darago-a-einstein",
-    "target": "pourquoi-les-choses-montent-et-descendent",
-    "score": 121.2,
-    "strength": "medium",
-    "sharedDomains": ["physique"]
-  },
-  {
     "source": "cartes-routes-boussoles-et-le-mystere-antarctique",
     "target": "etat-des-lieux-ou-en-sommes-nous",
     "score": 120.8,
@@ -1958,13 +1809,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 114.6,
     "strength": "medium",
     "sharedDomains": ["islam_sources"]
-  },
-  {
-    "source": "la-rotation-terrestre-deux-experiences-zero-preuve",
-    "target": "pourquoi-les-choses-montent-et-descendent",
-    "score": 114.2,
-    "strength": "medium",
-    "sharedDomains": ["physique"]
   },
   {
     "source": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",

@@ -12,6 +12,14 @@ REG = json.load(open('content/corrections/registre.json', encoding='utf-8'))
 E = sorted(REG['entrees'], key=lambda x: x['date'], reverse=True)
 CAT = REG['categories']
 
+# Une categorie hors vocabulaire faisait planter le generateur sur un KeyError
+# opaque quelques lignes plus bas. On la signale ici, avec son entree.
+for _e in E:
+    if _e['categorie'] not in CAT:
+        raise SystemExit(
+            "categorie inconnue %r dans l'entree %r — vocabulaire admis : %s"
+            % (_e['categorie'], _e['ou'], ', '.join(sorted(CAT))))
+
 LIB = {'fait': 'FAIT', 'methode': 'MÉTHODE', 'source': 'SOURCE',
        'technique': 'TECHNIQUE', 'conception': 'CONCEPTION'}
 
