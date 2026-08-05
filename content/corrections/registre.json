@@ -189,6 +189,23 @@
       "erreur": "Une affirmation du site était présentée en bloc de citation avec pour attribution « Principe épistémologique fondamental » — ce qui n'est pas une source mais un habillage.",
       "correction": "Requalifiée en position assumée du site, hors format de citation.",
       "commit": "à venir"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "fait",
+      "ou": "Chronologie de la tromperie du globe",
+      "erreur": "Le passage « Il n'est pas nécessaire que ces hypothèses soient vraies, ni même vraisemblables… » était attribué à Nicolas Copernic, De revolutionibus, 1543.",
+      "correction": "Ce texte est l'Ad lectorem de hypothesibus huius operis, avant-propos ANONYME ajouté à l'impression de Nuremberg par Andreas Osiander sans l'accord de Copernic ; Kepler en a révélé la paternité dans l'Astronomia Nova en 1609. La correction inverse le sens : Osiander présente l'héliocentrisme comme un artifice de calcul, là où la préface effectivement signée de Copernic — la dédicace au pape Paul III — soutient l'inverse. Attribution corrigée et note explicative ajoutée dans l'article.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "source",
+      "ou": "Ensemble du corpus — diagnostic des 32 citations restantes",
+      "erreur": "Trente-deux citations n'avaient aucune localisation, et le diagnostic n'avait pas été fait pièce par pièce.",
+      "correction": "Diagnostic complet dans content/corrections/citations-occidentales-diagnostic.md. Il isole ce qui est grave de ce qui ne l'est pas : une erreur d'attribution corrigée (Osiander), six citations dont la teneur est douteuse et qui doivent être vérifiées ou retirées — dont un Aristote qui lui prête un argument a priori là où il argumente par l'observation, un Kepler et un Michelson vraisemblablement apocryphes, et un renvoi à Popper là où le texte expose l'argument de Laudan —, quinze attributions solides auxquelles il ne manque qu'une page, cinq références arabes obtenables sur shamela, et sept pieds de citation attachés à de la prose du site plutôt qu'à une citation. Signalé aussi : le même renvoi Poincaré, dont l'attribution à La Science et l'Hypothèse (1902) est douteuse, est utilisé dans trois articles.",
+      "commit": "à venir"
     }
   ]
 }
