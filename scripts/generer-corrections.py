@@ -6,7 +6,7 @@ Ajouter une correction = ajouter une entree au registre, puis relancer ce script
 Les entrees ne sont jamais retirees ni reecrites : si une correction est elle-meme
 corrigee, on ajoute une nouvelle entree.
 """
-import json, collections, re
+import json, collections, re, html
 
 REG = json.load(open('content/corrections/registre.json', encoding='utf-8'))
 E = sorted(REG['entrees'], key=lambda x: x['date'], reverse=True)
@@ -28,15 +28,21 @@ lignes_cat = "".join(
     f"<tr><td><strong>{LIB[k]}</strong></td><td>{CAT[k]}</td><td>{compte.get(k, 0)}</td></tr>"
     for k in ['fait', 'methode', 'source', 'conception', 'technique'])
 
+def esc(t):
+    """Le registre parle de balises — « imbriqué dans un <p> », « un </blockquote>
+    orphelin ». Sans échappement, ces mentions deviennent des balises actives et
+    cassent la page. Défaut trouvé par le contrôle d'équilibre des paragraphes."""
+    return html.escape(t, quote=False)
+
 def bloc(e):
     grave = ' — <strong>correction de fond</strong>' if e.get('gravite') == 'haute' else ''
     return (
         '<div class="tei-correction">'
         f'<div class="tei-correction-tete"><span class="tei-correction-date">{fr(e["date"])}</span>'
         f'<span class="tei-correction-cat cat-{e["categorie"]}">{LIB[e["categorie"]]}</span></div>'
-        f'<p class="tei-correction-ou">{e["ou"]}{grave}</p>'
-        f'<p><strong>Ce qui était affirmé.</strong> {e["erreur"]}</p>'
-        f'<p><strong>Ce qui l\'a remplacé.</strong> {e["correction"]}</p>'
+        f'<p class="tei-correction-ou">{esc(e["ou"])}{grave}</p>'
+        f'<p><strong>Ce qui était affirmé.</strong> {esc(e["erreur"])}</p>'
+        f'<p><strong>Ce qui l\'a remplacé.</strong> {esc(e["correction"])}</p>'
         f'<p class="tei-correction-ref">Commit {e["commit"]}</p>'
         '</div>')
 

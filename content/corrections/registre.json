@@ -233,6 +233,14 @@
       "correction": "Réparation par scripts/reparer-blocs-citation.py : le bloc est fermé avant ce qui n'est pas cité, l'amorce redevient un paragraphe normal, titres et tableaux retournent au niveau supérieur, et seule la citation reste dans le bloc avec son pied. Le verset 18:86 est correctement encadré. Quatre imbrications résiduelles corrigées à la main. Contrôle final sur les 56 articles : blocs équilibrés, aucun titre ni tableau dans une citation, aucun <cite> résiduel, aucun paragraphe déséquilibré. Effet secondaire heureux : la séparation a réglé d'elle-même le renvoi fautif à Popper, le texte de Laudan étant sorti du bloc et la citation des cygnes restant seule sous le pied de Popper, où elle est à sa place.",
       "commit": "à venir",
       "gravite": "haute"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "technique",
+      "ou": "Registre des corrections — la page elle-même",
+      "erreur": "Le générateur insérait le texte des entrées sans échappement HTML. Or plusieurs entrées parlent de balises : « imbriqué dans un <p> », « un </blockquote> orphelin ». Ces mentions devenaient des balises actives et déséquilibraient la page.",
+      "correction": "Échappement HTML des trois champs de texte. Le défaut a été trouvé par le contrôle d'équilibre des paragraphes appliqué aux 56 articles — c'est-à-dire par un outil écrit pour vérifier autre chose. La page qui recense les corrections avait donc son propre défaut.",
+      "commit": "à venir"
     }
   ]
 }
