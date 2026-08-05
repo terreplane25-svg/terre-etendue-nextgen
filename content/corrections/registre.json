@@ -206,6 +206,33 @@
       "erreur": "Trente-deux citations n'avaient aucune localisation, et le diagnostic n'avait pas été fait pièce par pièce.",
       "correction": "Diagnostic complet dans content/corrections/citations-occidentales-diagnostic.md. Il isole ce qui est grave de ce qui ne l'est pas : une erreur d'attribution corrigée (Osiander), six citations dont la teneur est douteuse et qui doivent être vérifiées ou retirées — dont un Aristote qui lui prête un argument a priori là où il argumente par l'observation, un Kepler et un Michelson vraisemblablement apocryphes, et un renvoi à Popper là où le texte expose l'argument de Laudan —, quinze attributions solides auxquelles il ne manque qu'une page, cinq références arabes obtenables sur shamela, et sept pieds de citation attachés à de la prose du site plutôt qu'à une citation. Signalé aussi : le même renvoi Poincaré, dont l'attribution à La Science et l'Hypothèse (1902) est douteuse, est utilisé dans trois articles.",
       "commit": "à venir"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "fait",
+      "ou": "Chronologie de la tromperie du globe — section 01, Aristote",
+      "erreur": "La section affirmait que la démarche d'Aristote sur la sphéricité terrestre était « d'abord philosophique », qu'il « postulait que la forme parfaite était la sphère et en déduisait que la Terre devait être sphérique », et que « la conclusion précédait l'observation ». Une citation apocryphe appuyait cette lecture, reprise par l'encadré de vulgarisation, la conclusion de section et la légende de l'illustration.",
+      "correction": "C'est historiquement faux. Dans Sur le Ciel II, 14, les arguments d'Aristote pour la sphéricité terrestre sont EMPIRIQUES : forme de l'ombre lors des éclipses de Lune, variation de hauteur des étoiles avec la latitude, convergence des corps qui tombent. L'argument a priori de la perfection de la sphère se trouve en II, 4 et porte sur les CIEUX. Citation retirée et section réécrite en cinq endroits. Le propos du site y gagne : on discute désormais la valeur des trois arguments réels — dont deux ne discriminent pas — au lieu de prêter à Aristote une faute de méthode qu'il ne commet pas.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "source",
+      "ou": "Chronologie de la tromperie du globe, La gravité, La cosmologie comme instrument de domination",
+      "erreur": "Quatre citations dont la teneur n'était pas établie : une attribuée à Kepler (« J'ai démontré la rotondité de la Terre… grâce à la philosophie »), une à Michelson (« Il semble que la Terre soit en état de repos relatif par rapport à l'éther »), une à Feynman, une à Hawking datée du Starmus Festival 2014.",
+      "correction": "Kepler, Feynman et Hawking : citations retirées, ainsi que la phrase d'introduction que la citation de Kepler seule soutenait. Michelson : l'apocryphe est remplacé par le résultat effectivement publié — Michelson et Morley, American Journal of Science, série 3, vol. 34, novembre 1887, p. 333-345 — dont la formulation reste à confirmer sur l'original. Le résultat réel est plus fort que la paraphrase.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "technique",
+      "ou": "Ensemble du corpus — structure des blocs de citation",
+      "erreur": "En vérifiant les pieds de citation attachés à de la prose, découverte d'un défaut structurel plus grave : neuf blocs de citation avaient AVALÉ du contenu qui n'était pas cité — des titres de section h2 et h3 avec leur numérotation, et un tableau entier — souvent imbriqués dans un <p>, ce qui est du HTML invalide. Des titres de section s'affichaient donc à l'intérieur d'encadrés de citation. Par ailleurs 59 pieds de citation portaient sur le paragraphe d'amorce du site et non sur la citation elle-même. Enfin, dans Dhū al-Qarnayn, le verset central 18:86 n'était pas ouvert du tout : un </blockquote> orphelin fermait un bloc inexistant, et son <cite> avait de ce fait échappé à la normalisation du 3 août.",
+      "correction": "Réparation par scripts/reparer-blocs-citation.py : le bloc est fermé avant ce qui n'est pas cité, l'amorce redevient un paragraphe normal, titres et tableaux retournent au niveau supérieur, et seule la citation reste dans le bloc avec son pied. Le verset 18:86 est correctement encadré. Quatre imbrications résiduelles corrigées à la main. Contrôle final sur les 56 articles : blocs équilibrés, aucun titre ni tableau dans une citation, aucun <cite> résiduel, aucun paragraphe déséquilibré. Effet secondaire heureux : la séparation a réglé d'elle-même le renvoi fautif à Popper, le texte de Laudan étant sorti du bloc et la citation des cygnes restant seule sous le pied de Popper, où elle est à sa place.",
+      "commit": "à venir",
+      "gravite": "haute"
     }
   ]
 }

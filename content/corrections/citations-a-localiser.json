@@ -4,8 +4,8 @@
     "definition": "Une référence est localisée si elle permet de retrouver le passage sans lire l'ouvrage entier : pagination, subdivision numérotée, numéro de recueil, référence scripturaire, identifiant (DOI, arXiv, URL) ou date individuant le document. Le seul titre d'un ouvrage n'en est pas une.",
     "regle": "Ne jamais inventer une pagination. En cas de doute, retirer la citation plutôt que la sourcer approximativement.",
     "genere_par": "scripts/lister-citations-a-localiser.py",
-    "citations_totales": 128,
-    "a_localiser": 32
+    "citations_totales": 125,
+    "a_localiser": 35
   },
   "citations": [
     {
@@ -19,64 +19,43 @@
       "article": "chronologie-de-la-tromperie-du-globe",
       "categorie": "headquarters",
       "n": 1,
-      "attribution": "— Aristote, Sur le Ciel",
-      "extrait": "« La forme parfaite est la sphère. Puisque la nature tend vers la perfection, la Terre doit être sphérique. »"
-    },
-    {
-      "article": "chronologie-de-la-tromperie-du-globe",
-      "categorie": "headquarters",
-      "n": 2,
-      "attribution": "— Nicolas Copernic, De revolutionibus, 1543",
+      "attribution": "— Andreas Osiander, Ad lectorem de hypothesibus huius operis, avant-propos anonyme de De revolutionibus orbium coelestium, Nuremberg, 1543 — et non Copernic",
       "extrait": "« Il n'est pas nécessaire que ces hypothèses soient vraies, ni même vraisemblables ; une seule chose suffit : "
     },
     {
       "article": "chronologie-de-la-tromperie-du-globe",
       "categorie": "headquarters",
-      "n": 3,
-      "attribution": "— Johannes Kepler",
-      "extrait": "« J'ai démontré la rotondité de la Terre et son mouvement autour du Soleil — grâce à la philosophie. »"
-    },
-    {
-      "article": "chronologie-de-la-tromperie-du-globe",
-      "categorie": "headquarters",
-      "n": 4,
+      "n": 2,
       "attribution": "— Isaac Newton, Lettre à Bentley, 1693",
       "extrait": "« L'idée que la gravité soit inhérente à la matière, et qu'un corps puisse agir sur un autre à distance dans l"
     },
     {
       "article": "chronologie-de-la-tromperie-du-globe",
       "categorie": "headquarters",
-      "n": 5,
-      "attribution": "— Albert Michelson",
-      "extrait": "« Il semble que la Terre soit en état de repos relatif par rapport à l'éther luminifère. »"
-    },
-    {
-      "article": "chronologie-de-la-tromperie-du-globe",
-      "categorie": "headquarters",
-      "n": 6,
+      "n": 4,
       "attribution": "— Albert Einstein",
       "extrait": "« J'ai appris l'étrange résultat de l'expérience de Michelson. Bientôt je suis arrivé à la conclusion que notr"
     },
     {
       "article": "chronologie-de-la-tromperie-du-globe",
       "categorie": "headquarters",
-      "n": 7,
+      "n": 5,
       "attribution": "— Edwin Hubble",
       "extrait": "« Une telle condition impliquerait que nous occupions une position unique dans l'univers, analogue à l'ancienn"
     },
     {
       "article": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
       "categorie": "library",
-      "n": 1,
+      "n": 2,
       "attribution": "— Sunan Abī Dāwūd, authentique",
-      "extrait": "Le courant concordiste moderne interprète ce verset métaphoriquement : Dhū al-Qarnayn aurait simplement « vu l"
+      "extrait": "عن ابنِ عبّاسٍ أنَّه كان يقرَأُ : ﴿فِي عَيْنٍ حَمِئَةٍ﴾ ويقولُ : حَمْأَةٌ سَوْداءُ تغرُبُ فيها الشمسُ « Ibn ʿA"
     },
     {
       "article": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
       "categorie": "library",
-      "n": 3,
+      "n": 4,
       "attribution": "— Umayya ibn Abī al-Ṣalt, poète ḥanīf pré-islamique de Ṭāʾif",
-      "extrait": "La localisation de cette barrière est un problème non résolu. Sur un globe, toute la surface terrestre est car"
+      "extrait": "Corrélation significative : L'émergence de la lecture métaphorique coïncide exactement avec l'assimilation de "
     },
     {
       "article": "dune-terre-plate-universelle-a-la-sphere-grecque",
@@ -90,40 +69,26 @@
       "categorie": "headquarters",
       "n": 3,
       "attribution": "— Ibn Taymiyyah, Darʾ Taʿāruḍ al-ʿAql wa al-Naql",
-      "extrait": "Ibn Taymiyyah (1263–1328), imam hanbalite et l'une des figures intellectuelles majeures de l'islam sunnite, sy"
+      "extrait": "« Quiconque élève la parole des philosophes grecs au-dessus du Coran et de la Sunna a commis une grave erreur."
     },
     {
       "article": "la-cosmologie-comme-instrument-de-domination",
       "categorie": "headquarters",
       "n": 1,
-      "attribution": "— Stephen Hawking, Festival Starmus, 2014",
-      "extrait": "« Il est tout à fait naturel de croire que Dieu a créé l’univers avant que nous comprenions la science. Mais l"
-    },
-    {
-      "article": "la-cosmologie-comme-instrument-de-domination",
-      "categorie": "headquarters",
-      "n": 2,
       "attribution": "— Richard Dawkins, River Out of Eden, 1995",
       "extrait": "« L’univers que nous observons possède exactement les propriétés auxquelles on devrait s’attendre s’il n’y a, "
     },
     {
       "article": "la-cosmologie-comme-instrument-de-domination",
       "categorie": "headquarters",
-      "n": 3,
+      "n": 2,
       "attribution": "— Richard Dawkins, Le Gène Égoïste, 1976",
       "extrait": "« Si vous voulez construire une société dans laquelle les individus coopèrent généreusement pour réaliser le b"
     },
     {
       "article": "la-gravite-70-theories-et-aucune-preuve",
       "categorie": "headquarters",
-      "n": 1,
-      "attribution": "— Richard Feynman (Prix Nobel 1965), Feynman Lectures on Gravitation, 1995",
-      "extrait": "« C'est l'un des plus grands mystères de la physique que la gravité ait une description mathématique aussi sim"
-    },
-    {
-      "article": "la-gravite-70-theories-et-aucune-preuve",
-      "categorie": "headquarters",
-      "n": 6,
+      "n": 5,
       "attribution": "— Henri Poincaré, La Science et l'Hypothèse (1902)",
       "extrait": "« Ces deux propositions, \"la Terre tourne\" et \"il est plus commode de supposer que la Terre tourne\", ont une s"
     },
@@ -142,25 +107,74 @@
       "extrait": "« Le plan du pendule de Foucault ne reste, en tout état de cause, qu'une hypothèse. Quelqu'un a-t-il vérifié q"
     },
     {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 1,
+      "attribution": "— Tafsīr al-Jalālayn",
+      "extrait": "« C'est-à-dire aplanie… ce qui est apparent est que la terre est aplanie et c'est l'avis des savants de la lég"
+    },
+    {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 5,
+      "attribution": "— Tafsīr Ibn Kathīr",
+      "extrait": "« C'est-à-dire qu'Il l'a élargie en long et en large. »"
+    },
+    {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 8,
+      "attribution": "— Tafsīr al-Ṭabarī",
+      "extrait": "« Étalée, nivelée… Il mentionne que La Mecque est le centre de la terre, à partir duquel elle a été étalée. »"
+    },
+    {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 11,
+      "attribution": "— Tafsīr al-Qurṭubī",
+      "extrait": "« C'est-à-dire Nous l'avons déployée comme un tapis sur l'eau. »"
+    },
+    {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 13,
+      "attribution": "— Tafsīr Ibn Kathīr",
+      "extrait": "« Il l'a étendue, nivelée, stabilisée et renforcée à travers les montagnes fermement ancrées. »"
+    },
+    {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 14,
+      "attribution": "— Tafsīr al-Ṭabarī",
+      "extrait": "« Il l'a élargie de gauche à droite et dans toutes les directions. Pour Mujāhid, ṭaḥāhā signifie le déploiemen"
+    },
+    {
+      "article": "la-terre-dans-le-coran",
+      "categorie": "library",
+      "n": 18,
+      "attribution": "— Tafsīr Ibn Kathīr",
+      "extrait": "« C'est-à-dire constamment, continuellement jusqu'au jour du jugement. »"
+    },
+    {
       "article": "le-concordisme",
       "categorie": "headquarters",
       "n": 4,
       "attribution": "Rapporté par Al-Bukhari et Muslim",
-      "extrait": "Celui qui élève les hypothèses humaines au-dessus du Livre d'Allah a porté atteinte à la Révélation et à sa pr"
+      "extrait": "لَتَتَّبِعُنَّ سَنَنَ مَنْ كَانَ قَبْلَكُمْ شِبْرًا بِشِبْرٍ وَذِرَاعًا بِذِرَاعٍ حَتَّى لَوْ دَخَلُوا جُحْرَ "
     },
     {
       "article": "le-consensus-sur-la-sphericite",
       "categorie": "library",
       "n": 4,
       "attribution": "— Ibn Taymiyyah, Bayān Talbīs al-Jahmiyyah",
-      "extrait": "Et dans Bayān Talbīs al-Jahmiyyah , il formule explicitement : « La parole d'aucun d'entre eux [les cosmologue"
+      "extrait": "« La parole d'aucun d'entre eux [les cosmologues grecs] n'est une preuve, et il n'est pas permis de bâtir sur "
     },
     {
       "article": "le-theodolite-celeste",
       "categorie": "observatory",
       "n": 1,
       "attribution": "— Henning Umland, A Short Guide to Celestial Navigation (2015)",
-      "extrait": "Ptolémée, dans sa Cosmographia , explique que l'horizon de chaque observateur peut être imaginé comme un plan "
+      "extrait": "« Un observateur regardant le ciel nocturne sans rien savoir de la géographie et de l'astronomie pourrait spon"
     },
     {
       "article": "les-distances-cosmiques-au-dela-de-la-regle",
@@ -181,35 +195,42 @@
       "categorie": "headquarters",
       "n": 2,
       "attribution": "— E.M. Standish, « Planet X: No Dynamical Evidence in the Optical Observations », The Astronomical Journal, 105(5), 1993",
-      "extrait": "En 1993, E. Myles Standish du Jet Propulsion Laboratory (JPL) publie l'analyse définitive : « Il est démontré "
+      "extrait": "« Il est démontré que les \"anomalies inexpliquées dans le mouvement d'Uranus\" disparaissent lorsqu'on tient co"
     },
     {
       "article": "neptune-et-pluton-les-faux-triomphes",
       "categorie": "headquarters",
       "n": 4,
       "attribution": "— JHU Applied Physics Laboratory, matériaux éducatifs New Horizons",
-      "extrait": "Et en 2015, le laboratoire de physique appliquée de Johns Hopkins (JHU APL), qui a construit et opéré la sonde"
+      "extrait": "« Peut-être plus étonnant encore est que les calculs prédisant la position de la planète inconnue étaient inco"
     },
     {
       "article": "pourquoi-tout-remettre-en-question",
       "categorie": "headquarters",
       "n": 3,
       "attribution": "— Karl Popper, La logique de la découverte scientifique, 1934",
-      "extrait": "Le philosophe Larry Laudan a baptisé cette récurrence la « méta-induction pessimiste » : les théories passées "
+      "extrait": "« Aucun nombre d'observations de cygnes blancs ne peut justifier la conclusion que tous les cygnes sont blancs"
+    },
+    {
+      "article": "pourquoi-tout-remettre-en-question",
+      "categorie": "headquarters",
+      "n": 4,
+      "attribution": "— James Woodward, Making Things Happen, 2003",
+      "extrait": "« X est une cause de Y si et seulement si des interventions qui modifient X entraînent des modifications de Y."
     },
     {
       "article": "pourquoi-tout-remettre-en-question",
       "categorie": "headquarters",
       "n": 5,
       "attribution": "— Ian Hacking, Representing and Intervening, 1983",
-      "extrait": "Cette définition est radicale : elle exclut les corrélations observationnelles de l'établissement de relations"
+      "extrait": "« Si vous pouvez les pulvériser, c'est qu'ils sont réels. »"
     },
     {
       "article": "pourquoi-tout-remettre-en-question",
       "categorie": "headquarters",
       "n": 6,
       "attribution": "— Edwin Hubble, The Observational Approach to Cosmology, 1937",
-      "extrait": "Le décalage vers le rouge (redshift) est un fait observationnel : la lumière d'une galaxie lointaine arrive av"
+      "extrait": "« Si le facteur de récession est abandonné, si les décalages spectraux ne sont pas principalement des décalage"
     },
     {
       "article": "pourquoi-tout-remettre-en-question",
