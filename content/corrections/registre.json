@@ -145,8 +145,8 @@
       "categorie": "source",
       "ou": "Ensemble du corpus — attribution des citations",
       "erreur": "74 citations portaient leur attribution dans une balise <cite> au lieu du <footer> imposé par la charte, et ni l'une ni l'autre n'était stylée : l'attribution se confondait visuellement avec le corps de la citation. Un premier audit avait par ailleurs conclu à tort que 27 citations étaient sans attribution — le détecteur ne comptait que les <footer>.",
-      "correction": "Balisage normalisé sur les 74 citations, sans qu'aucune attribution soit ajoutée, modifiée ni retirée. Style dédié pour l'attribution. L'audit erroné est rectifié ici : aucune citation du corpus n'est sans attribution. En revanche 86 citations ne portent aucune localisation vérifiable — ni volume, ni page, ni numéro — et sont listées dans content/corrections/citations-a-localiser.json.",
-      "commit": "à venir"
+      "correction": "Balisage normalisé sur les 74 citations, sans qu'aucune attribution soit ajoutée, modifiée ni retirée. Style dédié pour l'attribution. L'audit erroné est rectifié ici : aucune citation du corpus n'est sans attribution. En revanche des citations ne portent aucune localisation vérifiable. Le premier comptage annonçait 86 ; le détecteur ignorait alors les références coraniques de la forme « 88:20 », qui sont pourtant des localisations suffisantes. Après correction du détecteur : 61 citations, dont 20 dans le corpus arabe et 41 dans le corpus occidental. Listées dans content/corrections/citations-a-localiser.json et regroupées par ouvrage dans citations-par-ouvrage.json.",
+      "commit": "67ec067, et suite"
     }
   ]
 }

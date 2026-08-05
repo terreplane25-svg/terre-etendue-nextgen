@@ -8,7 +8,18 @@ consulter l'edition, ce qu'aucun script ne peut faire.
 """
 import json, glob, os, re
 
-LOC = re.compile(r'\bp{1,2}\.\s?\d|\bvol\.\s?\d|\bn°\s?\d|\bS\d+\s?V\d+|\b\d{1,4}\s?[,/]\s?\d|\bt\.\s?\d|shamela')
+# Une localisation, c'est ce qui permet d'ALLER VOIR. Trois formes valables :
+#   - la reference coranique : 88:20, S88 V20, 88:17-20
+#   - la pagination d'une edition : vol. 6, p. 586, t. II
+#   - le numero d'un recueil de hadith : Bukhari 3199
+# Ne PAS oublier les references coraniques : elles suffisent a elles seules.
+LOC = re.compile(
+    r"\b\d{1,3}\s?:\s?\d{1,3}"          # 88:20
+    r"|\bS\s?\d{1,3}\s?V\s?\d{1,3}"    # S88 V20
+    r"|\bp{1,2}\.\s?\d|\bvol\.\s?\d|\bt\.\s?[IVX\d]"
+    r"|\bn°\s?\d"
+    r"|(?:Bukh|Muslim|Tirmidh|Nasa|Ibn M[aā]ja|Ab[īi] D[aā]w[ūu]d|Ahmad)\S*\s+\d{2,5}"
+    r"|shamela", re.I)
 todo = []
 for f in sorted(glob.glob('content/articles/*.json')):
     d = json.load(open(f, encoding='utf-8'))

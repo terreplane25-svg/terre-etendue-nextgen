@@ -4,7 +4,7 @@
     "objet": "Ces citations portent leur attribution — l'ouvrage est nommé — mais aucune localisation précise : ni volume, ni page, ni numéro. Elles ne sont donc pas vérifiables par un lecteur.",
     "regle": "Ne jamais inventer une pagination. En cas de doute, retirer la citation plutôt que la sourcer approximativement.",
     "genere_par": "scripts/lister-citations-a-localiser.py",
-    "total": 86
+    "total": 61
   },
   "citations": [
     {
@@ -85,74 +85,11 @@
       "extrait": "« Une telle condition impliquerait que nous occupions une position unique dans l'univers, analogue à l'ancienn"
     },
     {
-      "article": "chronologie-de-la-tromperie-du-globe",
-      "categorie": "headquarters",
-      "n": 9,
-      "attribution": "— Psaume 19:1 (gravé sur la pierre tombale de Wernher von Braun)",
-      "extrait": "« Les cieux racontent la gloire de Dieu, et le firmament annonce l'œuvre de ses mains. »"
-    },
-    {
-      "article": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
-      "categorie": "library",
-      "n": 2,
-      "attribution": "— Al-Bukhārī 3199, Ṣaḥīḥ",
-      "extrait": "Le Prophète ﷺ dit à Abū Dharr au moment où le soleil se couchait : « Sais-tu où il se couche ? » — Allāh et So"
-    },
-    {
-      "article": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
-      "categorie": "library",
-      "n": 3,
-      "attribution": "— Muslim 636, Ṣaḥīḥ",
-      "extrait": "D'après Salama ibn al-Aqwaʿ, le Prophète ﷺ priait le maghrib dès que le soleil se couchait et disparaissait de"
-    },
-    {
-      "article": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
-      "categorie": "library",
-      "n": 4,
-      "attribution": "— Al-Bukhārī 581, Muslim 831, Ṣaḥīḥ",
-      "extrait": "ʿAbdallāh ibn ʿUmar rapporte que le Messager ﷺ a dit : « Ne cherchez pas à prier lors du lever du soleil ni à "
-    },
-    {
       "article": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
       "categorie": "library",
       "n": 5,
       "attribution": "— As-Saḥīḥa 202, Ṣaḥīḥ",
       "extrait": "D'après Abū Hurayra, le Messager ﷺ a dit : « Certes, le soleil n'a été retenu pour aucun être humain, excepté "
-    },
-    {
-      "article": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
-      "categorie": "library",
-      "n": 6,
-      "attribution": "— Muslim 2653, Ṣaḥīḥ",
-      "extrait": "D'après ʿAbdallāh ibn ʿAmr ibn al-ʿĀṣ, le Prophète ﷺ a dit : « Allāh a écrit les destinées des créatures cinqu"
-    },
-    {
-      "article": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
-      "categorie": "library",
-      "n": 11,
-      "attribution": "— Muslim 2901, Ṣaḥīḥ",
-      "extrait": "D'après Ḥudhayfa ibn Asīd, le Prophète ﷺ dit : « L'Heure ne viendra pas avant l'apparition de dix signes : un "
-    },
-    {
-      "article": "debut-de-la-creation-selon-le-coran-et-la-sunna",
-      "categorie": "library",
-      "n": 1,
-      "attribution": "— Sourate Al-A'raf, 7:54",
-      "extrait": "إِنَّ رَبَّكُمُ اللَّهُ الَّذِي خَلَقَ السَّمَاوَاتِ وَالْأَرْضَ فِي سِتَّةِ أَيَّامٍ ثُمَّ اسْتَوَىٰ عَلَى ال"
-    },
-    {
-      "article": "debut-de-la-creation-selon-le-coran-et-la-sunna",
-      "categorie": "library",
-      "n": 2,
-      "attribution": "— Sourate Al-Mulk, 67:3",
-      "extrait": "الَّذِي خَلَقَ سَبْعَ سَمَاوَاتٍ طِبَاقًا ۖ مَّا تَرَىٰ فِي خَلْقِ الرَّحْمَـٰنِ مِن تَفَاوُتٍ « Celui qui a c"
-    },
-    {
-      "article": "debut-de-la-creation-selon-le-coran-et-la-sunna",
-      "categorie": "library",
-      "n": 3,
-      "attribution": "— Sourate Al-Ghashiyah, 88:20",
-      "extrait": "وَإِلَى الْأَرْضِ كَيْفَ سُطِحَتْ « Et la terre, comment elle a été étendue ? »"
     },
     {
       "article": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
@@ -185,30 +122,9 @@
     {
       "article": "dune-terre-plate-universelle-a-la-sphere-grecque",
       "categorie": "headquarters",
-      "n": 2,
-      "attribution": "Sourate Al-Ghashiyah — 88:20",
-      "extrait": "La position majoritaire dans le monde musulman classique est le rejet de la cosmologie grecque au nom de la Ré"
-    },
-    {
-      "article": "dune-terre-plate-universelle-a-la-sphere-grecque",
-      "categorie": "headquarters",
       "n": 3,
       "attribution": "— Ibn Taymiyyah, Darʾ Taʿāruḍ al-ʿAql wa al-Naql",
       "extrait": "Ibn Taymiyyah (1263–1328), imam hanbalite et l'une des figures intellectuelles majeures de l'islam sunnite, sy"
-    },
-    {
-      "article": "dune-terre-plate-universelle-a-la-sphere-grecque",
-      "categorie": "headquarters",
-      "n": 4,
-      "attribution": "Sourate Al-ʿAnkabūt — 29:20",
-      "extrait": "قُلْ سِيرُوا۟ فِى ٱلْأَرْضِ فَٱنظُرُوا۟ كَيْفَ بَدَأَ ٱلْخَلْقَ « Dis : Parcourez la terre et observez comment"
-    },
-    {
-      "article": "etat-des-lieux-ou-en-sommes-nous",
-      "categorie": "meta",
-      "n": 1,
-      "attribution": "Sourate Al-Ghashiyah — 88:17-20",
-      "extrait": "Si une seule chose devait rester de ce site, que ce soit celle-ci : la vérité n'a pas besoin d'être protégée —"
     },
     {
       "article": "la-cosmologie-comme-instrument-de-domination",
@@ -232,20 +148,6 @@
       "extrait": "« Si vous voulez construire une société dans laquelle les individus coopèrent généreusement pour réaliser le b"
     },
     {
-      "article": "la-cosmologie-comme-instrument-de-domination",
-      "categorie": "headquarters",
-      "n": 4,
-      "attribution": "— Sourate Al-Ghashiyah, 88:17-20",
-      "extrait": "أَفَلَا يَنظُرُونَ إِلَى الْإِبِلِ كَيْفَ خُلِقَتْ ۝ وَإِلَى السَّمَاءِ كَيْفَ رُفِعَتْ ۝ وَإِلَى الْجِبَالِ ك"
-    },
-    {
-      "article": "la-cosmologie-comme-instrument-de-domination",
-      "categorie": "headquarters",
-      "n": 5,
-      "attribution": "— Sourate Al-A’raf, 7:179",
-      "extrait": "وَلَقَدْ ذَرَأْنَا لِجَهَنَّمَ كَثِيرًا مِّنَ الْجِنِّ وَالْإِنسِ « Et Nous avons destiné à la Géhenne beaucou"
-    },
-    {
       "article": "la-gravite-70-theories-et-aucune-preuve",
       "categorie": "headquarters",
       "n": 1,
@@ -265,27 +167,6 @@
       "n": 6,
       "attribution": "— Henri Poincaré, La Science et l'Hypothèse (1902)",
       "extrait": "« Ces deux propositions, \"la Terre tourne\" et \"il est plus commode de supposer que la Terre tourne\", ont une s"
-    },
-    {
-      "article": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
-      "categorie": "observatory",
-      "n": 1,
-      "attribution": "Sourate Yūnus — 10:5",
-      "extrait": "Le modèle standard affirme que la Lune ne fait que réfléchir la lumière solaire. Or leurs propriétés physiques"
-    },
-    {
-      "article": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
-      "categorie": "observatory",
-      "n": 2,
-      "attribution": "Sourate Nūḥ — 71:16",
-      "extrait": "Le crépuscule long et progressif (parfois plus d'une heure) correspond également à la perspective d'un project"
-    },
-    {
-      "article": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
-      "categorie": "observatory",
-      "n": 3,
-      "attribution": "Sourate Al-Naḥl — 16:16",
-      "extrait": "L'Étoile Polaire (Polaris) est le seul astre qui ne semble jamais bouger. Toutes les autres étoiles tournent a"
     },
     {
       "article": "la-rotation-terrestre-deux-experiences-zero-preuve",
@@ -395,9 +276,16 @@
     {
       "article": "le-concordisme",
       "categorie": "headquarters",
-      "n": 1,
-      "attribution": "Sourate Al-Māʾida — 5:48",
-      "extrait": "Le concordisme, c'est l'idée que le Coran « prédit » les découvertes scientifiques modernes. Par exemple : « L"
+      "n": 2,
+      "attribution": "— Ibn Taymiyyah, Darʾ Taʿāruḍ al-ʿAql wa al-Naql, 1/120",
+      "extrait": "Cette pathologie n'est pas nouvelle. Déjà au XIIIᵉ siècle, Taqī ad-Dīn Aḥmad ibn Taymiyyah affrontait ceux qui"
+    },
+    {
+      "article": "le-concordisme",
+      "categorie": "headquarters",
+      "n": 3,
+      "attribution": "— Ibn Taymiyyah, Darʾ Taʿāruḍ, 1/152",
+      "extrait": "« La raison claire ne contredit jamais la Révélation authentique. Celui qui pense qu'elles s'opposent, c'est s"
     },
     {
       "article": "le-concordisme",
@@ -407,39 +295,11 @@
       "extrait": "Celui qui élève les hypothèses humaines au-dessus du Livre d'Allah a porté atteinte à la Révélation et à sa pr"
     },
     {
-      "article": "le-concordisme",
-      "categorie": "headquarters",
-      "n": 5,
-      "attribution": "Sourate Al-Anbiyāʾ — 21:30",
-      "extrait": "Le verset 21:30 est l'argument central du concordisme cosmologique : أَوَلَمْ يَرَ الَّذِينَ كَفَرُوا أَنَّ ال"
-    },
-    {
-      "article": "le-concordisme",
-      "categorie": "headquarters",
-      "n": 6,
-      "attribution": "— Al-Ṭabarī (m. 310H), Jāmiʿ al-Bayān, commentaire de 21:30",
-      "extrait": "Le vocabulaire des Salaf est systématiquement concret : adhérence, soudure, fermeture. Aucun n'emploie de term"
-    },
-    {
-      "article": "le-concordisme",
-      "categorie": "headquarters",
-      "n": 7,
-      "attribution": "Sourate Al-Ikhlāṣ — 112:1-4",
-      "extrait": "La Parole d'Allah n'a pas besoin du Big Bang pour être crédible. Elle était vérité avant ces théories et le re"
-    },
-    {
       "article": "le-consensus-sur-la-sphericite",
       "categorie": "library",
       "n": 4,
       "attribution": "— Ibn Taymiyyah, Bayān Talbīs al-Jahmiyyah",
       "extrait": "Et dans Bayān Talbīs al-Jahmiyyah , il formule explicitement : « La parole d'aucun d'entre eux [les cosmologue"
-    },
-    {
-      "article": "le-consensus-sur-la-sphericite",
-      "categorie": "library",
-      "n": 6,
-      "attribution": "— Sourate Az-Zumar, 39:5",
-      "extrait": "يُكَوِّرُ اللَّيْلَ عَلَى النَّهَارِ وَيُكَوِّرُ النَّهَارَ عَلَى اللَّيْلِ « Il enroule la nuit sur le jour e"
     },
     {
       "article": "le-theodolite-celeste",
@@ -470,20 +330,6 @@
       "extrait": "« La montée et la descente des marées dans le monde entier sont une démonstration semi-diurne, mixte et répéti"
     },
     {
-      "article": "levolution-et-lislam",
-      "categorie": "library",
-      "n": 1,
-      "attribution": "— Sourate Al-Imran, 3:59",
-      "extrait": "إِنَّ مَثَلَ عِيسَىٰ عِندَ اللَّهِ كَمَثَلِ آدَمَ ۖ خَلَقَهُ مِن تُرَابٍ ثُمَّ قَالَ لَهُ كُن فَيَكُونُ « Le c"
-    },
-    {
-      "article": "levolution-et-lislam",
-      "categorie": "library",
-      "n": 2,
-      "attribution": "— Sourate Sad, 38:71",
-      "extrait": "إِذْ قَالَ رَبُّكَ لِلْمَلَائِكَةِ إِنّي خَالِقٌ بَشَرًا مِّن طينٍ « Quand ton Seigneur dit aux anges : “Je va"
-    },
-    {
       "article": "lhypothese-nulle-dynamique-et-cinematique",
       "categorie": "headquarters",
       "n": 6,
@@ -512,18 +358,18 @@
       "extrait": "« Une découverte scientifique n'est pas validée par le consensus d'une collaboration de mille personnes finanç"
     },
     {
-      "article": "mise-en-garde-la-kaaba-et-saturne",
-      "categorie": "library",
-      "n": 1,
-      "attribution": "— Sourate Fussilat, 41:37",
-      "extrait": "لَا تَسْجُدُوا لِلشَّمْسِ وَلَا لِلْقَمَرِ وَاسْجُدُوا لِلَّهِ الَّذِي خَلَقَهُنَّ « Ne vous prosternez ni dev"
-    },
-    {
       "article": "neptune-et-pluton-les-faux-triomphes",
       "categorie": "headquarters",
       "n": 2,
       "attribution": "— E.M. Standish, « Planet X: No Dynamical Evidence in the Optical Observations », The Astronomical Journal, 105(5), 1993",
       "extrait": "En 1993, E. Myles Standish du Jet Propulsion Laboratory (JPL) publie l'analyse définitive : « Il est démontré "
+    },
+    {
+      "article": "neptune-et-pluton-les-faux-triomphes",
+      "categorie": "headquarters",
+      "n": 3,
+      "attribution": "— G.D. Quinlan, « Planet X: a myth exposed », Nature 363, mai 1993",
+      "extrait": "Gerald Quinlan, dans sa revue pour Nature (1993), résume : « Pluton est apparu minuscule dès le départ ; on sa"
     },
     {
       "article": "neptune-et-pluton-les-faux-triomphes",
@@ -556,13 +402,6 @@
     {
       "article": "pourquoi-tout-remettre-en-question",
       "categorie": "headquarters",
-      "n": 4,
-      "attribution": "— James Woodward, Making Things Happen, 2003",
-      "extrait": "Accumuler des observations favorables ne prouve jamais rien de façon définitive. La vérification est asymétriq"
-    },
-    {
-      "article": "pourquoi-tout-remettre-en-question",
-      "categorie": "headquarters",
       "n": 5,
       "attribution": "— Ian Hacking, Representing and Intervening, 1983",
       "extrait": "Cette définition est radicale : elle exclut les corrélations observationnelles de l'établissement de relations"
@@ -587,20 +426,6 @@
       "n": 12,
       "attribution": "— Henri Poincaré, La Science et l'Hypothèse (1902)",
       "extrait": "« Ces deux propositions, \"la Terre tourne\" et \"il est plus commode de supposer que la Terre tourne\", ont une s"
-    },
-    {
-      "article": "pourquoi-tout-remettre-en-question",
-      "categorie": "headquarters",
-      "n": 13,
-      "attribution": "Sourate Al-Ghashiyah — 88:17-20",
-      "extrait": "Ces principes ne sont pas anti-scientifiques. Ils sont scientifiques — au sens le plus classique du terme. C'e"
-    },
-    {
-      "article": "pres-de-cent-savants-de-lislam",
-      "categorie": "library",
-      "n": 2,
-      "attribution": "Sourate Al-Nisāʾ — 4:115",
-      "extrait": "95 savants — des Compagnons du Prophète ﷺ aux savants de notre époque, en passant par les quatre écoles juridi"
     },
     {
       "article": "pres-de-cent-savants-de-lislam",

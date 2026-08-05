@@ -1,0 +1,1141 @@
+{
+  "_meta": {
+    "titre": "Feuille de saisie — localisation des citations, groupées par ouvrage",
+    "mode_d_emploi": [
+      "1. Ouvrir l'ouvrage une seule fois, traiter toutes ses citations d'affilée.",
+      "2. Pour chaque citation, remplir : volume, page, et si possible l'URL shamela de la page.",
+      "3. Coller aussi le texte arabe TEL QUEL depuis l'edition : il sert de controle — si le",
+      "   texte colle ne correspond pas a la citation francaise, c'est que la reference est fausse.",
+      "4. Renseigner l'edition UNE SEULE FOIS par ouvrage, dans le champ 'edition'.",
+      "5. Ne jamais deviner une pagination. Laisser vide vaut mieux qu'approximer."
+    ],
+    "regle": "Une reference fausse est pire qu'une reference absente : elle donne l'apparence de la verifiabilite.",
+    "genere_par": "scripts/grouper-citations-par-ouvrage.py",
+    "ouvrages": 41,
+    "citations": 61
+  },
+  "ouvrages": [
+    {
+      "ouvrage": "Ibn Taymiyyah",
+      "citations_a_localiser": 4,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "dune-terre-plate-universelle-a-la-sphere-grecque",
+          "n_dans_l_article": 3,
+          "texte_publie_sur_le_site": "Ibn Taymiyyah (1263–1328), imam hanbalite et l'une des figures intellectuelles majeures de l'islam sunnite, sy",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "le-concordisme",
+          "n_dans_l_article": 2,
+          "texte_publie_sur_le_site": "Cette pathologie n'est pas nouvelle. Déjà au XIIIᵉ siècle, Taqī ad-Dīn Aḥmad ibn Taymiyyah affrontait ceux qui",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "le-concordisme",
+          "n_dans_l_article": 3,
+          "texte_publie_sur_le_site": "« La raison claire ne contredit jamais la Révélation authentique. Celui qui pense qu'elles s'opposent, c'est s",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "le-consensus-sur-la-sphericite",
+          "n_dans_l_article": 4,
+          "texte_publie_sur_le_site": "Et dans Bayān Talbīs al-Jahmiyyah , il formule explicitement : « La parole d'aucun d'entre eux [les cosmologue",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Tafsīr al-Ṭabarī",
+      "citations_a_localiser": 3,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "la-terre-dans-le-coran",
+          "n_dans_l_article": 3,
+          "texte_publie_sur_le_site": "« Et comment la terre a été aplanie. On dit d'une montagne qu'elle est aplanie lorsque son sommet est nivelé. ",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "la-terre-dans-le-coran",
+          "n_dans_l_article": 6,
+          "texte_publie_sur_le_site": "« Pour Abū Jaʿfar, Allāh a aplani la terre en long et en large. »",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "la-terre-dans-le-coran",
+          "n_dans_l_article": 12,
+          "texte_publie_sur_le_site": "« Nous avons fait de la terre un tapis pour les créatures. »",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Sunan Abī Dāwūd",
+      "citations_a_localiser": 2,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
+          "n_dans_l_article": 1,
+          "texte_publie_sur_le_site": "Le courant concordiste moderne interprète ce verset métaphoriquement : Dhū al-Qarnayn aurait simplement « vu l",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
+          "n_dans_l_article": 2,
+          "texte_publie_sur_le_site": "« [Le Prophète ﷺ] dit : \"Ô Abū Dharr, sais-tu où se couche [le soleil] ?\" Je répondis : \"Allah et Son Messager",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Tafsīr Ibn Kathīr",
+      "citations_a_localiser": 2,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "la-terre-dans-le-coran",
+          "n_dans_l_article": 4,
+          "texte_publie_sur_le_site": "« C'est-à-dire étendue et aplanie. »",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "la-terre-dans-le-coran",
+          "n_dans_l_article": 15,
+          "texte_publie_sur_le_site": "« Ce dernier avis — l'aplanissement — est le plus répandu et celui que privilégie la plupart des exégètes et d",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Tafsīr al-Baghawī",
+      "citations_a_localiser": 2,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "la-terre-dans-le-coran",
+          "n_dans_l_article": 10,
+          "texte_publie_sur_le_site": "« Nous l'avons nivelée au-dessus de l'eau. Il fut dit qu'elle a été élargie d'une distance de 500 ans de march",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "la-terre-dans-le-coran",
+          "n_dans_l_article": 17,
+          "texte_publie_sur_le_site": "« Il l'a aplani. Elle a été conçue sans aplanissement avant la création des cieux. Pour Ibn ʿAbbās, Allāh a cr",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Tafsīr al-Jalālayn",
+      "citations_a_localiser": 2,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "la-terre-dans-le-coran",
+          "n_dans_l_article": 7,
+          "texte_publie_sur_le_site": "« Il a étendu c'est-à-dire aplani. »",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "la-terre-dans-le-coran",
+          "n_dans_l_article": 9,
+          "texte_publie_sur_le_site": "« Nous l'avons étendue c'est-à-dire aplanie. »",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Tafsīr al-Qurṭubī",
+      "citations_a_localiser": 2,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "la-terre-dans-le-coran",
+          "n_dans_l_article": 2,
+          "texte_publie_sur_le_site": "« C'est-à-dire étendue et aplanie. »",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "la-terre-dans-le-coran",
+          "n_dans_l_article": 16,
+          "texte_publie_sur_le_site": "Zoologique : L'autruche ne construit pas de nid. Elle gratte et aplanit le sol avec ses pattes pour créer une ",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Ibn Rajab al-Ḥanbalī",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "pres-de-cent-savants-de-lislam",
+          "n_dans_l_article": 3,
+          "texte_publie_sur_le_site": "« C'est par la sagesse d'Allah qu'Il établit la religion et la protégea en suscitant pour les gens des imāms p",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Rapporté par Al-Bukhari et Muslim",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "le-concordisme",
+          "n_dans_l_article": 4,
+          "texte_publie_sur_le_site": "Celui qui élève les hypothèses humaines au-dessus du Livre d'Allah a porté atteinte à la Révélation et à sa pr",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Umayya ibn Abī al-Ṣalt",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
+          "n_dans_l_article": 3,
+          "texte_publie_sur_le_site": "La localisation de cette barrière est un problème non résolu. Sur un globe, toute la surface terrestre est car",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Henri Poincaré",
+      "citations_a_localiser": 4,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "la-gravite-70-theories-et-aucune-preuve",
+          "n_dans_l_article": 6,
+          "texte_publie_sur_le_site": "« Ces deux propositions, \"la Terre tourne\" et \"il est plus commode de supposer que la Terre tourne\", ont une s",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "la-rotation-terrestre-deux-experiences-zero-preuve",
+          "n_dans_l_article": 2,
+          "texte_publie_sur_le_site": "« Cette affirmation : \"la Terre tourne\", n'a aucun sens, puisqu'aucune expérience ne permettra de la vérifier ",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "lhypothese-nulle-dynamique-et-cinematique",
+          "n_dans_l_article": 7,
+          "texte_publie_sur_le_site": "« Ces deux propositions, \"la Terre tourne\" et \"il est plus commode de supposer que la Terre tourne\", ont une s",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "pourquoi-tout-remettre-en-question",
+          "n_dans_l_article": 12,
+          "texte_publie_sur_le_site": "« Ces deux propositions, \"la Terre tourne\" et \"il est plus commode de supposer que la Terre tourne\", ont une s",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Edwin Hubble",
+      "citations_a_localiser": 3,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "chronologie-de-la-tromperie-du-globe",
+          "n_dans_l_article": 8,
+          "texte_publie_sur_le_site": "« Une telle condition impliquerait que nous occupions une position unique dans l'univers, analogue à l'ancienn",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "les-distances-cosmiques-au-dela-de-la-regle",
+          "n_dans_l_article": 1,
+          "texte_publie_sur_le_site": "« Si le facteur de récession est abandonné, si les décalages spectraux ne sont pas principalement des décalage",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "pourquoi-tout-remettre-en-question",
+          "n_dans_l_article": 6,
+          "texte_publie_sur_le_site": "Le décalage vers le rouge (redshift) est un fait observationnel : la lumière d'une galaxie lointaine arrive av",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Albert Einstein",
+      "citations_a_localiser": 2,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "chronologie-de-la-tromperie-du-globe",
+          "n_dans_l_article": 7,
+          "texte_publie_sur_le_site": "« J'ai appris l'étrange résultat de l'expérience de Michelson. Bientôt je suis arrivé à la conclusion que notr",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "la-rotation-terrestre-deux-experiences-zero-preuve",
+          "n_dans_l_article": 4,
+          "texte_publie_sur_le_site": "« Si l'on fait tourner [une coquille massive] par rapport aux étoiles fixes autour d'un axe passant par son ce",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Ernst Mach",
+      "citations_a_localiser": 2,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "lhypothese-nulle-dynamique-et-cinematique",
+          "n_dans_l_article": 6,
+          "texte_publie_sur_le_site": "« Les mouvements de l'univers sont les mêmes que l'on adopte le mode de vue ptoléméen ou copernicien. Les deux",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "pourquoi-tout-remettre-en-question",
+          "n_dans_l_article": 11,
+          "texte_publie_sur_le_site": "« Les mouvements de l'univers sont les mêmes que l'on adopte le mode de vue ptoléméen ou copernicien. Les deux",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Isaac Newton",
+      "citations_a_localiser": 2,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "chronologie-de-la-tromperie-du-globe",
+          "n_dans_l_article": 5,
+          "texte_publie_sur_le_site": "« L'idée que la gravité soit inhérente à la matière, et qu'un corps puisse agir sur un autre à distance dans l",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "la-gravite-70-theories-et-aucune-preuve",
+          "n_dans_l_article": 2,
+          "texte_publie_sur_le_site": "« Qu'un corps puisse agir sur un autre à distance à travers le vide, sans la médiation de quoi que ce soit d'a",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Nicolas Copernic",
+      "citations_a_localiser": 2,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "200-ans-de-resultats-nuls-darago-a-einstein",
+          "n_dans_l_article": 6,
+          "texte_publie_sur_le_site": "« Et aussi loin que les hypothèses vont, que personne n'attende rien de certain de l'astronomie, puisque l'ast",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "chronologie-de-la-tromperie-du-globe",
+          "n_dans_l_article": 3,
+          "texte_publie_sur_le_site": "« Il n'est pas nécessaire que ces hypothèses soient vraies, ni même vraisemblables ; une seule chose suffit : ",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Richard Dawkins",
+      "citations_a_localiser": 2,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "la-cosmologie-comme-instrument-de-domination",
+          "n_dans_l_article": 2,
+          "texte_publie_sur_le_site": "« L’univers que nous observons possède exactement les propriétés auxquelles on devrait s’attendre s’il n’y a, ",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        },
+        {
+          "article": "la-cosmologie-comme-instrument-de-domination",
+          "n_dans_l_article": 3,
+          "texte_publie_sur_le_site": "« Si vous voulez construire une société dans laquelle les individus coopèrent généreusement pour réaliser le b",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "A.C. Longden",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "la-rotation-terrestre-deux-experiences-zero-preuve",
+          "n_dans_l_article": 8,
+          "texte_publie_sur_le_site": "« Le pendule commençait toujours à tourner dans le sens horaire. Ce fait demeura un mystère jusqu'à ce qu'on s",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Albert Michelson",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "chronologie-de-la-tromperie-du-globe",
+          "n_dans_l_article": 6,
+          "texte_publie_sur_le_site": "« Il semble que la Terre soit en état de repos relatif par rapport à l'éther luminifère. »",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Aristote",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "chronologie-de-la-tromperie-du-globe",
+          "n_dans_l_article": 1,
+          "texte_publie_sur_le_site": "« La forme parfaite est la sphère. Puisque la nature tend vers la perfection, la Terre doit être sphérique. »",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "As-Saḥīḥa 202",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
+          "n_dans_l_article": 5,
+          "texte_publie_sur_le_site": "D'après Abū Hurayra, le Messager ﷺ a dit : « Certes, le soleil n'a été retenu pour aucun être humain, excepté ",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Claude Bernard",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "pourquoi-tout-remettre-en-question",
+          "n_dans_l_article": 1,
+          "texte_publie_sur_le_site": "L'une des confusions les plus répandues dans le discours scientifique populaire est l'assimilation entre obser",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Creswell et al.",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "ligo-londe-qui-nexistait-pas",
+          "n_dans_l_article": 1,
+          "texte_publie_sur_le_site": "« Une distinction claire entre signal et bruit reste à établir afin de déterminer la contribution des ondes gr",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Décision de l'arbitre M. Walsh",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "leau-ne-ment-pas",
+          "n_dans_l_article": 1,
+          "texte_publie_sur_le_site": "« Prenant en considération la théorie de la rotondité de la Terre, M. Wallace a droit aux enjeux. »",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "E.M. Standish",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "neptune-et-pluton-les-faux-triomphes",
+          "n_dans_l_article": 2,
+          "texte_publie_sur_le_site": "En 1993, E. Myles Standish du Jet Propulsion Laboratory (JPL) publie l'analyse définitive : « Il est démontré ",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "E.T. Whittaker",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "200-ans-de-resultats-nuls-darago-a-einstein",
+          "n_dans_l_article": 1,
+          "texte_publie_sur_le_site": "« La lumière venant de n'importe quelle étoile se comporte dans tous les cas de réflexion et de réfraction pré",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Francis Bacon",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "pourquoi-tout-remettre-en-question",
+          "n_dans_l_article": 2,
+          "texte_publie_sur_le_site": "La distinction n'est pas secondaire. Claude Bernard soulignait déjà un danger : l'observation passive peut eng",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "G.D. Quinlan",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "neptune-et-pluton-les-faux-triomphes",
+          "n_dans_l_article": 3,
+          "texte_publie_sur_le_site": "Gerald Quinlan, dans sa revue pour Nature (1993), résume : « Pluton est apparu minuscule dès le départ ; on sa",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Henning Umland",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "le-theodolite-celeste",
+          "n_dans_l_article": 1,
+          "texte_publie_sur_le_site": "Ptolémée, dans sa Cosmographia , explique que l'horizon de chaque observateur peut être imaginé comme un plan ",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Huainanzi (淮南子)",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "dune-terre-plate-universelle-a-la-sphere-grecque",
+          "n_dans_l_article": 1,
+          "texte_publie_sur_le_site": "« Le Ciel est rond, la Terre est carrée. Le Ciel recouvre, la Terre supporte. Le Ciel tourne, la Terre reste i",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Ian Hacking",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "pourquoi-tout-remettre-en-question",
+          "n_dans_l_article": 5,
+          "texte_publie_sur_le_site": "Cette définition est radicale : elle exclut les corrélations observationnelles de l'établissement de relations",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "JHU Applied Physics Laboratory",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "neptune-et-pluton-les-faux-triomphes",
+          "n_dans_l_article": 4,
+          "texte_publie_sur_le_site": "Et en 2015, le laboratoire de physique appliquée de Johns Hopkins (JHU APL), qui a construit et opéré la sonde",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Johannes Kepler",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "chronologie-de-la-tromperie-du-globe",
+          "n_dans_l_article": 4,
+          "texte_publie_sur_le_site": "« J'ai démontré la rotondité de la Terre et son mouvement autour du Soleil — grâce à la philosophie. »",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Journal de bord du Capitaine James Cook",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "cartes-routes-boussoles-et-le-mystere-antarctique",
+          "n_dans_l_article": 1,
+          "texte_publie_sur_le_site": "Le Capitaine James Cook, à bord du HMS Resolution, a parcouru plus de 60 000 milles nautiques (~111 000 km) du",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Karl Popper",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "pourquoi-tout-remettre-en-question",
+          "n_dans_l_article": 3,
+          "texte_publie_sur_le_site": "Le philosophe Larry Laudan a baptisé cette récurrence la « méta-induction pessimiste » : les théories passées ",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Lee",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "la-rotation-terrestre-deux-experiences-zero-preuve",
+          "n_dans_l_article": 9,
+          "texte_publie_sur_le_site": "« Le plan du pendule de Foucault ne reste, en tout état de cause, qu'une hypothèse. Quelqu'un a-t-il vérifié q",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Neil deGrasse Tyson",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "chronologie-de-la-tromperie-du-globe",
+          "n_dans_l_article": 2,
+          "texte_publie_sur_le_site": "« L'expérience d'Ératosthène fonctionnerait aussi sur une Terre plate, avec une source lumineuse locale suffis",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Principe épistémologique fondamental",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "ligo-londe-qui-nexistait-pas",
+          "n_dans_l_article": 2,
+          "texte_publie_sur_le_site": "« Une découverte scientifique n'est pas validée par le consensus d'une collaboration de mille personnes finanç",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Richard Feynman (Prix Nobel 1965)",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "la-gravite-70-theories-et-aucune-preuve",
+          "n_dans_l_article": 1,
+          "texte_publie_sur_le_site": "« C'est l'un des plus grands mystères de la physique que la gravité ait une description mathématique aussi sim",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Robert Bennett",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "les-marees-contre-lheliocentrisme",
+          "n_dans_l_article": 1,
+          "texte_publie_sur_le_site": "« La montée et la descente des marées dans le monde entier sont une démonstration semi-diurne, mixte et répéti",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    },
+    {
+      "ouvrage": "Stephen Hawking",
+      "citations_a_localiser": 1,
+      "edition": {
+        "muhaqqiq_ou_editeur": "",
+        "lieu_et_annee": "",
+        "shamela_book_id": ""
+      },
+      "citations": [
+        {
+          "article": "la-cosmologie-comme-instrument-de-domination",
+          "n_dans_l_article": 1,
+          "texte_publie_sur_le_site": "« Il est tout à fait naturel de croire que Dieu a créé l’univers avant que nous comprenions la science. Mais l",
+          "a_remplir": {
+            "volume": "",
+            "page": "",
+            "url_shamela": "",
+            "texte_arabe_source": ""
+          }
+        }
+      ]
+    }
+  ]
+}
