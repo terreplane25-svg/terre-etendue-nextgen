@@ -5,7 +5,7 @@
     "regle": "Ne jamais inventer une pagination. En cas de doute, retirer la citation plutôt que la sourcer approximativement.",
     "genere_par": "scripts/lister-citations-a-localiser.py",
     "citations_totales": 125,
-    "a_localiser": 35
+    "a_localiser": 28
   },
   "citations": [
     {
@@ -105,55 +105,6 @@
       "n": 9,
       "attribution": "— Lee, 2005",
       "extrait": "« Le plan du pendule de Foucault ne reste, en tout état de cause, qu'une hypothèse. Quelqu'un a-t-il vérifié q"
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 1,
-      "attribution": "— Tafsīr al-Jalālayn",
-      "extrait": "« C'est-à-dire aplanie… ce qui est apparent est que la terre est aplanie et c'est l'avis des savants de la lég"
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 5,
-      "attribution": "— Tafsīr Ibn Kathīr",
-      "extrait": "« C'est-à-dire qu'Il l'a élargie en long et en large. »"
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 8,
-      "attribution": "— Tafsīr al-Ṭabarī",
-      "extrait": "« Étalée, nivelée… Il mentionne que La Mecque est le centre de la terre, à partir duquel elle a été étalée. »"
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 11,
-      "attribution": "— Tafsīr al-Qurṭubī",
-      "extrait": "« C'est-à-dire Nous l'avons déployée comme un tapis sur l'eau. »"
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 13,
-      "attribution": "— Tafsīr Ibn Kathīr",
-      "extrait": "« Il l'a étendue, nivelée, stabilisée et renforcée à travers les montagnes fermement ancrées. »"
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 14,
-      "attribution": "— Tafsīr al-Ṭabarī",
-      "extrait": "« Il l'a élargie de gauche à droite et dans toutes les directions. Pour Mujāhid, ṭaḥāhā signifie le déploiemen"
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 18,
-      "attribution": "— Tafsīr Ibn Kathīr",
-      "extrait": "« C'est-à-dire constamment, continuellement jusqu'au jour du jugement. »"
     },
     {
       "article": "le-concordisme",
