@@ -312,6 +312,11 @@ html, body { overflow-x: hidden; }
   .prose-dash .tei-gloss-bulle { display: none; }
 }
 
+/* ═══ Collation : deux textes mis en regard ═══ */
+.prose-dash .tei-collation td { vertical-align: top; font-size: 12.5px; line-height: 1.6; width: 50%; }
+.prose-dash .tei-collation tr:hover td { background: var(--cream); }
+.prose-dash .tei-collation strong { color: var(--rose); }
+
 /* ═══ Table des autorités : grades de vérifiabilité ═══ */
 .prose-dash .tei-grade {
   display: inline-block; min-width: 22px; text-align: center;

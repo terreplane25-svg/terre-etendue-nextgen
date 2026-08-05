@@ -241,6 +241,24 @@
       "erreur": "Le générateur insérait le texte des entrées sans échappement HTML. Or plusieurs entrées parlent de balises : « imbriqué dans un <p> », « un </blockquote> orphelin ». Ces mentions devenaient des balises actives et déséquilibraient la page.",
       "correction": "Échappement HTML des trois champs de texte. Le défaut a été trouvé par le contrôle d'équilibre des paragraphes appliqué aux 56 articles — c'est-à-dire par un outil écrit pour vérifier autre chose. La page qui recense les corrections avait donc son propre défaut.",
       "commit": "à venir"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "methode",
+      "ou": "Le « consensus » sur la sphéricité",
+      "erreur": "L'article déclarait que le passage du Majmūʿ al-Fatāwā « ne satisfait pas les critères d'un ijmāʿ sharʿī valide » sans jamais énoncer ces critères. On ne peut pas déclarer un critère non satisfait sans l'avoir posé : c'était une lacune de raisonnement, et le lecteur devait faire confiance au verdict.",
+      "correction": "Nouvelle section 02 qui énonce les trois conditions cardinales de l'ijmāʿ avec les formulations arabes des uṣūliyyūn — l'accord doit être celui des mujtahids de la Loi et non des spécialistes de l'astronomie ou des mathématiques, il doit porter sur un jugement légal, et il doit être établi plutôt que supposé. La question devient alors vérifiable : qui est l'auteur du texte, et de quelle compétence relève-t-il.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "source",
+      "ou": "Le « consensus » sur la sphéricité — axe sur la filiation ptoléméenne",
+      "erreur": "L'article affirmait que le contenu du « consensus » est « traçable directement jusqu'à l'Almageste de Ptolémée, transmis en arabe via al-Farghānī et Ibn Rustah », sans montrer cette traçabilité. L'affirmation la plus forte de l'article était donc la moins démontrée.",
+      "correction": "Nouvelle section 10 : collation phrase par phrase des huit segments, al-Farghānī d'un côté — conservé par Ibn Rustah, al-Aʿlāq al-Nafīsa p. 9 — et Ibn al-Munādī de l'autre. Deux segments sont identiques au mot près, six sont réduits ou reformulés sans que l'ordre ni les images changent. Ajout d'un schéma des deux chaînes de transmission, premier schéma de la Bibliothèque, qui montre qu'aucun maillon de la chaîne astronomique n'est un mujtahid de la Loi et que la chaîne des exégètes est à la fois indépendante et antérieure. Signalé aussi : la référence du Majmūʿ varie selon l'édition, 6/586-587 ou 25/195, et les deux sont désormais mentionnées.",
+      "commit": "à venir",
+      "gravite": "haute"
     }
   ]
 }

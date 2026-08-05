@@ -1,0 +1,93 @@
+<svg viewBox="0 0 1060 880" xmlns="http://www.w3.org/2000/svg" data-zoomable="true" role="img" aria-label="Chaine de transmission du consensus sur la sphericite">
+<rect x="0" y="0" width="1060" height="880" rx="0" fill="#0d1117" opacity="1"/>
+<rect x="0" y="0" width="5" height="880" rx="0" fill="#D4943A" opacity="0.85"/>
+<text x="28.0" y="36.0" fill="#c9d4e0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" font-weight="700">D'OÙ VIENT LE « CONSENSUS » — DEUX CHAÎNES QUI NE SE CROISENT PAS</text>
+<text x="28.0" y="58.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400">À gauche, la transmission astronomique. À droite, les savants de la Loi. Aucun lien entre les deux.</text>
+<text x="250.0" y="104.0" fill="#3B8FD4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700" text-anchor="middle">AHL AL-HAY'A — les astronomes</text>
+<text x="790.0" y="104.0" fill="#D4943A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700" text-anchor="middle">'ULAMA' AL-SHAR' — les savants de la Loi</text>
+<line x1="520.0" y1="118.0" x2="520.0" y2="784.0" stroke="#1f2733" stroke-width="1" stroke-dasharray="6 5"/>
+<rect x="50" y="131" width="400" height="34" rx="5" fill="#0d1117" opacity="1" stroke="#3B8FD4" stroke-width="1.4"/>
+<text x="62.0" y="147.0" fill="#3B8FD4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700">Ptolémée — Almageste</text>
+<text x="225.2" y="147.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">IIᵉ siècle, grec</text>
+<rect x="50" y="203" width="400" height="34" rx="5" fill="#0d1117" opacity="1" stroke="#3B8FD4" stroke-width="1.4"/>
+<text x="62.0" y="219.0" fill="#3B8FD4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700">traduction arabe</text>
+<text x="195.0" y="219.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">IXᵉ siècle</text>
+<line x1="250.0" y1="165.0" x2="250.0" y2="203.0" stroke="#3B8FD4" stroke-width="1.6"/>
+<path d="M246,196 L250,203 L254,196" fill="none" stroke="#3B8FD4" stroke-width="1.6"/>
+<rect x="50" y="275" width="400" height="34" rx="5" fill="#0d1117" opacity="1" stroke="#3B8FD4" stroke-width="1.4"/>
+<text x="62.0" y="291.0" fill="#3B8FD4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700">al-Kindī</text>
+<text x="134.5" y="291.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">185-256 H · « philosophe des Arabes »</text>
+<line x1="250.0" y1="237.0" x2="250.0" y2="275.0" stroke="#3B8FD4" stroke-width="1.6"/>
+<path d="M246,268 L250,275 L254,268" fill="none" stroke="#3B8FD4" stroke-width="1.6"/>
+<rect x="50" y="347" width="400" height="46" rx="5" fill="#0d1117" opacity="1" stroke="#3B8FD4" stroke-width="1.4"/>
+<text x="62.0" y="363.0" fill="#3B8FD4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700">al-Farghānī</text>
+<text x="157.2" y="363.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">† ~247 H · astronome</text>
+<text x="62.0" y="381.0" fill="#c9d4e0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">aucune formation religieuse · Kitāb fī Jawāmiʿ ʿIlm al-Nujūm</text>
+<line x1="250.0" y1="309.0" x2="250.0" y2="347.0" stroke="#3B8FD4" stroke-width="1.6"/>
+<path d="M246,340 L250,347 L254,340" fill="none" stroke="#3B8FD4" stroke-width="1.6"/>
+<rect x="50" y="419" width="400" height="34" rx="5" fill="#0d1117" opacity="1" stroke="#3B8FD4" stroke-width="1.4"/>
+<text x="62.0" y="435.0" fill="#3B8FD4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700">Ibn Khurdādhbih</text>
+<text x="187.4" y="435.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">† 280 H · géographe</text>
+<line x1="250.0" y1="393.0" x2="250.0" y2="419.0" stroke="#3B8FD4" stroke-width="1.6"/>
+<path d="M246,412 L250,419 L254,412" fill="none" stroke="#3B8FD4" stroke-width="1.6"/>
+<rect x="50" y="491" width="400" height="46" rx="5" fill="#0d1117" opacity="1" stroke="#3B8FD4" stroke-width="1.4"/>
+<text x="62.0" y="507.0" fill="#3B8FD4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700">Ibn Rustah</text>
+<text x="149.6" y="507.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">† ~300 H · géographe d'Ispahan</text>
+<text x="62.0" y="525.0" fill="#c9d4e0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">al-Aʿlāq al-Nafīsa, p. 9</text>
+<line x1="250.0" y1="453.0" x2="250.0" y2="491.0" stroke="#3B8FD4" stroke-width="1.6"/>
+<path d="M246,484 L250,491 L254,484" fill="none" stroke="#3B8FD4" stroke-width="1.6"/>
+<rect x="50" y="563" width="400" height="46" rx="5" fill="#0d1117" opacity="1" stroke="#3B8FD4" stroke-width="1.4"/>
+<text x="62.0" y="579.0" fill="#3B8FD4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700">al-Masʿūdī</text>
+<text x="149.6" y="579.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">† 346 H · historien</text>
+<text x="62.0" y="597.0" fill="#c9d4e0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">Murūj al-Dhahab</text>
+<line x1="250.0" y1="537.0" x2="250.0" y2="563.0" stroke="#3B8FD4" stroke-width="1.6"/>
+<path d="M246,556 L250,563 L254,556" fill="none" stroke="#3B8FD4" stroke-width="1.6"/>
+<rect x="50" y="635" width="400" height="34" rx="5" fill="#0d1117" opacity="1" stroke="#3B8FD4" stroke-width="1.4"/>
+<text x="62.0" y="651.0" fill="#3B8FD4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700">Ibn al-Munādī</text>
+<text x="172.3" y="651.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">† 336 H · le texte dit « consensus »</text>
+<line x1="250.0" y1="609.0" x2="250.0" y2="635.0" stroke="#3B8FD4" stroke-width="1.6"/>
+<path d="M246,628 L250,635 L254,628" fill="none" stroke="#3B8FD4" stroke-width="1.6"/>
+<rect x="590" y="131" width="400" height="34" rx="5" fill="#0d1117" opacity="1" stroke="#D4943A" stroke-width="1.4"/>
+<text x="602.0" y="147.0" fill="#D4943A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700">al-Ṭabarī</text>
+<text x="682.1" y="147.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">† 310 H · imam des mufassirūn</text>
+<rect x="590" y="203" width="400" height="34" rx="5" fill="#0d1117" opacity="1" stroke="#D4943A" stroke-width="1.4"/>
+<text x="602.0" y="219.0" fill="#D4943A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700">al-Qayrawānī</text>
+<text x="704.8" y="219.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">† 437 H</text>
+<line x1="790.0" y1="165.0" x2="790.0" y2="203.0" stroke="#D4943A" stroke-width="1.6"/>
+<path d="M786,196 L790,203 L794,196" fill="none" stroke="#D4943A" stroke-width="1.6"/>
+<rect x="590" y="275" width="400" height="34" rx="5" fill="#0d1117" opacity="1" stroke="#D4943A" stroke-width="1.4"/>
+<text x="602.0" y="291.0" fill="#D4943A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700">al-Māwardī</text>
+<text x="689.6" y="291.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">† 450 H</text>
+<line x1="790.0" y1="237.0" x2="790.0" y2="275.0" stroke="#D4943A" stroke-width="1.6"/>
+<path d="M786,268 L790,275 L794,268" fill="none" stroke="#D4943A" stroke-width="1.6"/>
+<rect x="590" y="347" width="400" height="34" rx="5" fill="#0d1117" opacity="1" stroke="#D4943A" stroke-width="1.4"/>
+<text x="602.0" y="363.0" fill="#D4943A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700">Ibn ʿAṭiyyah</text>
+<text x="704.8" y="363.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">† 542 H</text>
+<line x1="790.0" y1="309.0" x2="790.0" y2="347.0" stroke="#D4943A" stroke-width="1.6"/>
+<path d="M786,340 L790,347 L794,340" fill="none" stroke="#D4943A" stroke-width="1.6"/>
+<rect x="590" y="419" width="400" height="34" rx="5" fill="#0d1117" opacity="1" stroke="#D4943A" stroke-width="1.4"/>
+<text x="602.0" y="435.0" fill="#D4943A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700">al-Qurṭubī</text>
+<text x="689.6" y="435.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">† 671 H</text>
+<line x1="790.0" y1="381.0" x2="790.0" y2="419.0" stroke="#D4943A" stroke-width="1.6"/>
+<path d="M786,412 L790,419 L794,412" fill="none" stroke="#D4943A" stroke-width="1.6"/>
+<rect x="590" y="491" width="400" height="34" rx="5" fill="#0d1117" opacity="1" stroke="#D4943A" stroke-width="1.4"/>
+<text x="602.0" y="507.0" fill="#D4943A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700">al-Suyūṭī</text>
+<text x="682.1" y="507.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">† 911 H</text>
+<line x1="790.0" y1="453.0" x2="790.0" y2="491.0" stroke="#D4943A" stroke-width="1.6"/>
+<path d="M786,484 L790,491 L794,484" fill="none" stroke="#D4943A" stroke-width="1.6"/>
+<rect x="590" y="563" width="400" height="34" rx="5" fill="#0d1117" opacity="1" stroke="#D4943A" stroke-width="1.4"/>
+<text x="602.0" y="579.0" fill="#D4943A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700">al-Shawkānī</text>
+<text x="697.2" y="579.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">† 1255 H</text>
+<line x1="790.0" y1="525.0" x2="790.0" y2="563.0" stroke="#D4943A" stroke-width="1.6"/>
+<path d="M786,556 L790,563 L794,556" fill="none" stroke="#D4943A" stroke-width="1.6"/>
+<rect x="50" y="716" width="400" height="40" rx="5" fill="#0d1117" opacity="1" stroke="#C45E6A" stroke-width="1.6"/>
+<text x="62.0" y="741.0" fill="#C45E6A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12.5" font-weight="700">Ibn Taymiyyah † 728 H — il RAPPORTE</text>
+<line x1="250.0" y1="669.0" x2="250.0" y2="716.0" stroke="#C45E6A" stroke-width="1.6" stroke-dasharray="5 4"/>
+<text x="62.0" y="774.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="400">Majmūʿ al-Fatāwā 6/586-587 — ou 25/195 selon l'édition</text>
+<text x="556.0" y="690.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400">aucune flèche</text>
+<text x="556.0" y="708.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400">ne traverse</text>
+<text x="556.0" y="726.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400">ce trait</text>
+<text x="28.0" y="818.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400">Le texte qu'Ibn Taymiyyah rapporte descend de la colonne de gauche. Aucun de ses maillons</text>
+<text x="28.0" y="838.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400">n'est un mujtahid de la Loi — ce que la définition de l'ijmāʿ exige. La colonne de droite,</text>
+<text x="28.0" y="858.0" fill="#7b8a9c" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400">elle, est indépendante : elle ne cite jamais la gauche, et elle la précède.</text>
+</svg>
