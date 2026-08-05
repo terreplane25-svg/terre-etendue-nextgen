@@ -1,10 +1,11 @@
 {
   "_meta": {
     "titre": "Citations à localiser",
-    "objet": "Ces citations portent leur attribution — l'ouvrage est nommé — mais aucune localisation précise : ni volume, ni page, ni numéro. Elles ne sont donc pas vérifiables par un lecteur.",
+    "definition": "Une référence est localisée si elle permet de retrouver le passage sans lire l'ouvrage entier : pagination, subdivision numérotée, numéro de recueil, référence scripturaire, identifiant (DOI, arXiv, URL) ou date individuant le document. Le seul titre d'un ouvrage n'en est pas une.",
     "regle": "Ne jamais inventer une pagination. En cas de doute, retirer la citation plutôt que la sourcer approximativement.",
     "genere_par": "scripts/lister-citations-a-localiser.py",
-    "total": 61
+    "citations_totales": 128,
+    "a_localiser": 32
   },
   "citations": [
     {
@@ -13,20 +14,6 @@
       "n": 1,
       "attribution": "— E.T. Whittaker, A History of the Theories of Aether and Electricity, résumant les résultats d'Arago",
       "extrait": "« La lumière venant de n'importe quelle étoile se comporte dans tous les cas de réflexion et de réfraction pré"
-    },
-    {
-      "article": "200-ans-de-resultats-nuls-darago-a-einstein",
-      "categorie": "headquarters",
-      "n": 6,
-      "attribution": "— Nicolas Copernic, De Revolutionibus (1543), préface",
-      "extrait": "« Et aussi loin que les hypothèses vont, que personne n'attende rien de certain de l'astronomie, puisque l'ast"
-    },
-    {
-      "article": "cartes-routes-boussoles-et-le-mystere-antarctique",
-      "categorie": "observatory",
-      "n": 1,
-      "attribution": "— Journal de bord du Capitaine James Cook, 3 février 1774",
-      "extrait": "Le Capitaine James Cook, à bord du HMS Resolution, a parcouru plus de 60 000 milles nautiques (~111 000 km) du"
     },
     {
       "article": "chronologie-de-la-tromperie-du-globe",
@@ -39,57 +26,43 @@
       "article": "chronologie-de-la-tromperie-du-globe",
       "categorie": "headquarters",
       "n": 2,
-      "attribution": "— Neil deGrasse Tyson (paraphrasé)",
-      "extrait": "« L'expérience d'Ératosthène fonctionnerait aussi sur une Terre plate, avec une source lumineuse locale suffis"
-    },
-    {
-      "article": "chronologie-de-la-tromperie-du-globe",
-      "categorie": "headquarters",
-      "n": 3,
       "attribution": "— Nicolas Copernic, De revolutionibus, 1543",
       "extrait": "« Il n'est pas nécessaire que ces hypothèses soient vraies, ni même vraisemblables ; une seule chose suffit : "
     },
     {
       "article": "chronologie-de-la-tromperie-du-globe",
       "categorie": "headquarters",
-      "n": 4,
+      "n": 3,
       "attribution": "— Johannes Kepler",
       "extrait": "« J'ai démontré la rotondité de la Terre et son mouvement autour du Soleil — grâce à la philosophie. »"
     },
     {
       "article": "chronologie-de-la-tromperie-du-globe",
       "categorie": "headquarters",
-      "n": 5,
+      "n": 4,
       "attribution": "— Isaac Newton, Lettre à Bentley, 1693",
       "extrait": "« L'idée que la gravité soit inhérente à la matière, et qu'un corps puisse agir sur un autre à distance dans l"
     },
     {
       "article": "chronologie-de-la-tromperie-du-globe",
       "categorie": "headquarters",
-      "n": 6,
+      "n": 5,
       "attribution": "— Albert Michelson",
       "extrait": "« Il semble que la Terre soit en état de repos relatif par rapport à l'éther luminifère. »"
     },
     {
       "article": "chronologie-de-la-tromperie-du-globe",
       "categorie": "headquarters",
-      "n": 7,
+      "n": 6,
       "attribution": "— Albert Einstein",
       "extrait": "« J'ai appris l'étrange résultat de l'expérience de Michelson. Bientôt je suis arrivé à la conclusion que notr"
     },
     {
       "article": "chronologie-de-la-tromperie-du-globe",
       "categorie": "headquarters",
-      "n": 8,
+      "n": 7,
       "attribution": "— Edwin Hubble",
       "extrait": "« Une telle condition impliquerait que nous occupions une position unique dans l'univers, analogue à l'ancienn"
-    },
-    {
-      "article": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
-      "categorie": "library",
-      "n": 5,
-      "attribution": "— As-Saḥīḥa 202, Ṣaḥīḥ",
-      "extrait": "D'après Abū Hurayra, le Messager ﷺ a dit : « Certes, le soleil n'a été retenu pour aucun être humain, excepté "
     },
     {
       "article": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
@@ -97,13 +70,6 @@
       "n": 1,
       "attribution": "— Sunan Abī Dāwūd, authentique",
       "extrait": "Le courant concordiste moderne interprète ce verset métaphoriquement : Dhū al-Qarnayn aurait simplement « vu l"
-    },
-    {
-      "article": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
-      "categorie": "library",
-      "n": 2,
-      "attribution": "— Sunan Abī Dāwūd, hadith 4002",
-      "extrait": "« [Le Prophète ﷺ] dit : \"Ô Abū Dharr, sais-tu où se couche [le soleil] ?\" Je répondis : \"Allah et Son Messager"
     },
     {
       "article": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
@@ -157,13 +123,6 @@
     {
       "article": "la-gravite-70-theories-et-aucune-preuve",
       "categorie": "headquarters",
-      "n": 2,
-      "attribution": "— Isaac Newton, Lettre à Richard Bentley, 25 février 1693",
-      "extrait": "« Qu'un corps puisse agir sur un autre à distance à travers le vide, sans la médiation de quoi que ce soit d'a"
-    },
-    {
-      "article": "la-gravite-70-theories-et-aucune-preuve",
-      "categorie": "headquarters",
       "n": 6,
       "attribution": "— Henri Poincaré, La Science et l'Hypothèse (1902)",
       "extrait": "« Ces deux propositions, \"la Terre tourne\" et \"il est plus commode de supposer que la Terre tourne\", ont une s"
@@ -178,114 +137,9 @@
     {
       "article": "la-rotation-terrestre-deux-experiences-zero-preuve",
       "categorie": "headquarters",
-      "n": 4,
-      "attribution": "— Albert Einstein, lettre à Ernst Mach, 25 juin 1913",
-      "extrait": "« Si l'on fait tourner [une coquille massive] par rapport aux étoiles fixes autour d'un axe passant par son ce"
-    },
-    {
-      "article": "la-rotation-terrestre-deux-experiences-zero-preuve",
-      "categorie": "headquarters",
-      "n": 8,
-      "attribution": "— A.C. Longden, The Physical Review, avril 1919",
-      "extrait": "« Le pendule commençait toujours à tourner dans le sens horaire. Ce fait demeura un mystère jusqu'à ce qu'on s"
-    },
-    {
-      "article": "la-rotation-terrestre-deux-experiences-zero-preuve",
-      "categorie": "headquarters",
       "n": 9,
       "attribution": "— Lee, 2005",
       "extrait": "« Le plan du pendule de Foucault ne reste, en tout état de cause, qu'une hypothèse. Quelqu'un a-t-il vérifié q"
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 2,
-      "attribution": "— Tafsīr al-Qurṭubī",
-      "extrait": "« C'est-à-dire étendue et aplanie. »"
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 3,
-      "attribution": "— Tafsīr al-Ṭabarī",
-      "extrait": "« Et comment la terre a été aplanie. On dit d'une montagne qu'elle est aplanie lorsque son sommet est nivelé. "
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 4,
-      "attribution": "— Tafsīr Ibn Kathīr",
-      "extrait": "« C'est-à-dire étendue et aplanie. »"
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 6,
-      "attribution": "— Tafsīr al-Ṭabarī",
-      "extrait": "« Pour Abū Jaʿfar, Allāh a aplani la terre en long et en large. »"
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 7,
-      "attribution": "— Tafsīr al-Jalālayn",
-      "extrait": "« Il a étendu c'est-à-dire aplani. »"
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 9,
-      "attribution": "— Tafsīr al-Jalālayn",
-      "extrait": "« Nous l'avons étendue c'est-à-dire aplanie. »"
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 10,
-      "attribution": "— Tafsīr al-Baghawī",
-      "extrait": "« Nous l'avons nivelée au-dessus de l'eau. Il fut dit qu'elle a été élargie d'une distance de 500 ans de march"
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 12,
-      "attribution": "— Tafsīr al-Ṭabarī",
-      "extrait": "« Nous avons fait de la terre un tapis pour les créatures. »"
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 15,
-      "attribution": "— Tafsīr Ibn Kathīr",
-      "extrait": "« Ce dernier avis — l'aplanissement — est le plus répandu et celui que privilégie la plupart des exégètes et d"
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 16,
-      "attribution": "— Tafsīr al-Qurṭubī",
-      "extrait": "Zoologique : L'autruche ne construit pas de nid. Elle gratte et aplanit le sol avec ses pattes pour créer une "
-    },
-    {
-      "article": "la-terre-dans-le-coran",
-      "categorie": "library",
-      "n": 17,
-      "attribution": "— Tafsīr al-Baghawī",
-      "extrait": "« Il l'a aplani. Elle a été conçue sans aplanissement avant la création des cieux. Pour Ibn ʿAbbās, Allāh a cr"
-    },
-    {
-      "article": "le-concordisme",
-      "categorie": "headquarters",
-      "n": 2,
-      "attribution": "— Ibn Taymiyyah, Darʾ Taʿāruḍ al-ʿAql wa al-Naql, 1/120",
-      "extrait": "Cette pathologie n'est pas nouvelle. Déjà au XIIIᵉ siècle, Taqī ad-Dīn Aḥmad ibn Taymiyyah affrontait ceux qui"
-    },
-    {
-      "article": "le-concordisme",
-      "categorie": "headquarters",
-      "n": 3,
-      "attribution": "— Ibn Taymiyyah, Darʾ Taʿāruḍ, 1/152",
-      "extrait": "« La raison claire ne contredit jamais la Révélation authentique. Celui qui pense qu'elles s'opposent, c'est s"
     },
     {
       "article": "le-concordisme",
@@ -309,13 +163,6 @@
       "extrait": "Ptolémée, dans sa Cosmographia , explique que l'horizon de chaque observateur peut être imaginé comme un plan "
     },
     {
-      "article": "leau-ne-ment-pas",
-      "categorie": "experiences",
-      "n": 1,
-      "attribution": "— Décision de l'arbitre M. Walsh, The Field, 1er avril 1870",
-      "extrait": "« Prenant en considération la théorie de la rotondité de la Terre, M. Wallace a droit aux enjeux. »"
-    },
-    {
       "article": "les-distances-cosmiques-au-dela-de-la-regle",
       "categorie": "headquarters",
       "n": 1,
@@ -330,34 +177,6 @@
       "extrait": "« La montée et la descente des marées dans le monde entier sont une démonstration semi-diurne, mixte et répéti"
     },
     {
-      "article": "lhypothese-nulle-dynamique-et-cinematique",
-      "categorie": "headquarters",
-      "n": 6,
-      "attribution": "— Ernst Mach, La Mécanique (1883), Chapitre II",
-      "extrait": "« Les mouvements de l'univers sont les mêmes que l'on adopte le mode de vue ptoléméen ou copernicien. Les deux"
-    },
-    {
-      "article": "lhypothese-nulle-dynamique-et-cinematique",
-      "categorie": "headquarters",
-      "n": 7,
-      "attribution": "— Henri Poincaré, La Science et l'Hypothèse (1902), Chapitre VII",
-      "extrait": "« Ces deux propositions, \"la Terre tourne\" et \"il est plus commode de supposer que la Terre tourne\", ont une s"
-    },
-    {
-      "article": "ligo-londe-qui-nexistait-pas",
-      "categorie": "headquarters",
-      "n": 1,
-      "attribution": "— Creswell et al., arXiv:1706.04191v2, Niels Bohr Institute, 2017",
-      "extrait": "« Une distinction claire entre signal et bruit reste à établir afin de déterminer la contribution des ondes gr"
-    },
-    {
-      "article": "ligo-londe-qui-nexistait-pas",
-      "categorie": "headquarters",
-      "n": 2,
-      "attribution": "— Principe épistémologique fondamental",
-      "extrait": "« Une découverte scientifique n'est pas validée par le consensus d'une collaboration de mille personnes finanç"
-    },
-    {
       "article": "neptune-et-pluton-les-faux-triomphes",
       "categorie": "headquarters",
       "n": 2,
@@ -367,30 +186,9 @@
     {
       "article": "neptune-et-pluton-les-faux-triomphes",
       "categorie": "headquarters",
-      "n": 3,
-      "attribution": "— G.D. Quinlan, « Planet X: a myth exposed », Nature 363, mai 1993",
-      "extrait": "Gerald Quinlan, dans sa revue pour Nature (1993), résume : « Pluton est apparu minuscule dès le départ ; on sa"
-    },
-    {
-      "article": "neptune-et-pluton-les-faux-triomphes",
-      "categorie": "headquarters",
       "n": 4,
       "attribution": "— JHU Applied Physics Laboratory, matériaux éducatifs New Horizons",
       "extrait": "Et en 2015, le laboratoire de physique appliquée de Johns Hopkins (JHU APL), qui a construit et opéré la sonde"
-    },
-    {
-      "article": "pourquoi-tout-remettre-en-question",
-      "categorie": "headquarters",
-      "n": 1,
-      "attribution": "— Claude Bernard, Introduction à l'étude de la médecine expérimentale, 1865",
-      "extrait": "L'une des confusions les plus répandues dans le discours scientifique populaire est l'assimilation entre obser"
-    },
-    {
-      "article": "pourquoi-tout-remettre-en-question",
-      "categorie": "headquarters",
-      "n": 2,
-      "attribution": "— Francis Bacon, Novum Organum, 1620, Livre I, Aphorisme 98",
-      "extrait": "La distinction n'est pas secondaire. Claude Bernard soulignait déjà un danger : l'observation passive peut eng"
     },
     {
       "article": "pourquoi-tout-remettre-en-question",

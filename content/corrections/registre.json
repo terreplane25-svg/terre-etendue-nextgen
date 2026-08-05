@@ -156,6 +156,39 @@
       "correction": "Ajout d'une section 12 « Le noyau vérifiable » : 30 autorités de 383 H à 1383 H, 35 citations transcrites, chacune avec son ouvrage, son volume, sa page, son grade de vérifiabilité et — pour 25 d'entre elles — un lien direct vers la page numérisée sur shamela.ws. Les tableaux des 95 sont conservés intacts, et l'article dit désormais explicitement que le reste attend le même traitement plutôt que de laisser croire à une vérification qui n'a pas eu lieu. Deux entrées qui vont dans un autre sens — al-Sāwī et al-Qinnawjī — sont conservées telles quelles : les retirer aurait fabriqué une unanimité que les sources ne donnent pas.",
       "commit": "à venir",
       "gravite": "haute"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "source",
+      "ou": "Ensemble du corpus — localisation des citations",
+      "erreur": "Le compteur de citations non localisées a été annoncé successivement à 86, puis 61. Les deux chiffres étaient faux, par étroitesse du détecteur : il ignorait d'abord les références coraniques « 88:20 », puis les subdivisions numérotées (chapitre, aphorisme), les numéros de recueil au format « hadith 4002 », les paginations arabes au format « 1/152 », les identifiants arXiv, et les dates individuant un document — une lettre du 25 février 1693 identifie un texte aussi précisément qu'une page.",
+      "correction": "Le détecteur a été réécrit sur une définition explicite, inscrite en tête du script : une référence est localisée si elle permet de retrouver le passage sans lire l'ouvrage entier — pagination, subdivision numérotée, numéro de recueil, référence scripturaire, identifiant, ou date individuante. Le seul titre d'un ouvrage n'en est pas une. Chiffre exact : 32 citations sur 128, soit 25 %.",
+      "commit": "à venir"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "source",
+      "ou": "La Terre dans le Coran",
+      "erreur": "Onze citations de tafsīr ne portaient que le nom du commentaire — « Tafsīr al-Ṭabarī » — sans indiquer sur quel verset.",
+      "correction": "Chaque pied porte désormais le verset : « — Tafsīr al-Ṭabarī, sur S88 V20 ». Ce n'est pas une invention : un commentaire coranique est organisé par verset, donc la référence du verset EST la localisation, et le verset était déjà donné par le titre de section qui gouverne la citation. On a rendu explicite ce que la structure de l'article disait déjà.",
+      "commit": "à venir"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "fait",
+      "ou": "Chronologie de la tromperie du globe",
+      "erreur": "Une paraphrase était présentée entre guillemets, en bloc de citation, attribuée à « Neil deGrasse Tyson (paraphrasé) ». Une personne vivante se voyait ainsi porter un argument sans qu'aucune source ne l'établisse, dans une mise en forme qui donne à lire une parole verbatim.",
+      "correction": "Attribution retirée. L'argument géométrique est conservé, reformulé et assumé comme étant le nôtre, avec mention explicite que cette version circule attribuée à Tyson et que nous n'avons pas trouvé de source vérifiable pour cette attribution.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "source",
+      "ou": "LIGO, l'onde qui n'existait pas",
+      "erreur": "Une affirmation du site était présentée en bloc de citation avec pour attribution « Principe épistémologique fondamental » — ce qui n'est pas une source mais un habillage.",
+      "correction": "Requalifiée en position assumée du site, hors format de citation.",
+      "commit": "à venir"
     }
   ]
 }

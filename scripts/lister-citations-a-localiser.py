@@ -1,32 +1,58 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Liste les citations dont l'attribution ne porte aucune localisation verifiable.
+"""Liste les citations dont l'attribution ne permet pas de RETROUVER le passage.
 
-Une citation « — Tafsīr al-Ṭabarī » nomme l'ouvrage mais ne dit pas OU regarder.
-Ce script produit la liste de travail. Il n'invente rien : completer demande de
-consulter l'edition, ce qu'aucun script ne peut faire.
+DEFINITION, posee explicitement apres trois corrections successives d'un
+detecteur trop etroit. Une reference est LOCALISEE si elle permet a un lecteur
+de retrouver le passage sans lire l'ouvrage entier. Cela vaut dans cinq cas :
+
+  1. pagination     — p. 342, vol. 6 p. 326, 1/152, t. II
+  2. subdivision    — chapitre II, aphorisme 98, section 3, livre I
+  3. numerotation   — hadith 4002, n° 202, Bukhari 3199
+  4. reference      — sourate:verset (88:20, S88 V20)
+  5. identifiant    — DOI, arXiv, URL directe, ou une DATE qui individue le
+                      document (lettre du 25 fevrier 1693, journal du 3 fevrier
+                      1774, numero de periodique daté)
+
+Ce qui n'est PAS une localisation : le seul titre d'un ouvrage, le seul nom d'un
+auteur, une annee de publication d'un livre (elle identifie l'edition, pas le
+passage).
+
+Le fichier produit est une liste de travail, pas un verdict : completer demande
+de consulter la source.
 """
-import json, glob, os, re
+import json, glob, os, re, collections
 
-# Une localisation, c'est ce qui permet d'ALLER VOIR. Trois formes valables :
-#   - la reference coranique : 88:20, S88 V20, 88:17-20
-#   - la pagination d'une edition : vol. 6, p. 586, t. II
-#   - le numero d'un recueil de hadith : Bukhari 3199
-# Ne PAS oublier les references coraniques : elles suffisent a elles seules.
 LOC = re.compile(
-    r"\b\d{1,3}\s?:\s?\d{1,3}"          # 88:20
-    r"|\bS\s?\d{1,3}\s?V\s?\d{1,3}"    # S88 V20
-    r"|\bp{1,2}\.\s?\d|\bvol\.\s?\d|\bt\.\s?[IVX\d]"
-    r"|\bn°\s?\d"
-    r"|(?:Bukh|Muslim|Tirmidh|Nasa|Ibn M[aā]ja|Ab[īi] D[aā]w[ūu]d|Ahmad)\S*\s+\d{2,5}"
-    r"|shamela", re.I)
-todo = []
+    # 1. pagination
+    r"\bp{1,2}\.?\s?\d"
+    r"|\bvol\.?\s?\d|\bt\.\s?[IVXLC\d]"
+    r"|\b\d{1,2}\s?/\s?\d{1,4}\b"
+    # 2. subdivision nommee
+    r"|\b(?:chap(?:itre)?|livre|aphorisme|section|§|part(?:ie)?|préface|prologue)\b\s*[\dIVXLC]"
+    r"|\bpréface\b|\bintroduction\b"
+    # 3. numerotation de recueil
+    r"|\b(?:hadith|n°|no\.?)\s?\d"
+    r"|(?:Bukh[āa]r[īi]|Muslim|Tirmidh[īi]|Nas[āa]|Ibn M[aā]ja|Ab[īi] D[āa]w[ūu]d|Ahmad|Sa[ḥh][īi][ḥh]a)\S*[\s,]+\S{0,8}\d{2,5}"
+    # 4. reference scripturaire
+    r"|\b\d{1,3}\s?:\s?\d{1,3}\b|\bS\s?\d{1,3}\s?V\s?\d{1,3}"
+    # 5. identifiant ou date individuante
+    r"|\barXiv:\s?\d|\bdoi[:\s]|\bhttps?://"
+    r"|\b\d{1,2}(?:er)?\s+(?:janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+\d{4}"
+    r"|\b(?:janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+\d{4}"
+    r"|\bNature\s+\d{2,3}\b|\bThe Physical Review\b.{0,18}\d{4}"
+    , re.I)
+
+todo, total = [], 0
 for f in sorted(glob.glob('content/articles/*.json')):
     d = json.load(open(f, encoding='utf-8'))
     slug, h = os.path.basename(f)[:-5], d['htmlBody']
     for i, b in enumerate(re.findall(r'<blockquote[^>]*>.*?</blockquote>', h, re.S), 1):
         fo = re.search(r'<footer>(.*?)</footer>', b, re.S)
-        if not fo or LOC.search(re.sub('<[^>]+>', ' ', b)):
+        if not fo:
+            continue
+        total += 1
+        if LOC.search(re.sub('<[^>]+>', ' ', b)):
             continue
         todo.append({"article": slug, "categorie": d.get('category'), "n": i,
                      "attribution": re.sub('<[^>]+>', '', fo.group(1)).strip(),
@@ -35,23 +61,18 @@ for f in sorted(glob.glob('content/articles/*.json')):
 
 json.dump({"_meta": {
     "titre": "Citations à localiser",
-    "objet": ("Ces citations portent leur attribution — l'ouvrage est nommé — mais aucune "
-              "localisation précise : ni volume, ni page, ni numéro. Elles ne sont donc pas "
-              "vérifiables par un lecteur."),
+    "definition": ("Une référence est localisée si elle permet de retrouver le passage sans lire "
+                   "l'ouvrage entier : pagination, subdivision numérotée, numéro de recueil, "
+                   "référence scripturaire, identifiant (DOI, arXiv, URL) ou date individuant le "
+                   "document. Le seul titre d'un ouvrage n'en est pas une."),
     "regle": ("Ne jamais inventer une pagination. En cas de doute, retirer la citation plutôt "
               "que la sourcer approximativement."),
     "genere_par": "scripts/lister-citations-a-localiser.py",
-    "total": len(todo)}, "citations": todo},
+    "citations_totales": total, "a_localiser": len(todo)}, "citations": todo},
     open('content/corrections/citations-a-localiser.json', 'w', encoding='utf-8'),
     ensure_ascii=False, indent=2)
 
-import collections
-par_art = collections.Counter(t['article'] for t in todo)
-par_ouv = collections.Counter(t['attribution'] for t in todo)
-print(f"{len(todo)} citations sans localisation\n")
-print("Par article :")
-for a, n in par_art.most_common():
+print(f"{total} citations avec attribution · {len(todo)} sans localisation "
+      f"({len(todo)/total*100:.0f} %)\n")
+for a, n in collections.Counter(t['article'] for t in todo).most_common():
     print(f"  {n:3}  {a}")
-print("\nOuvrages les plus concernés :")
-for o, n in par_ouv.most_common(8):
-    print(f"  {n:3}  {o}")
