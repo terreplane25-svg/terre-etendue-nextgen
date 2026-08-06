@@ -449,6 +449,33 @@
       "correction": "Le générateur remplace désormais la section existante au lieu de l'empiler. Vérifié en le lançant deux fois de suite : une seule section, numérotation 01 à 13 continue.",
       "commit": "à venir",
       "gravite": "moyenne"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "source",
+      "ou": "Rapport de pagination — « cinq références islamiques », et deux qui n'en sont pas",
+      "erreur": "Le rapport annonçait cinq références islamiques à compléter ; son propre tableau en listait six. Erreur de comptage de notre part. Plus important : deux de ces six ne relèvent pas de la pagination du tout. La citation d'Ibn Taymiyya tirée du Darʾ Taʿāruḍ dans « D'une Terre plate universelle à la sphère grecque », et celle tirée du Bayān Talbīs al-Jahmiyya dans « Le consensus sur la sphéricité », sont données en français seul, sans texte arabe, dans une formulation générale, et ne correspondent mot pour mot à aucun texte d'Ibn Taymiyya de notre fonds — alors que ce fonds en contient quatre, verbatim et référencés, portant exactement sur le même thème. Il s'agit vraisemblablement de reformulations présentées comme des citations. Les marquer « à paginer » revenait à annoncer un travail impossible : on ne pagine pas une reformulation.",
+      "correction": "Le comptage est rectifié à six. Les deux passages passent du marqueur « (à paginer) » à « (à vérifier — texte non retrouvé dans nos sources) », qui dit ce que nous savons réellement. Le rapport content/corrections/releve-shamela.md donne pour la première les quatre textes d'Ibn Taymiyya que nous détenons en arabe avec leur référence — Darʾ Taʿāruḍ 1/120, 1/152, 1/154 et 7/285 — et propose de substituer l'un d'eux. La substitution n'est pas faite d'office : remplacer une citation par une autre change ce que l'article fait dire à son auteur, et cela demande un accord. Pour la seconde, aucun substitut en fonds : il faudra retrouver le passage ou retirer la citation.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "source",
+      "ou": "Où est Allah ? — la forme du rapport de Mālik sur l'istiwāʾ",
+      "erreur": "L'article donne le rapport de Mālik sous la forme « al-istiwāʾ maʿlūm wa-l-kayf majhūl », celle de notre source et la plus répandue dans l'usage contemporain. Les recueils anciens transmettent le plus souvent une formulation voisine mais distincte — al-istiwāʾ ghayr majhūl wa-l-kayf ghayr maʿqūl, « l'istiwāʾ n'est pas inconnu, la modalité n'est pas saisissable par la raison ». Le propos est en outre rapporté tantôt de Mālik, tantôt de son maître Rabīʿa al-Raʾy. Publier la forme popularisée sans signaler l'écart, dans un article qui fait de la précision textuelle son argument, aurait été incohérent — d'autant que nous venons de consacrer un article entier à une variante d'un seul mot.",
+      "correction": "Une réserve philologique est ajoutée en section 06, qui donne la formulation concurrente en arabe et signale la double attribution. Elle dit que nous rapportons ce que porte notre source et signalons l'écart, plutôt que de trancher une question d'établissement du texte hors de notre portée ici. La fiche de relevé demande de vérifier la forme exacte en même temps que la pagination, et de corriger le texte de l'article s'il diverge.",
+      "commit": "à venir",
+      "gravite": "moyenne"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "methode",
+      "ou": "Accès réseau — shamela.ws inaccessible depuis l'environnement d'exécution",
+      "erreur": "Les quatre paginations restantes ne peuvent pas être relevées : shamela.ws est refusé par la politique réseau de l'environnement d'exécution distant, au même titre que l'ensemble du web général. Annoncer ce chantier comme faisable sans le vérifier était une erreur de planification de notre part — c'est la troisième ressource externe, après Hostinger et Unsplash, dont l'inaccessibilité n'est constatée qu'au moment de s'en servir.",
+      "correction": "Fiche de relevé content/corrections/releve-shamela.md : pour chacune des quatre, la chaîne arabe à chercher, ce qu'il faut relever et où le reporter. Le travail se fait en quelques minutes depuis une machine connectée. Le marqueur « (à paginer) » se retire tout seul en relançant le script de localisation, qui le pose et le retire selon l'état réel de chaque pied.",
+      "commit": "à venir",
+      "gravite": "moyenne"
     }
   ]
 }
