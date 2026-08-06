@@ -4,8 +4,8 @@
     "definition": "Une référence est localisée si elle permet de retrouver le passage sans lire l'ouvrage entier : pagination, subdivision numérotée, numéro de recueil, référence scripturaire, identifiant (DOI, arXiv, URL) ou date individuant le document. Le seul titre d'un ouvrage n'en est pas une.",
     "regle": "Ne jamais inventer une pagination. En cas de doute, retirer la citation plutôt que la sourcer approximativement.",
     "genere_par": "scripts/lister-citations-a-localiser.py",
-    "citations_totales": 193,
-    "a_localiser": 22
+    "citations_totales": 192,
+    "a_localiser": 21
   },
   "citations": [
     {
@@ -56,13 +56,6 @@
       "n": 9,
       "attribution": "— Lee, 2005 (à paginer)",
       "extrait": "« Le plan du pendule de Foucault ne reste, en tout état de cause, qu'une hypothèse. Quelqu'un a-t-il vérifié q"
-    },
-    {
-      "article": "le-consensus-sur-la-sphericite",
-      "categorie": "library",
-      "n": 6,
-      "attribution": "— Ibn Taymiyyah, Bayān Talbīs al-Jahmiyya (à vérifier — texte non retrouvé dans nos sources)",
-      "extrait": "« La parole d'aucun d'entre eux [les cosmologues grecs] n'est une preuve, et il n'est pas permis de bâtir sur "
     },
     {
       "article": "le-theodolite-celeste",

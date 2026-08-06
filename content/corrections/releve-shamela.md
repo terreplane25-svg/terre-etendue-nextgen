@@ -84,7 +84,7 @@ En cherchant dans nos fonds avant de conclure, deux des six se sont révélées
 | Article | Référence | Ce qui a été constaté |
 |---|---|---|
 | `dune-terre-plate-universelle-a-la-sphere-grecque` | Ibn Taymiyya, *Darʾ Taʿāruḍ al-ʿAql wa-l-Naql* — « Quiconque élève la parole des philosophes grecs au-dessus du Coran et de la Sunna a commis une grave erreur. » | Français seul, aucun texte arabe, formulation générale. Ne correspondait mot pour mot à aucun texte d'Ibn Taymiyya de notre fonds. **Réglé** : remplacée par le 1/120. |
-| `le-consensus-sur-la-sphericite` | Ibn Taymiyya, *Bayān Talbīs al-Jahmiyya* — « La parole d'aucun d'entre eux n'est une preuve… » | Même constat. |
+| `le-consensus-sur-la-sphericite` | Ibn Taymiyya, *Bayān Talbīs al-Jahmiyya* — « La parole d'aucun d'entre eux n'est une preuve… » | Même constat. **Réglé** : citation retirée le 6 août 2026, faute de substitut en fonds. |
 
 Ces deux passages sont vraisemblablement des **reformulations** et non des
 citations. On ne pagine pas une reformulation : on la vérifie, ou on la
@@ -113,5 +113,12 @@ paragraphe d'introduction a été réécrit en conséquence, pour que l'article 
 fasse pas dire au texte plus qu'il ne dit. La ligne correspondante disparaît
 donc du chantier.
 
-Pour la seconde, le *Bayān Talbīs al-Jahmiyya*, nous n'avons aucun substitut en
-fonds. Il faudra soit retrouver le passage, soit retirer la citation.
+**Fait le 6 août 2026** pour la seconde, le *Bayān Talbīs al-Jahmiyya* : faute
+de tout substitut en fonds, la citation a été retirée, avec sa phrase d'annonce
+et son entrée de bibliographie. Les trois passages qui en dépendaient ont été
+repris, et une note de transparence dans le corps de l'article nomme la
+citation retirée et dit pourquoi. L'axe 5 tient désormais au seul *Majmūʿ
+al-Fatāwā* 6/357, qui est référencé.
+
+Le chantier de la section 3 est donc clos. Restent les quatre paginations de la
+section 1.

@@ -485,6 +485,24 @@
       "correction": "Remplacée par le passage du Darʾ Taʿāruḍ 1/120, en arabe et en traduction, tel qu'il figure dans le dossier « Réfutation du concordisme cosmologique » déposé dans content/sources/brut/ et déjà cité dans l'article « Le concordisme ». Le texte de remplacement énonce la règle générale de primauté du naql sur le ʿaql : il ne nomme pas les philosophes grecs. Le paragraphe d'introduction a donc été réécrit pour dire qu'Ibn Taymiyyah pose la règle dont le cas grec n'est qu'une application, et un paragraphe de lecture a été ajouté pour préciser que l'argument n'est pas un refus de la raison — subordonner la Révélation à une construction rationnelle scie la branche sur laquelle cette construction est assise, puisque c'est la Révélation qui garantit la validité de l'instrument. L'article dit moins qu'avant, et ce qu'il dit est contrôlable.",
       "commit": "à venir",
       "gravite": "haute"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "source",
+      "ou": "Le « consensus » sur la sphéricité — retrait de la citation du Bayān Talbīs al-Jahmiyya",
+      "erreur": "L'axe 5 citait, à l'appui de sa démonstration, un propos d'Ibn Taymiyyah tiré du Bayān Talbīs al-Jahmiyya : « La parole d'aucun d'entre eux n'est une preuve, et il n'est pas permis de bâtir sur elle un fondement de la religion. » Français seul, aucun texte arabe, ni volume ni page, formulation générale — et introuvable dans l'ensemble de nos sources. Contrairement à la citation du Darʾ Taʿāruḍ traitée le même jour, notre fonds ne contenait aucun substitut du même auteur sur le même point.",
+      "correction": "Citation retirée, ainsi que sa phrase d'annonce et l'entrée de bibliographie devenue orpheline. Trois passages en dépendaient et ont été repris : le paragraphe de conclusion de l'axe, dont la première proposition — « Ibn Taymiyyah rejette explicitement l'autorité doctrinale des cosmologues grecs » — ne reposait que sur elle ; le point 5 de la synthèse finale, pour la même raison ; et une note de transparence a été ajoutée dans le corps de l'article, qui nomme la citation retirée et dit pourquoi. L'axe survit, plus étroit : il tient désormais au seul Majmūʿ al-Fatāwā 6/357, référencé, qui établit qu'Ibn Taymiyyah emploie de sa propre plume basaṭa, mihādan et firāshan dans le volume même où figure le consensus contesté. L'article dit moins et prouve autant.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "fait",
+      "ou": "Le « consensus » sur la sphéricité — le lede annonçait cinq axes",
+      "erreur": "Le lede promettait « Analyse en cinq axes » alors que l'article en compte sept depuis la refonte de l'étape 3, qui a ajouté l'axe sur le consensus d'Ibn Hazm et celui sur l'argument du takwīr. Le compte n'avait pas été repris avec le contenu.",
+      "correction": "Lede corrigé : sept axes. La synthèse finale, elle, énumère bien cinq anomalies convergentes — c'est une réduction volontaire des sept axes à leurs cinq conclusions, et elle reste juste ; elle n'a pas été touchée.",
+      "commit": "à venir",
+      "gravite": "moyenne"
     }
   ]
 }
