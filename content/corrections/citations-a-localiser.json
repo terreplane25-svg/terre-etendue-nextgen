@@ -5,7 +5,7 @@
     "regle": "Ne jamais inventer une pagination. En cas de doute, retirer la citation plutôt que la sourcer approximativement.",
     "genere_par": "scripts/lister-citations-a-localiser.py",
     "citations_totales": 193,
-    "a_localiser": 23
+    "a_localiser": 22
   },
   "citations": [
     {
@@ -35,13 +35,6 @@
       "n": 4,
       "attribution": "— Umayya ibn Abī al-Ṣalt, poète ḥanīf pré-islamique de Ṭāʾif (à paginer)",
       "extrait": "Corrélation significative : L'émergence de la lecture métaphorique coïncide exactement avec l'assimilation de "
-    },
-    {
-      "article": "dune-terre-plate-universelle-a-la-sphere-grecque",
-      "categorie": "headquarters",
-      "n": 3,
-      "attribution": "— Ibn Taymiyyah, Darʾ Taʿāruḍ al-ʿAql wa-l-Naql (à vérifier — texte non retrouvé dans nos sources)",
-      "extrait": "« Quiconque élève la parole des philosophes grecs au-dessus du Coran et de la Sunna a commis une grave erreur."
     },
     {
       "article": "la-gravite-70-theories-et-aucune-preuve",

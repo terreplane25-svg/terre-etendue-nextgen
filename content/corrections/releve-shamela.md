@@ -83,7 +83,7 @@ En cherchant dans nos fonds avant de conclure, deux des six se sont révélées
 
 | Article | Référence | Ce qui a été constaté |
 |---|---|---|
-| `dune-terre-plate-universelle-a-la-sphere-grecque` | Ibn Taymiyya, *Darʾ Taʿāruḍ al-ʿAql wa-l-Naql* — « Quiconque élève la parole des philosophes grecs au-dessus du Coran et de la Sunna a commis une grave erreur. » | Français seul, aucun texte arabe, formulation générale. Ne correspond mot pour mot à aucun texte d'Ibn Taymiyya de notre fonds. |
+| `dune-terre-plate-universelle-a-la-sphere-grecque` | Ibn Taymiyya, *Darʾ Taʿāruḍ al-ʿAql wa-l-Naql* — « Quiconque élève la parole des philosophes grecs au-dessus du Coran et de la Sunna a commis une grave erreur. » | Français seul, aucun texte arabe, formulation générale. Ne correspondait mot pour mot à aucun texte d'Ibn Taymiyya de notre fonds. **Réglé** : remplacée par le 1/120. |
 | `le-consensus-sur-la-sphericite` | Ibn Taymiyya, *Bayān Talbīs al-Jahmiyya* — « La parole d'aucun d'entre eux n'est une preuve… » | Même constat. |
 
 Ces deux passages sont vraisemblablement des **reformulations** et non des
@@ -106,11 +106,12 @@ trois.
 | *Darʾ Taʿāruḍ* 1/154 | `لا يمكن في العقل الصريح أن يعارض النقل الصحيح أبدًا، ولكن الجهل أو الظلم هو الذي يوقع التعارض` |
 | *Darʾ Taʿāruḍ* 7/285 | `كل من عارض الشرع بالعقل فإنما قال بغير عقلٍ صريح، أو نقلٍ صحيح` — « Quiconque oppose la Loi à la raison n'a parlé ni avec une raison claire, ni avec une transmission saine. » |
 
-**Proposition** : remplacer la reformulation par l'un de ces quatre — 1/120 ou
-7/285 servent le même argument — avec son arabe et sa référence. L'article y
-gagnerait une citation contrôlable là où il en porte une qui ne l'est pas. Je
-ne l'ai pas fait de moi-même : substituer une citation à une autre change ce
-que l'article fait dire à son auteur, et cela demande votre accord.
+**Fait le 6 août 2026** : la reformulation a été remplacée par le texte 1/120,
+en arabe et en traduction. Le remplacement énonce la règle générale de primauté
+du <em>naql</em> sur le <em>ʿaql</em> et ne nomme pas les philosophes grecs : le
+paragraphe d'introduction a été réécrit en conséquence, pour que l'article ne
+fasse pas dire au texte plus qu'il ne dit. La ligne correspondante disparaît
+donc du chantier.
 
 Pour la seconde, le *Bayān Talbīs al-Jahmiyya*, nous n'avons aucun substitut en
 fonds. Il faudra soit retrouver le passage, soit retirer la citation.

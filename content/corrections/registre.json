@@ -476,6 +476,15 @@
       "correction": "Fiche de relevé content/corrections/releve-shamela.md : pour chacune des quatre, la chaîne arabe à chercher, ce qu'il faut relever et où le reporter. Le travail se fait en quelques minutes depuis une machine connectée. Le marqueur « (à paginer) » se retire tout seul en relançant le script de localisation, qui le pose et le retire selon l'état réel de chaque pied.",
       "commit": "à venir",
       "gravite": "moyenne"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "source",
+      "ou": "D'une Terre plate universelle à la sphère grecque — la citation d'Ibn Taymiyyah",
+      "erreur": "L'article prêtait à Ibn Taymiyyah la phrase « Quiconque élève la parole des philosophes grecs au-dessus du Coran et de la Sunna a commis une grave erreur », attribuée au Darʾ Taʿāruḍ al-ʿAql wa-l-Naql sans volume ni page. Français seul, aucun texte arabe, formulation générale, et aucune correspondance mot pour mot avec un texte d'Ibn Taymiyyah de notre fonds : vraisemblablement une reformulation présentée comme une citation. Elle occupait la place la plus exposée de la section — le moment où l'article convoque son autorité la plus lourde.",
+      "correction": "Remplacée par le passage du Darʾ Taʿāruḍ 1/120, en arabe et en traduction, tel qu'il figure dans le dossier « Réfutation du concordisme cosmologique » déposé dans content/sources/brut/ et déjà cité dans l'article « Le concordisme ». Le texte de remplacement énonce la règle générale de primauté du naql sur le ʿaql : il ne nomme pas les philosophes grecs. Le paragraphe d'introduction a donc été réécrit pour dire qu'Ibn Taymiyyah pose la règle dont le cas grec n'est qu'une application, et un paragraphe de lecture a été ajouté pour préciser que l'argument n'est pas un refus de la raison — subordonner la Révélation à une construction rationnelle scie la branche sur laquelle cette construction est assise, puisque c'est la Révélation qui garantit la validité de l'instrument. L'article dit moins qu'avant, et ce qu'il dit est contrôlable.",
+      "commit": "à venir",
+      "gravite": "haute"
     }
   ]
 }
