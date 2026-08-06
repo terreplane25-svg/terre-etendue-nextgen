@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-// NEXUS DATA — 58 articles
+// NEXUS DATA — 59 articles
 // Terre Étendue Islam — Graphe de connaissances
 // ═══════════════════════════════════════════════════════
 
@@ -43,6 +43,21 @@ export const DOMAIN_LABELS: Record<string, string> = {
 };
 
 export const NEXUS_NODES: NexusNodeData[] = [
+  {
+    "id": "ou-est-allah-le-uluww-et-la-forme-du-monde",
+    "title": "Où est Allah ? Le ʿuluww et la forme du monde",
+    "category": "library",
+    "pillar": "BIBLIO",
+    "pillarNum": "03",
+    "color": "#D4A843",
+    "primaryDomain": "islam_sources",
+    "topDomains": ["islam_sources", "cosmologie", "epistemologie"],
+    "quranRefs": 9,
+    "wordCount": 4299,
+    "x": 231.6,
+    "y": 142.8,
+    "size": 10
+  },
   {
     "id": "par-rapport-a-quoi-mesure-t-on-une-altitude",
     "title": "Par rapport à quoi mesure-t-on une altitude ?",
@@ -934,6 +949,48 @@ export const NEXUS_NODES: NexusNodeData[] = [
 ];
 
 export const NEXUS_LINKS: NexusLinkData[] = [
+  {
+    "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
+    "target": "la-terre-dans-le-coran",
+    "score": 438.0,
+    "strength": "strong",
+    "sharedDomains": ["islam_sources", "cosmologie"]
+  },
+  {
+    "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
+    "target": "le-consensus-sur-la-sphericite",
+    "score": 396.0,
+    "strength": "strong",
+    "sharedDomains": ["islam_sources", "epistemologie"]
+  },
+  {
+    "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
+    "target": "debut-de-la-creation-selon-le-coran-et-la-sunna",
+    "score": 362.0,
+    "strength": "strong",
+    "sharedDomains": ["islam_sources", "cosmologie"]
+  },
+  {
+    "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
+    "target": "le-concordisme",
+    "score": 318.0,
+    "strength": "strong",
+    "sharedDomains": ["islam_sources", "epistemologie"]
+  },
+  {
+    "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
+    "target": "la-mobilite-de-la-terre-attribuee-a-ibn-taymiyyah",
+    "score": 294.0,
+    "strength": "medium",
+    "sharedDomains": ["islam_sources"]
+  },
+  {
+    "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
+    "target": "un-traite-ottoman-contre-la-sphericite-1314h",
+    "score": 276.0,
+    "strength": "medium",
+    "sharedDomains": ["islam_sources", "cosmologie"]
+  },
   {
     "source": "par-rapport-a-quoi-mesure-t-on-une-altitude",
     "target": "leau-ne-ment-pas",

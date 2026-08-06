@@ -4,7 +4,7 @@
     "description": "Toute erreur identifiée sur ce site est consignée ici, datée, avec ce qui était affirmé, ce qui l'a remplacé, et le commit qui le prouve. Aucune entrée n'est jamais retirée.",
     "regle": "Une entrée n'est jamais supprimée ni réécrite. Si une correction est elle-même corrigée, une nouvelle entrée est ajoutée.",
     "genere_par": "scripts/generer-corrections.py",
-    "derniere_mise_a_jour": "2026-08-05"
+    "derniere_mise_a_jour": "2026-08-06"
   },
   "categories": {
     "fait": "Erreur de fait ou de chiffre dans un article publié",
@@ -330,6 +330,33 @@
       "ou": "Le concordisme — deux liens fautifs ; divers articles — balises et classes",
       "erreur": "Le concordisme portait une balise <a> imbriquée dans une autre, HTML invalide, et un lien vers la page de catégorie /library présenté comme un article intitulé « Sept mots, un seul sens » qui n'existe pas. Dans vols-avion-et-courbure-terrestre, une insertion antérieure avait laissé « </ul<li> » et un « > » orphelin, ce qui cassait la dernière liste de la section Sources. Le théodolite céleste portait une classe Tailwind résiduelle, deux articles employaient des classes jamais définies, un article numérotait ses sections à partir de 00, et quatre images n'avaient pas data-zoomable.",
       "correction": "Tout est réparé. Ajout de .tei-formula et .tei-quran-ref à globals.css, deux classes employées dans les articles depuis l'origine sans avoir jamais été définies. Et surtout, écriture de scripts/verifier-integrite-articles.py, qui passe les 58 articles au crible : texte hors conteneur, classes CSS inexistantes, citations sans attribution, numérotation, équilibre des balises, balises imbriquées, exigences de la charte. Il ignore les sous-arbres SVG, qui ont leurs propres règles. Premier passage : 261 problèmes subsistants sur 32 articles, dont 249 fragments de texte hors conteneur — un chantier de mise en conformité chiffré, à traiter séparément.",
+      "commit": "à venir",
+      "gravite": "moyenne"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "methode",
+      "ou": "Bibliothèque — nouvel article « Où est Allah ? Le ʿuluww et la forme du monde »",
+      "erreur": "Nous avions démonté un « consensus sur la sphéricité » en lui appliquant les trois conditions techniques de l'ijmāʿ. Publier un dossier sur l'ʿuluww qui invoquerait à son tour des consensus sans leur appliquer la même grille aurait été un deux poids deux mesures — le reproche exact que nous adressons au camp adverse. La source dont nous disposons rapporte six consensus, dont deux ne sont pas des ijmāʿ au sens technique : celui « de tous les prophètes et de tous les Livres révélés » et celui « des mécréants eux-mêmes ».",
+      "correction": "La grille est passée en section 05, dans un tableau, consensus par consensus. Les deux non recevables sont écartés et le motif est donné. L'asymétrie réelle est ensuite exposée sans la surjouer : la condition qui faisait défaut au consensus sur la sphéricité — son auteur d'origine, al-Farghānī, est un astronome et non un mujtahid de la Loi — est satisfaite ici, où les quatre autorités retenues sont des fuqahāʾ et des traditionnistes.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "methode",
+      "ou": "Où est Allah ? — portée de l'argument cosmologique",
+      "erreur": "L'argument selon lequel une sphère n'offre pas de haut absolu se laisse facilement pousser plus loin qu'il ne va : il devient, sous la plume, une preuve théologique de la planéité. C'en est une tentation, et c'en serait une faute — aucune considération sur la cohérence d'un système ne mesure la figure de la Terre.",
+      "correction": "Section 10 entière consacrée à la portée. L'article dit en toutes lettres qu'il établit un conditionnel et non un fait : si le monde est sphérique, alors l'affirmation littérale de l'élévation coûte un appareil conceptuel supplémentaire — ce qui est un constat sur un système, pas une donnée géodésique. L'objection sérieuse est exposée sans être affaiblie : le fawq muṭlaq, « vers l'extérieur en s'éloignant du centre », est une définition cohérente du haut sur une sphère. Ce qu'elle ne restitue pas est l'univocité, et l'article laisse explicitement le lecteur juger si les textes l'exigent, en indiquant notre avis sans le donner pour clos. Le renvoi final est fait vers les protocoles de mesure, qui ne convoquent aucun verset.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "source",
+      "ou": "Où est Allah ? — al-Fiqh al-Absaṭ attribué à Abū Ḥanīfa, et les dix-sept numéros de hadith",
+      "erreur": "La source donne, sous le nom d'Abū Ḥanīfa, une position tranchante sur celui qui ignore où est son Seigneur. Elle vient d'al-Fiqh al-Absaṭ par la voie d'Abū Muṭīʿ al-Balkhī, dont l'attribution est discutée parmi les spécialistes du hadith. La citer sans réserve aurait donné à la pièce la plus dure du dossier la même autorité qu'aux trois autres imams, dont les chaînes ne posent pas ce problème. Par ailleurs le PDF source rend les chiffres arabes dans l'ordre inverse des chiffres latins qui les accompagnent, ce qui pouvait produire dix-sept références fausses.",
+      "correction": "La citation d'Abū Ḥanīfa est rapportée avec sa réserve explicite, gradée C, et l'article précise que les trois autres imams ne présentent pas cette difficulté. Les dix-sept numéros de hadith retenus ont été vérifiés un à un en retournant leur forme arabe : les dix-sept concordent, et le contrôle est recalculé à chaque génération par scripts/etape6-uluww.py. Le procédé est expliqué en tête de la section Sources pour que le lecteur puisse refaire la vérification.",
       "commit": "à venir",
       "gravite": "moyenne"
     }

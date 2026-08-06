@@ -52,6 +52,8 @@ const IMG: Record<string, string> = {
   // dès que les images du manuscrit seront obtenues.
   "un-traite-ottoman-contre-la-sphericite-1314h": `${UNSPLASH}/photo-1524995997946-a1c2e315a42f?w=600&h=400&fit=crop`,
   "sources-historiques-fonds-documentaire": `${UNSPLASH}/photo-1524995997946-a1c2e315a42f?w=600&h=400&fit=crop`,
+  // TODO couverture dédiée 1200×630 : un ciel nocturne en contre-plongée.
+  "ou-est-allah-le-uluww-et-la-forme-du-monde": `${HOSTINGER}/2026/07/lune_soleil_etoile.png`,
 
   // ── Headquarters ──
   "la-gravite-70-theories-et-aucune-preuve": `${HOSTINGER}/2026/07/gravity_theorie.png`,
