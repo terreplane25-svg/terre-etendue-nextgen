@@ -28,9 +28,14 @@ LOC = re.compile(
     r"\bp{1,2}\.?\s?\d"
     r"|\bvol\.?\s?\d|\bt\.\s?[IVXLC\d]"
     r"|\b\d{1,2}\s?/\s?\d{1,4}\b"
-    # 2. subdivision nommee
-    r"|\b(?:chap(?:itre)?|livre|aphorisme|section|§|part(?:ie)?|préface|prologue)\b\s*[\dIVXLC]"
+    # 2. subdivision nommee. Le \b devant § ne pouvait jamais matcher : § n'est
+    #    pas un caractere de mot, donc « , § 6 » echouait. Ajout de « ch. » et
+    #    des chapitres nommes entre guillemets.
+    r"|(?:\bchap(?:itre)?\b|\bch\.|\blivre\b|\baphorisme\b|\bsection\b|§|\bpart(?:ie)?\b|\bprologue\b)\s*[\dIVXLC]"
     r"|\bpréface\b|\bintroduction\b"
+    # 2 bis. Un dictionnaire est organise par racine ou par entree : la racine
+    #    EST la localisation, exactement comme le verset l'est pour un tafsir.
+    r"|\bracines?\s+[\u0600-\u06FF]|\bs\.\s?v\.|\bentrée\s+«"
     # 3. numerotation de recueil
     r"|\b(?:hadith|n°|no\.?)\s?\d"
     r"|(?:Bukh[āa]r[īi]|Muslim|Tirmidh[īi]|Nas[āa]|Ibn M[aā]ja|Ab[īi] D[āa]w[ūu]d|Ahmad|Sa[ḥh][īi][ḥh]a)\S*[\s,]+\S{0,8}\d{2,5}"
@@ -38,6 +43,10 @@ LOC = re.compile(
     r"|\b\d{1,3}\s?:\s?\d{1,3}\b|\bS\s?\d{1,3}\s?V\s?\d{1,3}"
     # 5. identifiant ou date individuante
     r"|\barXiv:\s?\d|\bdoi[:\s]|\bhttps?://"
+    # identifiant arXiv nu, tel qu'il apparait entre parentheses : (1505.07208)
+    r"|\b\d{4}\.\d{4,5}\b"
+    # volume(numero) d'un periodique : The Astronomical Journal, 105(5), 1993
+    r"|\b\d{1,4}\s?\(\s?\d{1,3}\s?\)"
     r"|\b\d{1,2}(?:er)?\s+(?:janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+\d{4}"
     r"|\b(?:janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+\d{4}"
     r"|\bNature\s+\d{2,3}\b|\bThe Physical Review\b.{0,18}\d{4}"

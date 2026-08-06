@@ -395,6 +395,33 @@
       "correction": "La citation s'ouvre maintenant après l'encadré, son texte est dans un <p>, et les translittérations sont mises en italique. Le bloc PDF devient un encadré sans gestionnaire inline.",
       "commit": "à venir",
       "gravite": "moyenne"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "methode",
+      "ou": "Détecteur de citations non localisées — quatre règles manquantes",
+      "erreur": "Le relevé annonçait 43 citations sans localisation. Douze n'en étaient pas : le détecteur ne reconnaissait pas quatre formes de repère pourtant valides. Le « § 6 » d'un traité était rejeté parce que le motif écrivait \\b§, or § n'est pas un caractère de mot et la limite ne pouvait jamais s'établir devant un espace. Le « ch. 1.3 » était rejeté, le motif n'acceptant que « chapitre ». Les six entrées de dictionnaire citées par racine arabe étaient rejetées, alors qu'un dictionnaire est organisé par racine exactement comme un tafsīr l'est par verset — la racine EST la localisation, principe que nous avions pourtant déjà posé pour les tafsīr. Et un identifiant arXiv entre parenthèses, comme le volume(numéro) d'un périodique, n'étaient pas reconnus.",
+      "correction": "Les quatre règles sont ajoutées. Le relevé passe de 43 à 31 avant tout travail éditorial. C'est la troisième fois que ce détecteur se révèle trop étroit ou trop large ; il est désormais l'unique définition de « localisé » du dépôt, et le script de marquage l'importe au lieu d'en redéfinir une seconde, pour que relevé et marquage ne puissent plus diverger.",
+      "commit": "à venir",
+      "gravite": "moyenne"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "source",
+      "ou": "Huit citations localisées, vingt-trois marquées « à paginer »",
+      "erreur": "Vingt et une citations attribuées ne permettaient pas de retrouver le passage cité, et rien ne le signalait au lecteur : une attribution sans localisation avait exactement la même apparence qu'une attribution vérifiable.",
+      "correction": "Huit localisations posées, chacune sur un repère dont l'identité ne fait pas de doute ou déjà affirmé ailleurs dans le même article — le hadith de l'imitation reçoit les numéros al-Bukhārī 3456 et Muslim 2669 qui figuraient déjà dans sa section Sources ; la lettre de Newton devient la troisième à Bentley, du 25 février 1693, puisqu'il en existe quatre et que l'année seule n'individuait rien ; l'Ad lectorem d'Osiander est signalé comme préface non paginée, ce qui est sa localisation exacte ; Dawkins reçoit ses chapitres nommés, Popper sa section d'ouverture, le Huainanzi son chapitre Tianwen. Les vingt-trois qui restent portent désormais dans leur pied une mention « (à paginer) », discrète, posée et retirée automatiquement. Le lecteur voit donc ce que nous savons et ce que nous ne savons pas, au lieu de devoir le deviner.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "source",
+      "ou": "Trois attributions douteuses au-delà de la pagination",
+      "erreur": "Trois citations posent un problème plus grave qu'une page manquante. « Lee, 2005 » ne donne qu'un patronyme et une année, sans titre ni revue : la citation est invérifiable par quiconque. Une citation de Poincaré est attribuée à La Science et l'Hypothèse alors que la même formule circule aussi comme venant de La Valeur de la Science ou de Science et Méthode. Et un passage de Hubble ne nomme aucun ouvrage du tout.",
+      "correction": "Les trois sont isolées en tête du rapport content/corrections/citations-a-paginer.md, avec ce qu'il faut vérifier pour chacune. Pour « Lee, 2005 », il est écrit que si la référence complète n'est pas retrouvée, la règle du site impose de retirer la citation et non de la laisser marquée indéfiniment. Pour Hubble, l'ouvrage probable est nommé dans le rapport mais n'est pas écrit dans l'article, faute de vérification.",
+      "commit": "à venir",
+      "gravite": "haute"
     }
   ]
 }

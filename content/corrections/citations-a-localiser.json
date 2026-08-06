@@ -4,205 +4,170 @@
     "definition": "Une référence est localisée si elle permet de retrouver le passage sans lire l'ouvrage entier : pagination, subdivision numérotée, numéro de recueil, référence scripturaire, identifiant (DOI, arXiv, URL) ou date individuant le document. Le seul titre d'un ouvrage n'en est pas une.",
     "regle": "Ne jamais inventer une pagination. En cas de doute, retirer la citation plutôt que la sourcer approximativement.",
     "genere_par": "scripts/lister-citations-a-localiser.py",
-    "citations_totales": 125,
-    "a_localiser": 28
+    "citations_totales": 193,
+    "a_localiser": 23
   },
   "citations": [
     {
       "article": "200-ans-de-resultats-nuls-darago-a-einstein",
       "categorie": "headquarters",
       "n": 1,
-      "attribution": "— E.T. Whittaker, A History of the Theories of Aether and Electricity, résumant les résultats d'Arago",
+      "attribution": "— E.T. Whittaker, A History of the Theories of Aether and Electricity, résumant les résultats d'Arago (à paginer)",
       "extrait": "« La lumière venant de n'importe quelle étoile se comporte dans tous les cas de réflexion et de réfraction pré"
     },
     {
       "article": "chronologie-de-la-tromperie-du-globe",
       "categorie": "headquarters",
-      "n": 1,
-      "attribution": "— Andreas Osiander, Ad lectorem de hypothesibus huius operis, avant-propos anonyme de De revolutionibus orbium coelestium, Nuremberg, 1543 — et non Copernic",
-      "extrait": "« Il n'est pas nécessaire que ces hypothèses soient vraies, ni même vraisemblables ; une seule chose suffit : "
-    },
-    {
-      "article": "chronologie-de-la-tromperie-du-globe",
-      "categorie": "headquarters",
-      "n": 2,
-      "attribution": "— Isaac Newton, Lettre à Bentley, 1693",
-      "extrait": "« L'idée que la gravité soit inhérente à la matière, et qu'un corps puisse agir sur un autre à distance dans l"
-    },
-    {
-      "article": "chronologie-de-la-tromperie-du-globe",
-      "categorie": "headquarters",
-      "n": 4,
-      "attribution": "— Albert Einstein",
-      "extrait": "« J'ai appris l'étrange résultat de l'expérience de Michelson. Bientôt je suis arrivé à la conclusion que notr"
-    },
-    {
-      "article": "chronologie-de-la-tromperie-du-globe",
-      "categorie": "headquarters",
       "n": 5,
-      "attribution": "— Edwin Hubble",
+      "attribution": "— Edwin Hubble (à paginer)",
       "extrait": "« Une telle condition impliquerait que nous occupions une position unique dans l'univers, analogue à l'ancienn"
     },
     {
       "article": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
       "categorie": "library",
       "n": 2,
-      "attribution": "— Sunan Abī Dāwūd, authentique",
+      "attribution": "— Sunan Abī Dāwūd, authentique (à paginer)",
       "extrait": "عن ابنِ عبّاسٍ أنَّه كان يقرَأُ : ﴿فِي عَيْنٍ حَمِئَةٍ﴾ ويقولُ : حَمْأَةٌ سَوْداءُ تغرُبُ فيها الشمسُ « Ibn ʿA"
     },
     {
       "article": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
       "categorie": "library",
       "n": 4,
-      "attribution": "— Umayya ibn Abī al-Ṣalt, poète ḥanīf pré-islamique de Ṭāʾif",
+      "attribution": "— Umayya ibn Abī al-Ṣalt, poète ḥanīf pré-islamique de Ṭāʾif (à paginer)",
       "extrait": "Corrélation significative : L'émergence de la lecture métaphorique coïncide exactement avec l'assimilation de "
     },
     {
       "article": "dune-terre-plate-universelle-a-la-sphere-grecque",
       "categorie": "headquarters",
-      "n": 1,
-      "attribution": "— Huainanzi (淮南子), IIᵉ siècle av. J.-C.",
-      "extrait": "« Le Ciel est rond, la Terre est carrée. Le Ciel recouvre, la Terre supporte. Le Ciel tourne, la Terre reste i"
-    },
-    {
-      "article": "dune-terre-plate-universelle-a-la-sphere-grecque",
-      "categorie": "headquarters",
       "n": 3,
-      "attribution": "— Ibn Taymiyyah, Darʾ Taʿāruḍ al-ʿAql wa al-Naql",
+      "attribution": "— Ibn Taymiyyah, Darʾ Taʿāruḍ al-ʿAql wa al-Naql (à paginer)",
       "extrait": "« Quiconque élève la parole des philosophes grecs au-dessus du Coran et de la Sunna a commis une grave erreur."
-    },
-    {
-      "article": "la-cosmologie-comme-instrument-de-domination",
-      "categorie": "headquarters",
-      "n": 1,
-      "attribution": "— Richard Dawkins, River Out of Eden, 1995",
-      "extrait": "« L’univers que nous observons possède exactement les propriétés auxquelles on devrait s’attendre s’il n’y a, "
-    },
-    {
-      "article": "la-cosmologie-comme-instrument-de-domination",
-      "categorie": "headquarters",
-      "n": 2,
-      "attribution": "— Richard Dawkins, Le Gène Égoïste, 1976",
-      "extrait": "« Si vous voulez construire une société dans laquelle les individus coopèrent généreusement pour réaliser le b"
     },
     {
       "article": "la-gravite-70-theories-et-aucune-preuve",
       "categorie": "headquarters",
       "n": 5,
-      "attribution": "— Henri Poincaré, La Science et l'Hypothèse (1902)",
+      "attribution": "— Henri Poincaré, La Science et l'Hypothèse (1902) (à paginer)",
       "extrait": "« Ces deux propositions, \"la Terre tourne\" et \"il est plus commode de supposer que la Terre tourne\", ont une s"
     },
     {
       "article": "la-rotation-terrestre-deux-experiences-zero-preuve",
       "categorie": "headquarters",
       "n": 2,
-      "attribution": "— Henri Poincaré, La Science et l'Hypothèse, 1902",
+      "attribution": "— Henri Poincaré, La Science et l'Hypothèse, 1902 (à paginer)",
       "extrait": "« Cette affirmation : \"la Terre tourne\", n'a aucun sens, puisqu'aucune expérience ne permettra de la vérifier "
     },
     {
       "article": "la-rotation-terrestre-deux-experiences-zero-preuve",
       "categorie": "headquarters",
       "n": 9,
-      "attribution": "— Lee, 2005",
+      "attribution": "— Lee, 2005 (à paginer)",
       "extrait": "« Le plan du pendule de Foucault ne reste, en tout état de cause, qu'une hypothèse. Quelqu'un a-t-il vérifié q"
-    },
-    {
-      "article": "le-concordisme",
-      "categorie": "headquarters",
-      "n": 4,
-      "attribution": "Rapporté par Al-Bukhari et Muslim",
-      "extrait": "لَتَتَّبِعُنَّ سَنَنَ مَنْ كَانَ قَبْلَكُمْ شِبْرًا بِشِبْرٍ وَذِرَاعًا بِذِرَاعٍ حَتَّى لَوْ دَخَلُوا جُحْرَ "
     },
     {
       "article": "le-consensus-sur-la-sphericite",
       "categorie": "library",
-      "n": 4,
-      "attribution": "— Ibn Taymiyyah, Bayān Talbīs al-Jahmiyyah",
+      "n": 6,
+      "attribution": "— Ibn Taymiyyah, Bayān Talbīs al-Jahmiyyah (à paginer)",
       "extrait": "« La parole d'aucun d'entre eux [les cosmologues grecs] n'est une preuve, et il n'est pas permis de bâtir sur "
     },
     {
       "article": "le-theodolite-celeste",
       "categorie": "observatory",
       "n": 1,
-      "attribution": "— Henning Umland, A Short Guide to Celestial Navigation (2015)",
+      "attribution": "— Henning Umland, A Short Guide to Celestial Navigation (2015) (à paginer)",
       "extrait": "« Un observateur regardant le ciel nocturne sans rien savoir de la géographie et de l'astronomie pourrait spon"
     },
     {
       "article": "les-distances-cosmiques-au-dela-de-la-regle",
       "categorie": "headquarters",
       "n": 1,
-      "attribution": "— Edwin Hubble, The Observational Approach to Cosmology, Oxford, 1937",
+      "attribution": "— Edwin Hubble, The Observational Approach to Cosmology, Oxford, 1937 (à paginer)",
       "extrait": "« Si le facteur de récession est abandonné, si les décalages spectraux ne sont pas principalement des décalage"
     },
     {
       "article": "les-marees-contre-lheliocentrisme",
       "categorie": "observatory",
       "n": 1,
-      "attribution": "— Robert Bennett, The Geocentric Testimony of Our Tides",
+      "attribution": "— Robert Bennett, The Geocentric Testimony of Our Tides (à paginer)",
       "extrait": "« La montée et la descente des marées dans le monde entier sont une démonstration semi-diurne, mixte et répéti"
     },
     {
       "article": "neptune-et-pluton-les-faux-triomphes",
       "categorie": "headquarters",
-      "n": 2,
-      "attribution": "— E.M. Standish, « Planet X: No Dynamical Evidence in the Optical Observations », The Astronomical Journal, 105(5), 1993",
-      "extrait": "« Il est démontré que les \"anomalies inexpliquées dans le mouvement d'Uranus\" disparaissent lorsqu'on tient co"
-    },
-    {
-      "article": "neptune-et-pluton-les-faux-triomphes",
-      "categorie": "headquarters",
       "n": 4,
-      "attribution": "— JHU Applied Physics Laboratory, matériaux éducatifs New Horizons",
+      "attribution": "— JHU Applied Physics Laboratory, matériaux éducatifs New Horizons (à paginer)",
       "extrait": "« Peut-être plus étonnant encore est que les calculs prédisant la position de la planète inconnue étaient inco"
     },
     {
-      "article": "pourquoi-tout-remettre-en-question",
-      "categorie": "headquarters",
-      "n": 3,
-      "attribution": "— Karl Popper, La logique de la découverte scientifique, 1934",
-      "extrait": "« Aucun nombre d'observations de cygnes blancs ne peut justifier la conclusion que tous les cygnes sont blancs"
+      "article": "ou-est-allah-le-uluww-et-la-forme-du-monde",
+      "categorie": "library",
+      "n": 12,
+      "attribution": "— Mālik ibn Anas (m. 179 H), rapporté par al-Bayhaqī, al-Asmāʾ wa-l-Ṣifāt, et par al-Lālakāʾī, Sharḥ Uṣūl Iʿtiqād Ahl al-Sunna (à paginer)",
+      "extrait": "قِيلَ لِمَالِكٍ: كَيْفَ اسْتَوَى؟ قَالَ: الاسْتِوَاءُ مَعْلُومٌ وَالْكَيْفُ مَجْهُولٌ وَالإِيمَانُ بِهِ وَاجِب"
     },
     {
       "article": "pourquoi-tout-remettre-en-question",
       "categorie": "headquarters",
       "n": 4,
-      "attribution": "— James Woodward, Making Things Happen, 2003",
+      "attribution": "— James Woodward, Making Things Happen, 2003 (à paginer)",
       "extrait": "« X est une cause de Y si et seulement si des interventions qui modifient X entraînent des modifications de Y."
     },
     {
       "article": "pourquoi-tout-remettre-en-question",
       "categorie": "headquarters",
       "n": 5,
-      "attribution": "— Ian Hacking, Representing and Intervening, 1983",
+      "attribution": "— Ian Hacking, Representing and Intervening, 1983 (à paginer)",
       "extrait": "« Si vous pouvez les pulvériser, c'est qu'ils sont réels. »"
     },
     {
       "article": "pourquoi-tout-remettre-en-question",
       "categorie": "headquarters",
       "n": 6,
-      "attribution": "— Edwin Hubble, The Observational Approach to Cosmology, 1937",
+      "attribution": "— Edwin Hubble, The Observational Approach to Cosmology, 1937 (à paginer)",
       "extrait": "« Si le facteur de récession est abandonné, si les décalages spectraux ne sont pas principalement des décalage"
     },
     {
       "article": "pourquoi-tout-remettre-en-question",
       "categorie": "headquarters",
       "n": 11,
-      "attribution": "— Ernst Mach, La Mécanique (1883)",
+      "attribution": "— Ernst Mach, La Mécanique (1883) (à paginer)",
       "extrait": "« Les mouvements de l'univers sont les mêmes que l'on adopte le mode de vue ptoléméen ou copernicien. Les deux"
     },
     {
       "article": "pourquoi-tout-remettre-en-question",
       "categorie": "headquarters",
       "n": 12,
-      "attribution": "— Henri Poincaré, La Science et l'Hypothèse (1902)",
+      "attribution": "— Henri Poincaré, La Science et l'Hypothèse (1902) (à paginer)",
       "extrait": "« Ces deux propositions, \"la Terre tourne\" et \"il est plus commode de supposer que la Terre tourne\", ont une s"
     },
     {
       "article": "pres-de-cent-savants-de-lislam",
       "categorie": "library",
       "n": 3,
-      "attribution": "— Ibn Rajab al-Ḥanbalī, Ar-Radd",
+      "attribution": "— Ibn Rajab al-Ḥanbalī, Ar-Radd (à paginer)",
       "extrait": "« C'est par la sagesse d'Allah qu'Il établit la religion et la protégea en suscitant pour les gens des imāms p"
+    },
+    {
+      "article": "vols-avion-et-courbure-terrestre",
+      "categorie": "observatory",
+      "n": 1,
+      "attribution": "— Stevens &amp; Lewis, Aircraft Control and Simulation, Wiley (à paginer)",
+      "extrait": "« Les équations de la Terre plate , décrivant le mouvement au-dessus d'une petite zone d'une Terre non rotativ"
+    },
+    {
+      "article": "vols-avion-et-courbure-terrestre",
+      "categorie": "observatory",
+      "n": 3,
+      "attribution": "— AOPA, Autopilot Basics (à paginer)",
+      "extrait": "« En mode maintien d'altitude, le pilote automatique essaie simplement de maintenir la pression barométrique p"
+    },
+    {
+      "article": "vols-avion-et-courbure-terrestre",
+      "categorie": "observatory",
+      "n": 4,
+      "attribution": "— Flight Safety Foundation, Upset by a False Cue (rapport d'incident CRJ200, FL330) (à paginer)",
+      "extrait": "« Une indication constante d'environ 1 degré nez en haut en vol de croisière ... »"
     }
   ]
 }
