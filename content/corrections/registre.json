@@ -296,6 +296,42 @@
       "correction": "Retrait des 9 nœuds morts et des 37 liens correspondants, ajout des 5 nœuds manquants et de 12 liens pour qu'aucun nœud ne reste isolé. Le graphe compte désormais 58 nœuds pour 58 articles, 128 liens, aucun orphelin.",
       "commit": "à venir",
       "gravite": "haute"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "source",
+      "ou": "La Terre dans le Coran — trois attributions de tafsīr",
+      "erreur": "Trois commentaires portaient une référence de verset fausse. Deux gloses de daḥāhā (S79 V30) et une glose de dāʾibayn (S14 V33) étaient attribuées à « sur S91 V6 ». La faute vient de notre propre outil : scripts/localiser-citations-tafsir.py reprend le verset du titre gouvernant, et quand une section n'avait pas de titre porteur de verset il a laissé courir celui de la section précédente. Une référence fausse est pire qu'une référence absente : elle a l'air vérifiable.",
+      "correction": "Les trois attributions sont corrigées (S79 V30, S79 V30, S14 V33). Un contrôle a été passé sur les 58 articles pour chercher le même défaut ailleurs : ces trois-là étaient les seules occurrences.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "technique",
+      "ou": "La Terre dans le Coran — format des seize citations coraniques",
+      "erreur": "Les seize versets étaient rendus en trois paragraphes successifs — arabe, traduction, référence — au lieu du bloc de citation unique que la charte impose à la Bibliothèque. La référence se lisait donc comme une phrase du corps de l'article, et rien ne distinguait visuellement la Révélation du commentaire qui la suit. Cinq citations de tafsīr et de dictionnaire flottaient en outre hors de toute balise, avec leur attribution en <cite> non stylé, et le bloc de renvoi au PDF portait des gestionnaires d'événements en attribut.",
+      "correction": "Les seize versets sont passés au bloc blockquote.tei-citation.arabic-quote avec footer, les cinq citations orphelines remises en blockquote avec leur attribution et leur lien shamela, le bloc PDF converti en tei-infobox sans gestionnaire inline. Trois blocs de texte nu ont été rédigés en paragraphes. Ajout d'une section 09 sur les deux versets que le concordisme substitue à ceux de la forme de la Terre, et de trois encadrés « En clair ». L'article passe de 2 480 à 3 042 mots.",
+      "commit": "à venir",
+      "gravite": "moyenne"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "methode",
+      "ou": "Le concordisme — l'appareil lexical de S21 V30 et l'absence de S51 V47",
+      "erreur": "L'article affirmait que ratq et fatq n'ont pas le sens que leur prête le concordisme, mais ne citait qu'un dictionnaire, de mémoire, sans texte arabe — et résumait les trois lectures exégétiques en trois lignes, ce qui affaiblissait précisément l'argument, puisque c'est la pluralité des lectures qui ruine la sélection concordiste. Surtout, le second pilier du discours adverse — mūsiʿūn en S51 V47, lu comme « expansion de l'univers » — était entièrement absent de l'article.",
+      "correction": "Ajout des six entrées de dictionnaire (Tāj al-ʿArūs, Lisān al-ʿArab, Mukhtār al-Ṣiḥāḥ, racines ر-ت-ق et ف-ت-ق) en arabe et en traduction, des trois lectures exégétiques avec le texte arabe des tafsīr et un tableau de synthèse, et d'une section entière sur S51 V47 avec les cinq tafsīr et un second tableau. Cette section dit aussi ce qui n'arrange pas : deux des cinq exégètes lisent bien un élargissement du ciel — mais à l'accompli, comme un acte de création achevé, jamais comme un processus en cours. Elle refuse enfin l'usage symétrique de l'argument : le verset ne dit rien contre l'expansion non plus. L'article passe de 2 998 à 5 620 mots.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-05",
+      "categorie": "technique",
+      "ou": "Le concordisme — deux liens fautifs ; divers articles — balises et classes",
+      "erreur": "Le concordisme portait une balise <a> imbriquée dans une autre, HTML invalide, et un lien vers la page de catégorie /library présenté comme un article intitulé « Sept mots, un seul sens » qui n'existe pas. Dans vols-avion-et-courbure-terrestre, une insertion antérieure avait laissé « </ul<li> » et un « > » orphelin, ce qui cassait la dernière liste de la section Sources. Le théodolite céleste portait une classe Tailwind résiduelle, deux articles employaient des classes jamais définies, un article numérotait ses sections à partir de 00, et quatre images n'avaient pas data-zoomable.",
+      "correction": "Tout est réparé. Ajout de .tei-formula et .tei-quran-ref à globals.css, deux classes employées dans les articles depuis l'origine sans avoir jamais été définies. Et surtout, écriture de scripts/verifier-integrite-articles.py, qui passe les 58 articles au crible : texte hors conteneur, classes CSS inexistantes, citations sans attribution, numérotation, équilibre des balises, balises imbriquées, exigences de la charte. Il ignore les sous-arbres SVG, qui ont leurs propres règles. Premier passage : 261 problèmes subsistants sur 32 articles, dont 249 fragments de texte hors conteneur — un chantier de mise en conformité chiffré, à traiter séparément.",
+      "commit": "à venir",
+      "gravite": "moyenne"
     }
   ]
 }
