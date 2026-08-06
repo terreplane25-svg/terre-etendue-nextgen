@@ -76,15 +76,28 @@ SAVANTS = [
  E(11, "Aboul Hassan ʿAlâ'ou Dîne El Khâzin", 741, "Tefsîroul Khâzin — Libâbit-Ta'wîl fî Maʿânit-Tanzîl", [
    C("s13 v3", "C'est-à-dire qu'Il l'a aplanie sur la surface de l'eau. Il a été dit que la terre était regroupée puis Il l'étendit depuis le dessous de la maison sacrée, et cette parole n'est valide que si nous disons que la terre est plate, alors que chez les astronomes la terre est sphérique. Et il est possible que l'on dise : si le globe est très grand alors chaque parcelle est vue comme étant plate, ainsi a lieu la conciliation. Malgré cela, Allāh nous informe qu'Il a étendu la terre, qu'Il l'a aplanie et nivelée. Tout cela indique l'aplatissement.",
      "3", "4", "https://shamela.ws/book/23628/1014#p1"),
-   C(None, None, None, None, "https://shamela.ws/book/23628/1062#p1",
-     "seconde citation présente dans le document source mais tronquée à l'extraction : texte à reprendre")], naissance=678),
+   C("s15 v19", "C'est-à-dire que Nous l'avons aplanie sur la surface de l'eau. Comme il a été dit qu'elle fut étendue depuis le dessous de la maison sacrée ; et c'est l'avis des exégètes. Les hauts membres du comité [astronomique] ont prétendu que la terre était une sphère immense dont une partie est submergée dans l'eau et l'autre non… Ils ont justifié le verset en avançant le fait que si une sphère est immense alors chaque partie d'elle est perçue comme une grande surface plane. De cette façon, il est confirmé que la terre est plane et étendue, et qu'elle est également sphérique. Les exégètes ont répondu qu'Allāh informe dans Son Livre qu'elle est aplanie et étendue, et que si c'était une sphère Il l'aurait assurément indiqué, et Allāh est plus connaisseur du message.",
+     "3", "52", "https://shamela.ws/book/23628/1062#p1",
+     "l'ellipse après « et l'autre non » est celle du document source, non la nôtre. "
+     "Noter que cette citation RAPPORTE l'argument de conciliation des astronomes avant "
+     "de donner la réponse des exégètes : al-Khâzin expose un débat, il ne se contente "
+     "pas d'affirmer.")], naissance=678),
 
  E(12, "Âthîroud Dîne Abou Hayân El Andaloûssî", 745, "El Bahroul Mouhît", [
-   C(None, None, None, None, "https://shamela.ws/book/23591/5915#p1",
-     "entrée présente dans le document source, texte non capté par l'extraction : à reprendre")], naissance=654),
+   C("s71 v19", "Ce qui apparaît du verset est que la terre n'est pas sphérique mais bien aplanie.",
+     "10", "284", "https://shamela.ws/book/23591/5915#p1")], naissance=654),
 
- E(13, "Adhadou Dîne El Iyadjî", 756, None, [
-   C(None, None, None, None, None, "entrée présente dans le document source, à reprendre")]),
+ E(13, "Adhadou Dîne El Iyadjî", 756, "El Mawâqif fî ʿIlmil Kalâm", [
+   C(None, "La terre n'est pas sphérique mais plate.",
+     None, "199", "http://noor-book.com/en/flcws3"),
+   C(None, "Ils prétendent que la terre est sphérique…",
+     None, "217", "http://noor-book.com/en/flcws3",
+     "citation laissée en suspens par le document source lui-même : le texte s'arrête "
+     "sur des points de suspension. Elle est conservée telle quelle et ne doit pas être "
+     "présentée comme complète.")],
+   note="un second document de notre fonds, la traduction d'El Adilla El Kâchifa, donne "
+        "pour la position du même auteur les pages 100, 210 et 217 de El Mawâqif. Les deux "
+        "sources ne concordent que sur 217 : la pagination reste à vérifier sur l'édition."),
 
  E(14, "Ibn Samîn El Halabî", 756, "ʿOumdatoul Houfâdh", [
    C("s88 v20", "C'est-à-dire aplanie et élargie, comme dans Sa parole « Et quant à la terre, après cela, Il l'a étendue » (s79 v30), c'est-à-dire aplanie après avoir été une boule.",
@@ -276,11 +289,18 @@ h = art['htmlBody']
 anc = '<h2 id="sources">'
 i = h.find(anc)
 assert i > 0, "section Sources introuvable"
-# la section Sources devient 13
-h = h[:i] + section + h[i:]
-h = re.sub(r'(<h2 id="sources"><span class="tei-section-num">)12(</span>)', r'\g<1>13\g<2>', h)
+# Idempotence : si la section a déjà été posée, on la remplace. Sans cela, une
+# seconde exécution empilait un deuxième exemplaire et cassait la numérotation.
+deja = h.find('<h2 id="noyau-verifiable">')
+if deja >= 0:
+    h = h[:deja] + section + h[i:]
+else:
+    h = h[:i] + section + h[i:]
+    # la section Sources passe de 12 à 13
+    h = re.sub(r'(<h2 id="sources"><span class="tei-section-num">)12(</span>)',
+               r'\g<1>13\g<2>', h)
 art['htmlBody'] = h
-art['updated'] = '2026-08-05'
+art['updated'] = '2026-08-06'
 json.dump(art, open(art_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
 open(art_path, 'a', encoding='utf-8').write('\n')
 

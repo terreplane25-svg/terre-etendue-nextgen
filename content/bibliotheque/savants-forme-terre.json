@@ -15,12 +15,11 @@
       "D": "texte à reprendre : entrée incomplète dans l'extraction"
     },
     "savants": 30,
-    "citations": 38,
-    "citations_transcrites": 35,
+    "citations": 39,
+    "citations_transcrites": 39,
     "repartition_des_grades": {
-      "A": 25,
-      "C": 7,
-      "D": 3,
+      "A": 27,
+      "C": 9,
       "B": 3
     },
     "amplitude": "383 H – 1383 H",
@@ -261,13 +260,13 @@
           "grade": "A"
         },
         {
-          "verset": null,
-          "citation": null,
-          "volume": null,
-          "page": null,
+          "verset": "s15 v19",
+          "citation": "C'est-à-dire que Nous l'avons aplanie sur la surface de l'eau. Comme il a été dit qu'elle fut étendue depuis le dessous de la maison sacrée ; et c'est l'avis des exégètes. Les hauts membres du comité [astronomique] ont prétendu que la terre était une sphère immense dont une partie est submergée dans l'eau et l'autre non… Ils ont justifié le verset en avançant le fait que si une sphère est immense alors chaque partie d'elle est perçue comme une grande surface plane. De cette façon, il est confirmé que la terre est plane et étendue, et qu'elle est également sphérique. Les exégètes ont répondu qu'Allāh informe dans Son Livre qu'elle est aplanie et étendue, et que si c'était une sphère Il l'aurait assurément indiqué, et Allāh est plus connaisseur du message.",
+          "volume": "3",
+          "page": "52",
           "url": "https://shamela.ws/book/23628/1062#p1",
-          "_incertitude": "seconde citation présente dans le document source mais tronquée à l'extraction : texte à reprendre",
-          "grade": "D"
+          "_incertitude": "l'ellipse après « et l'autre non » est celle du document source, non la nôtre. Noter que cette citation RAPPORTE l'argument de conciliation des astronomes avant de donner la réponse des exégètes : al-Khâzin expose un débat, il ne se contente pas d'affirmer.",
+          "grade": "A"
         }
       ],
       "_incertitude": null
@@ -280,13 +279,13 @@
       "ouvrage": "El Bahroul Mouhît",
       "citations": [
         {
-          "verset": null,
-          "citation": null,
-          "volume": null,
-          "page": null,
+          "verset": "s71 v19",
+          "citation": "Ce qui apparaît du verset est que la terre n'est pas sphérique mais bien aplanie.",
+          "volume": "10",
+          "page": "284",
           "url": "https://shamela.ws/book/23591/5915#p1",
-          "_incertitude": "entrée présente dans le document source, texte non capté par l'extraction : à reprendre",
-          "grade": "D"
+          "_incertitude": null,
+          "grade": "A"
         }
       ],
       "_incertitude": null
@@ -296,19 +295,28 @@
       "nom": "Adhadou Dîne El Iyadjî",
       "naissance_H": null,
       "mort_H": 756,
-      "ouvrage": null,
+      "ouvrage": "El Mawâqif fî ʿIlmil Kalâm",
       "citations": [
         {
           "verset": null,
-          "citation": null,
+          "citation": "La terre n'est pas sphérique mais plate.",
           "volume": null,
-          "page": null,
-          "url": null,
-          "_incertitude": "entrée présente dans le document source, à reprendre",
-          "grade": "D"
+          "page": "199",
+          "url": "http://noor-book.com/en/flcws3",
+          "_incertitude": null,
+          "grade": "C"
+        },
+        {
+          "verset": null,
+          "citation": "Ils prétendent que la terre est sphérique…",
+          "volume": null,
+          "page": "217",
+          "url": "http://noor-book.com/en/flcws3",
+          "_incertitude": "citation laissée en suspens par le document source lui-même : le texte s'arrête sur des points de suspension. Elle est conservée telle quelle et ne doit pas être présentée comme complète.",
+          "grade": "C"
         }
       ],
-      "_incertitude": null
+      "_incertitude": "un second document de notre fonds, la traduction d'El Adilla El Kâchifa, donne pour la position du même auteur les pages 100, 210 et 217 de El Mawâqif. Les deux sources ne concordent que sur 217 : la pagination reste à vérifier sur l'édition."
     },
     {
       "n": 14,

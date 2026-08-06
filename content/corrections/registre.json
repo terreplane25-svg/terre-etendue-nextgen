@@ -422,6 +422,33 @@
       "correction": "Les trois sont isolées en tête du rapport content/corrections/citations-a-paginer.md, avec ce qu'il faut vérifier pour chacune. Pour « Lee, 2005 », il est écrit que si la référence complète n'est pas retrouvée, la règle du site impose de retirer la citation et non de la laisser marquée indéfiniment. Pour Hubble, l'ouvrage probable est nommé dans le rapport mais n'est pas écrit dans l'article, faute de vérification.",
       "commit": "à venir",
       "gravite": "haute"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "source",
+      "ou": "Autorités sur la forme de la Terre — les trois notices incomplètes",
+      "erreur": "Trois entrées du jeu de données étaient publiées sans leur texte, avec la mention « texte non capté par l'extraction : à reprendre » et un grade D : la seconde citation d'al-Khâzin, celle d'Abū Ḥayyān et celle d'al-Iyajī. Le tableau du noyau vérifiable annonçait donc 35 citations transcrites sur 38, et trois lignes ne portaient rien à contrôler. Le texte se trouvait en réalité dans le document source depuis le début — c'est notre extraction qui l'avait manqué, pas la source qui était lacunaire. La leçon vaut d'être notée : « non capté à l'extraction » avait été consigné comme une propriété du document alors que c'était une propriété de notre outil.",
+      "correction": "Les trois textes sont transcrits depuis le document source, avec leurs références complètes. Al-Khâzin sur S15 V19, Tefsīr al-Khāzin vol. 3 p. 52, lien direct — grade A. Abū Ḥayyān sur S71 V19, al-Baḥr al-Muḥīṭ vol. 10 p. 284, lien direct — grade A. Al-Iyajī reçoit son ouvrage, jusque-là absent, et deux citations, al-Mawāqif p. 199 et p. 217 — grade C, le lien renvoyant à un dépôt non paginé. Le jeu de données passe à 39 citations, 39 transcrites, aucune de grade D.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "source",
+      "ou": "Al-Khâzin et al-Iyajī — deux réserves que la transcription fait apparaître",
+      "erreur": "La seconde citation d'al-Khâzin, une fois transcrite, ne dit pas ce qu'on attendrait d'une simple pièce à charge : elle RAPPORTE l'argument de conciliation des astronomes — si la sphère est immense, chaque portion paraît plane — avant de donner la réponse des exégètes. La présenter comme une affirmation nue de la planéité aurait été une lecture partiale de notre propre source. Par ailleurs la citation d'al-Iyajī p. 217 s'arrête sur des points de suspension dans le document source lui-même.",
+      "correction": "Les deux réserves sont inscrites dans le jeu de données. Pour al-Khâzin, une note dit explicitement qu'il expose un débat et ne se contente pas d'affirmer, et que l'ellipse du texte est celle du document source et non la nôtre. Pour al-Iyajī, la note dit que la citation est laissée en suspens par la source et ne doit pas être présentée comme complète. S'ajoute une discordance de pagination : un second document de notre fonds, la traduction d'al-Adilla al-Kāshifa, donne pour la position du même auteur les pages 100, 210 et 217 d'al-Mawāqif, quand le document de référence donne 199 et 217. Les deux ne concordent que sur 217 ; la note le dit et laisse la pagination à vérifier sur l'édition.",
+      "commit": "à venir",
+      "gravite": "moyenne"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "technique",
+      "ou": "scripts/generer-savants.py — le générateur empilait sa propre section",
+      "erreur": "Le script insérait la section « Le noyau vérifiable » avant la section Sources et renumérotait celle-ci de 12 à 13. Relancé une seconde fois, il aurait inséré un deuxième exemplaire de la section, et la renumérotation n'aurait plus trouvé son motif : deux sections identiques et une numérotation cassée. Le défaut n'avait jamais été vu parce que le script n'avait jamais été relancé.",
+      "correction": "Le générateur remplace désormais la section existante au lieu de l'empiler. Vérifié en le lançant deux fois de suite : une seule section, numérotation 01 à 13 continue.",
+      "commit": "à venir",
+      "gravite": "moyenne"
     }
   ]
 }
