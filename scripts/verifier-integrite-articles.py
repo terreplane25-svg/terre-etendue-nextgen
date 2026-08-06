@@ -5,8 +5,11 @@ Contrôle d'intégrité de tous les articles — à relancer avant chaque commit
 
 Vérifie, pour chaque content/articles/*.json :
 
-  · texte hors conteneur — un fragment posé entre deux balises de bloc n'est
-    pas invalide pour le navigateur, mais il échappe à toute règle de style ;
+  · texte hors conteneur — du texte nu qui cohabite avec des frères de niveau
+    bloc, et n'est donc porté par aucun élément. Un <div> qui ne contient que
+    du texte et de l'inline n'est PAS fautif, même sans <p> : c'est un
+    conteneur de texte, souvent stylé, et l'envelopper casserait sa grille.
+    La règle exacte est dans lib_html_articles.py ;
   · classes CSS employées et jamais définies dans globals.css — une coquille
     dans un nom de classe ne provoque aucune erreur de build ;
   · citations sans attribution — la charte impose un <footer> ou un <cite> ;
@@ -26,43 +29,19 @@ import os
 import re
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from lib_html_articles import runs_fautifs  # noqa: E402
+
 RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ARTICLES = os.path.join(RACINE, "content", "articles")
 CSS = os.path.join(RACINE, "src", "styles", "globals.css")
 
-# Éléments dans lesquels un texte est légitimement placé.
-CONTENEURS = {
-    "p", "li", "dt", "dd", "footer", "td", "th", "caption", "figcaption",
-    "h1", "h2", "h3", "h4", "h5", "h6", "cite", "small", "blockquote",
-    "span", "strong", "em", "b", "i", "a", "code", "sup", "sub", "abbr",
-    "summary", "label", "button", "option", "legend", "mark", "q", "time",
-}
-
-# Balises auto-fermantes ou sans contenu textuel propre.
-ORPHELINES = {"br", "hr", "img", "input", "meta", "link", "source", "col"}
-
-
 def sans_svg(html):
-    """Retire les sous-arbres <svg> et les blocs <style>."""
+    """Retire les sous-arbres <svg> et les blocs <style> : ils ont leurs propres
+    <text>, <tspan> et leur feuille de style inline, hors des règles du corps."""
     html = re.sub(r"<svg\b.*?</svg>", "", html, flags=re.S | re.I)
     html = re.sub(r"<style\b.*?</style>", "", html, flags=re.S | re.I)
     return html
-
-
-def texte_hors_conteneur(html):
-    pb, profondeur = [], 0
-    for morceau in re.split(r"(<[^>]+>)", html):
-        if morceau.startswith("<"):
-            m = re.match(r"<\s*(/?)\s*([a-zA-Z][a-zA-Z0-9]*)", morceau)
-            if not m:
-                continue
-            nom = m.group(2).lower()
-            if nom in CONTENEURS and not morceau.rstrip().endswith("/>"):
-                profondeur += -1 if m.group(1) else 1
-                profondeur = max(0, profondeur)
-        elif profondeur == 0 and morceau.strip():
-            pb.append("texte hors conteneur : %r" % morceau.strip()[:64])
-    return pb
 
 
 def controler(slug, data, css):
@@ -70,7 +49,8 @@ def controler(slug, data, css):
     nu = sans_svg(html)
     pb = []
 
-    pb += texte_hors_conteneur(nu)
+    for debut, fin in runs_fautifs(html):
+        pb.append("texte hors conteneur : %r" % html[debut:fin][:64])
 
     inconnues = set()
     for attr in re.findall(r'class="([^"]+)"', nu):

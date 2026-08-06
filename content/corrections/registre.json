@@ -359,6 +359,42 @@
       "correction": "La citation d'Abū Ḥanīfa est rapportée avec sa réserve explicite, gradée C, et l'article précise que les trois autres imams ne présentent pas cette difficulté. Les dix-sept numéros de hadith retenus ont été vérifiés un à un en retournant leur forme arabe : les dix-sept concordent, et le contrôle est recalculé à chaque génération par scripts/etape6-uluww.py. Le procédé est expliqué en tête de la section Sources pour que le lecteur puisse refaire la vérification.",
       "commit": "à venir",
       "gravite": "moyenne"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "methode",
+      "ou": "Contrôle d'intégrité — la règle « texte hors conteneur » était fausse",
+      "erreur": "Nous avons annoncé 261 problèmes sur 32 articles, dont 249 fragments de texte hors conteneur. Le chiffre était faux, et la faute est dans notre règle : elle signalait tout texte qui n'était pas dans un <p>. Or la migration Elementor a laissé des cartes et des grilles bâties sur des <div> portant leur propre style typographique — <div style=\"font-size:22px;font-weight:900\">1728</div>. Ce texte est le contenu de son élément, il est stylé, et l'enfermer dans un <p> aurait ajouté des marges et cassé la grille. Nous avons donc surestimé le chantier d'un facteur 3,7 et failli appliquer une correction qui aurait dégradé une quinzaine d'articles.",
+      "correction": "Règle refaite dans scripts/lib_html_articles.py : un fragment est fautif si, et seulement si, son élément parent contient au moins un enfant de niveau bloc — c'est-à-dire si du texte nu cohabite avec des frères de bloc et n'est porté par rien. Un élément dont le contenu est entièrement du texte et de l'inline est un conteneur de texte, quel que soit son nom. Avec la règle juste : 68 fragments sur 14 articles. L'analyse passe désormais par un vrai parcours du document (html.parser, sans dépendance externe) et rend des décalages exacts, ce qui permet de corriger par chirurgie sur la chaîne et de garantir que tout le reste du document reste identique à l'octet.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "technique",
+      "ou": "Corpus — 68 fragments de texte hors conteneur, sur 14 articles",
+      "erreur": "Du texte posé entre des frères de niveau bloc, porté par aucun élément et donc soumis à aucune règle de style. Deux familles : vingt-six sous-titres dont la balise de titre avait été perdue à la migration — « Bilan des observations », « Protocole en 4 étapes », « Formule officielle de la géodésie » —, et quarante encadrés de remarque commençant par « <strong>Libellé :</strong> » dont le conteneur avait disparu.",
+      "correction": "Les sous-titres redeviennent des <h3> avec un identifiant : ils réapparaissent du même coup dans le sommaire de l'article, dont ils étaient absents depuis la migration — le corpus passe de 300 à 326 <h3>. Les encadrés redeviennent des <p> ; nous ne leur avons pas rendu un habillage visuel que nous ne pouvons pas vérifier, le défaut corrigé est structurel et non décoratif. Sept fragments de l'article des vidéos faisaient doublon avec le titre de section qui les précède : ils deviennent des étiquettes plutôt que des titres, pour ne pas répéter la même information à deux niveaux de plan. Vérification systématique : après chaque transformation, le texte de l'article balises retirées est comparé à celui d'avant, et toute divergence bloque l'écriture. Sur les 59 articles, une seule divergence, déclarée : le retrait de l'émoji du bloc PDF.",
+      "commit": "à venir",
+      "gravite": "moyenne"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "source",
+      "ou": "Corpus — 17 citations sans attribution",
+      "erreur": "La charte impose un <footer> en pied de citation. Dix-sept blocs n'en avaient pas, mais pour deux raisons opposées qu'il fallait distinguer avant de corriger. Onze — dix dans « Les trous noirs n'existent pas », un dans « L'hypothèse nulle » — ne citaient personne : ce sont des encadrés d'explication ou d'analogie (« Imaginez un drap tendu horizontalement… »). Leur reprocher l'absence d'attribution n'avait pas de sens : c'est la balise de citation qui était fausse, et elle donnait à notre propre prose l'apparence d'un texte cité. Cinq, dans « Vols avion », portaient bien leur source, mais dans un paragraphe final commençant par un tiret cadratin au lieu d'un pied de citation. Le dernier était une règle de méthode, pas une citation.",
+      "correction": "Les douze faux blocs de citation deviennent des encadrés de mise en relief. Les cinq attributions passent en <footer> — re-balisage pur, le texte ne bouge pas. Zéro citation sans attribution dans le corpus.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "technique",
+      "ou": "Près de cent savants de l'Islam — une citation avalait un encadré-clé",
+      "erreur": "La balise <blockquote class=\"tei-citation\"> ouvrait avant l'encadré « CE QUE LE TEXTE ÉTABLIT » et se refermait après la citation d'al-Jalālayn qui le suivait. L'encadré se rendait donc à l'intérieur du bloc de citation, et la citation elle-même n'était dans aucun paragraphe. Même défaut de structure que ceux réparés dans la Bibliothèque au chantier précédent, resté celui-ci. Le bloc de renvoi au PDF portait par ailleurs des gestionnaires d'événements en attribut et un émoji nu.",
+      "correction": "La citation s'ouvre maintenant après l'encadré, son texte est dans un <p>, et les translittérations sont mises en italique. Le bloc PDF devient un encadré sans gestionnaire inline.",
+      "commit": "à venir",
+      "gravite": "moyenne"
     }
   ]
 }

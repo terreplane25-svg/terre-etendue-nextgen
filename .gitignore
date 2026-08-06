@@ -43,3 +43,7 @@ yarn-error.log*
 _docs/
 *.pdf
 !public/*.pdf
+
+# Python
+__pycache__/
+*.pyc
