@@ -503,6 +503,24 @@
       "correction": "Lede corrigé : sept axes. La synthèse finale, elle, énumère bien cinq anomalies convergentes — c'est une réduction volontaire des sept axes à leurs cinq conclusions, et elle reste juste ; elle n'a pas été touchée.",
       "commit": "à venir",
       "gravite": "moyenne"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "fait",
+      "ou": "Cartes, routes, boussoles — les cartographes al-Bīrūnī, al-Idrīsī et Ibn Ḥawqal",
+      "erreur": "La section 01 nommait ces trois cartographes, puis relevait comme « caractéristique frappante » l'orientation Sud en haut de leurs cartes — dans une section qui affirme par ailleurs que les cartes révèlent la vision du monde de ceux qui les ont conçues. Le texte ne disait pas littéralement qu'ils tenaient la Terre pour plate, mais placé là il le laissait entendre. Or al-Bīrūnī a MESURÉ le rayon terrestre par la dépression de l'horizon, méthode qui n'a aucun sens sans courbure puisque l'angle est nul par construction sur une surface étendue, et son Taḥdīd nihāyāt al-amākin est bâti sur de la trigonométrie sphérique ; il est l'une des autorités que le camp sphériciste cite en premier. Al-Idrīsī décrit la Terre comme ronde dans la Nuzhat al-mushtāq et organise son ouvrage selon les sept climats ptoléméens. C'était exactement le procédé que nous reprochons aux concordistes : enrôler une autorité pour une position qu'elle ne tenait pas.",
+      "correction": "Section réécrite. Elle dit désormais explicitement qu'al-Bīrūnī et al-Idrīsī tenaient la Terre pour sphérique, décrit la mesure de Nandana, et ne tranche pas le cas d'Ibn Ḥawqal — école de Balkhī, cartes schématiques sans projection, position théorique mal documentée. Surtout, elle établit que l'orientation Sud en haut est une convention de qibla, doublée d'un précédent iranien, et qu'elle ne porte aucune information sur la forme du monde : la carte Sud en haut la plus célèbre est celle d'un auteur qui écrit que la Terre est ronde. Le Nord en haut est une convention européenne, le Sud en haut une autre, aucune ne décrit une géométrie. La phrase « retournée à 180°, elle ressemble aux cartes modernes » est explicitée comme un compliment fait au cartographe et non un argument sur la forme — coïncider avec une carte moderne, c'est coïncider avec une projection. Aucun encadré-clé n'a été ajouté : l'article est de catégorie observatory, dont le label imposé est « CE QUE MONTRENT LES DONNÉES », et le point établi ici est historique et philologique, pas métrologique.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "fait",
+      "ou": "Cartes, routes, boussoles — la mesure d'al-Bīrūnī comme seule expérience ancienne discriminante",
+      "erreur": "Le site examine les démonstrations classiques de la sphéricité et montre que la plupart ne discriminent pas : l'ombre d'Ératosthène, la disparition des navires, la montée de l'Étoile polaire et la circumnavigation sont compatibles avec deux géométries. Mais nous n'avions nulle part signalé l'exception, ce qui rendait notre examen incomplet à charge.",
+      "correction": "La section dit maintenant que la dépression de l'horizon est la seule expérience ancienne géométriquement discriminante — un angle nul par construction sur une surface étendue —, et que sa faiblesse est ailleurs et sévère : quelques minutes d'arc, mordues de plein fouet par la réfraction. Al-Bīrūnī posait la bonne question avec un rapport signal sur systématique défavorable, ce que notre protocole des trois mires corrige en lisant un exposant plutôt qu'une amplitude. Deux entrées de source ajoutées pour al-Bīrūnī, marquées à localiser : nous n'avons pas pu vérifier lequel de ses deux traités géodésiques porte la mesure de Nandana, ni sa pagination.",
+      "commit": "à venir",
+      "gravite": "moyenne"
     }
   ]
 }
