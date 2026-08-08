@@ -521,6 +521,33 @@
       "correction": "La section dit maintenant que la dépression de l'horizon est la seule expérience ancienne géométriquement discriminante — un angle nul par construction sur une surface étendue —, et que sa faiblesse est ailleurs et sévère : quelques minutes d'arc, mordues de plein fouet par la réfraction. Al-Bīrūnī posait la bonne question avec un rapport signal sur systématique défavorable, ce que notre protocole des trois mires corrige en lisant un exposant plutôt qu'une amplitude. Deux entrées de source ajoutées pour al-Bīrūnī, marquées à localiser : nous n'avons pas pu vérifier lequel de ses deux traités géodésiques porte la mesure de Nandana, ni sa pagination.",
       "commit": "à venir",
       "gravite": "moyenne"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "methode",
+      "ou": "Observatoire — nouvel article « Le nivellement avec fermeture »",
+      "erreur": "Le site examine les démonstrations classiques de la sphéricité et montre que la plupart ne discriminent pas. Il ne traitait nulle part la seule qui résiste : la condition de fermeture d'un réseau de nivellement. Un examen qui écarte les arguments faibles et passe le fort sous silence n'est pas un examen, c'est une sélection — exactement le reproche que nous adressons au discours du miracle scientifique.",
+      "correction": "Article de 2 707 mots, onze sections, qui expose l'argument dans sa forme la plus forte avec les ordres de grandeur. Le noyau : la somme des dénivelées lues autour d'une boucle fermée doit être nulle, elle ne l'est pas, et le résidu dépend du trajet de façon reproductible. Le modèle plan à pesanteur uniforme n'a aucun terme pour cela. L'article sépare ce qui n'est pas circulaire — l'observation, faite au niveau et aux mires, sans rayon supposé — de ce qui l'est : la valeur prédite, qui passe par la pesanteur normale définie sur un ellipsoïde. Il énonce l'échappatoire disponible et son prix : un champ de pesanteur non uniforme devrait reproduire à la fois le terme de fermeture, la variation mesurée au gravimètre, et la relation de Clairaut qui la lie à un aplatissement mesuré par des arcs de méridien — trois contraintes pour un degré de liberté. Les 25 valeurs numériques sont recalculées à chaque génération et comparées à celles écrites dans le texte.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "fait",
+      "ou": "Un argument de notre propre camp qui ne vaut rien : « les géomètres appliquent une correction de courbure »",
+      "erreur": "On lit régulièrement, dans la littérature qui nous est proche, que les géomètres seraient bien obligés d'appliquer une correction de courbure, ce qui la prouverait. C'est faux. En nivellement géométrique de précision, l'opérateur place son instrument à égale distance des deux mires : l'écart entre ligne de visée et surface de niveau est alors identique à l'arrière et à l'avant, et il disparaît dans la différence. Le nivellement n'applique pas de correction de courbure, il l'annule par construction. Et l'effet est de toute façon minuscule — 0,0615 mm sur une visée de 30 m, 0,0081 mm de résidu si l'équilibrage est décalé d'un mètre.",
+      "correction": "Le nouvel article le dit explicitement, chiffres à l'appui, et oriente vers le seul endroit où l'effet ne s'annule pas. Le rapport de forces est établi : le terme orthométrique qui ne s'annule pas vaut 80,8 mm sur une boucle française à 100 m d'altitude, soit 1 314 fois la courbure d'une visée de 30 m. Ce n'est pas le petit terme qui compte.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "methode",
+      "ou": "L'eau ne ment pas — l'argument des canaux sans écluses",
+      "erreur": "L'article comptait comme pièce à charge le fait que des canaux sans écluses, des aqueducs et des pipelines n'intègrent aucune correction de courbure, et son encadré-clé en tirait que la surface de l'eau y est traitée comme un plan. Le raisonnement ne dit pas ce que nous croyions : la surface d'un canal EST une surface de niveau, l'eau s'y range d'elle-même, et l'ingénieur n'a rien à ajouter — non parce que la surface serait plane, mais parce que l'eau trouve le niveau sans lui. Les deux modèles prédisent le même résultat. De plus, les repères qui servent à implanter l'ouvrage viennent d'un réseau de nivellement, lequel porte une correction orthométrique.",
+      "correction": "Une réserve est posée dans le corps de l'article, qui dit que l'argument ne discrimine pas et ne doit plus être compté comme une pièce à charge, avec renvoi au nouvel article. L'encadré-clé est reformulé : il énonce désormais un fait sur le comportement de l'eau — elle se range sur une surface de niveau — et non sur la forme de cette surface. Le passage n'est pas supprimé, conformément à notre règle sur les corrections.",
+      "commit": "à venir",
+      "gravite": "haute"
     }
   ]
 }

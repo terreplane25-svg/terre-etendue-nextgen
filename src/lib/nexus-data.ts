@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-// NEXUS DATA — 59 articles
+// NEXUS DATA — 60 articles
 // Terre Étendue Islam — Graphe de connaissances
 // ═══════════════════════════════════════════════════════
 
@@ -43,6 +43,21 @@ export const DOMAIN_LABELS: Record<string, string> = {
 };
 
 export const NEXUS_NODES: NexusNodeData[] = [
+  {
+    "id": "le-nivellement-avec-fermeture",
+    "title": "Le nivellement avec fermeture : l'argument adverse le plus solide",
+    "category": "observatory",
+    "pillar": "OBS",
+    "pillarNum": "02",
+    "color": "#3B8FD4",
+    "primaryDomain": "geometrie",
+    "topDomains": ["geometrie", "epistemologie", "hydrologie"],
+    "quranRefs": 0,
+    "wordCount": 2707,
+    "x": -142.8,
+    "y": -206.5,
+    "size": 9
+  },
   {
     "id": "ou-est-allah-le-uluww-et-la-forme-du-monde",
     "title": "Où est Allah ? Le ʿuluww et la forme du monde",
@@ -949,6 +964,55 @@ export const NEXUS_NODES: NexusNodeData[] = [
 ];
 
 export const NEXUS_LINKS: NexusLinkData[] = [
+  {
+    "source": "le-nivellement-avec-fermeture",
+    "target": "par-rapport-a-quoi-mesure-t-on-une-altitude",
+    "score": 452.0,
+    "strength": "strong",
+    "sharedDomains": ["geometrie", "hydrologie"]
+  },
+  {
+    "source": "le-nivellement-avec-fermeture",
+    "target": "leau-ne-ment-pas",
+    "score": 418.0,
+    "strength": "strong",
+    "sharedDomains": ["geometrie", "hydrologie"]
+  },
+  {
+    "source": "le-nivellement-avec-fermeture",
+    "target": "monter-l-experience-des-trois-mires",
+    "score": 396.0,
+    "strength": "strong",
+    "sharedDomains": ["geometrie"]
+  },
+  {
+    "source": "le-nivellement-avec-fermeture",
+    "target": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
+    "score": 374.0,
+    "strength": "strong",
+    "sharedDomains": ["geometrie", "hydrologie"]
+  },
+  {
+    "source": "le-nivellement-avec-fermeture",
+    "target": "lhypothese-nulle-dynamique-et-cinematique",
+    "score": 312.0,
+    "strength": "strong",
+    "sharedDomains": ["epistemologie"]
+  },
+  {
+    "source": "le-nivellement-avec-fermeture",
+    "target": "pourquoi-tout-remettre-en-question",
+    "score": 288.0,
+    "strength": "medium",
+    "sharedDomains": ["epistemologie"]
+  },
+  {
+    "source": "le-nivellement-avec-fermeture",
+    "target": "la-gravite-70-theories-et-aucune-preuve",
+    "score": 276.0,
+    "strength": "medium",
+    "sharedDomains": ["gravite", "epistemologie"]
+  },
   {
     "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
     "target": "la-terre-dans-le-coran",
