@@ -15,6 +15,26 @@ Généré par `scripts/generer-inventaire-faits.py`. **Relancer le script écras
 
 ---
 
+## Examen en cours — 5 verdicts posés
+
+Les cinq encadrés à contenu empirique les plus exposés ont été repris au calcul
+par `scripts/verifier-encadres-empiriques.py`, qui reproduit chaque chiffre et
+distingue trois cas : **FAUX** (réfuté par le calcul seul), **INDÉCIDABLE**
+(un paramètre décisif manque), **MAL POSÉ** (attaque une prédiction que le
+modèle visé ne fait pas). Trois `RETIRER`, deux `RESSERRER`.
+
+Le constat qui les relie : **le site possède la bonne formule et emploie la
+mauvaise.** La hauteur masquée entre deux points élevés vaut
+(d − √2Rh₁ − √2Rh₂)²/2R — elle est écrite correctement dans le protocole des
+trois mires et dans « Par rapport à quoi mesure-t-on une altitude ? ». Les
+encadrés qui annoncent des anomalies emploient d²/2R, valable seulement pour un
+observateur au ras du sol visant un point au ras du sol.
+
+Aucune de ces cinq vérifications ne conclut « donc la Terre est ronde ». Chacune
+dit seulement ce que l'énoncé permet, ou ne permet pas, d'affirmer.
+
+---
+
 ## Centre de Recherche — 122 faits, 18 articles
 
 Label imposé par la charte : **FAIT ÉTABLI N°X**
@@ -290,7 +310,7 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 |---|---|---|
 | 1 | Les mesures du Lancet (1856) documentent un refroidissement de plus de 8 degrés sous la lumière lunaire concentrée. Les éclipses selenelion montrent Soleil et Lune simultanément au-dessus de l'horizon — une géométrie incompatible avec un alignement à 180° et une réfraction standard de 0,5°. |  |
 | 2 | Les données montrent que la taille angulaire du Soleil reste stable à ≈ 32 minutes d'arc tout au long de la journée, ce qui est cohérent avec un Soleil très lointain. En revanche, des caméras longue portée permettent de « rappeler » un Soleil déjà couché — observation incompatible avec une disparition derrière une courbure. |  |
-| 3 | Les données de visibilité stellaire montrent que plusieurs constellations nordiques sont observables sur des plages de 120° à 155° de latitude — dépassant la limite théorique de ≈ 90° imposée par la courbure d'un globe. La Grande Ourse, visible jusqu'à 30° S, couvre 120° de latitude totale. |  |
+| 3 | Les données de visibilité stellaire montrent que plusieurs constellations nordiques sont observables sur des plages de 120° à 155° de latitude — dépassant la limite théorique de ≈ 90° imposée par la courbure d'un globe. La Grande Ourse, visible jusqu'à 30° S, couvre 120° de latitude totale. | **RETIRER** — vérifié `verifier-encadres-empiriques.py` n°1. La « limite théorique de ≈90° » n'existe pas : le globe prédit 130,7° pour Alkaid et 180° pour une constellation équatoriale. L'observation citée est *à l'intérieur* de la prédiction du modèle présenté comme réfuté. |
 | 4 | Les mesures de Nansen (1894) documentent une réfraction astronomique de 4°44′ — des dizaines de fois la valeur standard. Si de telles réfractions existent, elles invalident simultanément toute observation d'horizon utilisée comme preuve de courbure terrestre. |  |
 
 ### La Lune : six anomalies que le modèle standard ne résout pas
@@ -330,8 +350,8 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 | # | Énoncé | Verdict |
 |---|---|---|
 | 1 | Dans des centaines de tests documentés au Nikon P900/P1000, les navires « disparus sous l'horizon » réapparaissent intégralement au zoom — coque, ligne de flottaison et pont inclus. Ce résultat est incompatible avec une obstruction physique par courbure. |  |
-| 2 | Le phare de Port-Saïd (18 m) est visible à 93 km, où la courbure théorique cache 684 mètres — 37 fois sa hauteur. Même avec une réfraction maximale de 25 %, l'écart reste de 28 fois la hauteur du phare. |  |
-| 3 | Le record mondial certifié Guinness (493 km, décembre 2024) implique 19 100 mètres de courbure théorique. Après déduction des altitudes combinées, environ 11 km de « bosse » terrestre restent inexpliqués par le modèle sphérique. |  |
+| 2 | Le phare de Port-Saïd (18 m) est visible à 93 km, où la courbure théorique cache 684 mètres — 37 fois sa hauteur. Même avec une réfraction maximale de 25 %, l'écart reste de 28 fois la hauteur du phare. | **RESSERRER** — vérifié n°3. Indécidable en l'état : il faut un œil à ~400 m (k=0,13) pour que la visée passe, et l'encadré ne donne pas la hauteur de l'observateur — alors que `par-rapport-a-quoi` n°4 écrit que c'est « le paramètre décisif ». |
+| 3 | Le record mondial certifié Guinness (493 km, décembre 2024) implique 19 100 mètres de courbure théorique. Après déduction des altitudes combinées, environ 11 km de « bosse » terrestre restent inexpliqués par le modèle sphérique. | **RESSERRER** — vérifié n°2. Les 19 100 m sont justes, mais « déduire les altitudes » n'est pas l'opération géométrique : la hauteur masquée vaut (d − √2Rh₁ − √2Rh₂)²/2R. Les « 11 km inexpliqués » n'ont pas de sens. Le cas lui-même reste **indécidable** sans les deux altitudes réelles. |
 | 4 | Six prédictions testables confrontées aux observations de terrain : l'horizon reste au niveau des yeux, les objets zoomés réapparaissent, la courbure filmée disparaît avec un objectif standard. Aucun résultat ne confirme le modèle sphérique sans recours à une explication ad hoc. |  |
 
 ### Le pôle Sud n'existe pas
@@ -350,7 +370,7 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 
 | # | Énoncé | Verdict |
 |---|---|---|
-| 1 | Sur 12 sommets montagneux (8,8 à 130,7 km), l'angle calculé par trigonométrie plane correspond exactement à la position vraie de l'étoile. À 130,7 km, la courbure théorique cacherait 1 340 m — pourtant aucune correction n'est nécessaire. |  |
+| 1 | Sur 12 sommets montagneux (8,8 à 130,7 km), l'angle calculé par trigonométrie plane correspond exactement à la position vraie de l'étoile. À 130,7 km, la courbure théorique cacherait 1 340 m — pourtant aucune correction n'est nécessaire. | **RETIRER** — vérifié n°5. Mal posé : les 1 340 m concernent une cible au sol, pas une étoile à distance quasi infinie. La grandeur pertinente est la convergence des verticales (70′ à 130,7 km), que l'encadré ne mentionne pas. |
 | 2 | 11 320 points de données issus de deux éclipses indépendantes produisent une hauteur du Soleil cohérente à 0,1% par trigonométrie plane, sans aucune correction de courbure. |  |
 | 3 | Le modèle globe appliqué aux mêmes données produit une distance lunaire de 274 500 km (hors fourchette 356 900–399 100 km) et un triangle solaire mathématiquement impossible (somme des angles > 180°). |  |
 
@@ -380,7 +400,7 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 
 | # | Énoncé | Verdict |
 |---|---|---|
-| 1 | L'horizon reste parfaitement aligné avec une planche de niveau sur un demi-cercle complet de 16 à 32 km de portée visuelle. Sur un globe de 40 225 km, l'horizon devrait s'abaisser de 20 m à 16 km — il ne le fait jamais. |  |
+| 1 | L'horizon reste parfaitement aligné avec une planche de niveau sur un demi-cercle complet de 16 à 32 km de portée visuelle. Sur un globe de 40 225 km, l'horizon devrait s'abaisser de 20 m à 16 km — il ne le fait jamais. | **RETIRER** — vérifié n°4. Mal posé : les 20 m sont la chute de la *surface*, pas la descente apparente de l'horizon, qui est un **angle** de 2,5′ à hauteur d'homme. Le globe prédit un horizon au niveau des yeux : l'encadré présente sa prédiction comme sa réfutation. |
 | 2 | Un bateau « disparu » derrière l'horizon réapparaît intégralement au zoom optique, coque comprise. Si la courbure terrestre le cachait physiquement, aucun grossissement ne pourrait le ramener — la disparition est optique, pas géométrique. |  |
 | 3 | Deux caméras filmant le même saut de Baumgartner à 39 040 m produisent deux résultats opposés : courbure visible au fisheye 170°, horizon plat à l'objectif standard. La courbure provient de l'objectif, pas de la surface filmée. |  |
 | 4 | La réfraction atmosphérique maximale documentée (+25 %) ne comble pas les écarts de courbure observés : de 130 m manquants pour Chicago à 3 500 m pour Notre-Dame d'Anvers. L'explication par la réfraction est quantitativement insuffisante. |  |

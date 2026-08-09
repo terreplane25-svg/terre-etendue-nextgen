@@ -123,12 +123,20 @@ def ecrire(par_pilier):
 
 def main():
     forcer = "--forcer" in sys.argv
+    # Ce fichier est annoté à la main. La première version de ce garde-fou
+    # cherchait un verdict SEUL entre deux barres — elle a laissé passer les
+    # verdicts commentés « **RETIRER** — vérifié… » et écrasé cinq annotations.
+    # On ne présume donc plus de la forme : dès que le fichier existe, on refuse.
     if os.path.exists(SORTIE) and not forcer:
         deja = open(SORTIE, encoding="utf-8").read()
-        if re.search(r"\|\s*(GARDER|RESSERRER|DÉCLASSER|RETIRER)\s*\|", deja):
-            print("  ✗ %s porte des verdicts saisis. Relancer avec --forcer les "
-                  "écraserait." % os.path.relpath(SORTIE, RACINE))
-            return 1
+        lignes = [l for l in deja.split("\n")
+                  if re.match(r"\|\s*\d+\s*\|", l)
+                  and re.search(r"GARDER|RESSERRER|DÉCLASSER|RETIRER", l)]
+        print("  ✗ %s existe déjà%s." % (os.path.relpath(SORTIE, RACINE),
+              " et porte %d verdict(s)" % len(lignes) if lignes else ""))
+        print("    Le régénérer écraserait toute annotation manuelle. "
+              "Utiliser --forcer si c'est voulu.")
+        return 1
 
     par_pilier = relever()
     contenu = ecrire(par_pilier)

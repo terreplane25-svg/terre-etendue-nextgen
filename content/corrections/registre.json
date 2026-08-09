@@ -566,6 +566,33 @@
       "correction": "content/corrections/faits-etablis.md relève les 240 énoncés, groupés par pilier et par article, avec une colonne de verdict à remplir à la main — GARDER, RESSERRER, DÉCLASSER, RETIRER. Le générateur refuse d'écraser des verdicts déjà saisis. Une tentative de classement automatique par nature de revendication a échoué — 116 énoncés sur 240 non classés — et n'a pas été retenue : le tri se fera à la lecture.",
       "commit": "à venir",
       "gravite": "moyenne"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "fait",
+      "ou": "Cinq encadrés-clés à contenu empirique — vérification au calcul",
+      "erreur": "Sur les 240 faits établis du site, une quinzaine seulement sont des mesures du monde physique susceptibles de contraindre la forme de la Terre. Cinq d'entre eux, repris au calcul, ne tiennent pas. Un est faux : l'encadré sur les constellations invoque une « limite théorique de ≈90° » qui n'existe pas — une étoile de déclinaison δ est visible depuis toute latitude φ telle que |φ − δ| < 90°, ce qui donne 130,7° d'amplitude prédite pour Alkaid et 180° pour une constellation équatoriale ; les 120° observés sont donc À L'INTÉRIEUR de la prédiction du modèle présenté comme réfuté. Deux sont mal posés : l'encadré qui affirme que « l'horizon devrait s'abaisser de 20 m à 16 km » compare une chute de surface en mètres à une observation angulaire — le globe prédit une dépression de 2,5 minutes d'arc à hauteur d'homme, soit un horizon au niveau des yeux, exactement ce que l'encadré présente comme sa réfutation ; et l'encadré du théodolite applique à une visée stellaire les 1 340 m de masquage valables pour une cible au sol. Deux sont indécidables : le record de 493 km et le phare de Port-Saïd.",
+      "correction": "scripts/verifier-encadres-empiriques.py reprend les cinq au calcul, reproduit chaque chiffre et distingue trois verdicts — FAUX, INDÉCIDABLE, MAL POSÉ. Les verdicts sont consignés dans content/corrections/faits-etablis.md : trois RETIRER, deux RESSERRER. Le constat qui relie les cinq est que le site possède la bonne formule et emploie la mauvaise : la hauteur masquée entre deux points élevés vaut (d − √2Rh₁ − √2Rh₂)²/2R, écrite correctement dans le protocole des trois mires et dans « Par rapport à quoi mesure-t-on une altitude ? », alors que les encadrés annonçant des anomalies utilisent d²/2R, valable seulement pour un observateur au ras du sol visant un point au ras du sol. Aucune des cinq vérifications ne conclut « donc la Terre est ronde » : chacune dit seulement ce que l'énoncé permet, ou ne permet pas, d'affirmer.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "fait",
+      "ou": "Notre propre affirmation sur le record de 493 km était trop forte",
+      "erreur": "En présentant l'examen des faits établis, nous avons écrit que la hauteur masquée sur 493 km valait « 755 m ou 93 m, pas 11 km », comme si ces valeurs réglaient le cas. Elles reposent sur des altitudes SUPPOSÉES, que nous n'avons pas. Elles établissent que l'opération de l'encadré est fausse ; elles ne tranchent pas le cas particulier.",
+      "correction": "La rectification est écrite dans le script de vérification lui-même, en clair. Ce qui est certain : l'opération est fausse et les « 11 km inexpliqués » n'ont pas de sens géométrique. Ce qui ne l'est pas : que le record soit anormal — cela dépend des deux altitudes réelles et de la réfraction du jour. Le calcul montre que la visée n'est géométriquement possible que si les deux sommets atteignent environ 4 150 m chacun sous réfraction moyenne, ou 4 770 m sans réfraction. Le verdict porté dans l'inventaire est donc RESSERRER, avec la mention explicite que le cas reste indécidable.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "technique",
+      "ou": "scripts/generer-inventaire-faits.py — le garde-fou a écrasé cinq annotations",
+      "erreur": "Le script devait refuser d'écraser le fichier d'inventaire s'il portait des verdicts saisis à la main. Son test cherchait un verdict SEUL entre deux barres de tableau. Les verdicts posés étaient de la forme « **RETIRER** — vérifié… », donc suivis d'un commentaire : le motif n'a pas matché, le garde-fou n'a rien vu, et les cinq annotations ont été écrasées à la régénération suivante.",
+      "correction": "Le garde-fou ne présume plus de la forme du verdict : dès que le fichier existe, le script refuse d'écrire et le dit, en indiquant combien de verdicts il a repérés. Il faut --forcer pour passer outre. Les cinq verdicts ont été reposés et le refus est vérifié.",
+      "commit": "à venir",
+      "gravite": "moyenne"
     }
   ]
 }
