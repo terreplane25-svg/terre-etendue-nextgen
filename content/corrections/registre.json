@@ -548,6 +548,24 @@
       "correction": "Une réserve est posée dans le corps de l'article, qui dit que l'argument ne discrimine pas et ne doit plus être compté comme une pièce à charge, avec renvoi au nouvel article. L'encadré-clé est reformulé : il énonce désormais un fait sur le comportement de l'eau — elle se range sur une surface de niveau — et non sur la forme de cette surface. Le passage n'est pas supprimé, conformément à notre règle sur les corrections.",
       "commit": "à venir",
       "gravite": "haute"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "methode",
+      "ou": "Retrait de l'article « Le nivellement avec fermeture » et de la réserve qu'il avait posée",
+      "erreur": "L'article publié le 6 août 2026 est retiré sur décision éditoriale, le jour même de sa publication. Il exposait la condition de fermeture des réseaux de nivellement comme l'argument adverse le plus solide. La réserve qu'il avait fait poser dans « L'eau ne ment pas » sur l'argument des canaux sans écluses est retirée avec lui, et l'encadré-clé de cet article est rétabli dans sa formulation antérieure.",
+      "correction": "Article, couverture, nœud du graphe, sept liens et script générateur supprimés. Le graphe repasse à 59 nœuds pour 59 articles, aucun orphelin, aucun isolé. Les entrées de registre qui documentaient ce travail restent en place, conformément à la règle selon laquelle une entrée n'est jamais retirée : elles portent désormais un état — le travail a existé, il a été publié, il a été retiré. Le motif du retrait relève d'une révision en cours de la ligne éditoriale sur la sous-détermination, en discussion à cette date.",
+      "commit": "à venir",
+      "gravite": "haute"
+    },
+    {
+      "date": "2026-08-06",
+      "categorie": "methode",
+      "ou": "Inventaire des 240 faits établis — ouverture d'un examen",
+      "erreur": "Le site porte 240 encadrés-clés répartis sur 54 articles, dont 122 au seul Centre de Recherche. Ce sont, par construction, les affirmations qu'il présente comme acquises, et elles l'engagent donc plus que le reste du texte. Aucun inventaire n'en avait jamais été dressé : personne, y compris nous, ne pouvait dire ce que le site affirme au total.",
+      "correction": "content/corrections/faits-etablis.md relève les 240 énoncés, groupés par pilier et par article, avec une colonne de verdict à remplir à la main — GARDER, RESSERRER, DÉCLASSER, RETIRER. Le générateur refuse d'écraser des verdicts déjà saisis. Une tentative de classement automatique par nature de revendication a échoué — 116 énoncés sur 240 non classés — et n'a pas été retenue : le tri se fera à la lecture.",
+      "commit": "à venir",
+      "gravite": "moyenne"
     }
   ]
 }

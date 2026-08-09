@@ -81,9 +81,6 @@ const IMG: Record<string, string> = {
   // En attendant, réemploi de l'horizon marin déjà hébergé.
   "mesurer-la-courbure-sur-l-eau-cinq-campagnes": `${HOSTINGER}/2026/06/mer_horizon.png`,
   "la-perspective-pourquoi-les-objets-disparaissent": `${HOSTINGER}/2026/07/perspective.png`,
-  // TODO couverture dédiée 1200×630 : une mire de nivellement et son niveau,
-  // ou un repère NGF scellé dans un mur.
-  "le-nivellement-avec-fermeture": `${HOSTINGER}/2026/08/teodolite2-e1785710240343.png`,
 
   // ── Meta ──
   "standards-et-methode": `${UNSPLASH}/photo-1457364887197-9150188c107b?w=600&h=400&fit=crop`,
