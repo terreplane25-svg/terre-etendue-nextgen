@@ -59,8 +59,18 @@ const PRESETS = [
     desc:'Chicago skyline (527 m) vu depuis l\'autre rive du lac Michigan.' },
   { label:'Notre-Dame d\'Anvers (241 km)', d:241, oh:2, th:123, k:0.38,
     desc:'Navire en mer du Nord → flèche 123 m. Réfraction forte k≈0.38.' },
-  { label:'Shkhara → Elbrouz (493 km)', d:493, oh:3107, th:5642, k:0.18,
-    desc:'Mont Karagöl 3 107 m → Mont Elbrouz 5 642 m. Photo R. Ježík.' },
+  // Le libellé annonçait « Shkhara → Elbrouz » alors que la description visait
+  // le seul Elbrouz : deux sommets distincts, deux réponses différentes. La
+  // panoramique du 15 décembre 2024 montre cinq cimes du Caucase depuis le même
+  // point ; on les liste séparément, avec le k mesuré ce jour-là (0,14).
+  { label:'Karagöl → Shkhara (493 km)', d:493, oh:3100, th:5193, k:0.145,
+    desc:'Mont Karagöl 3 100 m → Shkhara 5 193 m. C\'est ce sommet qui impose le k le plus élevé : 0,1445.' },
+  { label:'Karagöl → Janga (489 km)', d:489, oh:3100, th:5085, k:0.145,
+    desc:'Dzhangi-Tau 5 085 m, sur la même photo. Exige k ≥ 0,1407.' },
+  { label:'Karagöl → Ushba (470 km)', d:470, oh:3100, th:4710, k:0.145,
+    desc:'Ushba 4 710 m. Plus proche et plus bas : exige seulement k ≥ 0,1087.' },
+  { label:'Karagöl → Mount Laila (450 km)', d:450, oh:3100, th:4008, k:0.145,
+    desc:'Mount Laila 4 008 m, la cime la plus facile des cinq. Exige k ≥ 0,1091.' },
   { label:'Île Maurice — navire (321 km)', d:321, oh:0, th:30, k:0.45,
     desc:'Obs. niveau de la mer → navire ~30 m. Fata Morgana. Super-réfraction.' },
 ];

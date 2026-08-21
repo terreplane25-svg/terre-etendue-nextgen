@@ -39,25 +39,71 @@ RE = R / (1 - K)       # rayon effectif sous réfraction moyenne
 
 
 def portee(h, Rx=R):
-    """Distance de l'horizon géométrique pour un œil à la hauteur h."""
-    return math.sqrt(2 * Rx * h)
+    """Longueur de la tangente menée depuis un œil à la hauteur h.
 
-
-def cachee(d, h1, h2, Rx=R):
-    """Hauteur masquée par la courbure entre deux points élevés.
-
-    C'est la SEULE formule correcte pour deux observateurs élevés :
-    on retire d'abord les deux portées d'horizon, et seul le reliquat compte.
-    La formule naïve d²/(2R) ne vaut que pour un observateur au ras du sol
-    visant un point au ras du sol.
+    √((Rx+h)² − Rx²) plutôt que √(2·Rx·h) : la forme exacte, dont la seconde
+    n'est que le développement au premier ordre. L'écart est négligeable aux
+    hauteurs usuelles, mais il n'y a aucune raison d'approximer ici.
     """
-    reliquat = d - portee(h1, Rx) - portee(h2, Rx)
-    return (reliquat ** 2) / (2 * Rx) if reliquat > 0 else 0.0
+    return math.sqrt((Rx + h) ** 2 - Rx * Rx)
+
+
+def cachee(d, h1, Rx=R):
+    """Hauteur masquée par la courbure, vue depuis un œil à la hauteur h1.
+
+    Rend la hauteur au-dessous de laquelle un objet situé à la distance d est
+    invisible. Un sommet de hauteur h2 est donc visible si, et seulement si,
+    h2 > cachee(d, h1).
+
+    C'est du Pythagore exact : le triangle rectangle a pour côtés Rx (du centre
+    au point de tangence) et d − a (la tangente jusqu'à la verticale de la
+    cible), et l'on retranche Rx de l'hypoténuse.
+
+    ── Erreur corrigée le 2026-08-21 ────────────────────────────────────────
+    La version précédente calculait (d − a₁ − a₂)²/(2Rx), soit le carré du
+    reliquat après retrait des DEUX portées d'horizon. Cette expression donne
+    le bon SEUIL de visibilité — la condition a₁ + a₂ ≥ d est exacte — mais sa
+    valeur numérique n'est pas une hauteur, et elle était lue comme telle.
+    Le contrôle qui l'a démasquée : observateur au ras du sol, cible à 10 km.
+    La réponse exacte est 7,85 m ; l'ancienne formule, alimentée avec 7,85 m,
+    rendait 0,00 m. Sur la ligne Karagöl → Shkhara, elle annonçait 107 m
+    masqués là où la valeur vraie est 6 783 m, c'est-à-dire la montagne
+    entière. Deux verdicts en dépendaient et ont été rejoués.
+    ─────────────────────────────────────────────────────────────────────────
+    """
+    a = portee(h1, Rx)
+    if d <= a:
+        return 0.0
+    return math.sqrt(Rx * Rx + (d - a) ** 2) - Rx
+
+
+def visible(d, h1, h2, Rx=R):
+    """Hauteur de cible émergeant au-dessus de la ligne de visée, ou 0."""
+    return max(0.0, h2 - cachee(d, h1, Rx))
+
+
+def k_critique(d, h1, h2):
+    """Coefficient de réfraction à partir duquel la cible cesse d'être masquée.
+
+    Tiré de la condition de tangence a₁ + a₂ = d au premier ordre.
+    """
+    return 1 - 2 * R * ((math.sqrt(h1) + math.sqrt(h2)) ** 2) / (d * d)
 
 
 def naive(d, Rx=R):
     """La formule que les encadrés fautifs emploient : chute sous la tangente."""
     return d * d / (2 * Rx)
+
+
+def naive_moins_oeil(d, h1, Rx=R):
+    """La règle de pouce « 8 pouces par mille au carré, moins la hauteur d'œil ».
+
+    Fausse dès que d dépasse la portée d'horizon, et toujours par excès. Son
+    écart à la valeur exacte vaut a·(d − a)/Rx, soit l'angle de dépression de
+    l'horizon multiplié par la distance au-delà de l'horizon. Conservée ici
+    pour pouvoir chiffrer, encadré par encadré, ce que l'erreur a fabriqué.
+    """
+    return d * d / (2 * Rx) - h1
 
 
 def depression_horizon(h, Rx=R):
@@ -124,41 +170,62 @@ L.append("   d²/(2R) à 493 km = %.0f m — l'encadré annonce 19 100 m, l'arit
          % naive(D))
 L.append("   de cette étape est donc juste.")
 L.append("")
-L.append("Mais l'opération suivante ne l'est pas. Entre deux points élevés, la")
-L.append("hauteur masquée vaut")
+L.append("Mais l'opération suivante ne l'est pas. « d²/(2R) moins les altitudes »")
+L.append("n'est pas une hauteur masquée : c'est la règle de pouce « 8 pouces par")
+L.append("mille au carré, moins la hauteur d'œil », qui est fausse dès que la cible")
+L.append("dépasse l'horizon, et toujours par excès. L'altitude ne retranche pas des")
+L.append("mètres à la chute : elle REPOUSSE l'horizon de √(2R·h₁), et seule la")
+L.append("distance au-delà compte ensuite. La formule exacte est du Pythagore :")
 L.append("")
-L.append("       (d − √(2R·h₁) − √(2R·h₂))² / (2R)")
+L.append("       cachée = √( R² + (d − √(2R·h₁))² ) − R")
 L.append("")
-L.append("et non « d²/(2R) moins les altitudes ». On retire d'abord les deux portées")
-L.append("d'horizon ; seul le reliquat est masqué. Soustraire des altitudes d'une")
-L.append("chute sous tangente mélange deux grandeurs qui ne s'additionnent pas.")
+L.append("L'écart entre les deux vaut exactement a·(d − a)/R, soit l'angle de")
+L.append("dépression de l'horizon multiplié par la distance au-delà de l'horizon.")
+L.append("Il est nul PILE à l'horizon — d'où la longévité de la règle de pouce —")
+L.append("et croît linéairement ensuite.")
 L.append("")
-L.append("Hauteur minimale pour que la visée soit géométriquement possible,")
-L.append("deux sommets de même altitude :")
-for Rx, lab in ((R, "sans réfraction"), (RE, "avec k = 0,13")):
-    L.append("   %-18s h₁ = h₂ = %.0f m" % (lab, (D / 2) ** 2 / (2 * Rx)))
+L.append("Le cas réel documenté est la ligne Karagöl (Giresun, Turquie) → Caucase,")
+L.append("photographiée le 15 décembre 2024. Observateur à 3 100 m, k mesuré 0,14")
+L.append("par extraction ERA5 le long de la visée. Cinq sommets y figurent :")
 L.append("")
-L.append("Ce que donne la formule correcte selon les altitudes réelles :")
-for h1, h2 in ((3400, 2900), (3800, 2400), (4200, 4000), (4800, 3500)):
-    L.append("   h₁=%4d m  h₂=%4d m → %6.0f m sans réfraction · %6.0f m avec k=0,13"
-             % (h1, h2, cachee(D, h1, h2), cachee(D, h1, h2, RE)))
+CAUCASE = (("Mount Laila", 450000.0, 4008.0),
+           ("Ushba", 470000.0, 4710.0),
+           ("Janga (Dzhangi-Tau)", 489000.0, 5085.0),
+           ("Shkhara", 493000.0, 5193.0))
+H_OBS = 3100.0
+R14 = R / (1 - 0.14)
+L.append("   %-22s %7s %7s %9s   %s" % ("sommet", "d (km)", "h (m)", "k requis", "à k = 0,14"))
+for nom_s, d_s, h_s in CAUCASE:
+    vis = visible(d_s, H_OBS, h_s, R14)
+    L.append("   %-22s %7.0f %7.0f %9.4f   %s"
+             % (nom_s, d_s / 1000, h_s, k_critique(d_s, H_OBS, h_s),
+                ("%.0f m émergés" % vis) if vis > 0 else "masqué"))
 L.append("")
-L.append("CE QUI EST CERTAIN : l'opération de l'encadré est fausse, et le chiffre")
-L.append("de « 11 km inexpliqués » n'a pas de sens géométrique.")
+L.append("Les cinq étant visibles simultanément, la photographie impose k ≥ 0,1445,")
+L.append("contrainte fixée par Shkhara. Le k mesuré vaut 0,140 : il manque 3 %, sur")
+L.append("un coefficient que personne ne connaît à mieux que 10 %.")
 L.append("")
-L.append("CE QUI RESTE À COMPLÉTER : les deux altitudes réelles et les conditions")
-L.append("de réfraction du jour. Ces données EXISTENT et sont documentées — nous")
-L.append("n'y avons simplement pas accès depuis cet environnement. Dès qu'elles")
-L.append("sont portées au dossier, le cas se tranche dans un sens ou dans l'autre.")
-L.append("Ce n'est donc pas une question indécidable, c'est un énoncé incomplet.")
+L.append("Ce que la règle de pouce fabriquait, sur cette même ligne :")
+L.append("   règle de pouce  : %6.0f m masqués" % naive_moins_oeil(493000.0, H_OBS))
+L.append("   Pythagore, k=0  : %6.0f m masqués" % cachee(493000.0, H_OBS))
+L.append("   écart a(d−a)/R  : %6.0f m inventés" % (portee(H_OBS)
+                                                    * (493000.0 - portee(H_OBS)) / R))
 L.append("")
-L.append("RECTIFICATION D'UNE ERREUR DE NOTRE PART : nous avons d'abord présenté")
-L.append("les valeurs 755 m et 93 m comme si elles réglaient le cas. Elles reposent")
-L.append("sur des altitudes SUPPOSÉES. Elles montrent que l'opération est fausse,")
-L.append("elles ne tranchent pas le cas particulier.")
+L.append("VERDICT : l'encadré ne tient pas. L'anomalie qu'il annonce est un artefact")
+L.append("de formule. Correctement calculée, l'observation est PRÉDITE par le modèle")
+L.append("sphérique à une réfraction ordinaire — elle ne le met pas en difficulté.")
+L.append("Elle ne prouve pas davantage le globe : sur une Terre étendue ces sommets")
+L.append("seraient visibles aussi. C'est une observation NON DISCRIMINANTE, dont la")
+L.append("valeur probante est nulle dans les deux sens.")
+L.append("")
+L.append("RECTIFICATION D'UNE ERREUR DE NOTRE PART : la première version de ce")
+L.append("contrôle employait (d − a₁ − a₂)²/(2R) et lisait son résultat comme une")
+L.append("hauteur. Elle annonçait 107 m masqués là où la valeur vraie est 6 783 m,")
+L.append("soit la montagne entière, et concluait à tort que l'observation passait")
+L.append("même sans réfraction. Le verdict a été rejoué avec la formule exacte.")
 check("Record de visibilité 493 km",
       "la-perspective-pourquoi-les-objets-disparaissent", 3,
-      "MAL POSÉ sur l'opération · À COMPLÉTER sur le cas", L)
+      "RETIRER (anomalie fabriquée par la formule ; observation non discriminante)", L)
 
 # ═══════════════════════════════════════════════════════════════════════════
 # 3. Le phare de Port-Saïd
@@ -459,11 +526,54 @@ check("Détours aériens et les 70 %",
       "À COMPLÉTER (contredit par le corps du même article)", L)
 
 
+def autotest():
+    """Contrôles de non-régression sur la géométrie.
+
+    Ces quatre cas ont des réponses connues indépendamment. Le premier aurait
+    suffi à démasquer immédiatement la formule fautive de la version
+    précédente : il est ici pour que cela ne se reproduise pas.
+    """
+    essais = []
+
+    # 1. Observateur au ras du sol : la hauteur cachée vaut exactement d²/(2R).
+    #    C'est le seul cas où la formule naïve est juste, et il sert d'ancrage.
+    essais.append(("cible à 10 km, œil au sol", cachee(10000.0, 0.0),
+                   10000.0 ** 2 / (2 * R), 0.01))
+
+    # 2. Le calculateur du site et deux calculateurs tiers s'accordent sur ce cas.
+    essais.append(("Karagöl 3 100 m → 493 km, sans réfraction",
+                   cachee(493000.0, 3100.0), 6790.5, 1.0))
+
+    # 3. Pile à la portée d'horizon, rien n'est encore masqué.
+    essais.append(("cible pile à l'horizon", cachee(portee(50.0), 50.0), 0.0, 0.001))
+
+    # 4. L'écart de la règle de pouce vaut a·(d−a)/R — identité exacte.
+    a = portee(3100.0)
+    essais.append(("écart de la règle de pouce",
+                   naive_moins_oeil(493000.0, 3100.0) - cachee(493000.0, 3100.0),
+                   a * (493000.0 - a) / R, 6.0))
+
+    echecs = 0
+    print("Contrôles de non-régression :")
+    for nom, obtenu, attendu, tol in essais:
+        ok = abs(obtenu - attendu) <= tol
+        echecs += 0 if ok else 1
+        print("   %s %-42s %10.2f  (attendu %.2f)"
+              % ("✓" if ok else "✗", nom, obtenu, attendu))
+    if echecs:
+        print("   %d CONTRÔLE(S) EN ÉCHEC — les verdicts ci-dessous sont suspects." % echecs)
+    print()
+    return echecs
+
+
 def main():
     print("═" * 74)
     print("VÉRIFICATION DES ENCADRÉS-CLÉS À CONTENU EMPIRIQUE")
     print("R = %.0f km · k = %.2f · R effectif = %.0f km" % (R / 1000, K, RE / 1000))
     print("═" * 74)
+    print()
+    if autotest():
+        return 1
     for nom, article, n, verdict, lignes in CHECKS:
         print()
         print("┌─ %s" % nom)
