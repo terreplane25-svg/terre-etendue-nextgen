@@ -11,6 +11,7 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 | `horizon-fr.html` | Dépression de l'horizon marin — français, 7 pages |
 | `horizon-en.html` | Même document en anglais |
 | `soleil-bilingue.html` | Diamètre angulaire du Soleil — bilingue, 21 pages, v1.2 |
+| `pole-celeste-bilingue.html` | Hauteur du pôle céleste — bilingue, 18 pages, v1.0 |
 | `horizon-artefact-web.html` | Version web du protocole d'horizon (artefact consultable en ligne) |
 | `polices.css` | Spectral, IBM Plex Sans, IBM Plex Mono en base64 |
 
@@ -18,7 +19,7 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 
 ```bash
 pip install playwright pymupdf
-python3 scripts/rendre-protocoles.py            # les trois
+python3 scripts/rendre-protocoles.py            # les quatre
 python3 scripts/rendre-protocoles.py soleil     # un seul
 ```
 
@@ -34,10 +35,10 @@ document paraissait correct et ne l'était pas. Les polices sont donc embarquée
 en base64, récupérées depuis npm (`@fontsource/*`, licence SIL OFL).
 
 Elles sont factorisées dans `polices.css` plutôt que dupliquées dans chaque
-source : le bloc pèse 290 ko et il y a trois documents. Le script les injecte au
+source : le bloc pèse 290 ko et il y a quatre documents. Le script les injecte au
 rendu à la place du repère `@@POLICES@@`.
 
-## Les deux protocoles
+## Les trois protocoles
 
 ### Dépression de l'horizon
 
@@ -70,6 +71,28 @@ Deux contrôles préalables sur la Lune qualifient la chaîne avant qu'elle serv
 étalonnage en distance sur un mois lunaire, puis parallaxe diurne. Le second
 discrimine par lui-même, les deux modèles y prédisant des variations de signe
 opposé.
+
+### Hauteur du pôle céleste
+
+Trois tests d'exigence croissante. Le premier ne mesure **aucun angle** : une pose
+longue depuis un site austral montre un centre de rotation au **sud**, à une
+hauteur égale à la latitude, là où le modèle azimutal — dépourvu de pôle austral —
+place son unique centre au **nord**. Les deux prédictions désignent des moitiés
+opposées du ciel, et aucune valeur de H ne déplace un centre du nord vers le sud.
+
+Le deuxième est quantitatif et **sans paramètre libre** : le rapport des pentes
+locales entre deux latitudes vaut 1,000 sur une sphère et ne peut jamais valoir 1
+sur un plan azimutal, puisqu'il vaut (r₂²+H²)/(r₁²+H²). Deux cents kilomètres de
+base nord-sud suffisent sous 30° de latitude.
+
+Le troisième confronte l'ensemble des stations à la droite : le meilleur
+ajustement azimutal sur 10°–70° laisse un écart quadratique de 8,4°.
+
+La méthode évite le piège de circularité qui guette ici — on ne peut pas rapporter
+une hauteur à l'horizon visible, dont la dépression dépend du modèle testé. La
+référence est le fil à plomb, matérialisé par un **horizon artificiel** : une
+nappe d'eau immobile, où l'angle entre l'astre et son reflet vaut exactement deux
+fois la hauteur. Aucun étalonnage.
 
 ## Historique des versions
 
