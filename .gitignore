@@ -47,3 +47,7 @@ _docs/
 # Python
 __pycache__/
 *.pyc
+
+# Rendu temporaire des protocoles
+content/protocoles/._rendu_*
+content/protocoles/pdf/

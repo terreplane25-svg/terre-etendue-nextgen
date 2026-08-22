@@ -1,0 +1,616 @@
+<title>Mesure de la dépression de l'horizon — appel à campagne</title>
+
+<style>
+/* @@POLICES@@ — injecté au rendu depuis polices.css */
+@page{ size:A4; margin:19mm 17mm 16mm; }
+
+:root{
+  --ink:#12181e; --soft:#3d4952; --mute:#6c7883;
+  --line:#cfd7dd; --line2:#9aa7b1; --wash:#f2f5f7;
+  --globe:#14608f; --globe-w:#14608f14;
+  --plane:#96600f; --plane-w:#96600f14;
+  --alert:#8f2f2b; --alert-w:#8f2f2b10;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:#fff; color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,sans-serif;
+  font-size:9.7pt; line-height:1.52;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+.page{padding:0}
+p{margin:0 0 7pt; color:var(--soft); text-align:justify; hyphens:auto}
+p.lead{color:var(--ink); font-size:10.4pt}
+strong{color:var(--ink); font-weight:600}
+code{font-family:"IBM Plex Mono",monospace; font-size:.9em; color:var(--ink)}
+
+/* ── Bloc-titre ── */
+.masthead{border-bottom:2.2pt solid var(--ink); padding-bottom:9pt; margin-bottom:14pt}
+.kicker{
+  font-family:"IBM Plex Mono",monospace; font-size:7.4pt; font-weight:600;
+  letter-spacing:.19em; text-transform:uppercase; color:var(--globe);
+  margin-bottom:8pt;
+}
+h1{
+  font-family:Spectral,Georgia,serif; font-weight:700; font-size:23pt;
+  line-height:1.13; letter-spacing:-.015em; margin:0 0 6pt; color:var(--ink);
+}
+.dek{font-family:Spectral,Georgia,serif; font-size:11.3pt; line-height:1.42;
+  color:var(--soft); font-style:italic; margin:0 0 10pt}
+.byline{
+  display:flex; gap:26pt; flex-wrap:wrap;
+  font-family:"IBM Plex Mono",monospace; font-size:7.6pt; color:var(--mute);
+  letter-spacing:.05em; border-top:.6pt solid var(--line); padding-top:7pt;
+}
+.byline b{display:block; color:var(--ink); font-weight:600; font-size:8pt; margin-top:1pt}
+
+.abstract{
+  background:var(--wash); border-left:2.6pt solid var(--globe);
+  padding:11pt 13pt; margin:0 0 16pt;
+}
+.abstract .lab{
+  font-family:"IBM Plex Mono",monospace; font-size:7.2pt; font-weight:600;
+  letter-spacing:.17em; text-transform:uppercase; color:var(--globe); display:block; margin-bottom:5pt;
+}
+.abstract p{margin-bottom:5pt; font-size:9.2pt}
+.abstract p:last-child{margin-bottom:0}
+
+/* ── Titres ── */
+h2{
+  font-family:Spectral,Georgia,serif; font-weight:600; font-size:13.6pt;
+  line-height:1.2; margin:17pt 0 5pt; color:var(--ink);
+  padding-bottom:3.5pt; border-bottom:.7pt solid var(--line2);
+  break-after:avoid; page-break-after:avoid;
+}
+h2 .n{font-family:"IBM Plex Mono",monospace; font-size:8.4pt; color:var(--globe);
+  font-weight:600; margin-right:8pt; letter-spacing:.06em}
+h3{font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:9.8pt;
+  margin:11pt 0 4pt; color:var(--ink); break-after:avoid; page-break-after:avoid}
+
+ul,ol{margin:0 0 8pt; padding-left:15pt; color:var(--soft)}
+li{margin:0 0 3.5pt}
+ol.st{list-style:none; padding:0; counter-reset:s}
+ol.st>li{counter-increment:s; position:relative; padding-left:26pt; margin-bottom:7pt}
+ol.st>li::before{
+  content:counter(s,decimal-leading-zero); position:absolute; left:0; top:.4pt;
+  font-family:"IBM Plex Mono",monospace; font-size:7.6pt; font-weight:600;
+  color:#fff; background:var(--globe); width:18pt; height:12pt;
+  display:flex; align-items:center; justify-content:center; border-radius:1.5pt;
+}
+ol.st>li>b{display:block; color:var(--ink); font-weight:600}
+
+/* ── Formules ── */
+.eq{
+  font-family:"IBM Plex Mono",monospace; font-size:10.2pt; color:var(--ink);
+  background:var(--wash); border:.6pt solid var(--line);
+  padding:8pt 12pt; margin:8pt 0; text-align:center; letter-spacing:.02em;
+}
+.eq .cap{display:block; font-family:"IBM Plex Sans",sans-serif; font-size:7.6pt;
+  color:var(--mute); margin-top:4pt; letter-spacing:0}
+
+/* ── Tableaux ── */
+table{border-collapse:collapse; width:100%; font-size:8.6pt; margin:8pt 0 10pt;
+  break-inside:avoid; page-break-inside:avoid}
+th,td{padding:4pt 7pt; text-align:left; border-bottom:.5pt solid var(--line)}
+thead th{
+  font-family:"IBM Plex Mono",monospace; font-size:6.9pt; font-weight:600;
+  letter-spacing:.11em; color:var(--mute);
+  background:var(--wash); border-bottom:.9pt solid var(--line2);
+}
+td.n,th.n{text-align:right; font-family:"IBM Plex Mono",monospace;
+  font-variant-numeric:tabular-nums; font-size:8.4pt}
+tbody tr:last-child td{border-bottom:.7pt solid var(--line2)}
+tr.hi td{background:var(--globe-w)}
+tr.hi td,tr.hi td strong{color:var(--globe); font-weight:600}
+tr.pl td{background:var(--plane-w)}
+tr.pl td{color:var(--plane); font-weight:600}
+caption{caption-side:bottom; text-align:left; font-size:7.8pt; color:var(--mute);
+  padding-top:4pt; font-style:italic}
+
+/* ── Figures ── */
+figure{margin:10pt 0 12pt; break-inside:avoid; page-break-inside:avoid}
+figure svg{display:block; width:100%; height:auto; border:.6pt solid var(--line);
+  background:#fff; padding:7pt}
+figcaption{font-size:7.9pt; line-height:1.45; color:var(--mute); margin-top:4pt; text-align:justify}
+figcaption b{color:var(--ink)}
+
+/* SVG */
+.sl{stroke:var(--line2); fill:none}
+.si{stroke:var(--soft); fill:none}
+.sg{stroke:var(--globe); fill:none}
+.sp{stroke:var(--plane); fill:none}
+.sa{stroke:var(--alert); fill:none}
+.fg{fill:var(--globe)} .fp{fill:var(--plane)} .fi{fill:var(--ink)} .fs{fill:var(--soft)}
+.t{font-family:"IBM Plex Sans",sans-serif; font-size:12px; fill:var(--soft)}
+.tm{font-family:"IBM Plex Mono",monospace; font-size:11px; fill:var(--mute); letter-spacing:.05em}
+.tb{font-family:"IBM Plex Mono",monospace; font-size:11.5px; font-weight:600; letter-spacing:.09em}
+.dash{stroke-dasharray:5 4} .dash2{stroke-dasharray:2 3}
+
+/* ── Encadrés ── */
+.box{border:.7pt solid var(--line2); padding:9pt 11pt; margin:9pt 0;
+  break-inside:avoid; page-break-inside:avoid}
+.box .lab{font-family:"IBM Plex Mono",monospace; font-size:7pt; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; display:block; margin-bottom:4pt}
+.box p:last-child{margin-bottom:0}
+.box.key{border-color:var(--globe); background:var(--globe-w)} .box.key .lab{color:var(--globe)}
+.box.warn{border-color:var(--alert); background:var(--alert-w)} .box.warn .lab{color:var(--alert)}
+.box.flat{border-color:var(--plane); background:var(--plane-w)} .box.flat .lab{color:var(--plane)}
+
+.two{display:grid; grid-template-columns:1fr 1fr; gap:9pt; margin:9pt 0;
+  break-inside:avoid; page-break-inside:avoid}
+.vc{border:1pt solid var(--line2); padding:9pt 11pt}
+.vc.g{border-color:var(--globe)} .vc.p{border-color:var(--plane)}
+.vc .h{font-family:"IBM Plex Mono",monospace; font-size:7.2pt; letter-spacing:.14em;
+  margin:0 0 3pt}
+.vc.g .h{color:var(--globe)} .vc.p .h{color:var(--plane)}
+.vc .v{font-family:Spectral,Georgia,serif; font-size:13pt; font-weight:600;
+  color:var(--ink); margin:0 0 4pt; line-height:1.2}
+.vc p{font-size:8.4pt; margin:0}
+
+.sheet{border:.9pt solid var(--line2); padding:9pt 13pt; break-inside:avoid; page-break-inside:avoid}
+.fr{display:flex; gap:9pt; align-items:baseline; padding:3.1pt 0; border-bottom:.4pt dotted var(--line2)}
+.fr:last-child{border-bottom:0}
+.fr .a{font-size:8.5pt; color:var(--soft); flex:1 1 auto}
+.fr .b{font-family:"IBM Plex Mono",monospace; font-size:8pt; color:var(--mute);
+  border-bottom:.5pt solid var(--line2); min-width:104pt; text-align:center}
+
+.brk{break-before:page; page-break-before:always}
+footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
+  font-size:7.6pt; color:var(--mute)}
+.refs{font-size:7.85pt; color:var(--soft); line-height:1.4}
+.refs li{margin-bottom:3pt}
+</style>
+
+<div class="page">
+
+<div class="masthead">
+  <div class="kicker">Protocole ouvert · Appel à campagne distribuée · Prédictions préenregistrées</div>
+  <h1>Mesure de la dépression de l'horizon marin en fonction de l'altitude</h1>
+  <p class="dek">Un test à fort rapport signal sur bruit, réalisable avec un appareil photo et
+  un niveau, dont les deux issues possibles sont énoncées à l'avance.</p>
+  <div class="byline">
+    <span>Rédacteur<b>&nbsp;</b></span>
+    <span>Affiliation<b>&nbsp;</b></span>
+    <span>Contact<b>&nbsp;</b></span>
+    <span>Version<b>1.0 — révisable</b></span>
+    <span>Date<b>&nbsp;</b></span>
+  </div>
+</div>
+
+<div class="abstract">
+  <span class="lab">Résumé</span>
+  <p>La dépression de l'horizon — l'angle δ entre l'horizontale locale, définie par le fil à
+  plomb, et la ligne d'horizon marin — constitue une observable géométrique dont deux modèles
+  de la surface terrestre font des prédictions incompatibles et non recouvrantes. Un modèle
+  sphérique prédit <code>δ = √(2h/R′)</code>, soit une croissance en racine carrée de
+  l'altitude ; un modèle plan prédit <code>δ = 0</code> à toute altitude, l'horizon étant le
+  point de fuite du plan et se situant par construction au niveau de l'œil.</p>
+  <p>L'intérêt métrologique de cette observable tient à ce que la réfraction atmosphérique,
+  qui domine l'incertitude de la plupart des mesures géodésiques à longue portée, n'y
+  intervient qu'au second ordre : sur la totalité de la plage physiquement défendable du
+  coefficient de réfraction (0 ≤ k ≤ 0,47), la prédiction sphérique ne varie que de 107′ à
+  78′ à 3 107 m d'altitude. <strong>L'écart entre les deux modèles est donc au minimum de
+  78 minutes d'arc, pour un budget d'erreur instrumental estimé à 2,2′ (1 σ) — un rapport
+  signal sur bruit de l'ordre de 36.</strong></p>
+  <p>Nous proposons une campagne distribuée : mesurer δ depuis un ensemble d'altitudes
+  échelonnées de quelques mètres à quelques kilomètres, et éprouver non pas un point isolé
+  mais la <strong>loi</strong> <code>δ(′) = a·√h(m)</code>. Le modèle sphérique impose
+  1,40 ≤ a ≤ 1,93 selon la réfraction ; le modèle plan impose a = 0. Les critères de décision
+  sont fixés en section 07, avant toute acquisition.</p>
+</div>
+
+<h2><span class="n">01</span>Objet</h2>
+<p class="lead">Ce document invite des observateurs indépendants à réaliser une mesure
+angulaire simple, dont le résultat discrimine deux modèles géométriques de la surface
+terrestre, et à publier leurs données brutes quel que soit le résultat obtenu.</p>
+<p>Le choix de cette observable n'est pas arbitraire. La plupart des observations invoquées
+dans ce débat — visibilité d'objets lointains, photographies à longue portée, nivellement de
+plans d'eau — souffrent d'un défaut commun : leur interprétation dépend d'un paramètre
+atmosphérique mal contraint, le coefficient de réfraction k, dont la variabilité réelle
+suffit à couvrir l'écart entre les modèles. Le débat se déplace alors sur la valeur de k et
+ne se conclut pas.</p>
+<p>La dépression de l'horizon échappe à ce piège pour une raison structurelle : elle varie
+comme <code>√(1−k)</code>, c'est-à-dire très lentement, tandis que les mesures de hauteur
+cachée varient comme <code>1/(1−k)</code> au carré de la distance. Multiplier k par un
+facteur quatre ne réduit δ que de 27 %. Aucune valeur de k n'amène une sphère à δ = 0.</p>
+
+<h2><span class="n">02</span>Fondement théorique</h2>
+<p>Pour un observateur dont l'œil est à la hauteur h au-dessus d'une surface sphérique de
+rayon R, la ligne de visée rasante touche la surface au point de tangence. L'angle entre
+cette ligne et le plan horizontal local vaut, au premier ordre en h/R :</p>
+
+<div class="eq">
+  δ = √( 2h / R′ ),&nbsp;&nbsp; R′ = R / (1 − k)
+  <span class="cap">δ en radians, h et R′ en mètres. k = coefficient de réfraction terrestre.</span>
+</div>
+
+<p>Exprimée en minutes d'arc et avec h en mètres, cette relation prend la forme d'une loi en
+racine carrée à un seul paramètre :</p>
+
+<div class="eq">
+  δ(′) = a · √h(m),&nbsp;&nbsp; a = 3 437,75 · √( 2(1−k) / R )
+  <span class="cap">Le coefficient a est la seule quantité à mesurer. C'est la pente de la droite δ contre √h.</span>
+</div>
+
+<p>Sur une surface plane, l'horizon est le point de fuite du plan de la surface. Un point de
+fuite se situe, en projection perspective, exactement dans le plan passant par l'œil et
+parallèle au plan fuyant — soit, ici, au niveau de l'œil. La prédiction est donc
+<code>δ = 0</code>, et elle est indépendante de h : c'est une propriété de la géométrie
+projective, non une approximation.</p>
+
+<table>
+  <caption>Tableau 1 — Coefficient <em>a</em> de la loi en racine, selon le régime de réfraction.</caption>
+  <thead><tr><th>RÉGIME</th><th class="n">k</th><th class="n">a (′·m<sup>−1/2</sup>)</th><th class="n">δ à 3 107 m</th></tr></thead>
+  <tbody>
+    <tr><td>Vide optique (borne théorique)</td><td class="n">0,00</td><td class="n">1,9261</td><td class="n">107,4′</td></tr>
+    <tr><td>Atmosphère libre, haute altitude</td><td class="n">0,10</td><td class="n">1,8273</td><td class="n">101,9′</td></tr>
+    <tr class="hi"><td><strong>Standard géodésique</strong></td><td class="n">0,13</td><td class="n">1,7966</td><td class="n">100,1′</td></tr>
+    <tr><td>Mer froide, inversion modérée</td><td class="n">0,17</td><td class="n">1,7548</td><td class="n">97,8′</td></tr>
+    <tr><td>Super-réfraction</td><td class="n">0,25</td><td class="n">1,6681</td><td class="n">93,0′</td></tr>
+    <tr><td>Conduit atmosphérique, Fata Morgana</td><td class="n">0,47</td><td class="n">1,4022</td><td class="n">78,2′</td></tr>
+    <tr class="pl"><td>Modèle plan — toute condition</td><td class="n">—</td><td class="n">0,0000</td><td class="n">0,0′</td></tr>
+  </tbody>
+</table>
+
+<figure>
+  <svg viewBox="0 0 900 470" role="img" aria-label="Graphique de la dépression de l'horizon en fonction de la racine carrée de l'altitude. Le modèle sphérique prédit une droite passant par l'origine, dont la pente est comprise entre 1,40 et 1,93 minutes d'arc par racine de mètre selon la réfraction. Le modèle plan prédit une droite horizontale confondue avec l'axe des abscisses.">
+    <!-- cadre -->
+    <rect x="90" y="40" width="770" height="360" fill="none" stroke="var(--line)" stroke-width="1"/>
+    <!-- grille horizontale -->
+    <line class="sl" x1="90" y1="340" x2="860" y2="340" stroke-width=".6" stroke-dasharray="2 4"/>
+    <line class="sl" x1="90" y1="280" x2="860" y2="280" stroke-width=".6" stroke-dasharray="2 4"/>
+    <line class="sl" x1="90" y1="220" x2="860" y2="220" stroke-width=".6" stroke-dasharray="2 4"/>
+    <line class="sl" x1="90" y1="160" x2="860" y2="160" stroke-width=".6" stroke-dasharray="2 4"/>
+    <line class="sl" x1="90" y1="100" x2="860" y2="100" stroke-width=".6" stroke-dasharray="2 4"/>
+    <line class="sl" x1="90" y1="40"  x2="860" y2="40"  stroke-width=".6" stroke-dasharray="2 4"/>
+    <!-- grille verticale -->
+    <line class="sl" x1="218" y1="40" x2="218" y2="400" stroke-width=".6" stroke-dasharray="2 4"/>
+    <line class="sl" x1="347" y1="40" x2="347" y2="400" stroke-width=".6" stroke-dasharray="2 4"/>
+    <line class="sl" x1="475" y1="40" x2="475" y2="400" stroke-width=".6" stroke-dasharray="2 4"/>
+    <line class="sl" x1="603" y1="40" x2="603" y2="400" stroke-width=".6" stroke-dasharray="2 4"/>
+    <line class="sl" x1="732" y1="40" x2="732" y2="400" stroke-width=".6" stroke-dasharray="2 4"/>
+
+    <!-- bande admissible sphere -->
+    <polygon points="90,400 860,53 860,148" fill="var(--globe)" opacity="0.12"/>
+    <line class="sg" x1="90" y1="400" x2="860" y2="53" stroke-width="1.1" stroke-dasharray="4 3"/>
+    <line class="sg" x1="90" y1="400" x2="860" y2="148" stroke-width="1.1" stroke-dasharray="4 3"/>
+    <line class="sg" x1="90" y1="400" x2="860" y2="77" stroke-width="2.6"/>
+
+    <!-- points de campagne -->
+    <circle cx="119" cy="388" r="4.5" class="fg"/>
+    <circle cx="147" cy="376" r="4.5" class="fg"/>
+    <circle cx="181" cy="362" r="4.5" class="fg"/>
+    <circle cx="231" cy="341" r="4.5" class="fg"/>
+    <circle cx="312" cy="307" r="4.5" class="fg"/>
+    <circle cx="430" cy="257" r="4.5" class="fg"/>
+    <circle cx="587" cy="191" r="4.5" class="fg"/>
+    <circle cx="805" cy="100" r="4.5" class="fg"/>
+
+    <!-- ligne plan -->
+    <line class="sp" x1="90" y1="400" x2="860" y2="400" stroke-width="3"/>
+    <circle cx="119" cy="400" r="4.5" class="fp"/>
+    <circle cx="231" cy="400" r="4.5" class="fp"/>
+    <circle cx="430" cy="400" r="4.5" class="fp"/>
+    <circle cx="805" cy="400" r="4.5" class="fp"/>
+
+    <!-- axes -->
+    <line class="si" x1="90" y1="400" x2="860" y2="400" stroke-width="1.6"/>
+    <line class="si" x1="90" y1="40" x2="90" y2="400" stroke-width="1.6"/>
+    <!-- graduations Y -->
+    <text class="tm" x="82" y="404" text-anchor="end">0</text>
+    <text class="tm" x="82" y="344" text-anchor="end">20</text>
+    <text class="tm" x="82" y="284" text-anchor="end">40</text>
+    <text class="tm" x="82" y="224" text-anchor="end">60</text>
+    <text class="tm" x="82" y="164" text-anchor="end">80</text>
+    <text class="tm" x="82" y="104" text-anchor="end">100</text>
+    <text class="tm" x="82" y="44" text-anchor="end">120</text>
+    <text class="t" x="30" y="220" text-anchor="middle" transform="rotate(-90,30,220)">δ — dépression (minutes d'arc)</text>
+    <!-- graduations X -->
+    <text class="tm" x="90" y="418" text-anchor="middle">0</text>
+    <text class="tm" x="218" y="418" text-anchor="middle">10</text>
+    <text class="tm" x="347" y="418" text-anchor="middle">20</text>
+    <text class="tm" x="475" y="418" text-anchor="middle">30</text>
+    <text class="tm" x="603" y="418" text-anchor="middle">40</text>
+    <text class="tm" x="732" y="418" text-anchor="middle">50</text>
+    <text class="tm" x="860" y="418" text-anchor="middle">60</text>
+    <text class="t" x="475" y="440" text-anchor="middle">√h — racine de l'altitude (√mètres)</text>
+    <text class="tm" x="218" y="458" text-anchor="middle">h = 100 m</text>
+    <text class="tm" x="475" y="458" text-anchor="middle">h = 900 m</text>
+    <text class="tm" x="732" y="458" text-anchor="middle">h = 2 500 m</text>
+
+    <!-- annotations -->
+    <rect x="112" y="56" width="308" height="104" fill="#ffffff" stroke="var(--line2)" stroke-width=".8"/>
+    <line class="sg" x1="126" y1="80" x2="164" y2="80" stroke-width="2.6"/>
+    <text class="t" x="174" y="84">sphère, k = 0,13 — a = 1,80</text>
+    <line class="sg" x1="126" y1="108" x2="164" y2="108" stroke-width="1.1" stroke-dasharray="4 3"/>
+    <text class="t" x="174" y="112">bornes k = 0 (1,93) et k = 0,47 (1,40)</text>
+    <line class="sp" x1="126" y1="136" x2="164" y2="136" stroke-width="3"/>
+    <text class="t" x="174" y="140">plan — a = 0, à toute altitude</text>
+  </svg>
+  <figcaption><b>Figure 1 — L'observable, et pourquoi c'est une courbe et non un point.</b>
+  Porter δ contre √h linéarise la prédiction sphérique en une droite passant par l'origine. La
+  bande bleue couvre <em>toute</em> la plage de réfraction physiquement défendable, de k = 0 à
+  k = 0,47 ; sa largeur est l'incertitude irréductible du modèle. La droite ocre est la
+  prédiction du modèle plan. Les deux domaines sont disjoints dès h ≈ 3 m. Une campagne à
+  plusieurs altitudes ne teste pas une valeur mais <b>une loi</b> : la pente, la linéarité, et
+  le passage par l'origine sont trois contraintes indépendantes.</figcaption>
+</figure>
+
+<h2 class="brk"><span class="n">03</span>Prédictions préenregistrées</h2>
+<p>Les deux hypothèses sont énoncées ici sous forme falsifiable, avant toute acquisition de
+données. Aucune ne comporte de paramètre libre au-delà de k, lui-même borné.</p>
+
+<div class="two">
+  <div class="vc g">
+    <p class="h">HYPOTHÈSE S — SURFACE SPHÉRIQUE</p>
+    <p class="v">δ = a√h,&nbsp; 1,40 ≤ a ≤ 1,93</p>
+    <p>La droite passe par l'origine. La dispersion des points autour de la droite ajustée
+    mesure la variabilité de la réfraction entre les sites et les moments.</p>
+  </div>
+  <div class="vc p">
+    <p class="h">HYPOTHÈSE P — SURFACE PLANE</p>
+    <p class="v">δ = 0 pour tout h</p>
+    <p>Aucune dépendance à l'altitude. Tout écart mesuré est attribuable à l'erreur
+    instrumentale et doit s'annuler en moyenne.</p>
+  </div>
+</div>
+
+<table>
+  <caption>Tableau 2 — Valeurs attendues sur une série d'altitudes accessibles. Les deux
+  colonnes de droite ne se recouvrent à aucune altitude au-dessus de 3 m.</caption>
+  <thead><tr><th>SITE TYPE</th><th class="n">h (m)</th><th class="n">√h</th><th class="n">δ — hyp. S (k=0,13)</th><th class="n">δ — hyp. S (k=0)</th><th class="n">δ — hyp. P</th></tr></thead>
+  <tbody>
+    <tr><td>Plage, ponton</td><td class="n">5</td><td class="n">2,24</td><td class="n">4,0′</td><td class="n">4,3′</td><td class="n">0′</td></tr>
+    <tr><td>Digue, pont de navire</td><td class="n">20</td><td class="n">4,47</td><td class="n">8,0′</td><td class="n">8,6′</td><td class="n">0′</td></tr>
+    <tr><td>Falaise basse</td><td class="n">50</td><td class="n">7,07</td><td class="n">12,7′</td><td class="n">13,6′</td><td class="n">0′</td></tr>
+    <tr><td>Phare, immeuble</td><td class="n">120</td><td class="n">10,95</td><td class="n">19,7′</td><td class="n">21,1′</td><td class="n">0′</td></tr>
+    <tr><td>Colline côtière</td><td class="n">300</td><td class="n">17,32</td><td class="n">31,1′</td><td class="n">33,4′</td><td class="n">0′</td></tr>
+    <tr><td>Route de montagne</td><td class="n">700</td><td class="n">26,46</td><td class="n">47,5′</td><td class="n">51,0′</td><td class="n">0′</td></tr>
+    <tr><td>Sommet moyen</td><td class="n">1 500</td><td class="n">38,73</td><td class="n">69,6′</td><td class="n">74,6′</td><td class="n">0′</td></tr>
+    <tr class="hi"><td><strong>Haute altitude</strong></td><td class="n">3 107</td><td class="n">55,74</td><td class="n">100,1′</td><td class="n">107,4′</td><td class="n">0′</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">04</span>Matériel</h2>
+<ul>
+  <li><strong>Boîtier photographique à capteur de dimensions connues</strong> et objectif de
+  focale fixe ou verrouillable. Une focale de 100 mm en équivalent plein format offre un bon
+  compromis entre résolution angulaire et champ.</li>
+  <li><strong>Trépied</strong> permettant le montage du boîtier en position retournée
+  (rotule à bascule, équerre en L, ou colonne inversée).</li>
+  <li><strong>Inclinomètre</strong>. Un niveau numérique de menuisier (±0,05°) suffit. Un
+  inclinomètre de téléphone (±0,5°) est acceptable à condition d'appliquer la procédure de
+  retournement de la section 05.</li>
+  <li><strong>Horizon marin dégagé</strong> sur au moins la portée théorique de l'altitude
+  considérée — 213 km depuis 3 107 m, 12 km depuis 10 m.</li>
+  <li><strong>Baromètre et thermomètre</strong>, pour documenter les conditions.</li>
+</ul>
+
+<h2><span class="n">05</span>Procédure — méthode A, mesure absolue</h2>
+<ol class="st">
+  <li><b>Mise en station</b>Trépied sur sol stable, base mise de niveau selon les deux axes.
+  Le tangage est la grandeur critique ; le roulis n'affecte que l'esthétique du cadrage.</li>
+  <li><b>Acquisition de l'horizon, position normale</b>Mise au point à l'infini, ouverture
+  intermédiaire, vitesse élevée. Enregistrer le fichier brut, non recadré.</li>
+  <li><b>Acquisition de l'horizon, position retournée</b>Remonter le boîtier tête en bas sur
+  la même base, remettre de niveau, reprendre le même cadrage.</li>
+  <li><b>Étalon d'angle</b>Photographier la Lune à focale rigoureusement identique, ou —
+  préférable — relever la focale exacte et les dimensions du capteur.</li>
+  <li><b>Réduction</b>Mesurer en pixels l'ordonnée du centre du fichier et celle de la ligne
+  d'horizon. Convertir en angle par le champ vertical du capteur.</li>
+  <li><b>Répétition</b>Trois séries au minimum, à des heures distinctes, pour échantillonner
+  la variabilité de la réfraction.</li>
+</ol>
+
+<h3>Élimination du biais de montage par retournement</h3>
+<p>L'axe optique n'est en général pas rigoureusement parallèle à la semelle du boîtier, et
+tout inclinomètre présente une erreur de zéro. Ces deux défauts se composent en un biais de
+tangage <em>e</em> indétectable sur une acquisition unique. En position retournée, <em>e</em>
+change de signe ; la moyenne des deux lectures l'élimine exactement.</p>
+
+<div class="eq">
+  δ = ( δ<sub>normale</sub> + δ<sub>retournée</sub> ) / 2
+  <span class="cap">Un écart supérieur à 20′ entre les deux lectures signale un biais de montage important — la moyenne reste valide, mais la répétabilité doit être contrôlée.</span>
+</div>
+
+<figure>
+  <svg viewBox="0 0 900 200" role="img" aria-label="Principe du retournement : la lecture en position normale porte le biais moins e, la lecture en position retournée porte le biais plus e, et leur moyenne restitue la valeur vraie.">
+    <line class="sl" x1="60" y1="120" x2="840" y2="120" stroke-width="1.2"/>
+    <line class="sg" x1="450" y1="72" x2="450" y2="168" stroke-width="2.4"/>
+    <text class="tb" x="450" y="64" text-anchor="middle" fill="var(--globe)">δ VRAI</text>
+    <text class="t" x="450" y="186" text-anchor="middle" fill="var(--globe)">moyenne des deux lectures</text>
+    <line class="sa" x1="300" y1="92" x2="300" y2="120" stroke-width="1.8"/>
+    <circle cx="300" cy="92" r="5" fill="var(--alert)"/>
+    <text class="tm" x="300" y="42" text-anchor="middle" fill="var(--alert)">POSITION NORMALE</text>
+    <text class="tm" x="300" y="60" text-anchor="middle" fill="var(--alert)">δ − e</text>
+    <line class="sa" x1="600" y1="92" x2="600" y2="120" stroke-width="1.8"/>
+    <circle cx="600" cy="92" r="5" fill="var(--alert)"/>
+    <text class="tm" x="600" y="42" text-anchor="middle" fill="var(--alert)">POSITION RETOURNÉE</text>
+    <text class="tm" x="600" y="60" text-anchor="middle" fill="var(--alert)">δ + e</text>
+    <line class="sa dash" x1="300" y1="120" x2="450" y2="120" stroke-width="1.4"/>
+    <line class="sa dash" x1="450" y1="120" x2="600" y2="120" stroke-width="1.4"/>
+    <text class="tm" x="375" y="112" text-anchor="middle" fill="var(--alert)">e</text>
+    <text class="tm" x="525" y="112" text-anchor="middle" fill="var(--alert)">e</text>
+  </svg>
+  <figcaption><b>Figure 2 — Calibration par retournement.</b> Procédure classique
+  d'élimination des biais systématiques instrumentaux, transposée ici au couple
+  boîtier-inclinomètre. Elle dispense de connaître le biais, ce qui est son principal
+  avantage sur toute tentative d'étalonnage préalable.</figcaption>
+</figure>
+
+<h2><span class="n">06</span>Procédure — méthode B, mesure différentielle</h2>
+<p>Cette variante n'exige <strong>aucun instrument de niveau et aucun étalonnage</strong>.
+Elle consiste à photographier le même horizon depuis deux altitudes très différentes, avec
+le même matériel et le même réglage, et à mesurer le <em>déplacement</em> de la ligne
+d'horizon dans le cadre. Tout biais de montage, identique dans les deux acquisitions,
+disparaît par différence.</p>
+<p>Elle constitue la version la moins attaquable du protocole, et nous la recommandons comme
+mesure de référence pour les observateurs ne disposant pas d'un inclinomètre de précision.</p>
+
+<table>
+  <caption>Tableau 3 — Déplacement prédit de la ligne d'horizon entre deux altitudes.</caption>
+  <thead><tr><th>PAIRE D'ALTITUDES</th><th class="n">hypothèse S — k = 0,13</th><th class="n">hypothèse P</th></tr></thead>
+  <tbody>
+    <tr><td>2 m → 300 m</td><td class="n">29′</td><td class="n">0′</td></tr>
+    <tr><td>10 m → 1 000 m</td><td class="n">51′</td><td class="n">0′</td></tr>
+    <tr><td>50 m → 2 000 m</td><td class="n">68′</td><td class="n">0′</td></tr>
+    <tr class="hi"><td><strong>10 m → 3 107 m</strong></td><td class="n">94′</td><td class="n">0′</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">07</span>Budget d'erreur et critère de décision</h2>
+<p>Les contributions sont estimées à 1 σ pour une acquisition à 100 mm sur capteur
+24&nbsp;×&nbsp;36&nbsp;mm échantillonné à 4&nbsp;000 pixels sur la hauteur.</p>
+
+<table>
+  <caption>Tableau 4 — Budget d'erreur. Le poste dominant, l'erreur de niveau, est éliminé
+  par retournement ; le résidu est la répétabilité de la remise en station.</caption>
+  <thead><tr><th>SOURCE</th><th class="n">contribution</th><th>TRAITEMENT</th></tr></thead>
+  <tbody>
+    <tr><td>Pointé de la ligne d'horizon (±3 px)</td><td class="n">0,6′</td><td>moyennage sur la largeur du cadre</td></tr>
+    <tr><td>Zéro de l'inclinomètre (±0,05°)</td><td class="n">3,0′</td><td><em>éliminé</em> par retournement</td></tr>
+    <tr><td>Résidu après retournement</td><td class="n">1,5′</td><td>répétabilité de la mise en station</td></tr>
+    <tr><td>Distorsion optique au centre du champ</td><td class="n">&lt; 1,0′</td><td>horizon placé près de l'axe</td></tr>
+    <tr><td>Définition de la ligne d'horizon</td><td class="n">1,0′</td><td>trois séries, conditions notées</td></tr>
+    <tr><td>Étalon lunaire (±7 % du diamètre)</td><td class="n">7,0′</td><td><em>évité</em> par la méthode capteur</td></tr>
+    <tr class="hi"><td><strong>Total quadratique, méthode capteur</strong></td><td class="n"><strong>2,2′</strong></td><td><strong>1 σ</strong></td></tr>
+  </tbody>
+</table>
+
+<div class="box key">
+  <span class="lab">Rapport signal sur bruit</span>
+  <p>Écart minimal entre les deux hypothèses à 3 107 m : <strong>78,2′</strong>. Incertitude
+  instrumentale : <strong>2,2′</strong>. <strong>Rapport ≈ 36.</strong> À 300 m d'altitude,
+  le plus petit signal prédit reste de 22′ pour la même incertitude, soit un rapport de 10.
+  Le test conserve donc son pouvoir de décision jusqu'à des altitudes très modestes.</p>
+</div>
+
+<h3>Critères de décision, fixés a priori</h3>
+<div class="two">
+  <div class="vc p">
+    <p class="h">δ MESURÉ ∈ [ 0 ; 20′ ] À 3 107 m</p>
+    <p class="v">Hypothèse S réfutée</p>
+    <p>Aucune valeur de k dans la plage physique ne descend sous 78′. Une mesure dans cette
+    fourchette, reproduite sur trois séries, réfute le modèle sphérique par mesure directe.</p>
+  </div>
+  <div class="vc g">
+    <p class="h">δ MESURÉ ∈ [ 78′ ; 107′ ] À 3 107 m</p>
+    <p class="v">Hypothèse P réfutée</p>
+    <p>La position exacte dans la fourchette fournit en outre une estimation indépendante du
+    coefficient de réfraction au moment de l'observation.</p>
+  </div>
+</div>
+
+<div class="box warn">
+  <span class="lab">Zone morte — 20′ à 78′</span>
+  <p>Aucune des deux hypothèses ne prédit cette plage. Un résultat qui s'y situe doit être
+  traité comme un <strong>défaut de protocole</strong> et non comme un résultat physique.
+  Causes à éliminer par ordre de fréquence : mise de niveau défectueuse en tangage, fausse
+  ligne d'horizon (côte, île, banc de brume), recadrage du fichier, modification de focale
+  entre les acquisitions.</p>
+</div>
+
+<h2><span class="n">08</span>Systématiques connues et modes d'échec</h2>
+<ol>
+  <li><strong>Fausse ligne d'horizon.</strong> Le mode d'échec le plus fréquent et le plus
+  pernicieux. Une côte lointaine, une île, une chaîne montagneuse ou un banc de brume
+  produisent une limite visuelle qui n'est pas l'horizon géométrique. Vérification
+  cartographique obligatoire avant la station.</li>
+  <li><strong>Confusion tangage / roulis.</strong> Un horizon rendu horizontal dans l'image
+  ne renseigne en rien sur l'inclinaison verticale de l'axe optique, seule grandeur mesurée
+  ici.</li>
+  <li><strong>Recadrage.</strong> Toute image rognée perd la position de son centre optique,
+  donc sa référence horizontale. Travailler exclusivement sur le fichier natif.</li>
+  <li><strong>Distorsion optique.</strong> Les objectifs grand-angle courbent l'horizon hors
+  axe. Placer la ligne d'horizon à proximité du centre, ou employer un téléobjectif.</li>
+  <li><strong>Dérive de focale.</strong> Sur zoom, la focale doit rester identique entre
+  l'horizon et l'étalon. Immobiliser la bague.</li>
+  <li><strong>Régime de réfraction anormal.</strong> Un horizon ondulant, dédoublé ou
+  présentant une ligne de coupure nette signale un conduit atmosphérique. La mesure demeure
+  valide mais la valeur de k qu'elle implique n'est pas transposable à d'autres observations.
+  Consigner systématiquement l'aspect de l'horizon.</li>
+  <li><strong>Mesure unique.</strong> Une acquisition isolée ne possède pas d'incertitude
+  estimable. Trois séries constituent le minimum.</li>
+</ol>
+
+<h2><span class="n">09</span>Campagne distribuée — ce que nous proposons</h2>
+<p class="lead">L'intérêt d'une campagne collective dépasse la répétition d'une mesure
+unique. Porter δ contre √h transforme la question en <strong>trois contraintes
+indépendantes</strong>, chacune vérifiable séparément.</p>
+<ol>
+  <li><strong>La pente.</strong> Le coefficient a ajusté doit tomber dans [1,40 ; 1,93] pour
+  l'hypothèse S, ou être compatible avec zéro pour l'hypothèse P.</li>
+  <li><strong>La linéarité.</strong> Les points doivent s'aligner en δ contre √h. Une
+  relation d'une autre forme réfuterait les deux hypothèses et signalerait une systématique
+  non identifiée.</li>
+  <li><strong>Le passage par l'origine.</strong> L'ordonnée à l'origine ajustée doit être
+  compatible avec zéro. Une valeur significativement non nulle révélerait un biais commun à
+  l'ensemble des observateurs.</li>
+</ol>
+<p>Nous invitons donc des observateurs situés à des altitudes échelonnées — depuis le niveau
+de la mer jusqu'aux stations d'altitude — à contribuer un point chacun. Une dizaine de
+points répartis sur la plage 5 m – 3 000 m suffit à contraindre la pente à mieux que 5 %.</p>
+
+<div class="box key">
+  <span class="lab">Conditions de participation</span>
+  <p>Publication des <strong>fichiers bruts non recadrés</strong>, des métadonnées EXIF
+  complètes, de la fiche de relevé, et du résultat <strong>quel qu'il soit</strong>. Aucune
+  donnée écartée sans justification écrite. Les acquisitions signalant un régime réfractif
+  anormal sont conservées et signalées, non supprimées.</p>
+</div>
+
+<h2><span class="n">10</span>Données à transmettre</h2>
+<div class="sheet">
+  <div class="fr"><span class="a">Date et heure UTC (début / fin de série)</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Coordonnées GPS de la station</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Altitude de l'œil = altitude du sol + hauteur du trépied</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Azimut de visée, et distance de mer ouverte dans l'axe</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Température, pression, humidité, vent</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Boîtier, objectif, focale exacte, dimensions du capteur</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Pixels sur la hauteur de l'image native</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Inclinomètre employé, précision constructeur</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Lecture position normale — ordonnée horizon (px)</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Lecture position retournée — ordonnée horizon (px)</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Ordonnée du centre du fichier (px)</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">δ réduit (minutes d'arc) et incertitude estimée</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Aspect de l'horizon : net / ondulant / dédoublé / ligne de coupure</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Nombre de séries et dispersion observée</span><span class="b">&nbsp;</span></div>
+</div>
+
+<h2><span class="n">11</span>Engagement</h2>
+<p>Ce protocole a été rédigé avant toute acquisition, et il énonce à l'avance la
+signification de chacune des deux issues. C'est la condition de sa valeur probante.</p>
+<p>Nous nous engageons à publier l'intégralité des données reçues, y compris celles qui
+contredisent l'hypothèse que nous jugions la plus probable, et à publier la conclusion que
+les données imposent. Un protocole dont le résultat serait connu d'avance ne mériterait pas
+d'être exécuté ; celui-ci est proposé précisément parce que son issue ne l'est pas.</p>
+<p>Les remarques méthodologiques, les corrections et les propositions d'amélioration du
+protocole sont sollicitées avant le lancement de la campagne, et seront intégrées à une
+version 2 créditée.</p>
+
+<h2><span class="n">12</span>Références</h2>
+<ol class="refs">
+  <li>Bomford, G. (1980). <em>Geodesy</em>, 4<sup>e</sup> éd. Oxford University Press.</li>
+  <li>Brunner, F. K. (1984). <em>Geodetic Refraction: Effects of Electromagnetic Wave
+  Propagation Through the Atmosphere</em>. Springer-Verlag, Berlin.</li>
+  <li>Hirt, C., Guillaume, S., Wisbar, A., Bürki, B., Sternberg, H. (2010). Monitoring of the
+  refraction coefficient in the lower atmosphere using a controlled setup of simultaneous
+  reciprocal vertical angle measurements. <em>Journal of Geophysical Research</em>, 115,
+  D21102.</li>
+  <li>Young, A. T. (2004). Sunset science. IV. Low-altitude refraction. <em>The
+  Observatory</em>, 124, 201–215.</li>
+  <li>Lehn, W. H., van der Werf, S. (2005). Atmospheric refraction: a history. <em>Applied
+  Optics</em>, 44(27), 5624–5636.</li>
+  <li>Torge, W. (2001). <em>Geodesy</em>, 3<sup>e</sup> éd. Walter de Gruyter.</li>
+  <li>Edlén, B. (1966). The refractive index of air. <em>Metrologia</em>, 2(2), 71–80.</li>
+</ol>
+
+<footer>
+  <p>Toutes les valeurs numériques de ce document se dérivent de <code>δ = √(2h/R′)</code>
+  avec <code>R′ = R/(1−k)</code> et R = 6 371 km. Diamètre lunaire moyen 31′ (29,4′ au
+  périgée, 33,5′ à l'apogée). Le document est reproductible dans son intégralité à partir de
+  ces relations. — Protocole ouvert, version 1.0, destiné à être amendé.</p>
+</footer>
+
+</div>
