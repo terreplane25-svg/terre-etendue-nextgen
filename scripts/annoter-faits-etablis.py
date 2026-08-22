@@ -297,6 +297,108 @@ VERDICTS = {
         "lunaire. Un Canigou visible en entier depuis son pied à 500 m ferait "
         "2 284 m, soit 28,3′ — 0,91 diamètre lunaire. Facteur deux, mesurable en "
         "pixels sur les clichés existants. À trancher par cette mesure."),
+    ("200-ans-de-resultats-nuls-darago-a-einstein", 8): (
+        "RESSERRER",
+        "contrôle n°38. Le principe est sain : une hypothèse nulle doit être examinée. Mais « elle n'a jamais été sérieusement examinée » est faux — l'expérience d'Airy de 1871, avec sa lunette remplie d'eau, était conçue précisément pour cela. Garder le principe, retirer l'affirmation d'absence."),
+    ("chronologie-de-la-tromperie-du-globe", 1): (
+        "GARDER",
+        "contrôle n°39. Exact, et c'est le site appliquant à une observation la rigueur qu'il réclame ailleurs. Le changement d'horizon avec la latitude ne départage effectivement pas les deux modèles."),
+    ("chronologie-de-la-tromperie-du-globe", 2): (
+        "GARDER",
+        "contrôle n°40. Logiquement sain. À noter toutefois qu'il coupe dans les deux sens : un résultat obtenu depuis un postulat plan et confirmé par le calcul ne valide pas davantage ce postulat."),
+    ("chronologie-de-la-tromperie-du-globe", 5): (
+        "GARDER",
+        "contrôle n°41. Exact. Les lois de Kepler sont cinématiques et ne portent aucun mécanisme ; le système de Tycho leur est géométriquement équivalent pour les positions planétaires. C'est un point classique et solide."),
+    ("chronologie-de-la-tromperie-du-globe", 6): (
+        "GARDER",
+        "contrôle n°42. Sain, et coupe dans les deux sens comme le n°40."),
+    ("chronologie-de-la-tromperie-du-globe", 9): (
+        "RESSERRER",
+        "contrôle n°43. L'énoncé est falsifiable, ce qui est sa qualité. Mais il attaque une prédiction que le modèle ne fait pas : au-delà de l'horizon radioélectrique, la propagation par onde ionosphérique, par conduit troposphérique et par diffraction est prévue et mesurée. Il n'y a « zone de silence » qu'en visibilité directe. Préciser la bande et le mode de propagation, sans quoi le test ne tranche rien."),
+    ("chronologie-de-la-tromperie-du-globe", 10): (
+        "RESSERRER",
+        "contrôle n°44. Le critère de Popper est bien énoncé. Mais l'appliquer à une théorie qui produit par ailleurs des prédictions testées revient à juger l'ensemble sur une seule de ses conséquences. Dire de quelle prédiction précise on parle."),
+    ("chronologie-de-la-tromperie-du-globe", 11): (
+        "DÉCLASSER",
+        "contrôle n°45. Le problème de la constante cosmologique est réel et l'écart de 10¹²⁰ est un embarras reconnu de la physique théorique. Mais il ne porte en rien sur la figure de la Terre : vrai ou faux, il n'établit rien de la thèse du site."),
+    ("chronologie-de-la-tromperie-du-globe", 12): (
+        "DÉCLASSER",
+        "contrôle n°46. Argument ad hominem. Que von Braun ait menti sur les capacités de ses fusées pour des raisons de propagande ne porte pas sur ce que les fusées font. Peut être entièrement vrai sans rien établir."),
+    ("dune-terre-plate-universelle-a-la-sphere-grecque", 3): (
+        "RESSERRER",
+        "contrôle n°47. Exact pour DEUX sites, comme au contrôle n°19 : le postulat sur les rayons détermine la conclusion. Faux dès trois sites, où les hauteurs de Soleil impliquées par chaque paire cessent de s'accorder sur un plan."),
+    ("dune-terre-plate-universelle-a-la-sphere-grecque", 4): (
+        "RESSERRER",
+        "contrôle n°48. Vrai de l'ORIGINE de l'idée au VIᵉ siècle avant notre ère : le mobile pythagoricien est bien métaphysique. Faux de ce qui la soutient aujourd'hui. Distinguer la genèse d'une idée de sa base probante actuelle."),
+    ("dune-terre-plate-universelle-a-la-sphere-grecque", 6): (
+        "GARDER",
+        "contrôle n°49. Exact. Les quatre arguments d'Aristote sont des inférences, non des preuves, et le plus fort — l'ombre circulaire pendant les éclipses — reste une inférence."),
+    ("la-cosmologie-comme-instrument-de-domination", 1): (
+        "DÉCLASSER",
+        "contrôle n°50. Le rapprochement Philosophical Doctorate / philosophie est un jeu de mots étymologique, non un argument. La thèse sur les conséquences métaphysiques peut être vraie sans rien établir de la figure de la Terre."),
+    ("la-cosmologie-comme-instrument-de-domination", 2): (
+        "DÉCLASSER",
+        "contrôle n°51. Ad hominem. Les convictions personnelles de Hawking ne portent pas sur la validité de ce qu'il a publié."),
+    ("la-gravite-70-theories-et-aucune-preuve", 5): (
+        "DÉCLASSER",
+        "contrôle n°52. Même contenu que le n°45, et même verdict : l'écart de 10¹²⁰ sur Λ est réel et embarrassant, mais hors sujet pour la figure de la Terre."),
+    ("la-rotation-terrestre-deux-experiences-zero-preuve", 5): (
+        "RETIRER",
+        "contrôle n°53. Les 38 µs/jour ne se décomposent pas comme l'encadré le suppose. Le calcul donne +45,7 µs pour le terme d'altitude seul, −7,2 µs pour la vitesse orbitale du satellite et +0,1 µs pour celle de la station au sol, soit +38,6 µs net. Un modèle « altitude-fréquence » seul prédirait 46 µs, pas 38 : l'écart vaut 19 % et se mesure sans difficulté. L'affirmation « un modèle altitude-fréquence produit la même correction » est donc fausse au chiffre près."),
+    ("les-distances-cosmiques-au-dela-de-la-regle", 3): (
+        "GARDER",
+        "contrôle n°54. Exact, et reconnu comme tel en astronomie : les chandelles standard sont des étalons corrigés, et les incertitudes se propagent en cascade. Rien à resserrer."),
+    ("les-trous-noirs-nexistent-pas", 7): (
+        "RESSERRER",
+        "contrôle n°55. Deux affirmations soudées. La circularité des modèles d'interprétation est une critique méthodologique recevable ; les « pressions institutionnelles » sont une thèse sur des personnes, qui ne se démontre pas de la même façon et n'établit rien du même ordre. Les séparer."),
+    ("ligo-londe-qui-nexistait-pas", 3): (
+        "RESSERRER",
+        "contrôle n°56. Le filtrage adapté n'est pas circulaire au sens vicieux : il teste si les données contiennent un signal de la forme prédite, et la détection est confirmée par la cohérence des paramètres entre détecteurs. La remarque sur les harmoniques du réseau est recevable — et ces raies sont effectivement éliminées par filtres coupe-bande, ce que l'encadré mentionne lui-même."),
+    ("ligo-londe-qui-nexistait-pas", 4): (
+        "RESSERRER",
+        "contrôle n°57. « Aucune réfutation définitive » renverse la charge de la preuve : c'est un argument tiré d'une absence. Et il ignore la contrepartie électromagnétique de GW170817, observée indépendamment par une soixantaine d'observatoires."),
+    ("lire-le-ciel-avant-le-globe", 2): (
+        "GARDER",
+        "contrôle n°58. Exact — et c'est précisément pour cette raison que la hauteur du pôle ne peut PAS servir de variable indépendante pour tester la forme de la Terre : elle définit la latitude. C'est la circularité relevée à la version 1.1 du protocole du pôle céleste. Vrai, et à manier avec cette conséquence."),
+    ("lire-le-ciel-avant-le-globe", 5): (
+        "GARDER",
+        "contrôle n°59. Exact et important : l'observation est antérieure et indépendante de son interprétation. C'est un des énoncés les mieux fondés de l'inventaire."),
+    ("neptune-et-pluton-les-faux-triomphes", 5): (
+        "RESSERRER",
+        "contrôle n°60. Les paramètres A1, A2, A3 sont bien ajustés sur les observations. Mais un paramètre ajusté cesse d'être circulaire dès qu'il PRÉDIT le retour suivant, ce qui est le cas. La critique vise l'ajustement ; le test est la prédiction."),
+    ("pourquoi-tout-remettre-en-question", 1): (
+        "RESSERRER",
+        "contrôle n°61. La distinction observation / expérimentation est réelle. Mais « l'observation seule ne peut pas vérifier » est trop fort : une science observationnelle peut faire des prédictions risquées et les voir échouer. Neptune et les anisotropies du fond diffus en sont deux exemples."),
+    ("pourquoi-tout-remettre-en-question", 3): (
+        "RESSERRER",
+        "contrôle n°62. Le compte interventionniste de Woodward est une position parmi d'autres, et Woodward lui-même admet les expériences naturelles. Attribuer à la philosophie des sciences un verdict unanime qu'elle n'a pas rendu."),
+    ("pourquoi-tout-remettre-en-question", 5): (
+        "GARDER",
+        "contrôle n°63. Exact et non contesté en astronomie : les distances cosmologiques sont inférées, non mesurées. Rien à resserrer — sinon que cela ne porte pas sur la figure de la Terre."),
+    ("la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas", 3): (
+        "RETIRER",
+        "contrôle n°64. Le mois synodique n'est pas « strictement identique » : il varie de 29,27 à 29,83 jours, soit 13 heures d'amplitude et 1,9 %. Cette variation est calculée par le modèle standard, qui la prédit à partir des excentricités. L'encadré présente comme une anomalie une constance qui n'existe pas, et qui serait de toute façon prédite."),
+    ("la-perspective-pourquoi-les-objets-disparaissent", 4): (
+        "RETIRER",
+        "contrôle n°65. Les trois prédictions citées sont réfutées par nos propres contrôles. L'horizon ne reste pas au niveau des yeux : il descend de 100′ depuis 3 107 m (protocole de dépression). Les objets zoomés ne réapparaissent pas tous : la hauteur masquée ne dépend pas du grossissement. Et la courbure ne « disparaît » pas avec un objectif standard : sa flèche vaut 0,22° sur 30° de champ à 39 km, trop faible pour être vue mais non nulle (contrôle n°30)."),
+    ("le-theodolite-celeste", 2): (
+        "À COMPLÉTER",
+        "contrôle n°66. La cohérence interne d'un paramètre ajusté n'est pas une comparaison : les mêmes données traitées par le modèle sphérique produisent une distance Terre-Soleil cohérente elle aussi. Il faut confronter les deux ajustements sur le même jeu, et ce jeu — 11 320 points — doit être versé au dossier."),
+    ("mesurer-la-courbure-sur-l-eau-cinq-campagnes", 3): (
+        "GARDER",
+        "contrôle n°67. Le compliment méthodologique est mérité : prédictions posées d'avance, conception symétrique, géométrie où un seul modèle peut passer. C'est le standard que nos propres protocoles cherchent à atteindre."),
+    ("vols-avion-et-courbure-terrestre", 1): (
+        "RESSERRER",
+        "contrôle n°68. Le fait est exact. Mais les manuels énoncent aussi POURQUOI : l'approximation Terre plate non rotative est valide sur les durées et distances d'un vol, et les mêmes manuels donnent les termes correctifs pour la navigation longue distance. Citer l'hypothèse sans citer sa justification en change le sens."),
+    ("vols-avion-et-courbure-terrestre", 7): (
+        "RETIRER",
+        "contrôle n°69. Réfuté par l'encadré n°8 du même article, que nous gardons : l'accélération centripète vaut 1 milli-g, sous la résolution des enregistreurs. Ce n'est pas de la circularité, c'est une résolution insuffisante — et les deux énoncés ne peuvent pas coexister."),
+    ("dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne", 2): (
+        "À COMPLÉTER",
+        "contrôle n°70. La thèse est datable et vérifiable, mais elle relève de la pile textuelle et historique : il faut établir la chronologie des tafsīr avant et après la réception de Ptolémée. Rangée ici par le tri de surface, elle attend une consultation de sources."),
+    ("monter-l-experience-des-trois-mires", 2): (
+        "À COMPLÉTER",
+        "contrôle n°71. Les rapports 1,1 et 6,1 proviennent de notre propre protocole ; leurs paramètres — hauteurs de mires, distance, incertitude de pointé — doivent être versés au dossier pour que le calcul soit refait. Le point de fond, que le facteur limitant est de savoir où commence la perche, est juste."),
 }
 
 

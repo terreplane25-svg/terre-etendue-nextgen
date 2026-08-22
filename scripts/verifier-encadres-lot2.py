@@ -261,8 +261,54 @@ for lab, hv in (("Canigou entier, du pied 500 m au sommet", 2284.0),
     ang = hv / d * (180 / math.pi) * 60
     L.append("   %-40s %6.0f m → %5.1f′ (%.2f Lune)" % (lab, hv, ang, ang / 31))
 L += ["",
-      "Facteur deux entre « entier » et « globe standard ». Mesurable en pixels",
-      "sur les clichés existants, comme pour la panoramique du Caucase."]
+      "Facteur deux entre « entier » et « globe standard ».",
+      "",
+      "── MESURE REÇUE ────────────────────────────────────────────────────────",
+      "0,9 diamètre lunaire, rapportée par l'observateur.",
+      ""]
+for lune in (29.4, 31.0, 33.5):
+    hv = math.radians(0.9 * lune / 60) * d
+    L.append("   Lune prise à %.1f′ → %.1f′ → %.0f m visibles" % (lune, 0.9 * lune, hv))
+cible = CANIGOU - math.radians(0.9 * 31 / 60) * d
+lo, hi = 0.0, 0.99
+for _ in range(80):
+    mid = (lo + hi) / 2
+    if cachee(d, h1, R / (1 - mid)) > cible:
+        lo = mid
+    else:
+        hi = mid
+L += ["",
+      "   avec la Lune moyenne : %.0f m visibles, donc %.0f m masqués"
+      % (CANIGOU - cible, cible),
+      "   coefficient de réfraction requis : k = %.3f" % ((lo + hi) / 2),
+      "",
+      "Pour situer : 0,13 standard, 0,17 mer froide, 0,25 super-réfraction,",
+      "0,47 conduit. La mesure exige donc un CONDUIT ATMOSPHÉRIQUE.",
+      "",
+      "C'est une tension réelle et il faut l'écrire. Deux lectures restent",
+      "ouvertes, et une seule mesure les sépare :",
+      "",
+      "  · la mesure est juste et k valait 0,50 ce jour-là — auquel cas les",
+      "    signatures géométriques du conduit doivent être présentes sur l'image :",
+      "    compression verticale, empilement, ligne de coupure ;",
+      "  · ce qui a été mesuré n'est pas la hauteur du seul Canigou mais le profil",
+      "    visible dans son ensemble, dont le bas peut être une crête intermédiaire",
+      "    et non le pied du massif.",
+      "",
+      "── LE CONTRÔLE QUI SÉPARE LES DEUX : LA LARGEUR ───────────────────────",
+      "La largeur apparente du massif dépend de l'altitude à laquelle il est coupé,",
+      "et bien plus fortement que la hauteur :", ""]
+for alt, larg, lab in ((1647, 4000, "coupé à 1 647 m — prédiction du globe"),
+                       (500, 12000, "vu depuis son pied à 500 m")):
+    a = math.degrees(larg / d) * 60
+    L.append("   %-38s %5.1f km → %5.1f′ (%.1f Lune)" % (lab, larg / 1000, a, a / 31))
+L += ["",
+      "Facteur TROIS sur la largeur, contre deux sur la hauteur. Et la largeur ne",
+      "dépend d'aucune hypothèse sur le pied du massif : elle se lit directement.",
+      "",
+      "Second contrôle, sans aucune mesure : le bas du profil est-il une LIGNE",
+      "HORIZONTALE — l'horizon qui tranche le massif — ou le contour irrégulier",
+      "de la montagne rejoignant le sol ? La réponse se voit à l'œil."]
 c(36, "Le Canigou depuis la Provence", L)
 
 
