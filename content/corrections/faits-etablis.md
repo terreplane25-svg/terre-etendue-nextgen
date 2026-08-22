@@ -298,9 +298,9 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 | # | Énoncé | Verdict |
 |---|---|---|
 | 1 | Les cartes anciennes les plus précises du Moyen Âge (Tabula Rogeriana, 1154) étaient orientées Sud en haut. L'orientation « Nord en haut » est une convention européenne post-XVIᵉ siècle, imposée avec la domination coloniale — pas une vérité géographique. |  |
-| 2 | Les données de vol montrent que plusieurs trajets inter-hémisphère Sud (Sydney–Santiago, Johannesburg–Perth, Cape Town–Buenos Aires) effectuent des détours systématiques par l'hémisphère Nord, ajoutant jusqu'à 70 % de distance supplémentaire — trajets incohérents sur un globe mais rectilignes sur une projection azimutale. |  |
+| 2 | Les données de vol montrent que plusieurs trajets inter-hémisphère Sud (Sydney–Santiago, Johannesburg–Perth, Cape Town–Buenos Aires) effectuent des détours systématiques par l'hémisphère Nord, ajoutant jusqu'à 70 % de distance supplémentaire — trajets incohérents sur un globe mais rectilignes sur une projection azimutale. | **À COMPLÉTER** — contrôle n°11. Contredit par le corps du même article, qui concède vents, jet stream, demande commerciale et accords bilatéraux. Il manque le critère posé d'avance : quel écart, sur quelle route, ne serait explicable QUE par la géométrie. |
 | 3 | Les mesures magnétiques montrent que toutes les boussoles du monde convergent vers un seul point fixe au Nord. Aucun pôle Sud magnétique symétrique et localisable n'a été démontré de manière équivalente — la géométrie observée correspond à celle d'un aimant en anneau, pas à celle d'un dipôle sphérique. |  |
-| 4 | Les journaux de Cook documentent plus de 60 000 km parcourus le long de la barrière antarctique — soit 3 à 6 fois le périmètre théorique du continent à 65° S sur un globe (≈ 16 900 km). Cook ne mentionne jamais avoir bouclé le tour ni retrouvé son point de départ. |  |
+| 4 | Les journaux de Cook documentent plus de 60 000 km parcourus le long de la barrière antarctique — soit 3 à 6 fois le périmètre théorique du continent à 65° S sur un globe (≈ 16 900 km). Cook ne mentionne jamais avoir bouclé le tour ni retrouvé son point de départ. | **RETIRER** — contrôle n°6. Mal posé : les 60 000 km sont un chemin parcouru, avec détours et retours, comparés à un périmètre. Deux grandeurs qui ne se comparent pas. |
 
 ### La Lune, le Soleil et les étoiles : ce que le ciel nous montre
 
@@ -309,9 +309,9 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 | # | Énoncé | Verdict |
 |---|---|---|
 | 1 | Les mesures du Lancet (1856) documentent un refroidissement de plus de 8 degrés sous la lumière lunaire concentrée. Les éclipses selenelion montrent Soleil et Lune simultanément au-dessus de l'horizon — une géométrie incompatible avec un alignement à 180° et une réfraction standard de 0,5°. |  |
-| 2 | Les données montrent que la taille angulaire du Soleil reste stable à ≈ 32 minutes d'arc tout au long de la journée, ce qui est cohérent avec un Soleil très lointain. En revanche, des caméras longue portée permettent de « rappeler » un Soleil déjà couché — observation incompatible avec une disparition derrière une courbure. |  |
-| 3 | Les données de visibilité stellaire montrent que plusieurs constellations nordiques sont observables sur des plages de 120° à 155° de latitude — dépassant la limite théorique de ≈ 90° imposée par la courbure d'un globe. La Grande Ourse, visible jusqu'à 30° S, couvre 120° de latitude totale. | **RETIRER** — vérifié `verifier-encadres-empiriques.py` n°1. La « limite théorique de ≈90° » n'existe pas : le globe prédit 130,7° pour Alkaid et 180° pour une constellation équatoriale. L'observation citée est *à l'intérieur* de la prédiction du modèle présenté comme réfuté. |
-| 4 | Les mesures de Nansen (1894) documentent une réfraction astronomique de 4°44′ — des dizaines de fois la valeur standard. Si de telles réfractions existent, elles invalident simultanément toute observation d'horizon utilisée comme preuve de courbure terrestre. |  |
+| 2 | Les données montrent que la taille angulaire du Soleil reste stable à ≈ 32 minutes d'arc tout au long de la journée, ce qui est cohérent avec un Soleil très lointain. En revanche, des caméras longue portée permettent de « rappeler » un Soleil déjà couché — observation incompatible avec une disparition derrière une courbure. | **GARDER** — contrôle n°17. Exact, et c'est l'observable du protocole du diamètre solaire : un Soleil à hauteur finie donnerait 16,0′ à 30° de hauteur et 8,3′ à 15°, au lieu des 32′ observés. La stabilité mesurée réfute le Soleil local et confirme le Soleil lointain — l'encadré l'écrit lui-même. Second fait établi du site à jouer contre la thèse du site, après Nansen ; les garder tous les deux est ce qui donne du poids au reste. |
+| 3 | Les données de visibilité stellaire montrent que plusieurs constellations nordiques sont observables sur des plages de 120° à 155° de latitude — dépassant la limite théorique de ≈ 90° imposée par la courbure d'un globe. La Grande Ourse, visible jusqu'à 30° S, couvre 120° de latitude totale. | **RETIRER** — contrôle n°1. Faux. La « limite théorique de ≈ 90° » n'existe pas : une étoile de déclinaison δ est visible depuis toute latitude φ telle que \|φ−δ\| < 90°, soit 130,7° d'amplitude pour Alkaid et 180,0° pour une constellation équatoriale. Les 120° observés sont à l'intérieur de la prédiction du modèle que l'encadré présente comme réfuté. |φ−δ\| < 90°, soit 130,7° d'amplitude pour Alkaid et 180,0° pour une constellation équatoriale. Les 120° observés sont à l'intérieur de la prédiction du modèle que l'encadré présente comme réfuté. |φ−δ\| < 90°, soit 130,7° d'amplitude pour Alkaid et 180,0° pour une constellation équatoriale. Les 120° observés sont à l'intérieur de la prédiction du modèle que l'encadré présente comme réfuté. |
+| 4 | Les mesures de Nansen (1894) documentent une réfraction astronomique de 4°44′ — des dizaines de fois la valeur standard. Si de telles réfractions existent, elles invalident simultanément toute observation d'horizon utilisée comme preuve de courbure terrestre. | **GARDER** — contrôle n°9. Les 4°44′ de Nansen sont exacts et bien sourcés. Mais leur conséquence engage le site : si une réfraction de cet ordre « invalide toute observation d'horizon », elle invalide aussi Port-Saïd, le record de 493 km, les navires au zoom, la planche de niveau et les douze sommets du théodolite. À garder, avec cette conséquence écrite. |
 
 ### La Lune : six anomalies que le modèle standard ne résout pas
 
@@ -319,7 +319,7 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 
 | # | Énoncé | Verdict |
 |---|---|---|
-| 1 | Les mesures publiées dans le Lancet (1856) documentent un abaissement de température de plus de 8 degrés sous la lumière lunaire concentrée. Un miroir réfléchissant la lumière solaire réchauffe ce qu'il éclaire — la Lune produit l'effet inverse. |  |
+| 1 | Les mesures publiées dans le Lancet (1856) documentent un abaissement de température de plus de 8 degrés sous la lumière lunaire concentrée. Un miroir réfléchissant la lumière solaire réchauffe ce qu'il éclaire — la Lune produit l'effet inverse. | **DÉCLASSER** — contrôle n°10. Hors sujet : le refroidissement sous la lumière lunaire porte sur la Lune, pas sur la figure de la Terre. Peut être vrai sans rien établir de ce que l'encadré prétend établir. |
 | 2 | Les éclipses selenelion documentent Soleil et Lune éclipsée simultanément au-dessus de l'horizon. La réfraction standard (≈ 0,5°) est insuffisante pour expliquer cet écart. Les mesures de Nansen (1894) confirment des réfractions de 4°44′ — invalidant les modèles standard. |  |
 | 3 | Les données montrent que le cycle des phases lunaires reste strictement identique (29,5 jours) toute l'année, indépendamment de la position orbitale de la Terre. Le terminateur ombre/lumière est visible alors que le Soleil est en vue directe — incohérent avec un simple éclairage par réflexion. |  |
 
@@ -340,7 +340,7 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 | # | Énoncé | Verdict |
 |---|---|---|
 | 1 | Convergence, diminution angulaire et compression des plans sont trois propriétés géométriques de la vision, vérifiables sur n'importe quelle surface — plane ou courbe. Elles suffisent à faire « disparaître » un objet sans obstacle physique. |  |
-| 2 | Un objet de 2 mètres disparaît à 6,8 km par simple limite de résolution angulaire de l'œil (1 minute d'arc). Un zoom le ramène — preuve que la disparition est optique, non physique. |  |
+| 2 | Un objet de 2 mètres disparaît à 6,8 km par simple limite de résolution angulaire de l'œil (1 minute d'arc). Un zoom le ramène — preuve que la disparition est optique, non physique. | **RESSERRER** — contrôle n°12. Les 2 m à 6,8 km font bien 1,01′ : l'arithmétique est juste. Mais la conclusion « donc la disparition est optique et non géométrique » ne suit pas — à cette distance, un œil à 1,70 m a son horizon à 5,0 km et la cible est déjà masquée. Les deux causes agissent ; l'encadré en écarte une sans l'avoir calculée. |
 | 3 | La perspective linéaire prédit qu'un bateau « disparaît par le bas » sur une surface plane exactement comme sur une sphère. Le test décisif — le zoom — tranche : si l'objet réapparaît, la disparition était optique, pas géométrique. |  |
 
 ### La Perspective : pourquoi les objets disparaissent
@@ -350,8 +350,8 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 | # | Énoncé | Verdict |
 |---|---|---|
 | 1 | Dans des centaines de tests documentés au Nikon P900/P1000, les navires « disparus sous l'horizon » réapparaissent intégralement au zoom — coque, ligne de flottaison et pont inclus. Ce résultat est incompatible avec une obstruction physique par courbure. |  |
-| 2 | Le phare de Port-Saïd (18 m) est visible à 93 km, où la courbure théorique cache 684 mètres — 37 fois sa hauteur. Même avec une réfraction maximale de 25 %, l'écart reste de 28 fois la hauteur du phare. | **RESSERRER** — vérifié n°3. Indécidable en l'état : il faut un œil à ~400 m (k=0,13) pour que la visée passe, et l'encadré ne donne pas la hauteur de l'observateur — alors que `par-rapport-a-quoi` n°4 écrit que c'est « le paramètre décisif ». |
-| 3 | Le record mondial certifié Guinness (493 km, décembre 2024) implique 19 100 mètres de courbure théorique. Après déduction des altitudes combinées, environ 11 km de « bosse » terrestre restent inexpliqués par le modèle sphérique. | **RESSERRER** — vérifié n°2. Les 19 100 m sont justes, mais « déduire les altitudes » n'est pas l'opération géométrique : la hauteur masquée vaut (d − √2Rh₁ − √2Rh₂)²/2R. Les « 11 km inexpliqués » n'ont pas de sens. Le cas lui-même reste **indécidable** sans les deux altitudes réelles. |
+| 2 | Le phare de Port-Saïd (18 m) est visible à 93 km, où la courbure théorique cache 684 mètres — 37 fois sa hauteur. Même avec une réfraction maximale de 25 %, l'écart reste de 28 fois la hauteur du phare. | **À COMPLÉTER** — contrôle n°3. La formule employée suppose un œil au ras de l'eau, ce qui n'est jamais le cas. La hauteur d'observation, absente de l'énoncé, est le paramètre qui décide — et l'article « Par rapport à quoi mesure-t-on une altitude ? » l'écrit lui-même à son encadré n°4. |
+| 3 | Le record mondial certifié Guinness (493 km, décembre 2024) implique 19 100 mètres de courbure théorique. Après déduction des altitudes combinées, environ 11 km de « bosse » terrestre restent inexpliqués par le modèle sphérique. | **RETIRER** — contrôle n°2. Les 19 100 m de d²/2R sont justes, mais « en déduire les altitudes » est la règle de pouce « 8 pouces par mille au carré moins la hauteur d'œil », fausse dès que la cible dépasse l'horizon. Sur la ligne Karagöl → Caucase elle fabrique 9 180 m de montagne cachée inexistante. Correctement calculée, l'observation est prédite par le modèle sphérique à réfraction ordinaire, et ne départage donc pas les deux modèles. |
 | 4 | Six prédictions testables confrontées aux observations de terrain : l'horizon reste au niveau des yeux, les objets zoomés réapparaissent, la courbure filmée disparaît avec un objectif standard. Aucun résultat ne confirme le modèle sphérique sans recours à une explication ad hoc. |  |
 
 ### Le pôle Sud n'existe pas
@@ -360,7 +360,7 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 
 | # | Énoncé | Verdict |
 |---|---|---|
-| 1 | Il existe au moins quatre « pôles Sud » distincts, séparés de centaines à milliers de kilomètres. Le pôle magnétique se trouve à 2 900 km du pôle géographique, en dehors même du cercle antarctique. |  |
+| 1 | Il existe au moins quatre « pôles Sud » distincts, séparés de centaines à milliers de kilomètres. Le pôle magnétique se trouve à 2 900 km du pôle géographique, en dehors même du cercle antarctique. | **RESSERRER** — contrôle n°14. Les 2 900 km sont justes — le calcul donne 2 869 km. Mais géographique, magnétique, géomagnétique et d'inaccessibilité sont quatre DÉFINITIONS distinctes, que le modèle sphérique prédit non confondues. Leur écart n'établit rien : il faudrait deux mesures divergentes de la MÊME définition. |
 | 2 | Sur une projection azimutale équidistante, l'Antarctique forme un anneau périphérique sans point Sud unique. Le pôle magnétique à 65° de latitude correspond au comportement des lignes de champ d'un aimant toroïdal. |  |
 | 3 | Le Traité sur l'Antarctique (1959, 56 États signataires) est le seul accord international interdisant l'exploration libre d'un continent entier par des citoyens privés. |  |
 
@@ -370,7 +370,7 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 
 | # | Énoncé | Verdict |
 |---|---|---|
-| 1 | Sur 12 sommets montagneux (8,8 à 130,7 km), l'angle calculé par trigonométrie plane correspond exactement à la position vraie de l'étoile. À 130,7 km, la courbure théorique cacherait 1 340 m — pourtant aucune correction n'est nécessaire. | **RETIRER** — vérifié n°5. Mal posé : les 1 340 m concernent une cible au sol, pas une étoile à distance quasi infinie. La grandeur pertinente est la convergence des verticales (70′ à 130,7 km), que l'encadré ne mentionne pas. |
+| 1 | Sur 12 sommets montagneux (8,8 à 130,7 km), l'angle calculé par trigonométrie plane correspond exactement à la position vraie de l'étoile. À 130,7 km, la courbure théorique cacherait 1 340 m — pourtant aucune correction n'est nécessaire. | **RETIRER** — contrôle n°5. Mal posé : les 1 340 m relèvent d'une formule de visée terrestre appliquée à une étoile, dont la distance rend la parallaxe nulle. La grandeur calculée ne correspond à rien dans l'observation décrite. |
 | 2 | 11 320 points de données issus de deux éclipses indépendantes produisent une hauteur du Soleil cohérente à 0,1% par trigonométrie plane, sans aucune correction de courbure. |  |
 | 3 | Le modèle globe appliqué aux mêmes données produit une distance lunaire de 274 500 km (hors fourchette 356 900–399 100 km) et un triangle solaire mathématiquement impossible (somme des angles > 180°). |  |
 
@@ -380,7 +380,7 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 
 | # | Énoncé | Verdict |
 |---|---|---|
-| 1 | La force centrifuge solaire requise par l'héliocentrisme produit un ratio de 11 764 fois supérieur à la force gravitationnelle solaire sur les marées. Ce ratio n'est pas observé dans les données. |  |
+| 1 | La force centrifuge solaire requise par l'héliocentrisme produit un ratio de 11 764 fois supérieur à la force gravitationnelle solaire sur les marées. Ce ratio n'est pas observé dans les données. | **RESSERRER** — contrôle n°7. Le ratio est arithmétiquement juste — nous trouvons 11 741 contre 11 764 annoncés — mais l'inférence ne l'est pas : la marée dépend du GRADIENT du champ, pas de son intensité. Garder le chiffre, retirer la conclusion. |
 | 2 | Aucune mesure directe n'a jamais détecté les deux renflements océaniques permanents prédits par la théorie. Les cartes NOAA, SHOM et TPXO9 montrent des rotations locales autour de points amphidromiques, jamais orientées uniformément vers la Lune. |  |
 | 3 | L'analyse harmonique utilisée par tous les services hydrographiques (NOAA, SHOM, UKHO) prédit les marées sans utiliser la constante G, la masse des astres, ni le modèle héliocentrique. Seuls les cycles historiques sont nécessaires. |  |
 
@@ -400,10 +400,10 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 
 | # | Énoncé | Verdict |
 |---|---|---|
-| 1 | L'horizon reste parfaitement aligné avec une planche de niveau sur un demi-cercle complet de 16 à 32 km de portée visuelle. Sur un globe de 40 225 km, l'horizon devrait s'abaisser de 20 m à 16 km — il ne le fait jamais. | **RETIRER** — vérifié n°4. Mal posé : les 20 m sont la chute de la *surface*, pas la descente apparente de l'horizon, qui est un **angle** de 2,5′ à hauteur d'homme. Le globe prédit un horizon au niveau des yeux : l'encadré présente sa prédiction comme sa réfutation. |
+| 1 | L'horizon reste parfaitement aligné avec une planche de niveau sur un demi-cercle complet de 16 à 32 km de portée visuelle. Sur un globe de 40 225 km, l'horizon devrait s'abaisser de 20 m à 16 km — il ne le fait jamais. | **RETIRER** — contrôle n°4. Mal posé : les 20 m sont la chute de la *surface* sous la tangente, pas la descente apparente de l'horizon, qui est un ANGLE et vaut 2,5′ à 1,7 m de hauteur d'œil. L'encadré compare des mètres à un angle. |
 | 2 | Un bateau « disparu » derrière l'horizon réapparaît intégralement au zoom optique, coque comprise. Si la courbure terrestre le cachait physiquement, aucun grossissement ne pourrait le ramener — la disparition est optique, pas géométrique. |  |
 | 3 | Deux caméras filmant le même saut de Baumgartner à 39 040 m produisent deux résultats opposés : courbure visible au fisheye 170°, horizon plat à l'objectif standard. La courbure provient de l'objectif, pas de la surface filmée. |  |
-| 4 | La réfraction atmosphérique maximale documentée (+25 %) ne comble pas les écarts de courbure observés : de 130 m manquants pour Chicago à 3 500 m pour Notre-Dame d'Anvers. L'explication par la réfraction est quantitativement insuffisante. |  |
+| 4 | La réfraction atmosphérique maximale documentée (+25 %) ne comble pas les écarts de courbure observés : de 130 m manquants pour Chicago à 3 500 m pour Notre-Dame d'Anvers. L'explication par la réfraction est quantitativement insuffisante. | **RETIRER** — contrôle n°16. Les deux cas réunis ne disent pas la même chose. CHICAGO : aucun écart à combler — même sans réfraction, 240 m sont masqués sur 527 m et les deux tiers supérieurs restent visibles, ce qu'on photographie précisément ; les « 130 m manquants » viennent de la règle de pouce. ANVERS : le cas est réel, 3 789 m masqués en réfraction standard, et sa visibilité exige un conduit atmosphérique — que le calculateur du site associe lui-même à k = 0,38. Un cas sans anomalie et un cas de super-réfraction documentée, réunis sous un même énoncé. |
 
 ### Mesurer la courbure sur l'eau : cinq campagnes, et celle qui manque
 
@@ -427,7 +427,7 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 |---|---|---|
 | 1 | Les manuels officiels de dynamique du vol — ceux qui servent à concevoir et certifier les avions — posent comme hypothèse de travail fondamentale une Terre plate et non rotative . |  |
 | 2 | Au moins 16 rapports techniques déclassifiés de la NASA et de la CIA utilisent explicitement l'hypothèse d'une Terre plate et non rotative pour modéliser le vol d'avions, d'hélicoptères et de missiles. |  |
-| 3 | L'horizon artificiel n'enregistre aucune correction vers le bas. Le gyroscope ne détecte aucune courbure de trajectoire. Aucun instrument embarqué ne mesure ni ne corrige pour une courbure terrestre en temps réel. |  |
+| 3 | L'horizon artificiel n'enregistre aucune correction vers le bas. Le gyroscope ne détecte aucune courbure de trajectoire. Aucun instrument embarqué ne mesure ni ne corrige pour une courbure terrestre en temps réel. | **RETIRER** — contrôle n°8. Les encadrés 3, 4 et 5 sont réfutés par l'encadré n°8 du même article, qui concède ce qu'ils nient. Une contradiction interne ne se répare pas en resserrant : il faut choisir lequel des deux tient. |
 | 4 | L'altimètre ne contient aucun algorithme de correction sphérique. Le pilote automatique maintient une pression barométrique — pas une trajectoire courbe sur un globe. |  |
 | 5 | Aucune source officielle de l'aviation mondiale ne documente une correction de pitch vers le bas pour suivre la courbure terrestre. Le pitch réel, mesuré et documenté, est de +1° à +3°, constant pendant des heures. |  |
 | 6 | Sur l'enregistreur du Boeing 777 (NTSB DCA18IA092), l'assiette longitudinale ( pitch ) reste constante autour de +2° pendant toute la croisière à 36 000 ft, pilote automatique engagé. On n'observe aucun piqué progressif : l'avion maintient une assiette légèrement nez-haut, stable pendant des heures. C'est exactement ce que décrit la lecture défendue dans cet article : un vol « à plat », sans la correction descendante continue qu'exigerait le suivi permanent d'une courbure. |  |
@@ -594,7 +594,7 @@ Label imposé par la charte : **CE QUE L'EXPÉRIENCE ÉTABLIT**
 | # | Énoncé | Verdict |
 |---|---|---|
 | 1 | La taille apparente d'un objet contenant de l'air emprisonné dépend de la pression extérieure. Réduire la pression fait gonfler le marshmallow ; la rétablir le ramène à sa taille initiale. Nous vivons comprimés en permanence par l'atmosphère. |  |
-| 2 | L'ébullition n'est pas définie par une température fixe : elle dépend de la pression ambiante. L'eau bout à 39 °C sous 70 mbar et à 20 °C sous 23 mbar. Le « 100 °C » n'est vrai qu'au niveau de la mer. |  |
+| 2 | L'ébullition n'est pas définie par une température fixe : elle dépend de la pression ambiante. L'eau bout à 39 °C sous 70 mbar et à 20 °C sous 23 mbar. Le « 100 °C » n'est vrai qu'au niveau de la mer. | **GARDER** — contrôle n°15. L'équation d'Antoine donne 23,3 mbar à 20 °C et 69,8 mbar à 39 °C : les deux valeurs annoncées sont justes à moins d'un millibar. L'énoncé établit exactement ce qu'il prétend établir. |
 | 3 | Le son ne se propage pas dans le vide : il a besoin d'un milieu matériel (air, eau, solide). Sans molécules à mettre en mouvement, l'onde sonore ne peut pas exister — ce qui pose la question du milieu nécessaire à la propagation de la lumière. |  |
 | 4 | La taille d'un ballon est déterminée par l'équilibre entre la pression interne et la pression externe — pas par la quantité d'air qu'il contient. La pression atmosphérique est un système de compression omnidirectionnel, pas un simple « poids » vertical. |  |
 
@@ -625,7 +625,7 @@ Label imposé par la charte : **CE QUE L'EXPÉRIENCE ÉTABLIT**
 | # | Énoncé | Verdict |
 |---|---|---|
 | 1 | L'expérience montre que l'œil ne peut faire la mise au point que sur un seul plan de distance à la fois, avec un délai de transition de 350 à 530 ms. Un objet flou à l'horizon peut simplement refléter un défaut d'accommodation, pas une disparition physique. |  |
-| 2 | Les données confirment que la vision binoculaire est totalement inopérante au-delà de 200 mètres. Toute perception de profondeur ou de courbure à grande distance est une interprétation cérébrale, pas une mesure directe. |  |
+| 2 | Les données confirment que la vision binoculaire est totalement inopérante au-delà de 200 mètres. Toute perception de profondeur ou de courbure à grande distance est une interprétation cérébrale, pas une mesure directe. | **RESSERRER** — contrôle n°13. La portée stéréoscopique vaut b/σ : 223 m pour une acuité ordinaire, 447 m pour une bonne, 670 m pour une excellente. Les 200 m annoncés sont la borne basse d'une fourchette de un à trois, donnée pour une limite, et le mot « totalement » ne convient pas. |
 | 3 | L'expérience de la tache aveugle démontre que le cerveau invente activement des informations visuelles pour combler les lacunes de la rétine — preuve que notre perception visuelle est une reconstruction, pas un enregistrement fidèle du réel. |  |
 
 ### Magnétisme et électromagnétisme : les forces invisibles

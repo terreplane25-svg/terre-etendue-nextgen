@@ -526,6 +526,162 @@ check("Détours aériens et les 70 %",
       "À COMPLÉTER (contredit par le corps du même article)", L)
 
 
+# ═══════════════════════════════════════════════════════════════════════════
+# 12. « Un objet de 2 m disparaît à 6,8 km par résolution de l'œil »
+# ═══════════════════════════════════════════════════════════════════════════
+L = []
+L.append("Énoncé : « un objet de 2 mètres disparaît à 6,8 km par simple limite de")
+L.append("résolution angulaire de l'œil (1 minute d'arc). Un zoom le ramène —")
+L.append("preuve que la disparition est optique et non géométrique ».")
+L.append("")
+L.append("   2 m / 6 800 m = %.2f' — l'arithmétique est juste."
+         % (math.degrees(2 / 6800) * 60))
+L.append("")
+L.append("Mais la conclusion ne suit pas. À 6,8 km, un œil à 1,70 m a son horizon")
+L.append("à %.1f km avec la réfraction moyenne : la cible est DÉJÀ masquée"
+         % (portee(1.7, RE) / 1000))
+L.append("géométriquement avant d'atteindre la limite de résolution.")
+L.append("")
+L.append("Les deux causes agissent ensemble, et l'énoncé en écarte une sans")
+L.append("l'avoir calculée. Le calcul juste sert ici à établir une conclusion")
+L.append("que ce même calcul contredit.")
+check("Résolution de l'œil et les 6,8 km",
+      "la-perspective-lineaire", 2,
+      "RESSERRER (chiffre juste, conclusion non fondée)", L)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# 13. « La vision binoculaire est inopérante au-delà de 200 m »
+# ═══════════════════════════════════════════════════════════════════════════
+L = []
+L.append("Énoncé : « la vision binoculaire est totalement inopérante au-delà de")
+L.append("200 mètres ».")
+L.append("")
+L.append("La portée stéréoscopique vaut b/σ, avec b = 65 mm d'écart interoculaire")
+L.append("et σ le seuil d'acuité stéréo, très variable d'un observateur à l'autre :")
+L.append("")
+for sec, lab in ((20, "acuité excellente"), (30, "bonne"), (60, "ordinaire")):
+    L.append("   seuil %2d\" (%-18s) → portée %.0f m" % (sec, lab, 0.065 / (sec / 206265.0)))
+L.append("")
+L.append("Le chiffre de 200 m correspond au cas le PLUS DÉFAVORABLE, présenté")
+L.append("comme général. Un observateur à bonne acuité voit le relief jusqu'à")
+L.append("450 m, un excellent jusqu'à 670 m.")
+L.append("")
+L.append("L'énoncé reste vrai dans son intention — la stéréoscopie ne joue aucun")
+L.append("rôle à l'échelle d'un horizon — mais le chiffre avancé est le plus bas")
+L.append("d'une fourchette de un à trois, et le mot « totalement » ne convient pas.")
+check("Portée de la vision binoculaire",
+      "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite", 2,
+      "RESSERRER (borne basse d'une fourchette donnée pour une limite)", L)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# 14. Les quatre pôles Sud
+# ═══════════════════════════════════════════════════════════════════════════
+L = []
+L.append("Énoncé : « il existe au moins quatre pôles Sud distincts, séparés de")
+L.append("centaines à milliers de kilomètres. Le pôle magnétique se trouve à")
+L.append("2 900 km du pôle géographique ».")
+L.append("")
+L.append("   pôle sud magnétique ≈ 64,2° S → (90 − 64,2) × 111,194 = %.0f km"
+         % ((90 - 64.2) * 111.194))
+L.append("   L'ordre de grandeur annoncé est juste.")
+L.append("")
+L.append("Mais ces quatre pôles ne sont pas quatre mesures contradictoires d'une")
+L.append("même chose : ce sont quatre DÉFINITIONS différentes, et le modèle")
+L.append("sphérique les prédit distinctes.")
+L.append("")
+L.append("   géographique      : axe de rotation")
+L.append("   magnétique        : où le champ est vertical")
+L.append("   géomagnétique     : axe du dipôle ajusté au champ global")
+L.append("   d'inaccessibilité : le point le plus éloigné de toute côte")
+L.append("")
+L.append("Aucune de ces définitions n'implique les autres. Leur écart n'établit")
+L.append("donc rien : il faudrait montrer que DEUX MESURES DE LA MÊME définition")
+L.append("divergent, ce que l'énoncé ne fait pas.")
+check("Les quatre pôles Sud",
+      "le-pole-sud-nexiste-pas", 1,
+      "RESSERRER (distance juste, quatre définitions prises pour une)", L)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# 15. Ébullition sous pression réduite
+# ═══════════════════════════════════════════════════════════════════════════
+L = []
+L.append("Énoncé : « l'eau bout à 39 °C sous 70 mbar et à 20 °C sous 23 mbar ».")
+L.append("")
+L.append("Équation d'Antoine pour l'eau, log10(P) = A − B/(C+T) :")
+for T in (20, 39):
+    A, B, C = 8.07131, 1730.63, 233.426
+    L.append("   T = %2d °C → P = %.1f mbar" % (T, 10 ** (A - B / (C + T)) * 1.33322))
+L.append("")
+L.append("Les deux valeurs annoncées sont justes à moins d'un millibar près.")
+L.append("L'énoncé est exact et à sa place : il établit ce qu'il prétend établir,")
+L.append("à savoir que la température d'ébullition n'est pas une constante.")
+check("Ébullition sous pression réduite",
+      "experiences-sous-pression-reduite", 2,
+      "GARDER", L)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# 16. « La réfraction ne comble pas les écarts : 130 m et 3 500 m »
+# ═══════════════════════════════════════════════════════════════════════════
+L = []
+L.append("Énoncé : « la réfraction atmosphérique maximale documentée (+25 %) ne")
+L.append("comble pas les écarts de courbure observés : de 130 m manquants pour")
+L.append("Chicago à 3 500 m pour Notre-Dame d'Anvers ».")
+L.append("")
+L.append("Les deux cas se calculent, et ils ne disent pas la même chose.")
+L.append("")
+for nom, d, h1, h2 in (("Chicago, skyline de 527 m à 60 km, œil à 1,70 m", 60000.0, 1.7, 527.0),
+                       ("Anvers, flèche de 123 m à 241 km, œil à 2 m", 241000.0, 2.0, 123.0)):
+    L.append("   %s" % nom)
+    for k, lab in ((0.0, "sans réfraction"), (0.13, "standard"), (0.25, "forte")):
+        c = cachee(d, h1, R / (1 - k))
+        L.append("      %-16s masqué %7.0f m → cible %4.0f m : %s"
+                 % (lab, c, h2, "VISIBLE" if c < h2 else "masquée"))
+    L.append("")
+L.append("CHICAGO : il n'y a aucun écart à combler. Même SANS réfraction, 240 m")
+L.append("sont masqués sur une silhouette de 527 m — les deux tiers supérieurs")
+L.append("restent visibles, ce qui est précisément ce qu'on photographie. Les")
+L.append("« 130 m manquants » proviennent de la règle de pouce d²/2R − h₁, qui")
+L.append("donne ici 281 m et n'est pas la hauteur masquée.")
+L.append("")
+L.append("ANVERS : le cas est réel. À 241 km, une flèche de 123 m est masquée de")
+L.append("3 789 m en réfraction standard. Sa visibilité exige un régime de")
+L.append("super-réfraction — le calculateur du site le dit lui-même en associant")
+L.append("k = 0,38 à ce cas. Ce n'est pas un écart inexpliqué, c'est un conduit")
+L.append("atmosphérique documenté, avec ses signatures géométriques.")
+L.append("")
+L.append("Réunir les deux sous un même énoncé mélange un cas sans anomalie et un")
+L.append("cas de super-réfraction connue.")
+check("« La réfraction ne comble pas les écarts »",
+      "lhorizon-la-perspective-et-la-refraction", 4,
+      "RETIRER (un cas sans anomalie, un cas de super-réfraction documentée)", L)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# 17. La stabilité du diamètre solaire
+# ═══════════════════════════════════════════════════════════════════════════
+L = []
+L.append("Énoncé : « la taille angulaire du Soleil reste stable à ≈ 32 minutes")
+L.append("d'arc tout au long de la journée, ce qui est cohérent avec un Soleil")
+L.append("très lointain ».")
+L.append("")
+L.append("C'est exact, et c'est l'observable du protocole du diamètre solaire.")
+L.append("Un Soleil à hauteur finie H au-dessus d'un plan serait à la distance")
+L.append("H/sin α, et son diamètre varierait donc comme sin α :")
+L.append("")
+for a in (60, 30, 20, 15):
+    L.append("   à %2d° de hauteur : ×%.2f soit %.1f' au lieu de 32'"
+             % (a, math.sin(math.radians(a)), 32 * math.sin(math.radians(a))))
+L.append("")
+L.append("La stabilité observée réfute donc le Soleil local et confirme le Soleil")
+L.append("lointain. L'encadré l'écrit lui-même — « cohérent avec un Soleil très")
+L.append("lointain » — et il a raison.")
+L.append("")
+L.append("À GARDER tel quel, en notant que c'est un fait établi du site qui joue")
+L.append("contre la thèse du site. C'est le second de ce genre après Nansen, et")
+L.append("les garder tous les deux est ce qui donne du poids au reste.")
+check("Stabilité du diamètre solaire",
+      "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre", 2,
+      "GARDER — fait établi qui joue contre la thèse du site", L)
+
 def autotest():
     """Contrôles de non-régression sur la géométrie.
 
