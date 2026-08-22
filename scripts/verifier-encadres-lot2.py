@@ -230,6 +230,71 @@ c(35, "Pression atmosphérique au niveau de la mer", [
     "vide spatial reste un problème physique non résolu » — est une affirmation",
     "distincte, que la mesure qui précède n'établit pas."])
 
+# 36 ── Le Canigou depuis la Provence, et la direction de l'ombre lunaire
+def k_crit(d, h1, h2):
+    return 1 - 2 * R * ((math.sqrt(h1) + math.sqrt(h2)) ** 2) / (d * d)
+
+
+CANIGOU = 2784.0
+L = ["Le Canigou est photographié depuis la Provence depuis 2004. Les sites réels",
+     "ne sont pas au niveau de la mer :", "",
+     "   %-38s %8s %9s %10s" % ("site", "altitude", "distance", "k critique")]
+for nom, h1, d in (("Sainte-Victoire, Pic des Mouches", 1011.0, 277000.0),
+                   ("Le Garlaban", 714.0, 265000.0),
+                   ("Hauteurs de la rade de Toulon", 300.0, 290000.0),
+                   ("Niveau de la mer — jamais employé", 2.0, 277000.0)):
+    L.append("   %-38s %6.0f m %7.0f km %9.3f"
+             % (nom, h1, d / 1000, k_crit(d, h1, CANIGOU)))
+L += ["",
+      "Depuis les deux premiers, le coefficient critique est NÉGATIF : le sommet",
+      "serait visible même sans aucune réfraction. Il n'y a là aucune anomalie,",
+      "et l'encadré qui calcule depuis 1,70 m compare à une situation fictive.",
+      "",
+      "L'observation devient en revanche un TEST si l'on mesure la hauteur",
+      "APPARENTE du massif depuis la Sainte-Victoire :", ""]
+d, h1 = 277000.0, 1011.0
+for lab, hv in (("Canigou entier, du pied 500 m au sommet", 2284.0),
+                ("Globe, k = 0,25", CANIGOU - cachee(d, h1, R / 0.75)),
+                ("Globe, k = 0,17", CANIGOU - cachee(d, h1, R / 0.83)),
+                ("Globe, k = 0,13", CANIGOU - cachee(d, h1, RE)),
+                ("Globe, k = 0", CANIGOU - cachee(d, h1, R))):
+    ang = hv / d * (180 / math.pi) * 60
+    L.append("   %-40s %6.0f m → %5.1f′ (%.2f Lune)" % (lab, hv, ang, ang / 31))
+L += ["",
+      "Facteur deux entre « entier » et « globe standard ». Mesurable en pixels",
+      "sur les clichés existants, comme pour la panoramique du Caucase."]
+c(36, "Le Canigou depuis la Provence", L)
+
+
+def angle_parallactique(phi, dec, H):
+    phi, dec, H = map(math.radians, (phi, dec, H))
+    return math.degrees(math.atan2(
+        math.sin(H), math.tan(phi) * math.cos(dec) - math.sin(dec) * math.cos(H)))
+
+
+L = ["Objection reçue : « l'éclipse se fait de haut en bas, alors qu'on devrait",
+     "voir l'ombre passer du bas vers le haut ».", "",
+     "Le premier contact se produit toujours sur le limbe EST CÉLESTE de la Lune,",
+     "parce que la Lune se déplace vers l'est par rapport à l'ombre, de 0,55° par",
+     "heure. Cela, les deux modèles doivent le rendre de la même façon.",
+     "",
+     "Mais où se trouve l'est céleste SUR L'IMAGE ? À l'angle parallactique près,",
+     "qui tourne au cours de la nuit :", "",
+     "   observateur à 45° N, Lune de déclinaison +15°", "",
+     "   %14s %20s   %s" % ("angle horaire", "angle parallactique", "l'est est vers…")]
+for H in (-75, -45, 0, 45, 75):
+    a = angle_parallactique(45, 15, H)
+    L.append("   %10d°     %16.1f°   %s"
+             % (H, a, "le bas" if a < -30 else "le haut" if a > 30 else "le côté"))
+L += ["",
+      "L'orientation du disque tourne de plus de cent degrés entre le lever et le",
+      "coucher. « L'ombre vient du haut » et « l'ombre vient du bas » sont donc",
+      "TOUS DEUX observés, selon l'heure et le lieu.",
+      "",
+      "Aucun des deux modèles ne prédit une direction fixe. L'objection ne porte",
+      "pas — elle attaque une prédiction que personne ne fait."]
+c(37, "Direction de l'ombre pendant une éclipse de Lune", L)
+
 
 def main():
     print("═" * 74)

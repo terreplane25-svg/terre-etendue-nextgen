@@ -149,12 +149,17 @@ VERDICTS = {
         "super-réfraction documentée, réunis sous un même énoncé."),
     ("la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre", 2): (
         "GARDER",
-        "contrôle n°17. Exact, et c'est l'observable du protocole du diamètre "
-        "solaire : un Soleil à hauteur finie donnerait 16,0′ à 30° de hauteur et "
-        "8,3′ à 15°, au lieu des 32′ observés. La stabilité mesurée réfute le "
-        "Soleil local et confirme le Soleil lointain — l'encadré l'écrit lui-même. "
-        "Second fait établi du site à jouer contre la thèse du site, après Nansen ; "
-        "les garder tous les deux est ce qui donne du poids au reste."),
+        "contrôle n°17. La mesure est exacte et c'est l'observable du protocole "
+        "du diamètre solaire. Ce qu'elle écarte est une CLASSE de modèles : ceux "
+        "qui posent un corps compact à hauteur finie, dont la loi en sin α "
+        "donnerait 16,0′ à 30° de hauteur et 8,3′ à 15° au lieu des 32′ observés. "
+        "Elle ne contraint pas les modèles où le disque visible n'est pas l'astre "
+        "— projection, image formée par une couche atmosphérique — dont la taille "
+        "est fixée par l'optique de formation et non par une distance. "
+        "Correction apportée après remarque : la première rédaction concluait "
+        "« réfute le Soleil local et confirme le Soleil lointain », ce qui "
+        "outrepasse la portée de la mesure et contredit la section 02 de notre "
+        "propre protocole solaire. Le fait reste à garder, avec sa portée exacte."),
     ("kings-dethroned-leffondrement-de-la-triangulation-stellaire", 1): (
         "RETIRER",
         "contrôle n°18. La taille de l'astre n'intervient nulle part : seule sa "
@@ -186,10 +191,15 @@ VERDICTS = {
         "RESSERRER",
         "contrôle n°22. Les trois premières valeurs se confirment au mètre près : "
         "5,0 km de portée depuis 1,70 m, 616 m masqués à 100 km, 4 199 m à 253 km. "
-        "En revanche les coefficients du Canigou ne se reproduisent pas : nous "
-        "trouvons k = 0,46 depuis 1,70 m et k = 0,21 depuis 160 m, là où l'encadré "
-        "annonce 0,42 et 0,15. L'écart va de 10 à 40 % et tient sans doute à une "
-        "distance ou une altitude différentes — à vérifier avant publication."),
+        "Les coefficients du Canigou ne se reproduisent pas exactement — 0,46 et "
+        "0,21 contre 0,42 et 0,15 — mais le vrai défaut est ailleurs : ils sont "
+        "calculés depuis 1,70 m et 160 m, hauteurs que personne n'emploie. Les "
+        "photographies existantes du Canigou depuis la Provence sont prises de la "
+        "Sainte-Victoire, 1 011 m, et du Garlaban, 714 m. Depuis ces sites, le "
+        "coefficient critique est NÉGATIF — −0,187 et −0,146 — c'est-à-dire que le "
+        "sommet serait visible même sans aucune réfraction. Comparer à une hauteur "
+        "d'œil fictive fabrique une difficulté qui n'existe pas. Voir le contrôle "
+        "n°36."),
     ("par-rapport-a-quoi-mesure-t-on-une-altitude", 6): (
         "GARDER",
         "contrôle n°23. Les valeurs SRTM sont conformes aux spécifications de la "
@@ -277,6 +287,16 @@ VERDICTS = {
         "Mais la dernière proposition — « sa transition vers un prétendu vide spatial "
         "reste un problème physique non résolu » — est une affirmation distincte, non "
         "établie par la mesure qui précède. Garder la mesure, séparer la thèse."),
+    ("cartes-routes-boussoles-et-le-mystere-antarctique", 1): (
+        "À COMPLÉTER",
+        "contrôle n°36. Le Canigou depuis la Provence — 277 km depuis la "
+        "Sainte-Victoire — n'est pas une anomalie : le coefficient critique y vaut "
+        "−0,187, le sommet serait visible même sans réfraction. Mais l'observation "
+        "devient un TEST si l'on mesure la hauteur apparente. Le modèle sphérique "
+        "prédit 1 647 m masqués, donc 1 137 m émergés, soit 14,1′ — 0,46 diamètre "
+        "lunaire. Un Canigou visible en entier depuis son pied à 500 m ferait "
+        "2 284 m, soit 28,3′ — 0,91 diamètre lunaire. Facteur deux, mesurable en "
+        "pixels sur les clichés existants. À trancher par cette mesure."),
 }
 
 
