@@ -173,7 +173,7 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
     <span>Rédacteur<b>&nbsp;</b></span>
     <span>Affiliation<b>&nbsp;</b></span>
     <span>Contact<b>&nbsp;</b></span>
-    <span>Version<b>1.0 — révisable</b></span>
+    <span>Version<b>1.1 — révisable</b></span>
     <span>Date<b>&nbsp;</b></span>
   </div>
 </div>
@@ -337,6 +337,37 @@ projective, non une approximation.</p>
   le passage par l'origine sont trois contraintes indépendantes.</figcaption>
 </figure>
 
+<h3>Si l'on accorde la r&#233;fraction au mod&#232;le plan</h3>
+<p>L'objection est l&#233;gitime et il faut y r&#233;pondre : la pr&#233;diction sph&#233;rique int&#232;gre la
+r&#233;fraction, celle du plan n'a droit qu'&#224; la propagation rectiligne. La comparaison
+para&#238;t d&#233;s&#233;quilibr&#233;e.</p>
+<p>Elle ne l'est pas, et le d&#233;s&#233;quilibre joue en faveur du mod&#232;le plan. La courbure du rayon
+vaut 1/&#961; avec <code>k = R/&#961;</code> : elle ne d&#233;pend que de l'atmosph&#232;re, donc elle est la
+m&#234;me au-dessus d'un plan. La courbure <em>relative</em> du rayon et de la surface devient
+alors :</p>
+<div class="eq">
+  sph&#232;re : 1/R &#8722; 1/&#961; = (1&#8722;k)/R &nbsp;&nbsp;|&nbsp;&nbsp; plan : 0 &#8722; 1/&#961; = &#8722;k/R
+  <span class="cap">Positive sur une sph&#232;re tant que k &lt; 1 : un horizon existe. N&#233;gative sur un plan quel que soit k.</span>
+</div>
+<p>Sur un plan dot&#233; d'une atmosph&#232;re r&#233;elle, le rayon se courbe donc <strong>plus</strong> que
+la surface : le sol remonte autour de l'observateur au lieu de fuir. En visant 1&#176; au-dessus de
+l'horizontale, le sol serait atteint &#224; 1 873 km ; &#224; 5&#176;, &#224; 8 589 km. <strong>Il n'existerait
+aucun horizon</strong> et le sol remplirait le ciel.</p>
+<div class="box key">
+  <span class="lab">Ce que cela &#233;tablit</span>
+  <p><code>&#948; = 0</code> est le <strong>meilleur cas</strong> du mod&#232;le plan, obtenu en lui
+  accordant une propagation rectiligne. Lui accorder la r&#233;fraction ne l'am&#233;liore pas : cela le
+  conduit &#224; une pr&#233;diction absurde et massivement r&#233;fut&#233;e. C'est aussi la raison pour laquelle
+  aucune valeur interm&#233;diaire n'est disponible : le mod&#232;le plan ne dispose d'aucun m&#233;canisme
+  produisant une d&#233;pression de quelques dizaines de minutes d'arc.</p>
+</div>
+
+<h3>Forme exacte</h3>
+<p>La relation exacte est <code>&#948; = arccos( R&#8242; / (R&#8242; + h) )</code>, dont
+<code>&#8730;(2h/R&#8242;)</code> est le d&#233;veloppement au premier ordre. L'&#233;cart vaut 0,018&#8242; &#224;
+3 107 m et 0,036&#8242; &#224; 5 000 m &#8212; sous le budget d'erreur, mais la forme exacte ne co&#251;te rien
+et c'est elle qu'il faut employer &#224; la r&#233;duction.</p>
+
 <h2 class="brk"><span class="n">03</span>Prédictions préenregistrées</h2>
 <p>Les deux hypothèses sont énoncées ici sous forme falsifiable, avant toute acquisition de
 données. Aucune ne comporte de paramètre libre au-delà de k, lui-même borné.</p>
@@ -385,9 +416,65 @@ données. Aucune ne comporte de paramètre libre au-delà de k, lui-même borné
   <li><strong>Horizon marin dégagé</strong> sur au moins la portée théorique de l'altitude
   considérée — 213 km depuis 3 107 m, 12 km depuis 10 m.</li>
   <li><strong>Baromètre et thermomètre</strong>, pour documenter les conditions.</li>
+  <li><strong>Une altitude rapportée à la surface de la mer du moment</strong>, et non à l'ellipsoïde. Voir l'encadré ci-dessous : c'est le point le plus dangereux du protocole aux stations basses.</li>
+  <li><strong>L'heure de marée et l'état de la mer</strong> au moment de l'acquisition.</li>
 </ul>
 
-<h2><span class="n">05</span>Procédure — méthode A, mesure absolue</h2>
+<h2><span class="n">05</span>Proc&#233;dure &#8212; m&#233;thode A, horizon artificiel</h2>
+<p class="lead">Cette m&#233;thode est nouvelle en version 1.1 et remplace la mise de niveau comme
+proc&#233;d&#233; de r&#233;f&#233;rence. Elle <strong>n'exige aucun instrument de niveau et aucun
+&#233;talonnage</strong> : la r&#233;f&#233;rence horizontale se fabrique d'elle-m&#234;me.</p>
+<p>Une nappe d'eau immobile se met perpendiculaire au fil &#224; plomb. Une &#233;toile et son reflet
+sont donc sym&#233;triques par rapport &#224; l'horizontale vraie, et leur milieu la mat&#233;rialise. Si la
+ligne d'horizon marin figure dans la m&#234;me image, &#948; se lit directement.</p>
+
+<figure>
+  <svg viewBox="0 0 900 330" role="img" aria-label="Horizon artificiel : l etoile, son reflet et la ligne d horizon marin dans une meme image.">
+    <line class="sl" x1="80" y1="196" x2="820" y2="196" stroke-width="1.6"/>
+    <rect x="300" y="192" width="230" height="8" fill="var(--globe)" opacity=".22"/>
+    <text class="tm" x="415" y="226" text-anchor="middle">nappe d'eau immobile</text>
+    <circle cx="415" cy="196" r="4.5" class="fi"/>
+    <text class="t" x="415" y="250" text-anchor="middle">objectif</text>
+    <line class="si dash" x1="80" y1="196" x2="820" y2="196" stroke-width="1"/>
+    <text class="tm" x="88" y="188">horizontale vraie</text>
+    <circle cx="778" cy="90" r="8" fill="var(--plane)"/>
+    <text class="t" x="764" y="82" text-anchor="end" fill="var(--plane)">&#233;toile, hauteur a</text>
+    <circle cx="778" cy="302" r="8" fill="var(--plane)" opacity=".42"/>
+    <text class="t" x="764" y="310" text-anchor="end" fill="var(--plane)" opacity=".85">reflet, hauteur &#8722;a</text>
+    <line class="sp" x1="415" y1="196" x2="770" y2="94" stroke-width="1.7"/>
+    <line class="sp" x1="415" y1="196" x2="770" y2="298" stroke-width="1.7" stroke-dasharray="4 3"/>
+    <line class="sg" x1="415" y1="196" x2="800" y2="228" stroke-width="2.4"/>
+    <circle cx="800" cy="228" r="5" class="fg"/>
+    <text class="t" x="792" y="252" text-anchor="end" fill="var(--globe)">horizon marin, &#8722;&#948;</text>
+    <path class="sp" d="M 600,142 A 195,195 0 0 0 600,250" stroke-width="1.3"/>
+    <text class="tb" x="620" y="200" fill="var(--plane)">2a</text>
+    <path class="sg" d="M 660,196 A 245,245 0 0 0 662,216" stroke-width="1.3"/>
+    <text class="tb" x="676" y="214" fill="var(--globe)">&#948;</text>
+  </svg>
+  <figcaption><b>Figure 3 &#8212; L'horizon artificiel appliqu&#233; &#224; la d&#233;pression.</b> L'&#233;toile et son reflet sont sym&#233;triques par rapport &#224; l'horizontale vraie : leur milieu la mat&#233;rialise, sans aucune mise de niveau. La ligne d'horizon marin, dans la m&#234;me image, se lit alors directement &#224; &#8722;&#948;. La r&#233;fraction s'annule &#8212; l'image directe et l'image r&#233;fl&#233;chie la subissent identiquement &#8212; et les trois objets sont &#224; l'infini, donc une seule mise au point suffit.</figcaption>
+</figure>
+<ol class="st">
+  <li><b>Installer la nappe</b>Un plateau large et peu profond, rempli d'eau, abrit&#233; du vent.
+  Une huile sombre amortit mieux les rides. Laisser reposer.</li>
+  <li><b>Choisir une &#233;toile basse</b>Entre 3&#176; et 5&#176; de hauteur, dans l'azimut de l'horizon
+  vis&#233;. Le champ vertical requis vaut 2a, soit 6&#176; &#224; 10&#176; : un 100 mm suffit largement.</li>
+  <li><b>Cadrer les trois objets</b>&#201;toile, reflet et ligne d'horizon dans la m&#234;me image.
+  Mise au point &#224; l'infini : les trois y sont, y compris le reflet.</li>
+  <li><b>R&#233;duire</b>Le milieu entre &#233;toile et reflet donne l'horizontale vraie. L'&#233;cart entre
+  ce milieu et la ligne d'horizon vaut &#948;.</li>
+  <li><b>R&#233;p&#233;ter</b>Trois s&#233;ries au minimum, &#224; des heures distinctes.</li>
+</ol>
+<div class="box key">
+  <span class="lab">Pourquoi la r&#233;fraction ne g&#234;ne pas</span>
+  <p>L'image directe de l'&#233;toile et son image r&#233;fl&#233;chie subissent la m&#234;me r&#233;fraction et restent
+  sym&#233;triques par rapport &#224; l'horizontale. Le milieu des deux est donc exempt de r&#233;fraction,
+  alors m&#234;me que chacune des deux images en est affect&#233;e.</p>
+</div>
+
+<h3>Solution de repli &#8212; mise de niveau et retournement</h3>
+<p>Si l'horizon artificiel n'est pas praticable, mesurer &#224; l'inclinom&#232;tre selon la proc&#233;dure
+ci-dessous. Elle reste valable, mais elle d&#233;pend de la reproductibilit&#233; de la mise en station,
+l&#224; o&#249; l'horizon artificiel n'en d&#233;pend pas.</p>
 <ol class="st">
   <li><b>Mise en station</b>Trépied sur sol stable, base mise de niveau selon les deux axes.
   Le tangage est la grandeur critique ; le roulis n'affecte que l'esthétique du cadrage.</li>
@@ -445,8 +532,7 @@ Elle consiste à photographier le même horizon depuis deux altitudes très diff
 le même matériel et le même réglage, et à mesurer le <em>déplacement</em> de la ligne
 d'horizon dans le cadre. Tout biais de montage, identique dans les deux acquisitions,
 disparaît par différence.</p>
-<p>Elle constitue la version la moins attaquable du protocole, et nous la recommandons comme
-mesure de référence pour les observateurs ne disposant pas d'un inclinomètre de précision.</p>
+<div class="box warn"><span class="lab">Restriction ajoutée en version 1.1</span><p>L'annulation du biais suppose qu'il soit <em>identique</em> dans les deux acquisitions. Or passer de 10 m à 3 107 m impose de démonter le boîtier, de se déplacer, puis de le remonter : le biais n'est plus le même. Une reproductibilité de remontage de 20&prime; consomme <strong>21 %</strong> du signal différentiel de 94&prime;.</p><p>La méthode B reste utile lorsque l'ensemble boîtier-rotule n'est pas démonté entre les deux stations. Dans le cas contraire, employer l'horizon artificiel de la méthode A, qui ne dépend d'aucune reproductibilité de montage.</p></div>
 
 <table>
   <caption>Tableau 3 — Déplacement prédit de la ligne d'horizon entre deux altitudes.</caption>
@@ -511,6 +597,53 @@ mesure de référence pour les observateurs ne disposant pas d'un inclinomètre 
   entre les acquisitions.</p>
 </div>
 
+
+<h3>Ce que vaut r&#233;ellement chaque altitude</h3>
+<p>Le rapport signal sur bruit s'effondre aux stations basses, et la version 1.0 ne le disait
+pas. Ces points restent utiles &#224; l'ajustement de la loi en &#8730;h, mais ils ne sont pas
+d&#233;cisifs et ne doivent pas &#234;tre pr&#233;sent&#233;s comme tels.</p>
+<table>
+  <caption>Tableau 6 &#8212; Rapport signal sur bruit par altitude, budget d'erreur 2,2&#8242;.</caption>
+  <thead><tr><th class="n">altitude</th><th class="n">&#948;</th><th class="n">&#963;</th><th>usage</th></tr></thead>
+  <tbody>
+    <tr><td class="n">5 m</td><td class="n">4,0&#8242;</td><td class="n">1,8</td><td>indicatif seulement</td></tr>
+    <tr><td class="n">10 m</td><td class="n">5,7&#8242;</td><td class="n">2,6</td><td>indicatif seulement</td></tr>
+    <tr><td class="n">50 m</td><td class="n">12,7&#8242;</td><td class="n">5,8</td><td>contributif</td></tr>
+    <tr><td class="n">120 m</td><td class="n">19,7&#8242;</td><td class="n">8,9</td><td>contributif</td></tr>
+    <tr><td class="n">300 m</td><td class="n">31,1&#8242;</td><td class="n">14,1</td><td>solide</td></tr>
+    <tr><td class="n">1 000 m</td><td class="n">56,8&#8242;</td><td class="n">25,8</td><td>solide</td></tr>
+    <tr class="hi"><td class="n"><strong>3 107 m</strong></td><td class="n"><strong>100,1&#8242;</strong></td><td class="n"><strong>45,5</strong></td><td><strong>d&#233;cisif</strong></td></tr>
+  </tbody>
+</table>
+
+<h3>Le r&#233;f&#233;rentiel d'altitude &#8212; le point le plus dangereux</h3>
+<div class="box warn">
+  <span class="lab">Correction apport&#233;e &#224; la version 1.0</span>
+  <p>&#948; d&#233;pend de la hauteur au-dessus de la <strong>surface de la mer du moment</strong>. La
+  version 1.0 &#233;crivait &#171; altitude du sol + hauteur du tr&#233;pied &#187; sans pr&#233;ciser le r&#233;f&#233;rentiel.
+  Or un r&#233;cepteur GPS restitue une hauteur <em>ellipso&#239;dale</em>, qui peut s'&#233;carter du niveau
+  marin de plusieurs dizaines de m&#232;tres.</p>
+  <p>Cons&#233;quence, pour une erreur de 30 m sur le r&#233;f&#233;rentiel : <strong>178 % d'erreur sur &#948; &#224;
+  10 m d'altitude</strong>, 63 % &#224; 50 m, 10 % &#224; 300 m, 1 % &#224; 3 107 m. Aux stations basses, elle
+  d&#233;truit la mesure. Exiger l'altitude <strong>orthom&#233;trique</strong>, et sous 50 m une mesure
+  directe au-dessus de l'eau.</p>
+</div>
+<table>
+  <caption>Tableau 7 &#8212; Effets de la mar&#233;e et de l'&#233;tat de la mer, tous deux absents de la
+  version 1.0. Le second est un biais <em>systématique</em>, toujours de m&#234;me signe.</caption>
+  <thead><tr><th class="n">altitude</th><th class="n">mar&#233;e &#177;2 m</th><th class="n">houle Hs = 3 m</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td class="n"><strong>5 m</strong></td><td class="n"><strong>41 %</strong></td><td class="n">&#8212;</td></tr>
+    <tr><td class="n">10 m</td><td class="n">20 %</td><td class="n">&#8722;7,8 %</td></tr>
+    <tr><td class="n">50 m</td><td class="n">4,0 %</td><td class="n">&#8722;1,5 %</td></tr>
+    <tr><td class="n">300 m</td><td class="n">0,7 %</td><td class="n">&#8722;0,3 %</td></tr>
+    <tr><td class="n">3 107 m</td><td class="n">&lt; 0,1 %</td><td class="n">&lt; 0,1 %</td></tr>
+  </tbody>
+</table>
+<p>La houle ne bruite pas : elle <strong>abaisse</strong> &#948;, parce que les cr&#234;tes masquent la
+surface moyenne. &#192; 10 m par mer form&#233;e le biais vaut 0,4&#8242;, du m&#234;me ordre que le budget d'erreur
+tout entier. Mar&#233;e et &#233;tat de la mer sont d&#233;sormais des champs obligatoires du relev&#233;.</p>
+
 <h2><span class="n">08</span>Systématiques connues et modes d'échec</h2>
 <ol>
   <li><strong>Fausse ligne d'horizon.</strong> Le mode d'échec le plus fréquent et le plus
@@ -564,7 +697,11 @@ points répartis sur la plage 5 m – 3 000 m suffit à contraindre la pente à 
 <div class="sheet">
   <div class="fr"><span class="a">Date et heure UTC (début / fin de série)</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">Coordonnées GPS de la station</span><span class="b">&nbsp;</span></div>
-  <div class="fr"><span class="a">Altitude de l'œil = altitude du sol + hauteur du trépied</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Altitude de l'œil <b>au-dessus de la mer du moment</b> (orthométrique)</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Méthode de détermination de cette hauteur, et son incertitude</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Heure et coefficient de marée</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">État de la mer, hauteur significative de houle Hs</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Méthode employée : horizon artificiel ou niveau avec retournement</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">Azimut de visée, et distance de mer ouverte dans l'axe</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">Température, pression, humidité, vent</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">Boîtier, objectif, focale exacte, dimensions du capteur</span><span class="b">&nbsp;</span></div>
@@ -610,7 +747,7 @@ version 2 créditée.</p>
   <p>Toutes les valeurs numériques de ce document se dérivent de <code>δ = √(2h/R′)</code>
   avec <code>R′ = R/(1−k)</code> et R = 6 371 km. Diamètre lunaire moyen 31′ (29,4′ au
   périgée, 33,5′ à l'apogée). Le document est reproductible dans son intégralité à partir de
-  ces relations. — Protocole ouvert, version 1.0, destiné à être amendé.</p>
+  ces relations. — Protocole ouvert, version 1.1. <strong>Changements depuis la 1.0 :</strong> la m&#233;thode &#224; horizon artificiel devient le proc&#233;d&#233; de r&#233;f&#233;rence, la mise de niveau passant en solution de repli ; le r&#233;f&#233;rentiel d'altitude est impos&#233; &#8212; la 1.0 &#233;crivait &#171; altitude du sol &#187; sans le pr&#233;ciser, ce qui fausse &#948; de 178 % &#224; 10 m pour une erreur de 30 m ; la mar&#233;e et l'&#233;tat de la mer, absents, deviennent des champs obligatoires ; la m&#233;thode B est restreinte aux cas o&#249; le montage n'est pas d&#233;fait entre les stations ; les rapports signal sur bruit par altitude sont affich&#233;s ; la r&#233;fraction accord&#233;e au mod&#232;le plan est trait&#233;e en section 02 ; la forme exacte de &#948; remplace le d&#233;veloppement au premier ordre.</p>
 </footer>
 
 </div>

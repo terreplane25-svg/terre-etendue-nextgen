@@ -8,8 +8,8 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 
 | Fichier | Contenu |
 |---|---|
-| `horizon-fr.html` | Dépression de l'horizon marin — français, 7 pages |
-| `horizon-en.html` | Même document en anglais |
+| `horizon-fr.html` | Dépression de l'horizon marin — français, 11 pages, v1.1 |
+| `horizon-en.html` | Même document en anglais, v1.1 |
 | `soleil-bilingue.html` | Diamètre angulaire du Soleil — bilingue, 21 pages, v1.2 |
 | `pole-celeste-bilingue.html` | Hauteur du pôle céleste — bilingue, 18 pages, v1.0 |
 | `horizon-artefact-web.html` | Version web du protocole d'horizon (artefact consultable en ligne) |
@@ -52,9 +52,11 @@ un budget d'erreur de 2,2′** — rapport signal sur bruit d'environ 36. C'est 
 première mesure du dossier où l'incertitude sur la réfraction est plus petite que
 l'écart à mesurer.
 
-Deux méthodes : absolue avec calibration par retournement du boîtier, ou
-différentielle entre deux altitudes — celle-ci n'exige aucun niveau et aucun
-étalonnage.
+La mesure se fait par **horizon artificiel** : une étoile, son reflet dans une
+nappe d'eau et la ligne d'horizon marin dans une même image. Le milieu entre
+l'étoile et son reflet matérialise l'horizontale vraie, sans aucune mise de
+niveau. La mise de niveau avec retournement du boîtier reste en solution de
+repli.
 
 ### Diamètre angulaire du Soleil
 
@@ -105,6 +107,14 @@ les trouverait de toute façon.
   famille de modèles une prédiction que seuls certains formulent. Un modèle où le
   disque visible est une projection n'est pas contraint par la loi en sin α, et
   le document le dit désormais.
+- **Horizon 1.1** — la méthode à horizon artificiel devient le procédé de
+  référence. Le référentiel d'altitude est imposé : la 1.0 écrivait « altitude du
+  sol » sans le préciser, ce qui fausse δ de 178 % à 10 m pour une erreur de 30 m.
+  La marée et l'état de la mer, absents, deviennent des champs obligatoires. La
+  méthode différentielle est restreinte aux cas où le montage n'est pas défait
+  entre les stations, son hypothèse d'annulation du biais étant sinon intenable.
+  Les rapports signal sur bruit par altitude sont affichés — sous 50 m ils tombent
+  sous 6 et ces points ne sont pas décisifs.
 - **Soleil 1.2** — la section 04 est réécrite. Elle annonçait des valeurs à
   retrouver (14,1 %, 1,67 %) qui ne sont atteignables ni un mois quelconque ni
   depuis les latitudes moyennes, et passait sous silence la mesure d'un disque en

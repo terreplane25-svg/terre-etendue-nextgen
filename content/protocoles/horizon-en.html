@@ -173,7 +173,7 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
     <span>Author<b>&nbsp;</b></span>
     <span>Affiliation<b>&nbsp;</b></span>
     <span>Contact<b>&nbsp;</b></span>
-    <span>Version<b>1.0 &mdash; open to revision</b></span>
+    <span>Version<b>1.1 &mdash; open to revision</b></span>
     <span>Date<b>&nbsp;</b></span>
   </div>
 </div>
@@ -321,6 +321,35 @@ independent of h: this is a property of projective geometry, not an approximatio
   origin are three independent constraints.</figcaption>
 </figure>
 
+<h3>If refraction is granted to the plane model</h3>
+<p>The objection is legitimate and must be answered: the spherical prediction includes
+refraction, the plane's is allowed only straight-line propagation. The comparison looks
+unbalanced.</p>
+<p>It is not, and the imbalance favours the plane model. Ray curvature is 1/&#961; with
+<code>k = R/&#961;</code>: it depends only on the atmosphere, and is therefore the same above a
+plane. The <em>relative</em> curvature of ray and surface then becomes:</p>
+<div class="eq">
+  sphere: 1/R &#8722; 1/&#961; = (1&#8722;k)/R &nbsp;&nbsp;|&nbsp;&nbsp; plane: 0 &#8722; 1/&#961; = &#8722;k/R
+  <span class="cap">Positive on a sphere while k &lt; 1: a horizon exists. Negative on a plane for any k.</span>
+</div>
+<p>On a plane with a real atmosphere the ray therefore curves <strong>more</strong> than the
+surface: the ground rises around the observer instead of falling away. Sighting 1&#176; above the
+horizontal, the ground would be met at 1 873 km; at 5&#176;, at 8 589 km. <strong>No horizon would
+exist at all</strong> and the ground would fill the sky.</p>
+<div class="box key">
+  <span class="lab">What this establishes</span>
+  <p><code>&#948; = 0</code> is the plane model's <strong>best case</strong>, obtained by granting
+  it straight-line propagation. Granting it refraction does not improve matters: it leads to an
+  absurd and massively refuted prediction. This is also why no intermediate value is available:
+  the plane model has no mechanism producing a dip of a few tens of arcminutes.</p>
+</div>
+
+<h3>Exact form</h3>
+<p>The exact relation is <code>&#948; = arccos( R&#8242; / (R&#8242; + h) )</code>, of which
+<code>&#8730;(2h/R&#8242;)</code> is the first-order expansion. The difference is 0.018&#8242; at 3 107 m
+and 0.036&#8242; at 5 000 m &#8212; below the error budget, but the exact form costs nothing and is the
+one to use in reduction.</p>
+
 <h2 class="brk"><span class="n">03</span>Pre-registered predictions</h2>
 <p>Both hypotheses are stated here in falsifiable form, before any data are acquired. Neither
 contains a free parameter beyond k, which is itself bounded.</p>
@@ -369,9 +398,65 @@ contains a free parameter beyond k, which is itself bounded.</p>
   <li><strong>Unobstructed sea horizon</strong> over at least the theoretical range for the
   altitude in question &mdash; 213 km from 3 107 m, 12 km from 10 m.</li>
   <li><strong>Barometer and thermometer</strong>, to document conditions.</li>
+  <li><strong>An elevation referred to the sea surface at the time</strong>, not to the ellipsoid. See the box below: this is the protocol's most dangerous point at low stations.</li>
+  <li><strong>Tide state and sea state</strong> at the moment of acquisition.</li>
 </ul>
 
-<h2><span class="n">05</span>Procedure &mdash; Method A, absolute measurement</h2>
+<h2><span class="n">05</span>Procedure &#8212; Method A, artificial horizon</h2>
+<p class="lead">This method is new in version 1.1 and replaces levelling as the reference
+procedure. It <strong>requires no levelling instrument and no calibration</strong>: the
+horizontal reference makes itself.</p>
+<p>A still water surface sets itself perpendicular to the plumb line. A star and its reflection
+are therefore symmetric about the true horizontal, and their midpoint materialises it. If the
+sea horizon line appears in the same frame, &#948; is read directly.</p>
+
+<figure>
+  <svg viewBox="0 0 900 330" role="img" aria-label="Artificial horizon: the star, its reflection and the sea horizon line in a single frame.">
+    <line class="sl" x1="80" y1="196" x2="820" y2="196" stroke-width="1.6"/>
+    <rect x="300" y="192" width="230" height="8" fill="var(--globe)" opacity=".22"/>
+    <text class="tm" x="415" y="226" text-anchor="middle">still water surface</text>
+    <circle cx="415" cy="196" r="4.5" class="fi"/>
+    <text class="t" x="415" y="250" text-anchor="middle">lens</text>
+    <line class="si dash" x1="80" y1="196" x2="820" y2="196" stroke-width="1"/>
+    <text class="tm" x="88" y="188">true horizontal</text>
+    <circle cx="778" cy="90" r="8" fill="var(--plane)"/>
+    <text class="t" x="764" y="82" text-anchor="end" fill="var(--plane)">star, altitude a</text>
+    <circle cx="778" cy="302" r="8" fill="var(--plane)" opacity=".42"/>
+    <text class="t" x="764" y="310" text-anchor="end" fill="var(--plane)" opacity=".85">reflection, altitude &#8722;a</text>
+    <line class="sp" x1="415" y1="196" x2="770" y2="94" stroke-width="1.7"/>
+    <line class="sp" x1="415" y1="196" x2="770" y2="298" stroke-width="1.7" stroke-dasharray="4 3"/>
+    <line class="sg" x1="415" y1="196" x2="800" y2="228" stroke-width="2.4"/>
+    <circle cx="800" cy="228" r="5" class="fg"/>
+    <text class="t" x="792" y="252" text-anchor="end" fill="var(--globe)">sea horizon, &#8722;&#948;</text>
+    <path class="sp" d="M 600,142 A 195,195 0 0 0 600,250" stroke-width="1.3"/>
+    <text class="tb" x="620" y="200" fill="var(--plane)">2a</text>
+    <path class="sg" d="M 660,196 A 245,245 0 0 0 662,216" stroke-width="1.3"/>
+    <text class="tb" x="676" y="214" fill="var(--globe)">&#948;</text>
+  </svg>
+  <figcaption><b>Figure 3 &#8212; The artificial horizon applied to dip.</b> Star and reflection are symmetric about the true horizontal: their midpoint materialises it, with no levelling whatever. The sea horizon line, in the same frame, is then read directly at &#8722;&#948;. Refraction cancels &#8212; direct and reflected images undergo it identically &#8212; and all three objects are at infinity, so a single focus setting serves.</figcaption>
+</figure>
+<ol class="st">
+  <li><b>Set up the surface</b>A wide, shallow tray of water, sheltered from wind. Dark oil damps
+  ripples better. Let it settle.</li>
+  <li><b>Choose a low star</b>Between 3&#176; and 5&#176; altitude, in the azimuth of the horizon under
+  study. The vertical field required is 2a, that is 6&#176; to 10&#176;: a 100 mm lens is ample.</li>
+  <li><b>Frame all three</b>Star, reflection and horizon line in the same image. Focus at
+  infinity: all three lie there, the reflection included.</li>
+  <li><b>Reduce</b>The midpoint between star and reflection gives the true horizontal. The offset
+  between that midpoint and the horizon line is &#948;.</li>
+  <li><b>Repeat</b>Three series minimum, at distinct hours.</li>
+</ol>
+<div class="box key">
+  <span class="lab">Why refraction does not interfere</span>
+  <p>The direct image of the star and its reflected image undergo the same refraction and remain
+  symmetric about the horizontal. Their midpoint is therefore free of refraction, even though
+  each of the two images is affected by it.</p>
+</div>
+
+<h3>Fallback &#8212; levelling and reversal</h3>
+<p>If an artificial horizon is impractical, measure with an inclinometer by the procedure below.
+It remains valid, but it depends on the repeatability of the station setup, where the artificial
+horizon does not.</p>
 <ol class="st">
   <li><b>Set up</b>Tripod on stable ground, base levelled in both axes. Pitch is the critical
   quantity; roll affects only framing.</li>
@@ -428,8 +513,7 @@ mean of the two readings eliminates it exactly.</p>
 consists of photographing the same horizon from two widely separated altitudes, with identical
 equipment and settings, and measuring the <em>displacement</em> of the horizon line within the
 frame. Any mounting bias, being identical in both acquisitions, cancels by difference.</p>
-<p>It is the least assailable version of the protocol, and we recommend it as the reference
-measurement for observers without a precision inclinometer.</p>
+<div class="box warn"><span class="lab">Restriction added in version 1.1</span><p>Cancellation of the bias assumes it is <em>identical</em> in both acquisitions. But going from 10 m to 3 107 m requires dismounting the camera, travelling, and remounting: the bias is no longer the same. A remounting repeatability of 20&prime; consumes <strong>21 per cent</strong> of the 94&prime; differential signal.</p><p>Method B remains useful when the camera-head assembly is not dismounted between the two stations. Otherwise use the artificial horizon of Method A, which depends on no mounting repeatability at all.</p></div>
 
 <table>
   <caption>Table 3 &mdash; Predicted displacement of the horizon line between two altitudes.</caption>
@@ -494,6 +578,52 @@ measurement for observers without a precision inclinometer.</p>
   cropping of the file, focal length changed between acquisitions.</p>
 </div>
 
+
+<h3>What each altitude is really worth</h3>
+<p>Signal-to-noise collapses at low stations, and version 1.0 did not say so. Those points remain
+useful for fitting the &#8730;h law, but they are not decisive and must not be presented as
+such.</p>
+<table>
+  <caption>Table 6 &#8212; Signal-to-noise by altitude, error budget 2.2&#8242;.</caption>
+  <thead><tr><th class="n">altitude</th><th class="n">&#948;</th><th class="n">&#963;</th><th>use</th></tr></thead>
+  <tbody>
+    <tr><td class="n">5 m</td><td class="n">4.0&#8242;</td><td class="n">1.8</td><td>indicative only</td></tr>
+    <tr><td class="n">10 m</td><td class="n">5.7&#8242;</td><td class="n">2.6</td><td>indicative only</td></tr>
+    <tr><td class="n">50 m</td><td class="n">12.7&#8242;</td><td class="n">5.8</td><td>contributing</td></tr>
+    <tr><td class="n">120 m</td><td class="n">19.7&#8242;</td><td class="n">8.9</td><td>contributing</td></tr>
+    <tr><td class="n">300 m</td><td class="n">31.1&#8242;</td><td class="n">14.1</td><td>solid</td></tr>
+    <tr><td class="n">1 000 m</td><td class="n">56.8&#8242;</td><td class="n">25.8</td><td>solid</td></tr>
+    <tr class="hi"><td class="n"><strong>3 107 m</strong></td><td class="n"><strong>100.1&#8242;</strong></td><td class="n"><strong>45.5</strong></td><td><strong>decisive</strong></td></tr>
+  </tbody>
+</table>
+
+<h3>The elevation datum &#8212; the most dangerous point</h3>
+<div class="box warn">
+  <span class="lab">Correction to version 1.0</span>
+  <p>&#948; depends on height above the <strong>sea surface at the time</strong>. Version 1.0 wrote
+  &#8220;ground elevation + tripod height&#8221; without specifying the datum. But a GPS receiver returns an
+  <em>ellipsoidal</em> height, which may depart from sea level by tens of metres.</p>
+  <p>Consequence, for a 30 m datum error: <strong>178 per cent error on &#948; at 10 m</strong>,
+  63 per cent at 50 m, 10 per cent at 300 m, 1 per cent at 3 107 m. At low stations it destroys
+  the measurement. Require <strong>orthometric</strong> elevation, and below 50 m a direct
+  measurement above the water.</p>
+</div>
+<table>
+  <caption>Table 7 &#8212; Effects of tide and sea state, both absent from version 1.0. The second is
+  a <em>systematic</em> bias, always of the same sign.</caption>
+  <thead><tr><th class="n">altitude</th><th class="n">tide &#177;2 m</th><th class="n">swell Hs = 3 m</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td class="n"><strong>5 m</strong></td><td class="n"><strong>41 %</strong></td><td class="n">&#8212;</td></tr>
+    <tr><td class="n">10 m</td><td class="n">20 %</td><td class="n">&#8722;7.8 %</td></tr>
+    <tr><td class="n">50 m</td><td class="n">4.0 %</td><td class="n">&#8722;1.5 %</td></tr>
+    <tr><td class="n">300 m</td><td class="n">0.7 %</td><td class="n">&#8722;0.3 %</td></tr>
+    <tr><td class="n">3 107 m</td><td class="n">&lt; 0.1 %</td><td class="n">&lt; 0.1 %</td></tr>
+  </tbody>
+</table>
+<p>Swell does not add noise: it <strong>lowers</strong> &#948;, because the crests mask the mean
+surface. At 10 m in a formed sea the bias is 0.4&#8242;, of the same order as the entire error
+budget. Tide and sea state are now mandatory fields of the record.</p>
+
 <h2><span class="n">08</span>Known systematics and failure modes</h2>
 <ol>
   <li><strong>False horizon line.</strong> The most frequent and most insidious failure mode. A
@@ -544,7 +674,11 @@ stations &mdash; to contribute one point each. About ten points spread over the 
 <div class="sheet">
   <div class="fr"><span class="a">Date and UTC time (start / end of series)</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">GPS coordinates of the station</span><span class="b">&nbsp;</span></div>
-  <div class="fr"><span class="a">Eye height = ground elevation + tripod height</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Eye height <b>above the sea surface at the time</b> (orthometric)</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">How that height was determined, and its uncertainty</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Tide time and range</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Sea state, significant wave height Hs</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Method used: artificial horizon, or level with reversal</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">Viewing azimuth, and open-sea distance along that axis</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">Temperature, pressure, humidity, wind</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">Camera, lens, exact focal length, sensor dimensions</span><span class="b">&nbsp;</span></div>
@@ -590,7 +724,7 @@ before the campaign begins, and will be incorporated into a credited version 2.<
   <p>All numerical values in this document derive from <code>&delta; = &radic;(2h/R&prime;)</code>
   with <code>R&prime; = R/(1&minus;k)</code> and R = 6 371 km. Mean lunar diameter 31&prime;
   (29.4&prime; at perigee, 33.5&prime; at apogee). The document is reproducible in its entirety
-  from these relations. &mdash; Open protocol, version 1.0, intended to be amended.</p>
+  from these relations. &mdash; Open protocol, version 1.1. <strong>Changes since 1.0:</strong> the artificial-horizon method becomes the reference procedure, levelling moving to a fallback; the elevation datum is now specified &#8212; 1.0 wrote &#8220;ground elevation&#8221; without it, which skews &#948; by 178 per cent at 10 m for a 30 m error; tide and sea state, previously absent, become mandatory fields; method B is restricted to cases where the mounting is not disturbed between stations; signal-to-noise by altitude is tabulated; refraction granted to the plane model is treated in section 02; the exact form of &#948; replaces the first-order expansion.</p>
 </footer>
 
 </div>
