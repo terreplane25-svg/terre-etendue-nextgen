@@ -155,6 +155,128 @@ VERDICTS = {
         "Soleil local et confirme le Soleil lointain — l'encadré l'écrit lui-même. "
         "Second fait établi du site à jouer contre la thèse du site, après Nansen ; "
         "les garder tous les deux est ce qui donne du poids au reste."),
+    ("kings-dethroned-leffondrement-de-la-triangulation-stellaire", 1): (
+        "RETIRER",
+        "contrôle n°18. La taille de l'astre n'intervient nulle part : seule sa "
+        "distance compte. Deux observateurs séparés d'une base b voient un astre "
+        "lointain à la hauteur 90° − b/2R chacun — soit 40,5° pour une base de "
+        "11 000 km. Les transits de Vénus s'observent précisément depuis de telles "
+        "bases, le Soleil restant plusieurs heures au-dessus des deux horizons."),
+    ("le-mythe-deratosthene", 5): (
+        "RESSERRER",
+        "contrôle n°19. Le cœur est juste : avec DEUX sites, la méthode des gnomons "
+        "ne discrimine pas — un Soleil proche reproduit le résultat. Mais « la "
+        "méthode est intrinsèquement non discriminante » est trop large : avec trois "
+        "sites ou plus, la hauteur de Soleil impliquée par chaque paire doit être la "
+        "même sur un plan, et elle ne l'est pas. C'est le nombre de sites qui décide, "
+        "pas la méthode."),
+    ("le-mythe-deratosthene", 6): (
+        "GARDER",
+        "contrôle n°20. L'arithmétique est exacte : 252 000 stades × 157,5 m donnent "
+        "39 690 km, soit −0,8 % du réel ; × 185 m ils donnent 46 620 km, soit "
+        "+16,5 %. Le point méthodologique — la « précision à 1 % » dépend d'un choix "
+        "de stade fait en 1949 — est fondé et se vérifie au calcul."),
+    ("par-rapport-a-quoi-mesure-t-on-une-altitude", 3): (
+        "GARDER",
+        "contrôle n°21. La formule barométrique standard entre 340 m et 1 465 m donne "
+        "123,9 hPa, soit exactement les 124 hPa annoncés, et 92,9 mmHg contre les "
+        "93 mm écrits. L'accord de 9 % avec les 84,6 mm historiques est correctement "
+        "rapporté."),
+    ("par-rapport-a-quoi-mesure-t-on-une-altitude", 4): (
+        "RESSERRER",
+        "contrôle n°22. Les trois premières valeurs se confirment au mètre près : "
+        "5,0 km de portée depuis 1,70 m, 616 m masqués à 100 km, 4 199 m à 253 km. "
+        "En revanche les coefficients du Canigou ne se reproduisent pas : nous "
+        "trouvons k = 0,46 depuis 1,70 m et k = 0,21 depuis 160 m, là où l'encadré "
+        "annonce 0,42 et 0,15. L'écart va de 10 à 40 % et tient sans doute à une "
+        "distance ou une altitude différentes — à vérifier avant publication."),
+    ("par-rapport-a-quoi-mesure-t-on-une-altitude", 6): (
+        "GARDER",
+        "contrôle n°23. Les valeurs SRTM sont conformes aux spécifications de la "
+        "mission : onze jours, 60° N à 56° S, 16 m d'exactitude absolue et 10 m "
+        "relative. Rien à resserrer."),
+    ("par-rapport-a-quoi-mesure-t-on-une-altitude", 7): (
+        "GARDER",
+        "contrôle n°24. L'amplitude du géoïde, de −106 m à +85 m par rapport à "
+        "l'ellipsoïde, est la valeur admise. L'énoncé est exact et son point — le "
+        "zéro des altitudes est une surface physique, pas une forme géométrique — "
+        "est celui qui compte."),
+    ("la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre", 1): (
+        "RETIRER",
+        "contrôle n°25. Deux affirmations sont soudées, et la seconde ne tient pas. "
+        "Voir Soleil et Lune éclipsée ensemble demande de « dépasser 180° », et le "
+        "budget disponible vaut 2,61° : réfraction du Soleil 0,57°, réfraction de la "
+        "Lune 0,57°, demi-diamètres 0,27° et 0,25°, parallaxe lunaire 0,95°. "
+        "L'encadré ne compte que 0,5° et conclut à l'insuffisance — il oublie la "
+        "seconde réfraction, les deux demi-diamètres et surtout la parallaxe, qui "
+        "vaut à elle seule le double de ce qu'il retient."),
+    ("la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas", 2): (
+        "RETIRER",
+        "contrôle n°26. Même défaut que le précédent : 2,61° sont disponibles contre "
+        "les 0,5° comptés. Les 4°44′ de Nansen, invoqués en renfort, ne sont pas "
+        "nécessaires ici — et les convoquer engage le site sur cinq de ses propres "
+        "encadrés, comme le note le contrôle n°9."),
+    ("la-perspective-atmospherique", 2): (
+        "RESSERRER",
+        "contrôle n°27. La plage de portées est réelle. Mais « donc la limite est "
+        "atmosphérique et non géométrique » ne suit pas : les deux limites existent "
+        "et c'est la plus courte qui s'applique. Même défaut logique qu'au contrôle "
+        "n°12 — écarter une cause sans l'avoir calculée."),
+    ("le-theodolite-celeste", 3): (
+        "À COMPLÉTER",
+        "contrôle n°28. Le jeu de données de l'article est nécessaire pour refaire "
+        "le calcul. Une indication toutefois : une somme d'angles supérieure à 180° "
+        "est impossible en trigonométrie PLANE et parfaitement normale en "
+        "trigonométrie SPHÉRIQUE, où l'excès sphérique est proportionnel à l'aire du "
+        "triangle. Un « triangle mathématiquement impossible » signale donc "
+        "d'ordinaire qu'on a appliqué la trigonométrie plane à une base courbe."),
+    ("lespace-une-frontiere-infranchissable", 1): (
+        "RETIRER",
+        "contrôle n°29. Le taux d'érosion est du bon ordre, mais la conclusion est "
+        "inversée. La densité d'oxygène atomique DÉCROÎT de cinq ordres de grandeur "
+        "entre 200 et 800 km : 3×10⁹ cm⁻³ à 200 km, 4×10⁷ à 400 km, 6×10⁴ à 800 km. "
+        "L'érosion par l'oxygène atomique est un problème d'orbite basse, et il "
+        "s'atténue en montant. « Les conditions empirent avec l'altitude » dit le "
+        "contraire du fait."),
+    ("lhorizon-la-perspective-et-la-refraction", 3): (
+        "RESSERRER",
+        "contrôle n°30. Le fait est exact — un fisheye 170° courbe l'horizon bien "
+        "au-delà du réel. Mais « la courbure provient de l'objectif, pas de la "
+        "surface » est trop fort : à 39 040 m la dépression vaut 6,33° et la flèche "
+        "réelle de l'arc d'horizon atteint 0,22° sur 30° de champ, 0,66° sur 50°, "
+        "1,40° sur 70°. Elle existe ; elle est seulement trop faible pour être vue "
+        "sur un objectif standard."),
+    ("vols-avion-et-courbure-terrestre", 8): (
+        "GARDER",
+        "contrôle n°31. Les 0,0098 m/s² sont exacts, et la conclusion — les "
+        "enregistreurs ne permettent ni de constater ni d'écarter cette valeur — est "
+        "la bonne. C'est aussi l'encadré qui réfute les n°3, 4 et 5 du même article : "
+        "à garder, et à faire prévaloir sur eux."),
+    ("la-pression-atmospherique-un-ocean-d-air-invisible", 1): (
+        "GARDER",
+        "contrôle n°32. Une canette de 66 mm de diamètre et 115 mm de haut offre "
+        "0,0307 m², soit 3 109 N sous 1 013 hPa — 317 kgf. Les « environ 300 kg » "
+        "annoncés sont justes."),
+    ("leau-ne-ment-pas", 1): (
+        "RESSERRER",
+        "contrôle n°33. Les « plus de 7 mètres » viennent de d²/2R, qui vaut 7,8 m "
+        "mais suppose un œil au ras de l'eau visant une cible au ras de l'eau. Avec "
+        "l'œil à 0,20 m de Rowbotham, la formule exacte donne 5,5 m sans réfraction "
+        "et 4,7 m à réfraction moyenne. L'observation reste discutable, mais le "
+        "chiffre opposé est surévalué de 60 %."),
+    ("leau-ne-ment-pas", 2): (
+        "RETIRER",
+        "contrôle n°34. Les 283 m sont d²/2R et non la hauteur masquée : depuis 1,70 m "
+        "elle vaut 206,6 m à réfraction moyenne. Sur une silhouette de 527 m, les "
+        "deux tiers supérieurs restent visibles — ce qu'on photographie précisément. "
+        "Il n'y a aucune incompatibilité à expliquer. Même défaut que le contrôle "
+        "n°16, sur le même cas."),
+    ("pression-lumiere-halos-rayons-et-ondes", 1): (
+        "RESSERRER",
+        "contrôle n°35. Les 1 013 hPa sont exacts et les deux démonstrations valides. "
+        "Mais la dernière proposition — « sa transition vers un prétendu vide spatial "
+        "reste un problème physique non résolu » — est une affirmation distincte, non "
+        "établie par la mesure qui précède. Garder la mesure, séparer la thèse."),
 }
 
 

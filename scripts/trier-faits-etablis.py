@@ -88,7 +88,27 @@ NARRATIF = (r"paradigme|instrument de|conviction|domination|culturel|religieux|"
             r"doctorat|architectes|contexte|accept[ée] comme|"
             r"civilisations|sacr[ée]|prestige|pouvoir|[ÉE]glise|id[ée]ologi")
 
-def classer(txt):
+# ── Reclassements décidés à la lecture ──────────────────────────────────────
+# Le tri de surface range dans MÉTROLOGIQUE tout énoncé portant un nombre suivi
+# d'une unité. Une date en est une : « 1849 », « 1775 », « 60 Hz » suffisent à
+# faire basculer un énoncé qui ne fait aucune affirmation physique. Ces huit-là
+# ont été lus un par un et rangés à la main dans la pile qui les concerne.
+# Un tri automatique qu'on ne corrige jamais finit par décider à notre place.
+RECLASSEMENTS = {
+    ("le-mouvement-zetetique-150-ans-de-resistance", 1): "HISTORIQUE",
+    ("ligo-londe-qui-nexistait-pas", 2): "HISTORIQUE",
+    ("ligo-londe-qui-nexistait-pas", 3): "ARGUMENTATIF",
+    ("lire-le-ciel-avant-le-globe", 1): "HISTORIQUE",
+    ("par-rapport-a-quoi-mesure-t-on-une-altitude", 2): "HISTORIQUE",
+    ("par-rapport-a-quoi-mesure-t-on-une-altitude", 5): "HISTORIQUE",
+    ("debut-de-la-creation-le-soleil-mobile-la-terre-immobile", 3): "TEXTUEL",
+    ("monter-l-experience-des-trois-mires", 2): "ARGUMENTATIF",
+}
+
+
+def classer(txt, cle=None):
+    if cle in RECLASSEMENTS:
+        return RECLASSEMENTS[cle]
     for motif, nom, drapeaux in (
             (UNITES, "MÉTROLOGIQUE", 0),
             (TEXTUEL, "TEXTUEL", re.I),
@@ -144,7 +164,7 @@ def main():
 
     grille = {p: {r: [] for r in ORDRE} for p in piliers}
     for p, slug, n, txt, _ in faits:
-        grille[p][classer(txt)].append((slug, n, txt))
+        grille[p][classer(txt, (slug, n))].append((slug, n, txt))
 
     entete = "  %-22s" + "%14s" * len(ORDRE)
     rang = "  %-22s" + "%14d" * len(ORDRE)
