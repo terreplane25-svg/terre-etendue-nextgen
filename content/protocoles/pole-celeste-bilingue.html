@@ -179,7 +179,7 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
   qu'une pose longue et tranche par la direction du ciel, pas par un chiffre.</p>
   <div class="byline">
     <span>R&#233;dacteur<b>&nbsp;</b></span><span>Affiliation<b>&nbsp;</b></span>
-    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.0</b></span><span>Date<b>&nbsp;</b></span>
+    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.1</b></span><span>Date<b>&nbsp;</b></span>
   </div>
 </div>
 
@@ -205,9 +205,9 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
 <p class="lead">Le p&#244;le c&#233;leste ne demande pas d'&#233;ph&#233;m&#233;ride pour &#234;tre trouv&#233; : c'est le centre
 des arcs que d&#233;crivent les &#233;toiles sur une pose longue. Une seule photographie le donne, avec
 sa hauteur au-dessus de l'horizon.</p>
-<p>L'&#233;toile polaire ne s'y trouve pas : elle en est &#233;cart&#233;e d'environ 0,65&#176;, ce qui est
-quarante fois le diam&#232;tre apparent de la Lune divis&#233; par quarante &#8212; assez pour fausser une
-mesure fine si on l'y confond. On rep&#232;re donc le p&#244;le par le centre de rotation, jamais par une
+<p>L'&#233;toile polaire ne s'y trouve pas : elle en est &#233;cart&#233;e d'environ 0,65&#176;, soit 39&#8242; &#8212; environ
+un diam&#232;tre lunaire et quart, et sept fois l'incertitude de la m&#233;thode. Assez, donc, pour
+fausser la mesure si on l'y confond. On rep&#232;re donc le p&#244;le par le centre de rotation, jamais par une
 &#233;toile.</p>
 <div class="eq">
   h<sub>p&#244;le</sub> = |&#966;|&nbsp;&nbsp;&#8212; surface sph&#233;rique
@@ -283,8 +283,14 @@ la g&#233;om&#233;trie apparente n'est pas celle d'objets vus en ligne droite. S
 n'est pas celle d'objets r&#233;els &#224; hauteur finie, arctan(H/r) ne s'applique pas.</p>
 <div class="box key">
   <span class="lab">Le prix de cette sortie</span>
-  <p>Le test austral de la section 03 reste opposable m&#234;me &#224; ces mod&#232;les, car il ne porte pas
-  sur une hauteur mais sur une <strong>direction</strong>. Un observateur austral voit le ciel
+  <p><strong>Restriction pos&#233;e en version 1.1 :</strong> le test austral de la section 03 vaut
+  contre les cartes azimutales &#224; <em>centre unique</em>. Une carte &#224; deux centres &#8212; un disque
+  par h&#233;misph&#232;re &#8212; poss&#232;de un p&#244;le austral et y &#233;chappe ; elle doit alors r&#233;pondre au test des
+  distances est-ouest du tableau 2, o&#249; le parall&#232;le &#224; 33,5&#176; sud est 2,58 fois trop long. La
+  version 1.0 &#233;crivait que le test restait opposable &#171; m&#234;me &#187; aux mod&#232;les &#224; projection : c'&#233;tait
+  trop large.</p>
+  <p>Ce qui reste vrai contre toute carte &#224; centre unique : le test ne porte pas sur une hauteur
+  mais sur une <strong>direction</strong>. Un observateur austral voit le ciel
   tourner autour d'un point situ&#233; au sud. Toute construction pos&#233;e sur une carte azimutale
   centr&#233;e au nord doit expliquer <strong>pourquoi une seconde rotation, de sens oppos&#233;, existe
   dans la moiti&#233; sud du ciel</strong>, et pourquoi son centre s'&#233;l&#232;ve exactement comme la
@@ -357,72 +363,104 @@ carte azimutale, soit <strong>2,58 fois plus</strong>. Un astre plac&#233; &#224
 devrait &#234;tre vu simultan&#233;ment depuis des points distants de 27 465 km. Cette partie du test se
 v&#233;rifie par les temps de vol commerciaux, ind&#233;pendamment de toute observation astronomique.</p>
 
-<h2 class="brk"><span class="n">04</span>Test 2 &#8212; le rapport des pentes</h2>
-<p class="lead">Le test quantitatif, et il ne comporte <strong>aucun param&#232;tre libre</strong>.
-C'est ce qui le distingue d'une simple comparaison &#224; une courbe : on ne peut pas s'en tirer en
-r&#233;glant H.</p>
-<p>La pente locale &#8212; de combien la hauteur du p&#244;le varie par kilom&#232;tre de d&#233;placement
-nord-sud &#8212; vaut sur un plan azimutal :</p>
-<div class="eq">
-  dh/dr = H / (r&#178; + H&#178;)
-  <span class="cap">Le rapport des pentes entre deux latitudes vaut donc (r&#8322;&#178; + H&#178;) / (r&#8321;&#178; + H&#178;), qui ne vaut 1 que si r&#8321; = r&#8322;.</span>
-</div>
-<p>Sur une sph&#232;re le rapport vaut <strong>1,000 pour toute paire de latitudes</strong>. Sur un
-plan azimutal il ne peut jamais valoir 1, quelle que soit la hauteur retenue :</p>
-<table>
-  <caption>Tableau 3 &#8212; Rapport des pentes locales pr&#233;dit par le mod&#232;le azimutal. La sph&#232;re
-  pr&#233;dit 1,000 dans toutes les cases.</caption>
-  <thead><tr><th>paire de latitudes</th><th class="n">H = 3 000</th><th class="n">H = 4 500</th><th class="n">H = 6 000</th><th class="n">H = 9 000</th></tr></thead>
-  <tbody>
-    <tr><td>15&#176; et 45&#176;</td><td class="n">0,433</td><td class="n">0,504</td><td class="n">0,578</td><td class="n">0,704</td></tr>
-    <tr><td>20&#176; et 50&#176;</td><td class="n">0,414</td><td class="n">0,495</td><td class="n">0,578</td><td class="n">0,712</td></tr>
-    <tr class="hi"><td><strong>15&#176; et 60&#176;</strong></td><td class="n"><strong>0,256</strong></td><td class="n"><strong>0,349</strong></td><td class="n"><strong>0,447</strong></td><td class="n"><strong>0,612</strong></td></tr>
-    <tr><td>30&#176; et 60&#176;</td><td class="n">0,376</td><td class="n">0,485</td><td class="n">0,585</td><td class="n">0,734</td></tr>
-    <tr><td>25&#176; et 45&#176;</td><td class="n">0,556</td><td class="n">0,625</td><td class="n">0,692</td><td class="n">0,796</td></tr>
-  </tbody>
-</table>
-
-<h3>Quelle base nord-sud faut-il parcourir ?</h3>
-<p>La pente se mesure entre deux stations s&#233;par&#233;es en latitude. Pour une pr&#233;cision de
-&#177;0,1&#176; sur chaque hauteur de p&#244;le, la base n&#233;cessaire pour atteindre dix &#233;carts-types est
-modeste aux basses latitudes :</p>
-<table>
-  <caption>Tableau 4 &#8212; Base nord-sud requise, avec H = 4 500 km. Aux latitudes basses, deux
-  cents kilom&#232;tres suffisent.</caption>
-  <thead><tr><th class="n">latitude</th><th class="n">pente plan</th><th class="n">&#233;cart &#224; la sph&#232;re</th><th class="n">base pour 10 &#963;</th></tr></thead>
-  <tbody>
-    <tr class="hi"><td class="n"><strong>10&#176;</strong></td><td class="n"><strong>0,288</strong></td><td class="n"><strong>0,712</strong></td><td class="n"><strong>156 km</strong></td></tr>
-    <tr><td class="n">15&#176;</td><td class="n">0,319</td><td class="n">0,681</td><td class="n">163 km</td></tr>
-    <tr><td class="n">20&#176;</td><td class="n">0,355</td><td class="n">0,645</td><td class="n">172 km</td></tr>
-    <tr><td class="n">30&#176;</td><td class="n">0,443</td><td class="n">0,557</td><td class="n">200 km</td></tr>
-    <tr><td class="n">45&#176;</td><td class="n">0,633</td><td class="n">0,367</td><td class="n">303 km</td></tr>
-    <tr><td class="n">60&#176;</td><td class="n">0,914</td><td class="n">0,086</td><td class="n">1 288 km</td></tr>
-  </tbody>
-</table>
+<h2 class="brk"><span class="n">04</span>Test 2 &#8212; la pente locale</h2>
 <div class="box warn">
-  <span class="lab">O&#249; le test perd sa force</span>
-  <p><strong>Aux hautes latitudes il ne discrimine presque plus</strong> : &#224; 60&#176;, l'&#233;cart de
-  pente tombe &#224; 0,086 et il faudrait parcourir 1 288 km. Une campagne men&#233;e uniquement en
-  Europe du Nord ne conclurait rien. <strong>Le protocole exige au moins une station sous
-  30&#176; de latitude</strong>, faute de quoi le test 2 ne doit pas &#234;tre invoqu&#233;.</p>
+  <span class="lab">R&#233;&#233;criture compl&#232;te en version 1.1</span>
+  <p>La version 1.0 pr&#233;sentait ce test comme &#171; sans param&#232;tre libre &#187; et annon&#231;ait qu'une base
+  nord-sud de <strong>156 &#224; 200 km</strong> suffisait. <strong>Les deux affirmations
+  &#233;taient fausses</strong>, pour une seule et m&#234;me raison : elles calculaient la pr&#233;diction
+  azimutale &#224; partir de <code>r = 111,194 &#215; (90 &#8722; &#966;)</code>, c'est-&#224;-dire &#224; partir de la
+  latitude. Or la latitude vient soit du GPS, qui suppose l'ellipso&#239;de &#8212; donc le mod&#232;le
+  test&#233; &#8212; soit de l'astronomie, o&#249; elle <em>est d&#233;finie</em> par la hauteur du p&#244;le, et le test
+  devient une tautologie. La section qui suit part exclusivement de distances mesur&#233;es au sol.</p>
 </div>
 
-<h2><span class="n">05</span>Test 3 &#8212; l'ajustement global</h2>
-<p>Le troisi&#232;me test rassemble toutes les stations et cherche la meilleure valeur de H. Le
-meilleur ajustement possible sur la plage 10&#176;-70&#176; donne H = 4 300 km et laisse un &#233;cart
-quadratique de <strong>8,4&#176;</strong> :</p>
+<p class="lead">En n'employant que des distances au sol, les deux mod&#232;les s'&#233;crivent le long
+d'une ligne nord-sud, <em>d</em> &#233;tant compt&#233; vers le sud depuis une station de r&#233;f&#233;rence :</p>
+<div class="eq">
+  sph&#232;re : a(d) = a&#8320; &#8722; d / 111,194&nbsp;&nbsp;&#8212;&nbsp;&nbsp;<strong>un</strong> param&#232;tre
+  <span class="cap">a&#8320; est fix&#233; par la premi&#232;re station. La pente, elle, est imposée : 1&#176; par 111,194 km, partout.</span>
+</div>
+<div class="eq">
+  plan : a(d) = arctan( H / (r&#8320; + d) )&nbsp;&nbsp;&#8212;&nbsp;&nbsp;<strong>deux</strong> param&#232;tres
+  <span class="cap">H la hauteur des astres, r&#8320; la distance de la station de r&#233;f&#233;rence au centre de la carte.</span>
+</div>
+<p>Avec deux param&#232;tres, le mod&#232;le plan imite une droite remarquablement bien sur une base
+courte. Ajustement au mieux de arctan(H/(r&#8320;+d)) sur des points engendr&#233;s par la sph&#232;re :</p>
 <table>
-  <caption>Tableau 5 &#8212; R&#233;sidus du meilleur ajustement azimutal. Le signe change en cours de
-  route : la courbe coupe la droite au lieu de l'&#233;pouser.</caption>
-  <thead><tr><th class="n">latitude</th><th class="n">sph&#232;re</th><th class="n">plan, H = 4 300 km</th><th class="n">r&#233;sidu</th></tr></thead>
+  <caption>Tableau 4 &#8212; R&#233;sidu maximal du meilleur ajustement azimutal &#224; deux param&#232;tres, contre
+  la longueur de la base. Budget d'erreur 0,09&#176;.</caption>
+  <thead><tr><th class="n">base nord-sud</th><th class="n">r&#233;sidu maximal</th><th class="n">&#963;</th><th>verdict</th></tr></thead>
   <tbody>
-    <tr class="hi"><td class="n"><strong>10&#176;</strong></td><td class="n"><strong>10,0&#176;</strong></td><td class="n"><strong>25,8&#176;</strong></td><td class="n"><strong>+15,8&#176;</strong></td></tr>
-    <tr><td class="n">20&#176;</td><td class="n">20,0&#176;</td><td class="n">28,9&#176;</td><td class="n">+8,9&#176;</td></tr>
-    <tr><td class="n">30&#176;</td><td class="n">30,0&#176;</td><td class="n">32,8&#176;</td><td class="n">+2,8&#176;</td></tr>
-    <tr><td class="n">40&#176;</td><td class="n">40,0&#176;</td><td class="n">37,7&#176;</td><td class="n">&#8722;2,3&#176;</td></tr>
-    <tr><td class="n">50&#176;</td><td class="n">50,0&#176;</td><td class="n">44,0&#176;</td><td class="n">&#8722;6,0&#176;</td></tr>
-    <tr><td class="n">60&#176;</td><td class="n">60,0&#176;</td><td class="n">52,2&#176;</td><td class="n">&#8722;7,8&#176;</td></tr>
-    <tr><td class="n">70&#176;</td><td class="n">70,0&#176;</td><td class="n">62,7&#176;</td><td class="n">&#8722;7,3&#176;</td></tr>
+    <tr class="pl"><td class="n">200 km</td><td class="n">0,032&#176;</td><td class="n">0,4</td><td>ind&#233;tectable</td></tr>
+    <tr class="pl"><td class="n">800 km</td><td class="n">0,132&#176;</td><td class="n">1,5</td><td>insuffisant</td></tr>
+    <tr><td class="n">1 200 km</td><td class="n">0,244&#176;</td><td class="n">2,7</td><td>limite</td></tr>
+    <tr class="hi"><td class="n"><strong>1 500 km</strong></td><td class="n"><strong>0,437&#176;</strong></td><td class="n"><strong>4,9</strong></td><td><strong>minimum acceptable</strong></td></tr>
+    <tr><td class="n">2 200 km</td><td class="n">0,968&#176;</td><td class="n">10,8</td><td>confortable</td></tr>
+    <tr><td class="n">2 600 km</td><td class="n">1,644&#176;</td><td class="n">18,3</td><td>d&#233;cisif</td></tr>
+  </tbody>
+</table>
+<p>Il faut en outre <strong>au moins quatre stations</strong> sur la ligne : deux param&#232;tres
+libres s'ajustent exactement sur trois points, qui ne testent donc rien.</p>
+
+<h3>Comment r&#233;cup&#233;rer le test court</h3>
+<p>r&#8320; n'est pas r&#233;ellement libre : sur la carte azimutale, la circonf&#233;rence du parall&#232;le de la
+station de r&#233;f&#233;rence vaut 2&#960;r&#8320;. <strong>Une mesure est-ouest &#8212; un temps de vol commercial
+suffit &#8212; l'&#233;pingle ind&#233;pendamment de toute astronomie.</strong></p>
+<p>r&#8320; fix&#233;, il ne reste que H, et la condition &#171; pente &#233;gale &#224; 1&#176; par 111,194 km &#187; devient</p>
+<div class="eq">
+  H&#178; &#8722; R&#183;H + r&#8320;&#178; = 0,&nbsp;&nbsp; qui n'a de solution r&#233;elle que si r&#8320; &#8804; R/2 = 3&nbsp;186&nbsp;km
+  <span class="cap">La pente azimutale vaut R&#183;H/(r&#178;+H&#178;), maximale en H = r o&#249; elle vaut R/(2r).</span>
+</div>
+<table>
+  <caption>Tableau 5 &#8212; Pente maximale que le mod&#232;le azimutal peut atteindre, toutes valeurs de H
+  confondues. Sous 61,4&#176; de latitude elle ne peut pas valoir 1.</caption>
+  <thead><tr><th class="n">latitude de la station</th><th class="n">r&#8320;</th><th class="n">pente maximale</th><th>une paire suffit-elle ?</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td class="n"><strong>&#233;quateur</strong></td><td class="n">10 007 km</td><td class="n"><strong>0,318</strong></td><td><strong>oui</strong></td></tr>
+    <tr><td class="n">20&#176;</td><td class="n">7 784 km</td><td class="n">0,409</td><td>oui</td></tr>
+    <tr><td class="n">40&#176;</td><td class="n">5 560 km</td><td class="n">0,573</td><td>oui</td></tr>
+    <tr><td class="n">55&#176;</td><td class="n">3 892 km</td><td class="n">0,819</td><td>oui</td></tr>
+    <tr><td class="n">60&#176;</td><td class="n">3 336 km</td><td class="n">0,955</td><td>oui, de justesse</td></tr>
+    <tr class="pl"><td class="n">61,4&#176;</td><td class="n">3 186 km</td><td class="n">1,002</td><td>non &#8212; seuil</td></tr>
+    <tr class="pl"><td class="n">70&#176;</td><td class="n">2 224 km</td><td class="n">1,432</td><td>non</td></tr>
+  </tbody>
+</table>
+<div class="box key">
+  <span class="lab">Les deux voies, &#224; choisir avant la campagne</span>
+  <p><strong>Voie courte.</strong> &#201;pingler r&#8320; par une mesure est-ouest, puis mesurer une seule
+  pente depuis une station <strong>sous 61,4&#176; de latitude</strong>. Aucune valeur de H ne peut
+  alors produire 1,000, et deux cents kilom&#232;tres de base suffisent &#224; nouveau.</p>
+  <p><strong>Voie longue.</strong> Renoncer &#224; toute mesure est-ouest et n'employer que des
+  distances nord-sud : il faut alors <strong>1 500 km de base et quatre stations au
+  minimum</strong>.</p>
+  <p>La version 1.0 promettait la port&#233;e de la voie courte sans en poser la condition. C'est le
+  d&#233;faut le plus grave qu'ait r&#233;v&#233;l&#233; la relecture des trois protocoles.</p>
+</div>
+<p>Noter au passage que la version 1.0 se compliquait la t&#226;che : elle exigeait le
+<em>rapport</em> de deux pentes, alors que sous 61,4&#176; de latitude la pente <em>elle-m&#234;me</em>
+ne peut pas atteindre 1. L'&#233;nonc&#233; simple est aussi le plus fort.</p>
+
+<h2><span class="n">05</span>Test 3 &#8212; l'ajustement global, en distance au sol</h2>
+<div class="box warn">
+  <span class="lab">Correction apport&#233;e &#224; la version 1.0</span>
+  <p>La version 1.0 portait la hauteur du p&#244;le <em>contre la latitude</em>, et souffrait donc de
+  la m&#234;me circularit&#233; que le test 2. Le test est ici r&#233;exprim&#233; en <strong>distance au sol
+  mesur&#233;e &#224; l'odom&#232;tre</strong> depuis une station de r&#233;f&#233;rence. Les chiffres ne changent pas ;
+  la circularit&#233; dispara&#238;t.</p>
+</div>
+<table>
+  <caption>Tableau 6 &#8212; Station de r&#233;f&#233;rence &#224; 60&#176;, distances compt&#233;es vers le sud. Meilleur
+  ajustement azimutal, H = 4 300 km. Le r&#233;sidu change de signe : la courbe coupe la droite au
+  lieu de l'&#233;pouser.</caption>
+  <thead><tr><th class="n">distance sud</th><th class="n">sph&#232;re</th><th class="n">plan</th><th class="n">r&#233;sidu</th></tr></thead>
+  <tbody>
+    <tr><td class="n">0 km</td><td class="n">60,0&#176;</td><td class="n">52,2&#176;</td><td class="n">&#8722;7,8&#176;</td></tr>
+    <tr><td class="n">1 000 km</td><td class="n">51,0&#176;</td><td class="n">44,8&#176;</td><td class="n">&#8722;6,2&#176;</td></tr>
+    <tr><td class="n">2 000 km</td><td class="n">42,0&#176;</td><td class="n">38,9&#176;</td><td class="n">&#8722;3,1&#176;</td></tr>
+    <tr><td class="n">3 000 km</td><td class="n">33,0&#176;</td><td class="n">34,2&#176;</td><td class="n">+1,1&#176;</td></tr>
+    <tr><td class="n">4 000 km</td><td class="n">24,0&#176;</td><td class="n">30,4&#176;</td><td class="n">+6,4&#176;</td></tr>
+    <tr class="hi"><td class="n"><strong>5 000 km</strong></td><td class="n"><strong>15,0&#176;</strong></td><td class="n"><strong>27,3&#176;</strong></td><td class="n"><strong>+12,3&#176;</strong></td></tr>
   </tbody>
 </table>
 
@@ -465,8 +503,12 @@ quadratique de <strong>8,4&#176;</strong> :</p>
   du vent. Une huile sombre ou visqueuse amortit mieux les rides. Laisser reposer.</li>
   <li><b>Cadrer astre et reflet ensemble</b>Objectif grand-angle, l'astre dans la moiti&#233; haute
   du cadre, son reflet dans la basse. Le champ vertical doit couvrir deux fois la hauteur.</li>
-  <li><b>Poser longuement</b>Une pose de vingt &#224; quarante minutes trace les arcs. Les deux
-  centres de rotation &#8212; le vrai et le reflet&#233; &#8212; apparaissent dans la m&#234;me image.</li>
+  <li><b>Poser par fractions</b>Vingt &#224; quarante minutes d'arcs au total, mais d&#233;coup&#233;es en
+  sous-poses de deux &#224; trois minutes empil&#233;es ensuite. Le budget de 0,05&#176; sur les rides exige une
+  inclinaison moyenne de la nappe sous 1,5&#8242;, soit <strong>0,13 mm de d&#233;nivellation sur un
+  plateau de 30 cm</strong>. Les rides sym&#233;triques &#233;largissent le centre refl&#233;t&#233; sans le d&#233;caler,
+  mais une <em>d&#233;rive</em> lente &#8212; &#233;vaporation, thermique, tassement du sol &#8212; d&#233;place tout sans
+  se voir. Comparer les sous-poses entre elles : leur dispersion mesure cette d&#233;rive.</li>
   <li><b>Mesurer</b>L'angle entre les deux centres vaut deux fois la hauteur du p&#244;le. Convertir
   les pixels en angle par le champ du capteur.</li>
   <li><b>Corriger la r&#233;fraction</b>Retrancher 58,3&#8243; &#215; cot(a) &#224; la hauteur mesur&#233;e. La correction
@@ -503,7 +545,8 @@ protocole de d&#233;pression de l'horizon, dont c'est la section 05.</p>
     <tr><td>Rep&#233;rage du centre de rotation</td><td class="n">0,03&#176;</td><td>ajustement de cercle sur les arcs</td></tr>
     <tr><td>Rides r&#233;siduelles de la nappe</td><td class="n">0,05&#176;</td><td>abri, huile visqueuse, longue pose</td></tr>
     <tr><td>Distorsion du grand-angle</td><td class="n">0,06&#176;</td><td>profil de distorsion appliqu&#233;</td></tr>
-    <tr><td>R&#233;fraction r&#233;siduelle</td><td class="n">0,02&#176;</td><td>corrig&#233;e par 58,3&#8243;&#215;cot(a)</td></tr>
+    <tr><td>R&#233;fraction r&#233;siduelle au-dessus de 30&#176;</td><td class="n">0,02&#176;</td><td>corrig&#233;e par 58,3&#8243;&#215;cot(a)</td></tr>
+    <tr class="pl"><td>R&#233;fraction r&#233;siduelle &#224; 10&#176; de latitude</td><td class="n">0,018&#176;</td><td>correction de 331&#8243;, variable &#224; 20 %</td></tr>
     <tr class="hi"><td><strong>Total quadratique</strong></td><td class="n"><strong>0,09&#176;</strong></td><td><strong>1 &#963;</strong></td></tr>
   </tbody>
 </table>
@@ -576,7 +619,7 @@ imposent. Les remarques m&#233;thodologiques sont sollicit&#233;es avant le lanc
 <footer>
   <p>Valeurs de r&#233;f&#233;rence : 111,194 km par degr&#233; de latitude ; r&#233;fraction 58,3&#8243;&#215;cot(a) ;
   &#233;cart de l'&#233;toile polaire au p&#244;le 0,65&#176;. Le document se reconstruit &#224; partir de ces valeurs et
-  des deux relations h = |&#966;| et h = arctan(H/r). &#8212; Protocole ouvert, version 1.0.</p>
+  des deux relations h = |&#966;| et h = arctan(H/r). &#8212; Protocole ouvert, version 1.1. <strong>Changements depuis la 1.0 :</strong> le test 2 est enti&#232;rement r&#233;&#233;crit &#8212; il se disait &#171; sans param&#232;tre libre &#187; et annon&#231;ait 156 &#224; 200 km de base, deux affirmations fausses parce qu'elles tiraient la pr&#233;diction azimutale de la latitude, laquelle vient du GPS ou de la hauteur du p&#244;le elle-m&#234;me ; en distances au sol le mod&#232;le plan a deux param&#232;tres, imite une droite &#224; 0,03&#176; pr&#232;s sur 200 km, et il faut 1 500 km et quatre stations, ou &#233;pingler r&#8320; par une mesure est-ouest. Le test 3 est r&#233;exprim&#233; en distance au sol pour la m&#234;me raison. Le test 1 est restreint aux cartes &#224; centre unique. La stabilit&#233; de la nappe sur pose longue, la r&#233;fraction aux basses latitudes et l'&#233;cart Polaris-p&#244;le sont pr&#233;cis&#233;s.</p>
 </footer>
 </div>
 
@@ -614,8 +657,9 @@ imposent. Les remarques m&#233;thodologiques sont sollicit&#233;es avant le lanc
 <p class="lead">The celestial pole needs no ephemeris to be found: it is the centre of the arcs
 the stars trace on a long exposure. One photograph gives it, together with its altitude above
 the horizon.</p>
-<p>Polaris does not sit there: it is about 0.65&#176; away, enough to spoil a careful measurement if
-the two are confused. The pole is therefore located by the centre of rotation, never by a
+<p>Polaris does not sit there: it is about 0.65&#176; away, that is 39&#8242; &#8212; some one and a quarter lunar
+diameters, and seven times the method's uncertainty. Enough, therefore, to spoil the measurement
+if the two are confused. The pole is therefore located by the centre of rotation, never by a
 star.</p>
 <div class="eq">
   h<sub>pole</sub> = |&#966;|&nbsp;&nbsp;&#8212; spherical surface
@@ -691,8 +735,13 @@ geometry is not that of objects seen in straight lines. If the observed rotation
 real objects at finite height, arctan(H/r) does not apply.</p>
 <div class="box key">
   <span class="lab">The price of that exit</span>
-  <p>The southern test of section 03 remains opposable even to such models, because it bears not
-  on a height but on a <strong>direction</strong>. A southern observer sees the sky turn about a
+  <p><strong>Restriction added in version 1.1:</strong> the southern test of section 03 holds
+  against <em>single-centred</em> azimuthal maps. A two-centred map &#8212; one disc per hemisphere &#8212;
+  has a southern pole and escapes it; it must then answer the east-west distance test of table 2,
+  where the 33.5&#176;S parallel is 2.58 times too long. Version 1.0 wrote that the test remained
+  opposable &#8220;even&#8221; to projection models: that was too broad.</p>
+  <p>What remains true against any single-centred map: the test bears not on a height but on a
+  <strong>direction</strong>. A southern observer sees the sky turn about a
   point in the south. Any construction laid on a north-centred azimuthal map must explain
   <strong>why a second rotation, of opposite sense, exists in the southern half of the
   sky</strong>, and why its centre rises exactly as southern latitude does.</p>
@@ -763,70 +812,103 @@ azimuthal map, <strong>2.58 times greater</strong>. A light at 6 000 km height w
 visible simultaneously from points 27 465 km apart. This part of the test can be checked against
 commercial flight times, independently of any astronomical observation.</p>
 
-<h2 class="brk"><span class="n">04</span>Test 2 &#8212; the ratio of slopes</h2>
-<p class="lead">The quantitative test, and it carries <strong>no free parameter</strong>. That is
-what distinguishes it from a mere comparison against a curve: one cannot escape by tuning H.</p>
-<p>The local slope &#8212; how much the pole's altitude changes per kilometre of north-south travel
-&#8212; is, on an azimuthal plane:</p>
-<div class="eq">
-  dh/dr = H / (r&#178; + H&#178;)
-  <span class="cap">The ratio of slopes between two latitudes is therefore (r&#8322;&#178; + H&#178;) / (r&#8321;&#178; + H&#178;), which equals 1 only if r&#8321; = r&#8322;.</span>
-</div>
-<p>On a sphere the ratio is <strong>1.000 for every pair of latitudes</strong>. On an azimuthal
-plane it can never be 1, whatever height is adopted:</p>
-<table>
-  <caption>Table 3 &#8212; Ratio of local slopes predicted by the azimuthal model. The sphere predicts
-  1.000 in every cell.</caption>
-  <thead><tr><th>latitude pair</th><th class="n">H = 3 000</th><th class="n">H = 4 500</th><th class="n">H = 6 000</th><th class="n">H = 9 000</th></tr></thead>
-  <tbody>
-    <tr><td>15&#176; and 45&#176;</td><td class="n">0.433</td><td class="n">0.504</td><td class="n">0.578</td><td class="n">0.704</td></tr>
-    <tr><td>20&#176; and 50&#176;</td><td class="n">0.414</td><td class="n">0.495</td><td class="n">0.578</td><td class="n">0.712</td></tr>
-    <tr class="hi"><td><strong>15&#176; and 60&#176;</strong></td><td class="n"><strong>0.256</strong></td><td class="n"><strong>0.349</strong></td><td class="n"><strong>0.447</strong></td><td class="n"><strong>0.612</strong></td></tr>
-    <tr><td>30&#176; and 60&#176;</td><td class="n">0.376</td><td class="n">0.485</td><td class="n">0.585</td><td class="n">0.734</td></tr>
-    <tr><td>25&#176; and 45&#176;</td><td class="n">0.556</td><td class="n">0.625</td><td class="n">0.692</td><td class="n">0.796</td></tr>
-  </tbody>
-</table>
-
-<h3>What north-south baseline is needed?</h3>
-<p>The slope is measured between two stations separated in latitude. For a precision of
-&#177;0.1&#176; on each pole altitude, the baseline needed to reach ten standard deviations is modest at
-low latitudes:</p>
-<table>
-  <caption>Table 4 &#8212; Required north-south baseline, with H = 4 500 km. At low latitudes two
-  hundred kilometres suffice.</caption>
-  <thead><tr><th class="n">latitude</th><th class="n">plane slope</th><th class="n">gap to sphere</th><th class="n">baseline for 10 &#963;</th></tr></thead>
-  <tbody>
-    <tr class="hi"><td class="n"><strong>10&#176;</strong></td><td class="n"><strong>0.288</strong></td><td class="n"><strong>0.712</strong></td><td class="n"><strong>156 km</strong></td></tr>
-    <tr><td class="n">15&#176;</td><td class="n">0.319</td><td class="n">0.681</td><td class="n">163 km</td></tr>
-    <tr><td class="n">20&#176;</td><td class="n">0.355</td><td class="n">0.645</td><td class="n">172 km</td></tr>
-    <tr><td class="n">30&#176;</td><td class="n">0.443</td><td class="n">0.557</td><td class="n">200 km</td></tr>
-    <tr><td class="n">45&#176;</td><td class="n">0.633</td><td class="n">0.367</td><td class="n">303 km</td></tr>
-    <tr><td class="n">60&#176;</td><td class="n">0.914</td><td class="n">0.086</td><td class="n">1 288 km</td></tr>
-  </tbody>
-</table>
+<h2 class="brk"><span class="n">04</span>Test 2 &#8212; the local slope</h2>
 <div class="box warn">
-  <span class="lab">Where the test loses its power</span>
-  <p><strong>At high latitudes it barely discriminates</strong>: at 60&#176; the slope gap falls to
-  0.086 and one would have to travel 1 288 km. A campaign run entirely in northern Europe would
-  conclude nothing. <strong>The protocol requires at least one station below 30&#176;
-  latitude</strong>; failing that, test 2 must not be invoked.</p>
+  <span class="lab">Completely rewritten in version 1.1</span>
+  <p>Version 1.0 presented this test as &#8220;carrying no free parameter&#8221; and announced that a
+  north-south baseline of <strong>156 to 200 km</strong> sufficed. <strong>Both claims were
+  wrong</strong>, for one and the same reason: they computed the azimuthal prediction from
+  <code>r = 111.194 &#215; (90 &#8722; &#966;)</code>, that is, from latitude. But latitude comes either from
+  GPS, which assumes the ellipsoid &#8212; hence the model under test &#8212; or from astronomy, where it
+  <em>is defined</em> by the pole's altitude, making the test a tautology. What follows proceeds
+  exclusively from distances measured on the ground.</p>
 </div>
 
-<h2><span class="n">05</span>Test 3 &#8212; the global fit</h2>
-<p>The third test gathers all stations and seeks the best value of H. The best possible fit over
-10&#176;-70&#176; gives H = 4 300 km and leaves an RMS residual of <strong>8.4&#176;</strong>:</p>
+<p class="lead">Using ground distances alone, the two models read, along a north-south line with
+<em>d</em> counted southward from a reference station:</p>
+<div class="eq">
+  sphere: a(d) = a&#8320; &#8722; d / 111.194&nbsp;&nbsp;&#8212;&nbsp;&nbsp;<strong>one</strong> parameter
+  <span class="cap">a&#8320; is fixed by the first station. The slope itself is imposed: 1&#176; per 111.194 km, everywhere.</span>
+</div>
+<div class="eq">
+  plane: a(d) = arctan( H / (r&#8320; + d) )&nbsp;&nbsp;&#8212;&nbsp;&nbsp;<strong>two</strong> parameters
+  <span class="cap">H the height of the lights, r&#8320; the distance of the reference station from the map centre.</span>
+</div>
+<p>With two parameters the plane model imitates a straight line remarkably well over a short
+baseline. Best fit of arctan(H/(r&#8320;+d)) to sphere-generated points:</p>
 <table>
-  <caption>Table 5 &#8212; Residuals of the best azimuthal fit. The sign changes along the way: the
-  curve crosses the line instead of following it.</caption>
-  <thead><tr><th class="n">latitude</th><th class="n">sphere</th><th class="n">plane, H = 4 300 km</th><th class="n">residual</th></tr></thead>
+  <caption>Table 4 &#8212; Maximum residual of the best two-parameter azimuthal fit, against baseline
+  length. Error budget 0.09&#176;.</caption>
+  <thead><tr><th class="n">north-south baseline</th><th class="n">max. residual</th><th class="n">&#963;</th><th>verdict</th></tr></thead>
   <tbody>
-    <tr class="hi"><td class="n"><strong>10&#176;</strong></td><td class="n"><strong>10.0&#176;</strong></td><td class="n"><strong>25.8&#176;</strong></td><td class="n"><strong>+15.8&#176;</strong></td></tr>
-    <tr><td class="n">20&#176;</td><td class="n">20.0&#176;</td><td class="n">28.9&#176;</td><td class="n">+8.9&#176;</td></tr>
-    <tr><td class="n">30&#176;</td><td class="n">30.0&#176;</td><td class="n">32.8&#176;</td><td class="n">+2.8&#176;</td></tr>
-    <tr><td class="n">40&#176;</td><td class="n">40.0&#176;</td><td class="n">37.7&#176;</td><td class="n">&#8722;2.3&#176;</td></tr>
-    <tr><td class="n">50&#176;</td><td class="n">50.0&#176;</td><td class="n">44.0&#176;</td><td class="n">&#8722;6.0&#176;</td></tr>
-    <tr><td class="n">60&#176;</td><td class="n">60.0&#176;</td><td class="n">52.2&#176;</td><td class="n">&#8722;7.8&#176;</td></tr>
-    <tr><td class="n">70&#176;</td><td class="n">70.0&#176;</td><td class="n">62.7&#176;</td><td class="n">&#8722;7.3&#176;</td></tr>
+    <tr class="pl"><td class="n">200 km</td><td class="n">0.032&#176;</td><td class="n">0.4</td><td>undetectable</td></tr>
+    <tr class="pl"><td class="n">800 km</td><td class="n">0.132&#176;</td><td class="n">1.5</td><td>insufficient</td></tr>
+    <tr><td class="n">1 200 km</td><td class="n">0.244&#176;</td><td class="n">2.7</td><td>marginal</td></tr>
+    <tr class="hi"><td class="n"><strong>1 500 km</strong></td><td class="n"><strong>0.437&#176;</strong></td><td class="n"><strong>4.9</strong></td><td><strong>acceptable minimum</strong></td></tr>
+    <tr><td class="n">2 200 km</td><td class="n">0.968&#176;</td><td class="n">10.8</td><td>comfortable</td></tr>
+    <tr><td class="n">2 600 km</td><td class="n">1.644&#176;</td><td class="n">18.3</td><td>decisive</td></tr>
+  </tbody>
+</table>
+<p>At least <strong>four stations</strong> on the line are moreover required: two free parameters
+fit three points exactly, so three points test nothing.</p>
+
+<h3>How to recover the short test</h3>
+<p>r&#8320; is not truly free: on the azimuthal map, the circumference of the reference station's
+parallel is 2&#960;r&#8320;. <strong>An east-west measurement &#8212; a commercial flight time will do &#8212;
+pins it independently of any astronomy.</strong></p>
+<p>With r&#8320; fixed, only H remains, and the condition &#8220;slope equal to 1&#176; per 111.194 km&#8221;
+becomes</p>
+<div class="eq">
+  H&#178; &#8722; R&#183;H + r&#8320;&#178; = 0,&nbsp;&nbsp; which has a real solution only if r&#8320; &#8804; R/2 = 3&nbsp;186&nbsp;km
+  <span class="cap">The azimuthal slope is R&#183;H/(r&#178;+H&#178;), maximal at H = r where it equals R/(2r).</span>
+</div>
+<table>
+  <caption>Table 5 &#8212; Maximum slope the azimuthal model can reach, over all values of H. Below
+  61.4&#176; latitude it cannot equal 1.</caption>
+  <thead><tr><th class="n">station latitude</th><th class="n">r&#8320;</th><th class="n">maximum slope</th><th>does one pair suffice?</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td class="n"><strong>equator</strong></td><td class="n">10 007 km</td><td class="n"><strong>0.318</strong></td><td><strong>yes</strong></td></tr>
+    <tr><td class="n">20&#176;</td><td class="n">7 784 km</td><td class="n">0.409</td><td>yes</td></tr>
+    <tr><td class="n">40&#176;</td><td class="n">5 560 km</td><td class="n">0.573</td><td>yes</td></tr>
+    <tr><td class="n">55&#176;</td><td class="n">3 892 km</td><td class="n">0.819</td><td>yes</td></tr>
+    <tr><td class="n">60&#176;</td><td class="n">3 336 km</td><td class="n">0.955</td><td>yes, barely</td></tr>
+    <tr class="pl"><td class="n">61.4&#176;</td><td class="n">3 186 km</td><td class="n">1.002</td><td>no &#8212; threshold</td></tr>
+    <tr class="pl"><td class="n">70&#176;</td><td class="n">2 224 km</td><td class="n">1.432</td><td>no</td></tr>
+  </tbody>
+</table>
+<div class="box key">
+  <span class="lab">Two routes, to be chosen before the campaign</span>
+  <p><strong>Short route.</strong> Pin r&#8320; by an east-west measurement, then measure a single
+  slope from a station <strong>below 61.4&#176; latitude</strong>. No value of H can then produce
+  1.000, and two hundred kilometres of baseline suffice again.</p>
+  <p><strong>Long route.</strong> Forgo any east-west measurement and use north-south distances
+  only: <strong>1 500 km of baseline and four stations minimum</strong> are then required.</p>
+  <p>Version 1.0 promised the reach of the short route without stating its condition. It is the
+  most serious defect the review of the three protocols has turned up.</p>
+</div>
+<p>Note in passing that version 1.0 made things harder than necessary: it demanded the
+<em>ratio</em> of two slopes, whereas below 61.4&#176; latitude the slope <em>itself</em> cannot
+reach 1. The simple statement is also the stronger one.</p>
+
+<h2><span class="n">05</span>Test 3 &#8212; the global fit, in ground distance</h2>
+<div class="box warn">
+  <span class="lab">Correction to version 1.0</span>
+  <p>Version 1.0 plotted pole altitude <em>against latitude</em>, and therefore suffered the same
+  circularity as test 2. The test is here re-expressed in <strong>ground distance measured by
+  odometer</strong> from a reference station. The figures do not change; the circularity
+  goes.</p>
+</div>
+<table>
+  <caption>Table 6 &#8212; Reference station at 60&#176;, distances counted southward. Best azimuthal fit,
+  H = 4 300 km. The residual changes sign: the curve crosses the line instead of following it.</caption>
+  <thead><tr><th class="n">southward distance</th><th class="n">sphere</th><th class="n">plane</th><th class="n">residual</th></tr></thead>
+  <tbody>
+    <tr><td class="n">0 km</td><td class="n">60.0&#176;</td><td class="n">52.2&#176;</td><td class="n">&#8722;7.8&#176;</td></tr>
+    <tr><td class="n">1 000 km</td><td class="n">51.0&#176;</td><td class="n">44.8&#176;</td><td class="n">&#8722;6.2&#176;</td></tr>
+    <tr><td class="n">2 000 km</td><td class="n">42.0&#176;</td><td class="n">38.9&#176;</td><td class="n">&#8722;3.1&#176;</td></tr>
+    <tr><td class="n">3 000 km</td><td class="n">33.0&#176;</td><td class="n">34.2&#176;</td><td class="n">+1.1&#176;</td></tr>
+    <tr><td class="n">4 000 km</td><td class="n">24.0&#176;</td><td class="n">30.4&#176;</td><td class="n">+6.4&#176;</td></tr>
+    <tr class="hi"><td class="n"><strong>5 000 km</strong></td><td class="n"><strong>15.0&#176;</strong></td><td class="n"><strong>27.3&#176;</strong></td><td class="n"><strong>+12.3&#176;</strong></td></tr>
   </tbody>
 </table>
 
@@ -868,8 +950,12 @@ low latitudes:</p>
   dark or viscous oil damps ripples better. Let it settle.</li>
   <li><b>Frame star and reflection together</b>Wide-angle lens, star in the upper half of the
   frame, its reflection in the lower. Vertical field must cover twice the altitude.</li>
-  <li><b>Expose long</b>Twenty to forty minutes traces the arcs. Both rotation centres &#8212; the
-  real one and the reflected one &#8212; appear in the same image.</li>
+  <li><b>Expose in fractions</b>Twenty to forty minutes of arc in total, but cut into sub-frames
+  of two to three minutes and stacked afterwards. The 0.05&#176; ripple budget requires a mean surface
+  tilt below 1.5&#8242;, that is <strong>0.13 mm of drop across a 30 cm tray</strong>. Symmetric ripples
+  broaden the reflected centre without displacing it, but a slow <em>drift</em> &#8212; evaporation,
+  thermal, ground settling &#8212; shifts everything invisibly. Compare sub-frames against each other:
+  their scatter measures that drift.</li>
   <li><b>Measure</b>The angle between the two centres is twice the pole's altitude. Convert
   pixels to angle via the sensor field.</li>
   <li><b>Correct refraction</b>Subtract 58.3&#8243; &#215; cot(a) from the measured altitude. The
@@ -906,7 +992,8 @@ section 05.</p>
     <tr><td>Locating the rotation centre</td><td class="n">0.03&#176;</td><td>circle fit to the arcs</td></tr>
     <tr><td>Residual ripples on the surface</td><td class="n">0.05&#176;</td><td>shelter, viscous oil, long settling</td></tr>
     <tr><td>Wide-angle distortion</td><td class="n">0.06&#176;</td><td>lens distortion profile applied</td></tr>
-    <tr><td>Residual refraction</td><td class="n">0.02&#176;</td><td>corrected by 58.3&#8243;&#215;cot(a)</td></tr>
+    <tr><td>Residual refraction above 30&#176;</td><td class="n">0.02&#176;</td><td>corrected by 58.3&#8243;&#215;cot(a)</td></tr>
+    <tr class="pl"><td>Residual refraction at 10&#176; latitude</td><td class="n">0.018&#176;</td><td>correction of 331&#8243;, variable to 20 %</td></tr>
     <tr class="hi"><td><strong>Quadratic total</strong></td><td class="n"><strong>0.09&#176;</strong></td><td><strong>1 &#963;</strong></td></tr>
   </tbody>
 </table>
@@ -979,6 +1066,6 @@ Methodological comments are invited before the campaign begins.</p>
 <footer>
   <p>Reference values: 111.194 km per degree of latitude; refraction 58.3&#8243;&#215;cot(a); Polaris
   0.65&#176; from the pole. The document is reproducible from these values and the two relations
-  h = |&#966;| and h = arctan(H/r). &#8212; Open protocol, version 1.0.</p>
+  h = |&#966;| and h = arctan(H/r). &#8212; Open protocol, version 1.1. <strong>Changes since 1.0:</strong> test 2 is entirely rewritten &#8212; it claimed to carry no free parameter and announced 156 to 200 km of baseline, both wrong because they drew the azimuthal prediction from latitude, which comes from GPS or from the pole altitude itself; in ground distances the plane model has two parameters, imitates a straight line to 0.03&#176; over 200 km, and 1 500 km with four stations are needed, or r&#8320; must be pinned by an east-west measurement. Test 3 is re-expressed in ground distance for the same reason. Test 1 is restricted to single-centred maps. Surface stability over long exposures, refraction at low latitudes and the Polaris-pole offset are made explicit.</p>
 </footer>
 </div>

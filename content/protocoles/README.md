@@ -11,7 +11,7 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 | `horizon-fr.html` | Dépression de l'horizon marin — français, 11 pages, v1.1 |
 | `horizon-en.html` | Même document en anglais, v1.1 |
 | `soleil-bilingue.html` | Diamètre angulaire du Soleil — bilingue, 21 pages, v1.2 |
-| `pole-celeste-bilingue.html` | Hauteur du pôle céleste — bilingue, 18 pages, v1.0 |
+| `pole-celeste-bilingue.html` | Hauteur du pôle céleste — bilingue, 18 pages, v1.1 |
 | `horizon-artefact-web.html` | Version web du protocole d'horizon (artefact consultable en ligne) |
 | `polices.css` | Spectral, IBM Plex Sans, IBM Plex Mono en base64 |
 
@@ -82,13 +82,16 @@ hauteur égale à la latitude, là où le modèle azimutal — dépourvu de pôl
 place son unique centre au **nord**. Les deux prédictions désignent des moitiés
 opposées du ciel, et aucune valeur de H ne déplace un centre du nord vers le sud.
 
-Le deuxième est quantitatif et **sans paramètre libre** : le rapport des pentes
-locales entre deux latitudes vaut 1,000 sur une sphère et ne peut jamais valoir 1
-sur un plan azimutal, puisqu'il vaut (r₂²+H²)/(r₁²+H²). Deux cents kilomètres de
-base nord-sud suffisent sous 30° de latitude.
+Le deuxième porte sur la **pente locale**, mesurée en distance au sol pour éviter
+toute circularité. Deux voies : soit `r₀` est épinglé par une mesure est-ouest, et
+une seule paire de stations suffit sous 61,4° de latitude — aucune valeur de H
+n'y produit une pente de 1,000 ; soit on n'emploie que des distances nord-sud, et
+il faut alors **1 500 km de base et quatre stations**, le modèle plan à deux
+paramètres imitant une droite à 0,03° près sur 200 km.
 
-Le troisième confronte l'ensemble des stations à la droite : le meilleur
-ajustement azimutal sur 10°–70° laisse un écart quadratique de 8,4°.
+Le troisième confronte l'ensemble des stations à la droite, également en distance
+au sol : le meilleur ajustement azimutal laisse un résidu qui change de signe et
+atteint 12,3° sur 5 000 km.
 
 La méthode évite le piège de circularité qui guette ici — on ne peut pas rapporter
 une hauteur à l'horizon visible, dont la dépression dépend du modèle testé. La
@@ -115,6 +118,14 @@ les trouverait de toute façon.
   entre les stations, son hypothèse d'annulation du biais étant sinon intenable.
   Les rapports signal sur bruit par altitude sont affichés — sous 50 m ils tombent
   sous 6 et ces points ne sont pas décisifs.
+- **Pôle 1.1** — le test 2 est entièrement réécrit. Il se disait « sans paramètre
+  libre » et annonçait 156 à 200 km de base : les deux affirmations tiraient la
+  prédiction azimutale de la latitude, laquelle vient du GPS — donc du modèle
+  testé — ou de la hauteur du pôle elle-même. En distances au sol le modèle plan a
+  deux paramètres et imite une droite à 0,03° près sur 200 km ; il faut 1 500 km
+  et quatre stations, ou épingler `r₀` par une mesure est-ouest. Le test 3 est
+  réexprimé en distance au sol pour la même raison, et le test 1 restreint aux
+  cartes à centre unique.
 - **Soleil 1.2** — la section 04 est réécrite. Elle annonçait des valeurs à
   retrouver (14,1 %, 1,67 %) qui ne sont atteignables ni un mois quelconque ni
   depuis les latitudes moyennes, et passait sous silence la mesure d'un disque en

@@ -61,7 +61,7 @@ DOCUMENTS = {
     "pole": (
         "pole-celeste-bilingue.html",
         "Protocole-pole-celeste.pdf",
-        "Hauteur du pôle céleste — Altitude of the celestial pole — v1.0",
+        "Hauteur du pôle céleste — Altitude of the celestial pole — v1.1",
     ),
 }
 
