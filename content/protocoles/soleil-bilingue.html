@@ -179,7 +179,7 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
   deux mod&#232;les : 66 %. Pr&#233;cision requise : 1 %.</p>
   <div class="byline">
     <span>R&#233;dacteur<b>&nbsp;</b></span><span>Affiliation<b>&nbsp;</b></span>
-    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.2</b></span><span>Date<b>&nbsp;</b></span>
+    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.3</b></span><span>Date<b>&nbsp;</b></span>
   </div>
 </div>
 
@@ -196,9 +196,9 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
   jusqu'&#224; 17 % &#224; hauteur nulle &#8212; mais ne l'affecte <strong>pas lat&#233;ralement</strong>.
   La mesure est donc structurellement immunis&#233;e contre le param&#232;tre qui domine
   l'incertitude de la plupart des observations &#224; longue port&#233;e.</p>
-  <p>Budget d'erreur estim&#233; &#224; <strong>0,44 % (1 &#963;)</strong> pour une acquisition &#224; 400 mm
+  <p>Budget d'erreur estim&#233; &#224; <strong>0,51 % (1 &#963;)</strong> pour une acquisition &#224; 400 mm
   sur capteur plein format. Signal pr&#233;dit &#224; 20&#176; de hauteur : 66 %.
-  <strong>Rapport signal sur bruit &#8776; 150.</strong> Deux contr&#244;les positifs sur la Lune
+  <strong>Rapport signal sur bruit &#8776; 130.</strong> Deux contr&#244;les positifs sur la Lune
   valident la cha&#238;ne de mesure &#224; 14 % puis &#224; 1,7 %, avant toute conclusion sur le Soleil.</p>
 </div>
 
@@ -400,6 +400,18 @@ contaminerait toute mesure verticale.</p>
 la m&#234;me des deux c&#244;t&#233;s du disque et le d&#233;place en bloc. Le diam&#232;tre horizontal est donc
 l'observable propre.</p>
 <div class="box key">
+  <span class="lab">Ce que la verticale donne gratuitement &#8212; ajout&#233; en 1.3</span>
+  <p>L'aplatissement n'est pas seulement une nuisance &#224; &#233;viter : c'est une
+  <strong>mesure de la r&#233;fraction du moment</strong>, obtenue sur le m&#234;me clich&#233; sans
+  aucun mat&#233;riel suppl&#233;mentaire.</p>
+  <p>La diff&#233;rence de r&#233;fraction entre les deux bords, s&#233;par&#233;s de 32&#8242;, vaut :</p>
+  <p style="font-family:'IBM Plex Mono',monospace;font-size:.94em">
+  15&#176; &#8594; 0,4 %&nbsp;&nbsp;·&nbsp;&nbsp;10&#176; &#8594; 0,9 %&nbsp;&nbsp;·&nbsp;&nbsp;5&#176; &#8594; 3,7 %&nbsp;&nbsp;·&nbsp;&nbsp;2&#176; &#8594; 23,6 %</p>
+  <p>Consigner le rapport largeur/hauteur &#224; chaque s&#233;rie : il contr&#244;le si la
+  r&#233;fraction du jour est ordinaire, et permet de rejeter une s&#233;rie prise dans un
+  r&#233;gime anormal sans avoir &#224; le deviner.</p>
+</div>
+<div class="box key">
   <span class="lab">Cons&#233;quence m&#233;thodologique</span>
   <p>Mesurer <strong>exclusivement</strong> la largeur du disque, perpendiculairement &#224; la
   verticale du lieu. Le rapport largeur/hauteur mesur&#233; sur le m&#234;me clich&#233; fournit en prime
@@ -567,7 +579,7 @@ robuste &#224; un flou sym&#233;trique.</p>
 
 <h2 class="brk"><span class="n">07</span>Budget d'erreur et crit&#232;res de d&#233;cision</h2>
 <table>
-  <caption>Tableau 5 &#8212; Budget d'erreur &#224; 400 mm sur capteur plein format &#233;chantillonn&#233; &#224;
+  <caption>Tableau 4 &#8212; Budget d'erreur &#224; 400 mm sur capteur plein format &#233;chantillonn&#233; &#224;
   4 000 pixels. Le Soleil y couvre 611 pixels.</caption>
   <thead><tr><th>SOURCE</th><th class="n">contribution</th><th>TRAITEMENT</th></tr></thead>
   <tbody>
@@ -575,13 +587,16 @@ robuste &#224; un flou sym&#233;trique.</p>
     <tr><td>Turbulence r&#233;siduelle apr&#232;s empilement</td><td class="n">0,25 %</td><td>20 clich&#233;s par s&#233;rie</td></tr>
     <tr><td>Distorsion optique au centre du champ</td><td class="n">0,13 %</td><td>disque centr&#233; dans le cadre</td></tr>
     <tr><td>Stabilit&#233; de la focale</td><td class="n">0,08 %</td><td>bague immobilis&#233;e</td></tr>
-    <tr class="hi"><td><strong>Total quadratique</strong></td><td class="n"><strong>0,44 %</strong></td><td><strong>1 &#963;</strong></td></tr>
+    <tr><td>Total INSTRUMENTAL</td><td class="n">0,44 %</td><td>sous-total</td></tr>
+    <tr class="pl"><td>Assombrissement centre-bord et rougissement du limbe</td><td class="n">0,20 %</td><td><strong>ajouté en 1.3</strong> &#8212; systématique, corrélé à la hauteur</td></tr>
+    <tr class="pl"><td>Résidu d'éphéméride si la campagne s'étale</td><td class="n">0,15 %</td><td><strong>ajouté en 1.3</strong> &#8212; 0,019 % par jour</td></tr>
+    <tr class="hi"><td><strong>Total quadratique</strong></td><td class="n"><strong>0,51 %</strong></td><td><strong>1 &#963;</strong></td></tr>
   </tbody>
 </table>
 <div class="box key">
   <span class="lab">Rapport signal sur bruit</span>
   <p>Signal pr&#233;dit par le mod&#232;le &#224; source locale &#224; 20&#176; de hauteur : <strong>66 %</strong>.
-  Incertitude : <strong>0,44 %</strong>. <strong>Rapport &#8776; 150.</strong> C'est, &#224; notre
+  Incertitude totale : <strong>0,51 %</strong>. <strong>Rapport &#8776; 130.</strong> C'est, &#224; notre
   connaissance, le rapport le plus favorable de toutes les mesures accessibles &#224; un
   observateur isol&#233; dans cette question.</p>
 </div>
@@ -610,7 +625,34 @@ robuste &#224; un flou sym&#233;trique.</p>
   distorsion laiss&#233;e active.</p>
 </div>
 
-<h2><span class="n">08</span>Objections anticip&#233;es</h2>
+<h2 class="brk"><span class="n">08</span>Ce que ce protocole n'invente pas</h2>
+<p class="lead">Ajout&#233; en version 1.3, dans le m&#234;me esprit que la section 04 du
+protocole de d&#233;pression. Un document qui annonce ses pr&#233;c&#233;dents est plus solide
+que celui qui laisse le lecteur les d&#233;couvrir.</p>
+<p>La constance du diam&#232;tre solaire au cours d'une journ&#233;e n'est pas une d&#233;couverte
+&#224; faire : c'est une grandeur <strong>mesur&#233;e en routine par l'astrom&#233;trie
+solaire</strong>, o&#249; le d&#233;bat porte sur des variations de l'ordre de la
+<em>fraction de seconde d'arc</em> &#8212; trois ordres de grandeur sous ce que
+distinguerait un mod&#232;le &#224; source locale.</p>
+<div class="box key">
+  <span class="lab">Ce que cela change</span>
+  <p>La mesure existe. Ce protocole n'ouvre pas une question : il propose de la
+  <strong>refaire soi-m&#234;me</strong>, avec des crit&#232;res pos&#233;s d'avance et les deux
+  issues &#233;nonc&#233;es. C'est ce qui le distingue d'une compilation de r&#233;sultats
+  d'autrui, et c'est aussi sa seule pr&#233;tention.</p>
+</div>
+<table>
+  <caption>Tableau 5 &#8212; Travaux ant&#233;rieurs sur les m&#234;mes grandeurs.</caption>
+  <thead><tr><th>travail</th><th>ce qu'il apporte</th></tr></thead>
+  <tbody>
+    <tr><td><b>Astrom&#233;trie solaire</b> &#8212; s&#233;ries longues</td><td>le diam&#232;tre solaire suivi &#224; la fraction de seconde d'arc ; la constance intra-journali&#232;re y est un acquis, non une question</td></tr>
+    <tr><td><b>&#201;ph&#233;m&#233;rides lunaires</b></td><td>la variation p&#233;rig&#233;e/apog&#233;e est calcul&#233;e et publi&#233;e : notre contr&#244;le A confronte la cha&#238;ne de mesure &#224; une pr&#233;diction ind&#233;pendante</td></tr>
+    <tr class="hi"><td><b>Parallaxe diurne lunaire</b></td><td>les 1,67 % z&#233;nith/horizon sont un effet classique, photographi&#233; et publi&#233;. Il contredit l'illusion lunaire, qui fait para&#238;tre la Lune plus grosse en bas alors qu'elle y est plus petite</td></tr>
+    <tr><td><b>Argument zét&#233;tique classique</b></td><td>&#171; le Soleil ne change pas de taille &#187; est un argument ancien du camp plan. Le calcul montre qu'il joue dans l'autre sens : c'est un mod&#232;le &#224; source LOINTAINE qui pr&#233;dit la constance</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">09</span>Objections anticip&#233;es</h2>
 <ol>
   <li><strong>&#171; La perspective explique la constance. &#187;</strong> Il faut s&#233;parer deux grandeurs que la perspective traite diff&#233;remment. La <em>position</em> angulaire &#8212; la direction dans laquelle on voit l'astre &#8212; converge bien vers la ligne de fuite, et c'est ce qui rend compte du coucher apparent. La <em>taille</em> angulaire, elle, vaut D/d, o&#249; d est une distance euclidienne et non une convention de repr&#233;sentation : sur un plan, un astre &#224; la hauteur H vu sous 20&#176; est &#224; 2,92 H, et il n'existe aucune autre place o&#249; le situer. La perspective est du reste la raison pour laquelle un objet plus lointain para&#238;t plus petit ; on ne peut pas l'invoquer pour annuler son propre effet.</li>
   <li><strong>&#171; L'atmosph&#232;re grossit le Soleil bas. &#187;</strong> Il faudrait un grossissement lat&#233;ral de &#215;2,9 &#224; 20&#176; de hauteur.
@@ -625,7 +667,7 @@ robuste &#224; un flou sym&#233;trique.</p>
   ses crit&#232;res.</li>
 </ol>
 
-<h2><span class="n">09</span>Donn&#233;es &#224; transmettre</h2>
+<h2><span class="n">10</span>Donn&#233;es &#224; transmettre</h2>
 <div class="sheet">
   <div class="fr"><span class="a">Date, coordonn&#233;es GPS, altitude</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">Bo&#238;tier, objectif, focale exacte, dimensions du capteur</span><span class="b">&nbsp;</span></div>
@@ -639,19 +681,26 @@ robuste &#224; un flou sym&#233;trique.</p>
   <div class="fr"><span class="a">&#920;(20&#176;)/&#920;(75&#176;) et incertitude</span><span class="b">&nbsp;</span></div>
 </div>
 
-<h2><span class="n">10</span>Engagement</h2>
+<h2><span class="n">11</span>Engagement</h2>
 <p>Ce protocole a &#233;t&#233; r&#233;dig&#233; avant toute acquisition et &#233;nonce &#224; l'avance la signification
 de chaque issue. Les deux contr&#244;les positifs sont impos&#233;s pr&#233;cis&#233;ment pour qu'un r&#233;sultat
 nul ne puisse jamais &#234;tre attribu&#233; &#224; un dispositif insensible.</p>
 <p>Nous nous engageons &#224; publier l'int&#233;gralit&#233; des donn&#233;es re&#231;ues, y compris celles qui
 contredisent l'hypoth&#232;se que nous jugions la plus probable, et la conclusion que les donn&#233;es
 imposent. Les remarques m&#233;thodologiques sont sollicit&#233;es avant le lancement de la campagne.</p>
+<div class="box warn">
+  <span class="lab">Ce qui manque encore, et qu'il faut faire avant de collecter</span>
+  <p>Un num&#233;ro de version ne prouve rien. Il faut un <strong>horodatage v&#233;rifiable
+  par un tiers</strong> &#8212; d&#233;p&#244;t OSF avec DOI, ou empreinte cryptographique publi&#233;e
+  avant la premi&#232;re acquisition. Sans cela, la pr&#233;sente section reste une promesse
+  invérifiable, c'est-&#224;-dire ce que nous reprochons aux travaux que nous examinons.</p>
+</div>
 
 <footer>
   <p>Valeurs de r&#233;f&#233;rence : distance Terre-Soleil 149,6&#215;10<sup>6</sup> km, diam&#232;tre apparent
   moyen 31,5&#8242; ; distance Terre-Lune 384 400 km, p&#233;rig&#233;e 356 500 km, apog&#233;e 406 700 km ;
   rayon terrestre 6 371 km. Le document est reproductible &#224; partir de ces seules valeurs et
-  de la relation d = H/sin&#945;. &#8212; Protocole ouvert, version 1.2. <strong>Changements :</strong> 1.1 &#8212; le domaine de validit&#233; est d&#233;sormais &#233;nonc&#233; en section 02. La version 1.0 opposait &#171; mod&#232;le plan &#187; et &#171; mod&#232;le sph&#233;rique &#187; ; elle attribuait ainsi &#224; toute une famille de mod&#232;les une pr&#233;diction que seuls certains d'entre eux formulent. La correction restreint la port&#233;e du protocole et en pr&#233;cise la conclusion. <strong>1.2</strong> &#8212; la section 04 est enti&#232;rement r&#233;&#233;crite : elle &#233;non&#231;ait des valeurs &#224; retrouver (14,1 %, 1,67 %) qui ne sont atteignables ni un mois quelconque ni depuis les latitudes moyennes, et passait sous silence la mesure d'un disque en phase, la d&#233;rive orbitale et la distinction g&#233;ocentrique/topocentrique.</p>
+  de la relation d = H/sin&#945;. &#8212; Protocole ouvert, version 1.3. <strong>Changements :</strong> 1.1 &#8212; le domaine de validit&#233; est d&#233;sormais &#233;nonc&#233; en section 02. La version 1.0 opposait &#171; mod&#232;le plan &#187; et &#171; mod&#232;le sph&#233;rique &#187; ; elle attribuait ainsi &#224; toute une famille de mod&#232;les une pr&#233;diction que seuls certains d'entre eux formulent. La correction restreint la port&#233;e du protocole et en pr&#233;cise la conclusion. <strong>1.2</strong> &#8212; la section 04 est enti&#232;rement r&#233;&#233;crite : elle &#233;non&#231;ait des valeurs &#224; retrouver (14,1 %, 1,67 %) qui ne sont atteignables ni un mois quelconque ni depuis les latitudes moyennes, et passait sous silence la mesure d'un disque en phase, la d&#233;rive orbitale et la distinction g&#233;ocentrique/topocentrique. <strong>1.3</strong>, apr&#232;s relecture ext&#233;rieure du protocole voisin : le budget omettait deux termes de MOD&#200;LE &#8212; l'assombrissement centre-bord, syst&#233;matique et corr&#233;l&#233; &#224; la hauteur, et le r&#233;sidu d'&#233;ph&#233;m&#233;ride si la campagne s'&#233;tale, &#224; 0,019 % par jour. Le rapport signal sur bruit passe de 150 &#224; 130 : le test reste &#233;crasant. L'aplatissement vertical devient un contr&#244;le gratuit de la r&#233;fraction du moment. Une section 08 situe le protocole parmi ses pr&#233;c&#233;dents, et l'absence d'horodatage v&#233;rifiable est signal&#233;e.</p>
 </footer>
 </div>
 
@@ -665,7 +714,7 @@ imposent. Les remarques m&#233;thodologiques sont sollicit&#233;es avant le lanc
   models: 66 per cent. Required precision: 1 per cent.</p>
   <div class="byline">
     <span>Author<b>&nbsp;</b></span><span>Affiliation<b>&nbsp;</b></span>
-    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.2</b></span><span>Date<b>&nbsp;</b></span>
+    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.3</b></span><span>Date<b>&nbsp;</b></span>
   </div>
 </div>
 
@@ -682,9 +731,9 @@ imposent. Les remarques m&#233;thodologiques sont sollicit&#233;es avant le lanc
   cent at zero elevation &#8212; but does <strong>not affect it laterally</strong>. The measurement
   is therefore structurally immune to the parameter that dominates the uncertainty of most
   long-range observations.</p>
-  <p>Error budget estimated at <strong>0.44 per cent (1 &#963;)</strong> for an acquisition at
+  <p>Error budget estimated at <strong>0.51 per cent (1 &#963;)</strong> for an acquisition at
   400 mm on a full-frame sensor. Predicted signal at 20&#176; elevation: 66 per cent.
-  <strong>Signal-to-noise ratio &#8776; 150.</strong> Two positive controls on the Moon validate the
+  <strong>Signal-to-noise ratio &#8776; 130.</strong> Two positive controls on the Moon validate the
   measurement chain at 14 per cent and then at 1.7 per cent, before any conclusion about the
   Sun.</p>
 </div>
@@ -1052,7 +1101,7 @@ blur.</p>
 
 <h2 class="brk"><span class="n">07</span>Error budget and decision criteria</h2>
 <table>
-  <caption>Table 5 &#8212; Error budget at 400 mm on a full-frame sensor sampled at 4 000 pixels.
+  <caption>Table 4 &#8212; Error budget at 400 mm on a full-frame sensor sampled at 4 000 pixels.
   The Sun spans 611 pixels.</caption>
   <thead><tr><th>SOURCE</th><th class="n">contribution</th><th>TREATMENT</th></tr></thead>
   <tbody>
@@ -1060,13 +1109,16 @@ blur.</p>
     <tr><td>Residual turbulence after stacking</td><td class="n">0.25 %</td><td>20 frames per series</td></tr>
     <tr><td>Optical distortion at field centre</td><td class="n">0.13 %</td><td>disk centred in frame</td></tr>
     <tr><td>Focal length stability</td><td class="n">0.08 %</td><td>ring immobilised</td></tr>
-    <tr class="hi"><td><strong>Quadratic total</strong></td><td class="n"><strong>0.44 %</strong></td><td><strong>1 &#963;</strong></td></tr>
+    <tr><td>INSTRUMENTAL total</td><td class="n">0.44 %</td><td>sub-total</td></tr>
+    <tr class="pl"><td>Limb darkening and reddening</td><td class="n">0.20 %</td><td><strong>added in 1.3</strong> &#8212; systematic, correlated with altitude</td></tr>
+    <tr class="pl"><td>Ephemeris residual if the campaign spreads</td><td class="n">0.15 %</td><td><strong>added in 1.3</strong> &#8212; 0.019 % per day</td></tr>
+    <tr class="hi"><td><strong>Quadratic total</strong></td><td class="n"><strong>0.51 %</strong></td><td><strong>1 &#963;</strong></td></tr>
   </tbody>
 </table>
 <div class="box key">
   <span class="lab">Signal-to-noise ratio</span>
   <p>Signal predicted by the local-source model at 20&#176; elevation: <strong>66 per cent</strong>.
-  Uncertainty: <strong>0.44 per cent</strong>. <strong>Ratio &#8776; 150.</strong> To our knowledge
+  Total uncertainty: <strong>0.51 per cent</strong>. <strong>Ratio &#8776; 130.</strong> To our knowledge
   this is the most favourable ratio of any measurement accessible to a single observer in this
   question.</p>
 </div>
@@ -1095,7 +1147,33 @@ blur.</p>
   enabled.</p>
 </div>
 
-<h2><span class="n">08</span>Anticipated objections</h2>
+<h2 class="brk"><span class="n">08</span>What this protocol does not invent</h2>
+<p class="lead">Added in version 1.3, in the spirit of section 04 of the dip protocol.
+A document that announces its precedents is stronger than one that leaves the reader
+to find them.</p>
+<p>The constancy of the solar diameter through a day is not a discovery to be made: it
+is a quantity <strong>measured as routine in solar astrometry</strong>, where the debate
+concerns variations of order a <em>fraction of an arcsecond</em> &#8212; three orders of
+magnitude below what a local-source model would produce.</p>
+<div class="box key">
+  <span class="lab">What that changes</span>
+  <p>The measurement exists. This protocol opens no question: it proposes to
+  <strong>redo it oneself</strong>, with criteria fixed in advance and both outcomes
+  stated. That is what distinguishes it from a compilation of other people's results, and
+  it is also its only claim.</p>
+</div>
+<table>
+  <caption>Table 5 &#8212; Earlier work on the same quantities.</caption>
+  <thead><tr><th>work</th><th>what it contributes</th></tr></thead>
+  <tbody>
+    <tr><td><b>Solar astrometry</b> &#8212; long series</td><td>the solar diameter tracked to a fraction of an arcsecond; intra-day constancy is settled there, not a question</td></tr>
+    <tr><td><b>Lunar ephemerides</b></td><td>the perigee/apogee variation is computed and published: our control A confronts the measurement chain with an independent prediction</td></tr>
+    <tr class="hi"><td><b>Lunar diurnal parallax</b></td><td>the 1.67 per cent zenith/horizon effect is classical, photographed and published. It contradicts the Moon illusion, which makes the Moon look larger low down where it is in fact smaller</td></tr>
+    <tr><td><b>Classic zetetic argument</b></td><td>&#8220;the Sun does not change size&#8221; is an old flat-side argument. The computation shows it cuts the other way: it is a DISTANT-source model that predicts constancy</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">09</span>Anticipated objections</h2>
 <ol>
   <li><strong>&#8220;Perspective explains the constancy.&#8221;</strong> Two quantities must be separated, which perspective treats differently. Angular <em>position</em> &#8212; the direction in which the body is seen &#8212; does converge toward the vanishing line, and that accounts for the apparent setting. Angular <em>size</em>, however, is D/d, where d is a Euclidean distance and not a convention of representation: on a plane, a body at height H seen at 20&#176; is at 2.92 H, and there is nowhere else to put it. Perspective is moreover the very reason a more distant object looks smaller; it cannot be invoked to cancel its own effect.</li>
   <li><strong>&#8220;The atmosphere magnifies the low Sun.&#8221;</strong> That would require lateral
@@ -1109,7 +1187,7 @@ blur.</p>
   is a separate observation, outside this protocol and not part of its criteria.</li>
 </ol>
 
-<h2><span class="n">09</span>Data to be submitted</h2>
+<h2><span class="n">10</span>Data to be submitted</h2>
 <div class="sheet">
   <div class="fr"><span class="a">Date, GPS coordinates, elevation</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">Camera, lens, exact focal length, sensor dimensions</span><span class="b">&nbsp;</span></div>
@@ -1123,18 +1201,25 @@ blur.</p>
   <div class="fr"><span class="a">&#920;(20&#176;)/&#920;(75&#176;) and uncertainty</span><span class="b">&nbsp;</span></div>
 </div>
 
-<h2><span class="n">10</span>Commitment</h2>
+<h2><span class="n">11</span>Commitment</h2>
 <p>This protocol was written before any acquisition and states in advance the meaning of each
 outcome. The two positive controls are imposed precisely so that a null result can never be
 attributed to an insensitive apparatus.</p>
 <p>We undertake to publish the entirety of the data received, including those contradicting the
 hypothesis we judged more probable, and the conclusion the data impose. Methodological comments
 are invited before the campaign begins.</p>
+<div class="box warn">
+  <span class="lab">What is still missing, and must be done before collecting</span>
+  <p>A version number proves nothing. A <strong>timestamp verifiable by a third
+  party</strong> is required &#8212; an OSF deposit with a DOI, or the document's hash
+  published before the first acquisition. Without it, this section remains an
+  unverifiable promise, which is what we reproach in the work we examine.</p>
+</div>
 
 <footer>
   <p>Reference values: Earth-Sun distance 149.6&#215;10<sup>6</sup> km, mean apparent diameter
   31.5&#8242;; Earth-Moon distance 384 400 km, perigee 356 500 km, apogee 406 700 km; Earth radius
   6 371 km. The document is reproducible from these values and the relation d = H/sin&#945; alone.
-  &#8212; Open protocol, version 1.2. <strong>Changes:</strong> 1.1 &#8212; the domain of validity is now stated in section 02. Version 1.0 opposed &#8220;plane model&#8221; to &#8220;spherical model&#8221;, thereby attributing to a whole family of models a prediction that only some of them make. The correction narrows the protocol's scope and sharpens its conclusion. <strong>1.2</strong> &#8212; section 04 is entirely rewritten: it stated values to be recovered (14.1 %, 1.67 %) reachable neither in an arbitrary month nor from mid latitudes, and passed over the measurement of a phased disk, orbital drift, and the geocentric/topocentric distinction.</p>
+  &#8212; Open protocol, version 1.3. <strong>Changes:</strong> 1.1 &#8212; the domain of validity is now stated in section 02. Version 1.0 opposed &#8220;plane model&#8221; to &#8220;spherical model&#8221;, thereby attributing to a whole family of models a prediction that only some of them make. The correction narrows the protocol's scope and sharpens its conclusion. <strong>1.2</strong> &#8212; section 04 is entirely rewritten: it stated values to be recovered (14.1 %, 1.67 %) reachable neither in an arbitrary month nor from mid latitudes, and passed over the measurement of a phased disk, orbital drift, and the geocentric/topocentric distinction. <strong>1.3</strong>, after outside review of the companion protocol: the budget omitted two MODEL terms &#8212; limb darkening, systematic and correlated with altitude, and the ephemeris residual if the campaign spreads, at 0.019 % per day. Signal-to-noise falls from 150 to 130: the test remains overwhelming. Vertical flattening becomes a free measurement of the day's refraction. A section 08 situates the protocol among its precedents, and the absence of a verifiable timestamp is flagged.</p>
 </footer>
 </div>

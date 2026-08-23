@@ -179,7 +179,7 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
   qu'une pose longue et tranche par la direction du ciel, pas par un chiffre.</p>
   <div class="byline">
     <span>R&#233;dacteur<b>&nbsp;</b></span><span>Affiliation<b>&nbsp;</b></span>
-    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.1</b></span><span>Date<b>&nbsp;</b></span>
+    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.2</b></span><span>Date<b>&nbsp;</b></span>
   </div>
 </div>
 
@@ -388,7 +388,7 @@ d'une ligne nord-sud, <em>d</em> &#233;tant compt&#233; vers le sud depuis une s
 <p>Avec deux param&#232;tres, le mod&#232;le plan imite une droite remarquablement bien sur une base
 courte. Ajustement au mieux de arctan(H/(r&#8320;+d)) sur des points engendr&#233;s par la sph&#232;re :</p>
 <table>
-  <caption>Tableau 4 &#8212; R&#233;sidu maximal du meilleur ajustement azimutal &#224; deux param&#232;tres, contre
+  <caption>Tableau 3 &#8212; R&#233;sidu maximal du meilleur ajustement azimutal &#224; deux param&#232;tres, contre
   la longueur de la base. Budget d'erreur 0,09&#176;.</caption>
   <thead><tr><th class="n">base nord-sud</th><th class="n">r&#233;sidu maximal</th><th class="n">&#963;</th><th>verdict</th></tr></thead>
   <tbody>
@@ -413,7 +413,7 @@ suffit &#8212; l'&#233;pingle ind&#233;pendamment de toute astronomie.</strong><
   <span class="cap">La pente azimutale vaut R&#183;H/(r&#178;+H&#178;), maximale en H = r o&#249; elle vaut R/(2r).</span>
 </div>
 <table>
-  <caption>Tableau 5 &#8212; Pente maximale que le mod&#232;le azimutal peut atteindre, toutes valeurs de H
+  <caption>Tableau 4 &#8212; Pente maximale que le mod&#232;le azimutal peut atteindre, toutes valeurs de H
   confondues. Sous 61,4&#176; de latitude elle ne peut pas valoir 1.</caption>
   <thead><tr><th class="n">latitude de la station</th><th class="n">r&#8320;</th><th class="n">pente maximale</th><th>une paire suffit-elle ?</th></tr></thead>
   <tbody>
@@ -450,7 +450,7 @@ ne peut pas atteindre 1. L'&#233;nonc&#233; simple est aussi le plus fort.</p>
   la circularit&#233; dispara&#238;t.</p>
 </div>
 <table>
-  <caption>Tableau 6 &#8212; Station de r&#233;f&#233;rence &#224; 60&#176;, distances compt&#233;es vers le sud. Meilleur
+  <caption>Tableau 5 &#8212; Station de r&#233;f&#233;rence &#224; 60&#176;, distances compt&#233;es vers le sud. Meilleur
   ajustement azimutal, H = 4 300 km. Le r&#233;sidu change de signe : la courbe coupe la droite au
   lieu de l'&#233;pouser.</caption>
   <thead><tr><th class="n">distance sud</th><th class="n">sph&#232;re</th><th class="n">plan</th><th class="n">r&#233;sidu</th></tr></thead>
@@ -537,9 +537,41 @@ une pose bo&#238;tier normal, une pose bo&#238;tier tourn&#233; &#224; 180&#176;
 deux lectures &#233;limine exactement le biais de montage. Cette proc&#233;dure est d&#233;crite dans le
 protocole de d&#233;pression de l'horizon, dont c'est la section 05.</p>
 
+<h3>La déviation de la verticale &#8212; ajout&#233; en 1.2</h3>
+<div class="box warn">
+  <span class="lab">Ce que « latitude » veut dire, exactement</span>
+  <p>La hauteur du p&#244;le donne la latitude <strong>astronomique</strong>, rapport&#233;e au fil
+  &#224; plomb. La latitude <strong>g&#233;od&#233;sique</strong> est rapport&#233;e &#224; la normale &#224;
+  l'ellipso&#239;de. L'&#233;cart entre les deux s'appelle la d&#233;viation de la verticale, et il
+  n'est pas nul.</p>
+</div>
+<table>
+  <caption>Tableau 7 &#8212; D&#233;viation de la verticale. Le budget du protocole vaut 0,09&#176;,
+  soit 324&#8243; : la d&#233;viation reste dessous, mais elle est SYST&#201;MATIQUE par site.</caption>
+  <thead><tr><th>terrain</th><th class="n">d&#233;viation</th><th class="n">en degr&#233;s</th><th class="n">&#233;quivalent au sol</th></tr></thead>
+  <tbody>
+    <tr><td>plaine r&#233;guli&#232;re</td><td class="n">5&#8243;</td><td class="n">0,0014&#176;</td><td class="n">0,15 km</td></tr>
+    <tr><td>relief mod&#233;r&#233;</td><td class="n">15&#8243;</td><td class="n">0,0042&#176;</td><td class="n">0,46 km</td></tr>
+    <tr class="hi"><td><b>Schiehallion, Maskelyne 1775</b></td><td class="n"><b>11,6&#8243;</b></td><td class="n"><b>0,0032&#176;</b></td><td class="n"><b>0,36 km</b></td></tr>
+    <tr><td>montagne</td><td class="n">40&#8243;</td><td class="n">0,0111&#176;</td><td class="n">1,24 km</td></tr>
+    <tr><td>extr&#234;me document&#233;</td><td class="n">60&#8243;</td><td class="n">0,0167&#176;</td><td class="n">1,85 km</td></tr>
+  </tbody>
+</table>
+<p>Effet sur le test de pente, sur une base de 200 km : l'erreur instrumentale domine
+largement &#8212; 7,1 % contre 0,1 &#224; 0,9 % pour la d&#233;viation. Ce n'est donc pas un terme
+qui menace la mesure.</p>
+<p>Mais il fallait le nommer, pour une raison qui touche au c&#339;ur du protocole :
+<strong>c'est exactement ce qui rend le mot « latitude » ambigu</strong>. La section 04
+&#233;carte la latitude comme variable ind&#233;pendante parce qu'elle est d&#233;finie par la hauteur
+du p&#244;le ; la d&#233;viation de la verticale montre qu'il existe en r&#233;alit&#233; DEUX latitudes,
+qui ne co&#239;ncident nulle part exactement. Choisir la distance au sol les &#233;vite toutes les
+deux &#8212; et c'est une seconde raison de le faire.</p>
+<p>Notre propre article « Par rapport &#224; quoi mesure-t-on une altitude ? » cite la mesure
+de Maskelyne. Il s'agit du m&#234;me ph&#233;nom&#232;ne.</p>
+
 <h2><span class="n">07</span>Budget d'erreur et crit&#232;res de d&#233;cision</h2>
 <table>
-  <caption>Tableau 7 &#8212; Budget d'erreur pour la m&#233;thode &#224; horizon artificiel, objectif 14 mm.</caption>
+  <caption>Tableau 8 &#8212; Budget d'erreur pour la m&#233;thode &#224; horizon artificiel, objectif 14 mm.</caption>
   <thead><tr><th>SOURCE</th><th class="n">contribution</th><th>TRAITEMENT</th></tr></thead>
   <tbody>
     <tr><td>Rep&#233;rage du centre de rotation</td><td class="n">0,03&#176;</td><td>ajustement de cercle sur les arcs</td></tr>
@@ -551,6 +583,29 @@ protocole de d&#233;pression de l'horizon, dont c'est la section 05.</p>
   </tbody>
 </table>
 
+
+<h3>Plan d'ajustement &#8212; fix&#233; avant la collecte</h3>
+<p>Le test 3 compare deux mod&#232;les sur les m&#234;mes points. Il faut dire lequel gagne
+<em>avant</em> de voir les donn&#233;es, faute de quoi le choix se fait apr&#232;s coup.</p>
+<ol>
+  <li><strong>Variable ind&#233;pendante :</strong> la distance au sol s parcourue vers le sud,
+  relev&#233;e &#224; l'odom&#232;tre. Jamais la latitude &#8212; c'est la grandeur en litige.</li>
+  <li><strong>Mod&#232;le sph&#233;rique :</strong> h(s) = h&#8320; &#8722; s / 111,194, <strong>un</strong>
+  param&#232;tre libre (h&#8320;).</li>
+  <li><strong>Mod&#232;le azimutal :</strong> h(s) = arctan(H / (r&#8320; + s)),
+  <strong>deux</strong> param&#232;tres libres (H et r&#8320;).</li>
+  <li><strong>Ajustement :</strong> moindres carr&#233;s pond&#233;r&#233;s par 1/&#963;&#178;, o&#249; &#963; est
+  la <em>dispersion observ&#233;e</em> des nuits d'une m&#234;me station &#8212; pas la valeur du
+  budget d'erreur. Un budget est une pr&#233;vision ; la dispersion est une mesure.</li>
+  <li><strong>Comparaison :</strong> &#967;&#178; par degr&#233; de libert&#233;, le mod&#232;le azimutal
+  perdant un degr&#233; de plus puisqu'il consomme un param&#232;tre suppl&#233;mentaire. Un mod&#232;le
+  qui gagne uniquement parce qu'il a plus de boutons ne gagne pas.</li>
+  <li><strong>Quatre stations minimum, trois nuits chacune.</strong> En dessous, la
+  dispersion n'est pas estimable et &#963; redevient une hypoth&#232;se.</li>
+  <li><strong>&#201;cartement d'une station :</strong> uniquement sur un crit&#232;re d&#233;clar&#233;
+  d'avance &#8212; couverture nuageuse, nappe agit&#233;e, montage d&#233;plac&#233; &#8212; et consign&#233; au
+  journal &#224; la nuit m&#234;me. Aucun &#233;cartement fond&#233; sur la valeur obtenue.</li>
+</ol>
 <div class="two">
   <div class="vc g">
     <p class="h">TEST 1 &#8212; CENTRE AU SUD</p>
@@ -579,7 +634,36 @@ protocole de d&#233;pression de l'horizon, dont c'est la section 05.</p>
   </div>
 </div>
 
-<h2><span class="n">08</span>Pi&#232;ges</h2>
+
+<h2 class="brk"><span class="n">08</span>Ce que ce protocole n'invente pas</h2>
+<p class="lead">Ajout&#233; en version 1.2, dans le m&#234;me esprit que la section 04 du
+protocole de d&#233;pression et la section 08 du protocole solaire.</p>
+<p>La hauteur du p&#244;le au-dessus de l'horizon est, depuis des si&#232;cles, la mani&#232;re
+ordinaire de d&#233;terminer une latitude en mer. La relation h = |&#966;| n'est pas une
+th&#232;se &#224; d&#233;fendre : c'est l'op&#233;ration qu'ex&#233;cute tout navigateur, et les almanachs
+nautiques publient les corrections &#224; y appliquer &#8212; &#233;cart de la Polaire au p&#244;le,
+r&#233;fraction, d&#233;pression de l'horizon.</p>
+<div class="box key">
+  <span class="lab">Ce que cela change</span>
+  <p>La mesure existe et elle est ancienne. Ce protocole n'ouvre pas une question :
+  il propose de la <strong>refaire soi-m&#234;me</strong>, en distance au sol plut&#244;t qu'en
+  latitude, avec les deux issues &#233;nonc&#233;es d'avance. C'est sa seule pr&#233;tention &#8212; et
+  c'est ce qui le s&#233;pare d'une compilation de r&#233;sultats d'autrui.</p>
+</div>
+<table>
+  <caption>Tableau 9 &#8212; Travaux ant&#233;rieurs portant sur la m&#234;me relation.</caption>
+  <thead><tr><th>travail</th><th>ce qu'il apporte</th></tr></thead>
+  <tbody>
+    <tr><td><b>Navigation astronomique</b> &#8212; latitude par la Polaire</td><td>la relation h = |&#966;| est appliqu&#233;e en routine depuis des si&#232;cles, avec ses corrections tabul&#233;es ; ce n'est pas une pr&#233;diction &#224; v&#233;rifier mais une pratique &#224; refaire</td></tr>
+    <tr class="hi"><td><b>Arcs de m&#233;ridien</b> &#8212; Delambre et M&#233;chain 1792-1799, arc de Struve 1816-1855</td><td>exactement le test 3 de ce protocole, men&#233; sur 2 800 km : hauteur du p&#244;le contre distance au sol mesur&#233;e par triangulation. C'est de l&#224; que vient le chiffre de 111,194 km par degr&#233;</td></tr>
+    <tr><td><b>Maskelyne, Schiehallion 1774-1776</b></td><td>premi&#232;re mesure de la d&#233;viation de la verticale, 11,6&#8243;. Elle &#233;tablit que la latitude astronomique et la latitude g&#233;od&#233;sique diff&#232;rent &#8212; le terme trait&#233; en section 06</td></tr>
+    <tr><td><b>Fil&#233;s d'&#233;toiles australes</b></td><td>les photographies de pose longue depuis l'h&#233;misph&#232;re sud sont abondantes et montrent un centre de rotation au sud. Le test 1 ne demande donc pas un clich&#233; in&#233;dit : il demande de le prendre soi-m&#234;me et de mesurer sa hauteur</td></tr>
+  </tbody>
+</table>
+<p>Ce que ces travaux ne fournissent pas, c'est un jeu de mesures prises par des op&#233;rateurs
+ind&#233;pendants, sur des crit&#232;res pos&#233;s avant l'acquisition, et publi&#233;es en entier quelle
+que soit l'issue. C'est cela seul que le protocole ajoute.</p>
+<h2><span class="n">09</span>Pi&#232;ges</h2>
 <ol>
   <li><strong>L'horizon visible comme r&#233;f&#233;rence.</strong> Le pi&#232;ge de circularit&#233; d&#233;crit en
   section 06. C'est le seul qui invalide compl&#232;tement un relev&#233;.</li>
@@ -596,7 +680,7 @@ protocole de d&#233;pression de l'horizon, dont c'est la section 05.</p>
   odom&#232;tre : le test 2 s'exprime en kilom&#232;tres, pas en degr&#233;s.</li>
 </ol>
 
-<h2><span class="n">09</span>Donn&#233;es &#224; transmettre</h2>
+<h2><span class="n">10</span>Donn&#233;es &#224; transmettre</h2>
 <div class="sheet">
   <div class="fr"><span class="a">Date, heure UTC de d&#233;but et de fin de pose</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">Coordonn&#233;es GPS, et distance nord-sud par odom&#232;tre entre stations</span><span class="b">&nbsp;</span></div>
@@ -610,16 +694,23 @@ protocole de d&#233;pression de l'horizon, dont c'est la section 05.</p>
   <div class="fr"><span class="a">Profil de distorsion appliqu&#233; &#224; l'objectif</span><span class="b">&nbsp;</span></div>
 </div>
 
-<h2><span class="n">10</span>Engagement</h2>
+<h2><span class="n">11</span>Engagement</h2>
 <p>Ce protocole a &#233;t&#233; r&#233;dig&#233; avant toute acquisition et &#233;nonce &#224; l'avance ce que signifie
 chaque issue, y compris celles qui r&#233;futeraient le mod&#232;le sph&#233;rique.</p>
 <p>Nous nous engageons &#224; publier l'int&#233;gralit&#233; des donn&#233;es re&#231;ues et la conclusion qu'elles
 imposent. Les remarques m&#233;thodologiques sont sollicit&#233;es avant le lancement de la campagne.</p>
+<div class="box warn">
+  <span class="lab">Ce qui manque encore, et qu'il faut faire avant de collecter</span>
+  <p>Un num&#233;ro de version ne prouve rien. Il faut un <strong>horodatage v&#233;rifiable
+  par un tiers</strong> &#8212; d&#233;p&#244;t OSF avec DOI, ou empreinte cryptographique publi&#233;e
+  avant la premi&#232;re acquisition. Sans cela, la pr&#233;sente section reste une promesse
+  inv&#233;rifiable, c'est-&#224;-dire ce que nous reprochons aux travaux que nous examinons.</p>
+</div>
 
 <footer>
   <p>Valeurs de r&#233;f&#233;rence : 111,194 km par degr&#233; de latitude ; r&#233;fraction 58,3&#8243;&#215;cot(a) ;
   &#233;cart de l'&#233;toile polaire au p&#244;le 0,65&#176;. Le document se reconstruit &#224; partir de ces valeurs et
-  des deux relations h = |&#966;| et h = arctan(H/r). &#8212; Protocole ouvert, version 1.1. <strong>Changements depuis la 1.0 :</strong> le test 2 est enti&#232;rement r&#233;&#233;crit &#8212; il se disait &#171; sans param&#232;tre libre &#187; et annon&#231;ait 156 &#224; 200 km de base, deux affirmations fausses parce qu'elles tiraient la pr&#233;diction azimutale de la latitude, laquelle vient du GPS ou de la hauteur du p&#244;le elle-m&#234;me ; en distances au sol le mod&#232;le plan a deux param&#232;tres, imite une droite &#224; 0,03&#176; pr&#232;s sur 200 km, et il faut 1 500 km et quatre stations, ou &#233;pingler r&#8320; par une mesure est-ouest. Le test 3 est r&#233;exprim&#233; en distance au sol pour la m&#234;me raison. Le test 1 est restreint aux cartes &#224; centre unique. La stabilit&#233; de la nappe sur pose longue, la r&#233;fraction aux basses latitudes et l'&#233;cart Polaris-p&#244;le sont pr&#233;cis&#233;s.</p>
+  des deux relations h = |&#966;| et h = arctan(H/r). &#8212; Protocole ouvert, version 1.2. <strong>Changements. 1.1 :</strong> le test 2 est enti&#232;rement r&#233;&#233;crit &#8212; il se disait &#171; sans param&#232;tre libre &#187; et annon&#231;ait 156 &#224; 200 km de base, deux affirmations fausses parce qu'elles tiraient la pr&#233;diction azimutale de la latitude, laquelle vient du GPS ou de la hauteur du p&#244;le elle-m&#234;me ; en distances au sol le mod&#232;le plan a deux param&#232;tres, imite une droite &#224; 0,03&#176; pr&#232;s sur 200 km, et il faut 1 500 km et quatre stations, ou &#233;pingler r&#8320; par une mesure est-ouest. Le test 3 est r&#233;exprim&#233; en distance au sol pour la m&#234;me raison. Le test 1 est restreint aux cartes &#224; centre unique. La stabilit&#233; de la nappe sur pose longue, la r&#233;fraction aux basses latitudes et l'&#233;cart Polaris-p&#244;le sont pr&#233;cis&#233;s. <strong>1.2</strong>, m&#234;me relecture que l'horizon 1.2 : le terme de mod&#232;le omis &#233;tait la <strong>d&#233;viation de la verticale</strong> &#8212; la hauteur du p&#244;le donne la latitude astronomique, non la g&#233;od&#233;sique, et l'&#233;cart va de 5&#8243; en plaine &#224; 60&#8243; en cas document&#233; extr&#234;me ; il reste sous le budget de 0,09&#176; mais il est syst&#233;matique par site, et c'est une seconde raison de compter en distance au sol. Le plan d'ajustement statistique est sp&#233;cifi&#233; : &#963; vient de la dispersion observ&#233;e et non du budget, le mod&#232;le azimutal paie son param&#232;tre suppl&#233;mentaire, et les crit&#232;res d'&#233;cartement d'une station sont pos&#233;s d'avance. Une section 08 situe le protocole parmi ses pr&#233;c&#233;dents &#8212; la mesure est celle de la navigation astronomique et des arcs de m&#233;ridien. L'absence d'horodatage v&#233;rifiable est signal&#233;e comme le manque restant. Les tableaux sont renum&#233;rot&#233;s : la 1.1 en portait deux au num&#233;ro 6.</p>
 </footer>
 </div>
 
@@ -632,7 +723,7 @@ imposent. Les remarques m&#233;thodologiques sont sollicit&#233;es avant le lanc
   only a long exposure, and decides by the direction of the sky rather than by a number.</p>
   <div class="byline">
     <span>Author<b>&nbsp;</b></span><span>Affiliation<b>&nbsp;</b></span>
-    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.0</b></span><span>Date<b>&nbsp;</b></span>
+    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.2</b></span><span>Date<b>&nbsp;</b></span>
   </div>
 </div>
 
@@ -837,7 +928,7 @@ commercial flight times, independently of any astronomical observation.</p>
 <p>With two parameters the plane model imitates a straight line remarkably well over a short
 baseline. Best fit of arctan(H/(r&#8320;+d)) to sphere-generated points:</p>
 <table>
-  <caption>Table 4 &#8212; Maximum residual of the best two-parameter azimuthal fit, against baseline
+  <caption>Table 3 &#8212; Maximum residual of the best two-parameter azimuthal fit, against baseline
   length. Error budget 0.09&#176;.</caption>
   <thead><tr><th class="n">north-south baseline</th><th class="n">max. residual</th><th class="n">&#963;</th><th>verdict</th></tr></thead>
   <tbody>
@@ -863,7 +954,7 @@ becomes</p>
   <span class="cap">The azimuthal slope is R&#183;H/(r&#178;+H&#178;), maximal at H = r where it equals R/(2r).</span>
 </div>
 <table>
-  <caption>Table 5 &#8212; Maximum slope the azimuthal model can reach, over all values of H. Below
+  <caption>Table 4 &#8212; Maximum slope the azimuthal model can reach, over all values of H. Below
   61.4&#176; latitude it cannot equal 1.</caption>
   <thead><tr><th class="n">station latitude</th><th class="n">r&#8320;</th><th class="n">maximum slope</th><th>does one pair suffice?</th></tr></thead>
   <tbody>
@@ -899,7 +990,7 @@ reach 1. The simple statement is also the stronger one.</p>
   goes.</p>
 </div>
 <table>
-  <caption>Table 6 &#8212; Reference station at 60&#176;, distances counted southward. Best azimuthal fit,
+  <caption>Table 5 &#8212; Reference station at 60&#176;, distances counted southward. Best azimuthal fit,
   H = 4 300 km. The residual changes sign: the curve crosses the line instead of following it.</caption>
   <thead><tr><th class="n">southward distance</th><th class="n">sphere</th><th class="n">plane</th><th class="n">residual</th></tr></thead>
   <tbody>
@@ -984,9 +1075,37 @@ camera normal, one frame camera turned 180&#176; on the same base, the mean of t
 eliminating the mounting bias exactly. That procedure is described in the horizon-dip protocol,
 section 05.</p>
 
+<h3>Deflection of the vertical &#8212; added in 1.2</h3>
+<div class="box warn">
+  <span class="lab">What &#8220;latitude&#8221; means, exactly</span>
+  <p>The pole's altitude gives <strong>astronomical</strong> latitude, referred to the plumb
+  line. <strong>Geodetic</strong> latitude is referred to the ellipsoid normal. The gap
+  between them is the deflection of the vertical, and it is not zero.</p>
+</div>
+<table>
+  <caption>Table 7 &#8212; Deflection of the vertical. The protocol's budget is 0.09&#176;, that
+  is 324&#8243;: the deflection stays below it, but it is SYSTEMATIC per site.</caption>
+  <thead><tr><th>terrain</th><th class="n">deflection</th><th class="n">in degrees</th><th class="n">ground equivalent</th></tr></thead>
+  <tbody>
+    <tr><td>regular plain</td><td class="n">5&#8243;</td><td class="n">0.0014&#176;</td><td class="n">0.15 km</td></tr>
+    <tr><td>moderate relief</td><td class="n">15&#8243;</td><td class="n">0.0042&#176;</td><td class="n">0.46 km</td></tr>
+    <tr class="hi"><td><b>Schiehallion, Maskelyne 1775</b></td><td class="n"><b>11.6&#8243;</b></td><td class="n"><b>0.0032&#176;</b></td><td class="n"><b>0.36 km</b></td></tr>
+    <tr><td>mountain</td><td class="n">40&#8243;</td><td class="n">0.0111&#176;</td><td class="n">1.24 km</td></tr>
+    <tr><td>documented extreme</td><td class="n">60&#8243;</td><td class="n">0.0167&#176;</td><td class="n">1.85 km</td></tr>
+  </tbody>
+</table>
+<p>Effect on the slope test over a 200 km baseline: instrumental error dominates by far
+&#8212; 7.1 per cent against 0.1 to 0.9 per cent for the deflection. It is not a term that
+threatens the measurement.</p>
+<p>But it had to be named, for a reason that touches the protocol's core:
+<strong>it is exactly what makes the word &#8220;latitude&#8221; ambiguous</strong>. Section 04
+rules latitude out as an independent variable because it is defined by the pole's altitude;
+the deflection of the vertical shows there are in fact TWO latitudes, coinciding exactly
+nowhere. Choosing ground distance avoids both &#8212; a second reason to do so.</p>
+
 <h2><span class="n">07</span>Error budget and decision criteria</h2>
 <table>
-  <caption>Table 7 &#8212; Error budget for the artificial-horizon method, 14 mm lens.</caption>
+  <caption>Table 8 &#8212; Error budget for the artificial-horizon method, 14 mm lens.</caption>
   <thead><tr><th>SOURCE</th><th class="n">contribution</th><th>TREATMENT</th></tr></thead>
   <tbody>
     <tr><td>Locating the rotation centre</td><td class="n">0.03&#176;</td><td>circle fit to the arcs</td></tr>
@@ -998,6 +1117,29 @@ section 05.</p>
   </tbody>
 </table>
 
+
+<h3>Fitting plan &#8212; fixed before collection</h3>
+<p>Test 3 compares two models on the same points. Which one wins must be stated
+<em>before</em> the data are seen, or the choice is made after the fact.</p>
+<ol>
+  <li><strong>Independent variable:</strong> ground distance s travelled southward, read
+  from the odometer. Never latitude &#8212; that is the quantity in dispute.</li>
+  <li><strong>Spherical model:</strong> h(s) = h&#8320; &#8722; s / 111.194,
+  <strong>one</strong> free parameter (h&#8320;).</li>
+  <li><strong>Azimuthal model:</strong> h(s) = arctan(H / (r&#8320; + s)),
+  <strong>two</strong> free parameters (H and r&#8320;).</li>
+  <li><strong>Fit:</strong> least squares weighted by 1/&#963;&#178;, where &#963; is the
+  <em>observed scatter</em> of the nights at one station &#8212; not the error-budget figure.
+  A budget is a forecast; scatter is a measurement.</li>
+  <li><strong>Comparison:</strong> &#967;&#178; per degree of freedom, the azimuthal model losing
+  one more since it spends an extra parameter. A model that wins only because it has more
+  knobs has not won.</li>
+  <li><strong>Four stations minimum, three nights each.</strong> Below that the scatter
+  cannot be estimated and &#963; reverts to an assumption.</li>
+  <li><strong>Discarding a station:</strong> only on a criterion declared in advance
+  &#8212; cloud, disturbed surface, mounting moved &#8212; and logged on the night itself.
+  No discarding based on the value obtained.</li>
+</ol>
 <div class="two">
   <div class="vc g">
     <p class="h">TEST 1 &#8212; CENTRE IN THE SOUTH</p>
@@ -1026,7 +1168,35 @@ section 05.</p>
   </div>
 </div>
 
-<h2><span class="n">08</span>Pitfalls</h2>
+
+<h2 class="brk"><span class="n">08</span>What this protocol does not invent</h2>
+<p class="lead">Added in version 1.2, in the same spirit as section 04 of the dip
+protocol and section 08 of the solar one.</p>
+<p>The altitude of the pole above the horizon has been, for centuries, the ordinary way
+of determining a latitude at sea. The relation h = |&#966;| is not a thesis to defend: it is
+the operation every navigator performs, and the nautical almanacs publish the corrections
+to apply to it &#8212; Polaris-to-pole offset, refraction, dip of the horizon.</p>
+<div class="box key">
+  <span class="lab">What this changes</span>
+  <p>The measurement exists and it is old. This protocol opens no question: it proposes
+  to <strong>make it again oneself</strong>, in ground distance rather than latitude, with
+  both outcomes stated in advance. That is its only claim &#8212; and what separates it from
+  a compilation of other people's results.</p>
+</div>
+<table>
+  <caption>Table 9 &#8212; Earlier work on the same relation.</caption>
+  <thead><tr><th>work</th><th>what it contributes</th></tr></thead>
+  <tbody>
+    <tr><td><b>Celestial navigation</b> &#8212; latitude by Polaris</td><td>h = |&#966;| has been applied routinely for centuries, with its corrections tabulated; it is not a prediction to be checked but a practice to be repeated</td></tr>
+    <tr class="hi"><td><b>Meridian arcs</b> &#8212; Delambre and M&#233;chain 1792-1799, Struve arc 1816-1855</td><td>exactly test 3 of this protocol, carried out over 2 800 km: pole altitude against ground distance measured by triangulation. The figure of 111.194 km per degree comes from there</td></tr>
+    <tr><td><b>Maskelyne, Schiehallion 1774-1776</b></td><td>first measurement of the deflection of the vertical, 11.6&#8243;. It establishes that astronomical and geodetic latitude differ &#8212; the term treated in section 06</td></tr>
+    <tr><td><b>Southern star trails</b></td><td>long exposures from the southern hemisphere are abundant and show a rotation centre in the south. Test 1 therefore asks for no unprecedented photograph: it asks that you take it yourself and measure its altitude</td></tr>
+  </tbody>
+</table>
+<p>What this earlier work does not supply is a set of measurements taken by independent
+operators, on criteria posed before acquisition, and published in full whatever the outcome.
+That alone is what the protocol adds.</p>
+<h2><span class="n">09</span>Pitfalls</h2>
 <ol>
   <li><strong>The visible horizon as reference.</strong> The circularity trap of section 06. The
   only one that invalidates a reading completely.</li>
@@ -1043,7 +1213,7 @@ section 05.</p>
   test 2 is expressed in kilometres, not degrees.</li>
 </ol>
 
-<h2><span class="n">09</span>Data to be submitted</h2>
+<h2><span class="n">10</span>Data to be submitted</h2>
 <div class="sheet">
   <div class="fr"><span class="a">Date, UTC start and end of exposure</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">GPS coordinates, and odometer north-south distance between stations</span><span class="b">&nbsp;</span></div>
@@ -1057,15 +1227,22 @@ section 05.</p>
   <div class="fr"><span class="a">Lens distortion profile applied</span><span class="b">&nbsp;</span></div>
 </div>
 
-<h2><span class="n">10</span>Commitment</h2>
+<h2><span class="n">11</span>Commitment</h2>
 <p>This protocol was written before any acquisition and states in advance what each outcome
 means, including those that would refute the spherical model.</p>
 <p>We undertake to publish the entirety of the data received and the conclusion they impose.
 Methodological comments are invited before the campaign begins.</p>
+<div class="box warn">
+  <span class="lab">What is still missing, and must be done before collecting</span>
+  <p>A version number proves nothing. A <strong>third-party verifiable timestamp</strong>
+  is required &#8212; an OSF deposit with a DOI, or a cryptographic hash published before
+  the first acquisition. Without it this section remains an unverifiable promise, which is
+  precisely what we hold against the work we examine.</p>
+</div>
 
 <footer>
   <p>Reference values: 111.194 km per degree of latitude; refraction 58.3&#8243;&#215;cot(a); Polaris
   0.65&#176; from the pole. The document is reproducible from these values and the two relations
-  h = |&#966;| and h = arctan(H/r). &#8212; Open protocol, version 1.1. <strong>Changes since 1.0:</strong> test 2 is entirely rewritten &#8212; it claimed to carry no free parameter and announced 156 to 200 km of baseline, both wrong because they drew the azimuthal prediction from latitude, which comes from GPS or from the pole altitude itself; in ground distances the plane model has two parameters, imitates a straight line to 0.03&#176; over 200 km, and 1 500 km with four stations are needed, or r&#8320; must be pinned by an east-west measurement. Test 3 is re-expressed in ground distance for the same reason. Test 1 is restricted to single-centred maps. Surface stability over long exposures, refraction at low latitudes and the Polaris-pole offset are made explicit.</p>
+  h = |&#966;| and h = arctan(H/r). &#8212; Open protocol, version 1.2. <strong>Changes. 1.1:</strong> test 2 is entirely rewritten &#8212; it claimed to carry no free parameter and announced 156 to 200 km of baseline, both wrong because they drew the azimuthal prediction from latitude, which comes from GPS or from the pole altitude itself; in ground distances the plane model has two parameters, imitates a straight line to 0.03&#176; over 200 km, and 1 500 km with four stations are needed, or r&#8320; must be pinned by an east-west measurement. Test 3 is re-expressed in ground distance for the same reason. Test 1 is restricted to single-centred maps. Surface stability over long exposures, refraction at low latitudes and the Polaris-pole offset are made explicit. <strong>1.2</strong>, same review as horizon 1.2: the omitted model term was the <strong>deflection of the vertical</strong> &#8212; the pole's altitude gives astronomical latitude, not geodetic, and the gap runs from 5&#8243; on a plain to 60&#8243; in a documented extreme; it stays under the 0.09&#176; budget but is systematic per site, and it is a second reason to count in ground distance. The statistical fitting plan is specified: &#963; comes from observed scatter rather than from the budget, the azimuthal model pays for its extra parameter, and the criteria for discarding a station are set in advance. A section 08 situates the protocol among its precedents &#8212; the measurement is that of celestial navigation and of the meridian arcs. The absence of a verifiable timestamp is flagged as the remaining gap. Tables are renumbered: 1.1 carried two of them numbered 6.</p>
 </footer>
 </div>

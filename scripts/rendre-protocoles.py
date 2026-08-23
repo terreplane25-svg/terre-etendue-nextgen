@@ -56,12 +56,12 @@ DOCUMENTS = {
     "soleil": (
         "soleil-bilingue.html",
         "Protocole-diametre-solaire.pdf",
-        "Diamètre angulaire du Soleil — Angular diameter of the Sun — v1.2",
+        "Diamètre angulaire du Soleil — Angular diameter of the Sun — v1.3",
     ),
     "pole": (
         "pole-celeste-bilingue.html",
         "Protocole-pole-celeste.pdf",
-        "Hauteur du pôle céleste — Altitude of the celestial pole — v1.1",
+        "Hauteur du pôle céleste — Altitude of the celestial pole — v1.2",
     ),
 }
 

@@ -10,8 +10,8 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 |---|---|
 | `horizon-fr.html` | Dépression de l'horizon marin — français, 13 pages, v1.2 |
 | `horizon-en.html` | Même document en anglais, v1.2 |
-| `soleil-bilingue.html` | Diamètre angulaire du Soleil — bilingue, 21 pages, v1.2 |
-| `pole-celeste-bilingue.html` | Hauteur du pôle céleste — bilingue, 18 pages, v1.1 |
+| `soleil-bilingue.html` | Diamètre angulaire du Soleil — bilingue, 23 pages, v1.3 |
+| `pole-celeste-bilingue.html` | Hauteur du pôle céleste — bilingue, 22 pages, v1.2 |
 | `horizon-artefact-web.html` | Version web du protocole d'horizon (artefact consultable en ligne) |
 | `polices.css` | Spectral, IBM Plex Sans, IBM Plex Mono en base64 |
 
@@ -141,6 +141,31 @@ les trouverait de toute façon.
   retrouver (14,1 %, 1,67 %) qui ne sont atteignables ni un mois quelconque ni
   depuis les latitudes moyennes, et passait sous silence la mesure d'un disque en
   phase, la dérive orbitale et la distinction géocentrique/topocentrique.
+- **Soleil 1.3** — la relecture extérieure du protocole d'horizon vaut aussi ici.
+  Le budget omettait deux termes de **modèle** : l'assombrissement centre-bord,
+  systématique et corrélé à la hauteur (0,20 %), et le résidu d'éphéméride si la
+  campagne s'étale (0,019 % par jour, soit 0,15 %). Le budget passe de 0,44 % à
+  **0,51 %** et le rapport signal sur bruit de 150 à **130** — le test reste
+  écrasant. L'aplatissement vertical du disque, jusque-là simple nuisance, devient
+  une mesure gratuite de la réfraction du moment : 0,4 % à 15°, 0,9 % à 10°,
+  3,7 % à 5°, 23,6 % à 2°. Une section 08 situe le protocole parmi ses précédents
+  — l'astrométrie solaire suit le diamètre à la fraction de seconde d'arc, et la
+  parallaxe diurne lunaire de 1,67 % est un effet classique publié.
+- **Pôle 1.2** — même relecture. Le terme de **modèle** omis était la **déviation
+  de la verticale** : la hauteur du pôle donne la latitude *astronomique*, non la
+  géodésique, et l'écart va de 5″ en plaine à 60″ dans le cas documenté extrême
+  (11,6″ au Schiehallion, Maskelyne 1775). Il reste sous le budget de 0,09° — soit
+  324″ — mais il est systématique par site, et c'est une seconde raison de compter
+  en distance au sol plutôt qu'en latitude : il y a en réalité *deux* latitudes,
+  qui ne coïncident nulle part exactement. Le plan d'ajustement statistique est
+  spécifié — σ vient de la dispersion observée et non du budget, le modèle
+  azimutal paie son paramètre supplémentaire au χ² par degré de liberté, et les
+  critères d'écartement d'une station sont posés d'avance. Une section 08 situe le
+  protocole parmi ses précédents : la latitude par la Polaire est la pratique
+  ordinaire de la navigation, et les arcs de méridien — Delambre et Méchain,
+  Struve — sont exactement le test 3 mené sur 2 800 km. L'absence d'horodatage
+  vérifiable est signalée. Les tableaux sont renumérotés : la 1.1 en portait deux
+  au numéro 6 et sautait le 3.
 
 ## Ce que ces protocoles ne font pas
 
