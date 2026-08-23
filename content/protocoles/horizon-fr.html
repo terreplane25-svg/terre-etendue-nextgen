@@ -173,7 +173,7 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
     <span>Rédacteur<b>&nbsp;</b></span>
     <span>Affiliation<b>&nbsp;</b></span>
     <span>Contact<b>&nbsp;</b></span>
-    <span>Version<b>1.1 — révisable</b></span>
+    <span>Version<b>1.2 — révisable</b></span>
     <span>Date<b>&nbsp;</b></span>
   </div>
 </div>
@@ -197,7 +197,7 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
   échelonnées de quelques mètres à quelques kilomètres, et éprouver non pas un point isolé
   mais la <strong>loi</strong> <code>δ(′) = a·√h(m)</code>. Le modèle sphérique impose
   1,40 ≤ a ≤ 1,93 selon la réfraction ; le modèle plan impose a = 0. Les critères de décision
-  sont fixés en section 07, avant toute acquisition.</p>
+  sont fixés en section 08, avant toute acquisition.</p>
 </div>
 
 <h2><span class="n">01</span>Objet</h2>
@@ -403,7 +403,48 @@ données. Aucune ne comporte de paramètre libre au-delà de k, lui-même borné
   </tbody>
 </table>
 
-<h2><span class="n">04</span>Matériel</h2>
+<h2 class="brk"><span class="n">04</span>Ce que ce protocole n'invente pas</h2>
+<p class="lead">Ajouté en version 1.2, après relecture extérieure. Un document qui annonce
+lui-même ses précédents est plus solide que celui qui laisse le lecteur les découvrir.</p>
+
+<p>La relation δ = √(2h/R′) n'est pas une construction de ce document : c'est la
+<strong>correction de dépression employée en navigation astronomique depuis le XIX<sup>e</sup>
+siècle</strong>, tabulée dans le Bowditch et dans tous les almanachs nautiques. Chaque point
+astronomique pris au sextant l'applique.</p>
+
+<div class="box key">
+  <span class="lab">Ce que cela change, et ce que cela ne change pas</span>
+  <p>La mesure a donc déjà été faite, avec un effectif que nous n'égalerons jamais : chaque
+  navigateur, à chaque visée, depuis deux siècles. <strong>Ce protocole ne pose pas une
+  question ouverte.</strong></p>
+  <p>Ce qu'il apporte est autre chose, et cela vaut d'être fait : une vérification de
+  <strong>première main</strong>, par un observateur qui refuse de croire une table sur
+  parole, avec des critères posés avant l'acquisition et les deux issues énoncées. C'est la
+  démarche zététique appliquée à soi-même plutôt qu'aux autres.</p>
+</div>
+
+<h3>Les précédents à connaître</h3>
+<table>
+  <caption>Tableau 3 — Travaux antérieurs portant sur la même grandeur ou sur la même
+  géométrie. Tous ont publié leurs données.</caption>
+  <thead><tr><th>travail</th><th>ce qu'il apporte</th></tr></thead>
+  <tbody>
+    <tr><td><b>Tables de dépression</b> — Bowditch, almanachs nautiques</td><td>la même formule, vérifiée opérationnellement en mer depuis le XIX<sup>e</sup> siècle</td></tr>
+    <tr><td><b>Wallace, 1870</b> — canal de Bedford</td><td>élève la visée à 4 m au lieu de 20 cm précisément pour réduire la réfraction : c'est déjà l'argument de notre section 02</td></tr>
+    <tr class="hi"><td><b>Rainy Lake, ~2018</b> — Hnatiuk, Kozlowski, Bislin</td><td>réplique moderne sur 10 km, GPS différentiel centimétrique, réfraction modélisée. <strong>Les observations concordent avec le modèle sphérique incluant la réfraction.</strong> Données brutes publiées</td></tr>
+    <tr><td><b>Bislin</b> — dépression mesurée en avion de ligne</td><td>3,252° au théodolite de téléphone. Notre formule situe cette valeur à 10 276 m sans réfraction, 11 811 m à k = 0,13 : cohérent avec une altitude de croisière. Le modèle plan prédit 0,000°</td></tr>
+    <tr><td><b>Bislin</b> — modèle de réfraction dépendant de l'altitude</td><td>comble exactement la lacune corrigée à la section 08 : k plus élevé près du sol, plus faible en altitude</td></tr>
+    <tr><td><b>Hirt et al., 2010</b> — angles verticaux réciproques</td><td>la version géodésique professionnelle de notre calibration par retournement</td></tr>
+    <tr><td><b>Nivellement trigonométrique</b> — réseaux géodésiques mondiaux</td><td>la correction courbure-et-réfraction appliquée en routine depuis plus d'un siècle, validée par la fermeture de réseaux continentaux. Le plus grand effectif possible, même s'il n'est jamais présenté comme une expérience</td></tr>
+  </tbody>
+</table>
+<p>Deux de ces précédents méritent d'être signalés pour ce qu'ils coûtent à notre camp.
+<strong>Wallace 1870</strong> est très exactement l'argument de notre section 02 — accorder la
+réfraction au modèle plan ne l'aide pas — formulé cent cinquante ans avant nous. Et
+<strong>Rainy Lake</strong> est l'expérience dont notre propre site loue la méthodologie :
+son résultat concorde avec le modèle sphérique.</p>
+
+<h2><span class="n">05</span>Matériel</h2>
 <ul>
   <li><strong>Boîtier photographique à capteur de dimensions connues</strong> et objectif de
   focale fixe ou verrouillable. Une focale de 100 mm en équivalent plein format offre un bon
@@ -412,7 +453,7 @@ données. Aucune ne comporte de paramètre libre au-delà de k, lui-même borné
   (rotule à bascule, équerre en L, ou colonne inversée).</li>
   <li><strong>Inclinomètre</strong>. Un niveau numérique de menuisier (±0,05°) suffit. Un
   inclinomètre de téléphone (±0,5°) est acceptable à condition d'appliquer la procédure de
-  retournement de la section 05.</li>
+  retournement de la section 06.</li>
   <li><strong>Horizon marin dégagé</strong> sur au moins la portée théorique de l'altitude
   considérée — 213 km depuis 3 107 m, 12 km depuis 10 m.</li>
   <li><strong>Baromètre et thermomètre</strong>, pour documenter les conditions.</li>
@@ -420,7 +461,7 @@ données. Aucune ne comporte de paramètre libre au-delà de k, lui-même borné
   <li><strong>L'heure de marée et l'état de la mer</strong> au moment de l'acquisition.</li>
 </ul>
 
-<h2><span class="n">05</span>Proc&#233;dure &#8212; m&#233;thode A, horizon artificiel</h2>
+<h2><span class="n">06</span>Proc&#233;dure &#8212; m&#233;thode A, horizon artificiel</h2>
 <p class="lead">Cette m&#233;thode est nouvelle en version 1.1 et remplace la mise de niveau comme
 proc&#233;d&#233; de r&#233;f&#233;rence. Elle <strong>n'exige aucun instrument de niveau et aucun
 &#233;talonnage</strong> : la r&#233;f&#233;rence horizontale se fabrique d'elle-m&#234;me.</p>
@@ -463,6 +504,16 @@ ligne d'horizon marin figure dans la m&#234;me image, &#948; se lit directement.
   <li><b>R&#233;duire</b>Le milieu entre &#233;toile et reflet donne l'horizontale vraie. L'&#233;cart entre
   ce milieu et la ligne d'horizon vaut &#948;.</li>
   <li><b>R&#233;p&#233;ter</b>Trois s&#233;ries au minimum, &#224; des heures distinctes.</li>
+  <li><b>Mesurer la turbulence au lieu de la supposer</b>Une rafale de vingt images
+  successives sur la m&#234;me vis&#233;e. L'&#233;cart-type de la position de l'horizon entre ces vingt
+  images EST le poste de point&#233; du budget d'erreur. Une vis&#233;e rasante traverse des centaines
+  de kilom&#232;tres d'air pr&#232;s de la surface — la g&#233;om&#233;trie qui produit le plus de turbulence
+  optique — et un chiffre postul&#233; y serait optimiste.</li>
+  <li><b>Croiser les deux m&#233;thodes</b>Une s&#233;rie &#224; l'horizon artificiel ET une s&#233;rie &#224;
+  l'inclinom&#232;tre avec retournement, sur le m&#234;me site et la m&#234;me heure. La sym&#233;trie de
+  l'horizon artificiel est une hypoth&#232;se tant qu'elle n'est pas test&#233;e : les deux trajets,
+  direct et r&#233;fl&#233;chi, ne traversent pas rigoureusement les m&#234;mes couches basses. L'&#233;cart
+  entre les deux m&#233;thodes borne cette hypoth&#232;se.</li>
 </ol>
 <div class="box key">
   <span class="lab">Pourquoi la r&#233;fraction ne g&#234;ne pas</span>
@@ -526,7 +577,7 @@ change de signe ; la moyenne des deux lectures l'élimine exactement.</p>
   avantage sur toute tentative d'étalonnage préalable.</figcaption>
 </figure>
 
-<h2><span class="n">06</span>Procédure — méthode B, mesure différentielle</h2>
+<h2><span class="n">07</span>Procédure — méthode B, mesure différentielle</h2>
 <p>Cette variante n'exige <strong>aucun instrument de niveau et aucun étalonnage</strong>.
 Elle consiste à photographier le même horizon depuis deux altitudes très différentes, avec
 le même matériel et le même réglage, et à mesurer le <em>déplacement</em> de la ligne
@@ -535,7 +586,7 @@ disparaît par différence.</p>
 <div class="box warn"><span class="lab">Restriction ajoutée en version 1.1</span><p>L'annulation du biais suppose qu'il soit <em>identique</em> dans les deux acquisitions. Or passer de 10 m à 3 107 m impose de démonter le boîtier, de se déplacer, puis de le remonter : le biais n'est plus le même. Une reproductibilité de remontage de 20&prime; consomme <strong>21 %</strong> du signal différentiel de 94&prime;.</p><p>La méthode B reste utile lorsque l'ensemble boîtier-rotule n'est pas démonté entre les deux stations. Dans le cas contraire, employer l'horizon artificiel de la méthode A, qui ne dépend d'aucune reproductibilité de montage.</p></div>
 
 <table>
-  <caption>Tableau 3 — Déplacement prédit de la ligne d'horizon entre deux altitudes.</caption>
+  <caption>Tableau 4 — Déplacement prédit de la ligne d'horizon entre deux altitudes.</caption>
   <thead><tr><th>PAIRE D'ALTITUDES</th><th class="n">hypothèse S — k = 0,13</th><th class="n">hypothèse P</th></tr></thead>
   <tbody>
     <tr><td>2 m → 300 m</td><td class="n">29′</td><td class="n">0′</td></tr>
@@ -545,32 +596,65 @@ disparaît par différence.</p>
   </tbody>
 </table>
 
-<h2><span class="n">07</span>Budget d'erreur et critère de décision</h2>
+<h2><span class="n">08</span>Budget d'erreur et critère de décision</h2>
 <p>Les contributions sont estimées à 1 σ pour une acquisition à 100 mm sur capteur
 24&nbsp;×&nbsp;36&nbsp;mm échantillonné à 4&nbsp;000 pixels sur la hauteur.</p>
 
 <table>
-  <caption>Tableau 4 — Budget d'erreur. Le poste dominant, l'erreur de niveau, est éliminé
+  <caption>Tableau 5 — Budget d'erreur. Le poste dominant, l'erreur de niveau, est éliminé
   par retournement ; le résidu est la répétabilité de la remise en station.</caption>
   <thead><tr><th>SOURCE</th><th class="n">contribution</th><th>TRAITEMENT</th></tr></thead>
   <tbody>
-    <tr><td>Pointé de la ligne d'horizon (±3 px)</td><td class="n">0,6′</td><td>moyennage sur la largeur du cadre</td></tr>
+    <tr><td>Pointé de la ligne d'horizon, turbulence comprise</td><td class="n">à MESURER</td><td>dispersion sur une rafale de 20 images</td></tr>
     <tr><td>Zéro de l'inclinomètre (±0,05°)</td><td class="n">3,0′</td><td><em>éliminé</em> par retournement</td></tr>
     <tr><td>Résidu après retournement</td><td class="n">1,5′</td><td>répétabilité de la mise en station</td></tr>
     <tr><td>Distorsion optique au centre du champ</td><td class="n">&lt; 1,0′</td><td>horizon placé près de l'axe</td></tr>
     <tr><td>Définition de la ligne d'horizon</td><td class="n">1,0′</td><td>trois séries, conditions notées</td></tr>
     <tr><td>Étalon lunaire (±7 % du diamètre)</td><td class="n">7,0′</td><td><em>évité</em> par la méthode capteur</td></tr>
-    <tr class="hi"><td><strong>Total quadratique, méthode capteur</strong></td><td class="n"><strong>2,2′</strong></td><td><strong>1 σ</strong></td></tr>
+    <tr><td>Total INSTRUMENTAL</td><td class="n">2,2′</td><td>sous-total</td></tr>
+    <tr class="pl"><td><strong>Incertitude de MODÈLE — k variable avec l'altitude</strong></td><td class="n"><strong>2,6′</strong></td><td><strong>ajouté en version 1.2</strong></td></tr>
+    <tr><td>Rayon de courbure gaussien local (±0,3 % sur R)</td><td class="n">0,15′</td><td>négligeable, mentionné pour mémoire</td></tr>
+    <tr class="hi"><td><strong>Total quadratique</strong></td><td class="n"><strong>3,4′</strong></td><td><strong>1 σ</strong></td></tr>
   </tbody>
 </table>
 
 <div class="box key">
   <span class="lab">Rapport signal sur bruit</span>
   <p>Écart minimal entre les deux hypothèses à 3 107 m : <strong>78,2′</strong>. Incertitude
-  instrumentale : <strong>2,2′</strong>. <strong>Rapport ≈ 36.</strong> À 300 m d'altitude,
+  totale : <strong>3,4′</strong>. <strong>Rapport ≈ 23.</strong> À 300 m d'altitude,
   le plus petit signal prédit reste de 22′ pour la même incertitude, soit un rapport de 10.
   Le test conserve donc son pouvoir de décision jusqu'à des altitudes très modestes.</p>
 </div>
+
+<h3>L'incertitude de modèle, ajoutée en version 1.2</h3>
+<div class="box warn">
+  <span class="lab">Correction apportée à la version 1.1</span>
+  <p>Les versions précédentes appliquaient un <strong>k unique</strong> à toutes les
+  altitudes. Or k caractérise le gradient vertical de densité, qui diffère fortement entre la
+  couche limite — où 0,13 à 0,17 est bien contraint — et la troposphère libre au-dessus de
+  1 000 m, où il est plus faible. Depuis 3 107 m, le trajet traverse les deux.</p>
+  <p>Conséquence chiffrée, à 3 107 m :</p>
+</div>
+<table>
+  <caption>Tableau 6 — Sensibilité de δ au coefficient de réfraction. L'étendue sur une plage
+  plausible dépasse le budget instrumental tout entier.</caption>
+  <thead><tr><th class="n">k</th><th class="n">δ</th><th>régime</th></tr></thead>
+  <tbody>
+    <tr><td class="n">0,08</td><td class="n">103,0′</td><td>troposphère libre</td></tr>
+    <tr><td class="n">0,10</td><td class="n">101,8′</td><td>haute altitude</td></tr>
+    <tr class="hi"><td class="n"><strong>0,13</strong></td><td class="n"><strong>100,1′</strong></td><td><strong>standard géodésique</strong></td></tr>
+    <tr><td class="n">0,15</td><td class="n">99,0′</td><td>couche limite</td></tr>
+    <tr><td class="n">0,17</td><td class="n">97,8′</td><td>mer froide</td></tr>
+  </tbody>
+</table>
+<p>Étendue : <strong>5,2′</strong>, soit ±2,6′. C'est plus que le budget instrumental de 2,2′,
+et le rapport signal sur bruit passe de 36 à <strong>23</strong>. La discrimination n'est pas
+menacée — elle n'a jamais reposé sur la connaissance de k, puisque la fourchette complète
+78′–107′ est affichée depuis la version 1.0 — mais le chiffre annoncé était trop flatteur.</p>
+<p>Le raffinement propre consiste à employer un <strong>modèle de réfraction dépendant de
+l'altitude</strong> plutôt qu'un k unique, comme le fait le calculateur de Walter Bislin. Un
+observateur qui dispose d'un profil de température le long de la visée — radiosondage ou
+réanalyse — doit l'employer et le consigner.</p>
 
 <h3>Critères de décision, fixés a priori</h3>
 <div class="two">
@@ -644,7 +728,7 @@ d&#233;cisifs et ne doivent pas &#234;tre pr&#233;sent&#233;s comme tels.</p>
 surface moyenne. &#192; 10 m par mer form&#233;e le biais vaut 0,4&#8242;, du m&#234;me ordre que le budget d'erreur
 tout entier. Mar&#233;e et &#233;tat de la mer sont d&#233;sormais des champs obligatoires du relev&#233;.</p>
 
-<h2><span class="n">08</span>Systématiques connues et modes d'échec</h2>
+<h2><span class="n">09</span>Systématiques connues et modes d'échec</h2>
 <ol>
   <li><strong>Fausse ligne d'horizon.</strong> Le mode d'échec le plus fréquent et le plus
   pernicieux. Une côte lointaine, une île, une chaîne montagneuse ou un banc de brume
@@ -667,7 +751,7 @@ tout entier. Mar&#233;e et &#233;tat de la mer sont d&#233;sormais des champs ob
   estimable. Trois séries constituent le minimum.</li>
 </ol>
 
-<h2><span class="n">09</span>Campagne distribuée — ce que nous proposons</h2>
+<h2><span class="n">10</span>Campagne distribuée — ce que nous proposons</h2>
 <p class="lead">L'intérêt d'une campagne collective dépasse la répétition d'une mesure
 unique. Porter δ contre √h transforme la question en <strong>trois contraintes
 indépendantes</strong>, chacune vérifiable séparément.</p>
@@ -685,6 +769,21 @@ indépendantes</strong>, chacune vérifiable séparément.</p>
 de la mer jusqu'aux stations d'altitude — à contribuer un point chacun. Une dizaine de
 points répartis sur la plage 5 m – 3 000 m suffit à contraindre la pente à mieux que 5 %.</p>
 
+<h3>Méthode d'ajustement</h3>
+<p>La version 1.1 énonçait les trois contraintes sans dire comment les éprouver. Elles se
+testent ainsi :</p>
+<ul>
+  <li><strong>Régression pondérée</strong> de δ contre √h, les poids étant l'inverse du carré
+  de l'incertitude de chaque station — le tableau des rapports signal sur bruit par altitude
+  les fournit déjà. Sans pondération, une station à 5 m pèse autant qu'une station à 3 000 m,
+  ce qui est absurde.</li>
+  <li><strong>Intervalles de confiance</strong> sur la pente <em>a</em> ET sur l'ordonnée à
+  l'origine, pas seulement des points. Une pente de 1,7 sans barre d'erreur ne dit rien.</li>
+  <li><strong>Ordre randomisé</strong> : alterner normal et retourné selon un ordre tiré au
+  sort, et varier les azimuts. Sans cela, une dérive lente de la réfraction au cours de la
+  session se confond avec un biais instrumental, et rien ne permet de les séparer.</li>
+</ul>
+
 <div class="box key">
   <span class="lab">Conditions de participation</span>
   <p>Publication des <strong>fichiers bruts non recadrés</strong>, des métadonnées EXIF
@@ -693,7 +792,7 @@ points répartis sur la plage 5 m – 3 000 m suffit à contraindre la pente à 
   anormal sont conservées et signalées, non supprimées.</p>
 </div>
 
-<h2><span class="n">10</span>Données à transmettre</h2>
+<h2><span class="n">11</span>Données à transmettre</h2>
 <div class="sheet">
   <div class="fr"><span class="a">Date et heure UTC (début / fin de série)</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">Coordonnées GPS de la station</span><span class="b">&nbsp;</span></div>
@@ -715,9 +814,19 @@ points répartis sur la plage 5 m – 3 000 m suffit à contraindre la pente à 
   <div class="fr"><span class="a">Nombre de séries et dispersion observée</span><span class="b">&nbsp;</span></div>
 </div>
 
-<h2><span class="n">11</span>Engagement</h2>
+<h2><span class="n">12</span>Engagement</h2>
 <p>Ce protocole a été rédigé avant toute acquisition, et il énonce à l'avance la
 signification de chacune des deux issues. C'est la condition de sa valeur probante.</p>
+<div class="box warn">
+  <span class="lab">Ce qui manque encore, et qu'il faut faire avant de collecter</span>
+  <p>Un numéro de version ne prouve rien. « Version 1.2 » n'est pas opposable à un lecteur
+  sceptique : rien n'empêche matériellement de réécrire un document après avoir vu les
+  données.</p>
+  <p>Il faut donc un <strong>horodatage vérifiable par un tiers</strong> — un dépôt OSF avec
+  DOI, ou l'empreinte cryptographique du document publiée avant la première acquisition. Sans
+  cela, la présente section reste une promesse invérifiable, c'est-à-dire exactement ce que
+  nous reprochons aux travaux que nous examinons.</p>
+</div>
 <p>Nous nous engageons à publier l'intégralité des données reçues, y compris celles qui
 contredisent l'hypothèse que nous jugions la plus probable, et à publier la conclusion que
 les données imposent. Un protocole dont le résultat serait connu d'avance ne mériterait pas
@@ -726,7 +835,7 @@ d'être exécuté ; celui-ci est proposé précisément parce que son issue ne l
 protocole sont sollicitées avant le lancement de la campagne, et seront intégrées à une
 version 2 créditée.</p>
 
-<h2><span class="n">12</span>Références</h2>
+<h2><span class="n">13</span>Références</h2>
 <ol class="refs">
   <li>Bomford, G. (1980). <em>Geodesy</em>, 4<sup>e</sup> éd. Oxford University Press.</li>
   <li>Brunner, F. K. (1984). <em>Geodetic Refraction: Effects of Electromagnetic Wave
@@ -747,7 +856,7 @@ version 2 créditée.</p>
   <p>Toutes les valeurs numériques de ce document se dérivent de <code>δ = √(2h/R′)</code>
   avec <code>R′ = R/(1−k)</code> et R = 6 371 km. Diamètre lunaire moyen 31′ (29,4′ au
   périgée, 33,5′ à l'apogée). Le document est reproductible dans son intégralité à partir de
-  ces relations. — Protocole ouvert, version 1.1. <strong>Changements depuis la 1.0 :</strong> la m&#233;thode &#224; horizon artificiel devient le proc&#233;d&#233; de r&#233;f&#233;rence, la mise de niveau passant en solution de repli ; le r&#233;f&#233;rentiel d'altitude est impos&#233; &#8212; la 1.0 &#233;crivait &#171; altitude du sol &#187; sans le pr&#233;ciser, ce qui fausse &#948; de 178 % &#224; 10 m pour une erreur de 30 m ; la mar&#233;e et l'&#233;tat de la mer, absents, deviennent des champs obligatoires ; la m&#233;thode B est restreinte aux cas o&#249; le montage n'est pas d&#233;fait entre les stations ; les rapports signal sur bruit par altitude sont affich&#233;s ; la r&#233;fraction accord&#233;e au mod&#232;le plan est trait&#233;e en section 02 ; la forme exacte de &#948; remplace le d&#233;veloppement au premier ordre.</p>
+  ces relations. — Protocole ouvert, version 1.2. <strong>Changements. 1.1 :</strong> la m&#233;thode &#224; horizon artificiel devient le proc&#233;d&#233; de r&#233;f&#233;rence, la mise de niveau passant en solution de repli ; le r&#233;f&#233;rentiel d'altitude est impos&#233; &#8212; la 1.0 &#233;crivait &#171; altitude du sol &#187; sans le pr&#233;ciser, ce qui fausse &#948; de 178 % &#224; 10 m pour une erreur de 30 m ; la mar&#233;e et l'&#233;tat de la mer, absents, deviennent des champs obligatoires ; la m&#233;thode B est restreinte aux cas o&#249; le montage n'est pas d&#233;fait entre les stations ; les rapports signal sur bruit par altitude sont affich&#233;s ; la r&#233;fraction accord&#233;e au mod&#232;le plan est trait&#233;e en section 02 ; la forme exacte de &#948; remplace le d&#233;veloppement au premier ordre. <strong>1.2</strong>, apr&#232;s relecture ext&#233;rieure : le budget d'erreur omettait l'incertitude de MOD&#200;LE due &#224; la variation de k avec l'altitude, qui vaut &#177;2,6&#8242; &#224; 3 107 m &#8212; plus que le budget instrumental entier ; le rapport signal sur bruit passe de 36 &#224; 23. La turbulence de vis&#233;e rasante se mesure d&#233;sormais sur une rafale au lieu d'&#234;tre postul&#233;e. La sym&#233;trie de l'horizon artificiel se teste par recoupement avec la m&#233;thode de repli. La m&#233;thode d'ajustement statistique est sp&#233;cifi&#233;e. Une section 04 situe le protocole parmi ses pr&#233;c&#233;dents &#8212; la formule est celle des tables de d&#233;pression de la navigation astronomique, et la mesure a d&#233;j&#224; &#233;t&#233; faite des millions de fois. Et l'absence d'horodatage v&#233;rifiable est signal&#233;e comme le manque restant &#224; combler avant toute collecte.</p>
 </footer>
 
 </div>

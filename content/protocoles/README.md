@@ -8,8 +8,8 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 
 | Fichier | Contenu |
 |---|---|
-| `horizon-fr.html` | Dépression de l'horizon marin — français, 11 pages, v1.1 |
-| `horizon-en.html` | Même document en anglais, v1.1 |
+| `horizon-fr.html` | Dépression de l'horizon marin — français, 13 pages, v1.2 |
+| `horizon-en.html` | Même document en anglais, v1.2 |
 | `soleil-bilingue.html` | Diamètre angulaire du Soleil — bilingue, 21 pages, v1.2 |
 | `pole-celeste-bilingue.html` | Hauteur du pôle céleste — bilingue, 18 pages, v1.1 |
 | `horizon-artefact-web.html` | Version web du protocole d'horizon (artefact consultable en ligne) |
@@ -118,6 +118,17 @@ les trouverait de toute façon.
   entre les stations, son hypothèse d'annulation du biais étant sinon intenable.
   Les rapports signal sur bruit par altitude sont affichés — sous 50 m ils tombent
   sous 6 et ces points ne sont pas décisifs.
+- **Horizon 1.2** — après relecture extérieure. Le budget d'erreur omettait
+  l'incertitude de **modèle** due à la variation de k avec l'altitude : ±2,6′ à
+  3 107 m, soit plus que le budget instrumental entier. Le rapport signal sur
+  bruit passe de 36 à **23** — le test reste décisif, le chiffre annoncé était
+  trop flatteur. La turbulence de visée rasante se mesure désormais sur une
+  rafale au lieu d'être postulée ; la symétrie de l'horizon artificiel se teste
+  par recoupement ; la méthode d'ajustement statistique est spécifiée. Une
+  nouvelle section 04 situe le protocole parmi ses précédents : la formule est
+  celle des tables de dépression de la navigation astronomique, et la mesure a
+  déjà été faite des millions de fois. L'absence d'horodatage vérifiable est
+  signalée comme le manque restant.
 - **Pôle 1.1** — le test 2 est entièrement réécrit. Il se disait « sans paramètre
   libre » et annonçait 156 à 200 km de base : les deux affirmations tiraient la
   prédiction azimutale de la latitude, laquelle vient du GPS — donc du modèle
