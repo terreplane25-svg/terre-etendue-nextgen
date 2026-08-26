@@ -8,8 +8,8 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 
 | Fichier | Contenu |
 |---|---|
-| `horizon-fr.html` | Dépression de l'horizon marin — français, 16 pages, v1.3 |
-| `horizon-en.html` | Même document en anglais, 15 pages, v1.3 |
+| `horizon-fr.html` | Dépression de l'horizon marin — français, 20 pages, **v1.4 arrêtée** |
+| `horizon-en.html` | Même document en anglais, 20 pages, **v1.4 frozen** |
 | `soleil-bilingue.html` | Diamètre angulaire du Soleil — bilingue, 23 pages, v1.3 |
 | `pole-celeste-bilingue.html` | Hauteur du pôle céleste — bilingue, 22 pages, v1.2 |
 | `horizon-artefact-web.html` | Version web du protocole d'horizon (artefact consultable en ligne) |
@@ -48,9 +48,10 @@ L'angle entre l'horizontale vraie et la ligne d'horizon marin. Une sphère préd
 Son intérêt tient à ce que la réfraction n'y intervient qu'au second ordre : sur
 toute la plage défendable (0 ≤ k ≤ 0,47) la prédiction sphérique ne varie que de
 107′ à 78′ depuis 3 107 m. **L'écart entre les modèles vaut au minimum 78′ pour
-un budget d'erreur de 2,2′** — rapport signal sur bruit d'environ 36. C'est la
-première mesure du dossier où l'incertitude sur la réfraction est plus petite que
-l'écart à mesurer.
+un budget d'erreur instrumental de 2,2′** — rapport signal sur bruit d'environ
+36 contre l'hypothèse plane, et de 29 sur la détermination du coefficient a, où
+l'incertitude de réfraction entre pleinement. C'est la première mesure du dossier
+où l'incertitude sur la réfraction est plus petite que l'écart à mesurer.
 
 La mesure se fait par **horizon artificiel** : une étoile, son reflet dans une
 nappe d'eau et la ligne d'horizon marin dans une même image. Le milieu entre
@@ -190,6 +191,43 @@ les trouverait de toute façon.
   La procédure d'horodatage est détaillée : figer le PDF, calculer le SHA-256,
   déposer sur OSF ou Zenodo, obtenir le DOI, publier les deux — et seulement
   ensuite collecter.
+- **Horizon 1.4** — relecture complète du document de bout en bout, avant arrêt
+  de la version.
+
+  **Le rapport signal sur bruit.** Trois chiffres différents circulaient dans la
+  même page : 36 au résumé, 23 en section 08, 45 au tableau des altitudes. Ils
+  répondent en réalité à deux questions distinctes, désormais séparées.
+  *Contre l'hypothèse plane* : le signal est l'écart entre δ = 0 et la plus
+  petite dépression qu'une sphère puisse produire, 78,2′ à 3 107 m, valeur qui
+  suppose déjà le k le plus défavorable ; le bruit est le budget instrumental
+  seul, 2,2′ ; **rapport 36**. *Sur la détermination de a* : l'incertitude de
+  modèle entre pleinement, σ = 3,41′ pour δ = 100,1′ ; **rapport 29**. Le 23 de
+  la 1.2 combinait le signal le plus défavorable avec le bruit le plus large —
+  il comptait k deux fois. La correction de la 1.2 était juste dans son principe
+  mais appliquée à la mauvaise question, et sa note de version se reprochait à
+  tort d'avoir été « trop flatteuse ». Les tableaux des altitudes et de l'échelle
+  angulaire sont recalculés.
+
+  **Ce qui manquait à qui voudrait faire l'expérience.** La *fenêtre
+  d'observation* — la méthode A demande l'astre, son reflet et la ligne
+  d'horizon marin dans une même image, et de nuit noire l'horizon n'est plus
+  visible. Aucune version ne le disait. La réponse est celle du point stellaire
+  au sextant : crépuscule nautique, ou Vénus et Jupiter avant le coucher du
+  Soleil. Le *critère de pointé* de la ligne d'horizon, qui est un saut
+  d'intensité où trois pixels valent 0,62′ à 100 mm. Et le *matériel*, encore
+  organisé autour de l'inclinomètre et muet sur le plateau, le liquide et les
+  éphémérides : qui suivait la liste ne pouvait pas exécuter la méthode A.
+
+  **Un contrôle gratuit non exploité.** L'écart entre l'astre et son reflet vaut
+  deux fois sa hauteur apparente, que l'éphéméride donne. Il vérifie l'échelle à
+  0,5 % indépendamment du solveur — mais ne mesure pas k le long de la visée
+  rasante, et le document le dit.
+
+  **Corrections.** L'étape « étalon d'angle » de la solution de repli
+  recommandait encore la focale gravée que la section 08 venait de disqualifier ;
+  « aucun étalonnage » devient « aucun étalonnage de biais », l'échelle angulaire
+  en étant un ; les figures 2 et 3 étaient dans le désordre ; les 1 873 km du
+  modèle plan ne disaient pas depuis quelle altitude ils sont calculés.
 
 ## Ce que ces protocoles ne font pas
 

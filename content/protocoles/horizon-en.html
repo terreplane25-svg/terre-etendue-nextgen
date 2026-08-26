@@ -167,13 +167,13 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
 <div class="masthead">
   <div class="kicker">Open protocol &middot; Call for a distributed campaign &middot; Pre-registered predictions</div>
   <h1>Measuring the dip of the sea horizon as a function of altitude</h1>
-  <p class="dek">A high signal-to-noise test, feasible with a camera and a level, whose two
-  possible outcomes are stated in advance.</p>
+  <p class="dek">A high signal-to-noise test, feasible with a camera, a tray of liquid
+  and a star, whose two possible outcomes are stated in advance.</p>
   <div class="byline">
     <span>Author<b>&nbsp;</b></span>
     <span>Affiliation<b>&nbsp;</b></span>
     <span>Contact<b>&nbsp;</b></span>
-    <span>Version<b>1.3 &mdash; open to revision</b></span>
+    <span>Version<b>1.4 &mdash; frozen for deposit</b></span>
     <span>Date<b>&nbsp;</b></span>
   </div>
 </div>
@@ -192,7 +192,7 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
   coefficient (0 &le; k &le; 0.47), the spherical prediction varies only from 107&prime; to
   78&prime; at 3 107 m elevation. <strong>The gap between the two models is therefore at least
   78 arcminutes, against an estimated instrumental error budget of 2.2&prime; (1 &sigma;)
-  &mdash; a signal-to-noise ratio of order 36.</strong></p>
+  &mdash; a signal-to-noise ratio of order 36 against the plane hypothesis, and of 29 on the determination of the coefficient a, where refraction uncertainty enters in full.</strong> The two ratios are distinguished in section 08.</p>
   <p>We propose a distributed campaign: measure &delta; from a range of altitudes spanning a
   few metres to a few kilometres, and test not an isolated point but the <strong>law</strong>
   <code>&delta;(&prime;) = a&middot;&radic;h(m)</code>. The spherical model requires
@@ -333,7 +333,7 @@ plane. The <em>relative</em> curvature of ray and surface then becomes:</p>
   <span class="cap">Positive on a sphere while k &lt; 1: a horizon exists. Negative on a plane for any k.</span>
 </div>
 <p>On a plane with a real atmosphere the ray therefore curves <strong>more</strong> than the
-surface: the ground rises around the observer instead of falling away. Sighting 1&#176; above the
+surface: the ground rises around the observer instead of falling away. From 3 107 m, sighting 1&#176; above the
 horizontal, the ground would be met at 1 873 km; at 5&#176;, at 8 589 km. <strong>No horizon would
 exist at all</strong> and the ground would fill the sky.</p>
 <div class="box key">
@@ -426,32 +426,79 @@ is the experiment whose methodology our own site praises: its result agrees with
 model.</p>
 
 <h2><span class="n">05</span>Equipment</h2>
+<p class="lead">Reorganised in version 1.4. Earlier versions gave one list, inherited from 1.0
+and still built around the inclinometer: it mentioned neither tray, nor liquid, nor ephemerides.
+Anyone following it could not carry out method A &mdash; which has been the reference procedure
+since 1.1.</p>
+
+<h3>Common to both methods</h3>
 <ul>
-  <li><strong>Camera with sensor of known dimensions</strong> and a prime or lockable lens. A
-  focal length of 100 mm full-frame equivalent offers a good compromise between angular
-  resolution and field of view.</li>
-  <li><strong>Tripod</strong> allowing the camera to be mounted inverted (flip head, L-bracket,
-  or reversed centre column).</li>
-  <li><strong>Inclinometer.</strong> A digital construction level (&plusmn;0.05&deg;) suffices.
-  A phone inclinometer (&plusmn;0.5&deg;) is acceptable provided the reversal procedure of
-  section 05 is applied.</li>
+  <li><strong>Camera with sensor of known dimensions</strong>, a prime or lockable lens, and a
+  stable tripod. See the table below for choosing the focal length.</li>
   <li><strong>Unobstructed sea horizon</strong> over at least the theoretical range for the
   altitude in question &mdash; 213 km from 3 107 m, 12 km from 10 m.</li>
   <li><strong>Barometer and thermometer</strong>, to document conditions.</li>
   <li><strong>A second thermometer, for sea surface temperature</strong> &mdash; a probe on a
-  line, or an infrared thermometer aimed at the water. Added in 1.3: it is the air-to-water
-  difference that governs the thermal gradient of the boundary layer, and therefore k at low
-  stations. See section 09.</li>
-  <li><strong>A viscous liquid for the surface</strong> &mdash; liquid paraffin or glycerine
-  rather than water. See section 06.</li>
-  <li><strong>An elevation referred to the sea surface at the time</strong>, not to the ellipsoid. See the box below: this is the protocol's most dangerous point at low stations.</li>
+  line, or an infrared thermometer aimed at the water. It is the air-to-water difference that
+  governs the thermal gradient of the boundary layer, and therefore k at low stations. See
+  section 09.</li>
+  <li><strong>An elevation referred to the sea surface at the time</strong>, not to the
+  ellipsoid. This is the protocol's most dangerous point at low stations; see section 08.</li>
   <li><strong>Tide state and sea state</strong> at the moment of acquisition.</li>
+  <li><strong>An ephemeris application</strong> &mdash; Stellarium, Sky Safari, or the IMCCE
+  tables. It serves three purposes: choosing the target, knowing its true altitude to the
+  arcsecond, and locating the twilight window.</li>
+  <li><strong>Plate-solving software</strong> &mdash; Astrometry.net online, ASTAP or SIRIL
+  offline. It supplies the angular scale; see section 08.</li>
 </ul>
+
+<h3>For method A &mdash; artificial horizon, the reference procedure</h3>
+<ul>
+  <li><strong>A wide, shallow tray.</strong> Thirty centimetres across is enough; what matters
+  is the surface, not the volume.</li>
+  <li><strong>A viscous liquid</strong> &mdash; liquid paraffin or glycerine, a few decilitres.
+  See the procedure for the reason.</li>
+  <li><strong>Something to shelter the tray from wind</strong>, and something to stand it on
+  away from the tripod: a box of sand, a slab of foam.</li>
+  <li><em>Optional</em> &mdash; a flat glass cover, if wind demands it, with the 180&deg;
+  rotation procedure.</li>
+</ul>
+
+<h3>For the fallback &mdash; inclinometer</h3>
+<ul>
+  <li><strong>An inclinometer.</strong> A digital construction level (&plusmn;0.05&deg;)
+  suffices; a phone inclinometer (&plusmn;0.5&deg;) is acceptable provided reversal is
+  applied.</li>
+  <li><strong>A tripod allowing inverted mounting</strong>: flip head, L-bracket, or reversed
+  centre column.</li>
+</ul>
+
+<table>
+  <caption>Table 4 &mdash; Choosing the focal length, 24&times;36 sensor sampled at 4 000 pixels
+  in height. The last column is the admissible target altitude: the field must hold the target
+  at +a and its reflection at &minus;a, that is 2a, and the dip itself must still fit, up to
+  1.7&deg;.</caption>
+  <thead><tr><th class="n">focal length</th><th class="n">vertical field</th><th class="n">scale</th><th class="n">admissible target altitude</th></tr></thead>
+  <tbody>
+    <tr><td class="n">50 mm</td><td class="n">27.0&deg;</td><td class="n">0.41&prime;/px</td><td class="n">13.5&deg;</td></tr>
+    <tr><td class="n">85 mm</td><td class="n">16.1&deg;</td><td class="n">0.24&prime;/px</td><td class="n">8.0&deg;</td></tr>
+    <tr class="hi"><td class="n"><strong>100 mm</strong></td><td class="n"><strong>13.7&deg;</strong></td><td class="n"><strong>0.21&prime;/px</strong></td><td class="n"><strong>6.8&deg;</strong></td></tr>
+    <tr><td class="n">135 mm</td><td class="n">10.2&deg;</td><td class="n">0.15&prime;/px</td><td class="n">5.1&deg;</td></tr>
+    <tr class="pl"><td class="n">200 mm</td><td class="n">6.9&deg;</td><td class="n">0.10&prime;/px</td><td class="n">3.4&deg;</td></tr>
+  </tbody>
+</table>
+<p>The 100 mm remains the best compromise, and not merely for convenience: at 0.21&prime; per
+pixel, three pixels of pointing uncertainty are worth 0.62&prime;, a quarter of the instrumental
+budget. A 50 mm would carry that same defect to 1.2&prime;, half the budget, for the sole
+advantage of a higher target. A 200 mm would do better still, but it admits only a target at
+3.4&deg;, where turbulence is worst.</p>
 
 <h2><span class="n">06</span>Procedure &#8212; Method A, artificial horizon</h2>
 <p class="lead">This method is new in version 1.1 and replaces levelling as the reference
-procedure. It <strong>requires no levelling instrument and no calibration</strong>: the
-horizontal reference makes itself.</p>
+procedure. It <strong>requires neither a levelling instrument nor a bias
+calibration</strong>: the horizontal reference makes itself. One quantity remains to be
+established, the <strong>angular scale</strong>, and section 08 says how &mdash; the
+&ldquo;no calibration&rdquo; of earlier versions was one shortcut too many.</p>
 <p>A still water surface sets itself perpendicular to the plumb line. A star and its reflection
 are therefore symmetric about the true horizontal, and their midpoint materialises it. If the
 sea horizon line appears in the same frame, &#948; is read directly.</p>
@@ -479,7 +526,7 @@ sea horizon line appears in the same frame, &#948; is read directly.</p>
     <path class="sg" d="M 660,196 A 245,245 0 0 0 662,216" stroke-width="1.3"/>
     <text class="tb" x="676" y="214" fill="var(--globe)">&#948;</text>
   </svg>
-  <figcaption><b>Figure 3 &#8212; The artificial horizon applied to dip.</b> Star and reflection are symmetric about the true horizontal: their midpoint materialises it, with no levelling whatever. The sea horizon line, in the same frame, is then read directly at &#8722;&#948;. Refraction cancels &#8212; direct and reflected images undergo it identically &#8212; and all three objects are at infinity, so a single focus setting serves.</figcaption>
+  <figcaption><b>Figure 2 &#8212; The artificial horizon applied to dip.</b> Star and reflection are symmetric about the true horizontal: their midpoint materialises it, with no levelling whatever. The sea horizon line, in the same frame, is then read directly at &#8722;&#948;. Refraction cancels &#8212; direct and reflected images undergo it identically &#8212; and all three objects are at infinity, so a single focus setting serves.</figcaption>
 </figure>
 <ol class="st">
   <li><b>Set up the surface</b>A wide, shallow tray, sheltered from wind. <strong>Use a viscous
@@ -494,8 +541,12 @@ sea horizon line appears in the same frame, &#948; is read directly.</p>
   that residual prism deflects the ray. Take a second frame with the cover turned through
   180&deg; and average the two: the prism cancels exactly, by the same reasoning as camera
   reversal.</li>
-  <li><b>Choose a low star</b>Between 3&#176; and 5&#176; altitude, in the azimuth of the horizon under
-  study. The vertical field required is 2a, that is 6&#176; to 10&#176;: a 100 mm lens is ample.</li>
+  <li><b>Choose the target</b>Between 3&deg; and 5&deg; altitude, in the azimuth of
+  the horizon under study. The vertical field required is 2a, that is 6&deg; to 10&deg;; a
+  100 mm lens offers 13.7&deg;. <strong>Aim for 3&deg; rather than 5&deg;</strong>: at 5&deg;
+  the margin is only 1.85&deg; on each side, and it must still absorb the dip, which reaches
+  1.7&deg; at 3 107 m. Version 1.3 wrote here that a 100 mm was &ldquo;ample&rdquo;: true at
+  3&deg;, only just at 5&deg;.</li>
   <li><b>Frame all three</b>Star, reflection and horizon line in the same image. Focus at
   infinity: all three lie there, the reflection included.</li>
   <li><b>Reduce</b>The midpoint between star and reflection gives the true horizontal. The offset
@@ -523,6 +574,79 @@ sea horizon line appears in the same frame, &#948; is read directly.</p>
   each of the two images is affected by it.</p>
 </div>
 
+
+<h3>When to shoot &mdash; the observing window, added in 1.4</h3>
+<p>This is method A's heaviest practical constraint, and no earlier version mentioned it: the
+frame must hold <strong>the target, its reflection and the sea horizon line at once</strong>.
+In full darkness the sea horizon line is no longer visible.</p>
+<p>The problem is old and already solved. It is exactly that of the <strong>sextant star
+sight</strong>, which celestial navigation takes at nautical twilight for this precise reason:
+the star has appeared, the horizon has not yet gone. The protocol therefore inherits the
+solution along with the formula (section 04).</p>
+<table>
+  <caption>Table 5 &mdash; Practicable windows. Durations are for mid-latitudes; they shorten
+  near the equator and lengthen, to the point of vanishing, at high latitudes in summer.</caption>
+  <thead><tr><th>window</th><th>what is visible</th><th class="n">duration</th></tr></thead>
+  <tbody>
+    <tr><td>Sun between &minus;5&deg; and &minus;10&deg; &mdash; nautical twilight</td><td>stars of magnitude 1 to 2, and the horizon line still crisp</td><td class="n">20 to 30 min, twice a day</td></tr>
+    <tr class="hi"><td><strong>Venus or Jupiter, before sunset</strong></td><td><strong>the target alone in a bright sky, and the horizon in full daylight</strong></td><td class="n"><strong>several hours</strong></td></tr>
+    <tr><td>Moonlit night, Moon high</td><td>the horizon lit by the Moon; the Moon itself can serve as target</td><td class="n">several hours</td></tr>
+  </tbody>
+</table>
+<p>The most convenient target is therefore not a star: it is <strong>Venus or Jupiter</strong>.
+Bright enough to be acquired well before nightfall, when the sea horizon is still fully legible,
+and their reflection in the tray is found without trouble. The Moon serves too &mdash; the
+symmetry then applies to the centre of the disc.</p>
+<div class="box warn">
+  <span class="lab">Consequence for plate solving</span>
+  <p>In that window the field holds only a handful of stars &mdash; sometimes too few for a
+  solver, which wants about a dozen. Take the measurement frame in the window, then a
+  <strong>second frame in full darkness, same setting, ring taped</strong>, meant only for the
+  solve. It is the scale that carries from one frame to the other, and it depends only on the
+  optical setting &mdash; provided, precisely, that nothing was touched.</p>
+</div>
+
+<h3>Where exactly the horizon line is &mdash; added in 1.4</h3>
+<p>The horizon line is not a stroke: it is an intensity step spread over several pixels. At
+100 mm on 4 000 pixels of height, one pixel is 0.21&prime; and three pixels 0.62&prime; &mdash;
+a quarter of the instrumental budget. Two operators pointing &ldquo;by eye&rdquo; are therefore
+not measuring the same quantity, and the discrepancy shows up nowhere in the data.</p>
+<p>The criterion, to be fixed before reduction and applied without exception:</p>
+<ol>
+  <li>Work on the <strong>raw, uncropped file</strong>, with no automatic lens correction and no
+  contrast enhancement.</li>
+  <li>For each pixel column, take the vertical intensity profile around the transition and read
+  the ordinate of the <strong>half-height point of the step</strong>, by sub-pixel interpolation
+  between the sea level and the sky level.</li>
+  <li>Average over the full usable width, after discarding columns containing a ship, an islet
+  or a haze bank &mdash; and record how many columns were discarded.</li>
+  <li>Record the <strong>column-to-column standard deviation</strong> of that mean: it measures
+  the regularity of the line, and an anomalous value flags a disturbed refractive regime before
+  one even looks at the result.</li>
+</ol>
+<p>There is nothing sacred about the half-height criterion. What matters is that it be
+<strong>the same at every station</strong>: a bias common to all shows up in the fitted
+intercept, a bias that varies between observers shows up nowhere. Any other reproducible
+criterion will do, provided it is stated in advance and applied throughout.</p>
+
+<h3>A free check on the same frame &mdash; added in 1.4</h3>
+<p>The angular separation between the target and its reflection is exactly <strong>twice its
+apparent altitude</strong>. And the ephemeris gives its true altitude to the arcsecond. The
+comparison costs nothing and is worth making.</p>
+<div class="eq">
+  measured separation &divide; 2 = true altitude + refraction
+  <span class="cap">At 3&deg; altitude refraction is about 14.3&prime;; at 4&deg;, 11.7&prime;; at 5&deg;, 9.9&prime;.</span>
+</div>
+<p><strong>What this check establishes.</strong> It verifies the angular scale to about
+0.5 per cent, independently of the solver &mdash; two routes that agree are worth more than one
+taken on trust. And it flags an atmosphere in an unusual state if the deduced refraction departs
+markedly from the standard value for the recorded pressure and temperature.</p>
+<p><strong>What it does not establish.</strong> It <em>does not measure</em> k along the grazing
+sightline. The path to a target at 3&deg; crosses the whole troposphere obliquely, whereas the
+horizon line grazes the boundary layer over tens of kilometres: these are two distinct
+quantities, and conflating them would be exactly the kind of shortcut this document reproaches
+elsewhere.</p>
+
 <h3>Fallback &#8212; levelling and reversal</h3>
 <p>If an artificial horizon is impractical, measure with an inclinometer by the procedure below.
 It remains valid, but it depends on the repeatability of the station setup, where the artificial
@@ -534,8 +658,11 @@ horizon does not.</p>
   Save the raw file, uncropped.</li>
   <li><b>Acquire the horizon, inverted position</b>Remount the camera upside down on the same
   base, re-level, reproduce the same framing.</li>
-  <li><b>Angular standard</b>Photograph the Moon at rigorously identical focal length, or
-  &mdash; preferably &mdash; record the exact focal length and sensor dimensions.</li>
+  <li><b>Angular scale</b>Plate-solve a star field taken at the same setting,
+  ring taped &mdash; section 08. <strong>Do not trust the engraved focal length</strong>,
+  nominal to 2&ndash;5 per cent, nor the lunar standard, at 7 per cent. Version 1.3 added
+  section 08 without correcting this step, which still recommended the focal length: an internal
+  contradiction, lifted in 1.4.</li>
   <li><b>Reduction</b>Measure in pixels the ordinate of the file centre and of the horizon
   line. Convert to angle using the sensor's vertical field of view.</li>
   <li><b>Repetition</b>At least three series at distinct times, to sample refraction
@@ -572,21 +699,22 @@ mean of the two readings eliminates it exactly.</p>
     <text class="tm" x="375" y="112" text-anchor="middle" fill="var(--alert)">e</text>
     <text class="tm" x="525" y="112" text-anchor="middle" fill="var(--alert)">e</text>
   </svg>
-  <figcaption><b>Figure 2 &mdash; Calibration by reversal.</b> A standard surveying procedure for
+  <figcaption><b>Figure 3 &mdash; Calibration by reversal.</b> A standard surveying procedure for
   eliminating systematic instrumental bias, transposed here to the camera-inclinometer pair. It
   dispenses with knowing the bias, which is its principal advantage over any attempt at prior
   calibration.</figcaption>
 </figure>
 
 <h2><span class="n">07</span>Procedure &mdash; Method B, differential measurement</h2>
-<p>This variant requires <strong>no levelling instrument and no calibration</strong>. It
+<p>This variant requires <strong>neither a levelling instrument nor a bias
+calibration</strong> &mdash; the angular scale is still needed, as everywhere else. It
 consists of photographing the same horizon from two widely separated altitudes, with identical
 equipment and settings, and measuring the <em>displacement</em> of the horizon line within the
 frame. Any mounting bias, being identical in both acquisitions, cancels by difference.</p>
 <div class="box warn"><span class="lab">Restriction added in version 1.1</span><p>Cancellation of the bias assumes it is <em>identical</em> in both acquisitions. But going from 10 m to 3 107 m requires dismounting the camera, travelling, and remounting: the bias is no longer the same. A remounting repeatability of 20&prime; consumes <strong>21 per cent</strong> of the 94&prime; differential signal.</p><p>Method B remains useful when the camera-head assembly is not dismounted between the two stations. Otherwise use the artificial horizon of Method A, which depends on no mounting repeatability at all.</p></div>
 
 <table>
-  <caption>Table 4 &mdash; Predicted displacement of the horizon line between two altitudes.</caption>
+  <caption>Table 6 &mdash; Predicted displacement of the horizon line between two altitudes.</caption>
   <thead><tr><th>ALTITUDE PAIR</th><th class="n">hypothesis S &mdash; k = 0.13</th><th class="n">hypothesis P</th></tr></thead>
   <tbody>
     <tr><td>2 m &rarr; 300 m</td><td class="n">29&prime;</td><td class="n">0&prime;</td></tr>
@@ -601,7 +729,7 @@ frame. Any mounting bias, being identical in both acquisitions, cancels by diffe
 24&nbsp;&times;&nbsp;36&nbsp;mm sensor sampled at 4&nbsp;000 pixels vertically.</p>
 
 <table>
-  <caption>Table 5 &mdash; Error budget. The dominant term, levelling error, is eliminated by
+  <caption>Table 7 &mdash; Error budget. The dominant term, levelling error, is eliminated by
   reversal; the residual is the repeatability of re-setting the station.</caption>
   <thead><tr><th>SOURCE</th><th class="n">contribution</th><th>TREATMENT</th></tr></thead>
   <tbody>
@@ -620,11 +748,27 @@ frame. Any mounting bias, being identical in both acquisitions, cancels by diffe
 </table>
 
 <div class="box key">
-  <span class="lab">Signal-to-noise ratio</span>
-  <p>Minimum gap between the two hypotheses at 3 107 m: <strong>78.2&prime;</strong>.
-  Total uncertainty: <strong>3.4&prime;</strong>. <strong>Ratio &asymp; 23.</strong> At
-  300 m elevation the smallest predicted signal is still 22&prime; for the same uncertainty, a
-  ratio of 10. The test therefore retains its decisive power down to very modest altitudes.</p>
+  <span class="lab">Two signal-to-noise ratios, not one &mdash; corrected in 1.4</span>
+  <p>Earlier versions announced a single figure, and not always the same one:
+  <strong>36</strong> in the abstract, <strong>23</strong> here, <strong>45</strong> in the
+  altitude table. Three numbers on one page. They in fact answer two distinct questions, and
+  conflating them let an error pass for a correction.</p>
+  <p><strong>Question 1 &mdash; is the surface flat?</strong> The signal is the gap between
+  &delta; = 0 and the smallest dip a sphere can produce, that is <strong>78.2&prime;</strong>
+  at 3 107 m, reached at k = 0.47. The noise is the <em>instrumental</em> budget, 2.2&prime;.
+  Ignorance of k does not enter: it is already absorbed by taking the least favourable case,
+  and no value of k brings a sphere closer to zero. <strong>Ratio: 36.</strong></p>
+  <p><strong>Question 2 &mdash; what is a?</strong> Here the measurement is set against a
+  numerical prediction, and model uncertainty enters in full: &sigma; = 3.41&prime; for
+  &delta; = 100.1&prime; at k = 0.13. <strong>Ratio: 29.</strong></p>
+  <div class="eq">
+    36 against the plane hypothesis &nbsp;&nbsp;|&nbsp;&nbsp; 29 on the determination of a
+    <span class="cap">At 3 107 m. Table 10 gives both columns for every altitude.</span>
+  </div>
+  <p>The <strong>23</strong> of version 1.2 combined the least favourable signal with the
+  widest noise: it counted k twice. The 1.2 correction was right in principle &mdash; model
+  uncertainty was genuinely missing &mdash; but it was applied to the wrong question. Its
+  change note reproached itself for having been &ldquo;too flattering&rdquo;: it was not.</p>
 </div>
 
 <h3>Model uncertainty, added in version 1.2</h3>
@@ -636,7 +780,7 @@ frame. Any mounting bias, being identical in both acquisitions, cancels by diffe
   lower. From 3 107 m the path crosses both.</p>
 </div>
 <table>
-  <caption>Table 6 &mdash; Sensitivity of &delta; to the refraction coefficient. The spread over a
+  <caption>Table 8 &mdash; Sensitivity of &delta; to the refraction coefficient. The spread over a
   plausible range exceeds the entire instrumental budget.</caption>
   <thead><tr><th class="n">k</th><th class="n">&delta;</th><th>regime</th></tr></thead>
   <tbody>
@@ -647,10 +791,20 @@ frame. Any mounting bias, being identical in both acquisitions, cancels by diffe
     <tr><td class="n">0.17</td><td class="n">97.8&prime;</td><td>cold sea</td></tr>
   </tbody>
 </table>
-<p>Spread: <strong>5.2&prime;</strong>, that is &plusmn;2.6&prime;. More than the 2.2&prime;
-instrumental budget, and signal-to-noise falls from 36 to <strong>23</strong>. Discrimination is
-not threatened &mdash; it never rested on knowing k, the full 78&prime;&ndash;107&prime; range
-having been displayed since version 1.0 &mdash; but the figure announced was too flattering.</p>
+<p>Spread: <strong>5.2&prime;</strong>, that is &plusmn;2.6&prime;. That exceeds the
+instrumental budget of 2.2&prime;, and the term is real: it bears on the <em>prediction</em>,
+and therefore on the determination of a.</p>
+<div class="box warn">
+  <span class="lab">What version 1.2 wrongly concluded from it</span>
+  <p>1.2 wrote here that &ldquo;signal-to-noise falls from 36 to 23&rdquo; and that the figure
+  announced until then was too flattering. That was a mistake, and 1.4 corrects it.
+  Discrimination between the two models rests on the gap between &delta; = 0 and 78.2&prime;, a
+  value that <em>already</em> assumes the least favourable k in the whole range. Adding
+  &plusmn;2.6&prime; of k spread on top of it counts k a second time.</p>
+  <p>The model term was genuinely missing, and adding it was right. But it belongs to the
+  second question &mdash; what is a? &mdash; and not to the first. The two ratios are now given
+  separately above.</p>
+</div>
 <p>The proper refinement is an <strong>altitude-dependent refraction model</strong> rather than a
 single k, as in Walter Bislin's calculator. An observer holding a temperature profile along the
 sightline &mdash; radiosonde or reanalysis &mdash; must use it and record it.</p>
@@ -667,16 +821,21 @@ sightline &mdash; radiosonde or reanalysis &mdash; must use it and record it.</p
   a term of its own.</p>
 </div>
 <table>
-  <caption>Table 7 &mdash; What a focal length taken at face value costs, at 3 107 m where
-  &delta; is 100&prime;.</caption>
-  <thead><tr><th>angular scale</th><th class="n">term induced</th><th class="n">total at 1 &sigma;</th><th class="n">S/N ratio</th></tr></thead>
+  <caption>Table 9 &mdash; What a focal length taken at face value costs, at 3 107 m where
+  &delta; is 100&prime;. Ratios given in the &ldquo;on the law&rdquo; convention &mdash;
+  recomputed in 1.4, as 1.3 still used the mixed convention.</caption>
+  <thead><tr><th>angular scale</th><th class="n">term induced</th><th class="n">total at 1 &sigma;</th><th class="n">ratio on the law</th></tr></thead>
   <tbody>
-    <tr class="hi"><td><strong>field astrometry</strong></td><td class="n"><strong>0.05&prime;</strong></td><td class="n"><strong>3.41&prime;</strong></td><td class="n"><strong>23.0</strong></td></tr>
-    <tr><td>nominal focal length to &plusmn;2 %</td><td class="n">2.0&prime;</td><td class="n">3.95&prime;</td><td class="n">19.8</td></tr>
-    <tr><td>nominal focal length to &plusmn;3 %</td><td class="n">3.0&prime;</td><td class="n">4.54&prime;</td><td class="n">17.2</td></tr>
-    <tr class="pl"><td>nominal focal length to &plusmn;5 %</td><td class="n">5.0&prime;</td><td class="n">6.05&prime;</td><td class="n">12.9</td></tr>
+    <tr class="hi"><td><strong>field astrometry</strong></td><td class="n"><strong>0.05&prime;</strong></td><td class="n"><strong>3.41&prime;</strong></td><td class="n"><strong>29.4</strong></td></tr>
+    <tr><td>nominal focal length to &plusmn;2 %</td><td class="n">2.0&prime;</td><td class="n">3.95&prime;</td><td class="n">25.3</td></tr>
+    <tr><td>nominal focal length to &plusmn;3 %</td><td class="n">3.0&prime;</td><td class="n">4.54&prime;</td><td class="n">22.1</td></tr>
+    <tr class="pl"><td>nominal focal length to &plusmn;5 %</td><td class="n">5.0&prime;</td><td class="n">6.05&prime;</td><td class="n">16.5</td></tr>
   </tbody>
 </table>
+<p>The &ldquo;against &delta; = 0&rdquo; ratio does not appear in this table, and deliberately
+so: a scale error is <strong>multiplicative</strong>. It cannot manufacture 78&prime; out of
+zero, so it does not threaten discrimination between the two models. It falsifies the
+<em>value</em> of a, and that is where it must be counted.</p>
 <p>The clean solution exists and it is free: <strong>field astrometry</strong>, or plate
 solving.</p>
 <ol>
@@ -726,18 +885,26 @@ scale is undocumented has no estimable uncertainty.</p>
 useful for fitting the &#8730;h law, but they are not decisive and must not be presented as
 such.</p>
 <table>
-  <caption>Table 8 &#8212; Signal-to-noise by altitude, error budget 2.2&#8242;.</caption>
-  <thead><tr><th class="n">altitude</th><th class="n">&#948;</th><th class="n">&#963;</th><th>use</th></tr></thead>
+  <caption>Table 10 &mdash; What each altitude is worth, for each of the two questions. The
+  &ldquo;against &delta; = 0&rdquo; column takes the least favourable signal
+  (1.4022&radic;h, k = 0.47) over the instrumental budget alone; the &ldquo;on the law&rdquo;
+  column takes &delta; at k = 0.13 over the full budget. Recomputed in 1.4.</caption>
+  <thead><tr><th class="n">altitude</th><th class="n">&delta; (k = 0.13)</th><th class="n">total &sigma;</th><th class="n">against &delta; = 0</th><th class="n">on the law</th><th>use</th></tr></thead>
   <tbody>
-    <tr><td class="n">5 m</td><td class="n">4.0&#8242;</td><td class="n">1.8</td><td>indicative only</td></tr>
-    <tr><td class="n">10 m</td><td class="n">5.7&#8242;</td><td class="n">2.6</td><td>indicative only</td></tr>
-    <tr><td class="n">50 m</td><td class="n">12.7&#8242;</td><td class="n">5.8</td><td>contributing</td></tr>
-    <tr><td class="n">120 m</td><td class="n">19.7&#8242;</td><td class="n">8.9</td><td>contributing</td></tr>
-    <tr><td class="n">300 m</td><td class="n">31.1&#8242;</td><td class="n">14.1</td><td>solid</td></tr>
-    <tr><td class="n">1 000 m</td><td class="n">56.8&#8242;</td><td class="n">25.8</td><td>solid</td></tr>
-    <tr class="hi"><td class="n"><strong>3 107 m</strong></td><td class="n"><strong>100.1&#8242;</strong></td><td class="n"><strong>45.5</strong></td><td><strong>decisive</strong></td></tr>
+    <tr class="pl"><td class="n">5 m</td><td class="n">4.0&prime;</td><td class="n">2.20&prime;</td><td class="n">1.4</td><td class="n">1.8</td><td>indicative only</td></tr>
+    <tr class="pl"><td class="n">10 m</td><td class="n">5.7&prime;</td><td class="n">2.20&prime;</td><td class="n">2.0</td><td class="n">2.6</td><td>indicative only</td></tr>
+    <tr><td class="n">50 m</td><td class="n">12.7&prime;</td><td class="n">2.22&prime;</td><td class="n">4.5</td><td class="n">5.7</td><td>contributory</td></tr>
+    <tr><td class="n">120 m</td><td class="n">19.7&prime;</td><td class="n">2.26&prime;</td><td class="n">7.0</td><td class="n">8.7</td><td>contributory</td></tr>
+    <tr><td class="n">300 m</td><td class="n">31.1&prime;</td><td class="n">2.34&prime;</td><td class="n">11.0</td><td class="n">13.3</td><td>solid</td></tr>
+    <tr><td class="n">1 000 m</td><td class="n">56.8&prime;</td><td class="n">2.65&prime;</td><td class="n">20.2</td><td class="n">21.4</td><td>solid</td></tr>
+    <tr class="hi"><td class="n"><strong>3 107 m</strong></td><td class="n"><strong>100.1&prime;</strong></td><td class="n"><strong>3.41&prime;</strong></td><td class="n"><strong>35.5</strong></td><td class="n"><strong>29.4</strong></td><td><strong>decisive</strong></td></tr>
   </tbody>
 </table>
+<p>The two columns cross near 1 000 m, and the reason is worth seeing: below that altitude
+model uncertainty is negligible against the instrumental budget and it is the margin on k that
+weighs, while above it model uncertainty grows with &delta; whereas the worst case on k stays
+proportional to &radic;h. <strong>In short: a high station is better for refuting the plane,
+and a middling station costs hardly more for measuring a.</strong></p>
 
 <h3>The elevation datum &#8212; the most dangerous point</h3>
 <div class="box warn">
@@ -751,7 +918,7 @@ such.</p>
   measurement above the water.</p>
 </div>
 <table>
-  <caption>Table 9 &#8212; Effects of tide and sea state, both absent from version 1.0. The second is
+  <caption>Table 11 &#8212; Effects of tide and sea state, both absent from version 1.0. The second is
   a <em>systematic</em> bias, always of the same sign.</caption>
   <thead><tr><th class="n">altitude</th><th class="n">tide &#177;2 m</th><th class="n">swell Hs = 3 m</th></tr></thead>
   <tbody>
@@ -778,8 +945,10 @@ budget. Tide and sea state are now mandatory fields of the record.</p>
   therefore its horizontal reference. Work exclusively on the native file.</li>
   <li><strong>Optical distortion.</strong> Wide-angle lenses curve the horizon off axis. Place
   the horizon line near the centre, or use a telephoto lens.</li>
-  <li><strong>Focal drift.</strong> On a zoom, focal length must be identical between horizon
-  and standard. Tape the ring.</li>
+  <li><strong>Focal drift.</strong> Focal length must be identical between the
+  measurement frame and the frame meant for plate solving &mdash; the whole validity of carrying
+  the scale across rests on it. Tape the ring, and beware internal-focus lenses, whose focal
+  length varies with distance.</li>
   <li><strong>Anomalous refraction regime.</strong> A horizon that undulates, doubles, or shows
   a sharp cut-off line indicates an atmospheric duct. The measurement remains valid but the
   value of k it implies is not transferable to other observations. Always record the appearance
@@ -794,7 +963,7 @@ effect remains, and it strikes low stations precisely: <strong>the difference be
 water temperature</strong>. It sets the thermal gradient of the first few metres, and the
 gradient sets k.</p>
 <table>
-  <caption>Table 10 &mdash; Refraction coefficient by vertical thermal gradient, from
+  <caption>Table 12 &mdash; Refraction coefficient by vertical thermal gradient, from
   k = 503 (P/T&sup2;)(0.0342 + dT/dh), at 1 013 hPa and 288 K. Pressure is in hectopascals: in
   pascals the coefficient comes out a hundred times larger, and that is a classic trap.</caption>
   <thead><tr><th class="n">dT/dh</th><th class="n">k</th><th>regime</th></tr></thead>
@@ -929,6 +1098,10 @@ uncertainty, but to be logged rather than discovered afterwards.</p>
   <div class="fr"><span class="a">Liquid used for the surface, and settling time before the frame</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">Angular scale solved by astrometry (&Prime;/px), and solver residuals</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">Scatter of the reflection over the burst (&prime;), and the half retained</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Window used, and target sighted (name, ephemeris altitude)</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Measured target-to-reflection separation, and the refraction deduced</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Horizon pointing criterion, and column-to-column standard deviation</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Columns discarded from the mean, and why</span><span class="b">&nbsp;</span></div>
 </div>
 
 <h2><span class="n">12</span>Commitment</h2>
@@ -936,7 +1109,7 @@ uncertainty, but to be logged rather than discovered afterwards.</p>
 each of the two outcomes. That is the condition of its evidential value.</p>
 <div class="box warn">
   <span class="lab">What is still missing, and must be done before collecting</span>
-  <p>A version number proves nothing. &ldquo;Version 1.3&rdquo; is not opposable to a sceptical
+  <p>A version number proves nothing. &ldquo;Version 1.4&rdquo; is not opposable to a sceptical
   reader: nothing materially prevents rewriting a document after seeing the data.</p>
   <p>What is needed is a <strong>timestamp verifiable by a third party</strong>. The procedure,
   specified in version 1.3, and in this order:</p>
@@ -983,7 +1156,7 @@ before the campaign begins, and will be incorporated into a credited version 2.<
   <p>All numerical values in this document derive from <code>&delta; = &radic;(2h/R&prime;)</code>
   with <code>R&prime; = R/(1&minus;k)</code> and R = 6 371 km. Mean lunar diameter 31&prime;
   (29.4&prime; at perigee, 33.5&prime; at apogee). The document is reproducible in its entirety
-  from these relations. &mdash; Open protocol, version 1.3. <strong>Changes. 1.1:</strong> the artificial-horizon method becomes the reference procedure, levelling moving to a fallback; the elevation datum is now specified &#8212; 1.0 wrote &#8220;ground elevation&#8221; without it, which skews &#948; by 178 per cent at 10 m for a 30 m error; tide and sea state, previously absent, become mandatory fields; method B is restricted to cases where the mounting is not disturbed between stations; signal-to-noise by altitude is tabulated; refraction granted to the plane model is treated in section 02; the exact form of &#948; replaces the first-order expansion. <strong>1.2</strong>, after outside review: the error budget omitted the MODEL uncertainty from k varying with altitude, worth &#177;2.6&#8242; at 3 107 m &mdash; more than the whole instrumental budget; signal-to-noise falls from 36 to 23. Grazing-sightline turbulence is now measured on a burst rather than postulated. The artificial horizon's symmetry is cross-tested against the fallback method. The statistical fitting method is specified. A section 04 situates the protocol among its precedents &mdash; the formula is that of the navigational dip tables, and the measurement has already been made millions of times. And the absence of a verifiable timestamp is flagged as the gap remaining before any collection. <strong>1.3</strong>, second outside review: the <strong>angular scale</strong> was an unquantified term &mdash; the engraved focal length is nominal to 2&ndash;5 per cent, worth 2 to 5&prime; on a 100&prime; dip and enough to drop signal-to-noise from 23 to 17; field astrometry brings it to 0.05&prime; and supplies the distortion profile besides. The <strong>boundary layer over water</strong> enters the protocol: the air-to-sea difference governs the gradient of the first few metres, hence k at low stations, and &Delta;T becomes a mandatory field. The reflecting surface moves to a <strong>viscous liquid</strong>, its residual unrest is measured on the burst rather than assumed, and a glass cover is cancelled by a 180&deg; rotation. Finally the <strong>exponent p is left free</strong>: six stations determine it to &plusmn;0.022, which establishes the square-root law instead of assuming it. The timestamping procedure is spelt out &mdash; freeze, SHA-256, OSF or Zenodo deposit, DOI, and only then collect.</p>
+  from these relations. &mdash; Open protocol, version 1.4. <strong>Changes. 1.1:</strong> the artificial-horizon method becomes the reference procedure, levelling moving to a fallback; the elevation datum is now specified &#8212; 1.0 wrote &#8220;ground elevation&#8221; without it, which skews &#948; by 178 per cent at 10 m for a 30 m error; tide and sea state, previously absent, become mandatory fields; method B is restricted to cases where the mounting is not disturbed between stations; signal-to-noise by altitude is tabulated; refraction granted to the plane model is treated in section 02; the exact form of &#948; replaces the first-order expansion. <strong>1.2</strong>, after outside review: the error budget omitted the MODEL uncertainty from k varying with altitude, worth &#177;2.6&#8242; at 3 107 m &mdash; more than the whole instrumental budget; signal-to-noise falls from 36 to 23. Grazing-sightline turbulence is now measured on a burst rather than postulated. The artificial horizon's symmetry is cross-tested against the fallback method. The statistical fitting method is specified. A section 04 situates the protocol among its precedents &mdash; the formula is that of the navigational dip tables, and the measurement has already been made millions of times. And the absence of a verifiable timestamp is flagged as the gap remaining before any collection. <strong>1.3</strong>, second outside review: the <strong>angular scale</strong> was an unquantified term &mdash; the engraved focal length is nominal to 2&ndash;5 per cent, worth 2 to 5&prime; on a 100&prime; dip and enough to drop signal-to-noise from 23 to 17; field astrometry brings it to 0.05&prime; and supplies the distortion profile besides. The <strong>boundary layer over water</strong> enters the protocol: the air-to-sea difference governs the gradient of the first few metres, hence k at low stations, and &Delta;T becomes a mandatory field. The reflecting surface moves to a <strong>viscous liquid</strong>, its residual unrest is measured on the burst rather than assumed, and a glass cover is cancelled by a 180&deg; rotation. Finally the <strong>exponent p is left free</strong>: six stations determine it to &plusmn;0.022, which establishes the square-root law instead of assuming it. The timestamping procedure is spelt out &mdash; freeze, SHA-256, OSF or Zenodo deposit, DOI, and only then collect. <strong>1.4</strong>, full re-reading before the version is frozen. <em>Signal-to-noise</em>: three different figures circulated on one page &mdash; 36 in the abstract, 23 in section 08, 45 in the altitude table. They answer two distinct questions, now separated: <strong>36</strong> against the plane hypothesis, where ignorance of k is already absorbed by taking the worst case, and <strong>29</strong> on the determination of a, where it enters in full. The 23 of 1.2 counted k twice; its change note wrongly reproached itself for being flattering, and the ratios cited in the 1.2 and 1.3 notes are superseded by these. The altitude table and the angular scale table are recomputed accordingly. <em>What was missing for anyone wanting to do the experiment</em>: the <strong>observing window</strong>, method A's heaviest constraint and never mentioned &mdash; in full darkness the sea horizon is not visible, and the answer is the sextant star sight's, nautical twilight, or Venus before sunset; the <strong>pointing criterion</strong> for the horizon line, an intensity step where three pixels are worth 0.62&prime;; and the <strong>equipment</strong> list, still organised around the inclinometer and silent on tray, liquid and ephemerides. To which is added a free check that went unused: the target-to-reflection separation is twice the apparent altitude, which the ephemeris supplies. <em>Corrections</em>: the fallback's &ldquo;angular standard&rdquo; step still recommended the engraved focal length that section 08 had just disqualified; &ldquo;no calibration&rdquo; becomes &ldquo;no bias calibration&rdquo;, the angular scale being one; figures 2 and 3 were out of order; and the plane model's 1 873 km did not say from what altitude it is computed. <strong>Version frozen for deposit.</strong></p>
 </footer>
 
 </div>

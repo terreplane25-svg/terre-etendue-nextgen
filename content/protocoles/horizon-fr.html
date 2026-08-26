@@ -167,13 +167,14 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
 <div class="masthead">
   <div class="kicker">Protocole ouvert · Appel à campagne distribuée · Prédictions préenregistrées</div>
   <h1>Mesure de la dépression de l'horizon marin en fonction de l'altitude</h1>
-  <p class="dek">Un test à fort rapport signal sur bruit, réalisable avec un appareil photo et
-  un niveau, dont les deux issues possibles sont énoncées à l'avance.</p>
+  <p class="dek">Un test &#224; fort rapport signal sur bruit, r&#233;alisable avec un
+  appareil photo, un plateau de liquide et une &#233;toile, dont les deux issues possibles sont
+  &#233;nonc&#233;es &#224; l'avance.</p>
   <div class="byline">
     <span>Rédacteur<b>&nbsp;</b></span>
     <span>Affiliation<b>&nbsp;</b></span>
     <span>Contact<b>&nbsp;</b></span>
-    <span>Version<b>1.3 — révisable</b></span>
+    <span>Version<b>1.4 — arrêtée pour dépôt</b></span>
     <span>Date<b>&nbsp;</b></span>
   </div>
 </div>
@@ -192,7 +193,7 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
   coefficient de réfraction (0 ≤ k ≤ 0,47), la prédiction sphérique ne varie que de 107′ à
   78′ à 3 107 m d'altitude. <strong>L'écart entre les deux modèles est donc au minimum de
   78 minutes d'arc, pour un budget d'erreur instrumental estimé à 2,2′ (1 σ) — un rapport
-  signal sur bruit de l'ordre de 36.</strong></p>
+  signal sur bruit de l'ordre de 36 contre l'hypoth&#232;se plane, et de 29 sur la d&#233;termination du coefficient a, o&#249; l'incertitude de r&#233;fraction entre pleinement.</strong> Les deux rapports sont distingu&#233;s en section 08.</p>
   <p>Nous proposons une campagne distribuée : mesurer δ depuis un ensemble d'altitudes
   échelonnées de quelques mètres à quelques kilomètres, et éprouver non pas un point isolé
   mais la <strong>loi</strong> <code>δ(′) = a·√h(m)</code>. Le modèle sphérique impose
@@ -350,8 +351,9 @@ alors :</p>
   <span class="cap">Positive sur une sph&#232;re tant que k &lt; 1 : un horizon existe. N&#233;gative sur un plan quel que soit k.</span>
 </div>
 <p>Sur un plan dot&#233; d'une atmosph&#232;re r&#233;elle, le rayon se courbe donc <strong>plus</strong> que
-la surface : le sol remonte autour de l'observateur au lieu de fuir. En visant 1&#176; au-dessus de
-l'horizontale, le sol serait atteint &#224; 1 873 km ; &#224; 5&#176;, &#224; 8 589 km. <strong>Il n'existerait
+la surface : le sol remonte autour de l'observateur au lieu de fuir. Depuis 3 107 m, en visant 1&#176;
+au-dessus de l'horizontale, le sol serait atteint &#224; 1 873 km ; &#224; 5&#176;, &#224;
+8 589 km. <strong>Il n'existerait
 aucun horizon</strong> et le sol remplirait le ciel.</p>
 <div class="box key">
   <span class="lab">Ce que cela &#233;tablit</span>
@@ -445,32 +447,86 @@ réfraction au modèle plan ne l'aide pas — formulé cent cinquante ans avant 
 son résultat concorde avec le modèle sphérique.</p>
 
 <h2><span class="n">05</span>Matériel</h2>
+<p class="lead">R&#233;organis&#233; en version 1.4. Les versions pr&#233;c&#233;dentes donnaient une
+liste unique, h&#233;rit&#233;e de la 1.0 et encore construite autour de l'inclinom&#232;tre : elle ne
+mentionnait ni plateau, ni liquide, ni &#233;ph&#233;m&#233;rides. Qui la suivait ne pouvait pas
+ex&#233;cuter la m&#233;thode A, devenue pourtant le proc&#233;d&#233; de r&#233;f&#233;rence en 1.1.</p>
+
+<h3>Commun aux deux m&#233;thodes</h3>
 <ul>
-  <li><strong>Boîtier photographique à capteur de dimensions connues</strong> et objectif de
-  focale fixe ou verrouillable. Une focale de 100 mm en équivalent plein format offre un bon
-  compromis entre résolution angulaire et champ.</li>
-  <li><strong>Trépied</strong> permettant le montage du boîtier en position retournée
-  (rotule à bascule, équerre en L, ou colonne inversée).</li>
-  <li><strong>Inclinomètre</strong>. Un niveau numérique de menuisier (±0,05°) suffit. Un
-  inclinomètre de téléphone (±0,5°) est acceptable à condition d'appliquer la procédure de
-  retournement de la section 06.</li>
-  <li><strong>Horizon marin dégagé</strong> sur au moins la portée théorique de l'altitude
-  considérée — 213 km depuis 3 107 m, 12 km depuis 10 m.</li>
-  <li><strong>Baromètre et thermomètre</strong>, pour documenter les conditions.</li>
+  <li><strong>Bo&#238;tier photographique &#224; capteur de dimensions connues</strong>, objectif
+  de focale fixe ou verrouillable, et un tr&#233;pied stable. Voir le tableau ci-dessous pour le
+  choix de la focale.</li>
+  <li><strong>Horizon marin d&#233;gag&#233;</strong> sur au moins la port&#233;e th&#233;orique de
+  l'altitude consid&#233;r&#233;e &#8212; 213 km depuis 3 107 m, 12 km depuis 10 m.</li>
+  <li><strong>Barom&#232;tre et thermom&#232;tre</strong>, pour documenter les conditions.</li>
   <li><strong>Un second thermom&#232;tre, pour la temp&#233;rature de surface de la mer</strong>
-  &#8212; sonde au bout d'un fil, ou thermom&#232;tre infrarouge vis&#233; sur l'eau. Ajout&#233; en 1.3 :
-  c'est l'&#233;cart entre l'air et l'eau qui commande le gradient thermique de la couche limite,
-  donc k aux stations basses. Voir section 09.</li>
-  <li><strong>Un liquide visqueux pour la nappe</strong> &#8212; paraffine liquide ou
-  glyc&#233;rine plut&#244;t que de l'eau. Voir section 06.</li>
-  <li><strong>Une altitude rapportée à la surface de la mer du moment</strong>, et non à l'ellipsoïde. Voir l'encadré ci-dessous : c'est le point le plus dangereux du protocole aux stations basses.</li>
-  <li><strong>L'heure de marée et l'état de la mer</strong> au moment de l'acquisition.</li>
+  &#8212; sonde au bout d'un fil, ou thermom&#232;tre infrarouge vis&#233; sur l'eau. C'est
+  l'&#233;cart entre l'air et l'eau qui commande le gradient thermique de la couche limite, donc
+  k aux stations basses. Voir section 09.</li>
+  <li><strong>Une altitude rapport&#233;e &#224; la surface de la mer du moment</strong>, et non
+  &#224; l'ellipso&#239;de. C'est le point le plus dangereux du protocole aux stations basses ;
+  voir la section 08.</li>
+  <li><strong>L'heure de mar&#233;e et l'&#233;tat de la mer</strong> au moment de
+  l'acquisition.</li>
+  <li><strong>Une application d'&#233;ph&#233;m&#233;rides</strong> &#8212; Stellarium, Sky Safari,
+  ou les tables de l'IMCCE. Elle sert &#224; trois choses : choisir l'astre, conna&#238;tre sa
+  hauteur vraie &#224; la seconde d'arc pr&#232;s, et rep&#233;rer la fen&#234;tre
+  cr&#233;pusculaire.</li>
+  <li><strong>Un logiciel de r&#233;solution astrom&#233;trique</strong> &#8212; Astrometry.net en
+  ligne, ASTAP ou SIRIL hors ligne. C'est lui qui donne l'&#233;chelle angulaire ; voir
+  section 08.</li>
 </ul>
+
+<h3>Pour la m&#233;thode A &#8212; horizon artificiel, proc&#233;d&#233; de r&#233;f&#233;rence</h3>
+<ul>
+  <li><strong>Un plateau large et peu profond.</strong> Trente centim&#232;tres de c&#244;t&#233;
+  suffisent ; l'important est la surface, pas le volume.</li>
+  <li><strong>Un liquide visqueux</strong> &#8212; paraffine liquide ou glyc&#233;rine, quelques
+  d&#233;cilitres. Voir la proc&#233;dure pour la raison.</li>
+  <li><strong>De quoi abriter le plateau du vent</strong>, et de quoi le poser hors du
+  tr&#233;pied : un bac de sable, une plaque de mousse.</li>
+  <li><em>Facultatif</em> &#8212; un couvercle de verre plan, si le vent l'impose, avec la
+  proc&#233;dure de rotation &#224; 180&#176;.</li>
+</ul>
+
+<h3>Pour la solution de repli &#8212; inclinom&#232;tre</h3>
+<ul>
+  <li><strong>Un inclinom&#232;tre.</strong> Un niveau num&#233;rique de menuisier
+  (&#177;0,05&#176;) suffit ; un inclinom&#232;tre de t&#233;l&#233;phone (&#177;0,5&#176;) est
+  acceptable &#224; condition d'appliquer le retournement.</li>
+  <li><strong>Un tr&#233;pied permettant le montage retourn&#233;</strong> : rotule &#224;
+  bascule, &#233;querre en L, ou colonne invers&#233;e.</li>
+</ul>
+
+<table>
+  <caption>Tableau 4 &#8212; Choix de la focale, capteur 24&#215;36 &#233;chantillonn&#233; &#224;
+  4 000 pixels sur la hauteur. La derni&#232;re colonne est la hauteur d'astre admissible : le
+  champ doit contenir l'astre &#224; +a et son reflet &#224; &#8722;a, soit 2a, et il faut encore
+  y loger la d&#233;pression elle-m&#234;me, jusqu'&#224; 1,7&#176;.</caption>
+  <thead><tr><th class="n">focale</th><th class="n">champ vertical</th><th class="n">&#233;chelle</th><th class="n">hauteur d'astre admissible</th></tr></thead>
+  <tbody>
+    <tr><td class="n">50 mm</td><td class="n">27,0&#176;</td><td class="n">0,41&#8242;/px</td><td class="n">13,5&#176;</td></tr>
+    <tr><td class="n">85 mm</td><td class="n">16,1&#176;</td><td class="n">0,24&#8242;/px</td><td class="n">8,0&#176;</td></tr>
+    <tr class="hi"><td class="n"><strong>100 mm</strong></td><td class="n"><strong>13,7&#176;</strong></td><td class="n"><strong>0,21&#8242;/px</strong></td><td class="n"><strong>6,8&#176;</strong></td></tr>
+    <tr><td class="n">135 mm</td><td class="n">10,2&#176;</td><td class="n">0,15&#8242;/px</td><td class="n">5,1&#176;</td></tr>
+    <tr class="pl"><td class="n">200 mm</td><td class="n">6,9&#176;</td><td class="n">0,10&#8242;/px</td><td class="n">3,4&#176;</td></tr>
+  </tbody>
+</table>
+<p>Le 100 mm reste le meilleur compromis, et pour une raison qui n'est pas de convenance :
+&#224; 0,21&#8242; par pixel, trois pixels d'incertitude de point&#233; valent 0,62&#8242;, soit un
+quart du budget instrumental. Un 50 mm porterait ce m&#234;me d&#233;faut &#224; 1,2&#8242;, la
+moiti&#233; du budget, pour le seul avantage de viser un astre plus haut. Un 200 mm ferait mieux
+encore, mais il n'admet plus qu'un astre &#224; 3,4&#176;, o&#249; la turbulence est la plus
+forte.</p>
 
 <h2><span class="n">06</span>Proc&#233;dure &#8212; m&#233;thode A, horizon artificiel</h2>
 <p class="lead">Cette m&#233;thode est nouvelle en version 1.1 et remplace la mise de niveau comme
-proc&#233;d&#233; de r&#233;f&#233;rence. Elle <strong>n'exige aucun instrument de niveau et aucun
-&#233;talonnage</strong> : la r&#233;f&#233;rence horizontale se fabrique d'elle-m&#234;me.</p>
+proc&#233;d&#233; de r&#233;f&#233;rence. Elle <strong>n'exige ni instrument de niveau, ni
+&#233;talonnage de biais</strong> : la r&#233;f&#233;rence horizontale se fabrique d'elle-m&#234;me.
+Une seule grandeur reste &#224; &#233;tablir, l'<strong>&#233;chelle angulaire</strong>, et la
+section 08 dit comment &#8212; la formule &#171; aucun &#233;talonnage &#187; des versions
+pr&#233;c&#233;dentes &#233;tait un raccourci de trop.</p>
 <p>Une nappe d'eau immobile se met perpendiculaire au fil &#224; plomb. Une &#233;toile et son reflet
 sont donc sym&#233;triques par rapport &#224; l'horizontale vraie, et leur milieu la mat&#233;rialise. Si la
 ligne d'horizon marin figure dans la m&#234;me image, &#948; se lit directement.</p>
@@ -498,7 +554,7 @@ ligne d'horizon marin figure dans la m&#234;me image, &#948; se lit directement.
     <path class="sg" d="M 660,196 A 245,245 0 0 0 662,216" stroke-width="1.3"/>
     <text class="tb" x="676" y="214" fill="var(--globe)">&#948;</text>
   </svg>
-  <figcaption><b>Figure 3 &#8212; L'horizon artificiel appliqu&#233; &#224; la d&#233;pression.</b> L'&#233;toile et son reflet sont sym&#233;triques par rapport &#224; l'horizontale vraie : leur milieu la mat&#233;rialise, sans aucune mise de niveau. La ligne d'horizon marin, dans la m&#234;me image, se lit alors directement &#224; &#8722;&#948;. La r&#233;fraction s'annule &#8212; l'image directe et l'image r&#233;fl&#233;chie la subissent identiquement &#8212; et les trois objets sont &#224; l'infini, donc une seule mise au point suffit.</figcaption>
+  <figcaption><b>Figure 2 &#8212; L'horizon artificiel appliqu&#233; &#224; la d&#233;pression.</b> L'&#233;toile et son reflet sont sym&#233;triques par rapport &#224; l'horizontale vraie : leur milieu la mat&#233;rialise, sans aucune mise de niveau. La ligne d'horizon marin, dans la m&#234;me image, se lit alors directement &#224; &#8722;&#948;. La r&#233;fraction s'annule &#8212; l'image directe et l'image r&#233;fl&#233;chie la subissent identiquement &#8212; et les trois objets sont &#224; l'infini, donc une seule mise au point suffit.</figcaption>
 </figure>
 <ol class="st">
   <li><b>Installer la nappe</b>Un plateau large et peu profond, abrit&#233; du vent.
@@ -514,8 +570,13 @@ ligne d'horizon marin figure dans la m&#234;me image, &#948; se lit directement.
   rigoureusement parall&#232;les, et ce prisme r&#233;siduel d&#233;vie le rayon. Prendre alors une
   seconde pose, couvercle tourn&#233; de 180&#176;, et moyenner les deux : le prisme s'&#233;limine
   exactement, par le m&#234;me raisonnement que le retournement du bo&#238;tier.</li>
-  <li><b>Choisir une &#233;toile basse</b>Entre 3&#176; et 5&#176; de hauteur, dans l'azimut de l'horizon
-  vis&#233;. Le champ vertical requis vaut 2a, soit 6&#176; &#224; 10&#176; : un 100 mm suffit largement.</li>
+  <li><b>Choisir l'astre</b>Entre 3&#176; et 5&#176; de hauteur, dans l'azimut de
+  l'horizon vis&#233;. Le champ vertical requis vaut 2a, soit 6&#176; &#224; 10&#176; ; un 100 mm en
+  offre 13,7&#176;. <strong>Viser plut&#244;t 3&#176; que 5&#176;</strong> : &#224; 5&#176; la marge
+  n'est plus que de 1,85&#176; de chaque c&#244;t&#233;, et elle doit encore encaisser la
+  d&#233;pression, qui atteint 1,7&#176; &#224; 3 107 m. La version 1.3 &#233;crivait ici qu'un
+  100 mm suffisait &#171; largement &#187; : c'est vrai &#224; 3&#176;, tout juste &#224;
+  5&#176;.</li>
   <li><b>Cadrer les trois objets</b>&#201;toile, reflet et ligne d'horizon dans la m&#234;me image.
   Mise au point &#224; l'infini : les trois y sont, y compris le reflet.</li>
   <li><b>R&#233;duire</b>Le milieu entre &#233;toile et reflet donne l'horizontale vraie. L'&#233;cart entre
@@ -545,6 +606,88 @@ ligne d'horizon marin figure dans la m&#234;me image, &#948; se lit directement.
   alors m&#234;me que chacune des deux images en est affect&#233;e.</p>
 </div>
 
+
+<h3>Quand tirer &#8212; la fen&#234;tre d'observation, ajout&#233; en 1.4</h3>
+<p>C'est la contrainte pratique la plus lourde de la m&#233;thode A, et aucune version
+pr&#233;c&#233;dente ne la mentionnait : il faut <strong>l'astre, son reflet et la ligne
+d'horizon marin dans la m&#234;me image</strong>. Or de nuit noire, la ligne d'horizon marin
+n'est plus visible.</p>
+<p>Le probl&#232;me est ancien et il est d&#233;j&#224; r&#233;solu. C'est exactement celui du
+<strong>point stellaire au sextant</strong>, que la navigation astronomique prend au
+cr&#233;puscule nautique pour cette raison pr&#233;cise : l'&#233;toile est apparue, l'horizon
+n'a pas encore disparu. Le protocole h&#233;rite donc de la solution en m&#234;me temps que de
+la formule (section 04).</p>
+<table>
+  <caption>Tableau 5 &#8212; Fen&#234;tres praticables. Les dur&#233;es valent aux latitudes
+  moyennes ; elles se raccourcissent pr&#232;s de l'&#233;quateur et s'allongent, jusqu'&#224;
+  dispara&#238;tre, aux latitudes &#233;lev&#233;es en &#233;t&#233;.</caption>
+  <thead><tr><th>fen&#234;tre</th><th>ce qui est visible</th><th class="n">dur&#233;e</th></tr></thead>
+  <tbody>
+    <tr><td>Soleil entre &#8722;5&#176; et &#8722;10&#176; &#8212; cr&#233;puscule nautique</td><td>&#233;toiles de magnitude 1 &#224; 2, et la ligne d'horizon encore franche</td><td class="n">20 &#224; 30 min, deux fois par jour</td></tr>
+    <tr class="hi"><td><strong>V&#233;nus ou Jupiter, avant le coucher du Soleil</strong></td><td><strong>l'astre seul dans un ciel clair, et l'horizon en plein jour</strong></td><td class="n"><strong>plusieurs heures</strong></td></tr>
+    <tr><td>Nuit de Lune, Lune haute</td><td>l'horizon &#233;clair&#233; par la Lune ; la Lune elle-m&#234;me peut servir de cible</td><td class="n">plusieurs heures</td></tr>
+  </tbody>
+</table>
+<p>La cible la plus commode n'est donc pas une &#233;toile : c'est <strong>V&#233;nus ou
+Jupiter</strong>. Assez brillants pour &#234;tre acquis bien avant la nuit, l&#224; o&#249;
+l'horizon marin est encore pleinement lisible, et leur reflet dans le plateau se trouve sans
+peine. La Lune convient aussi &#8212; la sym&#233;trie porte alors sur le centre du disque.</p>
+<div class="box warn">
+  <span class="lab">Cons&#233;quence sur la r&#233;solution astrom&#233;trique</span>
+  <p>Dans cette fen&#234;tre, le champ ne contient qu'une poign&#233;e d'&#233;toiles &#8212;
+  parfois trop peu pour un solveur, qui en demande une dizaine. Prendre alors la pose de mesure
+  dans la fen&#234;tre, et une <strong>seconde pose en nuit noire, au m&#234;me r&#233;glage,
+  bague immobilis&#233;e</strong>, destin&#233;e uniquement &#224; la r&#233;solution. C'est
+  l'&#233;chelle qui se reporte d'une pose &#224; l'autre, et elle ne d&#233;pend que du
+  r&#233;glage optique &#8212; &#224; condition, pr&#233;cis&#233;ment, de n'y avoir pas
+  touch&#233;.</p>
+</div>
+
+<h3>O&#249; est exactement la ligne d'horizon &#8212; ajout&#233; en 1.4</h3>
+<p>La ligne d'horizon n'est pas un trait : c'est un saut d'intensit&#233; &#233;tal&#233; sur
+plusieurs pixels. &#192; 100 mm sur 4 000 pixels de hauteur, un pixel vaut 0,21&#8242; et trois
+pixels 0,62&#8242; &#8212; un quart du budget instrumental. Deux op&#233;rateurs qui pointent
+&#171; &#224; l'&#339;il &#187; ne mesurent donc pas la m&#234;me grandeur, et l'&#233;cart ne se
+voit nulle part dans les donn&#233;es.</p>
+<p>Le crit&#232;re, &#224; fixer avant la r&#233;duction et &#224; appliquer sans exception :</p>
+<ol>
+  <li>Travailler sur le <strong>fichier brut, non recadr&#233;</strong>, sans correction
+  automatique d'objectif ni r&#233;hausse de contraste.</li>
+  <li>Pour chaque colonne de pixels, relever le profil d'intensit&#233; vertical au voisinage de
+  la transition et prendre l'ordonn&#233;e du <strong>point &#224; mi-hauteur du saut</strong>,
+  par interpolation sous-pixellaire entre le niveau de la mer et celui du ciel.</li>
+  <li>Moyenner sur toute la largeur exploitable, apr&#232;s avoir &#233;cart&#233; les colonnes
+  contenant un navire, un &#238;lot ou un banc de brume &#8212; et consigner combien de colonnes
+  ont &#233;t&#233; &#233;cart&#233;es.</li>
+  <li>Consigner l'<strong>&#233;cart-type colonne &#224; colonne</strong> de cette moyenne : il
+  mesure la r&#233;gularit&#233; de la ligne, et une valeur anormale signale un r&#233;gime
+  r&#233;fractif perturb&#233; avant m&#234;me qu'on regarde le r&#233;sultat.</li>
+</ol>
+<p>Le crit&#232;re de la mi-hauteur n'a rien de sacr&#233;. Ce qui compte est qu'il soit
+<strong>le m&#234;me pour toutes les stations</strong> : un biais commun se lit dans l'ordonn&#233;e
+&#224; l'origine de l'ajustement, un biais qui varie d'un observateur &#224; l'autre ne se lit
+nulle part. Tout autre crit&#232;re reproductible convient, &#224; condition d'&#234;tre
+&#233;nonc&#233; d'avance et appliqu&#233; partout.</p>
+
+<h3>Un contr&#244;le gratuit sur la m&#234;me image &#8212; ajout&#233; en 1.4</h3>
+<p>L'&#233;cart angulaire entre l'astre et son reflet vaut exactement <strong>deux fois sa
+hauteur apparente</strong>. Or l'&#233;ph&#233;m&#233;ride donne sa hauteur vraie &#224; la
+seconde d'arc pr&#232;s. La comparaison ne co&#251;te rien et elle vaut d'&#234;tre faite.</p>
+<div class="eq">
+  s&#233;paration mesur&#233;e &#247; 2 = hauteur vraie + r&#233;fraction
+  <span class="cap">&#192; 3&#176; de hauteur la r&#233;fraction vaut environ 14,3&#8242; ; &#224; 4&#176;, 11,7&#8242; ; &#224; 5&#176;, 9,9&#8242;.</span>
+</div>
+<p><strong>Ce que ce contr&#244;le &#233;tablit.</strong> Il v&#233;rifie l'&#233;chelle
+angulaire &#224; environ 0,5 %, de fa&#231;on ind&#233;pendante du solveur &#8212; deux voies qui
+se recoupent valent mieux qu'une seule qu'on croit sur parole. Et il signale une atmosph&#232;re
+en &#233;tat inhabituel si la r&#233;fraction d&#233;duite s'&#233;carte franchement de la valeur
+standard pour la pression et la temp&#233;rature relev&#233;es.</p>
+<p><strong>Ce qu'il n'&#233;tablit pas.</strong> Il <em>ne mesure pas</em> k le long de la
+vis&#233;e rasante. Le trajet vers un astre &#224; 3&#176; traverse toute la troposph&#232;re en
+oblique, tandis que la ligne d'horizon rase la couche limite sur des dizaines de
+kilom&#232;tres : ce sont deux grandeurs distinctes, et les confondre serait exactement le genre
+de raccourci que ce document reproche ailleurs.</p>
+
 <h3>Solution de repli &#8212; mise de niveau et retournement</h3>
 <p>Si l'horizon artificiel n'est pas praticable, mesurer &#224; l'inclinom&#232;tre selon la proc&#233;dure
 ci-dessous. Elle reste valable, mais elle d&#233;pend de la reproductibilit&#233; de la mise en station,
@@ -556,8 +699,12 @@ l&#224; o&#249; l'horizon artificiel n'en d&#233;pend pas.</p>
   intermédiaire, vitesse élevée. Enregistrer le fichier brut, non recadré.</li>
   <li><b>Acquisition de l'horizon, position retournée</b>Remonter le boîtier tête en bas sur
   la même base, remettre de niveau, reprendre le même cadrage.</li>
-  <li><b>Étalon d'angle</b>Photographier la Lune à focale rigoureusement identique, ou —
-  préférable — relever la focale exacte et les dimensions du capteur.</li>
+  <li><b>&#201;chelle angulaire</b>R&#233;soudre astrom&#233;triquement un champ
+  d'&#233;toiles pris au m&#234;me r&#233;glage, bague immobilis&#233;e &#8212; section 08.
+  <strong>Ne pas se fier &#224; la focale grav&#233;e</strong>, nominale &#224; 2 &#224; 5 %
+  pr&#232;s, ni &#224; l'&#233;talon lunaire, &#224; 7 %. La version 1.3 avait ajout&#233; la
+  section 08 sans corriger cette &#233;tape, qui recommandait encore la focale : c'&#233;tait une
+  contradiction interne, lev&#233;e en 1.4.</li>
   <li><b>Réduction</b>Mesurer en pixels l'ordonnée du centre du fichier et celle de la ligne
   d'horizon. Convertir en angle par le champ vertical du capteur.</li>
   <li><b>Répétition</b>Trois séries au minimum, à des heures distinctes, pour échantillonner
@@ -594,14 +741,15 @@ change de signe ; la moyenne des deux lectures l'élimine exactement.</p>
     <text class="tm" x="375" y="112" text-anchor="middle" fill="var(--alert)">e</text>
     <text class="tm" x="525" y="112" text-anchor="middle" fill="var(--alert)">e</text>
   </svg>
-  <figcaption><b>Figure 2 — Calibration par retournement.</b> Procédure classique
+  <figcaption><b>Figure 3 — Calibration par retournement.</b> Procédure classique
   d'élimination des biais systématiques instrumentaux, transposée ici au couple
   boîtier-inclinomètre. Elle dispense de connaître le biais, ce qui est son principal
   avantage sur toute tentative d'étalonnage préalable.</figcaption>
 </figure>
 
 <h2><span class="n">07</span>Procédure — méthode B, mesure différentielle</h2>
-<p>Cette variante n'exige <strong>aucun instrument de niveau et aucun étalonnage</strong>.
+<p>Cette variante n'exige <strong>ni instrument de niveau, ni &#233;talonnage de
+biais</strong> &#8212; l'&#233;chelle angulaire, elle, reste requise, comme partout ailleurs.
 Elle consiste à photographier le même horizon depuis deux altitudes très différentes, avec
 le même matériel et le même réglage, et à mesurer le <em>déplacement</em> de la ligne
 d'horizon dans le cadre. Tout biais de montage, identique dans les deux acquisitions,
@@ -609,7 +757,7 @@ disparaît par différence.</p>
 <div class="box warn"><span class="lab">Restriction ajoutée en version 1.1</span><p>L'annulation du biais suppose qu'il soit <em>identique</em> dans les deux acquisitions. Or passer de 10 m à 3 107 m impose de démonter le boîtier, de se déplacer, puis de le remonter : le biais n'est plus le même. Une reproductibilité de remontage de 20&prime; consomme <strong>21 %</strong> du signal différentiel de 94&prime;.</p><p>La méthode B reste utile lorsque l'ensemble boîtier-rotule n'est pas démonté entre les deux stations. Dans le cas contraire, employer l'horizon artificiel de la méthode A, qui ne dépend d'aucune reproductibilité de montage.</p></div>
 
 <table>
-  <caption>Tableau 4 — Déplacement prédit de la ligne d'horizon entre deux altitudes.</caption>
+  <caption>Tableau 6 — Déplacement prédit de la ligne d'horizon entre deux altitudes.</caption>
   <thead><tr><th>PAIRE D'ALTITUDES</th><th class="n">hypothèse S — k = 0,13</th><th class="n">hypothèse P</th></tr></thead>
   <tbody>
     <tr><td>2 m → 300 m</td><td class="n">29′</td><td class="n">0′</td></tr>
@@ -624,7 +772,7 @@ disparaît par différence.</p>
 24&nbsp;×&nbsp;36&nbsp;mm échantillonné à 4&nbsp;000 pixels sur la hauteur.</p>
 
 <table>
-  <caption>Tableau 5 — Budget d'erreur. Le poste dominant, l'erreur de niveau, est éliminé
+  <caption>Tableau 7 — Budget d'erreur. Le poste dominant, l'erreur de niveau, est éliminé
   par retournement ; le résidu est la répétabilité de la remise en station.</caption>
   <thead><tr><th>SOURCE</th><th class="n">contribution</th><th>TRAITEMENT</th></tr></thead>
   <tbody>
@@ -643,11 +791,29 @@ disparaît par différence.</p>
 </table>
 
 <div class="box key">
-  <span class="lab">Rapport signal sur bruit</span>
-  <p>Écart minimal entre les deux hypothèses à 3 107 m : <strong>78,2′</strong>. Incertitude
-  totale : <strong>3,4′</strong>. <strong>Rapport ≈ 23.</strong> À 300 m d'altitude,
-  le plus petit signal prédit reste de 22′ pour la même incertitude, soit un rapport de 10.
-  Le test conserve donc son pouvoir de décision jusqu'à des altitudes très modestes.</p>
+  <span class="lab">Deux rapports signal sur bruit, et non un seul &#8212; corrig&#233; en 1.4</span>
+  <p>Les versions pr&#233;c&#233;dentes en annon&#231;aient un seul, et pas toujours le m&#234;me :
+  <strong>36</strong> au r&#233;sum&#233;, <strong>23</strong> ici, <strong>45</strong> au tableau
+  des altitudes. Trois chiffres pour une seule page. Ils r&#233;pondent en r&#233;alit&#233; &#224;
+  deux questions distinctes, et les confondre a fait passer une erreur pour une correction.</p>
+  <p><strong>Question 1 &#8212; la surface est-elle plane ?</strong> Le signal est l'&#233;cart
+  entre &#948; = 0 et la plus petite d&#233;pression qu'une sph&#232;re puisse produire, soit
+  <strong>78,2&#8242;</strong> &#224; 3 107 m, atteinte &#224; k = 0,47. Le bruit est le budget
+  <em>instrumental</em>, 2,2&#8242;. La m&#233;connaissance de k n'y entre pas : elle est
+  d&#233;j&#224; absorb&#233;e par le choix du cas le plus d&#233;favorable, et aucune valeur de k
+  n'am&#232;ne une sph&#232;re plus pr&#232;s de z&#233;ro. <strong>Rapport : 36.</strong></p>
+  <p><strong>Question 2 &#8212; combien vaut a ?</strong> Ici on confronte la mesure &#224; une
+  pr&#233;diction chiffr&#233;e, et l'incertitude de mod&#232;le entre pleinement :
+  &#963; = 3,41&#8242; pour &#948; = 100,1&#8242; &#224; k = 0,13. <strong>Rapport : 29.</strong></p>
+  <div class="eq">
+    36 contre l'hypoth&#232;se plane &nbsp;&nbsp;|&nbsp;&nbsp; 29 sur la d&#233;termination de a
+    <span class="cap">&#192; 3 107 m. Le tableau 10 donne les deux colonnes pour toutes les altitudes.</span>
+  </div>
+  <p>Le <strong>23</strong> de la version 1.2 combinait le signal le plus d&#233;favorable avec
+  le bruit le plus large : il comptait k deux fois. La correction de la 1.2 &#233;tait juste dans
+  son principe &#8212; l'incertitude de mod&#232;le manquait bel et bien &#8212; mais elle a
+  &#233;t&#233; appliqu&#233;e &#224; la mauvaise question. Sa note de version se reprochait d'avoir
+  &#233;t&#233; &#171; trop flatteuse &#187; : elle ne l'&#233;tait pas.</p>
 </div>
 
 <h3>L'incertitude de modèle, ajoutée en version 1.2</h3>
@@ -660,7 +826,7 @@ disparaît par différence.</p>
   <p>Conséquence chiffrée, à 3 107 m :</p>
 </div>
 <table>
-  <caption>Tableau 6 — Sensibilité de δ au coefficient de réfraction. L'étendue sur une plage
+  <caption>Tableau 8 — Sensibilité de δ au coefficient de réfraction. L'étendue sur une plage
   plausible dépasse le budget instrumental tout entier.</caption>
   <thead><tr><th class="n">k</th><th class="n">δ</th><th>régime</th></tr></thead>
   <tbody>
@@ -671,10 +837,21 @@ disparaît par différence.</p>
     <tr><td class="n">0,17</td><td class="n">97,8′</td><td>mer froide</td></tr>
   </tbody>
 </table>
-<p>Étendue : <strong>5,2′</strong>, soit ±2,6′. C'est plus que le budget instrumental de 2,2′,
-et le rapport signal sur bruit passe de 36 à <strong>23</strong>. La discrimination n'est pas
-menacée — elle n'a jamais reposé sur la connaissance de k, puisque la fourchette complète
-78′–107′ est affichée depuis la version 1.0 — mais le chiffre annoncé était trop flatteur.</p>
+<p>&#201;tendue : <strong>5,2&#8242;</strong>, soit &#177;2,6&#8242;. C'est plus que le budget
+instrumental de 2,2&#8242;, et ce terme est r&#233;el : il porte sur la <em>pr&#233;diction</em>,
+donc sur la d&#233;termination de a.</p>
+<div class="box warn">
+  <span class="lab">Ce que la version 1.2 en a conclu &#224; tort</span>
+  <p>La 1.2 &#233;crivait ici que &#171; le rapport signal sur bruit passe de 36 &#224; 23 &#187;
+  et que le chiffre annonc&#233; jusque-l&#224; &#233;tait trop flatteur. C'&#233;tait une erreur, et
+  la 1.4 la corrige. La discrimination entre les deux mod&#232;les repose sur l'&#233;cart entre
+  &#948; = 0 et 78,2&#8242;, valeur qui suppose <em>d&#233;j&#224;</em> le k le plus d&#233;favorable
+  de toute la plage. Ajouter ensuite &#177;2,6&#8242; de dispersion de k, c'est compter k une
+  seconde fois.</p>
+  <p>Le terme de mod&#232;le manquait bien, et son ajout &#233;tait justifi&#233;. Mais il
+  appartient &#224; la seconde question &#8212; combien vaut a ? &#8212; et non &#224; la
+  premi&#232;re. Les deux rapports sont d&#233;sormais donn&#233;s s&#233;par&#233;ment ci-dessus.</p>
+</div>
 <p>Le raffinement propre consiste à employer un <strong>modèle de réfraction dépendant de
 l'altitude</strong> plutôt qu'un k unique, comme le fait le calculateur de Walter Bislin. Un
 observateur qui dispose d'un profil de température le long de la visée — radiosondage ou
@@ -692,16 +869,22 @@ réanalyse — doit l'employer et le consigner.</p>
   remarquer que celle-ci porte son propre terme.</p>
 </div>
 <table>
-  <caption>Tableau 7 &#8212; Ce que co&#251;te une focale prise pour argent comptant, &#224;
-  3 107 m o&#249; &#948; vaut 100&#8242;.</caption>
-  <thead><tr><th>&#233;chelle angulaire</th><th class="n">terme induit</th><th class="n">total &#224; 1 &#963;</th><th class="n">rapport S/B</th></tr></thead>
+  <caption>Tableau 9 &#8212; Ce que co&#251;te une focale prise pour argent comptant, &#224;
+  3 107 m o&#249; &#948; vaut 100&#8242;. Rapports donn&#233;s dans la convention &#171; sur la
+  loi &#187; &#8212; recalcul&#233;s en 1.4, la 1.3 employait encore la convention mixte.</caption>
+  <thead><tr><th>&#233;chelle angulaire</th><th class="n">terme induit</th><th class="n">total &#224; 1 &#963;</th><th class="n">rapport sur la loi</th></tr></thead>
   <tbody>
-    <tr class="hi"><td><strong>astrom&#233;trie de champ</strong></td><td class="n"><strong>0,05&#8242;</strong></td><td class="n"><strong>3,41&#8242;</strong></td><td class="n"><strong>23,0</strong></td></tr>
-    <tr><td>focale nominale &#224; &#177;2 %</td><td class="n">2,0&#8242;</td><td class="n">3,95&#8242;</td><td class="n">19,8</td></tr>
-    <tr><td>focale nominale &#224; &#177;3 %</td><td class="n">3,0&#8242;</td><td class="n">4,54&#8242;</td><td class="n">17,2</td></tr>
-    <tr class="pl"><td>focale nominale &#224; &#177;5 %</td><td class="n">5,0&#8242;</td><td class="n">6,05&#8242;</td><td class="n">12,9</td></tr>
+    <tr class="hi"><td><strong>astrom&#233;trie de champ</strong></td><td class="n"><strong>0,05&#8242;</strong></td><td class="n"><strong>3,41&#8242;</strong></td><td class="n"><strong>29,4</strong></td></tr>
+    <tr><td>focale nominale &#224; &#177;2 %</td><td class="n">2,0&#8242;</td><td class="n">3,95&#8242;</td><td class="n">25,3</td></tr>
+    <tr><td>focale nominale &#224; &#177;3 %</td><td class="n">3,0&#8242;</td><td class="n">4,54&#8242;</td><td class="n">22,1</td></tr>
+    <tr class="pl"><td>focale nominale &#224; &#177;5 %</td><td class="n">5,0&#8242;</td><td class="n">6,05&#8242;</td><td class="n">16,5</td></tr>
   </tbody>
 </table>
+<p>Le rapport &#171; contre &#948; = 0 &#187; n'appara&#238;t pas dans ce tableau, et c'est
+volontaire : une erreur d'&#233;chelle est <strong>multiplicative</strong>. Elle ne peut pas
+fabriquer 78&#8242; &#224; partir de z&#233;ro, donc elle ne menace pas la discrimination entre
+les deux mod&#232;les. Elle fausse la <em>valeur</em> de a, et c'est l&#224; qu'il faut la
+compter.</p>
 <p>La solution propre existe, et elle est gratuite : <strong>l'astrom&#233;trie de champ</strong>,
 ou r&#233;solution astrom&#233;trique.</p>
 <ol>
@@ -753,18 +936,27 @@ n'a pas d'incertitude estimable.</p>
 pas. Ces points restent utiles &#224; l'ajustement de la loi en &#8730;h, mais ils ne sont pas
 d&#233;cisifs et ne doivent pas &#234;tre pr&#233;sent&#233;s comme tels.</p>
 <table>
-  <caption>Tableau 8 &#8212; Rapport signal sur bruit par altitude, budget d'erreur 2,2&#8242;.</caption>
-  <thead><tr><th class="n">altitude</th><th class="n">&#948;</th><th class="n">&#963;</th><th>usage</th></tr></thead>
+  <caption>Tableau 10 &#8212; Ce que vaut chaque altitude, pour chacune des deux questions.
+  La colonne &#171; contre &#948; = 0 &#187; prend le signal le plus d&#233;favorable
+  (1,4022&#8730;h, k = 0,47) sur le seul budget instrumental ; la colonne &#171; sur la loi &#187;
+  prend &#948; &#224; k = 0,13 sur le budget complet. Recalcul&#233; en 1.4.</caption>
+  <thead><tr><th class="n">altitude</th><th class="n">&#948; (k = 0,13)</th><th class="n">&#963; totale</th><th class="n">contre &#948; = 0</th><th class="n">sur la loi</th><th>usage</th></tr></thead>
   <tbody>
-    <tr><td class="n">5 m</td><td class="n">4,0&#8242;</td><td class="n">1,8</td><td>indicatif seulement</td></tr>
-    <tr><td class="n">10 m</td><td class="n">5,7&#8242;</td><td class="n">2,6</td><td>indicatif seulement</td></tr>
-    <tr><td class="n">50 m</td><td class="n">12,7&#8242;</td><td class="n">5,8</td><td>contributif</td></tr>
-    <tr><td class="n">120 m</td><td class="n">19,7&#8242;</td><td class="n">8,9</td><td>contributif</td></tr>
-    <tr><td class="n">300 m</td><td class="n">31,1&#8242;</td><td class="n">14,1</td><td>solide</td></tr>
-    <tr><td class="n">1 000 m</td><td class="n">56,8&#8242;</td><td class="n">25,8</td><td>solide</td></tr>
-    <tr class="hi"><td class="n"><strong>3 107 m</strong></td><td class="n"><strong>100,1&#8242;</strong></td><td class="n"><strong>45,5</strong></td><td><strong>d&#233;cisif</strong></td></tr>
+    <tr class="pl"><td class="n">5 m</td><td class="n">4,0&#8242;</td><td class="n">2,20&#8242;</td><td class="n">1,4</td><td class="n">1,8</td><td>indicatif seulement</td></tr>
+    <tr class="pl"><td class="n">10 m</td><td class="n">5,7&#8242;</td><td class="n">2,20&#8242;</td><td class="n">2,0</td><td class="n">2,6</td><td>indicatif seulement</td></tr>
+    <tr><td class="n">50 m</td><td class="n">12,7&#8242;</td><td class="n">2,22&#8242;</td><td class="n">4,5</td><td class="n">5,7</td><td>contributif</td></tr>
+    <tr><td class="n">120 m</td><td class="n">19,7&#8242;</td><td class="n">2,26&#8242;</td><td class="n">7,0</td><td class="n">8,7</td><td>contributif</td></tr>
+    <tr><td class="n">300 m</td><td class="n">31,1&#8242;</td><td class="n">2,34&#8242;</td><td class="n">11,0</td><td class="n">13,3</td><td>solide</td></tr>
+    <tr><td class="n">1 000 m</td><td class="n">56,8&#8242;</td><td class="n">2,65&#8242;</td><td class="n">20,2</td><td class="n">21,4</td><td>solide</td></tr>
+    <tr class="hi"><td class="n"><strong>3 107 m</strong></td><td class="n"><strong>100,1&#8242;</strong></td><td class="n"><strong>3,41&#8242;</strong></td><td class="n"><strong>35,5</strong></td><td class="n"><strong>29,4</strong></td><td><strong>d&#233;cisif</strong></td></tr>
   </tbody>
 </table>
+<p>Les deux colonnes se croisent vers 1 000 m, et la raison m&#233;rite d'&#234;tre vue : sous
+cette altitude l'incertitude de mod&#232;le est n&#233;gligeable devant le budget instrumental et
+c'est la marge sur k qui p&#232;se, tandis qu'au-dessus l'incertitude de mod&#232;le cro&#238;t
+avec &#948; alors que le pire cas de k, lui, reste proportionnel &#224; &#8730;h.
+<strong>Autrement dit : une station haute est meilleure pour r&#233;futer le plan, et une
+station moyenne co&#251;te &#224; peine plus cher pour mesurer a.</strong></p>
 
 <h3>Le r&#233;f&#233;rentiel d'altitude &#8212; le point le plus dangereux</h3>
 <div class="box warn">
@@ -779,7 +971,7 @@ d&#233;cisifs et ne doivent pas &#234;tre pr&#233;sent&#233;s comme tels.</p>
   directe au-dessus de l'eau.</p>
 </div>
 <table>
-  <caption>Tableau 9 &#8212; Effets de la mar&#233;e et de l'&#233;tat de la mer, tous deux absents de la
+  <caption>Tableau 11 &#8212; Effets de la mar&#233;e et de l'&#233;tat de la mer, tous deux absents de la
   version 1.0. Le second est un biais <em>systématique</em>, toujours de m&#234;me signe.</caption>
   <thead><tr><th class="n">altitude</th><th class="n">mar&#233;e &#177;2 m</th><th class="n">houle Hs = 3 m</th></tr></thead>
   <tbody>
@@ -807,8 +999,11 @@ tout entier. Mar&#233;e et &#233;tat de la mer sont d&#233;sormais des champs ob
   donc sa référence horizontale. Travailler exclusivement sur le fichier natif.</li>
   <li><strong>Distorsion optique.</strong> Les objectifs grand-angle courbent l'horizon hors
   axe. Placer la ligne d'horizon à proximité du centre, ou employer un téléobjectif.</li>
-  <li><strong>Dérive de focale.</strong> Sur zoom, la focale doit rester identique entre
-  l'horizon et l'étalon. Immobiliser la bague.</li>
+  <li><strong>D&#233;rive de focale.</strong> La focale doit rester identique entre la
+  pose de mesure et la pose destin&#233;e &#224; la r&#233;solution astrom&#233;trique &#8212;
+  c'est toute la validit&#233; du report d'&#233;chelle. Immobiliser la bague au ruban, et se
+  m&#233;fier des objectifs &#224; mise au point interne, dont la focale varie avec la
+  distance.</li>
   <li><strong>Régime de réfraction anormal.</strong> Un horizon ondulant, dédoublé ou
   présentant une ligne de coupure nette signale un conduit atmosphérique. La mesure demeure
   valide mais la valeur de k qu'elle implique n'est pas transposable à d'autres observations.
@@ -823,7 +1018,7 @@ l'altitude</em>. Il reste un second effet, qui frappe pr&#233;cis&#233;ment les 
 <strong>l'&#233;cart entre la temp&#233;rature de l'air et celle de l'eau</strong>. C'est lui qui
 fixe le gradient thermique des premiers m&#232;tres, et le gradient fixe k.</p>
 <table>
-  <caption>Tableau 10 &#8212; Coefficient de r&#233;fraction selon le gradient thermique vertical,
+  <caption>Tableau 12 &#8212; Coefficient de r&#233;fraction selon le gradient thermique vertical,
   par k = 503 (P/T&#178;)(0,0342 + dT/dh), &#224; 1 013 hPa et 288 K. La pression est en
   hectopascals : en pascals le coefficient vaut cent fois plus, et c'est un pi&#232;ge
   classique.</caption>
@@ -966,6 +1161,10 @@ d&#233;couvrir apr&#232;s coup.</p>
   <div class="fr"><span class="a">Liquide employ&#233; pour la nappe, et temps de repos avant la pose</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">&#201;chelle angulaire r&#233;solue par astrom&#233;trie (&#8243;/px), et r&#233;sidus du solveur</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">Dispersion du reflet sur la rafale (&#8242;), et la moiti&#233; retenue</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Fen&#234;tre employ&#233;e, et astre vis&#233; (nom, hauteur d'&#233;ph&#233;m&#233;ride)</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">S&#233;paration astre-reflet mesur&#233;e, et r&#233;fraction qui s'en d&#233;duit</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Crit&#232;re de point&#233; de l'horizon, et &#233;cart-type colonne &#224; colonne</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Colonnes &#233;cart&#233;es de la moyenne, et pourquoi</span><span class="b">&nbsp;</span></div>
 </div>
 
 <h2><span class="n">12</span>Engagement</h2>
@@ -973,7 +1172,7 @@ d&#233;couvrir apr&#232;s coup.</p>
 signification de chacune des deux issues. C'est la condition de sa valeur probante.</p>
 <div class="box warn">
   <span class="lab">Ce qui manque encore, et qu'il faut faire avant de collecter</span>
-  <p>Un numéro de version ne prouve rien. « Version 1.3 » n'est pas opposable à un lecteur
+  <p>Un numéro de version ne prouve rien. « Version 1.4 » n'est pas opposable à un lecteur
   sceptique : rien n'empêche matériellement de réécrire un document après avoir vu les
   données.</p>
   <p>Il faut donc un <strong>horodatage v&#233;rifiable par un tiers</strong>. La marche &#224;
@@ -1023,7 +1222,7 @@ version 2 créditée.</p>
   <p>Toutes les valeurs numériques de ce document se dérivent de <code>δ = √(2h/R′)</code>
   avec <code>R′ = R/(1−k)</code> et R = 6 371 km. Diamètre lunaire moyen 31′ (29,4′ au
   périgée, 33,5′ à l'apogée). Le document est reproductible dans son intégralité à partir de
-  ces relations. — Protocole ouvert, version 1.3. <strong>Changements. 1.1 :</strong> la m&#233;thode &#224; horizon artificiel devient le proc&#233;d&#233; de r&#233;f&#233;rence, la mise de niveau passant en solution de repli ; le r&#233;f&#233;rentiel d'altitude est impos&#233; &#8212; la 1.0 &#233;crivait &#171; altitude du sol &#187; sans le pr&#233;ciser, ce qui fausse &#948; de 178 % &#224; 10 m pour une erreur de 30 m ; la mar&#233;e et l'&#233;tat de la mer, absents, deviennent des champs obligatoires ; la m&#233;thode B est restreinte aux cas o&#249; le montage n'est pas d&#233;fait entre les stations ; les rapports signal sur bruit par altitude sont affich&#233;s ; la r&#233;fraction accord&#233;e au mod&#232;le plan est trait&#233;e en section 02 ; la forme exacte de &#948; remplace le d&#233;veloppement au premier ordre. <strong>1.2</strong>, apr&#232;s relecture ext&#233;rieure : le budget d'erreur omettait l'incertitude de MOD&#200;LE due &#224; la variation de k avec l'altitude, qui vaut &#177;2,6&#8242; &#224; 3 107 m &#8212; plus que le budget instrumental entier ; le rapport signal sur bruit passe de 36 &#224; 23. La turbulence de vis&#233;e rasante se mesure d&#233;sormais sur une rafale au lieu d'&#234;tre postul&#233;e. La sym&#233;trie de l'horizon artificiel se teste par recoupement avec la m&#233;thode de repli. La m&#233;thode d'ajustement statistique est sp&#233;cifi&#233;e. Une section 04 situe le protocole parmi ses pr&#233;c&#233;dents &#8212; la formule est celle des tables de d&#233;pression de la navigation astronomique, et la mesure a d&#233;j&#224; &#233;t&#233; faite des millions de fois. Et l'absence d'horodatage v&#233;rifiable est signal&#233;e comme le manque restant &#224; combler avant toute collecte. <strong>1.3</strong>, seconde relecture ext&#233;rieure : l'<strong>&#233;chelle angulaire</strong> &#233;tait un poste non chiffr&#233; &#8212; la focale grav&#233;e est nominale &#224; 2 &#224; 5 % pr&#232;s, ce qui vaut 2 &#224; 5&#8242; sur une d&#233;pression de 100&#8242; et ferait tomber le rapport signal sur bruit de 23 &#224; 17 ; l'astrom&#233;trie de champ le ram&#232;ne &#224; 0,05&#8242; et fournit en outre le profil de distorsion. La <strong>couche limite au-dessus de l'eau</strong> entre au protocole : c'est l'&#233;cart air-mer qui commande le gradient des premiers m&#232;tres, donc k aux stations basses, et &#916;T devient un champ obligatoire. La nappe passe &#224; un <strong>liquide visqueux</strong>, son agitation r&#233;siduelle se mesure sur la rafale au lieu d'&#234;tre suppos&#233;e, et un couvercle de verre s'&#233;limine par rotation de 180&#176;. Enfin l'<strong>exposant p est laiss&#233; libre</strong> : six stations le d&#233;terminent &#224; &#177;0,022, ce qui &#233;tablit la loi en racine au lieu de la supposer. La proc&#233;dure d'horodatage est d&#233;taill&#233;e &#8212; figer, SHA-256, d&#233;p&#244;t OSF ou Zenodo, DOI, puis seulement collecter.</p>
+  ces relations. — Protocole ouvert, version 1.4. <strong>Changements. 1.1 :</strong> la m&#233;thode &#224; horizon artificiel devient le proc&#233;d&#233; de r&#233;f&#233;rence, la mise de niveau passant en solution de repli ; le r&#233;f&#233;rentiel d'altitude est impos&#233; &#8212; la 1.0 &#233;crivait &#171; altitude du sol &#187; sans le pr&#233;ciser, ce qui fausse &#948; de 178 % &#224; 10 m pour une erreur de 30 m ; la mar&#233;e et l'&#233;tat de la mer, absents, deviennent des champs obligatoires ; la m&#233;thode B est restreinte aux cas o&#249; le montage n'est pas d&#233;fait entre les stations ; les rapports signal sur bruit par altitude sont affich&#233;s ; la r&#233;fraction accord&#233;e au mod&#232;le plan est trait&#233;e en section 02 ; la forme exacte de &#948; remplace le d&#233;veloppement au premier ordre. <strong>1.2</strong>, apr&#232;s relecture ext&#233;rieure : le budget d'erreur omettait l'incertitude de MOD&#200;LE due &#224; la variation de k avec l'altitude, qui vaut &#177;2,6&#8242; &#224; 3 107 m &#8212; plus que le budget instrumental entier ; le rapport signal sur bruit passe de 36 &#224; 23. La turbulence de vis&#233;e rasante se mesure d&#233;sormais sur une rafale au lieu d'&#234;tre postul&#233;e. La sym&#233;trie de l'horizon artificiel se teste par recoupement avec la m&#233;thode de repli. La m&#233;thode d'ajustement statistique est sp&#233;cifi&#233;e. Une section 04 situe le protocole parmi ses pr&#233;c&#233;dents &#8212; la formule est celle des tables de d&#233;pression de la navigation astronomique, et la mesure a d&#233;j&#224; &#233;t&#233; faite des millions de fois. Et l'absence d'horodatage v&#233;rifiable est signal&#233;e comme le manque restant &#224; combler avant toute collecte. <strong>1.3</strong>, seconde relecture ext&#233;rieure : l'<strong>&#233;chelle angulaire</strong> &#233;tait un poste non chiffr&#233; &#8212; la focale grav&#233;e est nominale &#224; 2 &#224; 5 % pr&#232;s, ce qui vaut 2 &#224; 5&#8242; sur une d&#233;pression de 100&#8242; et ferait tomber le rapport signal sur bruit de 23 &#224; 17 ; l'astrom&#233;trie de champ le ram&#232;ne &#224; 0,05&#8242; et fournit en outre le profil de distorsion. La <strong>couche limite au-dessus de l'eau</strong> entre au protocole : c'est l'&#233;cart air-mer qui commande le gradient des premiers m&#232;tres, donc k aux stations basses, et &#916;T devient un champ obligatoire. La nappe passe &#224; un <strong>liquide visqueux</strong>, son agitation r&#233;siduelle se mesure sur la rafale au lieu d'&#234;tre suppos&#233;e, et un couvercle de verre s'&#233;limine par rotation de 180&#176;. Enfin l'<strong>exposant p est laiss&#233; libre</strong> : six stations le d&#233;terminent &#224; &#177;0,022, ce qui &#233;tablit la loi en racine au lieu de la supposer. La proc&#233;dure d'horodatage est d&#233;taill&#233;e &#8212; figer, SHA-256, d&#233;p&#244;t OSF ou Zenodo, DOI, puis seulement collecter. <strong>1.4</strong>, relecture compl&#232;te avant arr&#234;t de la version. <em>Le rapport signal sur bruit</em> : trois chiffres diff&#233;rents circulaient dans la m&#234;me page &#8212; 36 au r&#233;sum&#233;, 23 en section 08, 45 au tableau des altitudes. Ils r&#233;pondent &#224; deux questions distinctes, d&#233;sormais s&#233;par&#233;es : <strong>36</strong> contre l'hypoth&#232;se plane, o&#249; la m&#233;connaissance de k est d&#233;j&#224; absorb&#233;e par le choix du pire cas, et <strong>29</strong> sur la d&#233;termination de a, o&#249; elle entre pleinement. Le 23 de la 1.2 comptait k deux fois ; sa note de version se reprochait &#224; tort d'avoir &#233;t&#233; flatteuse, et les rapports cit&#233;s dans les notes 1.2 et 1.3 sont remplac&#233;s par ceux-ci. Le tableau des altitudes et celui de l'&#233;chelle angulaire sont recalcul&#233;s en cons&#233;quence. <em>Ce qui manquait &#224; qui voudrait faire l'exp&#233;rience</em> : la <strong>fen&#234;tre d'observation</strong>, contrainte la plus lourde de la m&#233;thode A et jamais mentionn&#233;e &#8212; de nuit noire l'horizon marin n'est plus visible, et la r&#233;ponse est celle du point stellaire au sextant, le cr&#233;puscule nautique, ou V&#233;nus avant le coucher du Soleil ; le <strong>crit&#232;re de point&#233;</strong> de la ligne d'horizon, saut d'intensit&#233; o&#249; trois pixels valent 0,62&#8242; ; et le <strong>mat&#233;riel</strong>, encore organis&#233; autour de l'inclinom&#232;tre et muet sur le plateau, le liquide et les &#233;ph&#233;m&#233;rides. S'y ajoute un contr&#244;le gratuit non exploit&#233; : l'&#233;cart astre-reflet vaut deux fois la hauteur apparente, que l'&#233;ph&#233;m&#233;ride donne. <em>Corrections</em> : l'&#233;tape &#171; &#233;talon d'angle &#187; de la solution de repli recommandait encore la focale grav&#233;e, que la section 08 venait de disqualifier ; &#171; aucun &#233;talonnage &#187; devient &#171; aucun &#233;talonnage de biais &#187;, l'&#233;chelle angulaire en &#233;tant un ; les figures 2 et 3 &#233;taient dans le d&#233;sordre ; et les 1 873 km du mod&#232;le plan ne disaient pas depuis quelle altitude ils sont calcul&#233;s. <strong>Version arr&#234;t&#233;e pour d&#233;p&#244;t.</strong></p>
 </footer>
 
 </div>
