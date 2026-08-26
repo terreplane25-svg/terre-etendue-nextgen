@@ -8,8 +8,8 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 
 | Fichier | Contenu |
 |---|---|
-| `horizon-fr.html` | Dépression de l'horizon marin — français, 13 pages, v1.2 |
-| `horizon-en.html` | Même document en anglais, v1.2 |
+| `horizon-fr.html` | Dépression de l'horizon marin — français, 16 pages, v1.3 |
+| `horizon-en.html` | Même document en anglais, 15 pages, v1.3 |
 | `soleil-bilingue.html` | Diamètre angulaire du Soleil — bilingue, 23 pages, v1.3 |
 | `pole-celeste-bilingue.html` | Hauteur du pôle céleste — bilingue, 22 pages, v1.2 |
 | `horizon-artefact-web.html` | Version web du protocole d'horizon (artefact consultable en ligne) |
@@ -166,6 +166,30 @@ les trouverait de toute façon.
   Struve — sont exactement le test 3 mené sur 2 800 km. L'absence d'horodatage
   vérifiable est signalée. Les tableaux sont renumérotés : la 1.1 en portait deux
   au numéro 6 et sautait le 3.
+- **Horizon 1.3** — seconde relecture extérieure. Quatre points, dont deux
+  touchent au budget.
+  1. **L'échelle angulaire** était un poste non chiffré. δ se lit en pixels et se
+     convertit par la focale ; or la focale gravée est nominale à 2–5 % près, ce
+     qui vaut 2 à 5′ sur une dépression de 100′ et ferait tomber le rapport
+     signal sur bruit de 23 à 17. La 1.2 écartait l'étalon lunaire (7,0′) sans
+     remarquer que la « méthode capteur » portait son propre terme.
+     **L'astrométrie de champ** le ramène à 0,05′ et fournit en prime le profil
+     de distorsion. L'échelle résolue devient un champ obligatoire.
+  2. **La couche limite au-dessus de l'eau.** Le tableau de sensibilité traitait
+     la variation de k avec l'altitude ; il manquait l'écart air–mer, qui
+     commande le gradient des premiers mètres — donc k sous 50 m. ΔT devient un
+     champ obligatoire, avec les trois régimes énoncés. Le sens tombe à l'inverse
+     de l'intuition : c'est l'air froid sur eau chaude qui rapproche l'horizon.
+  3. **La nappe** passe à un liquide visqueux (paraffine, glycérine), son
+     agitation résiduelle se mesure sur la rafale — la dispersion du reflet
+     divisée par deux — au lieu d'être supposée, et un couvercle de verre
+     s'élimine par rotation de 180°.
+  4. **L'exposant p est laissé libre.** Ajuster δ = a·h^p plutôt que δ = a√h
+     teste la loi en racine au lieu de la supposer : six stations de 10 m à
+     3 107 m déterminent p à ±0,022, soit 22 σ entre p = 0,5 et p = 1.
+  La procédure d'horodatage est détaillée : figer le PDF, calculer le SHA-256,
+  déposer sur OSF ou Zenodo, obtenir le DOI, publier les deux — et seulement
+  ensuite collecter.
 
 ## Ce que ces protocoles ne font pas
 
