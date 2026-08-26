@@ -8,8 +8,8 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 
 | Fichier | Contenu |
 |---|---|
-| `horizon-fr.html` | Dépression de l'horizon marin — français, 20 pages, **v1.4 arrêtée** |
-| `horizon-en.html` | Même document en anglais, 20 pages, **v1.4 frozen** |
+| `horizon-fr.html` | Dépression de l'horizon marin — français, 23 pages, **v1.5 arrêtée** |
+| `horizon-en.html` | Même document en anglais, 23 pages, **v1.5 frozen** |
 | `soleil-bilingue.html` | Diamètre angulaire du Soleil — bilingue, 23 pages, v1.3 |
 | `pole-celeste-bilingue.html` | Hauteur du pôle céleste — bilingue, 22 pages, v1.2 |
 | `horizon-artefact-web.html` | Version web du protocole d'horizon (artefact consultable en ligne) |
@@ -228,6 +228,26 @@ les trouverait de toute façon.
   « aucun étalonnage » devient « aucun étalonnage de biais », l'échelle angulaire
   en étant un ; les figures 2 et 3 étaient dans le désordre ; les 1 873 km du
   modèle plan ne disaient pas depuis quelle altitude ils sont calculés.
+
+- **Horizon 1.5** — le document contenait tous les éléments pour exécuter
+  l'expérience, mais dispersés entre six sections et **sans leur ordre**. Or
+  l'ordre n'est pas indifférent : plusieurs étapes rendent les précédentes
+  irrécupérables. L'horodatage doit précéder la première image ; la vérification
+  cartographique de l'azimut doit précéder la station, car une côte dans l'axe ne
+  se distingue pas de l'horizon sur la photo ; la bague de mise au point doit être
+  immobilisée *avant* la pose de mesure, sous peine d'annuler le report d'échelle
+  vers la pose de résolution ; ΔT, marée et état de la mer se relèvent sur place ou
+  jamais ; le critère de pointé doit être fixé avant la réduction et être le même
+  partout.
+
+  Une **section 05 « Marche à suivre »** donne l'ordre des opérations en cinq
+  phases — préparation de campagne, préparation de station, mise en place,
+  acquisition, réduction — signale les cinq étapes irréversibles, énumère le
+  nécessaire réel (boîtier d'occasion, plat à gratin, huile de paraffine de
+  pharmacie, Stellarium, Astrometry.net) et sépare ce qui **détruit** la mesure
+  sans laisser de trace de ce qui la **dégrade** visiblement. Une consigne de
+  sécurité y entre aussi : le protocole envoie des gens sur des falaises, de nuit,
+  et n'en disait rien. Les sections suivantes glissent d'un rang.
 
 ## Ce que ces protocoles ne font pas
 
