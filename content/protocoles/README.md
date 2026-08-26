@@ -8,8 +8,9 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 
 | Fichier | Contenu |
 |---|---|
-| `horizon-fr.html` | Dépression de l'horizon marin — français, 23 pages, **v1.5 arrêtée** |
-| `horizon-en.html` | Même document en anglais, 23 pages, **v1.5 frozen** |
+| `horizon-fr.html` | Dépression de l'horizon marin — français, 23 pages, **v1.6** |
+| `horizon-en.html` | Même document en anglais, 23 pages, **v1.6** |
+| `depot/` | Le dépôt : marche à suivre, métadonnées, et les fichiers figés une fois le DOI inscrit |
 | `soleil-bilingue.html` | Diamètre angulaire du Soleil — bilingue, 23 pages, v1.3 |
 | `pole-celeste-bilingue.html` | Hauteur du pôle céleste — bilingue, 22 pages, v1.2 |
 | `horizon-artefact-web.html` | Version web du protocole d'horizon (artefact consultable en ligne) |
@@ -248,6 +249,29 @@ les trouverait de toute façon.
   sans laisser de trace de ce qui la **dégrade** visiblement. Une consigne de
   sécurité y entre aussi : le protocole envoie des gens sur des falaises, de nuit,
   et n'en disait rien. Les sections suivantes glissent d'un rang.
+
+- **Horizon 1.6** — un **emplacement réservé pour le DOI** est ouvert en première
+  page et en section 13. Zenodo et OSF attribuent le DOI *avant* publication
+  (« Reserve DOI »), il peut donc figurer dans le document lui-même plutôt qu'à
+  côté, et la marche à suivre de la section 13 est réécrite dans cet ordre :
+  réserver, inscrire, figer, hacher, téléverser les deux fichiers dans le même
+  enregistrement, publier, et seulement alors collecter.
+
+  L'empreinte, elle, ne peut pas y figurer : elle se calcule *sur* le fichier
+  fini, et l'y inscrire le modifierait donc la fausserait. Elle vit dans les
+  notes de l'enregistrement. Le document le dit, et dit aussi ceci : tant que la
+  ligne du DOI porte la mention « en attente », le préenregistrement n'est pas
+  opposable.
+
+  `scripts/inscrire-doi.py` remplit les quatre emplacements — deux par langue —
+  regénère les PDF, les copie dans `depot/` et calcule les empreintes. Il refuse
+  de travailler s'il n'en trouve pas exactement quatre, et refuse d'être relancé.
+  Un DOI recopié à la main dans trois emplacements sur quatre ne se verrait
+  qu'après publication, c'est-à-dire trop tard.
+
+  L'inscription du DOI ne change pas le numéro de version : elle remplit un
+  emplacement prévu. **La 1.6 n'existe donc publiquement que sous sa forme
+  portant le DOI** — l'exemplaire à emplacement vide ne doit pas circuler.
 
 ## Ce que ces protocoles ne font pas
 

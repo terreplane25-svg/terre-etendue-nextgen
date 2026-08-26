@@ -1,34 +1,71 @@
 # Dépôt — préenregistrement du protocole de dépression de l'horizon
 
-Ce dossier contient **le couple de fichiers à déposer**, figé, et son empreinte.
-C'est lui qui fait foi, et non les sources HTML : celles-ci se recompilent, les
-fichiers déposés ne bougent plus.
+**Ce dossier est vide de PDF, et c'est normal.** Il attend le DOI.
 
-## Les deux fichiers
+Depuis la version 1.6, le protocole porte un **emplacement réservé** pour son
+propre DOI, en première page et en section 13. Les fichiers à déposer ne sont
+donc produits qu'une fois le DOI connu — et Zenodo comme OSF le donnent *avant*
+publication. C'est `scripts/inscrire-doi.py` qui remplit ce dossier.
 
-| fichier | langue | pages | SHA-256 |
-|---|---|---|---|
-| `Protocole-depression-horizon.pdf` | français | 23 | `cd7788750e41248300f668e6b242590ac3aefca82e64c2001d379b6c0b8ff404` |
-| `Horizon-Dip-Protocol.pdf` | anglais | 23 | `ea37e162b1c1d81fd968aa1693b167a9d03c938979660c364b16d6172856db5f` |
+## La marche à suivre
 
-Les empreintes sont aussi dans `SHA256SUMS.txt`, au format de `sha256sum`, ce
-qui permet à n'importe qui de les vérifier d'une commande :
+### 1. Réserver le DOI, sans publier
+
+Sur <https://zenodo.org> : **New upload**, puis le bouton **Reserve DOI** dans
+le champ « Digital Object Identifier ». Zenodo attribue le DOI immédiatement.
+L'enregistrement reste un brouillon tant qu'on ne clique pas sur *Publish*.
+
+Sur <https://osf.io>, la même chose passe par la création d'un projet puis
+« Create DOI ».
+
+Le DOI ressemble à `10.5281/zenodo.1234567` chez Zenodo, à
+`10.17605/OSF.IO/ABCDE` chez OSF.
+
+### 2. L'inscrire, et produire les fichiers
 
 ```bash
-sha256sum -c SHA256SUMS.txt
+python3 scripts/inscrire-doi.py 10.5281/zenodo.1234567
 ```
 
-## Pourquoi ces PDF sont versionnés, contrairement à tous les autres
+Le script remplace le marqueur aux **quatre** emplacements — deux par langue —
+regénère les deux PDF, les copie ici, calcule les empreintes SHA-256 et écrit
+`SHA256SUMS.txt`.
 
-Le `.gitignore` du projet exclut `*.pdf`, et le README des protocoles explique
-que rien n'est perdu à ne pas les commiter puisqu'ils se régénèrent en quelques
-secondes. **C'est vrai en général et faux ici**, pour une raison vérifiée et non
-supposée : le rendu n'est **pas reproductible octet à octet**. Chromium inscrit
-un horodatage de création dans le PDF, si bien que deux rendus successifs de la
-même source donnent deux empreintes différentes.
+Il refuse de travailler s'il ne trouve pas exactement quatre marqueurs, et
+refuse d'être relancé une fois le DOI inscrit. Un DOI recopié à la main dans
+trois emplacements sur quatre ne se verrait qu'après publication, c'est-à-dire
+trop tard.
 
-Vérification faite le 26 août 2026, deux rendus consécutifs de `horizon-fr.html`
-inchangé :
+### 3. Téléverser, et seulement alors publier
+
+- Les **deux** PDF dans le **même** enregistrement — celui dont le DOI vient
+  d'être réservé. Un seul enregistrement, un seul DOI : le DOI porte sur
+  l'enregistrement, pas sur chaque fichier. Deux dépôts séparés feraient de ces
+  deux traductions deux travaux distincts.
+- Le contenu de `SHA256SUMS.txt` dans le champ **Additional notes**.
+- Les métadonnées ci-dessous.
+- Puis **Publish**. Le DOI devient permanent à cet instant.
+
+### 4. Ne commencer à collecter qu'ensuite
+
+C'est le seul point qui ne se rattrape pas.
+
+## Pourquoi le DOI peut être dans le fichier et pas l'empreinte
+
+Le DOI est attribué avant publication : il peut donc entrer dans le document,
+qui est ensuite figé puis haché. L'empreinte, elle, se calcule **sur** le
+fichier fini — l'y inscrire le modifierait, donc la fausserait. Elle vit
+nécessairement à l'extérieur : dans les notes de l'enregistrement, et partout
+où le protocole est annoncé.
+
+## Pourquoi ces PDF seront versionnés, contrairement à tous les autres
+
+Le `.gitignore` du projet exclut `*.pdf`, au motif documenté qu'ils se
+régénèrent en quelques secondes. C'est vrai en général et **faux ici**, pour une
+raison vérifiée et non supposée : le rendu n'est **pas reproductible octet à
+octet**. Chromium inscrit un horodatage de création dans le PDF, si bien que deux
+rendus successifs de la même source inchangée donnent deux empreintes
+différentes. Contrôle fait le 26 août 2026 sur `horizon-fr.html` inchangé :
 
 ```
 df2054a1a7bccf70005361a42a52e2017b8050dcb76141f0d82e35790afdc778
@@ -36,25 +73,34 @@ df2054a1a7bccf70005361a42a52e2017b8050dcb76141f0d82e35790afdc778
 ```
 
 Conséquence directe : **l'empreinte ne peut pas être recalculée depuis les
-sources**. Elle ne vaut que pour l'exemplaire exact qui a été déposé. Si cet
-exemplaire est perdu, le préenregistrement devient invérifiable — ce qui est
-précisément ce qu'il est censé empêcher. Les deux fichiers sont donc conservés
-ici, en dérogation assumée à la règle du projet.
+sources**. Elle ne vaut que pour l'exemplaire exact déposé, et si cet exemplaire
+est perdu le préenregistrement devient invérifiable — ce qu'il est précisément
+censé empêcher.
 
-Ne pas les régénérer. Ne pas les remplacer. S'il faut corriger le protocole,
-c'est une **nouvelle version** qui se dépose, avec ses propres empreintes, et
-celle-ci reste en place.
+Les fichiers écrits ici par le script seront donc commités, en dérogation
+assumée à la règle du projet. **Ne pas les regénérer, ne pas les remplacer.**
+S'il faut corriger le protocole, c'est une nouvelle version qui se dépose, avec
+son propre DOI et ses propres empreintes ; celle-ci reste en place.
+
+## Une objection à écarter d'avance
+
+L'inscription du DOI ne change pas le numéro de version : elle remplit un
+emplacement ouvert à cet effet. Il s'ensuit que **la version 1.6 n'existe
+publiquement que sous sa forme portant le DOI**. L'exemplaire à emplacement vide
+est un état intermédiaire de travail et ne doit pas circuler : deux fichiers
+distincts se réclamant du même numéro de version seraient exactement le genre
+d'ambiguïté que ce dispositif existe pour écarter.
+
+Concrètement : ne diffuser aucun PDF de la 1.6 avant d'avoir passé le script.
 
 ## Métadonnées du dépôt
-
-À reporter dans le formulaire Zenodo ou OSF.
 
 **Titre**
 > Measuring the dip of the sea horizon as a function of altitude — an open,
 > pre-registered protocol (FR/EN)
 
-**Type de dépôt** — Zenodo : *Publication* → *Preprint*. OSF : *Preprint* ou
-*Project* avec registration.
+**Type** — Zenodo : *Publication* → *Preprint*. OSF : *Preprint*, ou *Project*
+avec registration.
 
 **Description**
 
@@ -71,11 +117,12 @@ celle-ci reste en place.
 > budget d'erreur instrumental de 2,2′ à 1 σ.
 >
 > Le document énonce ses deux prédictions sous forme falsifiable avant toute
-> acquisition, fixe ses critères de décision a priori, et situe la mesure parmi
-> ses précédents — la formule est celle des tables de dépression employées en
-> navigation astronomique depuis le XIXᵉ siècle.
+> acquisition, fixe ses critères de décision a priori, donne l'ordre des
+> opérations en cinq phases, et situe la mesure parmi ses précédents — la
+> formule est celle des tables de dépression employées en navigation
+> astronomique depuis le XIXᵉ siècle.
 >
-> Ce dépôt contient la version 1.5 en français et en anglais. Les deux fichiers
+> Ce dépôt contient la version 1.6 en français et en anglais. Les deux fichiers
 > ont le même contenu.
 >
 > ---
@@ -92,54 +139,25 @@ celle-ci reste en place.
 > least 78 arcminutes, against an instrumental error budget of 2.2′ at 1 σ.
 >
 > The document states both predictions in falsifiable form before any
-> acquisition, fixes its decision criteria a priori, and situates the measurement
-> among its precedents — the formula is that of the dip tables used in celestial
-> navigation since the nineteenth century.
+> acquisition, fixes its decision criteria a priori, gives the order of
+> operations in five phases, and situates the measurement among its precedents
+> — the formula is that of the dip tables used in celestial navigation since the
+> nineteenth century.
 >
-> This deposit holds version 1.5 in French and English. The two files have the
+> This deposit holds version 1.6 in French and English. The two files have the
 > same content.
 
 **Mots-clés** — `dip of the horizon`, `horizon dip`, `atmospheric refraction`,
 `geodesy`, `pre-registration`, `open protocol`, `artificial horizon`,
 `celestial navigation`, `citizen science`, `replication`
 
-**Langues** — français et anglais (Zenodo n'accepte qu'une langue principale :
-choisir le français, et signaler l'anglais dans la description).
+**Langues** — français et anglais. Zenodo n'accepte qu'une langue principale :
+choisir le français, l'anglais étant signalé dans la description.
 
-**Version** — `1.5`
+**Version** — `1.6`
 
 **Licence** — au choix. CC BY 4.0 convient à un document destiné à être repris
 et exécuté par d'autres.
-
-**Champ « Notes » ou « Additional notes »** — y coller les deux empreintes :
-
-```
-SHA-256 des fichiers déposés :
-cd7788750e41248300f668e6b242590ac3aefca82e64c2001d379b6c0b8ff404  Protocole-depression-horizon.pdf
-ea37e162b1c1d81fd968aa1693b167a9d03c938979660c364b16d6172856db5f  Horizon-Dip-Protocol.pdf
-```
-
-## Marche à suivre
-
-Un seul enregistrement, deux fichiers, un seul DOI — c'est ce que Zenodo et OSF
-font l'un comme l'autre par défaut : le DOI porte sur l'**enregistrement**, pas
-sur chaque fichier.
-
-1. Créer un compte sur <https://zenodo.org> (ou <https://osf.io>).
-2. **New upload**, puis déposer les **deux** PDF dans le même enregistrement.
-   Ne pas créer deux enregistrements : ce sont deux traductions d'un même
-   document, et deux DOI en feraient deux travaux distincts.
-3. Renseigner les métadonnées ci-dessus. Coller les empreintes dans les notes.
-4. Réserver le DOI (Zenodo propose « Reserve DOI » avant publication) puis
-   **publier**. Le DOI ne devient permanent qu'à la publication.
-5. Reporter le DOI obtenu dans la section « Engagement » du protocole — mais
-   **attention** : modifier le PDF pour y inscrire le DOI change son empreinte
-   et invalide ce qui vient d'être déposé. Deux façons propres de s'en sortir :
-   - publier le DOI et les empreintes **ailleurs** — sur le site, dans un billet
-     daté — et laisser les PDF déposés intacts. C'est la solution simple ;
-   - ou n'inscrire le DOI que dans la **version suivante**, en indiquant qu'elle
-     succède au dépôt initial.
-6. Ne commencer à collecter qu'**après** la publication du DOI.
 
 ## Ce que ce dépôt établit, et ce qu'il n'établit pas
 
@@ -147,7 +165,7 @@ Il établit qu'à la date du DOI, ce texte-là existait, avec ce contenu-là, y
 compris ses critères de décision et ses deux issues. Personne ne pourra soutenir
 que les prédictions ont été écrites après avoir vu les données.
 
-Il n'établit rien sur la qualité des mesures qui suivront, ni sur leur
-honnêteté. Le préenregistrement rend une tricherie détectable ; il ne la rend pas
+Il n'établit rien sur la qualité des mesures qui suivront, ni sur leur honnêteté.
+Le préenregistrement rend une tricherie détectable ; il ne la rend pas
 impossible. C'est la publication intégrale des fichiers bruts, promise en
 section 13, qui fait le reste du travail.
