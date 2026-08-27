@@ -8,8 +8,8 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 
 | Fichier | Contenu |
 |---|---|
-| `horizon-fr.html` | Dépression de l'horizon marin — français, 23 pages, **v1.6** |
-| `horizon-en.html` | Même document en anglais, 23 pages, **v1.6** |
+| `horizon-fr.html` | Dépression de l'horizon marin — français, 26 pages, **v1.7** |
+| `horizon-en.html` | Même document en anglais, 24 pages, **v1.7** |
 | `depot/` | Le dépôt : marche à suivre, métadonnées, et les fichiers figés une fois le DOI inscrit |
 | `soleil-bilingue.html` | Diamètre angulaire du Soleil — bilingue, 23 pages, v1.3 |
 | `pole-celeste-bilingue.html` | Hauteur du pôle céleste — bilingue, 22 pages, v1.2 |
@@ -272,6 +272,37 @@ les trouverait de toute façon.
   L'inscription du DOI ne change pas le numéro de version : elle remplit un
   emplacement prévu. **La 1.6 n'existe donc publiquement que sous sa forme
   portant le DOI** — l'exemplaire à emplacement vide ne doit pas circuler.
+
+- **Horizon 1.7** — la section 04 est réécrite, sur une objection fondée. Elle
+  citait six travaux antérieurs *sur parole* — sans leurs données, sans vérifier
+  qu'ils satisfont les critères que le protocole s'impose — alors que toute sa
+  méthode consiste précisément à ne pas croire une table sur parole. Deux
+  standards : un pour les autres, un pour soi.
+
+  Le tableau 3 les **gradue** désormais, colonne par colonne : préenregistré,
+  budget d'erreur, données brutes *vues par nous*. **Aucun ne satisfait les
+  quatre critères**, et la mesure en avion de ligne est reclassée « indicatif
+  seulement » par les règles du document lui-même — mesure unique, échelle
+  angulaire non documentée. Ce n'est pas un reproche : la plupart n'ont jamais
+  prétendu être des expériences préenregistrées. Mais cela interdit de les
+  invoquer comme des preuves acquises.
+
+  Ce qui se vérifie **sans faire confiance à personne** est séparé du reste : le
+  coefficient du Bowditch, qui se recalcule depuis le tableau 1 du protocole
+  (0,97 par racine de pied ↔ k = 0,168, contre 1,7548 pour k = 0,17), et la
+  conséquence géométrique du point à trois astres — ignorer la dépression depuis
+  une passerelle de 15 m ouvrirait un chapeau de gendarme d'une vingtaine de
+  milles nautiques.
+
+  La prétention du document est reformulée en conséquence : non pas « personne
+  n'a mesuré cela », mais **« personne ne l'a mesuré à ce niveau d'exigence »**.
+
+  Deux précisions s'y ajoutent. Le sextant date de 1731 et la correction de
+  dépression est antérieure à l'édition de 1802 du Bowditch — « depuis le XIXᵉ
+  siècle » se rapportait à cette tabulation-là. Et une phrase énonce que le
+  protocole **n'avance aucune hypothèse sur la cause** de la perpendicularité
+  entre la nappe et le fil à plomb : il n'utilise que le fait, vérifiable à
+  l'équerre, qu'elle a lieu. Le fil à plomb est un instrument, pas une théorie.
 
 ## Ce que ces protocoles ne font pas
 

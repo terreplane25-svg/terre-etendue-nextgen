@@ -174,7 +174,7 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
     <span>Rédacteur<b>&nbsp;</b></span>
     <span>Affiliation<b>&nbsp;</b></span>
     <span>Contact<b>&nbsp;</b></span>
-    <span>Version<b>1.6 — arrêtée pour dépôt</b></span>
+    <span>Version<b>1.7 — arrêtée pour dépôt</b></span>
     <span>DOI<b>DOI-EN-ATTENTE</b></span>
     <span>Date<b>&nbsp;</b></span>
   </div>
@@ -407,45 +407,93 @@ données. Aucune ne comporte de paramètre libre au-delà de k, lui-même borné
 </table>
 
 <h2 class="brk"><span class="n">04</span>Ce que ce protocole n'invente pas</h2>
-<p class="lead">Ajouté en version 1.2, après relecture extérieure. Un document qui annonce
-lui-même ses précédents est plus solide que celui qui laisse le lecteur les découvrir.</p>
+<p class="lead">Ajout&#233; en version 1.2, r&#233;&#233;crit en 1.7. Un document qui annonce
+lui-m&#234;me ses pr&#233;c&#233;dents est plus solide que celui qui laisse le lecteur les
+d&#233;couvrir &#8212; &#224; condition de leur appliquer le standard qu'il s'impose &#224;
+lui-m&#234;me.</p>
 
-<p>La relation δ = √(2h/R′) n'est pas une construction de ce document : c'est la
-<strong>correction de dépression employée en navigation astronomique depuis le XIX<sup>e</sup>
-siècle</strong>, tabulée dans le Bowditch et dans tous les almanachs nautiques. Chaque point
-astronomique pris au sextant l'applique.</p>
+<p>La relation &#948; = &#8730;(2h/R&#8242;) n'est pas une construction de ce document : c'est
+la <strong>correction de d&#233;pression employ&#233;e en navigation astronomique</strong>,
+tabul&#233;e dans le Bowditch et dans tous les almanachs nautiques. Chaque point astronomique
+pris au sextant l'applique.</p>
+<p><em>Pr&#233;cision apport&#233;e en 1.7 :</em> les versions pr&#233;c&#233;dentes &#233;crivaient
+&#171; depuis le XIX<sup>e</sup> si&#232;cle &#187;. Cela se rapportait &#224; la tabulation du
+Bowditch, dont la premi&#232;re &#233;dition date de 1802. La correction elle-m&#234;me est plus
+ancienne &#8212; on la trouve chez les auteurs de navigation d&#232;s le XVII<sup>e</sup>
+si&#232;cle &#8212; et le sextant date de 1731. La formule a donc plus de deux si&#232;cles, et
+la phrase pr&#233;c&#233;dente pouvait se lire comme si elle en avait exactement deux.</p>
+
+<h3>Le double standard, et sa correction</h3>
+<div class="box warn">
+  <span class="lab">Ce que la version 1.2 faisait sans le voir</span>
+  <p>Ce protocole demande, de bout en bout, de <strong>ne pas croire une table sur
+  parole</strong> : mesurer soi-m&#234;me, publier les fichiers bruts, fixer les crit&#232;res
+  avant l'acquisition, mesurer les incertitudes au lieu de les postuler.</p>
+  <p>Et la version 1.2 citait ensuite six travaux ant&#233;rieurs <strong>sur parole</strong>
+  &#8212; sans leurs donn&#233;es, sans v&#233;rifier qu'ils satisfont ces m&#234;mes crit&#232;res,
+  et en les alignant comme s'ils &#233;taient acquis. Deux standards : un pour les autres, un
+  pour soi. L'objection nous a &#233;t&#233; faite, elle est fond&#233;e, et le tableau ci-dessous
+  la corrige.</p>
+</div>
+
+<table>
+  <caption>Tableau 3 &#8212; Travaux ant&#233;rieurs, gradu&#233;s par les crit&#232;res de ce
+  protocole. La colonne des donn&#233;es brutes dit ce que <em>nous</em> avons vu, non ce qui est
+  annonc&#233; disponible.</caption>
+  <thead><tr><th>travail</th><th class="n">pr&#233;enregistr&#233;</th><th class="n">budget d'erreur</th><th class="n">brut vu par nous</th><th>ce qu'on peut en faire</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td><b>Tables de d&#233;pression</b> &#8212; Bowditch, almanachs</td><td class="n">non</td><td class="n">&#8212;</td><td class="n">&#8212;</td><td><strong>v&#233;rifiable sans faire confiance &#224; personne</strong> : le Bowditch tabule 0,97&#8730;(pied), soit 1,757&#8730;(m&#232;tre), soit k = 0,168 &#8212; &#224; comparer &#224; notre tableau 1, qui donne 1,7548 pour k = 0,17. Il s'agit de la m&#234;me formule au m&#234;me coefficient</td></tr>
+    <tr><td><b>Wallace, 1870</b> &#8212; canal de Bedford</td><td class="n">non</td><td class="n">non</td><td class="n">non</td><td>argument de m&#233;thode, non donn&#233;e : &#233;lever la vis&#233;e pour r&#233;duire la r&#233;fraction, c'est d&#233;j&#224; notre section 02</td></tr>
+    <tr><td><b>Rainy Lake, ~2018</b> &#8212; Hnatiuk, Kozlowski, Bislin</td><td class="n">non</td><td class="n">partiel</td><td class="n"><strong>non</strong></td><td>donn&#233;es annonc&#233;es publi&#233;es ; nous ne les avons pas examin&#233;es. &#192; traiter comme un <strong>t&#233;moignage &#224; v&#233;rifier</strong>, non comme un r&#233;sultat acquis</td></tr>
+    <tr class="pl"><td><b>Bislin</b> &#8212; d&#233;pression en avion de ligne</td><td class="n">non</td><td class="n">non</td><td class="n">non</td><td><strong>mesure unique</strong>, th&#233;odolite de t&#233;l&#233;phone, &#233;chelle angulaire non document&#233;e. Par nos propres crit&#232;res &#8212; section 10, point 7 &#8212; c'est <em>indicatif seulement</em></td></tr>
+    <tr><td><b>Bislin</b> &#8212; r&#233;fraction d&#233;pendant de l'altitude</td><td class="n">&#8212;</td><td class="n">&#8212;</td><td class="n">&#8212;</td><td>mod&#232;le de calcul, non mesure. Utile comme outil ; ne prouve rien par lui-m&#234;me</td></tr>
+    <tr><td><b>Hirt et al., 2010</b> &#8212; angles verticaux r&#233;ciproques</td><td class="n">non</td><td class="n">oui</td><td class="n">non</td><td>article &#224; comit&#233; de lecture, le plus solide du lot ; <strong>non relu par nous</strong></td></tr>
+    <tr><td><b>Nivellement trigonom&#233;trique</b></td><td class="n">non</td><td class="n">&#8212;</td><td class="n">&#8212;</td><td>pratique institutionnelle, jamais pr&#233;sent&#233;e comme une exp&#233;rience. Son poids vient de la fermeture des r&#233;seaux, non d'un protocole</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Aucun de ces travaux ne satisfait les quatre crit&#232;res que ce protocole
+s'impose.</strong> Ce n'est pas un reproche : la plupart n'ont jamais pr&#233;tendu &#234;tre des
+exp&#233;riences pr&#233;enregistr&#233;es, et le nivellement trigonom&#233;trique n'a jamais
+pr&#233;tendu &#234;tre une exp&#233;rience du tout. Mais cela interdit de les invoquer comme des
+preuves acquises, et c'est pourquoi ce tableau les gradue au lieu de les aligner.</p>
+
+<div class="box key">
+  <span class="lab">Deux choses qui ne demandent la confiance de personne</span>
+  <p><strong>Le coefficient du Bowditch.</strong> Ouvrir un almanach, lire 0,97 par racine de
+  pied, convertir, comparer &#224; notre tableau 1. C'est une v&#233;rification <em>interne</em> :
+  aucune donn&#233;e d'autrui n'y entre.</p>
+  <p><strong>La cons&#233;quence du point &#224; trois astres.</strong> Une erreur de hauteur
+  commune aux trois vis&#233;es d&#233;place chaque droite de la m&#234;me quantit&#233; et ouvre le
+  triangle de recoupement &#8212; pour une erreur e, le c&#244;t&#233; vaut 2e&#8730;3. Ignorer la
+  d&#233;pression depuis une passerelle &#224; 15 m, o&#249; elle vaut 7,0&#8242;, ouvrirait donc un
+  triangle d'une vingtaine de milles nautiques, l&#224; o&#249; la pratique en referme un ou deux.
+  C'est une cons&#233;quence g&#233;om&#233;trique de la m&#233;thode des droites de hauteur, que
+  chacun peut recalculer.</p>
+  <p>Ces deux-l&#224; sont d'une autre nature que &#171; telle &#233;quipe a trouv&#233; ceci &#187;,
+  et le document ne les m&#233;lange plus.</p>
+</div>
 
 <div class="box key">
   <span class="lab">Ce que cela change, et ce que cela ne change pas</span>
-  <p>La mesure a donc déjà été faite, avec un effectif que nous n'égalerons jamais : chaque
-  navigateur, à chaque visée, depuis deux siècles. <strong>Ce protocole ne pose pas une
-  question ouverte.</strong></p>
-  <p>Ce qu'il apporte est autre chose, et cela vaut d'être fait : une vérification de
-  <strong>première main</strong>, par un observateur qui refuse de croire une table sur
-  parole, avec des critères posés avant l'acquisition et les deux issues énoncées. C'est la
-  démarche zététique appliquée à soi-même plutôt qu'aux autres.</p>
+  <p>La formule est ancienne et massivement employ&#233;e. <strong>Ce protocole ne pose pas une
+  question ouverte</strong>, et il ne pr&#233;tend pas en poser une.</p>
+  <p>Ce qu'il apporte est autre chose : non pas &#171; personne n'a mesur&#233; cela &#187;, mais
+  <strong>personne ne l'a mesur&#233; &#224; ce niveau d'exigence</strong> &#8212;
+  pr&#233;enregistrement horodat&#233;, crit&#232;res pos&#233;s d'avance, incertitudes mesur&#233;es
+  et non postul&#233;es, fichiers bruts publi&#233;s quelle que soit l'issue. Le tableau ci-dessus
+  montre que cette place est libre. C'est la seule pr&#233;tention de ce document, et elle tient
+  ind&#233;pendamment de ce qu'ont trouv&#233; les autres.</p>
 </div>
 
-<h3>Les précédents à connaître</h3>
-<table>
-  <caption>Tableau 3 — Travaux antérieurs portant sur la même grandeur ou sur la même
-  géométrie. Tous ont publié leurs données.</caption>
-  <thead><tr><th>travail</th><th>ce qu'il apporte</th></tr></thead>
-  <tbody>
-    <tr><td><b>Tables de dépression</b> — Bowditch, almanachs nautiques</td><td>la même formule, vérifiée opérationnellement en mer depuis le XIX<sup>e</sup> siècle</td></tr>
-    <tr><td><b>Wallace, 1870</b> — canal de Bedford</td><td>élève la visée à 4 m au lieu de 20 cm précisément pour réduire la réfraction : c'est déjà l'argument de notre section 02</td></tr>
-    <tr class="hi"><td><b>Rainy Lake, ~2018</b> — Hnatiuk, Kozlowski, Bislin</td><td>réplique moderne sur 10 km, GPS différentiel centimétrique, réfraction modélisée. <strong>Les observations concordent avec le modèle sphérique incluant la réfraction.</strong> Données brutes publiées</td></tr>
-    <tr><td><b>Bislin</b> — dépression mesurée en avion de ligne</td><td>3,252° au théodolite de téléphone. Notre formule situe cette valeur à 10 276 m sans réfraction, 11 811 m à k = 0,13 : cohérent avec une altitude de croisière. Le modèle plan prédit 0,000°</td></tr>
-    <tr><td><b>Bislin</b> — modèle de réfraction dépendant de l'altitude</td><td>comble exactement la lacune corrigée à la section 09 : k plus élevé près du sol, plus faible en altitude</td></tr>
-    <tr><td><b>Hirt et al., 2010</b> — angles verticaux réciproques</td><td>la version géodésique professionnelle de notre calibration par retournement</td></tr>
-    <tr><td><b>Nivellement trigonométrique</b> — réseaux géodésiques mondiaux</td><td>la correction courbure-et-réfraction appliquée en routine depuis plus d'un siècle, validée par la fermeture de réseaux continentaux. Le plus grand effectif possible, même s'il n'est jamais présenté comme une expérience</td></tr>
-  </tbody>
-</table>
-<p>Deux de ces précédents méritent d'être signalés pour ce qu'ils coûtent à notre camp.
-<strong>Wallace 1870</strong> est très exactement l'argument de notre section 02 — accorder la
-réfraction au modèle plan ne l'aide pas — formulé cent cinquante ans avant nous. Et
-<strong>Rainy Lake</strong> est l'expérience dont notre propre site loue la méthodologie :
-son résultat concorde avec le modèle sphérique.</p>
+<p>Deux de ces pr&#233;c&#233;dents m&#233;ritent enfin d'&#234;tre signal&#233;s pour ce qu'ils
+co&#251;tent &#224; notre camp, et il serait malhonn&#234;te de les taire.
+<strong>Wallace 1870</strong> est tr&#232;s exactement l'argument de notre section 02 &#8212;
+accorder la r&#233;fraction au mod&#232;le plan ne l'aide pas &#8212; formul&#233; cent cinquante ans
+avant nous. Et <strong>Rainy Lake</strong> est l'exp&#233;rience dont notre propre site loue la
+m&#233;thodologie, et dont le r&#233;sultat annonc&#233; concorde avec le mod&#232;le sph&#233;rique.
+Nous n'en avons pas examin&#233; les donn&#233;es ; nous ne les invoquons donc pas comme preuve,
+et nous ne les dissimulons pas non plus.</p>
 
 <h2 class="brk"><span class="n">05</span>Marche &#224; suivre &#8212; l'ordre des op&#233;rations</h2>
 <p class="lead">Ajout&#233; en version 1.5. Les &#233;l&#233;ments n&#233;cessaires figuraient
@@ -712,6 +760,15 @@ proc&#233;d&#233; de r&#233;f&#233;rence. Elle <strong>n'exige ni instrument de 
 Une seule grandeur reste &#224; &#233;tablir, l'<strong>&#233;chelle angulaire</strong>, et la
 section 09 dit comment &#8212; la formule &#171; aucun &#233;talonnage &#187; des versions
 pr&#233;c&#233;dentes &#233;tait un raccourci de trop.</p>
+<div class="box key">
+  <span class="lab">Ce que le protocole suppose ici, et ce qu'il ne suppose pas</span>
+  <p>Le protocole <strong>n'avance aucune hypoth&#232;se sur la cause</strong> de la
+  perpendicularit&#233; entre une nappe au repos et le fil &#224; plomb. Il n'utilise que le
+  <em>fait</em>, v&#233;rifiable &#224; l'&#233;querre par quiconque, qu'elle a lieu. Le fil &#224;
+  plomb est ici un <strong>instrument</strong>, pas une th&#233;orie : c'est la r&#233;f&#233;rence
+  mat&#233;rielle &#224; laquelle &#948; est rapport&#233;e, et le raisonnement qui suit est
+  purement g&#233;om&#233;trique.</p>
+</div>
 <p>Une nappe d'eau immobile se met perpendiculaire au fil &#224; plomb. Une &#233;toile et son reflet
 sont donc sym&#233;triques par rapport &#224; l'horizontale vraie, et leur milieu la mat&#233;rialise. Si la
 ligne d'horizon marin figure dans la m&#234;me image, &#948; se lit directement.</p>
@@ -1357,7 +1414,7 @@ d&#233;couvrir apr&#232;s coup.</p>
 signification de chacune des deux issues. C'est la condition de sa valeur probante.</p>
 <div class="box warn">
   <span class="lab">Ce qui manque encore, et qu'il faut faire avant de collecter</span>
-  <p>Un num&#233;ro de version ne prouve rien. &#171; Version 1.6 &#187; n'est pas opposable
+  <p>Un num&#233;ro de version ne prouve rien. &#171; Version 1.7 &#187; n'est pas opposable
   &#224; un lecteur sceptique : rien n'emp&#234;che mat&#233;riellement de r&#233;&#233;crire un
   document apr&#232;s avoir vu les donn&#233;es.</p>
   <div class="eq">
@@ -1430,7 +1487,7 @@ version 2 créditée.</p>
   <p>Toutes les valeurs numériques de ce document se dérivent de <code>δ = √(2h/R′)</code>
   avec <code>R′ = R/(1−k)</code> et R = 6 371 km. Diamètre lunaire moyen 31′ (29,4′ au
   périgée, 33,5′ à l'apogée). Le document est reproductible dans son intégralité à partir de
-  ces relations. — Protocole ouvert, version 1.6. <strong>Changements. 1.1 :</strong> la m&#233;thode &#224; horizon artificiel devient le proc&#233;d&#233; de r&#233;f&#233;rence, la mise de niveau passant en solution de repli ; le r&#233;f&#233;rentiel d'altitude est impos&#233; &#8212; la 1.0 &#233;crivait &#171; altitude du sol &#187; sans le pr&#233;ciser, ce qui fausse &#948; de 178 % &#224; 10 m pour une erreur de 30 m ; la mar&#233;e et l'&#233;tat de la mer, absents, deviennent des champs obligatoires ; la m&#233;thode B est restreinte aux cas o&#249; le montage n'est pas d&#233;fait entre les stations ; les rapports signal sur bruit par altitude sont affich&#233;s ; la r&#233;fraction accord&#233;e au mod&#232;le plan est trait&#233;e en section 02 ; la forme exacte de &#948; remplace le d&#233;veloppement au premier ordre. <strong>1.2</strong>, apr&#232;s relecture ext&#233;rieure : le budget d'erreur omettait l'incertitude de MOD&#200;LE due &#224; la variation de k avec l'altitude, qui vaut &#177;2,6&#8242; &#224; 3 107 m &#8212; plus que le budget instrumental entier ; le rapport signal sur bruit passe de 36 &#224; 23. La turbulence de vis&#233;e rasante se mesure d&#233;sormais sur une rafale au lieu d'&#234;tre postul&#233;e. La sym&#233;trie de l'horizon artificiel se teste par recoupement avec la m&#233;thode de repli. La m&#233;thode d'ajustement statistique est sp&#233;cifi&#233;e. Une section 04 situe le protocole parmi ses pr&#233;c&#233;dents &#8212; la formule est celle des tables de d&#233;pression de la navigation astronomique, et la mesure a d&#233;j&#224; &#233;t&#233; faite des millions de fois. Et l'absence d'horodatage v&#233;rifiable est signal&#233;e comme le manque restant &#224; combler avant toute collecte. <strong>1.3</strong>, seconde relecture ext&#233;rieure : l'<strong>&#233;chelle angulaire</strong> &#233;tait un poste non chiffr&#233; &#8212; la focale grav&#233;e est nominale &#224; 2 &#224; 5 % pr&#232;s, ce qui vaut 2 &#224; 5&#8242; sur une d&#233;pression de 100&#8242; et ferait tomber le rapport signal sur bruit de 23 &#224; 17 ; l'astrom&#233;trie de champ le ram&#232;ne &#224; 0,05&#8242; et fournit en outre le profil de distorsion. La <strong>couche limite au-dessus de l'eau</strong> entre au protocole : c'est l'&#233;cart air-mer qui commande le gradient des premiers m&#232;tres, donc k aux stations basses, et &#916;T devient un champ obligatoire. La nappe passe &#224; un <strong>liquide visqueux</strong>, son agitation r&#233;siduelle se mesure sur la rafale au lieu d'&#234;tre suppos&#233;e, et un couvercle de verre s'&#233;limine par rotation de 180&#176;. Enfin l'<strong>exposant p est laiss&#233; libre</strong> : six stations le d&#233;terminent &#224; &#177;0,022, ce qui &#233;tablit la loi en racine au lieu de la supposer. La proc&#233;dure d'horodatage est d&#233;taill&#233;e &#8212; figer, SHA-256, d&#233;p&#244;t OSF ou Zenodo, DOI, puis seulement collecter. <strong>1.4</strong>, relecture compl&#232;te avant arr&#234;t de la version. <em>Le rapport signal sur bruit</em> : trois chiffres diff&#233;rents circulaient dans la m&#234;me page &#8212; 36 au r&#233;sum&#233;, 23 en section 09, 45 au tableau des altitudes. Ils r&#233;pondent &#224; deux questions distinctes, d&#233;sormais s&#233;par&#233;es : <strong>36</strong> contre l'hypoth&#232;se plane, o&#249; la m&#233;connaissance de k est d&#233;j&#224; absorb&#233;e par le choix du pire cas, et <strong>29</strong> sur la d&#233;termination de a, o&#249; elle entre pleinement. Le 23 de la 1.2 comptait k deux fois ; sa note de version se reprochait &#224; tort d'avoir &#233;t&#233; flatteuse, et les rapports cit&#233;s dans les notes 1.2 et 1.3 sont remplac&#233;s par ceux-ci. Le tableau des altitudes et celui de l'&#233;chelle angulaire sont recalcul&#233;s en cons&#233;quence. <em>Ce qui manquait &#224; qui voudrait faire l'exp&#233;rience</em> : la <strong>fen&#234;tre d'observation</strong>, contrainte la plus lourde de la m&#233;thode A et jamais mentionn&#233;e &#8212; de nuit noire l'horizon marin n'est plus visible, et la r&#233;ponse est celle du point stellaire au sextant, le cr&#233;puscule nautique, ou V&#233;nus avant le coucher du Soleil ; le <strong>crit&#232;re de point&#233;</strong> de la ligne d'horizon, saut d'intensit&#233; o&#249; trois pixels valent 0,62&#8242; ; et le <strong>mat&#233;riel</strong>, encore organis&#233; autour de l'inclinom&#232;tre et muet sur le plateau, le liquide et les &#233;ph&#233;m&#233;rides. S'y ajoute un contr&#244;le gratuit non exploit&#233; : l'&#233;cart astre-reflet vaut deux fois la hauteur apparente, que l'&#233;ph&#233;m&#233;ride donne. <em>Corrections</em> : l'&#233;tape &#171; &#233;talon d'angle &#187; de la solution de repli recommandait encore la focale grav&#233;e, que la section 09 venait de disqualifier ; &#171; aucun &#233;talonnage &#187; devient &#171; aucun &#233;talonnage de biais &#187;, l'&#233;chelle angulaire en &#233;tant un ; les figures 2 et 3 &#233;taient dans le d&#233;sordre ; et les 1 873 km du mod&#232;le plan ne disaient pas depuis quelle altitude ils sont calcul&#233;s. <strong>Version arr&#234;t&#233;e pour d&#233;p&#244;t.</strong> <strong>1.5</strong> : le document contenait tous les &#233;l&#233;ments pour ex&#233;cuter l'exp&#233;rience, mais dispers&#233;s entre six sections et <strong>sans leur ordre</strong>. Or l'ordre n'est pas indiff&#233;rent : l'horodatage doit pr&#233;c&#233;der la premi&#232;re image, la v&#233;rification cartographique doit pr&#233;c&#233;der la station, la bague doit &#234;tre immobilis&#233;e avant la pose de mesure sous peine d'annuler le report d'&#233;chelle, et &#916;T, mar&#233;e et &#233;tat de la mer se rel&#232;vent sur place ou jamais. Une <strong>section 05</strong> donne la marche &#224; suivre en cinq phases, signale les cinq &#233;tapes irr&#233;versibles, &#233;num&#232;re le n&#233;cessaire r&#233;el &#8212; mat&#233;riel d'occasion et logiciels libres &#8212; et distingue ce qui d&#233;truit la mesure sans laisser de trace de ce qui la d&#233;grade visiblement. Une consigne de s&#233;curit&#233; y entre aussi : le protocole envoie des gens sur des falaises, de nuit, et n'en disait rien. Les sections suivantes glissent d'un rang. <strong>1.6</strong> : un <strong>emplacement r&#233;serv&#233; pour le DOI</strong> est ouvert en premi&#232;re page et en section 13. Zenodo et OSF attribuent le DOI avant publication &#8212; <em>Reserve DOI</em> &#8212; il peut donc figurer dans le document lui-m&#234;me plut&#244;t qu'&#224; c&#244;t&#233;, et la marche &#224; suivre de la section 13 est r&#233;&#233;crite dans cet ordre. L'empreinte, elle, ne peut pas y figurer : elle se calcule sur le fichier fini, et l'y inscrire la fausserait. Le document le dit, ainsi que ceci : tant que la ligne du DOI porte la mention &#171; en attente &#187;, le pr&#233;enregistrement n'est pas opposable. L'inscription du DOI ne change pas le num&#233;ro de version, si bien que la 1.6 n'existe publiquement que sous sa forme portant le DOI.</p>
+  ces relations. — Protocole ouvert, version 1.7. <strong>Changements. 1.1 :</strong> la m&#233;thode &#224; horizon artificiel devient le proc&#233;d&#233; de r&#233;f&#233;rence, la mise de niveau passant en solution de repli ; le r&#233;f&#233;rentiel d'altitude est impos&#233; &#8212; la 1.0 &#233;crivait &#171; altitude du sol &#187; sans le pr&#233;ciser, ce qui fausse &#948; de 178 % &#224; 10 m pour une erreur de 30 m ; la mar&#233;e et l'&#233;tat de la mer, absents, deviennent des champs obligatoires ; la m&#233;thode B est restreinte aux cas o&#249; le montage n'est pas d&#233;fait entre les stations ; les rapports signal sur bruit par altitude sont affich&#233;s ; la r&#233;fraction accord&#233;e au mod&#232;le plan est trait&#233;e en section 02 ; la forme exacte de &#948; remplace le d&#233;veloppement au premier ordre. <strong>1.2</strong>, apr&#232;s relecture ext&#233;rieure : le budget d'erreur omettait l'incertitude de MOD&#200;LE due &#224; la variation de k avec l'altitude, qui vaut &#177;2,6&#8242; &#224; 3 107 m &#8212; plus que le budget instrumental entier ; le rapport signal sur bruit passe de 36 &#224; 23. La turbulence de vis&#233;e rasante se mesure d&#233;sormais sur une rafale au lieu d'&#234;tre postul&#233;e. La sym&#233;trie de l'horizon artificiel se teste par recoupement avec la m&#233;thode de repli. La m&#233;thode d'ajustement statistique est sp&#233;cifi&#233;e. Une section 04 situe le protocole parmi ses pr&#233;c&#233;dents &#8212; la formule est celle des tables de d&#233;pression de la navigation astronomique, et la mesure a d&#233;j&#224; &#233;t&#233; faite des millions de fois. Et l'absence d'horodatage v&#233;rifiable est signal&#233;e comme le manque restant &#224; combler avant toute collecte. <strong>1.3</strong>, seconde relecture ext&#233;rieure : l'<strong>&#233;chelle angulaire</strong> &#233;tait un poste non chiffr&#233; &#8212; la focale grav&#233;e est nominale &#224; 2 &#224; 5 % pr&#232;s, ce qui vaut 2 &#224; 5&#8242; sur une d&#233;pression de 100&#8242; et ferait tomber le rapport signal sur bruit de 23 &#224; 17 ; l'astrom&#233;trie de champ le ram&#232;ne &#224; 0,05&#8242; et fournit en outre le profil de distorsion. La <strong>couche limite au-dessus de l'eau</strong> entre au protocole : c'est l'&#233;cart air-mer qui commande le gradient des premiers m&#232;tres, donc k aux stations basses, et &#916;T devient un champ obligatoire. La nappe passe &#224; un <strong>liquide visqueux</strong>, son agitation r&#233;siduelle se mesure sur la rafale au lieu d'&#234;tre suppos&#233;e, et un couvercle de verre s'&#233;limine par rotation de 180&#176;. Enfin l'<strong>exposant p est laiss&#233; libre</strong> : six stations le d&#233;terminent &#224; &#177;0,022, ce qui &#233;tablit la loi en racine au lieu de la supposer. La proc&#233;dure d'horodatage est d&#233;taill&#233;e &#8212; figer, SHA-256, d&#233;p&#244;t OSF ou Zenodo, DOI, puis seulement collecter. <strong>1.4</strong>, relecture compl&#232;te avant arr&#234;t de la version. <em>Le rapport signal sur bruit</em> : trois chiffres diff&#233;rents circulaient dans la m&#234;me page &#8212; 36 au r&#233;sum&#233;, 23 en section 09, 45 au tableau des altitudes. Ils r&#233;pondent &#224; deux questions distinctes, d&#233;sormais s&#233;par&#233;es : <strong>36</strong> contre l'hypoth&#232;se plane, o&#249; la m&#233;connaissance de k est d&#233;j&#224; absorb&#233;e par le choix du pire cas, et <strong>29</strong> sur la d&#233;termination de a, o&#249; elle entre pleinement. Le 23 de la 1.2 comptait k deux fois ; sa note de version se reprochait &#224; tort d'avoir &#233;t&#233; flatteuse, et les rapports cit&#233;s dans les notes 1.2 et 1.3 sont remplac&#233;s par ceux-ci. Le tableau des altitudes et celui de l'&#233;chelle angulaire sont recalcul&#233;s en cons&#233;quence. <em>Ce qui manquait &#224; qui voudrait faire l'exp&#233;rience</em> : la <strong>fen&#234;tre d'observation</strong>, contrainte la plus lourde de la m&#233;thode A et jamais mentionn&#233;e &#8212; de nuit noire l'horizon marin n'est plus visible, et la r&#233;ponse est celle du point stellaire au sextant, le cr&#233;puscule nautique, ou V&#233;nus avant le coucher du Soleil ; le <strong>crit&#232;re de point&#233;</strong> de la ligne d'horizon, saut d'intensit&#233; o&#249; trois pixels valent 0,62&#8242; ; et le <strong>mat&#233;riel</strong>, encore organis&#233; autour de l'inclinom&#232;tre et muet sur le plateau, le liquide et les &#233;ph&#233;m&#233;rides. S'y ajoute un contr&#244;le gratuit non exploit&#233; : l'&#233;cart astre-reflet vaut deux fois la hauteur apparente, que l'&#233;ph&#233;m&#233;ride donne. <em>Corrections</em> : l'&#233;tape &#171; &#233;talon d'angle &#187; de la solution de repli recommandait encore la focale grav&#233;e, que la section 09 venait de disqualifier ; &#171; aucun &#233;talonnage &#187; devient &#171; aucun &#233;talonnage de biais &#187;, l'&#233;chelle angulaire en &#233;tant un ; les figures 2 et 3 &#233;taient dans le d&#233;sordre ; et les 1 873 km du mod&#232;le plan ne disaient pas depuis quelle altitude ils sont calcul&#233;s. <strong>Version arr&#234;t&#233;e pour d&#233;p&#244;t.</strong> <strong>1.5</strong> : le document contenait tous les &#233;l&#233;ments pour ex&#233;cuter l'exp&#233;rience, mais dispers&#233;s entre six sections et <strong>sans leur ordre</strong>. Or l'ordre n'est pas indiff&#233;rent : l'horodatage doit pr&#233;c&#233;der la premi&#232;re image, la v&#233;rification cartographique doit pr&#233;c&#233;der la station, la bague doit &#234;tre immobilis&#233;e avant la pose de mesure sous peine d'annuler le report d'&#233;chelle, et &#916;T, mar&#233;e et &#233;tat de la mer se rel&#232;vent sur place ou jamais. Une <strong>section 05</strong> donne la marche &#224; suivre en cinq phases, signale les cinq &#233;tapes irr&#233;versibles, &#233;num&#232;re le n&#233;cessaire r&#233;el &#8212; mat&#233;riel d'occasion et logiciels libres &#8212; et distingue ce qui d&#233;truit la mesure sans laisser de trace de ce qui la d&#233;grade visiblement. Une consigne de s&#233;curit&#233; y entre aussi : le protocole envoie des gens sur des falaises, de nuit, et n'en disait rien. Les sections suivantes glissent d'un rang. <strong>1.6</strong> : un <strong>emplacement r&#233;serv&#233; pour le DOI</strong> est ouvert en premi&#232;re page et en section 13. Zenodo et OSF attribuent le DOI avant publication &#8212; <em>Reserve DOI</em> &#8212; il peut donc figurer dans le document lui-m&#234;me plut&#244;t qu'&#224; c&#244;t&#233;, et la marche &#224; suivre de la section 13 est r&#233;&#233;crite dans cet ordre. L'empreinte, elle, ne peut pas y figurer : elle se calcule sur le fichier fini, et l'y inscrire la fausserait. Le document le dit, ainsi que ceci : tant que la ligne du DOI porte la mention &#171; en attente &#187;, le pr&#233;enregistrement n'est pas opposable. L'inscription du DOI ne change pas le num&#233;ro de version, si bien que la 1.6 n'existe publiquement que sous sa forme portant le DOI. <strong>1.7</strong> : la section 04 est r&#233;&#233;crite, sur une objection fond&#233;e. Elle citait six travaux ant&#233;rieurs <em>sur parole</em> &#8212; sans leurs donn&#233;es, sans v&#233;rifier qu'ils satisfont les crit&#232;res que ce protocole s'impose &#8212; alors que toute sa m&#233;thode consiste &#224; ne pas croire une table sur parole. Deux standards, un pour les autres et un pour soi. Le tableau 3 les <strong>gradue</strong> d&#233;sormais : pr&#233;enregistr&#233;, budget d'erreur, donn&#233;es brutes <em>vues par nous</em>. Aucun ne satisfait les quatre crit&#232;res, et la mesure en avion de ligne est reclass&#233;e &#171; indicatif seulement &#187; par nos propres r&#232;gles. Ce qui se v&#233;rifie sans faire confiance &#224; personne est s&#233;par&#233; du reste : le coefficient du Bowditch, qui se recalcule depuis notre tableau 1, et la cons&#233;quence g&#233;om&#233;trique du point &#224; trois astres. La pr&#233;tention du document est reformul&#233;e en cons&#233;quence &#8212; non pas &#171; personne n'a mesur&#233; cela &#187;, mais &#171; personne ne l'a mesur&#233; &#224; ce niveau d'exigence &#187;. S'y ajoutent deux pr&#233;cisions : le sextant date de 1731 et la correction de d&#233;pression est ant&#233;rieure au Bowditch de 1802 ; et une phrase dit que le protocole n'avance aucune hypoth&#232;se sur la <em>cause</em> de la perpendicularit&#233; entre la nappe et le fil &#224; plomb, dont il n'utilise que le fait, v&#233;rifiable &#224; l'&#233;querre.</p>
 </footer>
 
 </div>

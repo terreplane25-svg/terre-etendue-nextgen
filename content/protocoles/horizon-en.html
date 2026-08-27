@@ -173,7 +173,7 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
     <span>Author<b>&nbsp;</b></span>
     <span>Affiliation<b>&nbsp;</b></span>
     <span>Contact<b>&nbsp;</b></span>
-    <span>Version<b>1.6 &mdash; frozen for deposit</b></span>
+    <span>Version<b>1.7 &mdash; frozen for deposit</b></span>
     <span>DOI<b>DOI-PENDING</b></span>
     <span>Date<b>&nbsp;</b></span>
   </div>
@@ -387,44 +387,83 @@ contains a free parameter beyond k, which is itself bounded.</p>
 </table>
 
 <h2 class="brk"><span class="n">04</span>What this protocol does not invent</h2>
-<p class="lead">Added in version 1.2, after outside review. A document that announces its own
-precedents is stronger than one that leaves the reader to find them.</p>
+<p class="lead">Added in version 1.2, rewritten in 1.7. A document that announces its own
+precedents is stronger than one that leaves the reader to find them &mdash; provided it applies
+to them the standard it imposes on itself.</p>
 
 <p>The relation &delta; = &radic;(2h/R&prime;) is not this document's construction: it is the
-<strong>dip correction used in celestial navigation since the nineteenth century</strong>,
-tabulated in Bowditch and in every nautical almanac. Every sextant sight applies it.</p>
+<strong>dip correction used in celestial navigation</strong>, tabulated in Bowditch and in every
+nautical almanac. Every sextant sight applies it.</p>
+<p><em>Precision added in 1.7:</em> earlier versions wrote &ldquo;since the nineteenth
+century&rdquo;. That referred to the Bowditch tabulation, whose first edition dates from 1802.
+The correction itself is older &mdash; it appears in navigation authors from the seventeenth
+century &mdash; and the sextant dates from 1731. The formula is therefore more than two
+centuries old, and the earlier phrasing could be read as saying it is exactly two.</p>
+
+<h3>The double standard, and its correction</h3>
+<div class="box warn">
+  <span class="lab">What version 1.2 did without noticing</span>
+  <p>This protocol asks, throughout, that one <strong>not take a table on trust</strong>:
+  measure for yourself, publish the raw files, fix the criteria before acquisition, measure
+  uncertainties instead of postulating them.</p>
+  <p>And version 1.2 then cited six earlier works <strong>on trust</strong> &mdash; without their
+  data, without checking that they meet those same criteria, and lining them up as though
+  settled. Two standards: one for others, one for oneself. The objection was put to us, it is
+  sound, and the table below corrects it.</p>
+</div>
+
+<table>
+  <caption>Table 3 &mdash; Earlier work, graded by this protocol's own criteria. The raw-data
+  column says what <em>we</em> have seen, not what is announced as available.</caption>
+  <thead><tr><th>work</th><th class="n">pre-registered</th><th class="n">error budget</th><th class="n">raw seen by us</th><th>what can be made of it</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td><b>Dip tables</b> &mdash; Bowditch, almanacs</td><td class="n">no</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td><strong>verifiable without trusting anyone</strong>: Bowditch tabulates 0.97&radic;(foot), that is 1.757&radic;(metre), that is k = 0.168 &mdash; against our table 1, which gives 1.7548 for k = 0.17. The same formula at the same coefficient</td></tr>
+    <tr><td><b>Wallace, 1870</b> &mdash; Bedford Level</td><td class="n">no</td><td class="n">no</td><td class="n">no</td><td>an argument of method, not a datum: raising the sightline to reduce refraction is already our section 02</td></tr>
+    <tr><td><b>Rainy Lake, ~2018</b> &mdash; Hnatiuk, Kozlowski, Bislin</td><td class="n">no</td><td class="n">partial</td><td class="n"><strong>no</strong></td><td>data announced as published; we have not examined them. To be treated as <strong>testimony to be checked</strong>, not as a settled result</td></tr>
+    <tr class="pl"><td><b>Bislin</b> &mdash; dip from an airliner</td><td class="n">no</td><td class="n">no</td><td class="n">no</td><td><strong>a single measurement</strong>, phone theodolite, angular scale undocumented. By our own criteria &mdash; section 10, item 7 &mdash; that is <em>indicative only</em></td></tr>
+    <tr><td><b>Bislin</b> &mdash; altitude-dependent refraction</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td>a computational model, not a measurement. Useful as a tool; proves nothing by itself</td></tr>
+    <tr><td><b>Hirt et al., 2010</b> &mdash; reciprocal vertical angles</td><td class="n">no</td><td class="n">yes</td><td class="n">no</td><td>peer-reviewed paper, the soundest of the set; <strong>not read by us</strong></td></tr>
+    <tr><td><b>Trigonometric levelling</b></td><td class="n">no</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td>institutional practice, never presented as an experiment. Its weight comes from network closure, not from a protocol</td></tr>
+  </tbody>
+</table>
+
+<p><strong>None of these works meets the four criteria this protocol imposes on itself.</strong>
+That is no reproach: most never claimed to be pre-registered experiments, and trigonometric
+levelling never claimed to be an experiment at all. But it forbids invoking them as settled
+proof, which is why this table grades them instead of lining them up.</p>
+
+<div class="box key">
+  <span class="lab">Two things that require trusting no one</span>
+  <p><strong>The Bowditch coefficient.</strong> Open an almanac, read 0.97 per root foot,
+  convert, compare with our table 1. It is an <em>internal</em> check: no one else's data
+  enter.</p>
+  <p><strong>The consequence for a three-body fix.</strong> An altitude error common to all
+  three sights displaces each line by the same amount and opens the cocked hat &mdash; for an
+  error e, the side is 2e&radic;3. Ignoring dip from a 15 m bridge, where it is 7.0&prime;, would
+  therefore open a triangle some twenty nautical miles across, where practice closes one or two.
+  That is a geometric consequence of the intercept method, which anyone can recompute.</p>
+  <p>These two are of a different kind from &ldquo;such a team found this&rdquo;, and the
+  document no longer mixes them.</p>
+</div>
 
 <div class="box key">
   <span class="lab">What that changes, and what it does not</span>
-  <p>The measurement has therefore already been made, with a sample size we shall never match:
-  every navigator, at every sight, for two centuries. <strong>This protocol does not pose an open
-  question.</strong></p>
-  <p>What it brings is something else, and worth doing: a <strong>first-hand</strong>
-  verification, by an observer who declines to take a table on trust, with criteria fixed before
-  acquisition and both outcomes stated. It is the zetetic stance applied to oneself rather than
-  to others.</p>
+  <p>The formula is old and massively used. <strong>This protocol does not pose an open
+  question</strong>, and does not claim to.</p>
+  <p>What it brings is something else: not &ldquo;nobody has measured this&rdquo;, but
+  <strong>nobody has measured it to this standard</strong> &mdash; timestamped pre-registration,
+  criteria fixed in advance, uncertainties measured rather than postulated, raw files published
+  whatever the outcome. The table above shows that place to be vacant. That is this document's
+  only claim, and it stands independently of what others found.</p>
 </div>
 
-<h3>The precedents worth knowing</h3>
-<table>
-  <caption>Table 3 &mdash; Earlier work on the same quantity or the same geometry. All published
-  their data.</caption>
-  <thead><tr><th>work</th><th>what it contributes</th></tr></thead>
-  <tbody>
-    <tr><td><b>Dip tables</b> &mdash; Bowditch, nautical almanacs</td><td>the same formula, verified operationally at sea since the nineteenth century</td></tr>
-    <tr><td><b>Wallace, 1870</b> &mdash; Bedford Level</td><td>raises the sightline to 4 m instead of 20 cm precisely to reduce refraction: already the argument of our section 02</td></tr>
-    <tr class="hi"><td><b>Rainy Lake, ~2018</b> &mdash; Hnatiuk, Kozlowski, Bislin</td><td>modern replication over 10 km, centimetric differential GPS, refraction explicitly modelled. <strong>Observations agree with the spherical model including refraction.</strong> Raw data published</td></tr>
-    <tr><td><b>Bislin</b> &mdash; dip measured from an airliner</td><td>3.252&deg; with a phone theodolite. Our formula places that value at 10 276 m with no refraction, 11 811 m at k = 0.13: consistent with cruising altitude. The plane model predicts 0.000&deg;</td></tr>
-    <tr><td><b>Bislin</b> &mdash; altitude-dependent refraction model</td><td>fills exactly the gap corrected in section 09: k higher near the ground, lower aloft</td></tr>
-    <tr><td><b>Hirt et al., 2010</b> &mdash; reciprocal vertical angles</td><td>the professional geodetic version of our calibration by reversal</td></tr>
-    <tr><td><b>Trigonometric levelling</b> &mdash; world geodetic networks</td><td>the curvature-and-refraction correction applied as routine for over a century, validated by continental network closure. The largest sample possible, though never presented as an experiment</td></tr>
-  </tbody>
-</table>
-<p>Two of these precedents deserve mention for what they cost our side. <strong>Wallace 1870</strong>
-is precisely the argument of our section 02 &mdash; granting refraction to the plane model does
-not help it &mdash; formulated a hundred and fifty years before us. And <strong>Rainy Lake</strong>
-is the experiment whose methodology our own site praises: its result agrees with the spherical
-model.</p>
+<p>Two of these precedents finally deserve mention for what they cost our side, and it would be
+dishonest to pass over them. <strong>Wallace 1870</strong> is precisely the argument of our
+section 02 &mdash; granting refraction to the plane model does not help it &mdash; formulated a
+hundred and fifty years before us. And <strong>Rainy Lake</strong> is the experiment whose
+methodology our own site praises, and whose announced result agrees with the spherical model. We
+have not examined its data; we therefore do not invoke it as proof, and neither do we conceal
+it.</p>
 
 <h2 class="brk"><span class="n">05</span>Order of operations</h2>
 <p class="lead">Added in version 1.5. Every necessary element was already present in the sections
@@ -669,6 +708,14 @@ procedure. It <strong>requires neither a levelling instrument nor a bias
 calibration</strong>: the horizontal reference makes itself. One quantity remains to be
 established, the <strong>angular scale</strong>, and section 09 says how &mdash; the
 &ldquo;no calibration&rdquo; of earlier versions was one shortcut too many.</p>
+<div class="box key">
+  <span class="lab">What the protocol assumes here, and what it does not</span>
+  <p>The protocol <strong>advances no hypothesis about the cause</strong> of the perpendicularity
+  between a surface at rest and the plumb line. It uses only the <em>fact</em>, checkable with a
+  set square by anyone, that it holds. The plumb line is an <strong>instrument</strong> here, not
+  a theory: it is the material reference to which &delta; is referred, and the reasoning that
+  follows is purely geometric.</p>
+</div>
 <p>A still water surface sets itself perpendicular to the plumb line. A star and its reflection
 are therefore symmetric about the true horizontal, and their midpoint materialises it. If the
 sea horizon line appears in the same frame, &#948; is read directly.</p>
@@ -1279,7 +1326,7 @@ uncertainty, but to be logged rather than discovered afterwards.</p>
 each of the two outcomes. That is the condition of its evidential value.</p>
 <div class="box warn">
   <span class="lab">What is still missing, and must be done before collecting</span>
-  <p>A version number proves nothing. &ldquo;Version 1.6&rdquo; is not opposable to a
+  <p>A version number proves nothing. &ldquo;Version 1.7&rdquo; is not opposable to a
   sceptical reader: nothing materially prevents rewriting a document after seeing the data.</p>
   <div class="eq">
     DOI of this deposit: DOI-PENDING
@@ -1347,7 +1394,7 @@ before the campaign begins, and will be incorporated into a credited version 2.<
   <p>All numerical values in this document derive from <code>&delta; = &radic;(2h/R&prime;)</code>
   with <code>R&prime; = R/(1&minus;k)</code> and R = 6 371 km. Mean lunar diameter 31&prime;
   (29.4&prime; at perigee, 33.5&prime; at apogee). The document is reproducible in its entirety
-  from these relations. &mdash; Open protocol, version 1.6. <strong>Changes. 1.1:</strong> the artificial-horizon method becomes the reference procedure, levelling moving to a fallback; the elevation datum is now specified &#8212; 1.0 wrote &#8220;ground elevation&#8221; without it, which skews &#948; by 178 per cent at 10 m for a 30 m error; tide and sea state, previously absent, become mandatory fields; method B is restricted to cases where the mounting is not disturbed between stations; signal-to-noise by altitude is tabulated; refraction granted to the plane model is treated in section 02; the exact form of &#948; replaces the first-order expansion. <strong>1.2</strong>, after outside review: the error budget omitted the MODEL uncertainty from k varying with altitude, worth &#177;2.6&#8242; at 3 107 m &mdash; more than the whole instrumental budget; signal-to-noise falls from 36 to 23. Grazing-sightline turbulence is now measured on a burst rather than postulated. The artificial horizon's symmetry is cross-tested against the fallback method. The statistical fitting method is specified. A section 04 situates the protocol among its precedents &mdash; the formula is that of the navigational dip tables, and the measurement has already been made millions of times. And the absence of a verifiable timestamp is flagged as the gap remaining before any collection. <strong>1.3</strong>, second outside review: the <strong>angular scale</strong> was an unquantified term &mdash; the engraved focal length is nominal to 2&ndash;5 per cent, worth 2 to 5&prime; on a 100&prime; dip and enough to drop signal-to-noise from 23 to 17; field astrometry brings it to 0.05&prime; and supplies the distortion profile besides. The <strong>boundary layer over water</strong> enters the protocol: the air-to-sea difference governs the gradient of the first few metres, hence k at low stations, and &Delta;T becomes a mandatory field. The reflecting surface moves to a <strong>viscous liquid</strong>, its residual unrest is measured on the burst rather than assumed, and a glass cover is cancelled by a 180&deg; rotation. Finally the <strong>exponent p is left free</strong>: six stations determine it to &plusmn;0.022, which establishes the square-root law instead of assuming it. The timestamping procedure is spelt out &mdash; freeze, SHA-256, OSF or Zenodo deposit, DOI, and only then collect. <strong>1.4</strong>, full re-reading before the version is frozen. <em>Signal-to-noise</em>: three different figures circulated on one page &mdash; 36 in the abstract, 23 in section 09, 45 in the altitude table. They answer two distinct questions, now separated: <strong>36</strong> against the plane hypothesis, where ignorance of k is already absorbed by taking the worst case, and <strong>29</strong> on the determination of a, where it enters in full. The 23 of 1.2 counted k twice; its change note wrongly reproached itself for being flattering, and the ratios cited in the 1.2 and 1.3 notes are superseded by these. The altitude table and the angular scale table are recomputed accordingly. <em>What was missing for anyone wanting to do the experiment</em>: the <strong>observing window</strong>, method A's heaviest constraint and never mentioned &mdash; in full darkness the sea horizon is not visible, and the answer is the sextant star sight's, nautical twilight, or Venus before sunset; the <strong>pointing criterion</strong> for the horizon line, an intensity step where three pixels are worth 0.62&prime;; and the <strong>equipment</strong> list, still organised around the inclinometer and silent on tray, liquid and ephemerides. To which is added a free check that went unused: the target-to-reflection separation is twice the apparent altitude, which the ephemeris supplies. <em>Corrections</em>: the fallback's &ldquo;angular standard&rdquo; step still recommended the engraved focal length that section 09 had just disqualified; &ldquo;no calibration&rdquo; becomes &ldquo;no bias calibration&rdquo;, the angular scale being one; figures 2 and 3 were out of order; and the plane model's 1 873 km did not say from what altitude it is computed. <strong>Version frozen for deposit.</strong> <strong>1.5</strong>: the document held every element needed to carry out the experiment, but scattered across six sections and <strong>without their order</strong>. And the order is not indifferent: the timestamp must precede the first frame, the chart check must precede the station, the focus ring must be taped before the measurement frame or the scale no longer carries across, and &Delta;T, tide and sea state are recorded on site or never. A <strong>section 05</strong> gives the order of operations in five phases, flags the five irreversible steps, lists what is really needed &mdash; second-hand gear and free software &mdash; and separates what destroys the measurement without leaving a trace from what merely degrades it. A safety note enters too: the protocol sends people onto cliffs at night and said nothing about it. The following sections shift by one. <strong>1.6</strong>: a <strong>reserved slot for the DOI</strong> is opened on the front page and in section 13. Zenodo and OSF assign the DOI before publication &mdash; <em>Reserve DOI</em> &mdash; so it can sit in the document itself rather than beside it, and the procedure in section 13 is rewritten in that order. The hash cannot sit there: it is computed on the finished file, and writing it in would falsify it. The document says so, and says this too: while the DOI line reads &ldquo;pending&rdquo;, the pre-registration is not binding. Writing in the DOI does not change the version number, so 1.6 exists publicly only in its DOI-bearing form.</p>
+  from these relations. &mdash; Open protocol, version 1.7. <strong>Changes. 1.1:</strong> the artificial-horizon method becomes the reference procedure, levelling moving to a fallback; the elevation datum is now specified &#8212; 1.0 wrote &#8220;ground elevation&#8221; without it, which skews &#948; by 178 per cent at 10 m for a 30 m error; tide and sea state, previously absent, become mandatory fields; method B is restricted to cases where the mounting is not disturbed between stations; signal-to-noise by altitude is tabulated; refraction granted to the plane model is treated in section 02; the exact form of &#948; replaces the first-order expansion. <strong>1.2</strong>, after outside review: the error budget omitted the MODEL uncertainty from k varying with altitude, worth &#177;2.6&#8242; at 3 107 m &mdash; more than the whole instrumental budget; signal-to-noise falls from 36 to 23. Grazing-sightline turbulence is now measured on a burst rather than postulated. The artificial horizon's symmetry is cross-tested against the fallback method. The statistical fitting method is specified. A section 04 situates the protocol among its precedents &mdash; the formula is that of the navigational dip tables, and the measurement has already been made millions of times. And the absence of a verifiable timestamp is flagged as the gap remaining before any collection. <strong>1.3</strong>, second outside review: the <strong>angular scale</strong> was an unquantified term &mdash; the engraved focal length is nominal to 2&ndash;5 per cent, worth 2 to 5&prime; on a 100&prime; dip and enough to drop signal-to-noise from 23 to 17; field astrometry brings it to 0.05&prime; and supplies the distortion profile besides. The <strong>boundary layer over water</strong> enters the protocol: the air-to-sea difference governs the gradient of the first few metres, hence k at low stations, and &Delta;T becomes a mandatory field. The reflecting surface moves to a <strong>viscous liquid</strong>, its residual unrest is measured on the burst rather than assumed, and a glass cover is cancelled by a 180&deg; rotation. Finally the <strong>exponent p is left free</strong>: six stations determine it to &plusmn;0.022, which establishes the square-root law instead of assuming it. The timestamping procedure is spelt out &mdash; freeze, SHA-256, OSF or Zenodo deposit, DOI, and only then collect. <strong>1.4</strong>, full re-reading before the version is frozen. <em>Signal-to-noise</em>: three different figures circulated on one page &mdash; 36 in the abstract, 23 in section 09, 45 in the altitude table. They answer two distinct questions, now separated: <strong>36</strong> against the plane hypothesis, where ignorance of k is already absorbed by taking the worst case, and <strong>29</strong> on the determination of a, where it enters in full. The 23 of 1.2 counted k twice; its change note wrongly reproached itself for being flattering, and the ratios cited in the 1.2 and 1.3 notes are superseded by these. The altitude table and the angular scale table are recomputed accordingly. <em>What was missing for anyone wanting to do the experiment</em>: the <strong>observing window</strong>, method A's heaviest constraint and never mentioned &mdash; in full darkness the sea horizon is not visible, and the answer is the sextant star sight's, nautical twilight, or Venus before sunset; the <strong>pointing criterion</strong> for the horizon line, an intensity step where three pixels are worth 0.62&prime;; and the <strong>equipment</strong> list, still organised around the inclinometer and silent on tray, liquid and ephemerides. To which is added a free check that went unused: the target-to-reflection separation is twice the apparent altitude, which the ephemeris supplies. <em>Corrections</em>: the fallback's &ldquo;angular standard&rdquo; step still recommended the engraved focal length that section 09 had just disqualified; &ldquo;no calibration&rdquo; becomes &ldquo;no bias calibration&rdquo;, the angular scale being one; figures 2 and 3 were out of order; and the plane model's 1 873 km did not say from what altitude it is computed. <strong>Version frozen for deposit.</strong> <strong>1.5</strong>: the document held every element needed to carry out the experiment, but scattered across six sections and <strong>without their order</strong>. And the order is not indifferent: the timestamp must precede the first frame, the chart check must precede the station, the focus ring must be taped before the measurement frame or the scale no longer carries across, and &Delta;T, tide and sea state are recorded on site or never. A <strong>section 05</strong> gives the order of operations in five phases, flags the five irreversible steps, lists what is really needed &mdash; second-hand gear and free software &mdash; and separates what destroys the measurement without leaving a trace from what merely degrades it. A safety note enters too: the protocol sends people onto cliffs at night and said nothing about it. The following sections shift by one. <strong>1.6</strong>: a <strong>reserved slot for the DOI</strong> is opened on the front page and in section 13. Zenodo and OSF assign the DOI before publication &mdash; <em>Reserve DOI</em> &mdash; so it can sit in the document itself rather than beside it, and the procedure in section 13 is rewritten in that order. The hash cannot sit there: it is computed on the finished file, and writing it in would falsify it. The document says so, and says this too: while the DOI line reads &ldquo;pending&rdquo;, the pre-registration is not binding. Writing in the DOI does not change the version number, so 1.6 exists publicly only in its DOI-bearing form. <strong>1.7</strong>: section 04 is rewritten, on a sound objection. It cited six earlier works <em>on trust</em> &mdash; without their data, without checking that they meet the criteria this protocol imposes on itself &mdash; while its whole method consists in not taking a table on trust. Two standards, one for others and one for oneself. Table 3 now <strong>grades</strong> them: pre-registered, error budget, raw data <em>seen by us</em>. None meets the four criteria, and the airliner measurement is reclassified &ldquo;indicative only&rdquo; by our own rules. What can be verified without trusting anyone is separated from the rest: the Bowditch coefficient, which recomputes from our table 1, and the geometric consequence for a three-body fix. The document's claim is reformulated accordingly &mdash; not &ldquo;nobody has measured this&rdquo; but &ldquo;nobody has measured it to this standard&rdquo;. Two precisions are added: the sextant dates from 1731 and the dip correction predates Bowditch's 1802 edition; and a sentence states that the protocol advances no hypothesis about the <em>cause</em> of the perpendicularity between the surface and the plumb line, using only the fact, checkable with a set square.</p>
 </footer>
 
 </div>

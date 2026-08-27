@@ -46,12 +46,12 @@ DOCUMENTS = {
     "horizon-fr": (
         "horizon-fr.html",
         "Protocole-depression-horizon.pdf",
-        "Mesure de la dépression de l'horizon marin — protocole ouvert v1.6",
+        "Mesure de la dépression de l'horizon marin — protocole ouvert v1.7",
     ),
     "horizon-en": (
         "horizon-en.html",
         "Horizon-Dip-Protocol.pdf",
-        "Measuring the dip of the sea horizon — open protocol v1.6",
+        "Measuring the dip of the sea horizon — open protocol v1.7",
     ),
     "soleil": (
         "soleil-bilingue.html",
