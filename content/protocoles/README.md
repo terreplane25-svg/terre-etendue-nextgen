@@ -8,8 +8,8 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 
 | Fichier | Contenu |
 |---|---|
-| `horizon-fr.html` | Dépression de l'horizon marin — français, 26 pages, **v1.7** |
-| `horizon-en.html` | Même document en anglais, 24 pages, **v1.7** |
+| `horizon-fr.html` | Dépression de l'horizon marin — français, 25 pages, **v1.8** |
+| `horizon-en.html` | Même document en anglais, 24 pages, **v1.8** |
 | `depot/` | Le dépôt : marche à suivre, métadonnées, et les fichiers figés une fois le DOI inscrit |
 | `soleil-bilingue.html` | Diamètre angulaire du Soleil — bilingue, 23 pages, v1.3 |
 | `pole-celeste-bilingue.html` | Hauteur du pôle céleste — bilingue, 22 pages, v1.2 |
@@ -303,6 +303,30 @@ les trouverait de toute façon.
   protocole **n'avance aucune hypothèse sur la cause** de la perpendicularité
   entre la nappe et le fil à plomb : il n'utilise que le fait, vérifiable à
   l'équerre, qu'elle a lieu. Le fil à plomb est un instrument, pas une théorie.
+
+- **Horizon 1.8** — retrait de l'archéologie des versions. Le document
+  expliquait, à une vingtaine d'endroits, ce que telle version antérieure disait
+  de faux et comment telle autre l'avait corrigé. C'est utile à qui suit la
+  rédaction, et sans valeur pour qui ouvre le document pour l'exécuter — le seul
+  lecteur qu'il aura. Aucune version antérieure n'ayant été déposée ni diffusée,
+  il n'y a rien à réconcilier pour personne, et l'audit reste possible par
+  l'historique des sources.
+
+  **Le contenu des corrections reste** — le double standard de la section 04, les
+  deux rapports signal sur bruit, le référentiel d'altitude, l'échelle angulaire,
+  la couche limite. Ils sont désormais énoncés comme des faits de méthode et non
+  comme des repentirs : « Pourquoi un k unique ne suffit pas » plutôt que
+  « Correction apportée à la version 1.1 ».
+
+  **Ce qui est conservé** : le numéro de version en première page, qui identifie
+  le fichier déposé ; l'encadré de la section 13 disant qu'un numéro de version
+  ne prouve rien, qui relève du préenregistrement et non de l'histoire ; et une
+  phrase — une seule — indiquant que le document a été révisé avant dépôt et que
+  l'historique complet est fourni sur demande.
+
+  Le numéro passe à 1.8 parce que le contenu change : la section 13 pose
+  elle-même la règle que deux fichiers distincts ne peuvent pas porter le même
+  numéro de version.
 
 ## Ce que ces protocoles ne font pas
 
