@@ -46,27 +46,27 @@ DOCUMENTS = {
     "horizon-fr": (
         "horizon-fr.html",
         "Protocole-depression-horizon.pdf",
-        "Mesure de la dépression de l'horizon marin — protocole ouvert v1.8",
+        "Mesure de la dépression de l'horizon marin — protocole ouvert v1.9",
     ),
     "horizon-en": (
         "horizon-en.html",
         "Horizon-Dip-Protocol.pdf",
-        "Measuring the dip of the sea horizon — open protocol v1.8",
+        "Measuring the dip of the sea horizon — open protocol v1.9",
     ),
     "soleil": (
         "soleil-bilingue.html",
         "Protocole-diametre-solaire.pdf",
-        "Diamètre angulaire du Soleil — Angular diameter of the Sun — v1.3",
+        "Diamètre angulaire du Soleil — Angular diameter of the Sun — v1.4",
     ),
     "ballon": (
         "ballon-bilingue.html",
         "Protocole-ballon-stratospherique.pdf",
-        "Dépression de l'horizon depuis un ballon — Horizon dip from a balloon — v1.0",
+        "Dépression de l'horizon depuis un ballon — Horizon dip from a balloon — v1.1",
     ),
     "pole": (
         "pole-celeste-bilingue.html",
         "Protocole-pole-celeste.pdf",
-        "Hauteur du pôle céleste — Altitude of the celestial pole — v1.2",
+        "Hauteur du pôle céleste — Altitude of the celestial pole — v1.3",
     ),
 }
 

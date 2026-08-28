@@ -174,7 +174,7 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
     <span>Rédacteur<b>&nbsp;</b></span>
     <span>Affiliation<b>&nbsp;</b></span>
     <span>Contact<b>&nbsp;</b></span>
-    <span>Version<b>1.8 — arrêtée pour dépôt</b></span>
+    <span>Version<b>1.9 — arrêtée pour dépôt</b></span>
     <span>DOI<b>DOI-EN-ATTENTE</b></span>
     <span>Date<b>&nbsp;</b></span>
   </div>
@@ -194,12 +194,12 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
   coefficient de réfraction (0 ≤ k ≤ 0,47), la prédiction sphérique ne varie que de 107′ à
   78′ à 3 107 m d'altitude. <strong>L'écart entre les deux modèles est donc au minimum de
   78 minutes d'arc, pour un budget d'erreur instrumental estimé à 2,2′ (1 σ) — un rapport
-  signal sur bruit de l'ordre de 36 contre l'hypoth&#232;se plane, et de 29 sur la d&#233;termination du coefficient a, o&#249; l'incertitude de r&#233;fraction entre pleinement.</strong> Les deux rapports sont distingu&#233;s en section 09.</p>
+  signal sur bruit de l'ordre de 36 contre l'hypoth&#232;se plane, et de 29 sur la d&#233;termination du coefficient a, o&#249; l'incertitude de r&#233;fraction entre pleinement.</strong> Les deux rapports sont distingu&#233;s en section 08.</p>
   <p>Nous proposons une campagne distribuée : mesurer δ depuis un ensemble d'altitudes
   échelonnées de quelques mètres à quelques kilomètres, et éprouver non pas un point isolé
   mais la <strong>loi</strong> <code>δ(′) = a·√h(m)</code>. Le modèle sphérique impose
   1,40 ≤ a ≤ 1,93 selon la réfraction ; le modèle plan impose a = 0. Les critères de décision
-  sont fixés en section 09, avant toute acquisition.</p>
+  sont fixés en section 08, avant toute acquisition.</p>
 </div>
 
 <h2><span class="n">01</span>Objet</h2>
@@ -406,93 +406,7 @@ données. Aucune ne comporte de paramètre libre au-delà de k, lui-même borné
   </tbody>
 </table>
 
-<h2 class="brk"><span class="n">04</span>Ce que ce protocole n'invente pas</h2>
-<p class="lead">Un document qui annonce
-lui-m&#234;me ses pr&#233;c&#233;dents est plus solide que celui qui laisse le lecteur les
-d&#233;couvrir &#8212; &#224; condition de leur appliquer le standard qu'il s'impose &#224;
-lui-m&#234;me.</p>
-
-<p>La relation &#948; = &#8730;(2h/R&#8242;) n'est pas une construction de ce document : c'est
-la <strong>correction de d&#233;pression employ&#233;e en navigation astronomique</strong>,
-tabul&#233;e dans le Bowditch et dans tous les almanachs nautiques. Chaque point astronomique
-pris au sextant l'applique.</p>
-<p>La correction est plus ancienne que sa tabulation dans le Bowditch, dont la
-premi&#232;re &#233;dition date de 1802 : on la trouve chez les auteurs de navigation d&#232;s le
-XVII<sup>e</sup> si&#232;cle, et le sextant lui-m&#234;me date de 1731.</p>
-
-<h3>Le double standard qu'il faut &#233;viter</h3>
-<div class="box warn">
-  <span class="lab">Pourquoi ce tableau gradue au lieu d'aligner</span>
-  <p>Ce protocole demande, de bout en bout, de <strong>ne pas croire une table sur
-  parole</strong> : mesurer soi-m&#234;me, publier les fichiers bruts, fixer les crit&#232;res
-  avant l'acquisition, mesurer les incertitudes au lieu de les postuler.</p>
-  <p>Il serait donc incoh&#233;rent d'invoquer ensuite des travaux ant&#233;rieurs
-  <strong>sur parole</strong> &#8212; sans leurs donn&#233;es, sans v&#233;rifier qu'ils
-  satisfont ces m&#234;mes crit&#232;res, et en les alignant comme s'ils &#233;taient acquis. Ce
-  serait deux standards : un pour les autres, un pour soi. Le tableau ci-dessous applique donc
-  aux pr&#233;c&#233;dents le standard que ce document s'impose.</p>
-</div>
-
-<table>
-  <caption>Tableau 3 &#8212; Travaux ant&#233;rieurs, gradu&#233;s par les crit&#232;res de ce
-  protocole. La colonne des donn&#233;es brutes dit ce que <em>nous</em> avons vu, non ce qui est
-  annonc&#233; disponible.</caption>
-  <thead><tr><th>travail</th><th class="n">pr&#233;enregistr&#233;</th><th class="n">budget d'erreur</th><th class="n">brut vu par nous</th><th>ce qu'on peut en faire</th></tr></thead>
-  <tbody>
-    <tr class="hi"><td><b>Tables de d&#233;pression</b> &#8212; Bowditch, almanachs</td><td class="n">non</td><td class="n">&#8212;</td><td class="n">&#8212;</td><td><strong>v&#233;rifiable sans faire confiance &#224; personne</strong> : le Bowditch tabule 0,97&#8730;(pied), soit 1,757&#8730;(m&#232;tre), soit k = 0,168 &#8212; &#224; comparer &#224; notre tableau 1, qui donne 1,7548 pour k = 0,17. Il s'agit de la m&#234;me formule au m&#234;me coefficient</td></tr>
-    <tr><td><b>Wallace, 1870</b> &#8212; canal de Bedford</td><td class="n">non</td><td class="n">non</td><td class="n">non</td><td>argument de m&#233;thode, non donn&#233;e : &#233;lever la vis&#233;e pour r&#233;duire la r&#233;fraction, c'est d&#233;j&#224; notre section 02</td></tr>
-    <tr><td><b>Rainy Lake, ~2018</b> &#8212; Hnatiuk, Kozlowski, Bislin</td><td class="n">non</td><td class="n">partiel</td><td class="n"><strong>non</strong></td><td>donn&#233;es annonc&#233;es publi&#233;es ; nous ne les avons pas examin&#233;es. &#192; traiter comme un <strong>t&#233;moignage &#224; v&#233;rifier</strong>, non comme un r&#233;sultat acquis</td></tr>
-    <tr class="pl"><td><b>Bislin</b> &#8212; d&#233;pression en avion de ligne</td><td class="n">non</td><td class="n">non</td><td class="n">non</td><td><strong>mesure unique</strong>, th&#233;odolite de t&#233;l&#233;phone, &#233;chelle angulaire non document&#233;e. Par nos propres crit&#232;res &#8212; section 10, point 7 &#8212; c'est <em>indicatif seulement</em></td></tr>
-    <tr><td><b>Bislin</b> &#8212; r&#233;fraction d&#233;pendant de l'altitude</td><td class="n">&#8212;</td><td class="n">&#8212;</td><td class="n">&#8212;</td><td>mod&#232;le de calcul, non mesure. Utile comme outil ; ne prouve rien par lui-m&#234;me</td></tr>
-    <tr><td><b>Hirt et al., 2010</b> &#8212; angles verticaux r&#233;ciproques</td><td class="n">non</td><td class="n">oui</td><td class="n">non</td><td>article &#224; comit&#233; de lecture, le plus solide du lot ; <strong>non relu par nous</strong></td></tr>
-    <tr><td><b>Nivellement trigonom&#233;trique</b></td><td class="n">non</td><td class="n">&#8212;</td><td class="n">&#8212;</td><td>pratique institutionnelle, jamais pr&#233;sent&#233;e comme une exp&#233;rience. Son poids vient de la fermeture des r&#233;seaux, non d'un protocole</td></tr>
-  </tbody>
-</table>
-
-<p><strong>Aucun de ces travaux ne satisfait les quatre crit&#232;res que ce protocole
-s'impose.</strong> Ce n'est pas un reproche : la plupart n'ont jamais pr&#233;tendu &#234;tre des
-exp&#233;riences pr&#233;enregistr&#233;es, et le nivellement trigonom&#233;trique n'a jamais
-pr&#233;tendu &#234;tre une exp&#233;rience du tout. Mais cela interdit de les invoquer comme des
-preuves acquises, et c'est pourquoi ce tableau les gradue au lieu de les aligner.</p>
-
-<div class="box key">
-  <span class="lab">Deux choses qui ne demandent la confiance de personne</span>
-  <p><strong>Le coefficient du Bowditch.</strong> Ouvrir un almanach, lire 0,97 par racine de
-  pied, convertir, comparer &#224; notre tableau 1. C'est une v&#233;rification <em>interne</em> :
-  aucune donn&#233;e d'autrui n'y entre.</p>
-  <p><strong>La cons&#233;quence du point &#224; trois astres.</strong> Une erreur de hauteur
-  commune aux trois vis&#233;es d&#233;place chaque droite de la m&#234;me quantit&#233; et ouvre le
-  triangle de recoupement &#8212; pour une erreur e, le c&#244;t&#233; vaut 2e&#8730;3. Ignorer la
-  d&#233;pression depuis une passerelle &#224; 15 m, o&#249; elle vaut 7,0&#8242;, ouvrirait donc un
-  triangle d'une vingtaine de milles nautiques, l&#224; o&#249; la pratique en referme un ou deux.
-  C'est une cons&#233;quence g&#233;om&#233;trique de la m&#233;thode des droites de hauteur, que
-  chacun peut recalculer.</p>
-  <p>Ces deux-l&#224; sont d'une autre nature que &#171; telle &#233;quipe a trouv&#233; ceci &#187;,
-  et le document ne les m&#233;lange plus.</p>
-</div>
-
-<div class="box key">
-  <span class="lab">Ce que cela change, et ce que cela ne change pas</span>
-  <p>La formule est ancienne et massivement employ&#233;e. <strong>Ce protocole ne pose pas une
-  question ouverte</strong>, et il ne pr&#233;tend pas en poser une.</p>
-  <p>Ce qu'il apporte est autre chose : non pas &#171; personne n'a mesur&#233; cela &#187;, mais
-  <strong>personne ne l'a mesur&#233; &#224; ce niveau d'exigence</strong> &#8212;
-  pr&#233;enregistrement horodat&#233;, crit&#232;res pos&#233;s d'avance, incertitudes mesur&#233;es
-  et non postul&#233;es, fichiers bruts publi&#233;s quelle que soit l'issue. Le tableau ci-dessus
-  montre que cette place est libre. C'est la seule pr&#233;tention de ce document, et elle tient
-  ind&#233;pendamment de ce qu'ont trouv&#233; les autres.</p>
-</div>
-
-<p>Deux de ces pr&#233;c&#233;dents m&#233;ritent enfin d'&#234;tre signal&#233;s pour ce qu'ils
-co&#251;tent &#224; notre camp, et il serait malhonn&#234;te de les taire.
-<strong>Wallace 1870</strong> est tr&#232;s exactement l'argument de notre section 02 &#8212;
-accorder la r&#233;fraction au mod&#232;le plan ne l'aide pas &#8212; formul&#233; cent cinquante ans
-avant nous. Et <strong>Rainy Lake</strong> est l'exp&#233;rience dont notre propre site loue la
-m&#233;thodologie, et dont le r&#233;sultat annonc&#233; concorde avec le mod&#232;le sph&#233;rique.
-Nous n'en avons pas examin&#233; les donn&#233;es ; nous ne les invoquons donc pas comme preuve,
-et nous ne les dissimulons pas non plus.</p>
-
-<h2 class="brk"><span class="n">05</span>Marche &#224; suivre &#8212; l'ordre des op&#233;rations</h2>
+<h2 class="brk"><span class="n">04</span>Marche &#224; suivre &#8212; l'ordre des op&#233;rations</h2>
 <p class="lead">Les &#233;l&#233;ments n&#233;cessaires figurent tous dans les sections qui
 suivent, mais dispers&#233;s entre six d'entre elles. Or l'ordre n'est pas indiff&#233;rent : plusieurs &#233;tapes rendent les
 pr&#233;c&#233;dentes irr&#233;cup&#233;rables. Cette section ne r&#233;p&#232;te pas les
@@ -520,10 +434,10 @@ proc&#233;dures &#8212; elle dit dans quel ordre les prendre, et laquelle ne se 
 <h3>Phase 0 &#8212; avant la premi&#232;re image, une fois pour toute la campagne</h3>
 <ol class="st">
   <li><b>D&#233;poser le protocole</b>Figer le PDF, calculer son empreinte SHA-256, d&#233;poser
-  le fichier sur OSF ou Zenodo, obtenir le DOI, publier le DOI et l'empreinte. Section 13.
+  le fichier sur OSF ou Zenodo, obtenir le DOI, publier le DOI et l'empreinte. Section 12.
   <strong>Tant que ce n'est pas fait, ne rien photographier.</strong></li>
   <li><b>Fixer le crit&#232;re de point&#233;</b>Celui de la ligne d'horizon, &#233;nonc&#233;
-  en section 07, et le diffuser &#224; tous les observateurs. Il importe moins que le
+  en section 06, et le diffuser &#224; tous les observateurs. Il importe moins que le
   crit&#232;re soit le meilleur que qu'il soit <em>le m&#234;me partout</em> : un biais commun se
   lit dans l'ordonn&#233;e &#224; l'origine, un biais qui varie d'un observateur &#224; l'autre ne
   se lit nulle part.</li>
@@ -543,11 +457,11 @@ proc&#233;dures &#8212; elle dit dans quel ordre les prendre, et laquelle ne se 
   elle produit un relev&#233; d'apparence normale et de valeur nulle.</li>
   <li><b>&#201;tablir l'altitude de l'&#339;il</b>Au-dessus de la <em>surface de la mer du
   moment</em>, orthom&#233;trique. Pas la hauteur ellipso&#239;dale du GPS. Sous 50 m, pr&#233;voir
-  une mesure directe sur place, au d&#233;cim&#232;tre. Section 09.</li>
+  une mesure directe sur place, au d&#233;cim&#232;tre. Section 08.</li>
   <li><b>Rep&#233;rer la fen&#234;tre</b>&#201;ph&#233;m&#233;rides : hauteur du Soleil, astre
   vis&#233;, son azimut et sa hauteur vraie. V&#233;nus ou Jupiter de pr&#233;f&#233;rence &#224;
   une &#233;toile &#8212; ils s'acqui&#232;rent bien avant la nuit, quand l'horizon marin est
-  encore pleinement lisible. Section 07.</li>
+  encore pleinement lisible. Section 06.</li>
   <li><b>Relever l'heure de mar&#233;e</b>Pour le cr&#233;neau retenu, et pr&#233;f&#233;rer si
   possible un moment de faible coefficient : &#224; 5 m d'altitude, deux m&#232;tres de
   mar&#233;e valent 41 % de &#948;.</li>
@@ -597,7 +511,7 @@ proc&#233;dures &#8212; elle dit dans quel ordre les prendre, et laquelle ne se 
   <li><b>Passer le contr&#244;le gratuit</b>S&#233;paration astre-reflet divis&#233;e par deux,
   compar&#233;e &#224; la hauteur d'&#233;ph&#233;m&#233;ride augment&#233;e de la r&#233;fraction.
   <strong>Si l'accord n'est pas &#224; 0,5 % pr&#232;s, s'arr&#234;ter et chercher pourquoi</strong>
-  avant de r&#233;duire quoi que ce soit. Section 07.</li>
+  avant de r&#233;duire quoi que ce soit. Section 06.</li>
   <li><b>Pointer l'horizon</b>Selon le crit&#232;re fix&#233; en phase 0, sans exception, et
   consigner l'&#233;cart-type colonne &#224; colonne ainsi que le nombre de colonnes
   &#233;cart&#233;es.</li>
@@ -608,7 +522,7 @@ proc&#233;dures &#8212; elle dit dans quel ordre les prendre, et laquelle ne se 
   rafale, divis&#233;e par deux.</li>
   <li><b>Corriger l'altitude</b>De la mar&#233;e effective au moment de la pose, et non de la
   mar&#233;e moyenne.</li>
-  <li><b>Transmettre</b>La fiche compl&#232;te de la section 12 et les fichiers bruts,
+  <li><b>Transmettre</b>La fiche compl&#232;te de la section 11 et les fichiers bruts,
   <strong>quel que soit le r&#233;sultat</strong>. Une station n'est &#233;cart&#233;e que sur un
   motif &#233;crit et publi&#233; ; jamais parce que le chiffre d&#233;pla&#238;t.</li>
 </ol>
@@ -629,7 +543,7 @@ proc&#233;dures &#8212; elle dit dans quel ordre les prendre, et laquelle ne se 
 r&#233;unir, sans superflu &#8212; l'ensemble tient dans un budget de mat&#233;riel d'occasion et
 de logiciels libres.</p>
 <table>
-  <caption>Tableau 4 &#8212; Le n&#233;cessaire, et ce qui le remplace.</caption>
+  <caption>Tableau 3 &#8212; Le n&#233;cessaire, et ce qui le remplace.</caption>
   <thead><tr><th>objet</th><th>ce qui convient r&#233;ellement</th></tr></thead>
   <tbody>
     <tr><td><b>Bo&#238;tier</b></td><td>tout appareil &#224; objectifs interchangeables sachant &#233;crire en brut. Un reflex d'occasion fait l'affaire</td></tr>
@@ -675,7 +589,7 @@ visible.</p>
   </div>
 </div>
 
-<h2><span class="n">06</span>Matériel</h2>
+<h2><span class="n">05</span>Matériel</h2>
 <p class="lead">Trois listes : ce qui sert dans les deux cas, ce qu'exige la m&#233;thode A
 qui est le proc&#233;d&#233; de r&#233;f&#233;rence, et ce qu'exige la solution de repli. Une liste
 unique construite autour de l'inclinom&#232;tre laisserait de c&#244;t&#233; le plateau, le liquide
@@ -692,10 +606,10 @@ et les &#233;ph&#233;m&#233;rides, sans lesquels la m&#233;thode A ne s'ex&#233;
   <li><strong>Un second thermom&#232;tre, pour la temp&#233;rature de surface de la mer</strong>
   &#8212; sonde au bout d'un fil, ou thermom&#232;tre infrarouge vis&#233; sur l'eau. C'est
   l'&#233;cart entre l'air et l'eau qui commande le gradient thermique de la couche limite, donc
-  k aux stations basses. Voir section 10.</li>
+  k aux stations basses. Voir section 09.</li>
   <li><strong>Une altitude rapport&#233;e &#224; la surface de la mer du moment</strong>, et non
   &#224; l'ellipso&#239;de. C'est le point le plus dangereux du protocole aux stations basses ;
-  voir la section 09.</li>
+  voir la section 08.</li>
   <li><strong>L'heure de mar&#233;e et l'&#233;tat de la mer</strong> au moment de
   l'acquisition.</li>
   <li><strong>Une application d'&#233;ph&#233;m&#233;rides</strong> &#8212; Stellarium, Sky Safari,
@@ -704,7 +618,7 @@ et les &#233;ph&#233;m&#233;rides, sans lesquels la m&#233;thode A ne s'ex&#233;
   cr&#233;pusculaire.</li>
   <li><strong>Un logiciel de r&#233;solution astrom&#233;trique</strong> &#8212; Astrometry.net en
   ligne, ASTAP ou SIRIL hors ligne. C'est lui qui donne l'&#233;chelle angulaire ; voir
-  section 09.</li>
+  section 08.</li>
 </ul>
 
 <h3>Pour la m&#233;thode A &#8212; horizon artificiel, proc&#233;d&#233; de r&#233;f&#233;rence</h3>
@@ -729,7 +643,7 @@ et les &#233;ph&#233;m&#233;rides, sans lesquels la m&#233;thode A ne s'ex&#233;
 </ul>
 
 <table>
-  <caption>Tableau 5 &#8212; Choix de la focale, capteur 24&#215;36 &#233;chantillonn&#233; &#224;
+  <caption>Tableau 4 &#8212; Choix de la focale, capteur 24&#215;36 &#233;chantillonn&#233; &#224;
   4 000 pixels sur la hauteur. La derni&#232;re colonne est la hauteur d'astre admissible : le
   champ doit contenir l'astre &#224; +a et son reflet &#224; &#8722;a, soit 2a, et il faut encore
   y loger la d&#233;pression elle-m&#234;me, jusqu'&#224; 1,7&#176;.</caption>
@@ -749,12 +663,12 @@ moiti&#233; du budget, pour le seul avantage de viser un astre plus haut. Un 200
 encore, mais il n'admet plus qu'un astre &#224; 3,4&#176;, o&#249; la turbulence est la plus
 forte.</p>
 
-<h2><span class="n">07</span>Proc&#233;dure &#8212; m&#233;thode A, horizon artificiel</h2>
+<h2><span class="n">06</span>Proc&#233;dure &#8212; m&#233;thode A, horizon artificiel</h2>
 <p class="lead">C'est le proc&#233;d&#233; de r&#233;f&#233;rence ; la mise de niveau reste en
 solution de repli. Il <strong>n'exige ni instrument de niveau, ni
 &#233;talonnage de biais</strong> : la r&#233;f&#233;rence horizontale se fabrique d'elle-m&#234;me.
 Une seule grandeur reste &#224; &#233;tablir, l'<strong>&#233;chelle angulaire</strong>, et la
-section 09 dit comment. Parler d'un proc&#233;d&#233; &#171; sans aucun &#233;talonnage
+section 08 dit comment. Parler d'un proc&#233;d&#233; &#171; sans aucun &#233;talonnage
 &#187; serait un raccourci de trop.</p>
 <div class="box key">
   <span class="lab">Ce que le protocole suppose ici, et ce qu'il ne suppose pas</span>
@@ -849,13 +763,11 @@ ligne d'horizon marin figure dans la m&#234;me image, &#948; se lit directement.
 pr&#233;c&#233;dente ne la mentionnait : il faut <strong>l'astre, son reflet et la ligne
 d'horizon marin dans la m&#234;me image</strong>. Or de nuit noire, la ligne d'horizon marin
 n'est plus visible.</p>
-<p>Le probl&#232;me est ancien et il est d&#233;j&#224; r&#233;solu. C'est exactement celui du
-<strong>point stellaire au sextant</strong>, que la navigation astronomique prend au
-cr&#233;puscule nautique pour cette raison pr&#233;cise : l'&#233;toile est apparue, l'horizon
-n'a pas encore disparu. Le protocole h&#233;rite donc de la solution en m&#234;me temps que de
-la formule (section 04).</p>
+<p>La fen&#234;tre utile est donc born&#233;e des deux c&#244;t&#233;s : il faut que l'astre
+soit apparu, et que l'horizon n'ait pas encore disparu. Elle est &#233;troite mais elle revient
+deux fois par jour.</p>
 <table>
-  <caption>Tableau 6 &#8212; Fen&#234;tres praticables. Les dur&#233;es valent aux latitudes
+  <caption>Tableau 5 &#8212; Fen&#234;tres praticables. Les dur&#233;es valent aux latitudes
   moyennes ; elles se raccourcissent pr&#232;s de l'&#233;quateur et s'allongent, jusqu'&#224;
   dispara&#238;tre, aux latitudes &#233;lev&#233;es en &#233;t&#233;.</caption>
   <thead><tr><th>fen&#234;tre</th><th>ce qui est visible</th><th class="n">dur&#233;e</th></tr></thead>
@@ -937,7 +849,7 @@ l&#224; o&#249; l'horizon artificiel n'en d&#233;pend pas.</p>
   <li><b>Acquisition de l'horizon, position retournée</b>Remonter le boîtier tête en bas sur
   la même base, remettre de niveau, reprendre le même cadrage.</li>
   <li><b>&#201;chelle angulaire</b>R&#233;soudre astrom&#233;triquement un champ
-  d'&#233;toiles pris au m&#234;me r&#233;glage, bague immobilis&#233;e &#8212; section 09.
+  d'&#233;toiles pris au m&#234;me r&#233;glage, bague immobilis&#233;e &#8212; section 08.
   <strong>Ne pas se fier &#224; la focale grav&#233;e</strong>, nominale &#224; 2 &#224; 5 %
   pr&#232;s, ni &#224; l'&#233;talon lunaire, &#224; 7 %.</li>
   <li><b>Réduction</b>Mesurer en pixels l'ordonnée du centre du fichier et celle de la ligne
@@ -982,7 +894,7 @@ change de signe ; la moyenne des deux lectures l'élimine exactement.</p>
   avantage sur toute tentative d'étalonnage préalable.</figcaption>
 </figure>
 
-<h2><span class="n">08</span>Procédure — méthode B, mesure différentielle</h2>
+<h2><span class="n">07</span>Procédure — méthode B, mesure différentielle</h2>
 <p>Cette variante n'exige <strong>ni instrument de niveau, ni &#233;talonnage de
 biais</strong> &#8212; l'&#233;chelle angulaire, elle, reste requise, comme partout ailleurs.
 Elle consiste à photographier le même horizon depuis deux altitudes très différentes, avec
@@ -992,7 +904,7 @@ disparaît par différence.</p>
 <div class="box warn"><span class="lab">Restriction sur la méthode B</span><p>L'annulation du biais suppose qu'il soit <em>identique</em> dans les deux acquisitions. Or passer de 10 m à 3 107 m impose de démonter le boîtier, de se déplacer, puis de le remonter : le biais n'est plus le même. Une reproductibilité de remontage de 20&prime; consomme <strong>21 %</strong> du signal différentiel de 94&prime;.</p><p>La méthode B reste utile lorsque l'ensemble boîtier-rotule n'est pas démonté entre les deux stations. Dans le cas contraire, employer l'horizon artificiel de la méthode A, qui ne dépend d'aucune reproductibilité de montage.</p></div>
 
 <table>
-  <caption>Tableau 7 — Déplacement prédit de la ligne d'horizon entre deux altitudes.</caption>
+  <caption>Tableau 6 — Déplacement prédit de la ligne d'horizon entre deux altitudes.</caption>
   <thead><tr><th>PAIRE D'ALTITUDES</th><th class="n">hypothèse S — k = 0,13</th><th class="n">hypothèse P</th></tr></thead>
   <tbody>
     <tr><td>2 m → 300 m</td><td class="n">29′</td><td class="n">0′</td></tr>
@@ -1002,12 +914,12 @@ disparaît par différence.</p>
   </tbody>
 </table>
 
-<h2><span class="n">09</span>Budget d'erreur et critère de décision</h2>
+<h2><span class="n">08</span>Budget d'erreur et critère de décision</h2>
 <p>Les contributions sont estimées à 1 σ pour une acquisition à 100 mm sur capteur
 24&nbsp;×&nbsp;36&nbsp;mm échantillonné à 4&nbsp;000 pixels sur la hauteur.</p>
 
 <table>
-  <caption>Tableau 8 — Budget d'erreur. Le poste dominant, l'erreur de niveau, est éliminé
+  <caption>Tableau 7 — Budget d'erreur. Le poste dominant, l'erreur de niveau, est éliminé
   par retournement ; le résidu est la répétabilité de la remise en station.</caption>
   <thead><tr><th>SOURCE</th><th class="n">contribution</th><th>TRAITEMENT</th></tr></thead>
   <tbody>
@@ -1058,7 +970,7 @@ disparaît par différence.</p>
   <p>Conséquence chiffrée, à 3 107 m :</p>
 </div>
 <table>
-  <caption>Tableau 9 — Sensibilité de δ au coefficient de réfraction. L'étendue sur une plage
+  <caption>Tableau 8 — Sensibilité de δ au coefficient de réfraction. L'étendue sur une plage
   plausible dépasse le budget instrumental tout entier.</caption>
   <thead><tr><th class="n">k</th><th class="n">δ</th><th>régime</th></tr></thead>
   <tbody>
@@ -1083,9 +995,9 @@ donc sur la d&#233;termination de a.</p>
   donn&#233;s s&#233;par&#233;ment plus haut.</p>
 </div>
 <p>Le raffinement propre consiste à employer un <strong>modèle de réfraction dépendant de
-l'altitude</strong> plutôt qu'un k unique, comme le fait le calculateur de Walter Bislin. Un
-observateur qui dispose d'un profil de température le long de la visée — radiosondage ou
-réanalyse — doit l'employer et le consigner.</p>
+l'altitude</strong> plut&#244;t qu'un k unique. Un observateur qui dispose d'un profil de
+temp&#233;rature le long de la vis&#233;e &#8212; sondage ou r&#233;analyse &#8212; doit l'employer
+et le consigner.</p>
 
 <h3>L'&#233;chelle angulaire</h3>
 <div class="box warn">
@@ -1099,7 +1011,7 @@ réanalyse — doit l'employer et le consigner.</p>
   remplace porte son propre terme, et il faut le chiffrer.</p>
 </div>
 <table>
-  <caption>Tableau 10 &#8212; Ce que co&#251;te une focale prise pour argent comptant, &#224;
+  <caption>Tableau 9 &#8212; Ce que co&#251;te une focale prise pour argent comptant, &#224;
   3 107 m o&#249; &#948; vaut 100&#8242;. Rapports donn&#233;s dans la convention &#171; sur la
   loi &#187;.</caption>
   <thead><tr><th>&#233;chelle angulaire</th><th class="n">terme induit</th><th class="n">total &#224; 1 &#963;</th><th class="n">rapport sur la loi</th></tr></thead>
@@ -1165,7 +1077,7 @@ n'a pas d'incertitude estimable.</p>
 <p>Le rapport signal sur bruit s'effondre aux stations basses. Ces points restent utiles &#224; l'ajustement de la loi en &#8730;h, mais ils ne sont pas
 d&#233;cisifs et ne doivent pas &#234;tre pr&#233;sent&#233;s comme tels.</p>
 <table>
-  <caption>Tableau 11 &#8212; Ce que vaut chaque altitude, pour chacune des deux questions.
+  <caption>Tableau 10 &#8212; Ce que vaut chaque altitude, pour chacune des deux questions.
   La colonne &#171; contre &#948; = 0 &#187; prend le signal le plus d&#233;favorable
   (1,4022&#8730;h, k = 0,47) sur le seul budget instrumental ; la colonne &#171; sur la loi &#187;
   prend &#948; &#224; k = 0,13 sur le budget complet.</caption>
@@ -1200,7 +1112,7 @@ station moyenne co&#251;te &#224; peine plus cher pour mesurer a.</strong></p>
   directe au-dessus de l'eau.</p>
 </div>
 <table>
-  <caption>Tableau 12 &#8212; Effets de la mar&#233;e et de l'&#233;tat de la mer. Le second
+  <caption>Tableau 11 &#8212; Effets de la mar&#233;e et de l'&#233;tat de la mer. Le second
   est un biais <em>syst&#233;matique</em>, toujours de m&#234;me signe.</caption>
   <thead><tr><th class="n">altitude</th><th class="n">mar&#233;e &#177;2 m</th><th class="n">houle Hs = 3 m</th></tr></thead>
   <tbody>
@@ -1215,7 +1127,7 @@ station moyenne co&#251;te &#224; peine plus cher pour mesurer a.</strong></p>
 surface moyenne. &#192; 10 m par mer form&#233;e le biais vaut 0,4&#8242;, du m&#234;me ordre que le budget d'erreur
 tout entier. Mar&#233;e et &#233;tat de la mer sont d&#233;sormais des champs obligatoires du relev&#233;.</p>
 
-<h2><span class="n">10</span>Systématiques connues et modes d'échec</h2>
+<h2><span class="n">09</span>Systématiques connues et modes d'échec</h2>
 <ol>
   <li><strong>Fausse ligne d'horizon.</strong> Le mode d'échec le plus fréquent et le plus
   pernicieux. Une côte lointaine, une île, une chaîne montagneuse ou un banc de brume
@@ -1242,12 +1154,12 @@ tout entier. Mar&#233;e et &#233;tat de la mer sont d&#233;sormais des champs ob
 </ol>
 
 <h3>La couche limite au-dessus de l'eau</h3>
-<p>Le tableau de sensibilit&#233; de la section 09 traite de la variation de k <em>avec
+<p>Le tableau de sensibilit&#233; de la section 08 traite de la variation de k <em>avec
 l'altitude</em>. Il reste un second effet, qui frappe pr&#233;cis&#233;ment les stations basses :
 <strong>l'&#233;cart entre la temp&#233;rature de l'air et celle de l'eau</strong>. C'est lui qui
 fixe le gradient thermique des premiers m&#232;tres, et le gradient fixe k.</p>
 <table>
-  <caption>Tableau 13 &#8212; Coefficient de r&#233;fraction selon le gradient thermique vertical,
+  <caption>Tableau 12 &#8212; Coefficient de r&#233;fraction selon le gradient thermique vertical,
   par k = 503 (P/T&#178;)(0,0342 + dT/dh), &#224; 1 013 hPa et 288 K. La pression est en
   hectopascals : en pascals le coefficient vaut cent fois plus, et c'est un pi&#232;ge
   classique.</caption>
@@ -1280,7 +1192,7 @@ m&#234;me site &#224; des heures diff&#233;rentes, l&#224; o&#249; rien d'instru
   les plus utiles, et il faut les rechercher plut&#244;t que les attendre.</p>
   <p>Les stations &#224; |&#916;T| &gt; 2 &#176;C sont <strong>conserv&#233;es, publi&#233;es et
   signal&#233;es</strong>, puis analys&#233;es &#224; part. Aucune n'est supprim&#233;e : c'est la
-  r&#232;gle pos&#233;e en section 10, et elle ne souffre pas d'exception.</p>
+  r&#232;gle pos&#233;e en section 09, et elle ne souffre pas d'exception.</p>
 </div>
 <p>Le sens de ces effets m&#233;rite d'&#234;tre soulign&#233;, parce qu'il tombe &#224; l'inverse de
 l'intuition courante : c'est l'air <em>froid</em> sur eau chaude qui rapproche l'horizon et
@@ -1289,7 +1201,7 @@ appara&#238;tre des objets r&#233;put&#233;s cach&#233;s. Une observation de lon
 particuli&#232;rement spectaculaire n'est donc pas une observation en r&#233;gime ordinaire, et
 &#916;T le dit.</p>
 
-<h2><span class="n">11</span>Campagne distribuée — ce que nous proposons</h2>
+<h2><span class="n">10</span>Campagne distribuée — ce que nous proposons</h2>
 <p class="lead">L'intérêt d'une campagne collective dépasse la répétition d'une mesure
 unique. Porter δ contre √h transforme la question en <strong>trois contraintes
 indépendantes</strong>, chacune vérifiable séparément.</p>
@@ -1336,7 +1248,7 @@ la postuler.</p>
 </ul>
 <p>L'ajustement se conduit en logarithmes, ln&#948; = ln a + p ln h, pond&#233;r&#233; par
 (&#948;/&#963;<sub>&#948;</sub>)&#178;. Avec six stations &#233;chelonn&#233;es de 10 m &#224; 3 107 m,
-une s&#233;rie chacune et le budget d'erreur de la section 09 :</p>
+une s&#233;rie chacune et le budget d'erreur de la section 08 :</p>
 <div class="box key">
   <span class="lab">Ce que l'exposant peut trancher</span>
   <p>&#963;<sub>p</sub> = <strong>0,022</strong>, et 0,013 avec trois s&#233;ries par station.
@@ -1364,7 +1276,7 @@ d&#233;couvrir apr&#232;s coup.</p>
   anormal sont conservées et signalées, non supprimées.</p>
 </div>
 
-<h2><span class="n">12</span>Données à transmettre</h2>
+<h2><span class="n">11</span>Données à transmettre</h2>
 <div class="sheet">
   <div class="fr"><span class="a">Date et heure UTC (début / fin de série)</span><span class="b">&nbsp;</span></div>
   <div class="fr"><span class="a">Coordonnées GPS de la station</span><span class="b">&nbsp;</span></div>
@@ -1395,12 +1307,12 @@ d&#233;couvrir apr&#232;s coup.</p>
   <div class="fr"><span class="a">Colonnes &#233;cart&#233;es de la moyenne, et pourquoi</span><span class="b">&nbsp;</span></div>
 </div>
 
-<h2><span class="n">13</span>Engagement</h2>
+<h2><span class="n">12</span>Engagement</h2>
 <p>Ce protocole a été rédigé avant toute acquisition, et il énonce à l'avance la
 signification de chacune des deux issues. C'est la condition de sa valeur probante.</p>
 <div class="box warn">
   <span class="lab">Ce qui manque encore, et qu'il faut faire avant de collecter</span>
-  <p>Un num&#233;ro de version ne prouve rien. &#171; Version 1.8 &#187; n'est pas opposable
+  <p>Un num&#233;ro de version ne prouve rien. &#171; Version 1.9 &#187; n'est pas opposable
   &#224; un lecteur sceptique : rien n'emp&#234;che mat&#233;riellement de r&#233;&#233;crire un
   document apr&#232;s avoir vu les donn&#233;es.</p>
   <div class="eq">
@@ -1457,19 +1369,13 @@ d'être exécuté ; celui-ci est proposé précisément parce que son issue ne l
 protocole sont sollicitées avant le lancement de la campagne, et seront intégrées à une
 version 2 créditée.</p>
 
-<h2><span class="n">14</span>Références</h2>
+<h2><span class="n">13</span>Références</h2>
 <ol class="refs">
   <li>Bomford, G. (1980). <em>Geodesy</em>, 4<sup>e</sup> éd. Oxford University Press.</li>
   <li>Brunner, F. K. (1984). <em>Geodetic Refraction: Effects of Electromagnetic Wave
   Propagation Through the Atmosphere</em>. Springer-Verlag, Berlin.</li>
-  <li>Hirt, C., Guillaume, S., Wisbar, A., Bürki, B., Sternberg, H. (2010). Monitoring of the
-  refraction coefficient in the lower atmosphere using a controlled setup of simultaneous
-  reciprocal vertical angle measurements. <em>Journal of Geophysical Research</em>, 115,
-  D21102.</li>
   <li>Young, A. T. (2004). Sunset science. IV. Low-altitude refraction. <em>The
   Observatory</em>, 124, 201–215.</li>
-  <li>Lehn, W. H., van der Werf, S. (2005). Atmospheric refraction: a history. <em>Applied
-  Optics</em>, 44(27), 5624–5636.</li>
   <li>Torge, W. (2001). <em>Geodesy</em>, 3<sup>e</sup> éd. Walter de Gruyter.</li>
   <li>Edlén, B. (1966). The refractive index of air. <em>Metrologia</em>, 2(2), 71–80.</li>
 </ol>
@@ -1478,7 +1384,7 @@ version 2 créditée.</p>
   <p>Toutes les valeurs numériques de ce document se dérivent de <code>δ = √(2h/R′)</code>
   avec <code>R′ = R/(1−k)</code> et R = 6 371 km. Diamètre lunaire moyen 31′ (29,4′ au
   périgée, 33,5′ à l'apogée). Le document est reproductible dans son intégralité à partir de
-  ces relations. — Protocole ouvert, version 1.8.</p>
+  ces relations. — Protocole ouvert, version 1.9.</p>
 </footer>
 
 </div>
