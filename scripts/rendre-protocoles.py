@@ -28,8 +28,8 @@ qu'il télécharge par défaut n'est pas celle qui est préinstallée ici. On lu
 passe donc le chemin explicite, découvert sous /opt/pw-browsers.
 
     pip install playwright pymupdf
-    python3 scripts/rendre-protocoles.py            # tout
-    python3 scripts/rendre-protocoles.py soleil     # un seul
+    python3 scripts/rendre-protocoles.py            # les protocoles actifs
+    python3 scripts/rendre-protocoles.py soleil     # y compris un suspendu
 """
 
 import glob
@@ -69,6 +69,18 @@ DOCUMENTS = {
         "Hauteur du pôle céleste — Altitude of the celestial pole — v1.3",
     ),
 }
+
+# Protocoles SUSPENDUS : les sources restent, le rendu par défaut les ignore.
+#
+# Le diamètre solaire et la hauteur du pôle céleste ont été écrits sans que
+# leur auteur ait transmis tout ce qu'il sait de ces deux expériences. Un
+# protocole incomplet qui a l'air fini est pire qu'un protocole absent : on le
+# diffuse, on le dépose, et l'erreur voyage. Ils sont donc gelés jusqu'à ce que
+# les informations manquantes arrivent.
+#
+# Ils restent rendables à la demande — « rendre-protocoles.py soleil » — mais
+# ne sortent plus quand on lance le script sans argument.
+SUSPENDUS = {"soleil", "pole"}
 
 
 def chromium():
@@ -143,7 +155,7 @@ def rendre(cle):
 
 
 def main():
-    demandes = sys.argv[1:] or list(DOCUMENTS)
+    demandes = sys.argv[1:] or [c for c in DOCUMENTS if c not in SUSPENDUS]
     inconnus = [d for d in demandes if d not in DOCUMENTS]
     if inconnus:
         print("  ✗ inconnu : %s" % ", ".join(inconnus))

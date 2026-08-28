@@ -11,9 +11,9 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 | `horizon-fr.html` | Dépression de l'horizon marin — français, 22 pages, **v1.9** |
 | `horizon-en.html` | Même document en anglais, 22 pages, **v1.9** |
 | `depot/` | Le dépôt : marche à suivre, métadonnées, et les fichiers figés une fois le DOI inscrit |
-| `soleil-bilingue.html` | Diamètre angulaire du Soleil — bilingue, 21 pages, **v1.4** |
+| `soleil-bilingue.html` | Diamètre angulaire du Soleil — **SUSPENDU**, voir plus bas |
 | `ballon-bilingue.html` | Dépression de l'horizon depuis un ballon stratosphérique — bilingue, 29 pages, **v1.1** |
-| `pole-celeste-bilingue.html` | Hauteur du pôle céleste — bilingue, 20 pages, **v1.3** |
+| `pole-celeste-bilingue.html` | Hauteur du pôle céleste — **SUSPENDU**, voir plus bas |
 | `horizon-artefact-web.html` | Version web du protocole d'horizon (artefact consultable en ligne) |
 | `polices.css` | Spectral, IBM Plex Sans, IBM Plex Mono en base64 |
 
@@ -21,8 +21,8 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 
 ```bash
 pip install playwright pymupdf
-python3 scripts/rendre-protocoles.py            # les cinq documents
-python3 scripts/rendre-protocoles.py soleil     # un seul
+python3 scripts/rendre-protocoles.py            # les protocoles actifs
+python3 scripts/rendre-protocoles.py soleil     # y compris un suspendu
 ```
 
 Les PDF sortent dans `content/protocoles/pdf/`. **Ils ne sont pas versionnés** :
@@ -40,7 +40,7 @@ Elles sont factorisées dans `polices.css` plutôt que dupliquées dans chaque
 source : le bloc pèse 290 ko et il y a quatre documents. Le script les injecte au
 rendu à la place du repère `@@POLICES@@`.
 
-## Les quatre protocoles
+## Les protocoles actifs
 
 ### Dépression de l'horizon
 
@@ -60,47 +60,6 @@ nappe d'eau et la ligne d'horizon marin dans une même image. Le milieu entre
 l'étoile et son reflet matérialise l'horizontale vraie, sans aucune mise de
 niveau. La mise de niveau avec retournement du boîtier reste en solution de
 repli.
-
-### Diamètre angulaire du Soleil
-
-Toute source compacte à hauteur finie implique `θ(α)/θ(90°) = sin α`, sans
-dépendre de la hauteur retenue. À 20° d'élévation l'écart entre les deux modèles
-atteint 66 % du diamètre, pour une précision requise de 1 %. Rapport signal sur
-bruit d'environ 150.
-
-L'observable est le **diamètre horizontal** : la réfraction aplatit le disque
-verticalement près de l'horizon, jusqu'à 17 %, mais ne l'affecte pas
-latéralement.
-
-Deux contrôles préalables sur la Lune qualifient la chaîne avant qu'elle serve —
-étalonnage en distance sur un mois lunaire, puis parallaxe diurne. Le second
-discrimine par lui-même, les deux modèles y prédisant des variations de signe
-opposé.
-
-### Hauteur du pôle céleste
-
-Trois tests d'exigence croissante. Le premier ne mesure **aucun angle** : une pose
-longue depuis un site austral montre un centre de rotation au **sud**, à une
-hauteur égale à la latitude, là où le modèle azimutal — dépourvu de pôle austral —
-place son unique centre au **nord**. Les deux prédictions désignent des moitiés
-opposées du ciel, et aucune valeur de H ne déplace un centre du nord vers le sud.
-
-Le deuxième porte sur la **pente locale**, mesurée en distance au sol pour éviter
-toute circularité. Deux voies : soit `r₀` est épinglé par une mesure est-ouest, et
-une seule paire de stations suffit sous 61,4° de latitude — aucune valeur de H
-n'y produit une pente de 1,000 ; soit on n'emploie que des distances nord-sud, et
-il faut alors **1 500 km de base et quatre stations**, le modèle plan à deux
-paramètres imitant une droite à 0,03° près sur 200 km.
-
-Le troisième confronte l'ensemble des stations à la droite, également en distance
-au sol : le meilleur ajustement azimutal laisse un résidu qui change de signe et
-atteint 12,3° sur 5 000 km.
-
-La méthode évite le piège de circularité qui guette ici — on ne peut pas rapporter
-une hauteur à l'horizon visible, dont la dépression dépend du modèle testé. La
-référence est le fil à plomb, matérialisé par un **horizon artificiel** : une
-nappe d'eau immobile, où l'angle entre l'astre et son reflet vaut exactement deux
-fois la hauteur. Aucun étalonnage.
 
 ### Dépression de l'horizon depuis un ballon stratosphérique
 
@@ -131,6 +90,21 @@ Le critère de décision est une **variation**, non une valeur : entre 2 et 30 k
 instrumental disparaît dans la différence. Rapport signal sur bruit **317 sur
 deux images**, et l'ajustement de la montée entière restitue R à environ 1 % —
 plancher fixé par le relief, corrigeable par modèle numérique de terrain.
+
+## Les protocoles suspendus
+
+`soleil-bilingue.html` et `pole-celeste-bilingue.html` sont **gelés**. Leurs
+sources restent dans le dépôt, le script de rendu les ignore par défaut, et
+aucun PDF n'en est produit.
+
+La raison n'est pas un défaut trouvé dans les documents : c'est que leur auteur
+n'avait pas transmis tout ce qu'il sait de ces deux expériences au moment où
+elles ont été écrites. Un protocole incomplet qui a l'air fini est plus
+dangereux qu'un protocole absent — il se diffuse, il se dépose, et l'erreur
+voyage avec un DOI.
+
+Ils reprendront quand les informations manquantes seront là. D'ici là, ils ne
+doivent être ni diffusés, ni déposés, ni cités.
 
 ## Ce que ces documents sont, et ne sont pas
 
