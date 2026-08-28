@@ -58,6 +58,11 @@ DOCUMENTS = {
         "Protocole-diametre-solaire.pdf",
         "Diamètre angulaire du Soleil — Angular diameter of the Sun — v1.3",
     ),
+    "ballon": (
+        "ballon-bilingue.html",
+        "Protocole-ballon-stratospherique.pdf",
+        "Dépression de l'horizon depuis un ballon — Horizon dip from a balloon — v1.0",
+    ),
     "pole": (
         "pole-celeste-bilingue.html",
         "Protocole-pole-celeste.pdf",

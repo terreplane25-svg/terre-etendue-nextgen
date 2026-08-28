@@ -12,6 +12,7 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 | `horizon-en.html` | Même document en anglais, 24 pages, **v1.8** |
 | `depot/` | Le dépôt : marche à suivre, métadonnées, et les fichiers figés une fois le DOI inscrit |
 | `soleil-bilingue.html` | Diamètre angulaire du Soleil — bilingue, 23 pages, v1.3 |
+| `ballon-bilingue.html` | Dépression de l'horizon depuis un ballon stratosphérique — bilingue, 31 pages, **v1.0** |
 | `pole-celeste-bilingue.html` | Hauteur du pôle céleste — bilingue, 22 pages, v1.2 |
 | `horizon-artefact-web.html` | Version web du protocole d'horizon (artefact consultable en ligne) |
 | `polices.css` | Spectral, IBM Plex Sans, IBM Plex Mono en base64 |
@@ -20,7 +21,7 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 
 ```bash
 pip install playwright pymupdf
-python3 scripts/rendre-protocoles.py            # les quatre
+python3 scripts/rendre-protocoles.py            # les cinq documents
 python3 scripts/rendre-protocoles.py soleil     # un seul
 ```
 
@@ -39,7 +40,7 @@ Elles sont factorisées dans `polices.css` plutôt que dupliquées dans chaque
 source : le bloc pèse 290 ko et il y a quatre documents. Le script les injecte au
 rendu à la place du repère `@@POLICES@@`.
 
-## Les trois protocoles
+## Les quatre protocoles
 
 ### Dépression de l'horizon
 
@@ -100,6 +101,36 @@ une hauteur à l'horizon visible, dont la dépression dépend du modèle testé.
 référence est le fil à plomb, matérialisé par un **horizon artificiel** : une
 nappe d'eau immobile, où l'angle entre l'astre et son reflet vaut exactement deux
 fois la hauteur. Aucun étalonnage.
+
+### Dépression de l'horizon depuis un ballon stratosphérique
+
+La même grandeur que le protocole d'horizon, mais mesurée depuis 2 à 30 km. δ y
+vaut 2,1° à 5 km et 5,4° à 30 km, contre 1,8° depuis le meilleur sommet
+accessible.
+
+**L'observable est l'angle entre deux points diamétralement opposés de
+l'horizon**, vus dans une seule image : 180° − 2δ sur une sphère, 180° sur un
+plan. Une inclinaison de la nacelle ajoute ε d'un côté et le retranche de
+l'autre — la somme est invariante. Aucune référence verticale n'est donc
+nécessaire à bord, ce qui rend la mesure possible sur une nacelle qui balance.
+
+Le montage est **une seule caméra devant un dièdre de deux miroirs**. Le point
+n'est pas l'économie : deux boîtiers séparés exigeraient une synchronisation au
+millième de seconde, faute de quoi le balancement — jusqu'à 5°/s — injecte 30′
+d'erreur pour 100 ms de décalage. Un capteur unique supprime le problème par
+construction.
+
+**La réfraction cesse d'être supposée.** L'invariant de Bouguer donne
+`cos δ = n₀(R+t)/n₁(R+h)` : la correction ne dépend que de l'indice aux deux
+extrémités du rayon, donc de P et T au sol et à bord — quatre grandeurs
+*mesurées*. Aucun coefficient k n'apparaît dans ce protocole. La correction vaut
+−9′ à −12′ sur toute la plage 5–35 km.
+
+Le critère de décision est une **variation**, non une valeur : entre 2 et 30 km,
+2δ change de **488′** sur une sphère et de **zéro** sur un plan. Le décalage
+instrumental disparaît dans la différence. Rapport signal sur bruit **317 sur
+deux images**, et l'ajustement de la montée entière restitue R à environ 1 % —
+plancher fixé par le relief, corrigeable par modèle numérique de terrain.
 
 ## Historique des versions
 
