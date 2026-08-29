@@ -1,0 +1,1271 @@
+<title>Hauteur masquée d'une mire graduée — protocole bilingue</title>
+
+<style>
+/* @@POLICES@@ — injecté au rendu depuis polices.css */
+@page{ size:A4; margin:19mm 17mm 16mm; }
+
+:root{
+  --ink:#12181e; --soft:#3d4952; --mute:#6c7883;
+  --line:#cfd7dd; --line2:#9aa7b1; --wash:#f2f5f7;
+  --globe:#14608f; --globe-w:#14608f14;
+  --plane:#96600f; --plane-w:#96600f14;
+  --alert:#8f2f2b; --alert-w:#8f2f2b10;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:#fff; color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,sans-serif;
+  font-size:9.7pt; line-height:1.52;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+.page{padding:0}
+p{margin:0 0 7pt; color:var(--soft); text-align:justify; hyphens:auto}
+p.lead{color:var(--ink); font-size:10.4pt}
+strong{color:var(--ink); font-weight:600}
+code{font-family:"IBM Plex Mono",monospace; font-size:.9em; color:var(--ink)}
+
+/* ── Bloc-titre ── */
+.masthead{border-bottom:2.2pt solid var(--ink); padding-bottom:9pt; margin-bottom:14pt}
+.kicker{
+  font-family:"IBM Plex Mono",monospace; font-size:7.4pt; font-weight:600;
+  letter-spacing:.19em; text-transform:uppercase; color:var(--globe);
+  margin-bottom:8pt;
+}
+h1{
+  font-family:Spectral,Georgia,serif; font-weight:700; font-size:23pt;
+  line-height:1.13; letter-spacing:-.015em; margin:0 0 6pt; color:var(--ink);
+}
+.dek{font-family:Spectral,Georgia,serif; font-size:11.3pt; line-height:1.42;
+  color:var(--soft); font-style:italic; margin:0 0 10pt}
+.byline{
+  display:flex; gap:26pt; flex-wrap:wrap;
+  font-family:"IBM Plex Mono",monospace; font-size:7.6pt; color:var(--mute);
+  letter-spacing:.05em; border-top:.6pt solid var(--line); padding-top:7pt;
+}
+.byline b{display:block; color:var(--ink); font-weight:600; font-size:8pt; margin-top:1pt}
+
+.abstract{
+  background:var(--wash); border-left:2.6pt solid var(--globe);
+  padding:11pt 13pt; margin:0 0 16pt;
+}
+.abstract .lab{
+  font-family:"IBM Plex Mono",monospace; font-size:7.2pt; font-weight:600;
+  letter-spacing:.17em; text-transform:uppercase; color:var(--globe); display:block; margin-bottom:5pt;
+}
+.abstract p{margin-bottom:5pt; font-size:9.2pt}
+.abstract p:last-child{margin-bottom:0}
+
+/* ── Titres ── */
+h2{
+  font-family:Spectral,Georgia,serif; font-weight:600; font-size:13.6pt;
+  line-height:1.2; margin:17pt 0 5pt; color:var(--ink);
+  padding-bottom:3.5pt; border-bottom:.7pt solid var(--line2);
+  break-after:avoid; page-break-after:avoid;
+}
+h2 .n{font-family:"IBM Plex Mono",monospace; font-size:8.4pt; color:var(--globe);
+  font-weight:600; margin-right:8pt; letter-spacing:.06em}
+h3{font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:9.8pt;
+  margin:11pt 0 4pt; color:var(--ink); break-after:avoid; page-break-after:avoid}
+
+ul,ol{margin:0 0 8pt; padding-left:15pt; color:var(--soft)}
+li{margin:0 0 3.5pt}
+ol.st{list-style:none; padding:0; counter-reset:s}
+ol.st>li{counter-increment:s; position:relative; padding-left:26pt; margin-bottom:7pt}
+ol.st>li::before{
+  content:counter(s,decimal-leading-zero); position:absolute; left:0; top:.4pt;
+  font-family:"IBM Plex Mono",monospace; font-size:7.6pt; font-weight:600;
+  color:#fff; background:var(--globe); width:18pt; height:12pt;
+  display:flex; align-items:center; justify-content:center; border-radius:1.5pt;
+}
+ol.st>li>b{display:block; color:var(--ink); font-weight:600}
+
+/* ── Formules ── */
+.eq{
+  font-family:"IBM Plex Mono",monospace; font-size:10.2pt; color:var(--ink);
+  background:var(--wash); border:.6pt solid var(--line);
+  padding:8pt 12pt; margin:8pt 0; text-align:center; letter-spacing:.02em;
+}
+.eq .cap{display:block; font-family:"IBM Plex Sans",sans-serif; font-size:7.6pt;
+  color:var(--mute); margin-top:4pt; letter-spacing:0}
+
+/* ── Tableaux ── */
+table{border-collapse:collapse; width:100%; font-size:8.6pt; margin:8pt 0 10pt;
+  break-inside:avoid; page-break-inside:avoid}
+th,td{padding:4pt 7pt; text-align:left; border-bottom:.5pt solid var(--line)}
+thead th{
+  font-family:"IBM Plex Mono",monospace; font-size:6.9pt; font-weight:600;
+  letter-spacing:.11em; color:var(--mute);
+  background:var(--wash); border-bottom:.9pt solid var(--line2);
+}
+td.n,th.n{text-align:right; font-family:"IBM Plex Mono",monospace;
+  font-variant-numeric:tabular-nums; font-size:8.4pt}
+tbody tr:last-child td{border-bottom:.7pt solid var(--line2)}
+tr.hi td{background:var(--globe-w)}
+tr.hi td,tr.hi td strong{color:var(--globe); font-weight:600}
+tr.pl td{background:var(--plane-w)}
+tr.pl td{color:var(--plane); font-weight:600}
+caption{caption-side:bottom; text-align:left; font-size:7.8pt; color:var(--mute);
+  padding-top:4pt; font-style:italic}
+
+/* ── Figures ── */
+figure{margin:10pt 0 12pt; break-inside:avoid; page-break-inside:avoid}
+figure svg{display:block; width:100%; height:auto; border:.6pt solid var(--line);
+  background:#fff; padding:7pt}
+figcaption{font-size:7.9pt; line-height:1.45; color:var(--mute); margin-top:4pt; text-align:justify}
+figcaption b{color:var(--ink)}
+
+/* SVG */
+.sl{stroke:var(--line2); fill:none}
+.si{stroke:var(--soft); fill:none}
+.sg{stroke:var(--globe); fill:none}
+.sp{stroke:var(--plane); fill:none}
+.sa{stroke:var(--alert); fill:none}
+.fg{fill:var(--globe)} .fp{fill:var(--plane)} .fi{fill:var(--ink)} .fs{fill:var(--soft)}
+.t{font-family:"IBM Plex Sans",sans-serif; font-size:12px; fill:var(--soft)}
+.tm{font-family:"IBM Plex Mono",monospace; font-size:11px; fill:var(--mute); letter-spacing:.05em}
+.tb{font-family:"IBM Plex Mono",monospace; font-size:11.5px; font-weight:600; letter-spacing:.09em}
+.dash{stroke-dasharray:5 4} .dash2{stroke-dasharray:2 3}
+
+/* ── Encadrés ── */
+.box{border:.7pt solid var(--line2); padding:9pt 11pt; margin:9pt 0;
+  break-inside:avoid; page-break-inside:avoid}
+.box .lab{font-family:"IBM Plex Mono",monospace; font-size:7pt; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; display:block; margin-bottom:4pt}
+.box p:last-child{margin-bottom:0}
+.box.key{border-color:var(--globe); background:var(--globe-w)} .box.key .lab{color:var(--globe)}
+.box.warn{border-color:var(--alert); background:var(--alert-w)} .box.warn .lab{color:var(--alert)}
+.box.flat{border-color:var(--plane); background:var(--plane-w)} .box.flat .lab{color:var(--plane)}
+
+.two{display:grid; grid-template-columns:1fr 1fr; gap:9pt; margin:9pt 0;
+  break-inside:avoid; page-break-inside:avoid}
+.vc{border:1pt solid var(--line2); padding:9pt 11pt}
+.vc.g{border-color:var(--globe)} .vc.p{border-color:var(--plane)}
+.vc .h{font-family:"IBM Plex Mono",monospace; font-size:7.2pt; letter-spacing:.14em;
+  margin:0 0 3pt}
+.vc.g .h{color:var(--globe)} .vc.p .h{color:var(--plane)}
+.vc .v{font-family:Spectral,Georgia,serif; font-size:13pt; font-weight:600;
+  color:var(--ink); margin:0 0 4pt; line-height:1.2}
+.vc p{font-size:8.4pt; margin:0}
+
+.sheet{border:.9pt solid var(--line2); padding:9pt 13pt; break-inside:avoid; page-break-inside:avoid}
+.fr{display:flex; gap:9pt; align-items:baseline; padding:3.1pt 0; border-bottom:.4pt dotted var(--line2)}
+.fr:last-child{border-bottom:0}
+.fr .a{font-size:8.5pt; color:var(--soft); flex:1 1 auto}
+.fr .b{font-family:"IBM Plex Mono",monospace; font-size:8pt; color:var(--mute);
+  border-bottom:.5pt solid var(--line2); min-width:104pt; text-align:center}
+
+.brk{break-before:page; page-break-before:always}
+footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
+  font-size:7.6pt; color:var(--mute)}
+.refs{font-size:7.85pt; color:var(--soft); line-height:1.4}
+.refs li{margin-bottom:3pt}
+
+.langbar{display:flex; gap:0; margin:0 0 12pt; border:.8pt solid var(--line2)}
+.langbar span{flex:1; text-align:center; padding:5pt; font-family:"IBM Plex Mono",monospace;
+  font-size:7.4pt; letter-spacing:.14em; color:var(--mute)}
+.langbar span.on{background:var(--globe); color:#fff; font-weight:600}
+.disk{fill:var(--plane); opacity:.85}
+.disk2{fill:var(--globe); opacity:.85}
+</style>
+
+<div class="page">
+<div class="langbar"><span class="on">FRAN&#199;AIS</span><span>ENGLISH &#8212; seconde moiti&#233;</span></div>
+
+<div class="masthead">
+  <div class="kicker">Protocole ouvert &#183; Pr&#233;dictions pr&#233;enregistr&#233;es &#183; Lecture directe, sans mesure d'angle</div>
+  <h1>La hauteur masqu&#233;e d'une mire gradu&#233;e au-dessus de l'eau</h1>
+  <p class="dek">On ne mesure aucun angle : on lit combien de graduations ont disparu. Un
+  mod&#232;le pr&#233;dit qu'il n'en dispara&#238;t jamais aucune.</p>
+  <div class="byline">
+    <span>R&#233;dacteur<b>&nbsp;</b></span>
+    <span>Affiliation<b>&nbsp;</b></span>
+    <span>Contact<b>&nbsp;</b></span>
+    <span>Version<b>1.0 &#8212; arr&#234;t&#233;e pour d&#233;p&#244;t</b></span>
+    <span>DOI<b>DOI-EN-ATTENTE</b></span>
+  </div>
+</div>
+
+<div class="abstract">
+  <span class="lab">R&#233;sum&#233;</span>
+  <p>Une mire verticale gradu&#233;e en bandes contrast&#233;es d'un m&#232;tre est plant&#233;e au
+  bord de l'eau, sa base au niveau de la surface. Elle est observ&#233;e depuis l'autre rive, &#224;
+  une vingtaine de kilom&#232;tres, depuis plusieurs hauteurs d'&#339;il. <strong>L'observable
+  est le nombre de bandes masqu&#233;es</strong>, lu directement sur la mire.</p>
+  <p>Cette lecture se passe de toute mesure d'angle : la mire porte sa propre &#233;chelle. Ni
+  focale, ni distorsion, ni mise &#224; niveau n'entrent dans le r&#233;sultat. C'est la
+  simplicit&#233; instrumentale de ce protocole, et sa raison d'&#234;tre.</p>
+  <p>Un mod&#232;le sph&#233;rique pr&#233;dit une hauteur masqu&#233;e croissante avec la distance
+  et d&#233;croissante avec la hauteur d'&#339;il. Un mod&#232;le plan pr&#233;dit
+  <strong>z&#233;ro dans tous les cas</strong>, et ce sous propagation rectiligne comme sous
+  r&#233;fraction r&#233;elle. Depuis un &#339;il &#224; 5 m et &#224; 20 km, la sph&#232;re
+  garantit au minimum <strong>3,40 m masqu&#233;s</strong> m&#234;me dans le r&#233;gime
+  r&#233;fractif le plus favorable au plan, pour un budget d'erreur de 0,55 m.</p>
+  <p><strong>Ce protocole est le moins pr&#233;cis de ceux qui mesurent la m&#234;me question,
+  et la section 02 dit pourquoi.</strong> La hauteur masqu&#233;e est l'observable la plus
+  sensible &#224; la r&#233;fraction, et elle ne peut restituer que le rayon <em>effectif</em>
+  R&#8242; = R/(1&#8722;k), jamais R et k s&#233;par&#233;ment. La m&#233;thode B l&#232;ve cette
+  d&#233;g&#233;n&#233;rescence en mesurant k.</p>
+</div>
+
+<h2><span class="n">01</span>Objet</h2>
+<p class="lead">Ce document d&#233;crit une mesure de la hauteur masqu&#233;e d'une cible
+gradu&#233;e au-dessus d'un plan d'eau, dont le r&#233;sultat discrimine deux mod&#232;les
+g&#233;om&#233;triques de la surface terrestre, et dont les crit&#232;res de d&#233;cision sont
+fix&#233;s avant toute acquisition.</p>
+<p>Son int&#233;r&#234;t propre est <strong>l'absence de toute mesure d'angle</strong>. La cible
+porte une &#233;chelle m&#233;trique connue ; on compte les bandes qui manquent. Aucune focale
+&#224; &#233;talonner, aucun profil de distorsion, aucun horizon artificiel, aucune mise &#224;
+niveau. Un observateur qui se m&#233;fie des cha&#238;nes optiques y trouvera la mesure la plus
+directe du dossier.</p>
+<p>Son co&#251;t est &#233;nonc&#233; d&#232;s la section suivante, et il est r&#233;el.</p>
+
+<h2><span class="n">02</span>Fondement th&#233;orique</h2>
+<p>Pour un &#339;il &#224; la hauteur h&#8321; au-dessus d'une surface sph&#233;rique de rayon R,
+la distance de l'horizon vaut <code>a = &#8730;((R&#8242;+h&#8321;)&#178; &#8722; R&#8242;&#178;)</code>
+avec <code>R&#8242; = R/(1&#8722;k)</code>. Au-del&#224; de cet horizon, une cible dont la base est
+au niveau de l'eau voit sa partie basse masqu&#233;e sur la hauteur :</p>
+<div class="eq">
+  cach&#233;e = &#8730;( R&#8242;&#178; + (d &#8722; a)&#178; ) &#8722; R&#8242;
+  <span class="cap">Forme exacte. d = distance &#339;il-cible. Valable &#224; toute distance ; vaut z&#233;ro tant que d &#8804; a.</span>
+</div>
+
+<div class="box warn">
+  <span class="lab">La formule &#224; ne pas employer</span>
+  <p>On rencontre couramment <code>d&#178;/2R &#8722; h&#8321;</code>, dite &#171; huit pouces
+  par mille au carr&#233;, moins la hauteur d'&#339;il &#187;. Elle est <strong>fausse</strong>
+  d&#232;s que la cible d&#233;passe l'horizon, et son erreur vaut exactement
+  <code>a(d&#8722;a)/R</code> &#8212; des m&#232;tres, parfois des dizaines de m&#232;tres.</p>
+  <p>Elle surestime toujours la hauteur masqu&#233;e, donc elle fabrique des anomalies quand la
+  cible reste visible. C'est la source d'erreur la plus r&#233;pandue de tout le domaine, et le
+  pr&#233;sent protocole ne l'emploie nulle part.</p>
+</div>
+
+<h3>La pr&#233;diction du mod&#232;le plan, sous les deux r&#233;gimes</h3>
+<p>Sur une surface plane et en propagation rectiligne, aucune partie de la cible n'est jamais
+masqu&#233;e : la pr&#233;diction est <strong>z&#233;ro &#224; toute distance et &#224; toute
+hauteur d'&#339;il</strong>.</p>
+<p>Si l'on accorde au mod&#232;le plan l'atmosph&#232;re r&#233;elle, la pr&#233;diction ne change
+pas de sens. La courbure du rayon vaut 1/&#961; avec <code>k = R/&#961;</code> ; elle ne
+d&#233;pend que de l'air, donc elle est la m&#234;me au-dessus d'un plan. La courbure
+<em>relative</em> du rayon et de la surface y vaut alors &#8722;k/R : le rayon se courbe vers le
+bas plus que la surface, le sol remonte autour de l'observateur, et la cible appara&#238;t
+<em>surhauss&#233;e</em>. <strong>Rien n'est masqu&#233;, jamais.</strong></p>
+<div class="box key">
+  <span class="lab">Ce que cela &#233;tablit</span>
+  <p>Z&#233;ro masqu&#233; est le <strong>meilleur cas</strong> du mod&#232;le plan, et il est le
+  m&#234;me sous les deux r&#233;gimes de propagation. Le mod&#232;le plan ne dispose d'aucun
+  m&#233;canisme produisant une occultation partielle et croissante avec la distance.</p>
+</div>
+
+<h3>Ce que cette mesure peut rendre, et ce qu'elle ne peut pas</h3>
+<div class="box warn">
+  <span class="lab">Une d&#233;g&#233;n&#233;rescence &#224; &#233;noncer d'avance</span>
+  <p>La hauteur masqu&#233;e ne d&#233;pend de R et de k que par leur combinaison
+  <code>R&#8242; = R/(1&#8722;k)</code>. <strong>Aucune mesure d'occultation, si soign&#233;e
+  soit-elle, ne peut s&#233;parer les deux.</strong> Elle restitue R&#8242;, et rien de plus.</p>
+  <p>Or la plage physiquement d&#233;fendable de k s'&#233;tend de 0 &#224; 0,47, ce qui laisse
+  R&#8242; entre 6 371 et 12 021 km &#8212; un <strong>facteur 1,89</strong>.</p>
+</div>
+<table>
+  <caption>Tableau 1 &#8212; Rayon effectif selon le r&#233;gime de r&#233;fraction. C'est cette
+  grandeur, et elle seule, que la m&#233;thode A mesure.</caption>
+  <thead><tr><th>r&#233;gime</th><th class="n">k</th><th class="n">R&#8242;</th></tr></thead>
+  <tbody>
+    <tr><td>Vide optique, borne th&#233;orique</td><td class="n">0,00</td><td class="n">6 371 km</td></tr>
+    <tr class="hi"><td><strong>Standard g&#233;od&#233;sique</strong></td><td class="n"><strong>0,13</strong></td><td class="n"><strong>7 323 km</strong></td></tr>
+    <tr><td>Super-r&#233;fraction</td><td class="n">0,25</td><td class="n">8 495 km</td></tr>
+    <tr class="pl"><td>Conduit atmosph&#233;rique</td><td class="n">0,47</td><td class="n">12 021 km</td></tr>
+  </tbody>
+</table>
+<p>Deux cons&#233;quences, &#224; retenir avant de monter quoi que ce soit.</p>
+<ol>
+  <li><strong>Pour discriminer les deux mod&#232;les, la d&#233;g&#233;n&#233;rescence ne
+  g&#234;ne pas.</strong> Il suffit de prendre le k le plus favorable au plan &#8212; 0,47 &#8212;
+  et de v&#233;rifier qu'il reste une occultation mesurable. C'est ce que fait la section 03.</li>
+  <li><strong>Pour mesurer R, elle est r&#233;dhibitoire</strong> tant que k n'est pas connu par
+  ailleurs. C'est l'objet de la m&#233;thode B, section 07, qui mesure k au lieu de le
+  supposer.</li>
+</ol>
+
+<h2 class="brk"><span class="n">03</span>Pr&#233;dictions pr&#233;enregistr&#233;es</h2>
+<p>Les deux hypoth&#232;ses sont &#233;nonc&#233;es ici sous forme falsifiable, avant toute
+acquisition.</p>
+
+<div class="two">
+  <div class="vc g">
+    <p class="h">HYPOTH&#200;SE S &#8212; SURFACE SPH&#201;RIQUE</p>
+    <p class="v">cach&#233;e = &#8730;(R&#8242;&#178; + (d&#8722;a)&#178;) &#8722; R&#8242;</p>
+    <p>Croissante avec la distance, d&#233;croissante avec la hauteur d'&#339;il, nulle en
+    de&#231;&#224; de l'horizon.</p>
+  </div>
+  <div class="vc p">
+    <p class="h">HYPOTH&#200;SE P &#8212; SURFACE PLANE</p>
+    <p class="v">cach&#233;e = 0</p>
+    <p>&#192; toute distance, &#224; toute hauteur d'&#339;il, sous les deux r&#233;gimes de
+    propagation. La mire est vue enti&#232;re, base comprise.</p>
+  </div>
+</div>
+
+<table>
+  <caption>Tableau 2 &#8212; Hauteur masqu&#233;e pr&#233;dite, &#339;il &#224; 5 m au-dessus de
+  l'eau. La colonne k = 0,47 est le <strong>signal garanti</strong> : c'est ce qui reste
+  masqu&#233; m&#234;me dans le r&#233;gime le plus favorable au mod&#232;le plan.</caption>
+  <thead><tr><th class="n">distance</th><th class="n">k = 0</th><th class="n">k = 0,13</th><th class="n">k = 0,25</th><th class="n">k = 0,47</th><th class="n">hyp. P</th></tr></thead>
+  <tbody>
+    <tr class="pl"><td class="n">10 km</td><td class="n">0,32 m</td><td class="n">0,14 m</td><td class="n">0,03 m</td><td class="n">0,00 m</td><td class="n">0 m</td></tr>
+    <tr><td class="n">15 km</td><td class="n">3,87 m</td><td class="n">2,83 m</td><td class="n">1,97 m</td><td class="n">0,68 m</td><td class="n">0 m</td></tr>
+    <tr class="hi"><td class="n"><strong>20 km</strong></td><td class="n"><strong>11,34 m</strong></td><td class="n"><strong>8,94 m</strong></td><td class="n"><strong>6,84 m</strong></td><td class="n"><strong>3,40 m</strong></td><td class="n"><strong>0 m</strong></td></tr>
+    <tr><td class="n">25 km</td><td class="n">22,73 m</td><td class="n">18,46 m</td><td class="n">14,66 m</td><td class="n">8,19 m</td><td class="n">0 m</td></tr>
+  </tbody>
+</table>
+
+<h3>Le second axe : varier la hauteur d'&#339;il</h3>
+<p>&#192; distance fix&#233;e, &#233;lever l'&#339;il d&#233;masque la mire. Le mod&#232;le plan
+pr&#233;dit <strong>aucune variation</strong>, puisqu'il ne pr&#233;dit aucune occultation.</p>
+<table>
+  <caption>Tableau 3 &#8212; Hauteur masqu&#233;e &#224; 20 km selon la hauteur d'&#339;il. Une
+  mire de douze m&#232;tres suffit &#224; couvrir tout le domaine d&#232;s que l'&#339;il est
+  &#224; 5 m ou plus.</caption>
+  <thead><tr><th class="n">hauteur d'&#339;il</th><th class="n">k = 0</th><th class="n">k = 0,13</th><th class="n">k = 0,47</th><th class="n">hyp. P</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td class="n"><strong>5 m</strong></td><td class="n"><strong>11,34 m</strong></td><td class="n"><strong>8,94 m</strong></td><td class="n"><strong>3,40 m</strong></td><td class="n"><strong>0 m</strong></td></tr>
+    <tr><td class="n">8 m</td><td class="n">7,70 m</td><td class="n">5,75 m</td><td class="n">1,56 m</td><td class="n">0 m</td></tr>
+    <tr><td class="n">12 m</td><td class="n">4,57 m</td><td class="n">3,10 m</td><td class="n">0,38 m</td><td class="n">0 m</td></tr>
+    <tr><td class="n">20 m</td><td class="n">1,28 m</td><td class="n">0,57 m</td><td class="n">0,00 m</td><td class="n">0 m</td></tr>
+    <tr class="pl"><td class="n">30 m</td><td class="n">0,02 m</td><td class="n">0,00 m</td><td class="n">0,00 m</td><td class="n">0 m</td></tr>
+  </tbody>
+</table>
+<p>Entre l'&#339;il &#224; 5 m et l'&#339;il &#224; 20 m, la hauteur masqu&#233;e varie de
+<strong>3,40 m dans le pire cas</strong> et de 8,37 m en r&#233;gime standard. Le mod&#232;le
+plan pr&#233;dit une variation de z&#233;ro.</p>
+<p>Cet axe est le plus commode : il ne demande qu'un seul site de cible, une seule distance, et
+une pente ou un b&#226;timent c&#244;t&#233; observateur. Il constitue le c&#339;ur de la
+m&#233;thode A.</p>
+
+<h2 class="brk"><span class="n">04</span>Marche &#224; suivre &#8212; l'ordre des op&#233;rations</h2>
+<p class="lead">Plusieurs &#233;tapes rendent les pr&#233;c&#233;dentes irr&#233;cup&#233;rables.</p>
+<div class="box warn">
+  <span class="lab">Les cinq choses qui ne se rattrapent jamais</span>
+  <ol>
+    <li><strong>L'horodatage du protocole.</strong> D&#233;pos&#233; apr&#232;s la premi&#232;re
+    image, il ne prouve rien.</li>
+    <li><strong>Le nivellement de la base de la mire</strong> par rapport &#224; la surface de
+    l'eau du moment. Une fois la mire d&#233;mont&#233;e, la mesure n'est plus refaisable.</li>
+    <li><strong>La hauteur d'&#339;il, rapport&#233;e &#224; la m&#234;me surface.</strong> Pas
+    &#224; l'ellipso&#239;de, pas au g&#233;o&#239;de, pas au z&#233;ro hydrographique.</li>
+    <li><strong>L'heure de mar&#233;e aux deux extr&#233;mit&#233;s</strong>, si le plan d'eau
+    est soumis &#224; la mar&#233;e. La diff&#233;rence entre les deux sites se reporte
+    int&#233;gralement sur le r&#233;sultat.</li>
+    <li><strong>La visibilit&#233; m&#233;t&#233;orologique du jour.</strong> Sans elle, on ne
+    sait pas si une mire invisible l'est par g&#233;om&#233;trie ou par brume &#8212; et c'est
+    la confusion qui ruine ce type de mesure.</li>
+  </ol>
+</div>
+
+<h3>Phase 0 &#8212; avant toute acquisition</h3>
+<ol class="st">
+  <li><b>D&#233;poser le protocole</b>Figer le PDF, calculer l'empreinte SHA-256, d&#233;poser
+  sur un entrep&#244;t p&#233;renne, obtenir le DOI, publier DOI et empreinte. Section 13.
+  <strong>Tant que ce n'est pas fait, ne rien photographier.</strong></li>
+  <li><b>Choisir le plan d'eau</b>Un grand lac est pr&#233;f&#233;rable &#224; la mer : pas de
+  mar&#233;e, donc un poste d'erreur en moins et une surface commune aux deux sites. &#192;
+  d&#233;faut, une baie dont les deux rives se voient.</li>
+  <li><b>Fixer le crit&#232;re de lecture</b>Ce qui compte comme &#171; bande masqu&#233;e
+  &#187;, &#233;nonc&#233; en section 09, et invariable ensuite.</li>
+  <li><b>V&#233;rifier la ligne de vis&#233;e sur carte</b>Eau libre sur toute la distance.
+  Aucun &#238;lot, aucun banc, aucune digue dans l'axe.</li>
+</ol>
+
+<h3>Phase 1 &#8212; installation de la mire</h3>
+<ol class="st">
+  <li><b>Monter la mire</b>Douze m&#232;tres, bandes altern&#233;es d'un m&#232;tre, noir et
+  blanc mat. Verticale au fil &#224; plomb, hauban&#233;e.</li>
+  <li><b>Niveler la base</b>&#192; la surface de l'eau du moment, au d&#233;cim&#232;tre.
+  Consigner l'heure. <strong>&#201;tape irr&#233;versible.</strong></li>
+  <li><b>Rep&#233;rer la position</b>GPS &#224; la mire, en mode statique si possible.</li>
+</ol>
+
+<h3>Phase 2 &#8212; les stations d'observation</h3>
+<ol class="st">
+  <li><b>Choisir cinq hauteurs d'&#339;il</b>Environ 5, 8, 12, 20 et 30 m&#232;tres au-dessus
+  de l'eau, sur une pente ou un b&#226;timent, &#224; la m&#234;me distance de la mire &#224;
+  cinquante m&#232;tres pr&#232;s.</li>
+  <li><b>Mesurer chaque hauteur d'&#339;il</b>Au d&#233;cim&#232;tre, rapport&#233;e &#224; la
+  surface de l'eau du moment. Un centim&#232;tre est inutile : un d&#233;cim&#232;tre vaut
+  1,8 % sur le r&#233;sultat, un demi-m&#232;tre 8,6 %.</li>
+  <li><b>Relever la visibilit&#233;</b>Observation m&#233;t&#233;orologique la plus proche, ou
+  estimation sur un rep&#232;re de distance connue. Voir section 09.</li>
+  <li><b>Relever T de l'air et de l'eau</b>Non pas pour corriger &#8212; le protocole ne
+  corrige pas de la r&#233;fraction &#8212; mais pour caract&#233;riser le r&#233;gime et
+  rep&#233;rer les jours anormaux.</li>
+</ol>
+
+<h3>Phase 3 &#8212; acquisition, puis r&#233;duction</h3>
+<ol class="st">
+  <li><b>Photographier</b>Rafale de vingt images par station, t&#233;l&#233;objectif sur
+  tr&#233;pied, fichier brut non recadr&#233;.</li>
+  <li><b>Compter, ne pas mesurer</b>Le r&#233;sultat est un nombre de bandes, lu sur la mire.
+  Aucune conversion angulaire n'intervient.</li>
+  <li><b>R&#233;p&#233;ter &#224; trois heures distinctes</b>La r&#233;fraction varie ; la
+  dispersion obtenue <em>est</em> l'incertitude de mod&#232;le.</li>
+  <li><b>Ajuster</b>Les deux mod&#232;les sur la m&#234;me s&#233;rie, section 10.</li>
+  <li><b>Publier</b>Images brutes, journal, ajustements, et la conclusion qu'ils imposent.</li>
+</ol>
+
+<h2 class="brk"><span class="n">05</span>Mat&#233;riel</h2>
+<h3>La mire</h3>
+<ul>
+  <li><strong>Un m&#226;t de douze m&#232;tres</strong> &#8212; m&#226;t t&#233;lescopique,
+  &#233;chafaudage, ou structure existante de hauteur relev&#233;e.</li>
+  <li><strong>Bandes altern&#233;es d'un m&#232;tre</strong>, noir et blanc mat. Un
+  m&#232;tre est le pas juste : &#224; 20 km une bande sous-tend 10,3 secondes d'arc, au-dessus
+  de la turbulence ; une bande de 0,5 m n'en sous-tend que 5,2 et se perd.</li>
+  <li><strong>La bande la plus basse rep&#233;r&#233;e sans ambigu&#239;t&#233;</strong> &#8212;
+  couleur distincte, ou double largeur &#8212; pour que le comptage parte d'une
+  r&#233;f&#233;rence.</li>
+  <li><strong>De quoi niveler la base</strong> &#224; la surface de l'eau : mire de
+  chantier, ou simple rep&#232;re trac&#233; &#224; la ligne d'eau &#224; heure connue.</li>
+</ul>
+<h3>Le poste d'observation</h3>
+<ul>
+  <li><strong>T&#233;l&#233;objectif ou lunette</strong> de 400 mm ou plus en &#233;quivalent
+  plein format. La focale exacte n'importe pas : elle ne sert qu'&#224; voir, pas &#224;
+  mesurer.</li>
+  <li><strong>Tr&#233;pied</strong>. Sa mise &#224; niveau n'a aucune influence sur le
+  r&#233;sultat.</li>
+  <li><strong>Un site offrant cinq hauteurs</strong> entre 5 et 30 m au-dessus de l'eau, &#224;
+  distance sensiblement constante de la mire.</li>
+  <li><strong>GPS</strong> aux deux extr&#233;mit&#233;s.</li>
+  <li><strong>Thermom&#232;tres</strong> pour l'air et pour l'eau.</li>
+</ul>
+<h3>Pour la m&#233;thode B, si elle est men&#233;e</h3>
+<ul>
+  <li><strong>Deux th&#233;odolites</strong> lisant la seconde d'arc, et deux
+  op&#233;rateurs.</li>
+  <li><strong>Deux montres synchronis&#233;es</strong> &#224; la seconde.</li>
+</ul>
+
+<h2><span class="n">06</span>Proc&#233;dure &#8212; m&#233;thode A, la mire gradu&#233;e</h2>
+<p class="lead">C'est le proc&#233;d&#233; de r&#233;f&#233;rence, et le plus simple du dossier :
+on compte des bandes.</p>
+<ol class="st">
+  <li><b>Cadrer la mire enti&#232;re</b>Avec sa base th&#233;orique, m&#234;me si celle-ci est
+  masqu&#233;e : c'est la position attendue de la base qui donne le rep&#232;re.</li>
+  <li><b>Rafale de vingt images</b>Vitesse courte, ouverture interm&#233;diaire, brut non
+  recadr&#233;. La dispersion de la limite entre bandes masqu&#233;es et bandes visibles, sur
+  ces vingt images, <strong>est</strong> le poste de lecture du budget d'erreur. Elle se mesure,
+  elle ne se postule pas.</li>
+  <li><b>Compter</b>Le nombre de bandes enti&#232;rement masqu&#233;es, plus la fraction de la
+  premi&#232;re bande partiellement visible, selon le crit&#232;re de la section 09.</li>
+  <li><b>Changer de hauteur d'&#339;il</b>Et recommencer. Cinq hauteurs, dans un ordre
+  <strong>tir&#233; au sort avant la session</strong> : sans cela, une d&#233;rive lente de la
+  r&#233;fraction au cours de la matin&#233;e se confond avec l'effet cherch&#233;.</li>
+  <li><b>R&#233;p&#233;ter la s&#233;rie enti&#232;re</b>&#192; trois heures distinctes, et si
+  possible trois jours distincts.</li>
+</ol>
+<div class="box key">
+  <span class="lab">Ce que ce proc&#233;d&#233; &#233;limine</span>
+  <p>La mire porte son propre &#233;talon. Il n'y a donc <strong>ni &#233;chelle angulaire
+  &#224; d&#233;terminer, ni distorsion &#224; corriger, ni horizontale &#224; mat&#233;rialiser,
+  ni r&#233;f&#233;rence verticale &#224; &#233;tablir</strong>. Trois postes d'erreur qui
+  p&#232;sent lourd ailleurs disparaissent ici. C'est le gain de ce protocole, et il est
+  r&#233;el.</p>
+</div>
+
+<h2 class="brk"><span class="n">07</span>Proc&#233;dure &#8212; m&#233;thode B, les vis&#233;es r&#233;ciproques</h2>
+<p class="lead">Facultative, mais c'est elle qui l&#232;ve la d&#233;g&#233;n&#233;rescence de la
+section 02. Elle demande deux th&#233;odolites et deux op&#233;rateurs.</p>
+<p>Deux stations, aux deux extr&#233;mit&#233;s de la m&#234;me base, mesurent
+<strong>simultan&#233;ment</strong> l'angle z&#233;nithal l'une vers l'autre. La g&#233;om&#233;trie
+donne alors deux relations ind&#233;pendantes :</p>
+<div class="eq">
+  z<sub>A</sub> + z<sub>B</sub> &#8722; 180&#176; = (d / R)(1 &#8722; k)
+  <span class="cap">La somme mesure k. La diff&#233;rence donne la d&#233;nivel&#233;e, la r&#233;fraction s'&#233;liminant si elle est &#233;gale aux deux bouts.</span>
+</div>
+<div class="box key">
+  <span class="lab">k se mesure, il ne s'annule pas</span>
+  <p>La formule est souvent pr&#233;sent&#233;e comme &#171; annulant la r&#233;fraction &#187;.
+  C'est vrai pour la <em>d&#233;nivel&#233;e</em>, et faux pour tout le reste. Ce que la somme
+  des angles apporte est bien mieux : elle <strong>mesure</strong> le coefficient de
+  r&#233;fraction du moment, sur la vis&#233;e m&#234;me.</p>
+</div>
+<table>
+  <caption>Tableau 4 &#8212; Excès de la somme des angles z&#233;nithaux sur 180&#176;, et
+  pr&#233;cision atteignable sur k pour une base de 20 km.</caption>
+  <thead><tr><th class="n">base</th><th class="n">exc&#232;s &#224; k = 0,13</th><th class="n">pr&#233;cision du th&#233;odolite</th><th class="n">&#963;(k) &#224; 20 km</th></tr></thead>
+  <tbody>
+    <tr><td class="n">5 km</td><td class="n">2,35&#8242;</td><td class="n">1&#8243;</td><td class="n">0,002</td></tr>
+    <tr><td class="n">10 km</td><td class="n">4,69&#8242;</td><td class="n">2&#8243;</td><td class="n">0,004</td></tr>
+    <tr class="hi"><td class="n"><strong>20 km</strong></td><td class="n"><strong>9,39&#8242;</strong></td><td class="n"><strong>5&#8243;</strong></td><td class="n"><strong>0,011</strong></td></tr>
+    <tr class="pl"><td class="n">&#8212;</td><td class="n">&#8212;</td><td class="n">20&#8243;</td><td class="n">0,044</td></tr>
+  </tbody>
+</table>
+<p>Un th&#233;odolite ordinaire &#224; 5 secondes d'arc suffit donc &#224; ramener l'ignorance sur
+k d'une plage de 0,47 &#224; une incertitude de 0,011. La d&#233;g&#233;n&#233;rescence
+R&#8242; = R/(1&#8722;k) est alors lev&#233;e, et la m&#233;thode A restitue R et non plus
+seulement R&#8242;.</p>
+<div class="box warn">
+  <span class="lab">La condition de simultan&#233;it&#233;</span>
+  <p>Les deux vis&#233;es doivent &#234;tre prises <strong>&#224; la m&#234;me minute</strong>.
+  La r&#233;fraction varie d'une demi-heure &#224; l'autre ; deux mesures d&#233;cal&#233;es ne
+  portent pas sur la m&#234;me atmosph&#232;re, et la sym&#233;trie qui fait tout l'int&#233;r&#234;t
+  de la m&#233;thode dispara&#238;t.</p>
+</div>
+
+<h2 class="brk"><span class="n">08</span>Budget d'erreur et crit&#232;res de d&#233;cision</h2>
+<table>
+  <caption>Tableau 5 &#8212; Budget d'erreur sur la hauteur masqu&#233;e, &#224; 1 &#963;, pour
+  une vis&#233;e de 20 km depuis un &#339;il &#224; 5 m.</caption>
+  <thead><tr><th>SOURCE</th><th class="n">contribution</th><th>TRAITEMENT</th></tr></thead>
+  <tbody>
+    <tr><td>Lecture de la limite masqu&#233;e, turbulence comprise</td><td class="n">0,50 m</td><td>dispersion sur une rafale de 20 images</td></tr>
+    <tr><td>Hauteur d'&#339;il au-dessus de l'eau (&#177;0,10 m)</td><td class="n">0,13 m</td><td>relev&#233; au d&#233;cim&#232;tre</td></tr>
+    <tr><td>Mar&#233;e diff&#233;rentielle entre les deux sites</td><td class="n">0,15 m</td><td><em>nulle</em> sur un lac</td></tr>
+    <tr><td>Base de la mire au-dessus de l'eau (&#177;0,10 m)</td><td class="n">0,10 m</td><td>report direct</td></tr>
+    <tr><td>Distance par GPS (&#177;50 m)</td><td class="n">0,08 m</td><td>n&#233;gligeable</td></tr>
+    <tr class="hi"><td><strong>Total quadratique</strong></td><td class="n"><strong>0,55 m</strong></td><td><strong>1 &#963;</strong></td></tr>
+  </tbody>
+</table>
+
+<div class="box key">
+  <span class="lab">Deux rapports signal sur bruit, et non un seul</span>
+  <p><strong>Question 1 &#8212; la surface est-elle plane ?</strong> Le signal est la hauteur
+  masqu&#233;e au k le plus favorable au plan. La m&#233;connaissance de k n'y entre pas : elle
+  est absorb&#233;e par le choix du pire cas.</p>
+  <p><strong>Question 2 &#8212; combien vaut R&#8242; ?</strong> Ici la dispersion des s&#233;ries
+  entre elles mesure directement la variabilit&#233; de la r&#233;fraction, et c'est elle qui
+  fixe la pr&#233;cision. Sans la m&#233;thode B, le r&#233;sultat reste R&#8242; et non R.</p>
+</div>
+
+<table>
+  <caption>Tableau 6 &#8212; Pouvoir de discrimination selon la distance, &#339;il &#224; 5 m,
+  budget 0,55 m.</caption>
+  <thead><tr><th class="n">distance</th><th class="n">signal garanti (k = 0,47)</th><th class="n">rapport S/B</th><th>verdict</th></tr></thead>
+  <tbody>
+    <tr class="pl"><td class="n">15 km</td><td class="n">0,68 m</td><td class="n">1,2</td><td>insuffisant</td></tr>
+    <tr class="hi"><td class="n"><strong>20 km</strong></td><td class="n"><strong>3,40 m</strong></td><td class="n"><strong>6,2</strong></td><td><strong>d&#233;cisif &#8212; distance de travail</strong></td></tr>
+    <tr><td class="n">25 km</td><td class="n">8,19 m</td><td class="n">14,9</td><td>confortable, mais mire de 23 m et air tr&#232;s clair</td></tr>
+    <tr><td class="n">30 km</td><td class="n">15,07 m</td><td class="n">27,4</td><td>hors de port&#233;e d'une mire raisonnable</td></tr>
+  </tbody>
+</table>
+
+<h3>Crit&#232;res de d&#233;cision, fix&#233;s a priori</h3>
+<div class="two">
+  <div class="vc p">
+    <p class="h">MIRE ENTI&#200;RE VISIBLE, BASE COMPRISE, &#192; 20 km ET &#192; 5 m</p>
+    <p class="v">Hypoth&#232;se S r&#233;fut&#233;e</p>
+    <p>Aucune valeur de k dans la plage physique ne descend sous 3,40 m masqu&#233;s. Une base
+    visible, reproduite sur trois s&#233;ries, r&#233;fute le mod&#232;le sph&#233;rique par mesure
+    directe.</p>
+  </div>
+  <div class="vc g">
+    <p class="h">HAUTEUR MASQU&#201;E &#8712; [3,40 ; 11,34] m ET D&#201;CROISSANTE AVEC L'&#338;IL</p>
+    <p class="v">Hypoth&#232;se P r&#233;fut&#233;e</p>
+    <p>La position dans la fourchette fournit en outre R&#8242;, et donc k si la m&#233;thode B a
+    &#233;t&#233; men&#233;e.</p>
+  </div>
+</div>
+<div class="box warn">
+  <span class="lab">Zone morte, et le pi&#232;ge qu'elle recouvre</span>
+  <p>Une hauteur masqu&#233;e sup&#233;rieure &#224; 11,34 m ne confirme aucune des deux
+  hypoth&#232;ses : elle exc&#232;de ce que la g&#233;om&#233;trie sph&#233;rique permet
+  m&#234;me sans aucune r&#233;fraction. Causes &#224; &#233;liminer : base de mire mal
+  nivel&#233;e, hauteur d'&#339;il surestim&#233;e, mar&#233;e non corrig&#233;e, ou
+  <strong>mire simplement invisible par manque de contraste</strong>.</p>
+  <p>Ce dernier point est le pi&#232;ge propre &#224; ce protocole. <strong>Une mire
+  noy&#233;e dans la brume n'est pas une mire masqu&#233;e par la courbure.</strong> Voir la
+  section 09.</p>
+</div>
+
+<h2 class="brk"><span class="n">09</span>Syst&#233;matiques connues et modes d'&#233;chec</h2>
+
+<h3>L'extinction atmosph&#233;rique &#8212; le mode d'&#233;chec principal</h3>
+<p>Le contraste d'un objet lointain d&#233;cro&#238;t exponentiellement avec la distance. En
+de&#231;&#224; d'environ 2 % de contraste r&#233;siduel, l'objet cesse d'&#234;tre perceptible
+&#8212; quelle que soit la forme de la surface.</p>
+<table>
+  <caption>Tableau 7 &#8212; Contraste restant d'une mire noir sur blanc, selon la
+  visibilit&#233; m&#233;t&#233;orologique V. Les valeurs marqu&#233;es d'une &#233;toile sont
+  sous le seuil de perception.</caption>
+  <thead><tr><th class="n">V</th><th class="n">10 km</th><th class="n">15 km</th><th class="n">20 km</th><th class="n">25 km</th><th class="n">30 km</th></tr></thead>
+  <tbody>
+    <tr class="pl"><td class="n">20 km</td><td class="n">14,1 %</td><td class="n">5,3 %</td><td class="n">2,0 %</td><td class="n">0,8 %*</td><td class="n">0,3 %*</td></tr>
+    <tr><td class="n">30 km</td><td class="n">27,1 %</td><td class="n">14,1 %</td><td class="n">7,4 %</td><td class="n">3,8 %</td><td class="n">2,0 %</td></tr>
+    <tr class="hi"><td class="n"><strong>40 km</strong></td><td class="n">37,6 %</td><td class="n">23,1 %</td><td class="n"><strong>14,1 %</strong></td><td class="n">8,7 %</td><td class="n">5,3 %</td></tr>
+    <tr><td class="n">60 km</td><td class="n">52,1 %</td><td class="n">37,6 %</td><td class="n">27,1 %</td><td class="n">19,6 %</td><td class="n">14,1 %</td></tr>
+  </tbody>
+</table>
+<p><strong>Une vis&#233;e de 20 km exige une visibilit&#233; d'au moins 35 km ; une vis&#233;e de
+25 km en exige 45.</strong> Ce sont des journ&#233;es rares, et il faut les attendre. La
+visibilit&#233; du jour est un champ obligatoire du relev&#233;.</p>
+<div class="box warn">
+  <span class="lab">La confusion &#224; ne jamais commettre</span>
+  <p>Ne pas voir la mire ne prouve rien. La voir enti&#232;re ne prouve rien non plus si la
+  visibilit&#233; n'est pas document&#233;e. <strong>Une observation o&#249; la mire dispara&#238;t
+  progressivement du bas vers le haut est une occultation ; une mire qui s'efface uniformément
+  est une extinction.</strong> Les deux se distinguent &#224; l'&#339;il, et la distinction doit
+  &#234;tre consign&#233;e image par image.</p>
+</div>
+
+<h3>Le crit&#232;re de lecture</h3>
+<p>La limite entre bandes masqu&#233;es et bandes visibles n'est pas un trait : la turbulence de
+vis&#233;e rasante l'&#233;tale, et la r&#233;fraction peut comprimer ou dilater verticalement le
+bas de la mire. Le crit&#232;re, fix&#233; avant la r&#233;duction et appliqu&#233; sans
+exception :</p>
+<ol>
+  <li>Travailler sur le fichier brut, non recadr&#233;, sans r&#233;hausse de contraste.</li>
+  <li>Empiler les vingt images de la rafale par la m&#233;diane, ce qui &#233;limine la
+  turbulence sans d&#233;placer la limite.</li>
+  <li>La limite est l'ordonn&#233;e o&#249; l'alternance des bandes cesse d'&#234;tre
+  r&#233;solue &#8212; <strong>et non</strong> l'endroit o&#249; l'image devient sombre.</li>
+  <li>Consigner la dispersion de cette limite entre les vingt images individuelles : c'est le
+  poste de lecture du budget.</li>
+</ol>
+
+<h3>Autres syst&#233;matiques</h3>
+<ol>
+  <li><strong>Compression verticale de l'image basse.</strong> Par fort gradient thermique, le
+  bas de la mire peut para&#238;tre &#233;cras&#233; ou &#233;tir&#233;. Les bandes cessent alors
+  d'avoir la m&#234;me hauteur apparente ; il faut le voir et le consigner, non le corriger.</li>
+  <li><strong>Mire non verticale.</strong> Un m&#226;t inclin&#233; de 2&#176; sur douze
+  m&#232;tres d&#233;place la graduation de 0,4 m. Fil &#224; plomb obligatoire.</li>
+  <li><strong>Vagues au pied de la mire.</strong> Elles masquent le bas et miment une
+  occultation. Choisir un plan d'eau calme et consigner l'&#233;tat de surface.</li>
+  <li><strong>Hauteur d'&#339;il rapport&#233;e au mauvais r&#233;f&#233;rentiel.</strong> Le
+  GPS restitue une hauteur ellipso&#239;dale, qui peut s'&#233;carter du niveau de l'eau de
+  dizaines de m&#232;tres. C'est l'erreur la plus co&#251;teuse et la plus discr&#232;te.</li>
+  <li><strong>Mesure unique.</strong> Une acquisition isol&#233;e n'a pas d'incertitude
+  estimable.</li>
+</ol>
+
+<h2 class="brk"><span class="n">10</span>R&#233;duction et ajustement</h2>
+<ul>
+  <li><strong>Mod&#232;le sph&#233;rique</strong> : cach&#233;e(h&#8321;) donn&#233;e par la forme
+  exacte de la section 02, avec <strong>un</strong> param&#232;tre libre, R&#8242;.</li>
+  <li><strong>Mod&#232;le plan</strong> : cach&#233;e = 0, <strong>aucun</strong> param&#232;tre
+  libre.</li>
+  <li><strong>Pond&#233;ration</strong> par l'inverse du carr&#233; de la dispersion
+  <em>observ&#233;e</em> &#224; chaque station, et non par le budget d'erreur. Un budget est une
+  pr&#233;vision ; la dispersion est une mesure.</li>
+  <li><strong>Comparaison</strong> par &#967;&#178; par degr&#233; de libert&#233;, le mod&#232;le
+  sph&#233;rique payant son param&#232;tre suppl&#233;mentaire.</li>
+  <li><strong>Report de la m&#233;thode B</strong> : si k a &#233;t&#233; mesur&#233;,
+  R = R&#8242;(1&#8722;k) et son incertitude se propage.</li>
+  <li><strong>&#201;cartement d'une s&#233;rie</strong> : uniquement sur crit&#232;re
+  d&#233;clar&#233; d'avance &#8212; visibilit&#233; insuffisante, &#233;tat de surface,
+  compression visible &#8212; jamais sur la valeur obtenue.</li>
+</ul>
+
+<h2><span class="n">11</span>Donn&#233;es &#224; transmettre</h2>
+<div class="sheet">
+  <div class="fr"><span class="a">Date, heures UTC de chaque s&#233;rie, plan d'eau</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Position GPS de la mire et de chaque station</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Distance mire-station, et son incertitude</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Hauteur de la base de la mire au-dessus de l'eau, et l'heure du relev&#233;</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Hauteur d'&#339;il de chaque station, m&#233;thode et incertitude</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Mar&#233;e aux deux sites, ou mention &#171; lac, sans mar&#233;e &#187;</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Visibilit&#233; m&#233;t&#233;orologique, source de l'estimation</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Temp&#233;rature de l'air et de l'eau, vent, &#233;tat de surface</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Ordre tir&#233; au sort des hauteurs d'&#339;il</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Bandes masqu&#233;es par station, et dispersion sur la rafale</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Aspect de la mire : net / comprim&#233; / d&#233;doubl&#233; / effac&#233;</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">M&#233;thode B : angles z&#233;nithaux, heure, k d&#233;duit</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">R&#8242; ajust&#233;, et R si k est connu, avec intervalles de confiance</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">S&#233;ries &#233;cart&#233;es, et le motif de chacune</span><span class="b">&nbsp;</span></div>
+</div>
+
+<h2><span class="n">12</span>Ce que ce protocole ne peut pas &#233;tablir</h2>
+<p>Trois limites, &#233;nonc&#233;es avant et non apr&#232;s.</p>
+<ol>
+  <li><strong>Il ne mesure que R&#8242; = R/(1&#8722;k).</strong> Sans la m&#233;thode B, le
+  r&#233;sultat est un rayon effectif, compatible avec un facteur 1,89 de valeurs de R. Cela
+  suffit &#224; &#233;carter le mod&#232;le plan, cela ne suffit pas &#224; mesurer la
+  Terre.</li>
+  <li><strong>Son observable est la plus sensible &#224; la r&#233;fraction</strong> de toutes
+  celles qui r&#233;pondent &#224; la m&#234;me question. C'est le prix de sa simplicit&#233;
+  instrumentale, et il est &#233;nonc&#233; en section 02 plut&#244;t que d&#233;couvert &#224;
+  la r&#233;duction.</li>
+  <li><strong>Il d&#233;pend d'une journ&#233;e claire.</strong> Une vis&#233;e de 20 km exige
+  35 km de visibilit&#233;. Ces journ&#233;es existent, mais elles ne se commandent pas, et une
+  campagne peut attendre des semaines.</li>
+</ol>
+<p>Aucune de ces limites ne menace la discrimination entre les deux mod&#232;les, dont le
+rapport signal sur bruit vaut 6,2 &#224; 20 km dans le pire r&#233;gime r&#233;fractif. Toutes
+trois plafonnent en revanche la mesure de R.</p>
+
+<h2><span class="n">13</span>Engagement</h2>
+<p>Ce protocole a &#233;t&#233; r&#233;dig&#233; avant toute acquisition, et il &#233;nonce
+&#224; l'avance la signification de chacune des deux issues.</p>
+<div class="eq">
+  DOI de ce d&#233;p&#244;t : DOI-EN-ATTENTE
+  <span class="cap">Tant que cette ligne porte la mention &#171; en attente &#187;, le pr&#233;enregistrement n'est pas opposable et le document le dit de lui-m&#234;me.</span>
+</div>
+<div class="box warn">
+  <span class="lab">Ce qu'il faut faire avant de mesurer</span>
+  <ol>
+    <li><strong>Ouvrir le d&#233;p&#244;t sans le publier</strong> et r&#233;server le DOI.</li>
+    <li><strong>Inscrire le DOI</strong> aux deux emplacements pr&#233;vus, puis
+    reg&#233;n&#233;rer les PDF.</li>
+    <li><strong>Figer</strong> et calculer l'empreinte SHA-256 de chaque fichier.</li>
+    <li><strong>T&#233;l&#233;verser</strong> dans le m&#234;me enregistrement, coller les
+    empreintes dans les notes, publier.</li>
+    <li><strong>Ne mesurer qu'ensuite.</strong></li>
+  </ol>
+  <p>Le DOI est attribu&#233; avant publication : il peut donc figurer dans le document.
+  L'empreinte se calcule <em>sur</em> le fichier fini &#8212; l'y inscrire le fausserait.</p>
+</div>
+<p>Nous nous engageons &#224; publier l'int&#233;gralit&#233; des donn&#233;es obtenues, y
+compris celles qui contredisent l'hypoth&#232;se que nous jugions la plus probable, et la
+conclusion que les donn&#233;es imposent.</p>
+
+<h2><span class="n">14</span>R&#233;f&#233;rences</h2>
+<ol class="refs">
+  <li>Bomford, G. (1980). <em>Geodesy</em>, 4<sup>e</sup> &#233;d. Oxford University Press.</li>
+  <li>Brunner, F. K. (1984). <em>Geodetic Refraction</em>. Springer-Verlag, Berlin.</li>
+  <li>Middleton, W. E. K. (1952). <em>Vision through the Atmosphere</em>. University of Toronto Press.</li>
+  <li>Torge, W. (2001). <em>Geodesy</em>, 3<sup>e</sup> &#233;d. Walter de Gruyter.</li>
+</ol>
+
+<footer>
+  <p>Toutes les valeurs num&#233;riques de ce document se d&#233;rivent de
+  <code>cach&#233;e = &#8730;(R&#8242;&#178; + (d&#8722;a)&#178;) &#8722; R&#8242;</code>, de
+  <code>a = &#8730;((R&#8242;+h&#8321;)&#178; &#8722; R&#8242;&#178;)</code>, de
+  <code>R&#8242; = R/(1&#8722;k)</code> avec R = 6 371 km, et de la loi de Koschmieder
+  <code>C = C&#8320; exp(&#8722;3,912 d/V)</code>. Le document est reproductible dans son
+  int&#233;gralit&#233; &#224; partir de ces relations. &#8212; Protocole ouvert, version 1.0.</p>
+</footer>
+
+</div>
+
+<div class="page brk">
+<div class="langbar"><span>FRAN&#199;AIS &#8212; first half</span><span class="on">ENGLISH</span></div>
+
+<div class="masthead">
+  <div class="kicker">Open protocol &#183; Pre-registered predictions &#183; Direct reading, no angle measured</div>
+  <h1>The hidden height of a graduated target across water</h1>
+  <p class="dek">No angle is measured: one counts how many graduations have gone. One model
+  predicts that none ever does.</p>
+  <div class="byline">
+    <span>Author<b>&nbsp;</b></span>
+    <span>Affiliation<b>&nbsp;</b></span>
+    <span>Contact<b>&nbsp;</b></span>
+    <span>Version<b>1.0 &mdash; frozen for deposit</b></span>
+    <span>DOI<b>DOI-PENDING</b></span>
+  </div>
+</div>
+
+<div class="abstract">
+  <span class="lab">Abstract</span>
+  <p>A vertical target graduated in one-metre contrasting bands stands at the water's edge, its
+  base level with the surface. It is observed from the far shore, some twenty kilometres away,
+  from several eye heights. <strong>The observable is the number of bands hidden</strong>, read
+  directly off the target.</p>
+  <p>That reading needs no angular measurement whatever: the target carries its own scale.
+  Neither focal length, nor distortion, nor levelling enters the result. That is this protocol's
+  instrumental simplicity, and its reason for existing.</p>
+  <p>A spherical model predicts a hidden height that grows with distance and shrinks with eye
+  height. A plane model predicts <strong>zero in every case</strong>, under rectilinear
+  propagation and under real refraction alike. From an eye at 5 m and at 20 km, the sphere
+  guarantees at least <strong>3.40 m hidden</strong> even in the refractive regime most
+  favourable to the plane, against an error budget of 0.55 m.</p>
+  <p><strong>This is the least precise of the protocols addressing this question, and section 02
+  says why.</strong> Hidden height is the observable most sensitive to refraction, and it can
+  return only the <em>effective</em> radius R&prime; = R/(1&minus;k), never R and k separately.
+  Method B lifts that degeneracy by measuring k.</p>
+</div>
+
+<h2><span class="n">01</span>Purpose</h2>
+<p class="lead">This document describes a measurement of the hidden height of a graduated target
+across a body of water, whose result discriminates two geometric models of the Earth's surface,
+and whose decision criteria are fixed before any acquisition.</p>
+<p>Its particular virtue is <strong>the absence of any angular measurement</strong>. The target
+carries a known metric scale; one counts the bands that are missing. No focal length to
+calibrate, no distortion profile, no artificial horizon, no levelling. An observer who distrusts
+optical chains will find here the most direct measurement of the series.</p>
+<p>Its cost is stated in the very next section, and it is real.</p>
+
+<h2><span class="n">02</span>Theoretical basis</h2>
+<p>For an eye at height h&#8321; above a spherical surface of radius R, the horizon distance is
+<code>a = &radic;((R&prime;+h&#8321;)&sup2; &minus; R&prime;&sup2;)</code> with
+<code>R&prime; = R/(1&minus;k)</code>. Beyond that horizon, a target whose base is at water level
+has its lower part hidden over the height:</p>
+<div class="eq">
+  hidden = &radic;( R&prime;&sup2; + (d &minus; a)&sup2; ) &minus; R&prime;
+  <span class="cap">Exact form. d = eye-to-target distance. Valid at any distance; zero while d &le; a.</span>
+</div>
+
+<div class="box warn">
+  <span class="lab">The formula not to use</span>
+  <p>One commonly meets <code>d&sup2;/2R &minus; h&#8321;</code>, the &ldquo;eight inches per mile
+  squared, minus eye height&rdquo; rule. It is <strong>wrong</strong> as soon as the target lies
+  beyond the horizon, and its error is exactly <code>a(d&minus;a)/R</code> &mdash; metres,
+  sometimes tens of metres.</p>
+  <p>It always overestimates the hidden height, and so manufactures anomalies whenever the
+  target remains visible. It is the most widespread error in this whole subject, and this
+  protocol uses it nowhere.</p>
+</div>
+
+<h3>What the plane model predicts, under both regimes</h3>
+<p>On a plane surface with rectilinear propagation, no part of the target is ever hidden: the
+prediction is <strong>zero at every distance and every eye height</strong>.</p>
+<p>If the real atmosphere is granted to the plane model, the prediction does not change in
+sense. Ray curvature is 1/&rho; with <code>k = R/&rho;</code>; it depends only on the air, and is
+therefore the same above a plane. The <em>relative</em> curvature of ray and surface is then
+&minus;k/R: the ray bends down more than the surface does, the ground rises around the observer,
+and the target appears <em>lifted</em>. <strong>Nothing is hidden, ever.</strong></p>
+<div class="box key">
+  <span class="lab">What this establishes</span>
+  <p>Zero hidden is the plane model's <strong>best case</strong>, and it is the same under both
+  propagation regimes. The plane model has no mechanism producing a partial occultation that
+  grows with distance.</p>
+</div>
+
+<h3>What this measurement can return, and what it cannot</h3>
+<div class="box warn">
+  <span class="lab">A degeneracy to state in advance</span>
+  <p>Hidden height depends on R and k only through their combination
+  <code>R&prime; = R/(1&minus;k)</code>. <strong>No occultation measurement, however careful, can
+  separate the two.</strong> It returns R&prime;, and nothing more.</p>
+  <p>And the physically defensible range of k runs from 0 to 0.47, which leaves R&prime; between
+  6 371 and 12 021 km &mdash; a <strong>factor of 1.89</strong>.</p>
+</div>
+<table>
+  <caption>Table 1 &mdash; Effective radius by refractive regime. This quantity, and only this
+  one, is what method A measures.</caption>
+  <thead><tr><th>regime</th><th class="n">k</th><th class="n">R&prime;</th></tr></thead>
+  <tbody>
+    <tr><td>Optical vacuum, theoretical bound</td><td class="n">0.00</td><td class="n">6 371 km</td></tr>
+    <tr class="hi"><td><strong>Geodetic standard</strong></td><td class="n"><strong>0.13</strong></td><td class="n"><strong>7 323 km</strong></td></tr>
+    <tr><td>Super-refraction</td><td class="n">0.25</td><td class="n">8 495 km</td></tr>
+    <tr class="pl"><td>Atmospheric duct</td><td class="n">0.47</td><td class="n">12 021 km</td></tr>
+  </tbody>
+</table>
+<p>Two consequences, to be taken before anything is built.</p>
+<ol>
+  <li><strong>For discriminating the two models, the degeneracy does not matter.</strong> It
+  suffices to take the k most favourable to the plane &mdash; 0.47 &mdash; and check that a
+  measurable occultation remains. That is what section 03 does.</li>
+  <li><strong>For measuring R, it is fatal</strong> unless k is known independently. That is the
+  purpose of method B, section 07, which measures k instead of assuming it.</li>
+</ol>
+
+<h2 class="brk"><span class="n">03</span>Pre-registered predictions</h2>
+<p>Both hypotheses are stated here in falsifiable form, before any acquisition.</p>
+
+<div class="two">
+  <div class="vc g">
+    <p class="h">HYPOTHESIS S &mdash; SPHERICAL SURFACE</p>
+    <p class="v">hidden = &radic;(R&prime;&sup2; + (d&minus;a)&sup2;) &minus; R&prime;</p>
+    <p>Growing with distance, shrinking with eye height, zero short of the horizon.</p>
+  </div>
+  <div class="vc p">
+    <p class="h">HYPOTHESIS P &mdash; PLANE SURFACE</p>
+    <p class="v">hidden = 0</p>
+    <p>At every distance, at every eye height, under both propagation regimes. The target is
+    seen entire, base included.</p>
+  </div>
+</div>
+
+<table>
+  <caption>Table 2 &mdash; Predicted hidden height, eye at 5 m above the water. The k = 0.47
+  column is the <strong>guaranteed signal</strong>: what remains hidden even in the regime most
+  favourable to the plane model.</caption>
+  <thead><tr><th class="n">distance</th><th class="n">k = 0</th><th class="n">k = 0.13</th><th class="n">k = 0.25</th><th class="n">k = 0.47</th><th class="n">hyp. P</th></tr></thead>
+  <tbody>
+    <tr class="pl"><td class="n">10 km</td><td class="n">0.32 m</td><td class="n">0.14 m</td><td class="n">0.03 m</td><td class="n">0.00 m</td><td class="n">0 m</td></tr>
+    <tr><td class="n">15 km</td><td class="n">3.87 m</td><td class="n">2.83 m</td><td class="n">1.97 m</td><td class="n">0.68 m</td><td class="n">0 m</td></tr>
+    <tr class="hi"><td class="n"><strong>20 km</strong></td><td class="n"><strong>11.34 m</strong></td><td class="n"><strong>8.94 m</strong></td><td class="n"><strong>6.84 m</strong></td><td class="n"><strong>3.40 m</strong></td><td class="n"><strong>0 m</strong></td></tr>
+    <tr><td class="n">25 km</td><td class="n">22.73 m</td><td class="n">18.46 m</td><td class="n">14.66 m</td><td class="n">8.19 m</td><td class="n">0 m</td></tr>
+  </tbody>
+</table>
+
+<h3>The second axis: varying the eye height</h3>
+<p>At fixed distance, raising the eye uncovers the target. The plane model predicts <strong>no
+change at all</strong>, since it predicts no occultation.</p>
+<table>
+  <caption>Table 3 &mdash; Hidden height at 20 km by eye height. A twelve-metre target covers the
+  whole range as soon as the eye is at 5 m or above.</caption>
+  <thead><tr><th class="n">eye height</th><th class="n">k = 0</th><th class="n">k = 0.13</th><th class="n">k = 0.47</th><th class="n">hyp. P</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td class="n"><strong>5 m</strong></td><td class="n"><strong>11.34 m</strong></td><td class="n"><strong>8.94 m</strong></td><td class="n"><strong>3.40 m</strong></td><td class="n"><strong>0 m</strong></td></tr>
+    <tr><td class="n">8 m</td><td class="n">7.70 m</td><td class="n">5.75 m</td><td class="n">1.56 m</td><td class="n">0 m</td></tr>
+    <tr><td class="n">12 m</td><td class="n">4.57 m</td><td class="n">3.10 m</td><td class="n">0.38 m</td><td class="n">0 m</td></tr>
+    <tr><td class="n">20 m</td><td class="n">1.28 m</td><td class="n">0.57 m</td><td class="n">0.00 m</td><td class="n">0 m</td></tr>
+    <tr class="pl"><td class="n">30 m</td><td class="n">0.02 m</td><td class="n">0.00 m</td><td class="n">0.00 m</td><td class="n">0 m</td></tr>
+  </tbody>
+</table>
+<p>Between an eye at 5 m and an eye at 20 m, the hidden height changes by <strong>3.40 m in the
+worst case</strong> and by 8.37 m in the standard regime. The plane model predicts a change of
+zero.</p>
+<p>This axis is the most convenient: it needs one target site, one distance, and a slope or
+building on the observer's side. It is the core of method A.</p>
+
+<h2 class="brk"><span class="n">04</span>Order of operations</h2>
+<p class="lead">Several steps make the preceding ones unrecoverable.</p>
+<div class="box warn">
+  <span class="lab">The five things that can never be recovered</span>
+  <ol>
+    <li><strong>The protocol's timestamp.</strong> Deposited after the first frame, it proves
+    nothing.</li>
+    <li><strong>Levelling the target's base</strong> against the water surface at the time. Once
+    the target is dismantled, that measurement cannot be redone.</li>
+    <li><strong>Eye height, referred to the same surface.</strong> Not the ellipsoid, not the
+    geoid, not the chart datum.</li>
+    <li><strong>Tide time at both ends</strong>, if the water is tidal. The difference between
+    the two sites carries over in full to the result.</li>
+    <li><strong>The day's meteorological visibility.</strong> Without it, one cannot tell
+    whether an invisible target is hidden by geometry or lost in haze &mdash; and that confusion
+    ruins this kind of measurement.</li>
+  </ol>
+</div>
+
+<h3>Phase 0 &mdash; before any acquisition</h3>
+<ol class="st">
+  <li><b>Deposit the protocol</b>Freeze the PDF, compute the SHA-256 hash, deposit in a
+  permanent repository, obtain the DOI, publish DOI and hash. Section 13. <strong>Until that is
+  done, photograph nothing.</strong></li>
+  <li><b>Choose the water</b>A large lake is preferable to the sea: no tide, so one error term
+  fewer and a surface common to both sites. Failing that, a bay whose two shores see each
+  other.</li>
+  <li><b>Fix the reading criterion</b>What counts as a &ldquo;hidden band&rdquo;, stated in
+  section 09, and unchanged thereafter.</li>
+  <li><b>Check the sightline on a chart</b>Open water over the whole distance. No islet, no
+  shoal, no breakwater in the axis.</li>
+</ol>
+
+<h3>Phase 1 &mdash; installing the target</h3>
+<ol class="st">
+  <li><b>Erect the target</b>Twelve metres, alternating one-metre bands, matt black and white.
+  Vertical by plumb line, guyed.</li>
+  <li><b>Level the base</b>To the water surface at the time, to the decimetre. Record the hour.
+  <strong>Irreversible step.</strong></li>
+  <li><b>Fix the position</b>GPS at the target, static mode if possible.</li>
+</ol>
+
+<h3>Phase 2 &mdash; the observing stations</h3>
+<ol class="st">
+  <li><b>Choose five eye heights</b>About 5, 8, 12, 20 and 30 metres above the water, on a slope
+  or a building, at the same distance from the target to within fifty metres.</li>
+  <li><b>Measure each eye height</b>To the decimetre, referred to the water surface at the time.
+  A centimetre is pointless: a decimetre is worth 1.8 % of the result, half a metre 8.6 %.</li>
+  <li><b>Record the visibility</b>Nearest weather observation, or an estimate against a landmark
+  of known distance. See section 09.</li>
+  <li><b>Record air and water temperature</b>Not to correct &mdash; the protocol applies no
+  refraction correction &mdash; but to characterise the regime and flag anomalous days.</li>
+</ol>
+
+<h3>Phase 3 &mdash; acquisition, then reduction</h3>
+<ol class="st">
+  <li><b>Photograph</b>A burst of twenty frames per station, telephoto on a tripod, raw file
+  uncropped.</li>
+  <li><b>Count, do not measure</b>The result is a number of bands, read off the target. No
+  angular conversion enters.</li>
+  <li><b>Repeat at three distinct hours</b>Refraction varies; the scatter obtained <em>is</em>
+  the model uncertainty.</li>
+  <li><b>Fit</b>Both models on the same series, section 10.</li>
+  <li><b>Publish</b>Raw frames, log, fits, and the conclusion they impose.</li>
+</ol>
+
+<h2 class="brk"><span class="n">05</span>Equipment</h2>
+<h3>The target</h3>
+<ul>
+  <li><strong>A twelve-metre mast</strong> &mdash; telescopic mast, scaffold, or an existing
+  structure of surveyed height.</li>
+  <li><strong>Alternating one-metre bands</strong>, matt black and white. One metre is the right
+  pitch: at 20 km a band subtends 10.3 arcseconds, above the turbulence; a 0.5 m band subtends
+  only 5.2 and is lost.</li>
+  <li><strong>The lowest band unambiguously marked</strong> &mdash; a distinct colour, or double
+  width &mdash; so that counting starts from a reference.</li>
+  <li><strong>Means of levelling the base</strong> to the water surface: a levelling staff, or
+  simply a mark struck at the waterline at a known hour.</li>
+</ul>
+<h3>The observing post</h3>
+<ul>
+  <li><strong>Telephoto lens or spotting scope</strong> of 400 mm or more, full-frame
+  equivalent. The exact focal length does not matter: it serves to see, not to measure.</li>
+  <li><strong>Tripod</strong>. Its levelling has no influence on the result.</li>
+  <li><strong>A site offering five heights</strong> between 5 and 30 m above the water, at
+  substantially constant distance from the target.</li>
+  <li><strong>GPS</strong> at both ends.</li>
+  <li><strong>Thermometers</strong> for air and for water.</li>
+</ul>
+<h3>For method B, if it is carried out</h3>
+<ul>
+  <li><strong>Two theodolites</strong> reading to the arcsecond, and two operators.</li>
+  <li><strong>Two watches synchronised</strong> to the second.</li>
+</ul>
+
+<h2><span class="n">06</span>Procedure &mdash; method A, the graduated target</h2>
+<p class="lead">This is the reference procedure, and the simplest of the series: one counts
+bands.</p>
+<ol class="st">
+  <li><b>Frame the whole target</b>Including its theoretical base, even when hidden: it is the
+  expected base position that provides the reference.</li>
+  <li><b>A burst of twenty frames</b>Short shutter, intermediate aperture, raw uncropped. The
+  scatter of the boundary between hidden and visible bands across those twenty frames
+  <strong>is</strong> the reading term of the error budget. It is measured, not postulated.</li>
+  <li><b>Count</b>The number of wholly hidden bands, plus the fraction of the first partly
+  visible band, by the criterion of section 09.</li>
+  <li><b>Change eye height</b>And begin again. Five heights, in an order <strong>drawn by lot
+  before the session</strong>: without that, a slow refraction drift through the morning is
+  indistinguishable from the effect sought.</li>
+  <li><b>Repeat the whole series</b>At three distinct hours, and if possible on three distinct
+  days.</li>
+</ol>
+<div class="box key">
+  <span class="lab">What this procedure eliminates</span>
+  <p>The target carries its own standard. There is therefore <strong>no angular scale to
+  determine, no distortion to correct, no horizontal to materialise, no vertical reference to
+  establish</strong>. Three error terms that weigh heavily elsewhere vanish here. That is this
+  protocol's gain, and it is real.</p>
+</div>
+
+<h2 class="brk"><span class="n">07</span>Procedure &mdash; method B, reciprocal sightings</h2>
+<p class="lead">Optional, but it is what lifts the degeneracy of section 02. It needs two
+theodolites and two operators.</p>
+<p>Two stations, at either end of the same baseline, measure <strong>simultaneously</strong> the
+zenith angle towards each other. The geometry then yields two independent relations:</p>
+<div class="eq">
+  z<sub>A</sub> + z<sub>B</sub> &minus; 180&deg; = (d / R)(1 &minus; k)
+  <span class="cap">The sum measures k. The difference gives the height difference, refraction cancelling if it is equal at both ends.</span>
+</div>
+<div class="box key">
+  <span class="lab">k is measured, it does not cancel</span>
+  <p>The technique is often presented as &ldquo;cancelling refraction&rdquo;. That is true for
+  the <em>height difference</em>, and false for everything else. What the sum of the angles gives
+  is far better: it <strong>measures</strong> the refraction coefficient of the moment, on the
+  sightline itself.</p>
+</div>
+<table>
+  <caption>Table 4 &mdash; Excess of the sum of zenith angles over 180&deg;, and the precision
+  attainable on k for a 20 km baseline.</caption>
+  <thead><tr><th class="n">baseline</th><th class="n">excess at k = 0.13</th><th class="n">theodolite precision</th><th class="n">&sigma;(k) at 20 km</th></tr></thead>
+  <tbody>
+    <tr><td class="n">5 km</td><td class="n">2.35&prime;</td><td class="n">1&Prime;</td><td class="n">0.002</td></tr>
+    <tr><td class="n">10 km</td><td class="n">4.69&prime;</td><td class="n">2&Prime;</td><td class="n">0.004</td></tr>
+    <tr class="hi"><td class="n"><strong>20 km</strong></td><td class="n"><strong>9.39&prime;</strong></td><td class="n"><strong>5&Prime;</strong></td><td class="n"><strong>0.011</strong></td></tr>
+    <tr class="pl"><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">20&Prime;</td><td class="n">0.044</td></tr>
+  </tbody>
+</table>
+<p>An ordinary five-arcsecond theodolite therefore reduces ignorance of k from a range of 0.47 to
+an uncertainty of 0.011. The degeneracy R&prime; = R/(1&minus;k) is then lifted, and method A
+returns R rather than merely R&prime;.</p>
+<div class="box warn">
+  <span class="lab">The simultaneity condition</span>
+  <p>Both sightings must be taken <strong>in the same minute</strong>. Refraction varies from one
+  half-hour to the next; two offset measurements do not sample the same atmosphere, and the
+  symmetry that gives the method its whole value disappears.</p>
+</div>
+
+<h2 class="brk"><span class="n">08</span>Error budget and decision criteria</h2>
+<table>
+  <caption>Table 5 &mdash; Error budget on the hidden height, at 1 &sigma;, for a 20 km sightline
+  from an eye at 5 m.</caption>
+  <thead><tr><th>SOURCE</th><th class="n">contribution</th><th>TREATMENT</th></tr></thead>
+  <tbody>
+    <tr><td>Reading the hidden boundary, turbulence included</td><td class="n">0.50 m</td><td>scatter over a burst of 20 frames</td></tr>
+    <tr><td>Eye height above the water (&plusmn;0.10 m)</td><td class="n">0.13 m</td><td>read to the decimetre</td></tr>
+    <tr><td>Differential tide between the two sites</td><td class="n">0.15 m</td><td><em>zero</em> on a lake</td></tr>
+    <tr><td>Target base above the water (&plusmn;0.10 m)</td><td class="n">0.10 m</td><td>carries over directly</td></tr>
+    <tr><td>Distance by GPS (&plusmn;50 m)</td><td class="n">0.08 m</td><td>negligible</td></tr>
+    <tr class="hi"><td><strong>Quadratic total</strong></td><td class="n"><strong>0.55 m</strong></td><td><strong>1 &sigma;</strong></td></tr>
+  </tbody>
+</table>
+
+<div class="box key">
+  <span class="lab">Two signal-to-noise ratios, not one</span>
+  <p><strong>Question 1 &mdash; is the surface flat?</strong> The signal is the hidden height at
+  the k most favourable to the plane. Ignorance of k does not enter: it is absorbed by taking the
+  worst case.</p>
+  <p><strong>Question 2 &mdash; what is R&prime;?</strong> Here the scatter between series
+  measures the variability of refraction directly, and that is what sets the precision. Without
+  method B, the result remains R&prime; and not R.</p>
+</div>
+
+<table>
+  <caption>Table 6 &mdash; Discriminating power by distance, eye at 5 m, budget 0.55 m.</caption>
+  <thead><tr><th class="n">distance</th><th class="n">guaranteed signal (k = 0.47)</th><th class="n">S/N ratio</th><th>verdict</th></tr></thead>
+  <tbody>
+    <tr class="pl"><td class="n">15 km</td><td class="n">0.68 m</td><td class="n">1.2</td><td>insufficient</td></tr>
+    <tr class="hi"><td class="n"><strong>20 km</strong></td><td class="n"><strong>3.40 m</strong></td><td class="n"><strong>6.2</strong></td><td><strong>decisive &mdash; working distance</strong></td></tr>
+    <tr><td class="n">25 km</td><td class="n">8.19 m</td><td class="n">14.9</td><td>comfortable, but a 23 m target and very clear air</td></tr>
+    <tr><td class="n">30 km</td><td class="n">15.07 m</td><td class="n">27.4</td><td>beyond any reasonable target</td></tr>
+  </tbody>
+</table>
+
+<h3>Decision criteria, fixed a priori</h3>
+<div class="two">
+  <div class="vc p">
+    <p class="h">WHOLE TARGET VISIBLE, BASE INCLUDED, AT 20 km AND 5 m</p>
+    <p class="v">Hypothesis S refuted</p>
+    <p>No value of k in the physical range falls below 3.40 m hidden. A visible base, reproduced
+    over three series, refutes the spherical model by direct measurement.</p>
+  </div>
+  <div class="vc g">
+    <p class="h">HIDDEN HEIGHT &isin; [3.40; 11.34] m AND FALLING WITH EYE HEIGHT</p>
+    <p class="v">Hypothesis P refuted</p>
+    <p>The position within the bracket further yields R&prime;, and hence k if method B was
+    carried out.</p>
+  </div>
+</div>
+<div class="box warn">
+  <span class="lab">Dead zone, and the trap it conceals</span>
+  <p>A hidden height above 11.34 m confirms neither hypothesis: it exceeds what spherical
+  geometry allows even with no refraction at all. Causes to eliminate: a badly levelled target
+  base, an overestimated eye height, uncorrected tide, or <strong>a target simply invisible for
+  want of contrast</strong>.</p>
+  <p>That last point is this protocol's own trap. <strong>A target lost in haze is not a target
+  hidden by curvature.</strong> See section 09.</p>
+</div>
+
+<h2 class="brk"><span class="n">09</span>Known systematics and failure modes</h2>
+
+<h3>Atmospheric extinction &mdash; the principal failure mode</h3>
+<p>The contrast of a distant object falls exponentially with distance. Below about 2 per cent
+residual contrast the object ceases to be perceptible &mdash; whatever the shape of the
+surface.</p>
+<table>
+  <caption>Table 7 &mdash; Residual contrast of a black-on-white target by meteorological
+  visibility V. Values marked with an asterisk are below the perception threshold.</caption>
+  <thead><tr><th class="n">V</th><th class="n">10 km</th><th class="n">15 km</th><th class="n">20 km</th><th class="n">25 km</th><th class="n">30 km</th></tr></thead>
+  <tbody>
+    <tr class="pl"><td class="n">20 km</td><td class="n">14.1 %</td><td class="n">5.3 %</td><td class="n">2.0 %</td><td class="n">0.8 %*</td><td class="n">0.3 %*</td></tr>
+    <tr><td class="n">30 km</td><td class="n">27.1 %</td><td class="n">14.1 %</td><td class="n">7.4 %</td><td class="n">3.8 %</td><td class="n">2.0 %</td></tr>
+    <tr class="hi"><td class="n"><strong>40 km</strong></td><td class="n">37.6 %</td><td class="n">23.1 %</td><td class="n"><strong>14.1 %</strong></td><td class="n">8.7 %</td><td class="n">5.3 %</td></tr>
+    <tr><td class="n">60 km</td><td class="n">52.1 %</td><td class="n">37.6 %</td><td class="n">27.1 %</td><td class="n">19.6 %</td><td class="n">14.1 %</td></tr>
+  </tbody>
+</table>
+<p><strong>A 20 km sightline demands a visibility of at least 35 km; a 25 km sightline demands
+45.</strong> Those are rare days, and they must be waited for. The day's visibility is a
+mandatory field of the record.</p>
+<div class="box warn">
+  <span class="lab">The confusion never to make</span>
+  <p>Not seeing the target proves nothing. Seeing it entire proves nothing either, unless the
+  visibility is documented. <strong>An observation where the target disappears progressively from
+  the bottom upward is an occultation; a target that fades uniformly is an
+  extinction.</strong> The two are distinguishable by eye, and the distinction must be recorded
+  frame by frame.</p>
+</div>
+
+<h3>The reading criterion</h3>
+<p>The boundary between hidden and visible bands is not a line: grazing-sightline turbulence
+smears it, and refraction can compress or stretch the lower target vertically. The criterion,
+fixed before reduction and applied without exception:</p>
+<ol>
+  <li>Work on the raw, uncropped file, with no contrast enhancement.</li>
+  <li>Stack the twenty burst frames by median, which removes turbulence without shifting the
+  boundary.</li>
+  <li>The boundary is the ordinate at which the alternation of bands ceases to be resolved
+  &mdash; <strong>not</strong> where the image becomes dark.</li>
+  <li>Record the scatter of that boundary across the twenty individual frames: it is the reading
+  term of the budget.</li>
+</ol>
+
+<h3>Other systematics</h3>
+<ol>
+  <li><strong>Vertical compression of the lower image.</strong> Under a strong thermal gradient
+  the target's foot may appear squashed or stretched. The bands then cease to have equal apparent
+  height; this must be seen and recorded, not corrected.</li>
+  <li><strong>Target not vertical.</strong> A mast leaning 2&deg; over twelve metres displaces
+  the graduation by 0.4 m. Plumb line mandatory.</li>
+  <li><strong>Waves at the foot of the target.</strong> They hide the base and mimic an
+  occultation. Choose calm water and record the surface state.</li>
+  <li><strong>Eye height referred to the wrong datum.</strong> GPS returns an ellipsoidal height,
+  which may depart from the water level by tens of metres. This is the costliest and most
+  discreet error.</li>
+  <li><strong>A single measurement.</strong> An isolated acquisition has no estimable
+  uncertainty.</li>
+</ol>
+
+<h2 class="brk"><span class="n">10</span>Reduction and fitting</h2>
+<ul>
+  <li><strong>Spherical model</strong>: hidden(h&#8321;) by the exact form of section 02, with
+  <strong>one</strong> free parameter, R&prime;.</li>
+  <li><strong>Plane model</strong>: hidden = 0, <strong>no</strong> free parameter.</li>
+  <li><strong>Weighting</strong> by the inverse square of the <em>observed</em> scatter at each
+  station, not by the error budget. A budget is a forecast; scatter is a measurement.</li>
+  <li><strong>Comparison</strong> by &chi;&sup2; per degree of freedom, the spherical model paying
+  for its extra parameter.</li>
+  <li><strong>Carrying method B across</strong>: if k has been measured, R = R&prime;(1&minus;k)
+  and its uncertainty propagates.</li>
+  <li><strong>Discarding a series</strong>: only on a criterion declared in advance &mdash;
+  insufficient visibility, surface state, visible compression &mdash; never on the value
+  obtained.</li>
+</ul>
+
+<h2><span class="n">11</span>Data to be submitted</h2>
+<div class="sheet">
+  <div class="fr"><span class="a">Date, UTC hours of each series, body of water</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">GPS position of the target and of each station</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Target-to-station distance, and its uncertainty</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Height of the target base above the water, and the hour of the reading</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Eye height of each station, method and uncertainty</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Tide at both sites, or the note &ldquo;lake, no tide&rdquo;</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Meteorological visibility, source of the estimate</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Air and water temperature, wind, surface state</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Drawn order of the eye heights</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Bands hidden per station, and the scatter over the burst</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Appearance of the target: crisp / compressed / doubled / faded</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Method B: zenith angles, hour, k deduced</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Fitted R&prime;, and R if k is known, with confidence intervals</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Series discarded, and the reason for each</span><span class="b">&nbsp;</span></div>
+</div>
+
+<h2><span class="n">12</span>What this protocol cannot establish</h2>
+<p>Three limits, stated before rather than after.</p>
+<ol>
+  <li><strong>It measures only R&prime; = R/(1&minus;k).</strong> Without method B the result is
+  an effective radius, compatible with a factor 1.89 of values of R. That suffices to rule out
+  the plane model; it does not suffice to measure the Earth.</li>
+  <li><strong>Its observable is the most refraction-sensitive</strong> of those answering this
+  question. That is the price of its instrumental simplicity, and it is stated in section 02
+  rather than discovered at reduction.</li>
+  <li><strong>It depends on a clear day.</strong> A 20 km sightline demands 35 km of visibility.
+  Such days exist, but they cannot be ordered, and a campaign may wait weeks.</li>
+</ol>
+<p>None of these threatens the discrimination between the two models, whose signal-to-noise is
+6.2 at 20 km in the worst refractive regime. All three do cap the measurement of R.</p>
+
+<h2><span class="n">13</span>Commitment</h2>
+<p>This protocol was written before any acquisition, and states in advance what each of the two
+outcomes means.</p>
+<div class="eq">
+  DOI of this deposit: DOI-PENDING
+  <span class="cap">While this line reads &ldquo;pending&rdquo;, the pre-registration is not binding, and the document says so itself.</span>
+</div>
+<div class="box warn">
+  <span class="lab">What must be done before measuring</span>
+  <ol>
+    <li><strong>Open the deposit without publishing it</strong> and reserve the DOI.</li>
+    <li><strong>Write the DOI</strong> into the two slots provided, then regenerate the
+    PDFs.</li>
+    <li><strong>Freeze</strong> and compute the SHA-256 hash of each file.</li>
+    <li><strong>Upload</strong> into the same record, paste the hashes into the notes,
+    publish.</li>
+    <li><strong>Only then measure.</strong></li>
+  </ol>
+  <p>The DOI is assigned before publication: it can therefore sit in the document. The hash is
+  computed <em>on</em> the finished file &mdash; writing it in would falsify it.</p>
+</div>
+<p>We undertake to publish the entirety of the data obtained, including those contradicting the
+hypothesis we judged more probable, and the conclusion the data impose.</p>
+
+<h2><span class="n">14</span>References</h2>
+<ol class="refs">
+  <li>Bomford, G. (1980). <em>Geodesy</em>, 4th ed. Oxford University Press.</li>
+  <li>Brunner, F. K. (1984). <em>Geodetic Refraction</em>. Springer-Verlag, Berlin.</li>
+  <li>Middleton, W. E. K. (1952). <em>Vision through the Atmosphere</em>. University of Toronto Press.</li>
+  <li>Torge, W. (2001). <em>Geodesy</em>, 3rd ed. Walter de Gruyter.</li>
+</ol>
+
+<footer>
+  <p>Every numerical value in this document derives from
+  <code>hidden = &radic;(R&prime;&sup2; + (d&minus;a)&sup2;) &minus; R&prime;</code>,
+  <code>a = &radic;((R&prime;+h&#8321;)&sup2; &minus; R&prime;&sup2;)</code>,
+  <code>R&prime; = R/(1&minus;k)</code> with R = 6 371 km, and Koschmieder's law
+  <code>C = C&#8320; exp(&minus;3.912 d/V)</code>. The document is reproducible in full from
+  those relations. &mdash; Open protocol, version 1.0.</p>
+</footer>
+
+</div>
