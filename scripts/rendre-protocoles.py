@@ -63,11 +63,6 @@ DOCUMENTS = {
         "Protocole-ballon-stratospherique.pdf",
         "Dépression de l'horizon depuis un ballon — Horizon dip from a balloon — v1.1",
     ),
-    "mire": (
-        "mire-bilingue.html",
-        "Protocole-mire-graduee.pdf",
-        "Hauteur masquée d'une mire graduée — Hidden height of a graduated target — v1.0",
-    ),
     "pole": (
         "pole-celeste-bilingue.html",
         "Protocole-pole-celeste.pdf",

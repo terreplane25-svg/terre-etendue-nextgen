@@ -13,7 +13,6 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 | `depot/` | Le dépôt : marche à suivre, métadonnées, et les fichiers figés une fois le DOI inscrit |
 | `soleil-bilingue.html` | Diamètre angulaire du Soleil — **SUSPENDU**, voir plus bas |
 | `ballon-bilingue.html` | Dépression de l'horizon depuis un ballon stratosphérique — bilingue, 29 pages, **v1.1** |
-| `mire-bilingue.html` | Hauteur masquée d'une mire graduée — bilingue, 24 pages, **v1.0** |
 | `pole-celeste-bilingue.html` | Hauteur du pôle céleste — **SUSPENDU**, voir plus bas |
 | `horizon-artefact-web.html` | Version web du protocole d'horizon (artefact consultable en ligne) |
 | `polices.css` | Spectral, IBM Plex Sans, IBM Plex Mono en base64 |
@@ -91,36 +90,6 @@ Le critère de décision est une **variation**, non une valeur : entre 2 et 30 k
 instrumental disparaît dans la différence. Rapport signal sur bruit **317 sur
 deux images**, et l'ajustement de la montée entière restitue R à environ 1 % —
 plancher fixé par le relief, corrigeable par modèle numérique de terrain.
-
-### Hauteur masquée d'une mire graduée
-
-Une mire de douze mètres, bandes alternées d'un mètre, plantée au bord de l'eau,
-base au niveau de la surface. Observée depuis l'autre rive à 20 km, depuis cinq
-hauteurs d'œil. **On compte les bandes masquées.**
-
-Sa particularité : **aucune mesure d'angle**. La mire porte sa propre échelle
-métrique. Ni focale à étalonner, ni distorsion à corriger, ni horizontale à
-matérialiser, ni mise à niveau — trois postes d'erreur qui pèsent lourd ailleurs
-disparaissent. C'est la mesure la plus directe du dossier.
-
-Son prix est énoncé en section 02 plutôt que découvert à la réduction. La
-hauteur masquée ne dépend de R et de k que par leur combinaison
-`R′ = R/(1−k)` : **aucune mesure d'occultation ne peut les séparer.** Elle
-restitue R′, compatible avec un facteur 1,89 de valeurs de R. Une méthode B
-facultative — visées zénithales réciproques simultanées — lève la
-dégénérescence en *mesurant* k : la somme des deux angles excède 180° de
-`(d/R)(1−k)`, soit 9,39′ sur une base de 20 km, ce qu'un théodolite à 5″ résout
-à σ(k) = 0,011.
-
-Le critère de discrimination prend le k le plus favorable au modèle plan. À
-20 km depuis un œil à 5 m, la sphère garantit **3,40 m masqués** même en régime
-de conduit atmosphérique, pour un budget de 0,55 m — rapport 6,2. Le plan prédit
-zéro, sous propagation rectiligne comme sous réfraction réelle.
-
-Son mode d'échec propre est l'**extinction atmosphérique** : une visée de 20 km
-exige 35 km de visibilité météorologique, une visée de 25 km en exige 45. Une
-mire noyée dans la brume n'est pas une mire masquée par la courbure, et le
-protocole donne le critère qui les distingue.
 
 ## Les protocoles suspendus
 
