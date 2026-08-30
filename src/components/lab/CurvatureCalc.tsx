@@ -488,7 +488,7 @@ export default function CurvatureCalc(){
     <div className="mt-4 pt-4 flex flex-wrap items-center gap-5" style={{borderTop:'1px solid #1c2942'}}>
       <span className="text-[11px] font-tech-mono text-slate-400">ARTICLES :</span>
       <a href="/article/leau-ne-ment-pas" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;eau ne ment pas →</a>
-      <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;hypothèse nulle →</a>
+      <a href="/article/la-gravite-70-theories-et-aucune-preuve" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;hypothèse nulle →</a>
       <a href="/article/loeil-humain-la-machine-a-voir-qui-faconne-notre-realite" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;œil humain →</a>
     </div>
   </div>;

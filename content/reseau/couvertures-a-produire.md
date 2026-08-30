@@ -37,7 +37,6 @@ dans Discover : la deuxième carte semble un doublon de la première.
 | `mise-en-garde-la-kaaba-et-saturne` | Bibliothèque | Unsplash (partagée) | La Kaaba de nuit, vue de haut, le ṭawāf en cours. Sobre, aucune surimpression ni montage : l'article met en garde contre les rapprochements symboliques, il ne doit pas en fabriquer un. |
 | `sources-historiques-fonds-documentaire` | Bibliothèque | Unsplash (partagée) | Rayonnage de reliures anciennes pris en enfilade, faible profondeur de champ. |
 | `un-traite-ottoman-contre-la-sphericite-1314h` | Bibliothèque | Unsplash (partagée) | **À terme : un folio de la Risāla elle-même** (Bibliothèque du Roi Abd al-Aziz, collection al-Mahmūdiyya, cote 3.1.13) — les folios 4-5, 7 et 8 sont déjà demandés pour l'article. En attendant, un manuscrit ottoman en écriture naskhī-taʿlīq, plan large. |
-| `lhypothese-nulle-dynamique-et-cinematique` | Centre de Recherche | Unsplash (partagée avec `corrections`) | Un pendule ou un gyroscope en pose longue, ou un manège en filé : deux mouvements que l'image ne permet pas de distinguer. C'est exactement le sujet. |
 
 ## Priorité 2 — les sept articles de fond sur photographie générique
 

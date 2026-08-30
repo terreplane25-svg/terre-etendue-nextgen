@@ -25,6 +25,7 @@ const nextConfig = {
       { source: '/article/magnetisme-et-electromagnetisme', destination: '/article/les-forces-invisibles-a-faire-chez-soi', permanent: true },
       { source: '/article/principe-action-reaction', destination: '/article/les-forces-invisibles-a-faire-chez-soi', permanent: true },
       { source: '/article/experiences-sous-pression-reduite', destination: '/article/la-pression-atmospherique-un-ocean-d-air-invisible', permanent: true },
+      { source: '/article/lhypothese-nulle-dynamique-et-cinematique', destination: '/article/la-gravite-70-theories-et-aucune-preuve', permanent: true },
     ];
   },
 };

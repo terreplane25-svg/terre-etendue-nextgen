@@ -27,7 +27,6 @@ const SECTIONS = [
     'la-gravite-70-theories-et-aucune-preuve',
     'la-gravite-70-theories-et-aucune-certitude',
     'la-rotation-terrestre-deux-experiences-zero-preuve',
-    'lhypothese-nulle-dynamique-et-cinematique',
     'neptune-et-pluton-les-faux-triomphes',
     'dune-terre-plate-universelle-a-la-sphere-grecque',
   ]},

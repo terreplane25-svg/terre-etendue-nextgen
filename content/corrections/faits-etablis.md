@@ -214,7 +214,7 @@ Label imposé par la charte : **FAIT ÉTABLI N°X**
 
 ### L'hypothèse nulle : dynamique et cinématique
 
-`lhypothese-nulle-dynamique-et-cinematique` — 5 encadrés
+`lhypothese-nulle-dynamique-et-cinematique` — 5 encadrés · **article fusionné le 30 août 2026** dans `la-gravite-70-theories-et-aucune-preuve`
 
 | # | Énoncé | Verdict |
 |---|---|---|

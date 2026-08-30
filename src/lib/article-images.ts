@@ -63,7 +63,6 @@ const IMG: Record<string, string> = {
   "lire-le-ciel-avant-le-globe": `${HOSTINGER}/2026/05/observatoire-scaled.jpeg`,
   "les-distances-cosmiques-au-dela-de-la-regle": `${HOSTINGER}/2026/04/mesure-soleil.jpg`,
   "les-trous-noirs-nexistent-pas": `${HOSTINGER}/2026/06/Black_Holes_-_Monsters_in_Space-scaled.jpg`,
-  "lhypothese-nulle-dynamique-et-cinematique": `${UNSPLASH}/photo-1507413245164-6160d8298b31?w=600&h=400&fit=crop`,
   "ligo-londe-qui-nexistait-pas": `${UNSPLASH}/photo-1462332420958-a05d1e002413?w=600&h=400&fit=crop`,
   "neptune-et-pluton-les-faux-triomphes": `${HOSTINGER}/2026/04/pluto_neptune.jpeg`,
   "pourquoi-tout-remettre-en-question": `${HOSTINGER}/2026/04/interrogation.avif`,

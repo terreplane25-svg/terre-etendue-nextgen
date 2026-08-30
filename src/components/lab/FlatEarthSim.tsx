@@ -990,7 +990,7 @@ export default function FlatEarthSim(){
         Modèle cinématique : projection plane équidistante, éphémérides géocentriques (Astronomy Engine). 📏 DISTANCE : cliquez deux points pour mesurer la distance en km, degrés d&apos;arc et milles nautiques (théorème de l&apos;angle central). ◑ ÉCLIPSES : prochaines éclipses solaires et lunaires calculées via éléments besséliens (polynômes sur plan fondamental — pas de rayon terrestre nécessaire). ⛰ DÔME : caméra au sol avec carte AE au sol, regardez dans toutes les directions y compris au zénith. Cliquez sur un astre ou une étoile pour voir son nom, altitude et azimut. 50 étoiles les plus brillantes du ciel (Sirius, Véga, Polaris…) calculées via le temps sidéral. TRAJECTOIRES : cercle quotidien du Soleil et de la Lune sur le disque ; la démo 🌀 ANNÉE révèle la spirale solaire entre les deux tropiques. Toutes les positions sont purement cinématiques : position dans le temps, sans assertion dynamique (gravité, masse).      </p>
       <div className="flex flex-wrap items-center gap-3 mt-3 pt-3 border-t border-slate-800/30">
         <span className="text-[8px] font-tech-mono text-slate-400">ARTICLES :</span>
-        <a href="/article/lhypothese-nulle-dynamique-et-cinematique" className="text-[9px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;hypothèse nulle →</a>
+        <a href="/article/la-gravite-70-theories-et-aucune-preuve" className="text-[9px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;hypothèse nulle →</a>
       </div>
     </div>
   </div>;

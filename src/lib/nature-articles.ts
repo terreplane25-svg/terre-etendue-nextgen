@@ -113,9 +113,9 @@ const N: Record<string, Nature> = {
   'la-gravite-70-theories-et-aucune-preuve': {
     genre: 'analyse',
     repose:
-      "La littérature de physique publiée et les valeurs officielles des constantes (CODATA). Les développements algébriques sont refaits par nous et vérifiables ligne à ligne.",
+      "La littérature de physique publiée, les valeurs officielles des constantes (CODATA), et les théorèmes de Bruns (1887) et Poincaré (1890) sur le problème des trois corps. Les développements algébriques sont refaits par nous et vérifiables ligne à ligne. La décomposition des forces en repère géocentrique vient de Bouw 2013, classée D dans notre grille, et rapportée comme telle.",
     netablit:
-      "N'établit pas que la gravité n'existe pas. Montre qu'aucune théorie unique n'en rend compte, et que G reste la constante fondamentale la moins bien mesurée.",
+      "N'établit pas que la gravité n'existe pas, ni que la Terre est immobile. Montre qu'aucune théorie unique n'en rend compte, que G reste la constante fondamentale la moins bien mesurée, et que la masse s'annule dans les équations orbitales — ce qui borne ce qu'elles mesurent, sans dire ce qui les cause.",
   },
   'la-rotation-terrestre-deux-experiences-zero-preuve': {
     genre: 'analyse',
@@ -158,13 +158,6 @@ const N: Record<string, Nature> = {
       "La littérature de relativité générale et des alternatives publiées et évaluées par les pairs. Aucune observation de ce dossier n'est la nôtre, et aucune ne pourrait l'être.",
     netablit:
       "Ne tranche pas l'existence des trous noirs. Recense ce que le modèle suppose et ce que les images montrent réellement.",
-  },
-  'lhypothese-nulle-dynamique-et-cinematique': {
-    genre: 'analyse',
-    repose:
-      "Les Principia de Newton, et une algèbre que nous avons refaite et que le lecteur peut refaire en une page.",
-    netablit:
-      "N'établit pas que la gravité est fausse. Montre que la masse du corps en orbite s'annule dans les équations, et ce que cela implique sur ce qui est réellement mesuré.",
   },
   'ligo-londe-qui-nexistait-pas': {
     genre: 'analyse',

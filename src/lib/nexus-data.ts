@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-// NEXUS DATA — 54 articles
+// NEXUS DATA — 53 articles
 // Terre Étendue Islam — Graphe de connaissances
 // ═══════════════════════════════════════════════════════
 
@@ -737,21 +737,6 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
-    "id": "lhypothese-nulle-dynamique-et-cinematique",
-    "title": "L'hypothèse nulle : dynamique et cinématique",
-    "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#7B68EE",
-    "primaryDomain": "astronomie",
-    "topDomains": ["astronomie", "gravite", "cosmologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -257.0,
-    "y": 184.5,
-    "size": 8
-  },
-  {
     "id": "ligo-londe-qui-nexistait-pas",
     "title": "LIGO : l'onde qui n'existait pas",
     "category": "headquarters",
@@ -1016,7 +1001,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "standards-et-methode",
-    "target": "lhypothese-nulle-dynamique-et-cinematique",
+    "target": "la-gravite-70-theories-et-aucune-preuve",
     "score": 302.0,
     "strength": "strong",
     "sharedDomains": ["epistemologie"]
@@ -1380,14 +1365,14 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "les-distances-cosmiques-au-dela-de-la-regle",
-    "target": "lhypothese-nulle-dynamique-et-cinematique",
+    "target": "la-gravite-70-theories-et-aucune-preuve",
     "score": 277.6,
     "strength": "strong",
     "sharedDomains": ["astronomie", "cosmologie"]
   },
   {
     "source": "kings-dethroned-leffondrement-de-la-triangulation-stellaire",
-    "target": "lhypothese-nulle-dynamique-et-cinematique",
+    "target": "la-gravite-70-theories-et-aucune-preuve",
     "score": 277.2,
     "strength": "strong",
     "sharedDomains": ["astronomie", "cosmologie"]
@@ -1456,7 +1441,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["islam_sources"]
   },
   {
-    "source": "lhypothese-nulle-dynamique-et-cinematique",
+    "source": "la-gravite-70-theories-et-aucune-preuve",
     "target": "neptune-et-pluton-les-faux-triomphes",
     "score": 140.6,
     "strength": "medium",
@@ -1603,13 +1588,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["epistemologie", "cosmologie"]
   },
   {
-    "source": "la-gravite-70-theories-et-aucune-preuve",
-    "target": "neptune-et-pluton-les-faux-triomphes",
-    "score": 127.4,
-    "strength": "medium",
-    "sharedDomains": ["gravite"]
-  },
-  {
     "source": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
     "target": "le-theodolite-celeste",
     "score": 127.4,
@@ -1632,7 +1610,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
-    "target": "lhypothese-nulle-dynamique-et-cinematique",
+    "target": "la-gravite-70-theories-et-aucune-preuve",
     "score": 123.4,
     "strength": "medium",
     "sharedDomains": ["astronomie"]
@@ -1706,13 +1684,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 47.8,
     "strength": "weak",
     "sharedDomains": ["geometrie"]
-  },
-  {
-    "source": "la-gravite-70-theories-et-aucune-preuve",
-    "target": "lhypothese-nulle-dynamique-et-cinematique",
-    "score": 44.1,
-    "strength": "weak",
-    "sharedDomains": ["gravite"]
   },
   {
     "source": "la-gravite-70-theories-et-aucune-preuve",
