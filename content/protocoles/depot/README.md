@@ -1,6 +1,7 @@
 # Dépôt — préenregistrement du protocole de dépression de l'horizon
 
-**Ce dossier est vide de PDF, et c'est normal.** Il attend le DOI.
+**DOI réservé et inscrit le 30 août 2026 : `10.5281/zenodo.22167798`.** Les deux
+exemplaires figés sont ici, avec leurs empreintes. Reste à téléverser et publier.
 
 Depuis la version 1.6, le protocole porte un **emplacement réservé** pour son
 propre DOI, en première page et en section 13. Les fichiers à déposer ne sont
@@ -42,7 +43,9 @@ trop tard.
   d'être réservé. Un seul enregistrement, un seul DOI : le DOI porte sur
   l'enregistrement, pas sur chaque fichier. Deux dépôts séparés feraient de ces
   deux traductions deux travaux distincts.
-- Le contenu de `SHA256SUMS.txt` dans le champ **Additional notes**.
+- Le contenu de `SHA256SUMS.txt` par le bouton **Add description**, type
+  **Notes**. L'ancien champ « Additional notes » a été remplacé par des
+  descriptions supplémentaires typées.
 - Les métadonnées ci-dessous.
 - Puis **Publish**. Le DOI devient permanent à cet instant.
 
@@ -107,7 +110,13 @@ Concrètement : ne diffuser aucun PDF de la 1.9 avant d'avoir passé le script.
 
 ## Métadonnées du dépôt
 
-**Titre**
+**Titre principal** — en français, la langue de l'exemplaire de référence et
+de l'ours du document.
+> Mesure de la dépression de l'horizon marin en fonction de l'altitude —
+> protocole ouvert et préenregistré (FR/EN)
+
+**Titre supplémentaire** (bouton *Add titles*), type *Translated title*,
+langue *English* :
 > Measuring the dip of the sea horizon as a function of altitude — an open,
 > pre-registered protocol (FR/EN)
 
@@ -163,13 +172,26 @@ avec registration.
 `geodesy`, `pre-registration`, `open protocol`, `artificial horizon`,
 `error budget`, `citizen science`, `replication`
 
-**Langues** — français et anglais. Zenodo n'accepte qu'une langue principale :
-choisir le français, l'anglais étant signalé dans la description.
+**Langues** — français **et** anglais. Le champ *Languages* accepte plusieurs
+entrées ; les deux fichiers ont le même contenu et se valent, donc les deux sont
+déclarées.
 
 **Version** — `1.9`
 
-**Licence** — au choix. CC BY 4.0 convient à un document destiné à être repris
-et exécuté par d'autres.
+**Licence** — CC BY 4.0, qui convient à un document destiné à être repris et
+exécuté par d'autres.
+
+**Auteur** — nom de famille `Terre Etendue Islam`, prénom laissé vide,
+affiliation `Indépendant`, ORCID `0009-0005-0883-4258`.
+
+**Financement / Awards** — laisser vide. Le site déclare son indépendance de
+financement ; un champ vide le dit mieux qu'une mention.
+
+**Empreintes** — bouton *Add description*, type *Notes*, y coller le contenu de
+`SHA256SUMS.txt`.
+
+**DOI réservé le 30 août 2026** — `10.5281/zenodo.22167798`. Inscrit dans les
+deux fichiers, empreintes calculées, exemplaires figés dans ce dossier.
 
 ## Ce que ce dépôt établit, et ce qu'il n'établit pas
 
