@@ -14,13 +14,11 @@ const SECTIONS = [
     'le-concordisme',
     'les-distances-cosmiques-au-dela-de-la-regle',
     'les-trous-noirs-nexistent-pas',
-    'ligo-londe-qui-nexistait-pas',
   ]},
   { id: 'zetetique', label: 'Méthode zététique', icon: '🔬', slugs: [
     'le-mouvement-zetetique-150-ans-de-resistance-1849-2000',
     '200-ans-de-resultats-nuls-darago-a-einstein',
     'le-mythe-deratosthene',
-    'kings-dethroned-leffondrement-de-la-triangulation-stellaire',
     'chronologie-de-la-tromperie-du-globe',
   ]},
   { id: 'question', label: 'Remise en question', icon: '❓', slugs: [

@@ -26,6 +26,8 @@ const nextConfig = {
       { source: '/article/principe-action-reaction', destination: '/article/les-forces-invisibles-a-faire-chez-soi', permanent: true },
       { source: '/article/experiences-sous-pression-reduite', destination: '/article/la-pression-atmospherique-un-ocean-d-air-invisible', permanent: true },
       { source: '/article/lhypothese-nulle-dynamique-et-cinematique', destination: '/article/la-gravite-70-theories-et-aucune-preuve', permanent: true },
+      { source: '/article/kings-dethroned-leffondrement-de-la-triangulation-stellaire', destination: '/article/les-distances-cosmiques-au-dela-de-la-regle', permanent: true },
+      { source: '/article/ligo-londe-qui-nexistait-pas', destination: '/article/les-trous-noirs-nexistent-pas', permanent: true },
     ];
   },
 };

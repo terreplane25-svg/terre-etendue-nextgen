@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-// NEXUS DATA — 53 articles
+// NEXUS DATA — 51 articles
 // Terre Étendue Islam — Graphe de connaissances
 // ═══════════════════════════════════════════════════════
 
@@ -313,21 +313,6 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "wordCount": 0,
     "x": -121.2,
     "y": 384.0,
-    "size": 8
-  },
-  {
-    "id": "kings-dethroned-leffondrement-de-la-triangulation-stellaire",
-    "title": "Kings Dethroned : l'effondrement de la triangulation stellaire",
-    "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#7B68EE",
-    "primaryDomain": "astronomie",
-    "topDomains": ["astronomie", "epistemologie", "cosmologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -229.2,
-    "y": 232.0,
     "size": 8
   },
   {
@@ -737,21 +722,6 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
-    "id": "ligo-londe-qui-nexistait-pas",
-    "title": "LIGO : l'onde qui n'existait pas",
-    "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#FF9800",
-    "primaryDomain": "gravite",
-    "topDomains": ["gravite", "epistemologie", "physique"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -367.9,
-    "y": 108.7,
-    "size": 8
-  },
-  {
     "id": "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite",
     "title": "L'Œil Humain : la machine à voir qui façonne notre réalité",
     "category": "observatory",
@@ -1099,7 +1069,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "la-gravite-70-theories-et-aucune-preuve",
-    "target": "ligo-londe-qui-nexistait-pas",
+    "target": "les-trous-noirs-nexistent-pas",
     "score": 355.0,
     "strength": "strong",
     "sharedDomains": ["gravite", "epistemologie", "physique"]
@@ -1152,13 +1122,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 334.3,
     "strength": "strong",
     "sharedDomains": ["islam_sources", "astronomie", "cosmologie"]
-  },
-  {
-    "source": "kings-dethroned-leffondrement-de-la-triangulation-stellaire",
-    "target": "les-distances-cosmiques-au-dela-de-la-regle",
-    "score": 334.1,
-    "strength": "strong",
-    "sharedDomains": ["astronomie", "epistemologie", "cosmologie"]
   },
   {
     "source": "densite-pourquoi-les-choses-montent-et-descendent",
@@ -1371,13 +1334,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["astronomie", "cosmologie"]
   },
   {
-    "source": "kings-dethroned-leffondrement-de-la-triangulation-stellaire",
-    "target": "la-gravite-70-theories-et-aucune-preuve",
-    "score": 277.2,
-    "strength": "strong",
-    "sharedDomains": ["astronomie", "cosmologie"]
-  },
-  {
     "source": "mise-en-garde-la-kaaba-et-saturne",
     "target": "pres-de-cent-savants-de-lislam",
     "score": 276.5,
@@ -1448,7 +1404,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["astronomie", "gravite"]
   },
   {
-    "source": "kings-dethroned-leffondrement-de-la-triangulation-stellaire",
+    "source": "les-distances-cosmiques-au-dela-de-la-regle",
     "target": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
     "score": 140.1,
     "strength": "medium",
@@ -1497,7 +1453,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["epistemologie", "geometrie"]
   },
   {
-    "source": "ligo-londe-qui-nexistait-pas",
+    "source": "les-trous-noirs-nexistent-pas",
     "target": "neptune-et-pluton-les-faux-triomphes",
     "score": 138.0,
     "strength": "medium",
@@ -1539,25 +1495,11 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["geometrie", "astronomie"]
   },
   {
-    "source": "la-gravite-70-theories-et-aucune-preuve",
-    "target": "les-trous-noirs-nexistent-pas",
-    "score": 131.5,
-    "strength": "medium",
-    "sharedDomains": ["epistemologie", "physique"]
-  },
-  {
     "source": "cartes-routes-boussoles-et-le-mystere-antarctique",
     "target": "leau-ne-ment-pas",
     "score": 131.0,
     "strength": "medium",
     "sharedDomains": ["hydrologie", "geometrie"]
-  },
-  {
-    "source": "les-trous-noirs-nexistent-pas",
-    "target": "ligo-londe-qui-nexistait-pas",
-    "score": 130.8,
-    "strength": "medium",
-    "sharedDomains": ["epistemologie", "physique"]
   },
   {
     "source": "dune-terre-plate-universelle-a-la-sphere-grecque",
@@ -1582,7 +1524,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "chronologie-de-la-tromperie-du-globe",
-    "target": "kings-dethroned-leffondrement-de-la-triangulation-stellaire",
+    "target": "les-distances-cosmiques-au-dela-de-la-regle",
     "score": 128.2,
     "strength": "medium",
     "sharedDomains": ["epistemologie", "cosmologie"]
@@ -1602,13 +1544,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["geometrie"]
   },
   {
-    "source": "chronologie-de-la-tromperie-du-globe",
-    "target": "les-distances-cosmiques-au-dela-de-la-regle",
-    "score": 127.0,
-    "strength": "medium",
-    "sharedDomains": ["epistemologie", "cosmologie"]
-  },
-  {
     "source": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
     "target": "la-gravite-70-theories-et-aucune-preuve",
     "score": 123.4,
@@ -1616,7 +1551,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["astronomie"]
   },
   {
-    "source": "kings-dethroned-leffondrement-de-la-triangulation-stellaire",
+    "source": "les-distances-cosmiques-au-dela-de-la-regle",
     "target": "le-mythe-deratosthene",
     "score": 123.1,
     "strength": "medium",
@@ -1670,13 +1605,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 114.6,
     "strength": "medium",
     "sharedDomains": ["islam_sources"]
-  },
-  {
-    "source": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
-    "target": "les-distances-cosmiques-au-dela-de-la-regle",
-    "score": 111.2,
-    "strength": "medium",
-    "sharedDomains": ["astronomie"]
   },
   {
     "source": "cartes-routes-boussoles-et-le-mystere-antarctique",

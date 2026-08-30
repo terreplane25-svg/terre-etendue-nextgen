@@ -96,13 +96,6 @@ const N: Record<string, Nature> = {
     netablit:
       "N'établit pas laquelle des deux cosmologies est vraie. C'est une histoire des idées, pas un argument physique.",
   },
-  'kings-dethroned-leffondrement-de-la-triangulation-stellaire': {
-    genre: 'analyse',
-    repose:
-      "Un ouvrage unique, celui de Gerrard Hickson (1922). Nous n'avons refait aucun de ses calculs, et nous ne les reprenons pas à notre compte.",
-    netablit:
-      "N'établit pas que les distances astronomiques sont fausses. Expose les objections d'un auteur, et rien de plus.",
-  },
   'la-cosmologie-comme-instrument-de-domination': {
     genre: 'analyse',
     repose:
@@ -148,23 +141,16 @@ const N: Record<string, Nature> = {
   'les-distances-cosmiques-au-dela-de-la-regle': {
     genre: 'analyse',
     repose:
-      "La littérature astronomique publiée, et l'ouvrage de 1922 déjà cité ailleurs. Aucune observation n'est la nôtre.",
+      "La littérature astronomique publiée — Bessel, Gill, Freedman, Gaia — et l'ouvrage de Gerrard Hickson (1922), dont nous n'avons refait aucun calcul. Aucune observation n'est la nôtre.",
     netablit:
-      "N'établit aucune distance de remplacement. Montre à partir de quel maillon la chaîne de mesure cesse d'être directe.",
+      "N'établit aucune distance de remplacement, et ne reprend pas à son compte les objections qu'il rapporte — celle d'Hickson sur les horizons de Halley est même signalée comme géométriquement fausse. Montre à partir de quel maillon la chaîne de mesure cesse d'être directe.",
   },
   'les-trous-noirs-nexistent-pas': {
     genre: 'analyse',
     repose:
-      "La littérature de relativité générale et des alternatives publiées et évaluées par les pairs. Aucune observation de ce dossier n'est la nôtre, et aucune ne pourrait l'être.",
+      "La littérature de relativité générale, des alternatives publiées et évaluées par les pairs, et les objections méthodologiques portées aux données de LIGO — dont celle de Creswell et collaborateurs. Aucune observation de ce dossier n'est la nôtre, et aucune ne pourrait l'être : nous n'avons pas accès aux données de LIGO ni à celles de l'Event Horizon Telescope.",
     netablit:
-      "Ne tranche pas l'existence des trous noirs. Recense ce que le modèle suppose et ce que les images montrent réellement.",
-  },
-  'ligo-londe-qui-nexistait-pas': {
-    genre: 'analyse',
-    repose:
-      "Des objections méthodologiques publiées, dont l'analyse de Creswell et collaborateurs. Nous n'avons pas accès aux données de LIGO et ne les avons pas traitées.",
-    netablit:
-      "N'établit pas que les ondes gravitationnelles n'existent pas. Recense des objections publiées et leur état de réponse.",
+      "Ne tranche pas l'existence des trous noirs, ni celle des ondes gravitationnelles. Recense ce que le modèle suppose, ce que les images montrent réellement, et quelles objections publiées restent sans réponse.",
   },
   'lire-le-ciel-avant-le-globe': {
     genre: 'analyse',

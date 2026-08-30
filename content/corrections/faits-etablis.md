@@ -93,7 +93,7 @@ Label imposé par la charte : **FAIT ÉTABLI N°X**
 
 ### Kings Dethroned : l'effondrement de la triangulation stellaire
 
-`kings-dethroned-leffondrement-de-la-triangulation-stellaire` — 5 encadrés
+`kings-dethroned-leffondrement-de-la-triangulation-stellaire` — 5 encadrés · **article fusionné le 30 août 2026** dans `les-distances-cosmiques-au-dela-de-la-regle`
 
 | # | Énoncé | Verdict |
 |---|---|---|
@@ -226,7 +226,7 @@ Label imposé par la charte : **FAIT ÉTABLI N°X**
 
 ### LIGO : l'onde qui n'existait pas
 
-`ligo-londe-qui-nexistait-pas` — 4 encadrés
+`ligo-londe-qui-nexistait-pas` — 4 encadrés · **article fusionné le 30 août 2026** dans `les-trous-noirs-nexistent-pas`
 
 | # | Énoncé | Verdict |
 |---|---|---|
