@@ -3,7 +3,6 @@ import React from 'react';
 import Link from 'next/link';
 import { getArticleImage } from '@/lib/article-images';
 import ArticleCarousel from '@/components/ArticleCarousel';
-import { TOOLS } from '@/lib/lab-tools';
 
 interface A { slug: string; title: string; description: string; category: string; tags: string[]; readTime: number; date: string; pinned: boolean; }
 
@@ -20,13 +19,8 @@ const ISLAMIC_SLUGS = [
   'la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre',
 ];
 
-const PILIERS = [
-  { href: '/library', label: 'Bibliothèque', color: '#D4943A', desc: 'Sources coraniques et hadiths, en édition critique savante.' },
-  { href: '/headquarters', label: 'Centre de Recherche', color: '#8B7EC8', desc: 'L’épistémologie : distinguer ce qui est prouvé de ce qui est interprété.' },
-  { href: '/observatory', label: 'Observatoire', color: '#3B8FD4', desc: 'Les données empiriques et officielles, examinées à la loupe.' },
-  { href: '/experiences', label: 'Expériences', color: '#C45E6A', desc: 'La physique se vérifie à la main, chez soi, sans autorité à invoquer.' },
-  { href: '/laboratoire', label: 'Laboratoire', color: '#3D9E7C', desc: 'Analyses d’observations longue distance, impossibles sur un globe.' },
-];
+
+const PROTOCOLE = 'les-protocoles-ce-que-c-est-et-pourquoi';
 
 function fmtDate(d: string) {
   try { return new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }); }
@@ -43,16 +37,13 @@ function SectionTitle({ color, children }: { color: string; children: React.Reac
 }
 
 export default function HomeClient({ articles }: { articles: A[] }) {
-  const nonIslamic = articles.filter(a => !ISLAMIC_SLUGS.includes(a.slug));
+  // Le protocole a son propre bloc plus haut : l'afficher aussi dans « À la une »
+  // le montrerait deux fois sur le même écran.
+  const nonIslamic = articles.filter(a => !ISLAMIC_SLUGS.includes(a.slug) && a.slug !== PROTOCOLE);
   const featured = nonIslamic.slice(0, 3);
   const latest = nonIslamic.slice(3, 15);
 
-  const stats = [
-    { n: String(articles.length), label: 'Articles publiés' },
-    { n: String(TOOLS.length), label: 'Simulateurs interactifs' },
-    { n: String(PILIERS.length), label: 'Univers thématiques' },
-    { n: '100 %', label: 'Sources vérifiables' },
-  ];
+
 
   return (
     <div>
@@ -90,11 +81,11 @@ export default function HomeClient({ articles }: { articles: A[] }) {
             La cosmologie coranique et la science moderne, examinées avec la même rigueur.
           </p>
           <div style={{ marginTop: 38, display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-            <a href="#piliers" style={{
+            <a href="#protocole" style={{
               fontSize: 15.5, fontWeight: 700, color: '#0D1528', background: '#4FD1A0',
               padding: '15px 30px', borderRadius: 10, boxShadow: '0 6px 24px rgba(79,209,160,0.35)',
             }}>
-              Commencer l’exploration
+              Le protocole de terrain
             </a>
             <Link href="/about" style={{
               fontSize: 15.5, fontWeight: 700, color: '#F4F8FC', background: 'rgba(255,255,255,0.08)',
@@ -107,50 +98,64 @@ export default function HomeClient({ articles }: { articles: A[] }) {
         </div>
       </div>
 
-      {/* ═══ BANDE CHIFFRES (pleine largeur) ═══ */}
-      <div style={{ background: 'var(--cream)', borderBottom: '1px solid var(--border)' }}>
-        <div style={{
-          maxWidth: 1200, margin: '0 auto', padding: '56px 24px',
-          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 32, textAlign: 'center',
-        }}>
-          {stats.map((s, i) => (
-            <div key={i}>
-              <div style={{
-                fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 900, color: 'var(--ink)',
-                letterSpacing: '-0.03em', lineHeight: 1, fontFamily: "'Plus Jakarta Sans', sans-serif",
-              }}>{s.n}</div>
-              <div style={{
-                fontSize: 13, color: 'var(--ink-muted)', marginTop: 12, letterSpacing: '0.04em',
-                textTransform: 'uppercase', fontFamily: "'JetBrains Mono', monospace",
-              }}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* ═══ LE PROTOCOLE (pleine largeur, tonalité foncée) ═══ */}
+      <div id="protocole" style={{ background: '#0D1528', borderBottom: '1px solid #1a2540' }}>
+        <div style={{ maxWidth: 1120, margin: '0 auto', padding: '96px 24px' }}>
+          <div style={{
+            display: 'inline-block', fontSize: 11.5, fontWeight: 700, letterSpacing: '0.16em',
+            textTransform: 'uppercase', color: '#C45E6A', marginBottom: 20,
+            fontFamily: "'JetBrains Mono', monospace",
+            border: '1px solid rgba(196,94,106,0.4)', padding: '6px 14px', borderRadius: 100,
+          }}>
+            Protocole déposé — DOI 10.5281/zenodo.22167798
+          </div>
 
-      {/* ═══ PARCOURIR PAR PILIER (pleine largeur, tonalité foncée) ═══ */}
-      <div id="piliers" style={{ background: '#0D1528', borderBottom: '1px solid #1a2540' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '96px 24px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 12 }}>
-            <div style={{ width: 5, height: 34, background: '#4FD1A0', borderRadius: 2 }} />
-            <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.25rem)', fontWeight: 800, color: '#F4F8FC', letterSpacing: '-0.02em', margin: 0 }}>Parcourir par pilier</h2>
-          </div>
-          <p style={{ fontSize: 16, color: '#8fa0b8', lineHeight: 1.6, marginBottom: 40, maxWidth: 640 }}>
-            Cinq univers pour aborder la même question sous cinq angles : le texte, la méthode, les données, l’expérience, l’analyse.
+          <h2 style={{
+            fontSize: 'clamp(1.75rem, 3.4vw, 2.6rem)', fontWeight: 800, color: '#F4F8FC',
+            letterSpacing: '-0.025em', lineHeight: 1.15, margin: '0 0 22px', maxWidth: 860,
+          }}>
+            Une mesure que chacun peut refaire, et dont le résultat était écrit d’avance
+          </h2>
+
+          <p style={{ fontSize: 17, color: '#a8b8cc', lineHeight: 1.7, maxWidth: 760, margin: '0 0 18px' }}>
+            La dépression de l’horizon marin&nbsp;: l’angle entre l’horizontale du fil à plomb et la
+            ligne d’horizon. Une sphère prédit qu’il croît comme la racine de l’altitude. Un plan
+            prédit qu’il reste nul, à toute hauteur.
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
-            {PILIERS.map(p => (
-              <Link key={p.href} href={p.href} style={{
-                display: 'block', padding: '30px 28px', borderRadius: 14,
-                background: 'rgba(255,255,255,0.03)', border: '1px solid #1e2c48',
-                borderTop: `3px solid ${p.color}`, transition: 'background 0.2s, transform 0.2s',
-              }}>
-                <div style={{ fontSize: 21, fontWeight: 800, color: '#F4F8FC', marginBottom: 10, letterSpacing: '-0.01em' }}>{p.label}</div>
-                <p style={{ fontSize: 14.5, color: '#9fb0c8', lineHeight: 1.6, margin: 0 }}>{p.desc}</p>
-                <div style={{ marginTop: 16, fontSize: 13.5, fontWeight: 700, color: p.color }}>Explorer →</div>
-              </Link>
-            ))}
+          <p style={{ fontSize: 17, color: '#a8b8cc', lineHeight: 1.7, maxWidth: 760, margin: '0 0 34px' }}>
+            Depuis 3&nbsp;107 mètres, l’écart entre les deux prédictions vaut au minimum
+            <strong style={{ color: '#F4F8FC' }}> 78 minutes d’arc</strong>, pour une incertitude de
+            mesure de <strong style={{ color: '#F4F8FC' }}>2,2 minutes d’arc</strong>. C’est ce
+            rapport, calculé avant la première image, qui rend la question décidable — et c’est ce
+            que la plupart des observations amateurs ne fournissent jamais.
+          </p>
+
+          <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', alignItems: 'center' }}>
+            <Link href="/article/les-protocoles-ce-que-c-est-et-pourquoi" style={{
+              fontSize: 15.5, fontWeight: 700, color: '#0D1528', background: '#C45E6A',
+              padding: '15px 30px', borderRadius: 10, boxShadow: '0 6px 24px rgba(196,94,106,0.3)',
+            }}>
+              Comprendre le protocole
+            </Link>
+            <a href="/protocoles/Protocole-depression-horizon.pdf" style={{
+              fontSize: 15, fontWeight: 700, color: '#F4F8FC', background: 'rgba(255,255,255,0.06)',
+              padding: '15px 26px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.22)',
+            }}>
+              Télécharger le PDF · français
+            </a>
+            <a href="/protocoles/Horizon-Dip-Protocol.pdf" style={{
+              fontSize: 15, fontWeight: 700, color: '#F4F8FC', background: 'rgba(255,255,255,0.06)',
+              padding: '15px 26px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.22)',
+            }}>
+              English PDF
+            </a>
           </div>
+
+          <p style={{ fontSize: 13.5, color: '#6f829c', lineHeight: 1.65, marginTop: 26, maxWidth: 760 }}>
+            Version 1.9, 22 pages, français et anglais. Prédictions et critères de décision
+            enregistrés publiquement le 30 août 2026, avant toute acquisition de données. Licence
+            CC BY 4.0.
+          </p>
         </div>
       </div>
 
