@@ -71,7 +71,23 @@ bienveillant, jamais méprisant.
 4. **Médias** (si vidéos) : `<h2 id="medias"><span class="tei-section-num">NN</span>Médias</h2>`
    puis les iframes, AVANT Sources.
 5. **Sources** : OBLIGATOIRE. `<h2 id="sources"><span class="tei-section-num">NN</span>Sources</h2>`
-   suivi d'un `<ol>`. Références datées et vérifiables.
+   suivi de la légende `<p class="tei-src-legende">…</p>` puis d'un `<ol>`.
+   Références datées et vérifiables. **Chaque entrée s'ouvre par sa classe** :
+   `<li><span class="tei-grade grade-c">C</span> Auteur, …</li>`.
+   - `A` mesure directe, protocole et instrument connus — conclure. Pour un
+     texte : référence exacte (hadith avec recueil et numéro, manuscrit coté,
+     verset, texte officiel daté).
+   - `B` chemin mesuré mais indirect — borner. Pour un texte : localisé par
+     tome et page, ou par le verset commenté.
+   - `C` valeur rapportée, calculée depuis un modèle, ou source primaire non
+     consultée — illustrer, jamais conclure. Manuels et travaux d'historiens.
+   - `D` déclarative, affirmée sans donnée jointe — rien.
+   - `renvoi` pour un lien vers un de nos propres articles. Ce n'est pas une
+     source, et le noter reviendrait à se citer soi-même comme preuve.
+
+   La classe dit ce que la source **permet**, pas si elle est bonne : un manuel
+   en C dans un article d'explication est à sa place. `verifier-integrite-articles.py`
+   refuse toute entrée sans classe.
 6. Introduire chaque personnage à sa première mention (brève bio).
 7. Aucune suppression de contenu existant lors d'un enrichissement.
 

@@ -45,6 +45,28 @@ def sans_svg(html):
     return html
 
 
+def sources_non_notees(html):
+    """Les entrées de source qui ne portent pas leur classe A/B/C/D.
+
+    Une entrée sans note ne se distingue pas d'une entrée bien notée : elle
+    passe simplement inaperçue. C'est exactement le genre de trou qui doit
+    être signalé par une machine et non par la vigilance de quelqu'un.
+    """
+    m = re.search(r'id="sources"', html)
+    if not m:
+        return []
+    d = html.find("</h2>", m.end())
+    if d < 0:
+        return []
+    suite = re.search(r"<h2[\s>]", html[d:])
+    section = html[d:d + suite.start()] if suite else html[d:]
+    manquantes = []
+    for li in re.findall(r"<li[^>]*>(.*?)</li>", section, re.S):
+        if not li.lstrip().startswith('<span class="tei-grade'):
+            manquantes.append(re.sub(r"<[^>]+>", "", li).strip()[:70])
+    return manquantes
+
+
 def notices_de_nature():
     """Les slugs qui ont une notice dans le registre des natures.
 
@@ -113,6 +135,8 @@ def controler(slug, data, css):
     for img in re.findall(r"<img[^>]*>", html):
         if "data-zoomable" not in img:
             pb.append("img sans data-zoomable : %s" % img[:60])
+    for entree in sources_non_notees(html):
+        pb.append("source sans classe A/B/C/D : %s…" % entree)
     if "VOTRE-URL" in html or "[Insérer" in html:
         pb.append("placeholder en production")
     if re.search(r"\son(mouse|click|load)\w*=", html):
