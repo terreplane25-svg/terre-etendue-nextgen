@@ -8,9 +8,9 @@ Sources des protocoles expérimentaux diffusables. Ce sont des documents destin�
 
 | Fichier | Contenu |
 |---|---|
-| `horizon-fr.html` | Dépression de l'horizon marin — français, 22 pages, **v1.9** |
+| `horizon-fr.html` | Dépression de l'horizon marin — français, 22 pages, **v1.9**, DOI [10.5281/zenodo.22167798](https://doi.org/10.5281/zenodo.22167798) |
 | `horizon-en.html` | Même document en anglais, 22 pages, **v1.9** |
-| `depot/` | Le dépôt : marche à suivre, métadonnées, et les fichiers figés une fois le DOI inscrit |
+| `depot/` | Le dépôt : marche à suivre, métadonnées, et les exemplaires figés portant le DOI |
 | `soleil-bilingue.html` | Diamètre angulaire du Soleil — **SUSPENDU**, voir plus bas |
 | `ballon-bilingue.html` | Dépression de l'horizon depuis un ballon stratosphérique — bilingue, 29 pages, **v1.1** |
 | `pole-celeste-bilingue.html` | Hauteur du pôle céleste — **SUSPENDU**, voir plus bas |
@@ -124,8 +124,9 @@ par mentir sur ce qu'elle illustre.
 python3 scripts/generer-page-protocoles.py    # réécrit le JSON, figures comprises
 ```
 
-Les fichiers PDF y seront ajoutés après l'inscription du DOI, voir
-`depot/README.md`.
+Les PDF du protocole d'horizon y sont en téléchargement depuis
+`public/protocoles/` — ce sont les exemplaires exacts déposés, jamais des rendus
+refaits, et la page publie leurs empreintes SHA-256. Voir `depot/README.md`.
 
 ## Ce que ces documents sont, et ne sont pas
 

@@ -1,7 +1,11 @@
 # Dépôt — préenregistrement du protocole de dépression de l'horizon
 
-**DOI réservé et inscrit le 30 août 2026 : `10.5281/zenodo.22167798`.** Les deux
-exemplaires figés sont ici, avec leurs empreintes. Reste à téléverser et publier.
+**Déposé et publié le 30 août 2026 : <https://doi.org/10.5281/zenodo.22167798>.**
+Les deux exemplaires figés sont ici, avec leurs empreintes. Les mêmes fichiers
+sont servis par le site depuis `public/protocoles/`, octet pour octet.
+
+La marche à suivre ci-dessous est conservée telle quelle : elle servira au dépôt
+du protocole ballon, et à toute version ultérieure de celui-ci.
 
 Depuis la version 1.6, le protocole porte un **emplacement réservé** pour son
 propre DOI, en première page et en section 13. Les fichiers à déposer ne sont
@@ -56,10 +60,11 @@ C'est le seul point qui ne se rattrape pas.
 ### 5. Mettre les fichiers en ligne sur le site
 
 Copier les PDF de ce dossier — **ceux-là exactement**, pas des rendus refaits —
-dans `public/protocoles/`, puis ajouter les liens de téléchargement et le DOI
-dans la section 07 de l'article
-`content/articles/les-protocoles-ce-que-c-est-et-pourquoi.json`, où la page
-explique aujourd'hui pourquoi ils n'y sont pas encore.
+dans `public/protocoles/`, puis ajouter les liens de téléchargement, le DOI et
+les empreintes dans la section 07 de l'article
+`content/articles/les-protocoles-ce-que-c-est-et-pourquoi.json`. Le
+`.gitignore` exclut `*.pdf` mais ré-inclut `public/protocoles/*.pdf` et
+`content/protocoles/depot/*.pdf` pour cette raison précise.
 
 Un rendu refait a une autre empreinte : servir un fichier dont le SHA-256 ne
 correspond pas à celui annoncé sur le dépôt annule l'intérêt de tout le

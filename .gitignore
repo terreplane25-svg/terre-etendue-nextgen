@@ -43,6 +43,10 @@ yarn-error.log*
 _docs/
 *.pdf
 !public/*.pdf
+# Exemplaires déposés, portant le DOI. Le rendu n'étant pas reproductible
+# octet à octet, ils ne se régénèrent pas : ce sont ces fichiers-là, ou rien.
+!public/protocoles/*.pdf
+!content/protocoles/depot/*.pdf
 
 # Python
 __pycache__/

@@ -119,7 +119,7 @@ CORPS = f"""<p class="tei-lede">Un protocole de vingt-deux pages pour une mesure
 <table class="tei-table">
   <thead><tr><th>protocole</th><th>ce qu'il mesure</th><th>langues</th><th>version</th><th>état</th></tr></thead>
   <tbody>
-    <tr><td><strong>Dépression de l'horizon marin</strong></td><td>l'angle δ entre l'horizontale vraie et la ligne d'horizon, en fonction de l'altitude</td><td>français, anglais</td><td>1.9</td><td>arrêté, DOI en cours de dépôt</td></tr>
+    <tr><td><strong>Dépression de l'horizon marin</strong></td><td>l'angle δ entre l'horizontale vraie et la ligne d'horizon, en fonction de l'altitude</td><td>français, anglais</td><td>1.9</td><td>déposé le 30 août 2026</td></tr>
     <tr><td><strong>Dépression de l'horizon depuis un ballon stratosphérique</strong></td><td>l'angle entre deux points diamétralement opposés de l'horizon, de 2 à 30 km</td><td>bilingue</td><td>1.1</td><td>arrêté, dépôt à suivre</td></tr>
     <tr><td>Diamètre angulaire du Soleil</td><td>—</td><td>—</td><td>—</td><td>suspendu</td></tr>
     <tr><td>Hauteur du pôle céleste</td><td>—</td><td>—</td><td>—</td><td>suspendu</td></tr>
@@ -127,20 +127,35 @@ CORPS = f"""<p class="tei-lede">Un protocole de vingt-deux pages pour une mesure
 </table>
 <p><em>État des protocoles au 30 août 2026.</em></p>
 
-<h3>Pourquoi les fichiers ne sont pas encore en téléchargement ici</h3>
-<p>Le protocole de l'horizon porte, depuis sa version 1.6, un emplacement réservé pour son propre DOI — en première page et en section finale. Tant que cet emplacement est vide, le fichier ne doit pas circuler&nbsp;: deux exemplaires distincts se réclamant du même numéro de version seraient exactement l'ambiguïté que le préenregistrement existe pour écarter.</p>
-<p>Les PDF seront donc mis en ligne ici <strong>après</strong> l'inscription du DOI, et ce seront les exemplaires exacts déposés — pas des rendus refaits. Un rendu PDF n'est pas reproductible octet à octet, le moteur y inscrivant un horodatage&nbsp;: l'empreinte SHA-256 ne vaut que pour l'exemplaire précis qui a été déposé.</p>
+<h3>Télécharger le protocole de dépression de l'horizon</h3>
+<p>Version 1.9, 22 pages, déposée et préenregistrée. Les deux fichiers ont le même contenu.</p>
+<ul>
+  <li><a href="/protocoles/Protocole-depression-horizon.pdf">Protocole de mesure de la dépression de l'horizon marin</a> — français, PDF, 479 ko</li>
+  <li><a href="/protocoles/Horizon-Dip-Protocol.pdf">Horizon Dip Protocol</a> — anglais, PDF, 467 ko</li>
+</ul>
+<p><strong>DOI</strong> — <a href="https://doi.org/10.5281/zenodo.22167798" rel="nofollow noopener" target="_blank">10.5281/zenodo.22167798</a>, déposé sur Zenodo le 30 août 2026, licence CC BY 4.0.</p>
+<p>Les deux fichiers portent le DOI en première page et en section finale. Ce sont les exemplaires exacts déposés, et non des rendus refaits — un rendu PDF n'est pas reproductible octet à octet, le moteur y inscrivant un horodatage de création. L'empreinte SHA-256 ne vaut donc que pour l'exemplaire précis qui a été déposé, et c'est celui-là qui est servi ici.</p>
+<table class="tei-table">
+  <thead><tr><th>fichier</th><th>empreinte SHA-256</th></tr></thead>
+  <tbody>
+    <tr><td>Protocole-depression-horizon.pdf</td><td><code>ba2f65a45c963184abb1183d35fae9666bf359b1fabf1ac66b34832e395e8ea9</code></td></tr>
+    <tr><td>Horizon-Dip-Protocol.pdf</td><td><code>5cde4c1aec47ce0a5d4bb952732714d9b30ee9b9d9b2587761a3f66fb10b3d15</code></td></tr>
+  </tbody>
+</table>
+<p><em>Ces empreintes sont également publiées sur le dépôt Zenodo. Elles se vérifient d'une ligne&nbsp;: <code>sha256sum</code> sur le fichier téléchargé doit rendre exactement la même chaîne. Si elle diffère, le fichier n'est pas celui qui a été déposé.</em></p>
+<p>L'acquisition de données peut commencer&nbsp;: le préenregistrement est publié, la phase 0 est close.</p>
 
 <h3>Le second protocole, en deux mots</h3>
 <p>Le protocole ballon mesure la même grandeur autrement, et il a un avantage que celui de l'horizon n'a pas. L'observable y est l'angle entre <em>deux</em> points diamétralement opposés de l'horizon, vus dans une seule image&nbsp;: 180° − 2δ sur une sphère, 180° sur un plan. Une inclinaison de la nacelle ajoute autant d'un côté qu'elle retranche de l'autre — la somme est invariante, et aucune référence verticale n'est nécessaire à bord. C'est ce qui rend la mesure possible sur une nacelle qui balance.</p>
 <p>Surtout, la réfraction y cesse d'être supposée. L'invariant de Bouguer donne cos δ = n₀(R+t)/n₁(R+h)&nbsp;: la correction ne dépend que de l'indice de l'air aux deux extrémités du rayon, donc de la pression et de la température au sol et à bord — quatre grandeurs <em>mesurées</em>. Aucun coefficient k n'apparaît dans ce protocole.</p>
 <p>Et le critère de décision y est une <em>variation</em>, non une valeur&nbsp;: entre 2 et 30 km d'altitude, l'angle change de 488′ sur une sphère et de zéro sur un plan. Tout décalage instrumental constant disparaît dans la différence.</p>
+<p>Il n'est pas encore en téléchargement, et pour la même raison qui valait hier pour l'autre&nbsp;: il porte un emplacement de DOI encore vide. Tant que cet emplacement n'est pas rempli, deux exemplaires distincts pourraient se réclamer du même numéro de version — exactement l'ambiguïté que le préenregistrement existe pour écarter. Il sera mis en ligne ici après son propre dépôt.</p>
 
 <h2 id="sources"><span class="tei-section-num">08</span>Sources</h2>
 <ol>
   <li>Ciddor, P. E. (1996). Refractive index of air&nbsp;: new equations for the visible and near infrared. <em>Applied Optics</em>, 35(9), 1566–1573. — fonde la relation n = 1 + 77,6×10⁻⁶ P/T employée dans les deux protocoles.</li>
   <li>Nosek, B. A., Ebersole, C. R., DeHaven, A. C., Mellor, D. T. (2018). The preregistration revolution. <em>Proceedings of the National Academy of Sciences</em>, 115(11), 2600–2606. — sur ce que le préenregistrement établit, et ce qu'il n'établit pas.</li>
-  <li>Zenodo, <em>Reserve DOI</em> — procédure d'attribution d'un identifiant avant publication d'un dépôt&nbsp;: <a href="https://help.zenodo.org/docs/deposit/describe-records/reserve-doi/" rel="nofollow noopener" target="_blank">help.zenodo.org</a>. Consulté le 30 août 2026.</li>
+  <li>Protocole de mesure de la dépression de l'horizon marin en fonction de l'altitude, version 1.9, français et anglais. Zenodo, 30 août 2026. <a href="https://doi.org/10.5281/zenodo.22167798" rel="nofollow noopener" target="_blank">doi.org/10.5281/zenodo.22167798</a>, licence CC BY 4.0.</li>
   <li>Coefficient de réfraction géodésique standard k = 0,13, et sa dépendance k = 503·(P/T²)·(0,0342 + dT/dh) avec P en hectopascals — relation classique de la géodésie, rappelée en section 02 du protocole de l'horizon.</li>
   <li><a href="/article/standards-et-methode">Standards et méthode</a> — les règles générales du site, dont la grille de sourçage A/B/C/D et le préenregistrement des prédictions.</li>
   <li>Les valeurs numériques citées ici — 107,4′, 100,1′, 78,2′, budget 2,20′ et 3,41′, rapports 35,5 et 29,4 — proviennent des tableaux 7 à 10 du protocole de dépression de l'horizon, version 1.9, et se recalculent depuis les formules qu'il énonce.</li>
