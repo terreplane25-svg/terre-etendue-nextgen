@@ -9,12 +9,10 @@ const UNSPLASH = "https://images.unsplash.com";
 const IMG: Record<string, string> = {
   // ── Observatory: Analysis ──
   "lhorizon-la-perspective-et-la-refraction": `${HOSTINGER}/2026/07/refraction_horizon.png`,
-  // merged into la-perspective-pourquoi-les-objets-disparaissent
   "leau-ne-ment-pas": `${HOSTINGER}/2026/06/mer_horizon-e1784751872495.png`,
   // les-horloges-atomiques-ne-prouvent-rien: merged into la-rotation-terrestre
   "pression-lumiere-halos-rayons-et-ondes": `${HOSTINGER}/2026/07/StockCake-Horizon_de_Lever_de_Soleil_Ethere-297875-standard.jpg`,
   "les-marees-contre-lheliocentrisme": `${HOSTINGER}/2026/07/maree.png`,
-  // merged into la-perspective-pourquoi-les-objets-disparaissent
   "lespace-une-frontiere-infranchissable": `${HOSTINGER}/2026/06/frontiere_atmosphere_espace.jpg`,
   "cartes-routes-boussoles-et-le-mystere-antarctique": `${HOSTINGER}/2026/07/carte_boussole_2-e1784751599837.png`,
   "la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas": `${UNSPLASH}/photo-1522030299830-16b8d3d049fe?w=600&h=400&fit=crop`,
@@ -26,9 +24,6 @@ const IMG: Record<string, string> = {
   "densite-pourquoi-les-choses-montent-et-descendent": `${HOSTINGER}/2026/06/ChatGPT-Image-21-juin-2026-00_39_16.png`,
   "la-pression-atmospherique-un-ocean-d-air-invisible": `${HOSTINGER}/2026/07/pression_atmos.png`,
   "experiences-sous-pression-reduite": `${HOSTINGER}/2026/07/chambre_a_vide.png`,
-  "la-perspective-lineaire": `${HOSTINGER}/2026/07/persperctive_horizon-e1784751826124.png`,
-  // merged into la-perspective-pourquoi-les-objets-disparaissent
-  "la-perspective-atmospherique": `${UNSPLASH}/photo-1470071459604-3b5ec3a7fe05?w=600&h=400&fit=crop`,
   "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite": `${UNSPLASH}/photo-1494869042583-f6c911f04b4c?w=600&h=400&fit=crop`,
   "principe-action-reaction": `${HOSTINGER}/2026/07/action_reaction.png`,
   "magnetisme-et-electromagnetisme": `${HOSTINGER}/2026/07/electromagnetisme.png`,

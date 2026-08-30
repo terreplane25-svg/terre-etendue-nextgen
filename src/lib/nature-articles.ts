@@ -224,24 +224,10 @@ const N: Record<string, Nature> = {
     netablit:
       "N'établit pas la nature de la Lune, ni ne propose de modèle de remplacement. Recense six observations que le modèle standard explique mal ou pas.",
   },
-  'la-perspective-atmospherique': {
-    genre: 'explication',
-    repose:
-      "L'optique atmosphérique classique — diffusion de Rayleigh, contraste — et une expérience photographique que le lecteur peut refaire.",
-    netablit:
-      "Ne tranche aucun modèle. Explique pourquoi le lointain devient bleu et flou, indépendamment de toute question de forme.",
-  },
-  'la-perspective-lineaire': {
-    genre: 'explication',
-    repose:
-      "La géométrie projective et une construction que le lecteur peut refaire sur une feuille.",
-    netablit:
-      "Ne tranche aucun modèle. Explique le point de fuite, ce qui est un préalable à toute discussion sur l'horizon.",
-  },
   'la-perspective-pourquoi-les-objets-disparaissent': {
     genre: 'analyse',
     repose:
-      "L'optique classique, et des tests au zoom réalisables par le lecteur. Les photographies et vidéos citées ne sont pas les nôtres et n'ont pas de conditions de prise de vue documentées.",
+      "L'optique classique, deux constructions que le lecteur peut refaire lui-même — une perspective sur une feuille A3, trois plans photographiés — et des tests au zoom. Les photographies et vidéos citées, elles, ne sont pas les nôtres et n'ont pas de conditions de prise de vue documentées.",
     netablit:
       "N'établit pas que l'horizon est plat. Montre que la disparition d'un objet lointain a plusieurs causes possibles et comment on peut les distinguer.",
   },

@@ -34,8 +34,6 @@ const SECTIONS = [
 const EXP_LINKS: Record<string, { slug: string; label: string }> = {
   "densite-pourquoi-les-choses-montent-et-descendent": { slug: "densite-pourquoi-les-choses-montent-et-descendent", label: "Fiche expérience : densité" },
   "pression-lumiere-halos-rayons-et-ondes": { slug: "la-pression-atmospherique-un-ocean-d-air-invisible", label: "Fiche expérience : pression" },
-  "lhorizon-la-perspective-et-la-refraction": { slug: "la-perspective-lineaire", label: "Fiche expérience : perspective" },
-  "la-perspective-pourquoi-les-objets-disparaissent": { slug: "la-perspective-lineaire", label: "Fiche expérience : perspective" },
   "cartes-routes-boussoles-et-le-mystere-antarctique": { slug: "magnetisme-et-electromagnetisme", label: "Fiche expérience : magnétisme" },
 };
 

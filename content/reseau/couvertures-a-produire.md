@@ -49,7 +49,6 @@ pourrait illustrer n'importe quel article de n'importe quel site.
 |---|---|---|
 | `kings-dethroned-leffondrement-de-la-triangulation-stellaire` | Centre de Recherche | Filé d'étoiles en pose longue autour du pôle céleste. Le sujet est la mesure d'un angle sur le ciel. |
 | `la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas` | Observatoire | Pleine lune au téléobjectif, très détaillée, décentrée à gauche du cadre sur fond noir — le format paysage impose de ne pas la centrer. |
-| `la-perspective-atmospherique` | Observatoire | Chaîne de collines successives s'éclaircissant progressivement vers le fond. Le sujet **est** l'image. |
 | `la-qibla-et-la-direction-cote-ouest` | Bibliothèque | Un miḥrāb en lumière rasante, ou une boussole de qibla ancienne. |
 | `levolution-et-lislam` | Bibliothèque | Sobre : une page de traité, ou une strate géologique. Éviter le cliché du primate, qui caricature le débat au lieu de l'ouvrir. |
 | `ligo-londe-qui-nexistait-pas` | Centre de Recherche | Un long tunnel rectiligne en perspective — le bras d'un interféromètre, ou tout couloir qui en donne l'échelle. |

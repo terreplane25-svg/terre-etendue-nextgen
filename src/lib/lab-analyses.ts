@@ -420,7 +420,7 @@ export const ANALYSES: AnalyseMedia[] = [
       `A-t-on exclu un effet de réfraction atmosphérique (chaleur, humidité) ?`,
       `L'objet est-il réellement ramené ou simplement mieux résolu ?`,
     ],
-    relatedArticle: 'la-perspective-lineaire',
+    relatedArticle: 'la-perspective-pourquoi-les-objets-disparaissent',
   },
   {
     id: 'point-de-fuite-rails',
@@ -451,7 +451,7 @@ export const ANALYSES: AnalyseMedia[] = [
       `A-t-on mesuré la distance maximale à laquelle un objet de taille connue reste visible ?`,
       `Le phénomène est-il reproductible dans des conditions différentes ?`,
     ],
-    relatedArticle: 'la-perspective-lineaire',
+    relatedArticle: 'la-perspective-pourquoi-les-objets-disparaissent',
   },
   {
     id: 'bateau-zoom-horizon',

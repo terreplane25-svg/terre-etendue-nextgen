@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-// NEXUS DATA — 60 articles
+// NEXUS DATA — 58 articles
 // Terre Étendue Islam — Graphe de connaissances
 // ═══════════════════════════════════════════════════════
 
@@ -403,36 +403,6 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "wordCount": 0,
     "x": 181.2,
     "y": -201.4,
-    "size": 8
-  },
-  {
-    "id": "la-perspective-atmospherique",
-    "title": "La perspective atmosphérique : pourquoi le lointain devient bleu et flou",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF6B6B",
-    "primaryDomain": "optique",
-    "topDomains": ["optique", "geometrie", "physique"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 126.8,
-    "y": -189.5,
-    "size": 8
-  },
-  {
-    "id": "la-perspective-lineaire",
-    "title": "La perspective linéaire : le point de fuite et l'illusion de la convergence",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF6B6B",
-    "primaryDomain": "optique",
-    "topDomains": ["optique", "geometrie", "physique"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 157.0,
-    "y": -263.9,
     "size": 8
   },
   {
@@ -1196,13 +1166,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["epistemologie", "cosmologie", "histoire_sciences"]
   },
   {
-    "source": "la-perspective-lineaire",
-    "target": "la-perspective-pourquoi-les-objets-disparaissent",
-    "score": 372.8,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie", "physique"]
-  },
-  {
     "source": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
     "target": "debut-de-la-creation-selon-le-coran-et-la-sunna",
     "score": 371.6,
@@ -1210,24 +1173,9 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["islam_sources", "astronomie", "cosmologie"]
   },
   {
-    "source": "la-perspective-lineaire",
-    "target": "lhorizon-la-perspective-et-la-refraction",
-    "score": 370.0,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie", "physique"]
-  },
-  /* self-loop removed */
-  {
-    "source": "la-perspective-lineaire",
-    "target": "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite",
-    "score": 362.2,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie", "physique"]
-  },
-  {
     "source": "la-perspective-pourquoi-les-objets-disparaissent",
     "target": "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite",
-    "score": 359.8,
+    "score": 362.2,
     "strength": "strong",
     "sharedDomains": ["optique", "geometrie", "physique"]
   },
@@ -1260,20 +1208,12 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["optique", "geometrie", "hydrologie"]
   },
   {
-    "source": "la-perspective-pourquoi-les-objets-disparaissent",
-    "target": "la-perspective-atmospherique",
-    "score": 346.9,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie", "physique"]
-  },
-  {
     "source": "les-marees-contre-lheliocentrisme",
     "target": "magnetisme-et-electromagnetisme",
     "score": 338.5,
     "strength": "strong",
     "sharedDomains": ["physique", "gravite", "cartographie"]
   },
-  /* duplicate edge removed */
   {
     "source": "la-rotation-terrestre-deux-experiences-zero-preuve",
     "target": "le-mouvement-zetetique-150-ans-de-resistance",
@@ -1302,7 +1242,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "strength": "strong",
     "sharedDomains": ["astronomie", "epistemologie", "cosmologie"]
   },
-  /* duplicate edge removed */
   {
     "source": "densite-pourquoi-les-choses-montent-et-descendent",
     "target": "electricite-statique-attraction-repulsion",
@@ -1317,7 +1256,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "strength": "strong",
     "sharedDomains": ["physique", "gravite"]
   },
-  /* duplicate edge removed */
   {
     "source": "lhorizon-la-perspective-et-la-refraction",
     "target": "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite",
@@ -1458,20 +1396,12 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "strength": "strong",
     "sharedDomains": ["islam_sources", "epistemologie"]
   },
-  /* duplicate edge removed */
   {
     "source": "glossaire",
     "target": "la-cosmologie-comme-instrument-de-domination",
     "score": 302.5,
     "strength": "strong",
     "sharedDomains": ["epistemologie", "histoire_sciences"]
-  },
-  {
-    "source": "la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas",
-    "target": "la-perspective-atmospherique",
-    "score": 301.4,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie"]
   },
   {
     "source": "debut-de-la-creation-selon-le-coran-et-la-sunna",
@@ -1523,7 +1453,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["islam_sources", "cosmologie"]
   },
   {
-    "source": "la-perspective-lineaire",
+    "source": "la-perspective-pourquoi-les-objets-disparaissent",
     "target": "la-pression-atmospherique-un-ocean-d-air-invisible",
     "score": 292.2,
     "strength": "strong",
@@ -1550,7 +1480,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "strength": "strong",
     "sharedDomains": ["islam_sources", "cosmologie"]
   },
-  /* duplicate edge removed */
   {
     "source": "electricite-statique-attraction-repulsion",
     "target": "magnetisme-et-electromagnetisme",
@@ -1565,7 +1494,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "strength": "strong",
     "sharedDomains": ["epistemologie", "cosmologie"]
   },
-  /* self-loop removed */
   {
     "source": "les-distances-cosmiques-au-dela-de-la-regle",
     "target": "lhypothese-nulle-dynamique-et-cinematique",
@@ -1586,13 +1514,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 276.5,
     "strength": "strong",
     "sharedDomains": ["islam_sources", "histoire_sciences"]
-  },
-  {
-    "source": "la-pression-atmospherique-un-ocean-d-air-invisible",
-    "target": "la-perspective-pourquoi-les-objets-disparaissent",
-    "score": 276.4,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie"]
   },
   {
     "source": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
@@ -1630,20 +1551,12 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["epistemologie", "histoire_sciences"]
   },
   {
-    "source": "la-perspective-pourquoi-les-objets-disparaissent",
-    "target": "la-pression-atmospherique-un-ocean-d-air-invisible",
-    "score": 270.5,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie"]
-  },
-  {
     "source": "le-concordisme",
     "target": "le-consensus-sur-la-sphericite",
     "score": 270.2,
     "strength": "strong",
     "sharedDomains": ["islam_sources", "epistemologie"]
   },
-  /* duplicate edge removed */
   {
     "source": "la-rotation-terrestre-deux-experiences-zero-preuve",
     "target": "principe-action-reaction",
@@ -1694,13 +1607,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["hydrologie", "geometrie"]
   },
   {
-    "source": "monter-l-experience-des-trois-mires",
-    "target": "par-rapport-a-quoi-mesure-t-on-une-altitude",
-    "score": 144.0,
-    "strength": "medium",
-    "sharedDomains": ["geometrie", "metrologie"]
-  },
-  {
     "source": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
     "target": "leau-ne-ment-pas",
     "score": 168.0,
@@ -1713,13 +1619,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 152.0,
     "strength": "strong",
     "sharedDomains": ["optique", "geometrie"]
-  },
-  {
-    "source": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
-    "target": "par-rapport-a-quoi-mesure-t-on-une-altitude",
-    "score": 148.0,
-    "strength": "medium",
-    "sharedDomains": ["geometrie", "metrologie"]
   },
   {
     "source": "etat-des-lieux-ou-en-sommes-nous",
@@ -1937,7 +1836,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 41.8,
     "strength": "weak",
     "sharedDomains": ["physique"]
-  },
+  }
 ];
 
 export const NEXUS_STATS = {

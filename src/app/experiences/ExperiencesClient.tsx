@@ -18,9 +18,7 @@ const CROSS: Record<string, { slug: string; label: string }> = {
   "densite-et-flottabilite": { slug: "densite-pourquoi-les-choses-montent-et-descendent", label: "Analyse complète" },
   "la-pression-atmospherique": { slug: "pression-lumiere-halos-rayons-et-ondes", label: "Analyse complète" },
   "la-pression-atmospherique-un-ocean-d-air-invisible": { slug: "pression-lumiere-halos-rayons-et-ondes", label: "Analyse complète" },
-  "la-perspective-lineaire": { slug: "lhorizon-la-perspective-et-la-refraction", label: "Analyse optique" },
   "diminution-angulaire-taille-apparente": { slug: "la-perspective-pourquoi-les-objets-disparaissent", label: "Dossier optique complet" },
-  "la-perspective-atmospherique": { slug: "lhorizon-la-perspective-et-la-refraction", label: "Analyse optique" },
   "magnetisme-et-electromagnetisme": { slug: "cartes-routes-boussoles-et-le-mystere-antarctique", label: "Analyse géographique" },
 };
 

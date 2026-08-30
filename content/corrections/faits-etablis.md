@@ -325,7 +325,7 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 
 ### La perspective atmosphérique : pourquoi le lointain devient bleu et flou
 
-`la-perspective-atmospherique` — 3 encadrés
+`la-perspective-atmospherique` — 3 encadrés · **article fusionné le 30 août 2026** dans `la-perspective-pourquoi-les-objets-disparaissent`
 
 | # | Énoncé | Verdict |
 |---|---|---|
@@ -335,7 +335,7 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 
 ### La perspective linéaire : le point de fuite et l'illusion de la convergence
 
-`la-perspective-lineaire` — 3 encadrés
+`la-perspective-lineaire` — 3 encadrés · **article fusionné le 30 août 2026** dans `la-perspective-pourquoi-les-objets-disparaissent`
 
 | # | Énoncé | Verdict |
 |---|---|---|
