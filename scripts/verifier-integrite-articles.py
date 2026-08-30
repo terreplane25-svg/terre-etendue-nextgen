@@ -34,6 +34,7 @@ from lib_html_articles import runs_fautifs  # noqa: E402
 
 RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ARTICLES = os.path.join(RACINE, "content", "articles")
+NATURES = os.path.join(RACINE, "src", "lib", "nature-articles.ts")
 CSS = os.path.join(RACINE, "src", "styles", "globals.css")
 
 def sans_svg(html):
@@ -42,6 +43,20 @@ def sans_svg(html):
     html = re.sub(r"<svg\b.*?</svg>", "", html, flags=re.S | re.I)
     html = re.sub(r"<style\b.*?</style>", "", html, flags=re.S | re.I)
     return html
+
+
+def notices_de_nature():
+    """Les slugs qui ont une notice dans le registre des natures.
+
+    Lu par expression rationnelle plutôt qu'en évaluant du TypeScript : le
+    registre est un objet littéral, une clé par ligne, et il n'y a rien à
+    gagner à embarquer un analyseur pour ça.
+    """
+    if not os.path.exists(NATURES):
+        return None
+    src = open(NATURES, encoding="utf-8").read()
+    corps = src.split("const N: Record<string, Nature> = {", 1)[-1]
+    return set(re.findall(r"^  '?([a-z0-9-]+)'?: \{", corps, re.M))
 
 
 def controler(slug, data, css):
@@ -107,18 +122,32 @@ def controler(slug, data, css):
 
 def main():
     css = open(CSS, encoding="utf-8").read()
+    natures = notices_de_nature()
     total = 0
+    slugs = []
     for f in sorted(os.listdir(ARTICLES)):
         if not f.endswith(".json"):
             continue
         with open(os.path.join(ARTICLES, f), encoding="utf-8") as fh:
             data = json.load(fh)
+        slugs.append(f[:-5])
         pb = controler(f[:-5], data, css)
         if pb:
             print("── %s" % f[:-5])
             for p in pb:
                 print("   ✗ %s" % p)
             total += len(pb)
+    # L'encadré « ce que cet article est » ne s'affiche pas sans notice, et son
+    # absence est silencieuse à la lecture. C'est ici qu'elle doit se voir.
+    if natures is not None:
+        manquants = sorted(set(slugs) - natures)
+        orphelines = sorted(natures - set(slugs))
+        for m in manquants:
+            print("── %s\n   ✗ pas de notice dans nature-articles.ts" % m)
+        for o in orphelines:
+            print("── %s\n   ✗ notice de nature sans article" % o)
+        total += len(manquants) + len(orphelines)
+
     print("\n%d problème(s)" % total)
     return 1 if total else 0
 

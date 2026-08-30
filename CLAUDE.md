@@ -54,6 +54,13 @@ bienveillant, jamais méprisant.
 
 ## Charte rédactionnelle — tronc commun (toutes les pages)
 
+0. **Régime de preuve.** Toute page déclare sa nature dans
+   `src/lib/nature-articles.ts` : genre (`protocole`, `analyse`, `explication`,
+   `textes`, `outil`), **ce sur quoi elle repose** — nommer la source, et dire
+   si elle est de nous — et **ce qu'elle n'établit pas**. Cette dernière ligne
+   n'est jamais une formule creuse : elle borne explicitement la conclusion,
+   y compris quand la conclusion nous arrangerait. C'est `ArticleReader` qui
+   la rend, au-dessus du corps.
 1. **Lede** : ouvrir par un `<p class="tei-lede">` court et percutant (1-2 phrases,
    souvent chiffré). Pas d'image de couverture dans le HTML.
 2. **Sections** : `<h2 id="slug-section"><span class="tei-section-num">01</span>Titre</h2>`.
@@ -129,6 +136,10 @@ adapté à l'identité de la page. Markup :
 
 ## Registres à tenir à jour quand on ajoute/supprime un article
 
+- `src/lib/nature-articles.ts` — **obligatoire.** L'encadré « Ce que cet article
+  est » : genre, ce sur quoi l'article repose, ce qu'il n'établit pas.
+  Sans notice, l'encadré ne s'affiche pas.
+  `python3 scripts/verifier-integrite-articles.py` signale les manquants.
 - `src/lib/article-images.ts` — image de couverture (clé = slug).
 - `src/lib/nexus-data.ts` — nœud + liens du graphe (si pertinent).
 - L'article apparaît automatiquement sur sa page de catégorie.

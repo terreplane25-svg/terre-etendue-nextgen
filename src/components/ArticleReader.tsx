@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { getArticleImage } from '@/lib/article-images';
+import ArticleNature from '@/components/ArticleNature';
 import AudioPlayer from '@/components/AudioPlayer';
 
 const AUDIO_SLUGS: string[] = [];
@@ -235,6 +236,8 @@ export default function ArticleReader(props: ArticleReaderProps) {
         )}
 
         <div style={{ height: 1, background: 'var(--border)', margin: '0 0 32px' }} />
+
+        <ArticleNature slug={slug} />
 
         {AUDIO_SLUGS.includes(slug) && (
           <AudioPlayer src={`/audio/${slug}.mp3`} title={title} />
