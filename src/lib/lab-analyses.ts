@@ -120,7 +120,7 @@ export const ANALYSES: AnalyseMedia[] = [
       `La hauteur de l'observateur par rapport à la surface est-elle précisée ?`,
       `Le phénomène a-t-il été observé à différents moments de la journée (variation thermique) ?`,
     ],
-    relatedArticle: 'lhorizon-la-perspective-et-la-refraction',
+    relatedArticle: 'la-perspective-pourquoi-les-objets-disparaissent',
   },
   {
     id: 'fata-morgana',
@@ -151,7 +151,7 @@ export const ANALYSES: AnalyseMedia[] = [
       `La distance d'observation est-elle connue ?`,
       `A-t-on exclu un montage ou un artefact photographique ?`,
     ],
-    relatedArticle: 'lhorizon-la-perspective-et-la-refraction',
+    relatedArticle: 'la-perspective-pourquoi-les-objets-disparaissent',
   },
   {
     id: 'rayons-crepusculaires',
@@ -514,7 +514,7 @@ export const ANALYSES: AnalyseMedia[] = [
       `Le phénomène évolue-t-il dans le temps (signe d'origine atmosphérique) ?`,
       `La distance et la hauteur d'observation sont-elles documentées ?`,
     ],
-    relatedArticle: 'lhorizon-la-perspective-et-la-refraction',
+    relatedArticle: 'la-perspective-pourquoi-les-objets-disparaissent',
   },
   {
     id: 'scintillation-stellaire',
@@ -978,7 +978,7 @@ export const ANALYSES: AnalyseMedia[] = [
       `Le calcul de courbure a-t-il été refait avec ET sans réfraction ?`,
     ],
     svgDiagram: `<svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Comparaison entre la hauteur cachee par la courbure et la hauteur de la cible pour Finestrelles → Barre des Écrins (443 km)" data-zoomable style="width:100%;max-width:720px;border-radius:10px;background:#0d1117"><rect width="720" height="340" rx="12" fill="#0d1117"/><text x="360" y="30" text-anchor="middle" fill="#D4943A" font-size="13" font-weight="700" font-family="Plus Jakarta Sans,sans-serif">COURBURE ATTENDUE vs CIBLE OBSERVÉE</text><text x="360" y="50" text-anchor="middle" fill="#607890" font-size="10" font-family="JetBrains Mono,monospace">Finestrelles → Barre des Écrins (443 km) — 443 km · observateur 2820 m</text><line x1="90" y1="290" x2="650" y2="290" stroke="#2a3550" stroke-width="1"/><rect x="150" y="94" width="90" height="196" rx="3" fill="#C45E6A22" stroke="#C45E6A" stroke-width="1.5"/><text x="195" y="86" text-anchor="middle" fill="#C45E6A" font-size="13" font-weight="700" font-family="JetBrains Mono,monospace">5038 m</text><text x="195" y="306" text-anchor="middle" fill="#8499b3" font-size="9" font-family="JetBrains Mono,monospace">Caché — courbure</text><text x="195" y="318" text-anchor="middle" fill="#607890" font-size="8" font-family="JetBrains Mono,monospace">(géométrie)</text><rect x="345" y="137" width="90" height="153" rx="3" fill="#D4943A22" stroke="#D4943A" stroke-width="1.5"/><text x="390" y="129" text-anchor="middle" fill="#D4943A" font-size="13" font-weight="700" font-family="JetBrains Mono,monospace">3924 m</text><text x="390" y="306" text-anchor="middle" fill="#8499b3" font-size="9" font-family="JetBrains Mono,monospace">Reste caché</text><text x="390" y="318" text-anchor="middle" fill="#607890" font-size="8" font-family="JetBrains Mono,monospace">(réfraction std)</text><rect x="540" y="130" width="90" height="160" rx="3" fill="#3D9E7C22" stroke="#3D9E7C" stroke-width="1.5"/><text x="585" y="122" text-anchor="middle" fill="#3D9E7C" font-size="13" font-weight="700" font-family="JetBrains Mono,monospace">4102 m</text><text x="585" y="306" text-anchor="middle" fill="#8499b3" font-size="9" font-family="JetBrains Mono,monospace">Hauteur</text><text x="585" y="318" text-anchor="middle" fill="#607890" font-size="8" font-family="JetBrains Mono,monospace">de la cible</text><text x="360" y="325" text-anchor="middle" fill="#C8D8E8" font-size="10" font-family="JetBrains Mono,monospace">Cible réellement photographiée → la cible émerge malgré tout</text></svg>`,
-    relatedArticle: `lhorizon-la-perspective-et-la-refraction`,
+    relatedArticle: `la-perspective-pourquoi-les-objets-disparaissent`,
   },
   {
     id: `record-canigou-marseille`,
@@ -1007,7 +1007,7 @@ export const ANALYSES: AnalyseMedia[] = [
       `Le calcul de courbure a-t-il été refait avec ET sans réfraction ?`,
     ],
     svgDiagram: `<svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Comparaison entre la hauteur cachee par la courbure et la hauteur de la cible pour Pic du Canigou depuis Marseille (263 km)" data-zoomable style="width:100%;max-width:720px;border-radius:10px;background:#0d1117"><rect width="720" height="340" rx="12" fill="#0d1117"/><text x="360" y="30" text-anchor="middle" fill="#D4943A" font-size="13" font-weight="700" font-family="Plus Jakarta Sans,sans-serif">COURBURE ATTENDUE vs CIBLE OBSERVÉE</text><text x="360" y="50" text-anchor="middle" fill="#607890" font-size="10" font-family="JetBrains Mono,monospace">Pic du Canigou depuis Marseille (263 km) — 263 km · observateur 150 m</text><line x1="90" y1="290" x2="650" y2="290" stroke="#2a3550" stroke-width="1"/><rect x="150" y="94" width="90" height="196" rx="3" fill="#C45E6A22" stroke="#C45E6A" stroke-width="1.5"/><text x="195" y="86" text-anchor="middle" fill="#C45E6A" font-size="13" font-weight="700" font-family="JetBrains Mono,monospace">3773 m</text><text x="195" y="306" text-anchor="middle" fill="#8499b3" font-size="9" font-family="JetBrains Mono,monospace">Caché — courbure</text><text x="195" y="318" text-anchor="middle" fill="#607890" font-size="8" font-family="JetBrains Mono,monospace">(géométrie)</text><rect x="345" y="124" width="90" height="166" rx="3" fill="#D4943A22" stroke="#D4943A" stroke-width="1.5"/><text x="390" y="116" text-anchor="middle" fill="#D4943A" font-size="13" font-weight="700" font-family="JetBrains Mono,monospace">3189 m</text><text x="390" y="306" text-anchor="middle" fill="#8499b3" font-size="9" font-family="JetBrains Mono,monospace">Reste caché</text><text x="390" y="318" text-anchor="middle" fill="#607890" font-size="8" font-family="JetBrains Mono,monospace">(réfraction std)</text><rect x="540" y="145" width="90" height="145" rx="3" fill="#3D9E7C22" stroke="#3D9E7C" stroke-width="1.5"/><text x="585" y="137" text-anchor="middle" fill="#3D9E7C" font-size="13" font-weight="700" font-family="JetBrains Mono,monospace">2784 m</text><text x="585" y="306" text-anchor="middle" fill="#8499b3" font-size="9" font-family="JetBrains Mono,monospace">Hauteur</text><text x="585" y="318" text-anchor="middle" fill="#607890" font-size="8" font-family="JetBrains Mono,monospace">de la cible</text><text x="360" y="325" text-anchor="middle" fill="#C8D8E8" font-size="10" font-family="JetBrains Mono,monospace">Cible réellement photographiée → sous l'horizon sans réfraction forte</text></svg>`,
-    relatedArticle: `lhorizon-la-perspective-et-la-refraction`,
+    relatedArticle: `la-perspective-pourquoi-les-objets-disparaissent`,
   },
   {
     id: `record-chicago-michigan`,
@@ -1065,7 +1065,7 @@ export const ANALYSES: AnalyseMedia[] = [
       `Le calcul de courbure a-t-il été refait avec ET sans réfraction ?`,
     ],
     svgDiagram: `<svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Comparaison entre la hauteur cachee par la courbure et la hauteur de la cible pour Mont Elbrouz depuis le Caucase (493 km)" data-zoomable style="width:100%;max-width:720px;border-radius:10px;background:#0d1117"><rect width="720" height="340" rx="12" fill="#0d1117"/><text x="360" y="30" text-anchor="middle" fill="#D4943A" font-size="13" font-weight="700" font-family="Plus Jakarta Sans,sans-serif">COURBURE ATTENDUE vs CIBLE OBSERVÉE</text><text x="360" y="50" text-anchor="middle" fill="#607890" font-size="10" font-family="JetBrains Mono,monospace">Mont Elbrouz depuis le Caucase (493 km) — 493 km · observateur 3107 m</text><line x1="90" y1="290" x2="650" y2="290" stroke="#2a3550" stroke-width="1"/><rect x="150" y="94" width="90" height="196" rx="3" fill="#C45E6A22" stroke="#C45E6A" stroke-width="1.5"/><text x="195" y="86" text-anchor="middle" fill="#C45E6A" font-size="13" font-weight="700" font-family="JetBrains Mono,monospace">6780 m</text><text x="195" y="306" text-anchor="middle" fill="#8499b3" font-size="9" font-family="JetBrains Mono,monospace">Caché — courbure</text><text x="195" y="318" text-anchor="middle" fill="#607890" font-size="8" font-family="JetBrains Mono,monospace">(géométrie)</text><rect x="345" y="135" width="90" height="155" rx="3" fill="#D4943A22" stroke="#D4943A" stroke-width="1.5"/><text x="390" y="127" text-anchor="middle" fill="#D4943A" font-size="13" font-weight="700" font-family="JetBrains Mono,monospace">5338 m</text><text x="390" y="306" text-anchor="middle" fill="#8499b3" font-size="9" font-family="JetBrains Mono,monospace">Reste caché</text><text x="390" y="318" text-anchor="middle" fill="#607890" font-size="8" font-family="JetBrains Mono,monospace">(réfraction std)</text><rect x="540" y="127" width="90" height="163" rx="3" fill="#3D9E7C22" stroke="#3D9E7C" stroke-width="1.5"/><text x="585" y="119" text-anchor="middle" fill="#3D9E7C" font-size="13" font-weight="700" font-family="JetBrains Mono,monospace">5642 m</text><text x="585" y="306" text-anchor="middle" fill="#8499b3" font-size="9" font-family="JetBrains Mono,monospace">Hauteur</text><text x="585" y="318" text-anchor="middle" fill="#607890" font-size="8" font-family="JetBrains Mono,monospace">de la cible</text><text x="360" y="325" text-anchor="middle" fill="#C8D8E8" font-size="10" font-family="JetBrains Mono,monospace">Cible réellement photographiée → la cible émerge malgré tout</text></svg>`,
-    relatedArticle: `lhorizon-la-perspective-et-la-refraction`,
+    relatedArticle: `la-perspective-pourquoi-les-objets-disparaissent`,
   },
   {
     id: `record-corse-nice`,

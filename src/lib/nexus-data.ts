@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-// NEXUS DATA — 58 articles
+// NEXUS DATA — 57 articles
 // Terre Étendue Islam — Graphe de connaissances
 // ═══════════════════════════════════════════════════════
 
@@ -752,21 +752,6 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
-    "id": "lhorizon-la-perspective-et-la-refraction",
-    "title": "L'horizon, la perspective et la réfraction",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF6B6B",
-    "primaryDomain": "optique",
-    "topDomains": ["optique", "geometrie", "physique"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 138.8,
-    "y": -372.5,
-    "size": 8
-  },
-  {
     "id": "lhypothese-nulle-dynamique-et-cinematique",
     "title": "L'hypothèse nulle : dynamique et cinématique",
     "category": "headquarters",
@@ -950,7 +935,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "les-protocoles-ce-que-c-est-et-pourquoi",
-    "target": "lhorizon-la-perspective-et-la-refraction",
+    "target": "la-perspective-pourquoi-les-objets-disparaissent",
     "score": 178.0,
     "strength": "medium",
     "sharedDomains": ["optique", "geometrie"]
@@ -1152,13 +1137,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["physique", "gravite", "cartographie"]
   },
   {
-    "source": "la-perspective-pourquoi-les-objets-disparaissent",
-    "target": "lhorizon-la-perspective-et-la-refraction",
-    "score": 373.9,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie", "physique"]
-  },
-  {
     "source": "la-cosmologie-comme-instrument-de-domination",
     "target": "la-rotation-terrestre-deux-experiences-zero-preuve",
     "score": 373.4,
@@ -1255,13 +1233,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 329.7,
     "strength": "strong",
     "sharedDomains": ["physique", "gravite"]
-  },
-  {
-    "source": "lhorizon-la-perspective-et-la-refraction",
-    "target": "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite",
-    "score": 329.3,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie", "physique"]
   },
   {
     "source": "index-thematique",
@@ -1384,7 +1355,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "la-pression-atmospherique-un-ocean-d-air-invisible",
-    "target": "lhorizon-la-perspective-et-la-refraction",
+    "target": "la-perspective-pourquoi-les-objets-disparaissent",
     "score": 303.2,
     "strength": "strong",
     "sharedDomains": ["optique", "geometrie"]
@@ -1451,13 +1422,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 294.2,
     "strength": "strong",
     "sharedDomains": ["islam_sources", "cosmologie"]
-  },
-  {
-    "source": "la-perspective-pourquoi-les-objets-disparaissent",
-    "target": "la-pression-atmospherique-un-ocean-d-air-invisible",
-    "score": 292.2,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie"]
   },
   {
     "source": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
@@ -1615,7 +1579,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
-    "target": "lhorizon-la-perspective-et-la-refraction",
+    "target": "la-perspective-pourquoi-les-objets-disparaissent",
     "score": 152.0,
     "strength": "strong",
     "sharedDomains": ["optique", "geometrie"]

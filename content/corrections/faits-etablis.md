@@ -396,7 +396,7 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 
 ### L'horizon, la perspective et la réfraction
 
-`lhorizon-la-perspective-et-la-refraction` — 4 encadrés
+`lhorizon-la-perspective-et-la-refraction` — 4 encadrés · **article fusionné le 30 août 2026** dans `la-perspective-pourquoi-les-objets-disparaissent`
 
 | # | Énoncé | Verdict |
 |---|---|---|

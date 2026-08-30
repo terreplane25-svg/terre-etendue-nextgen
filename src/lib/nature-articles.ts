@@ -259,13 +259,6 @@ const N: Record<string, Nature> = {
     netablit:
       "N'établit pas que le vol spatial habité est impossible. Recense trois contraintes physiques documentées et l'état des réponses publiées.",
   },
-  'lhorizon-la-perspective-et-la-refraction': {
-    genre: 'explication',
-    repose:
-      "L'optique classique, et trois tests que le lecteur peut faire lui-même avec un appareil photo et une planche de niveau.",
-    netablit:
-      "Ne tranche pas la forme de la Terre. Sépare ce qui relève de la perspective, ce qui relève de la réfraction, et ce qui resterait à mesurer.",
-  },
   'mesurer-la-courbure-sur-l-eau-cinq-campagnes': {
     genre: 'analyse',
     repose:

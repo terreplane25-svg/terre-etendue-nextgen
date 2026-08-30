@@ -8,7 +8,6 @@ const UNSPLASH = "https://images.unsplash.com";
 
 const IMG: Record<string, string> = {
   // ── Observatory: Analysis ──
-  "lhorizon-la-perspective-et-la-refraction": `${HOSTINGER}/2026/07/refraction_horizon.png`,
   "leau-ne-ment-pas": `${HOSTINGER}/2026/06/mer_horizon-e1784751872495.png`,
   // les-horloges-atomiques-ne-prouvent-rien: merged into la-rotation-terrestre
   "pression-lumiere-halos-rayons-et-ondes": `${HOSTINGER}/2026/07/StockCake-Horizon_de_Lever_de_Soleil_Ethere-297875-standard.jpg`,

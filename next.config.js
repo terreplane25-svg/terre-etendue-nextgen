@@ -19,6 +19,7 @@ const nextConfig = {
       // leurs sources : les uns et les autres sont passés dans le dossier.
       { source: '/article/la-perspective-lineaire', destination: '/article/la-perspective-pourquoi-les-objets-disparaissent', permanent: true },
       { source: '/article/la-perspective-atmospherique', destination: '/article/la-perspective-pourquoi-les-objets-disparaissent', permanent: true },
+      { source: '/article/lhorizon-la-perspective-et-la-refraction', destination: '/article/la-perspective-pourquoi-les-objets-disparaissent', permanent: true },
     ];
   },
 };
