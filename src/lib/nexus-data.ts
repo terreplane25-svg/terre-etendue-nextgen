@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-// NEXUS DATA — 59 articles
+// NEXUS DATA — 60 articles
 // Terre Étendue Islam — Graphe de connaissances
 // ═══════════════════════════════════════════════════════
 
@@ -646,6 +646,21 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
+    "id": "les-protocoles-ce-que-c-est-et-pourquoi",
+    "title": "Qu'est-ce qu'un protocole, et pourquoi nous en écrivons",
+    "category": "experiences",
+    "pillar": "EXP",
+    "pillarNum": "04",
+    "color": "#C45E6A",
+    "primaryDomain": "epistemologie",
+    "topDomains": ["epistemologie", "geometrie", "optique"],
+    "quranRefs": 0,
+    "wordCount": 0,
+    "x": -288.0,
+    "y": -166.0,
+    "size": 8
+  },
+  {
     "id": "monter-l-experience-des-trois-mires",
     "title": "Monter l'expérience des trois mires",
     "category": "experiences",
@@ -949,6 +964,34 @@ export const NEXUS_NODES: NexusNodeData[] = [
 ];
 
 export const NEXUS_LINKS: NexusLinkData[] = [
+  {
+    "source": "les-protocoles-ce-que-c-est-et-pourquoi",
+    "target": "monter-l-experience-des-trois-mires",
+    "score": 204.0,
+    "strength": "medium",
+    "sharedDomains": ["epistemologie", "geometrie"]
+  },
+  {
+    "source": "les-protocoles-ce-que-c-est-et-pourquoi",
+    "target": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
+    "score": 186.0,
+    "strength": "medium",
+    "sharedDomains": ["geometrie", "hydrologie"]
+  },
+  {
+    "source": "les-protocoles-ce-que-c-est-et-pourquoi",
+    "target": "lhorizon-la-perspective-et-la-refraction",
+    "score": 178.0,
+    "strength": "medium",
+    "sharedDomains": ["optique", "geometrie"]
+  },
+  {
+    "source": "les-protocoles-ce-que-c-est-et-pourquoi",
+    "target": "standards-et-methode",
+    "score": 162.0,
+    "strength": "medium",
+    "sharedDomains": ["epistemologie"]
+  },
   {
     "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
     "target": "la-terre-dans-le-coran",

@@ -35,6 +35,9 @@ const IMG: Record<string, string> = {
   "electricite-statique-attraction-repulsion": `${HOSTINGER}/2026/07/electricite.png`,
   // TODO couverture dédiée 1200×630 : une perche et son puits sur un plan d'eau.
   "monter-l-experience-des-trois-mires": `${HOSTINGER}/2026/06/mer_horizon-e1784751872495.png`,
+  // TODO couverture dédiée 1200×630 : la ligne d'horizon vue d'altitude, de nuit,
+  // avec l'astre et son reflet dans la nappe — c'est la figure 1 de la page.
+  "les-protocoles-ce-que-c-est-et-pourquoi": `${HOSTINGER}/2026/06/mer_horizon-e1784751872495.png`,
 
   // ── Library (Islamic) ──
   "debut-de-la-creation-selon-le-coran-et-la-sunna": `${HOSTINGER}/2026/06/mer_horizon.png`,

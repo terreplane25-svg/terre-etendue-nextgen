@@ -50,6 +50,18 @@ trop tard.
 
 C'est le seul point qui ne se rattrape pas.
 
+### 5. Mettre les fichiers en ligne sur le site
+
+Copier les PDF de ce dossier — **ceux-là exactement**, pas des rendus refaits —
+dans `public/protocoles/`, puis ajouter les liens de téléchargement et le DOI
+dans la section 07 de l'article
+`content/articles/les-protocoles-ce-que-c-est-et-pourquoi.json`, où la page
+explique aujourd'hui pourquoi ils n'y sont pas encore.
+
+Un rendu refait a une autre empreinte : servir un fichier dont le SHA-256 ne
+correspond pas à celui annoncé sur le dépôt annule l'intérêt de tout le
+dispositif.
+
 ## Pourquoi le DOI peut être dans le fichier et pas l'empreinte
 
 Le DOI est attribué avant publication : il peut donc entrer dans le document,
@@ -85,13 +97,13 @@ son propre DOI et ses propres empreintes ; celle-ci reste en place.
 ## Une objection à écarter d'avance
 
 L'inscription du DOI ne change pas le numéro de version : elle remplit un
-emplacement ouvert à cet effet. Il s'ensuit que **la version 1.6 n'existe
+emplacement ouvert à cet effet. Il s'ensuit que **la version 1.9 n'existe
 publiquement que sous sa forme portant le DOI**. L'exemplaire à emplacement vide
 est un état intermédiaire de travail et ne doit pas circuler : deux fichiers
 distincts se réclamant du même numéro de version seraient exactement le genre
 d'ambiguïté que ce dispositif existe pour écarter.
 
-Concrètement : ne diffuser aucun PDF de la 1.6 avant d'avoir passé le script.
+Concrètement : ne diffuser aucun PDF de la 1.9 avant d'avoir passé le script.
 
 ## Métadonnées du dépôt
 
@@ -118,11 +130,11 @@ avec registration.
 >
 > Le document énonce ses deux prédictions sous forme falsifiable avant toute
 > acquisition, fixe ses critères de décision a priori, donne l'ordre des
-> opérations en cinq phases, et situe la mesure parmi ses précédents — la
-> formule est celle des tables de dépression employées en navigation
-> astronomique depuis le XIXᵉ siècle.
+> opérations en six phases en signalant celles qui sont irréversibles, détaille
+> son budget d'erreur poste par poste, et énonce les données à transmettre
+> quelle que soit l'issue.
 >
-> Ce dépôt contient la version 1.6 en français et en anglais. Les deux fichiers
+> Ce dépôt contient la version 1.9 en français et en anglais. Les deux fichiers
 > ont le même contenu.
 >
 > ---
@@ -140,21 +152,21 @@ avec registration.
 >
 > The document states both predictions in falsifiable form before any
 > acquisition, fixes its decision criteria a priori, gives the order of
-> operations in five phases, and situates the measurement among its precedents
-> — the formula is that of the dip tables used in celestial navigation since the
-> nineteenth century.
+> operations in six phases while flagging the irreversible ones, details its
+> error budget item by item, and states the data to be transmitted whatever the
+> outcome.
 >
-> This deposit holds version 1.6 in French and English. The two files have the
+> This deposit holds version 1.9 in French and English. The two files have the
 > same content.
 
 **Mots-clés** — `dip of the horizon`, `horizon dip`, `atmospheric refraction`,
 `geodesy`, `pre-registration`, `open protocol`, `artificial horizon`,
-`celestial navigation`, `citizen science`, `replication`
+`error budget`, `citizen science`, `replication`
 
 **Langues** — français et anglais. Zenodo n'accepte qu'une langue principale :
 choisir le français, l'anglais étant signalé dans la description.
 
-**Version** — `1.6`
+**Version** — `1.9`
 
 **Licence** — au choix. CC BY 4.0 convient à un document destiné à être repris
 et exécuté par d'autres.

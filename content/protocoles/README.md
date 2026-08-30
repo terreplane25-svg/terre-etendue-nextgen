@@ -106,6 +106,27 @@ voyage avec un DOI.
 Ils reprendront quand les informations manquantes seront là. D'ici là, ils ne
 doivent être ni diffusés, ni déposés, ni cités.
 
+## La page d'entrée sur le site
+
+`content/articles/les-protocoles-ce-que-c-est-et-pourquoi.json` est la porte
+d'entrée publique. Elle porte le cadrage général — pourquoi une observation
+seule ne tranche rien, les six règles qu'on s'est données, le rapport signal sur
+bruit, l'ordre des opérations — c'est-à-dire précisément ce qui a été retiré des
+protocoles pour qu'ils restent de purs protocoles. Ce matériel devait aller
+quelque part ; il va là.
+
+Elle porte trois figures SVG — l'observable dans les deux modèles, le budget
+d'erreur à l'échelle, et le synoptique des six phases. Elles sont calculées, non
+dessinées à la main : une figure dont les coordonnées sont tapées au jugé finit
+par mentir sur ce qu'elle illustre.
+
+```bash
+python3 scripts/generer-page-protocoles.py    # réécrit le JSON, figures comprises
+```
+
+Les fichiers PDF y seront ajoutés après l'inscription du DOI, voir
+`depot/README.md`.
+
 ## Ce que ces documents sont, et ne sont pas
 
 Ce sont des **protocoles**, et rien d'autre. Ils décrivent une mesure à faire :
