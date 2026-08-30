@@ -20,6 +20,11 @@ const nextConfig = {
       { source: '/article/la-perspective-lineaire', destination: '/article/la-perspective-pourquoi-les-objets-disparaissent', permanent: true },
       { source: '/article/la-perspective-atmospherique', destination: '/article/la-perspective-pourquoi-les-objets-disparaissent', permanent: true },
       { source: '/article/lhorizon-la-perspective-et-la-refraction', destination: '/article/la-perspective-pourquoi-les-objets-disparaissent', permanent: true },
+      // Les trois explications courtes sur les forces → la page de socle.
+      { source: '/article/electricite-statique-attraction-repulsion', destination: '/article/les-forces-invisibles-a-faire-chez-soi', permanent: true },
+      { source: '/article/magnetisme-et-electromagnetisme', destination: '/article/les-forces-invisibles-a-faire-chez-soi', permanent: true },
+      { source: '/article/principe-action-reaction', destination: '/article/les-forces-invisibles-a-faire-chez-soi', permanent: true },
+      { source: '/article/experiences-sous-pression-reduite', destination: '/article/la-pression-atmospherique-un-ocean-d-air-invisible', permanent: true },
     ];
   },
 };

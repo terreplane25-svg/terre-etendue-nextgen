@@ -579,7 +579,7 @@ Label imposé par la charte : **CE QUE L'EXPÉRIENCE ÉTABLIT**
 
 ### L'électricité statique : attraction et répulsion sans contact
 
-`electricite-statique-attraction-repulsion` — 3 encadrés
+`electricite-statique-attraction-repulsion` — 3 encadrés · **article fusionné le 30 août 2026** dans `les-forces-invisibles-a-faire-chez-soi`
 
 | # | Énoncé | Verdict |
 |---|---|---|
@@ -589,7 +589,7 @@ Label imposé par la charte : **CE QUE L'EXPÉRIENCE ÉTABLIT**
 
 ### Expériences sous pression réduite : ce qui se passe quand l'air disparaît
 
-`experiences-sous-pression-reduite` — 4 encadrés
+`experiences-sous-pression-reduite` — 4 encadrés · **article fusionné le 30 août 2026** dans `la-pression-atmospherique-un-ocean-d-air-invisible`
 
 | # | Énoncé | Verdict |
 |---|---|---|
@@ -630,7 +630,7 @@ Label imposé par la charte : **CE QUE L'EXPÉRIENCE ÉTABLIT**
 
 ### Magnétisme et électromagnétisme : les forces invisibles
 
-`magnetisme-et-electromagnetisme` — 3 encadrés
+`magnetisme-et-electromagnetisme` — 3 encadrés · **article fusionné le 30 août 2026** dans `les-forces-invisibles-a-faire-chez-soi`
 
 | # | Énoncé | Verdict |
 |---|---|---|
@@ -661,7 +661,7 @@ Label imposé par la charte : **CE QUE L'EXPÉRIENCE ÉTABLIT**
 
 ### Le principe d'action et de réaction
 
-`principe-action-reaction` — 3 encadrés
+`principe-action-reaction` — 3 encadrés · **article fusionné le 30 août 2026** dans `les-forces-invisibles-a-faire-chez-soi`
 
 | # | Énoncé | Verdict |
 |---|---|---|

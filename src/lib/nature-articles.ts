@@ -375,20 +375,6 @@ const N: Record<string, Nature> = {
     netablit:
       "Ne tranche pas entre densité et gravitation comme cause. Montre ce que la densité suffit à expliquer, et où la question reste ouverte.",
   },
-  'electricite-statique-attraction-repulsion': {
-    genre: 'explication',
-    repose:
-      "L'électrostatique élémentaire et trois expériences faisables avec un ballon et un filet d'eau.",
-    netablit:
-      "Ne tranche aucun modèle cosmologique. Montre qu'une force peut agir sans contact, ce qui est un fait, non un argument.",
-  },
-  'experiences-sous-pression-reduite': {
-    genre: 'explication',
-    repose:
-      "Quatre expériences sous cloche à vide, reproductibles avec une pompe d'atelier.",
-    netablit:
-      "Ne tranche aucun modèle cosmologique. Montre ce que l'air fait, en le retirant.",
-  },
   'la-pression-atmospherique-un-ocean-d-air-invisible': {
     genre: 'explication',
     repose:
@@ -403,19 +389,19 @@ const N: Record<string, Nature> = {
     netablit:
       "N'établit pas que les grandes étendues d'eau sont planes. La mesure qui trancherait est décrite ailleurs sur ce site, et elle reste à faire.",
   },
+  'les-forces-invisibles-a-faire-chez-soi': {
+    genre: 'explication',
+    repose:
+      "L'électrostatique, l'électromagnétisme et la troisième loi de Newton, et huit expériences réalisables avec un ballon, un aimant, du fil, une boussole et un skateboard.",
+    netablit:
+      "Ne tranche aucun modèle cosmologique. Établit qu'une force peut agir sans contact — fait ordinaire, et non argument. C'est une page de socle : ce qu'on y montre sert ailleurs sans être redémontré.",
+  },
   'loeil-humain-la-machine-a-voir-qui-faconne-notre-realite': {
     genre: 'explication',
     repose:
       "La physiologie de la vision publiée — accommodation, champ, résolution angulaire, tache aveugle.",
     netablit:
       "Ne tranche aucun modèle. Établit les limites de l'instrument avec lequel toute observation à l'œil nu est faite.",
-  },
-  'magnetisme-et-electromagnetisme': {
-    genre: 'explication',
-    repose:
-      "L'électromagnétisme élémentaire et trois expériences faisables avec un aimant, du fil et une boussole.",
-    netablit:
-      "Ne tranche aucun modèle cosmologique. Montre comment se comporte un champ magnétique.",
   },
   'monter-l-experience-des-trois-mires': {
     genre: 'protocole',
@@ -430,13 +416,6 @@ const N: Record<string, Nature> = {
       "L'optique atmosphérique et l'acoustique, sur des phénomènes observables sans instrument.",
     netablit:
       "Ne tranche aucun modèle. Rassemble des phénomènes atmosphériques et ce que chacun suppose du milieu.",
-  },
-  'principe-action-reaction': {
-    genre: 'explication',
-    repose:
-      "La troisième loi de Newton et deux expériences faisables avec un ballon et un chariot.",
-    netablit:
-      "Ne tranche aucun modèle cosmologique. Établit une loi de mécanique, rien de plus.",
   },
   'les-protocoles-ce-que-c-est-et-pourquoi': {
     genre: 'outil',

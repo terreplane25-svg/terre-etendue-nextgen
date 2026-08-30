@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-// NEXUS DATA — 57 articles
+// NEXUS DATA — 54 articles
 // Terre Étendue Islam — Graphe de connaissances
 // ═══════════════════════════════════════════════════════
 
@@ -256,8 +256,8 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
-    "id": "electricite-statique-attraction-repulsion",
-    "title": "L'électricité statique : attraction et répulsion sans contact",
+    "id": "les-forces-invisibles-a-faire-chez-soi",
+    "title": "Les forces invisibles : électricité, magnétisme, action-réaction",
     "category": "observatory",
     "pillar": "OBS",
     "pillarNum": "02",
@@ -283,21 +283,6 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "wordCount": 0,
     "x": -52.6,
     "y": 330.2,
-    "size": 8
-  },
-  {
-    "id": "experiences-sous-pression-reduite",
-    "title": "Expériences sous pression réduite : ce qui se passe quand l'air disparaît",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF5722",
-    "primaryDomain": "physique",
-    "topDomains": ["physique", "gravite", "modelisation"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 7.8,
-    "y": -310.3,
     "size": 8
   },
   {
@@ -797,21 +782,6 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
-    "id": "magnetisme-et-electromagnetisme",
-    "title": "Magnétisme et électromagnétisme : les forces invisibles",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF5722",
-    "primaryDomain": "physique",
-    "topDomains": ["physique", "gravite", "cartographie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -65.6,
-    "y": -452.1,
-    "size": 8
-  },
-  {
     "id": "mise-en-garde-la-kaaba-et-saturne",
     "title": "Mise en garde : la Kaaba et Saturne",
     "category": "library",
@@ -884,21 +854,6 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "wordCount": 0,
     "x": 242.8,
     "y": -362.7,
-    "size": 8
-  },
-  {
-    "id": "principe-action-reaction",
-    "title": "Le principe d'action et de réaction",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF5722",
-    "primaryDomain": "physique",
-    "topDomains": ["physique", "gravite", "modelisation"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 100.7,
-    "y": -416.9,
     "size": 8
   },
   {
@@ -1123,8 +1078,8 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["geometrie", "histoire_sciences"]
   },
   {
-    "source": "electricite-statique-attraction-repulsion",
-    "target": "experiences-sous-pression-reduite",
+    "source": "les-forces-invisibles-a-faire-chez-soi",
+    "target": "la-pression-atmospherique-un-ocean-d-air-invisible",
     "score": 378.1,
     "strength": "strong",
     "sharedDomains": ["physique", "gravite", "modelisation"]
@@ -1173,7 +1128,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "le-pole-sud-nexiste-pas",
-    "target": "magnetisme-et-electromagnetisme",
+    "target": "les-forces-invisibles-a-faire-chez-soi",
     "score": 352.7,
     "strength": "strong",
     "sharedDomains": ["physique", "gravite", "cartographie"]
@@ -1187,7 +1142,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "les-marees-contre-lheliocentrisme",
-    "target": "magnetisme-et-electromagnetisme",
+    "target": "les-forces-invisibles-a-faire-chez-soi",
     "score": 338.5,
     "strength": "strong",
     "sharedDomains": ["physique", "gravite", "cartographie"]
@@ -1222,13 +1177,13 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "densite-pourquoi-les-choses-montent-et-descendent",
-    "target": "electricite-statique-attraction-repulsion",
+    "target": "les-forces-invisibles-a-faire-chez-soi",
     "score": 331.4,
     "strength": "strong",
     "sharedDomains": ["physique", "gravite", "modelisation"]
   },
   {
-    "source": "experiences-sous-pression-reduite",
+    "source": "la-pression-atmospherique-un-ocean-d-air-invisible",
     "target": "le-pole-sud-nexiste-pas",
     "score": 329.7,
     "strength": "strong",
@@ -1250,17 +1205,10 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "densite-pourquoi-les-choses-montent-et-descendent",
-    "target": "experiences-sous-pression-reduite",
+    "target": "la-pression-atmospherique-un-ocean-d-air-invisible",
     "score": 325.8,
     "strength": "strong",
     "sharedDomains": ["physique", "gravite", "modelisation"]
-  },
-  {
-    "source": "electricite-statique-attraction-repulsion",
-    "target": "le-pole-sud-nexiste-pas",
-    "score": 325.6,
-    "strength": "strong",
-    "sharedDomains": ["physique", "gravite"]
   },
   {
     "source": "chronologie-de-la-tromperie-du-globe",
@@ -1275,13 +1223,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 323.0,
     "strength": "strong",
     "sharedDomains": ["cosmologie", "physique"]
-  },
-  {
-    "source": "electricite-statique-attraction-repulsion",
-    "target": "les-marees-contre-lheliocentrisme",
-    "score": 320.9,
-    "strength": "strong",
-    "sharedDomains": ["physique", "gravite"]
   },
   {
     "source": "dune-terre-plate-universelle-a-la-sphere-grecque",
@@ -1319,13 +1260,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["islam_sources", "epistemologie"]
   },
   {
-    "source": "experiences-sous-pression-reduite",
-    "target": "magnetisme-et-electromagnetisme",
-    "score": 313.1,
-    "strength": "strong",
-    "sharedDomains": ["physique", "gravite"]
-  },
-  {
     "source": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
     "target": "le-concordisme",
     "score": 310.1,
@@ -1347,7 +1281,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["epistemologie", "islam_sources"]
   },
   {
-    "source": "experiences-sous-pression-reduite",
+    "source": "la-pression-atmospherique-un-ocean-d-air-invisible",
     "target": "les-marees-contre-lheliocentrisme",
     "score": 303.3,
     "strength": "strong",
@@ -1380,13 +1314,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 298.4,
     "strength": "strong",
     "sharedDomains": ["islam_sources", "cosmologie"]
-  },
-  {
-    "source": "densite-pourquoi-les-choses-montent-et-descendent",
-    "target": "magnetisme-et-electromagnetisme",
-    "score": 298.0,
-    "strength": "strong",
-    "sharedDomains": ["physique", "gravite"]
   },
   {
     "source": "densite-pourquoi-les-choses-montent-et-descendent",
@@ -1443,13 +1370,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 282.9,
     "strength": "strong",
     "sharedDomains": ["islam_sources", "cosmologie"]
-  },
-  {
-    "source": "electricite-statique-attraction-repulsion",
-    "target": "magnetisme-et-electromagnetisme",
-    "score": 280.0,
-    "strength": "strong",
-    "sharedDomains": ["physique", "gravite"]
   },
   {
     "source": "index-thematique",
@@ -1523,7 +1443,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "la-rotation-terrestre-deux-experiences-zero-preuve",
-    "target": "principe-action-reaction",
+    "target": "les-forces-invisibles-a-faire-chez-soi",
     "score": 148.4,
     "strength": "medium",
     "sharedDomains": ["physique"]
@@ -1614,7 +1534,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "200-ans-de-resultats-nuls-darago-a-einstein",
-    "target": "principe-action-reaction",
+    "target": "les-forces-invisibles-a-faire-chez-soi",
     "score": 135.7,
     "strength": "medium",
     "sharedDomains": ["physique"]

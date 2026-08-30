@@ -947,7 +947,7 @@ export const ANALYSES: AnalyseMedia[] = [
       `A-t-on détecté le champ électrique au sol pendant l'orage ?`,
       `La vidéo est-elle prise en sécurité (distance suffisante, abri) ?`,
     ],
-    relatedArticle: 'magnetisme-et-electromagnetisme',
+    relatedArticle: 'les-forces-invisibles-a-faire-chez-soi',
   },
 
   // ─── RECORDS DE VISIBILITÉ LONGUE DISTANCE (courbure vs observation) ───

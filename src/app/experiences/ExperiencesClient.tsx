@@ -19,7 +19,7 @@ const CROSS: Record<string, { slug: string; label: string }> = {
   "la-pression-atmospherique": { slug: "pression-lumiere-halos-rayons-et-ondes", label: "Analyse complète" },
   "la-pression-atmospherique-un-ocean-d-air-invisible": { slug: "pression-lumiere-halos-rayons-et-ondes", label: "Analyse complète" },
   "diminution-angulaire-taille-apparente": { slug: "la-perspective-pourquoi-les-objets-disparaissent", label: "Dossier optique complet" },
-  "magnetisme-et-electromagnetisme": { slug: "cartes-routes-boussoles-et-le-mystere-antarctique", label: "Analyse géographique" },
+  "les-forces-invisibles-a-faire-chez-soi": { slug: "cartes-routes-boussoles-et-le-mystere-antarctique", label: "Analyse géographique" },
 };
 
 export default function ExperiencesClient({ demonstrations }: { demonstrations: AE[] }) {

@@ -22,11 +22,8 @@ const IMG: Record<string, string> = {
   // ── Experiments ──
   "densite-pourquoi-les-choses-montent-et-descendent": `${HOSTINGER}/2026/06/ChatGPT-Image-21-juin-2026-00_39_16.png`,
   "la-pression-atmospherique-un-ocean-d-air-invisible": `${HOSTINGER}/2026/07/pression_atmos.png`,
-  "experiences-sous-pression-reduite": `${HOSTINGER}/2026/07/chambre_a_vide.png`,
+  "les-forces-invisibles-a-faire-chez-soi": `${HOSTINGER}/2026/07/electromagnetisme.png`,
   "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite": `${UNSPLASH}/photo-1494869042583-f6c911f04b4c?w=600&h=400&fit=crop`,
-  "principe-action-reaction": `${HOSTINGER}/2026/07/action_reaction.png`,
-  "magnetisme-et-electromagnetisme": `${HOSTINGER}/2026/07/electromagnetisme.png`,
-  "electricite-statique-attraction-repulsion": `${HOSTINGER}/2026/07/electricite.png`,
   // TODO couverture dédiée 1200×630 : une perche et son puits sur un plan d'eau.
   "monter-l-experience-des-trois-mires": `${HOSTINGER}/2026/06/mer_horizon-e1784751872495.png`,
   // TODO couverture dédiée 1200×630 : la ligne d'horizon vue d'altitude, de nuit,

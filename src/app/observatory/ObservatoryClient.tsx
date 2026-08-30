@@ -34,7 +34,7 @@ const SECTIONS = [
 const EXP_LINKS: Record<string, { slug: string; label: string }> = {
   "densite-pourquoi-les-choses-montent-et-descendent": { slug: "densite-pourquoi-les-choses-montent-et-descendent", label: "Fiche expérience : densité" },
   "pression-lumiere-halos-rayons-et-ondes": { slug: "la-pression-atmospherique-un-ocean-d-air-invisible", label: "Fiche expérience : pression" },
-  "cartes-routes-boussoles-et-le-mystere-antarctique": { slug: "magnetisme-et-electromagnetisme", label: "Fiche expérience : magnétisme" },
+  "cartes-routes-boussoles-et-le-mystere-antarctique": { slug: "les-forces-invisibles-a-faire-chez-soi", label: "Fiche expérience : magnétisme" },
 };
 
 export default function ObservatoryClient({ articles }: { articles: A[] }) {
