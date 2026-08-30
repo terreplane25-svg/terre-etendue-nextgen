@@ -120,7 +120,7 @@ CORPS = f"""<p class="tei-lede">Un protocole de vingt-deux pages pour une mesure
   <thead><tr><th>protocole</th><th>ce qu'il mesure</th><th>langues</th><th>version</th><th>état</th></tr></thead>
   <tbody>
     <tr><td><strong>Dépression de l'horizon marin</strong></td><td>l'angle δ entre l'horizontale vraie et la ligne d'horizon, en fonction de l'altitude</td><td>français, anglais</td><td>1.9</td><td>déposé le 30 août 2026</td></tr>
-    <tr><td><strong>Dépression de l'horizon depuis un ballon stratosphérique</strong></td><td>l'angle entre deux points diamétralement opposés de l'horizon, de 2 à 30 km</td><td>bilingue</td><td>1.1</td><td>arrêté, dépôt à suivre</td></tr>
+    <tr><td><strong>Dépression de l'horizon depuis un ballon stratosphérique</strong></td><td>l'angle entre deux points diamétralement opposés de l'horizon, de 2 à 30 km</td><td>bilingue</td><td>1.1</td><td>rédigé, non déposé</td></tr>
     <tr><td>Diamètre angulaire du Soleil</td><td>—</td><td>—</td><td>—</td><td>suspendu</td></tr>
     <tr><td>Hauteur du pôle céleste</td><td>—</td><td>—</td><td>—</td><td>suspendu</td></tr>
   </tbody>
@@ -149,7 +149,7 @@ CORPS = f"""<p class="tei-lede">Un protocole de vingt-deux pages pour une mesure
 <p>Le protocole ballon mesure la même grandeur autrement, et il a un avantage que celui de l'horizon n'a pas. L'observable y est l'angle entre <em>deux</em> points diamétralement opposés de l'horizon, vus dans une seule image&nbsp;: 180° − 2δ sur une sphère, 180° sur un plan. Une inclinaison de la nacelle ajoute autant d'un côté qu'elle retranche de l'autre — la somme est invariante, et aucune référence verticale n'est nécessaire à bord. C'est ce qui rend la mesure possible sur une nacelle qui balance.</p>
 <p>Surtout, la réfraction y cesse d'être supposée. L'invariant de Bouguer donne cos δ = n₀(R+t)/n₁(R+h)&nbsp;: la correction ne dépend que de l'indice de l'air aux deux extrémités du rayon, donc de la pression et de la température au sol et à bord — quatre grandeurs <em>mesurées</em>. Aucun coefficient k n'apparaît dans ce protocole.</p>
 <p>Et le critère de décision y est une <em>variation</em>, non une valeur&nbsp;: entre 2 et 30 km d'altitude, l'angle change de 488′ sur une sphère et de zéro sur un plan. Tout décalage instrumental constant disparaît dans la différence.</p>
-<p>Il n'est pas encore en téléchargement, et pour la même raison qui valait hier pour l'autre&nbsp;: il porte un emplacement de DOI encore vide. Tant que cet emplacement n'est pas rempli, deux exemplaires distincts pourraient se réclamer du même numéro de version — exactement l'ambiguïté que le préenregistrement existe pour écarter. Il sera mis en ligne ici après son propre dépôt.</p>
+<p>Il n'est ni déposé ni en téléchargement, et nous préférons dire pourquoi&nbsp;: <strong>sa modélisation n'est pas encore confirmée de notre côté</strong>. Le document est rédigé, ses calculs tiennent, mais tant que nous ne sommes pas certains d'avoir tout pris en compte, le déposer reviendrait à donner un DOI à une hypothèse de travail. Notre propre règle l'interdit — un protocole incomplet qui a l'air fini est plus dangereux qu'un protocole absent, parce qu'il se diffuse et que l'erreur voyage avec le numéro.</p>
 
 <h2 id="sources"><span class="tei-section-num">08</span>Sources</h2>
 <ol>
@@ -175,7 +175,11 @@ ARTICLE = {
     "category": "experiences",
     "tags": ["protocole", "methode", "pre-enregistrement", "budget-d-erreur",
              "depression-de-l-horizon", "refraction", "doi", "reproductible"],
-    "pinned": False,
+    # Épinglé : le tri du site place les épinglés en tête, puis par date
+    # décroissante. Daté du 30 août, cet article passe donc premier partout —
+    # accueil et page Expériences. C'est la porte d'entrée d'un protocole qui
+    # porte un DOI ; c'est ce qu'on a de plus solide à montrer en premier.
+    "pinned": True,
     "htmlBody": CORPS,
 }
 
