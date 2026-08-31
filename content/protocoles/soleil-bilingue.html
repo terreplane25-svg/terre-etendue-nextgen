@@ -175,31 +175,55 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
 <div class="masthead">
   <div class="kicker">Protocole ouvert &#183; Pr&#233;dictions pr&#233;enregistr&#233;es &#183; Contr&#244;les positifs int&#233;gr&#233;s</div>
   <h1>Le diam&#232;tre angulaire du Soleil au cours d'une journ&#233;e</h1>
-  <p class="dek">Un observateur, une journ&#233;e, un t&#233;l&#233;objectif. &#201;cart pr&#233;dit entre les
-  deux mod&#232;les : 66 %. Pr&#233;cision requise : 1 %.</p>
+  <p class="dek">Un observateur, une journ&#233;e, un t&#233;l&#233;objectif. Le disque r&#233;tr&#233;cit-il
+  en descendant&#160;? &#201;cart pr&#233;dit entre les deux mod&#232;les, du plus haut au plus bas
+  du jour (70&#176;&#8594;20&#176;) : 63,6 %. Budget d'erreur : 0,51 %.</p>
   <div class="byline">
     <span>R&#233;dacteur<b>&nbsp;</b></span><span>Affiliation<b>&nbsp;</b></span>
-    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.5</b></span><span>Date<b>&nbsp;</b></span>
+    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.6</b></span><span>Date<b>&nbsp;</b></span>
   </div>
 </div>
 
 <div class="abstract">
   <span class="lab">R&#233;sum&#233;</span>
-  <p>Tout mod&#232;le pla&#231;ant le Soleil &#224; une hauteur finie H au-dessus d'une surface plane
-  implique que la distance &#339;il-Soleil vaut <code>H / sin &#945;</code>, o&#249; &#945; est la hauteur
-  apparente de l'astre. Le diam&#232;tre angulaire doit donc varier comme <code>sin &#945;</code> :
-  &#224; 20&#176; de hauteur, le Soleil devrait para&#238;tre <strong>2,9 fois plus petit</strong> qu'au
-  z&#233;nith. Un mod&#232;le pla&#231;ant le Soleil &#224; 149,6 millions de kilom&#232;tres pr&#233;dit une
-  constance &#224; 4&#215;10<sup>&#8722;3</sup> % pr&#232;s sur une journ&#233;e.</p>
+  <p>Ce protocole ne mesure ni la taille du Soleil, ni son altitude, ni sa distance,
+  et ne suppose rien de sa nature. Il tranche une seule question&#160;: <strong>le diam&#232;tre
+  angulaire du Soleil change-t-il au cours d'une journ&#233;e&#160;?</strong> Le diam&#232;tre angulaire
+  d'un corps est le rapport de son diam&#232;tre &#224; sa distance&#160;; il reste constant si et
+  seulement si la distance &#224; l'&#339;il reste constante. Une source &#224; 149,6 millions de
+  kilom&#232;tres satisfait cette condition &#224; 2&#215;10<sup>&#8722;2</sup> % pr&#232;s en un jour&#160;: la
+  parallaxe diurne y vaut 4,3&#215;10<sup>&#8722;3</sup> % et le d&#233;placement orbital sur douze heures
+  1,4&#215;10<sup>&#8722;2</sup> %.</p>
+  <p>Une source &#224; hauteur finie ne la satisfait pas. Sa distance &#224; l'&#339;il vaut
+  <code>H / sin &#945;</code>, et le <strong>rapport</strong> des diam&#232;tres entre deux hauteurs de la
+  m&#234;me journ&#233;e vaut <code>sin &#945;&#8322; / sin &#945;&#8321;</code> &#8212; grandeur o&#249; le diam&#232;tre D et la
+  hauteur H se sont &#233;limin&#233;s. <strong>Le rapport est donc pr&#233;dit sans qu'on connaisse
+  rien de l'astre</strong>, et c'est lui que la campagne mesure. Du plus haut au plus bas
+  d'une journ&#233;e ordinaire de moyenne latitude (70&#176; puis 20&#176;), la famille locale
+  impose une r&#233;duction de <strong>63,6 %</strong> et la source lointaine <strong>z&#233;ro</strong>.</p>
   <p>L'observable est le <strong>diam&#232;tre horizontal</strong>, et ce choix est essentiel :
   la r&#233;fraction atmosph&#233;rique aplatit le disque verticalement pr&#232;s de l'horizon &#8212;
   jusqu'&#224; 17 % &#224; hauteur nulle &#8212; mais ne l'affecte <strong>pas lat&#233;ralement</strong>.
   La mesure est donc structurellement immunis&#233;e contre le param&#232;tre qui domine
   l'incertitude de la plupart des observations &#224; longue port&#233;e.</p>
   <p>Budget d'erreur estim&#233; &#224; <strong>0,51 % (1 &#963;)</strong> pour une acquisition &#224; 400 mm
-  sur capteur plein format. Signal pr&#233;dit &#224; 20&#176; de hauteur : 66 %.
-  <strong>Rapport signal sur bruit &#8776; 130.</strong> Deux contr&#244;les positifs sur la Lune qualifient la cha&#238;ne de mesure avant toute
+  sur capteur plein format. Signal pr&#233;dit du plus haut au plus bas du jour (70&#176;&#8594;20&#176;) : 63,6 %.
+  <strong>Rapport signal sur bruit &#8776; 125.</strong> Deux contr&#244;les positifs sur la Lune qualifient la cha&#238;ne de mesure avant toute
   conclusion sur le Soleil. Aucun des deux ne porte sur une valeur pr&#233;-annonc&#233;e&#160;: le premier v&#233;rifie une <em>loi</em>, le second un signal dont la valeur d&#233;pend de la latitude de l'observateur.</p>
+</div>
+
+<div class="box">
+  <span class="lab">Ce que ce protocole n'&#233;tablit pas</span>
+  <p>Il ne donne <strong>ni la taille du Soleil, ni son altitude, ni sa distance</strong>, et
+  n'en dit rien de sa nature. Une r&#233;duction mesur&#233;e signerait une source dont la distance
+  &#224; l'&#339;il varie au cours du jour&#160;; elle ne dirait pas de combien elle est &#233;loign&#233;e. Si
+  cette r&#233;duction suit <code>sin &#945;</code>, alors &#8212; et seulement alors &#8212; la hauteur H se
+  d&#233;duit d'une seconde station, ce qui est un autre protocole.</p>
+  <p>Il ne s&#233;pare pas non plus une source lointaine d'une source dont la distance &#224; <em>chaque</em>
+  observateur resterait constante par construction &#8212; une projection propre &#224; l'&#339;il qui la
+  regarde. Les deux pr&#233;disent la m&#234;me constance, et aucune mesure d'un observateur isol&#233;
+  ne les distingue. Ce que le protocole tranche, c'est l'existence d'un changement, pas ce
+  qui le produit.</p>
 </div>
 
 <h2><span class="n">01</span>L'observable et sa pr&#233;diction</h2>
@@ -254,18 +278,21 @@ dont la distance est fix&#233;e par le mod&#232;le.</p>
 </div>
 
 <table>
-  <caption>Tableau 1 &#8212; Diam&#232;tre apparent rapport&#233; &#224; celui du z&#233;nith. Les deux colonnes ne
-  se recouvrent nulle part au-dessous de 80&#176;.</caption>
-  <thead><tr><th class="n">hauteur &#945;</th><th class="n">source locale</th><th class="n">source lointaine</th><th class="n">&#233;cart</th></tr></thead>
+  <caption>Tableau 1 &#8212; Ce que la famille locale impose entre les deux hauteurs extr&#234;mes
+  d'une m&#234;me journ&#233;e. Le rapport ne d&#233;pend ni de la taille de l'astre ni de son altitude&#160;:
+  ces deux grandeurs s'&#233;liminent. La derni&#232;re colonne est le rapport signal sur bruit pour un
+  budget de 0,51 %.</caption>
+  <thead><tr><th class="n">plus haute</th><th class="n">plus basse</th><th class="n">rapport pr&#233;dit<br>source locale</th><th class="n">r&#233;duction</th><th class="n">source<br>lointaine</th><th class="n">S/B</th></tr></thead>
   <tbody>
-    <tr><td class="n">90&#176; (z&#233;nith)</td><td class="n">1,000</td><td class="n">1,000</td><td class="n">0 %</td></tr>
-    <tr><td class="n">75&#176;</td><td class="n">0,966</td><td class="n">1,000</td><td class="n">3 %</td></tr>
-    <tr><td class="n">60&#176;</td><td class="n">0,866</td><td class="n">1,000</td><td class="n">13 %</td></tr>
-    <tr><td class="n">45&#176;</td><td class="n">0,707</td><td class="n">1,000</td><td class="n">29 %</td></tr>
-    <tr><td class="n">30&#176;</td><td class="n">0,500</td><td class="n">1,000</td><td class="n">50 %</td></tr>
-    <tr class="hi"><td class="n"><strong>20&#176;</strong></td><td class="n"><strong>0,342</strong></td><td class="n"><strong>1,000</strong></td><td class="n"><strong>66 %</strong></td></tr>
-    <tr><td class="n">15&#176;</td><td class="n">0,259</td><td class="n">1,000</td><td class="n">74 %</td></tr>
-    <tr><td class="n">10&#176;</td><td class="n">0,174</td><td class="n">1,000</td><td class="n">83 %</td></tr>
+    <tr class="hi"><td class="n"><strong>70&#176;</strong></td><td class="n"><strong>20&#176;</strong></td><td class="n"><strong>0,3640</strong></td><td class="n"><strong>63,6&#160;%</strong></td><td class="n"><strong>1,000</strong></td><td class="n"><strong>125</strong></td></tr>
+    <tr><td class="n">70&#176;</td><td class="n">30&#176;</td><td class="n">0,5321</td><td class="n">46,8&#160;%</td><td class="n">1,000</td><td class="n">92</td></tr>
+    <tr><td class="n">60&#176;</td><td class="n">20&#176;</td><td class="n">0,3949</td><td class="n">60,5&#160;%</td><td class="n">1,000</td><td class="n">119</td></tr>
+    <tr><td class="n">60&#176;</td><td class="n">30&#176;</td><td class="n">0,5774</td><td class="n">42,3&#160;%</td><td class="n">1,000</td><td class="n">83</td></tr>
+    <tr><td class="n">50&#176;</td><td class="n">20&#176;</td><td class="n">0,4465</td><td class="n">55,4&#160;%</td><td class="n">1,000</td><td class="n">109</td></tr>
+    <tr><td class="n">40&#176;</td><td class="n">20&#176;</td><td class="n">0,5321</td><td class="n">46,8&#160;%</td><td class="n">1,000</td><td class="n">92</td></tr>
+    <tr><td class="n">60&#176;</td><td class="n">50&#176;</td><td class="n">0,8846</td><td class="n">11,5&#160;%</td><td class="n">1,000</td><td class="n">23</td></tr>
+    <tr><td class="n">70&#176;</td><td class="n">60&#176;</td><td class="n">0,9216</td><td class="n">7,8&#160;%</td><td class="n">1,000</td><td class="n">15</td></tr>
+    <tr><td class="n">30&#176;</td><td class="n">20&#176;</td><td class="n">0,6840</td><td class="n">31,6&#160;%</td><td class="n">1,000</td><td class="n">62</td></tr>
   </tbody>
 </table>
 
@@ -315,7 +342,7 @@ dont la distance est fix&#233;e par le mod&#232;le.</p>
     <line class="sp" x1="394" y1="354" x2="432" y2="354" stroke-width="2.8"/>
     <text class="t" x="442" y="358">source locale — proportionnelle à sin &#945;</text>
   </svg>
-  <figcaption><b>Figure 2 — Les deux prédictions.</b> Les points marquent les six hauteurs recommandées pour la campagne. À 20&#176;, les deux modèles diffèrent de <b>66 %</b> du diamètre ; à 15&#176;, de 74 %. La précision requise est de l'ordre de 1 %. Aucune zone de recouvrement n'existe au-dessous de 80&#176;.</figcaption>
+  <figcaption><b>Figure 2 — Les deux prédictions.</b> Les points marquent les six hauteurs recommandées pour la campagne. La courbe est tracée en rapportant tout au zénith, mais ce n'est qu'un choix d'échelle&#160;: la grandeur mesurable est le <b>rapport entre deux points de la courbe</b>, et il ne dépend pas de ce à quoi on la normalise. De 70&#176; à 20&#176;, ce rapport vaut <b>0,364</b> pour la source locale et <b>1,000</b> pour la source lointaine. La précision requise est de l'ordre de 1 %. Aucune zone de recouvrement n'existe au-dessous de 80&#176;.</figcaption>
 </figure>
 
 <figure>
@@ -621,8 +648,9 @@ il s'ex&#233;cute avec le m&#234;me mat&#233;riel et la m&#234;me r&#233;duction
 </table>
 <div class="box key">
   <span class="lab">Rapport signal sur bruit</span>
-  <p>Signal pr&#233;dit par le mod&#232;le &#224; source locale &#224; 20&#176; de hauteur : <strong>66 %</strong>.
-  Incertitude totale : <strong>0,51 %</strong>. <strong>Rapport &#8776; 130.</strong> C'est, &#224; notre
+  <p>Signal pr&#233;dit par la famille locale entre 70&#176; et 20&#176; de hauteur : <strong>63,6 %</strong>.
+  Incertitude totale : <strong>0,51 %</strong>. <strong>Rapport &#8776; 125.</strong> Un &#233;cart de hauteur bien
+  moindre suffirait d&#233;j&#224;&#160;: depuis 70&#176;, descendre de <strong>2,3&#176;</strong> place le signal &#224; 3 &#963;. C'est, &#224; notre
   connaissance, le rapport le plus favorable de toutes les mesures accessibles &#224; un
   observateur isol&#233; dans cette question.</p>
 </div>
@@ -658,7 +686,7 @@ il s'ex&#233;cute avec le m&#234;me mat&#233;riel et la m&#234;me r&#233;duction
   Un tel effet n'a jamais &#233;t&#233; mesur&#233;, et le contr&#244;le B le testerait directement : il devrait
   gonfler la Lune basse dans les m&#234;mes proportions, alors que la mesure la trouve
   <em>plus petite</em> &#8212; de 1,42&#160;% &#224; la latitude de Paris, et de 1,20 &#224; 1,52&#160;% selon la latitude (tableau&#160;2).</li>
-  <li><strong>&#171; Des vid&#233;os montrent le Soleil changer de taille, filtre compris. &#187;</strong> C'est la seule observation en circulation qui contredirait la source lointaine, et il faut la nommer plut&#244;t que l'ignorer. Ces enregistrements n'indiquent ni la focale employ&#233;e, ni l'exposition, ni si le disque &#233;tait satur&#233; &#8212; et un disque satur&#233; s'&#233;largit. Ce sont pr&#233;cis&#233;ment les trois grandeurs que ce protocole verrouille. <strong>Si l'effet est r&#233;el, ce protocole le trouve, et massivement&#160;:</strong> le signal pr&#233;dit &#224; 20&#176; vaut 66&#160;% pour un budget de 0,51.</li>
+  <li><strong>&#171; Des vid&#233;os montrent le Soleil changer de taille, filtre compris. &#187;</strong> C'est la seule observation en circulation qui contredirait la source lointaine, et il faut la nommer plut&#244;t que l'ignorer. Ces enregistrements n'indiquent ni la focale employ&#233;e, ni l'exposition, ni si le disque &#233;tait satur&#233; &#8212; et un disque satur&#233; s'&#233;largit. Ce sont pr&#233;cis&#233;ment les trois grandeurs que ce protocole verrouille. <strong>Si l'effet est r&#233;el, ce protocole le trouve, et massivement&#160;:</strong> le signal pr&#233;dit entre 70&#176; et 20&#176; vaut 63,6&#160;% pour un budget de 0,51.</li>
   <li><strong>&#171; La diffusion pr&#232;s de l'horizon gonfle le disque. &#187;</strong> L'aur&#233;ole de diffusion peut &#233;largir le limbe et fausser le crit&#232;re des 50&#160;% si le fond de ciel cesse d'&#234;tre s&#233;parable du disque. C'est une objection juste, et elle se traite par un crit&#232;re de rejet&#160;: &#233;carter toute s&#233;rie dont le fond de ciel, mesur&#233; &#224; un rayon du bord, d&#233;passe le cinqui&#232;me du plateau. Une s&#233;rie rejet&#233;e est consign&#233;e comme telle, jamais supprim&#233;e.</li>
   <li><strong>&#171; L'illusion lunaire prouve que l'&#339;il se trompe. &#187;</strong> Elle le prouve, et
   c'est pr&#233;cis&#233;ment pourquoi ce protocole photographie au lieu de regarder. Le capteur ne
@@ -701,7 +729,7 @@ imposent. Les remarques m&#233;thodologiques sont sollicit&#233;es avant le lanc
   <p>Valeurs de r&#233;f&#233;rence : distance Terre-Soleil 149,6&#215;10<sup>6</sup> km, diam&#232;tre apparent
   moyen 31,5&#8242; ; distance Terre-Lune 384 400 km, p&#233;rig&#233;e 356 500 km, apog&#233;e 406 700 km ;
   rayon terrestre 6 371 km. Le document est reproductible &#224; partir de ces seules valeurs et
-  de la relation d = H/sin&#945;. &#8212; Protocole ouvert, version 1.5.</p>
+  de la relation d = H/sin&#945;. &#8212; Protocole ouvert, version 1.6.</p>
 </footer>
 </div>
 
@@ -711,32 +739,54 @@ imposent. Les remarques m&#233;thodologiques sont sollicit&#233;es avant le lanc
 <div class="masthead">
   <div class="kicker">Open protocol &#183; Pre-registered predictions &#183; Built-in positive controls</div>
   <h1>The Sun's angular diameter over the course of a day</h1>
-  <p class="dek">One observer, one day, one telephoto lens. Predicted gap between the two
-  models: 66 per cent. Required precision: 1 per cent.</p>
+  <p class="dek">One observer, one day, one telephoto lens. Does the disk shrink as it
+  descends? Predicted gap between the two models, from the day's highest point to its
+  lowest (70&#176;&#8594;20&#176;): 63.6 per cent. Error budget: 0.51 per cent.</p>
   <div class="byline">
     <span>Author<b>&nbsp;</b></span><span>Affiliation<b>&nbsp;</b></span>
-    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.5</b></span><span>Date<b>&nbsp;</b></span>
+    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.6</b></span><span>Date<b>&nbsp;</b></span>
   </div>
 </div>
 
 <div class="abstract">
   <span class="lab">Abstract</span>
-  <p>Any model placing the Sun at a finite height H above a plane surface implies that the
-  eye-Sun distance is <code>H / sin &#945;</code>, where &#945; is the body's apparent altitude. The
-  angular diameter must therefore vary as <code>sin &#945;</code>: at 20&#176; elevation the Sun should
-  appear <strong>2.9 times smaller</strong> than at the zenith. A model placing the Sun at
-  149.6 million kilometres predicts constancy to within 4&#215;10<sup>&#8722;3</sup> per cent over a
-  day.</p>
+  <p>This protocol measures neither the Sun's size, nor its altitude, nor its distance,
+  and assumes nothing about its nature. It settles one question: <strong>does the Sun's
+  angular diameter change over the course of a day?</strong> A body's angular diameter is the
+  ratio of its diameter to its distance; it stays constant if and only if the distance to
+  the eye stays constant. A source at 149.6 million kilometres meets that condition to
+  within 2&#215;10<sup>&#8722;2</sup> per cent in one day: diurnal parallax contributes
+  4.3&#215;10<sup>&#8722;3</sup> per cent and twelve hours of orbital motion 1.4&#215;10<sup>&#8722;2</sup> per cent.</p>
+  <p>A source at finite height does not. Its distance to the eye is <code>H / sin &#945;</code>,
+  and the <strong>ratio</strong> of diameters between two altitudes of the same day is
+  <code>sin &#945;&#8322; / sin &#945;&#8321;</code> &#8212; a quantity in which the diameter D and the height H
+  have cancelled. <strong>The ratio is therefore predicted without knowing anything about
+  the body</strong>, and it is what the campaign measures. From the highest to the lowest point
+  of an ordinary mid-latitude day (70&#176; then 20&#176;), the local family requires a reduction
+  of <strong>63.6 per cent</strong> and the distant source <strong>zero</strong>.</p>
   <p>The observable is the <strong>horizontal diameter</strong>, and this choice is essential:
   atmospheric refraction flattens the disk vertically near the horizon &#8212; by up to 17 per
   cent at zero elevation &#8212; but does <strong>not affect it laterally</strong>. The measurement
   is therefore structurally immune to the parameter that dominates the uncertainty of most
   long-range observations.</p>
   <p>Error budget estimated at <strong>0.51 per cent (1 &#963;)</strong> for an acquisition at
-  400 mm on a full-frame sensor. Predicted signal at 20&#176; elevation: 66 per cent.
-  <strong>Signal-to-noise ratio &#8776; 130.</strong> Two positive controls on the Moon qualify the measurement chain before any conclusion
+  400 mm on a full-frame sensor. Predicted signal from the day's highest to its lowest point (70&#176;&#8594;20&#176;): 63.6 per cent.
+  <strong>Signal-to-noise ratio &#8776; 125.</strong> Two positive controls on the Moon qualify the measurement chain before any conclusion
   about the Sun. Neither turns on a pre-announced figure: the first verifies a <em>law</em>,
   the second a signal whose value depends on the observer's latitude.</p>
+</div>
+
+<div class="box">
+  <span class="lab">What this protocol does not establish</span>
+  <p>It yields <strong>neither the Sun's size, nor its altitude, nor its distance</strong>, and
+  says nothing of its nature. A measured reduction would indicate a source whose distance to
+  the eye varies through the day; it would not say how far away it is. If that reduction
+  follows <code>sin &#945;</code>, then &#8212; and only then &#8212; the height H follows from a second
+  station, which is a different protocol.</p>
+  <p>Nor does it separate a distant source from one whose distance to <em>each</em> observer
+  would stay constant by construction &#8212; a projection proper to the eye that beholds it.
+  Both predict the same constancy, and no measurement by a single observer tells them apart.
+  What the protocol settles is whether a change exists, not what produces it.</p>
 </div>
 
 <h2><span class="n">01</span>The observable and its prediction</h2>
@@ -791,18 +841,20 @@ model.</p>
 </div>
 
 <table>
-  <caption>Table 1 &#8212; Apparent diameter relative to the zenith value. The two columns do not
-  overlap anywhere below 80&#176;.</caption>
-  <thead><tr><th class="n">altitude &#945;</th><th class="n">local source</th><th class="n">distant source</th><th class="n">gap</th></tr></thead>
+  <caption>Table 1 &#8212; What the local family requires between the two extreme altitudes of a
+  single day. The ratio depends neither on the body's size nor on its height: both cancel.
+  The last column is the signal-to-noise ratio for a 0.51 per cent budget.</caption>
+  <thead><tr><th class="n">highest</th><th class="n">lowest</th><th class="n">predicted ratio<br>local source</th><th class="n">reduction</th><th class="n">distant<br>source</th><th class="n">S/N</th></tr></thead>
   <tbody>
-    <tr><td class="n">90&#176; (zenith)</td><td class="n">1.000</td><td class="n">1.000</td><td class="n">0 %</td></tr>
-    <tr><td class="n">75&#176;</td><td class="n">0.966</td><td class="n">1.000</td><td class="n">3 %</td></tr>
-    <tr><td class="n">60&#176;</td><td class="n">0.866</td><td class="n">1.000</td><td class="n">13 %</td></tr>
-    <tr><td class="n">45&#176;</td><td class="n">0.707</td><td class="n">1.000</td><td class="n">29 %</td></tr>
-    <tr><td class="n">30&#176;</td><td class="n">0.500</td><td class="n">1.000</td><td class="n">50 %</td></tr>
-    <tr class="hi"><td class="n"><strong>20&#176;</strong></td><td class="n"><strong>0.342</strong></td><td class="n"><strong>1.000</strong></td><td class="n"><strong>66 %</strong></td></tr>
-    <tr><td class="n">15&#176;</td><td class="n">0.259</td><td class="n">1.000</td><td class="n">74 %</td></tr>
-    <tr><td class="n">10&#176;</td><td class="n">0.174</td><td class="n">1.000</td><td class="n">83 %</td></tr>
+    <tr class="hi"><td class="n"><strong>70&#176;</strong></td><td class="n"><strong>20&#176;</strong></td><td class="n"><strong>0.3640</strong></td><td class="n"><strong>63.6 per cent</strong></td><td class="n"><strong>1.000</strong></td><td class="n"><strong>125</strong></td></tr>
+    <tr><td class="n">70&#176;</td><td class="n">30&#176;</td><td class="n">0.5321</td><td class="n">46.8 per cent</td><td class="n">1.000</td><td class="n">92</td></tr>
+    <tr><td class="n">60&#176;</td><td class="n">20&#176;</td><td class="n">0.3949</td><td class="n">60.5 per cent</td><td class="n">1.000</td><td class="n">119</td></tr>
+    <tr><td class="n">60&#176;</td><td class="n">30&#176;</td><td class="n">0.5774</td><td class="n">42.3 per cent</td><td class="n">1.000</td><td class="n">83</td></tr>
+    <tr><td class="n">50&#176;</td><td class="n">20&#176;</td><td class="n">0.4465</td><td class="n">55.4 per cent</td><td class="n">1.000</td><td class="n">109</td></tr>
+    <tr><td class="n">40&#176;</td><td class="n">20&#176;</td><td class="n">0.5321</td><td class="n">46.8 per cent</td><td class="n">1.000</td><td class="n">92</td></tr>
+    <tr><td class="n">60&#176;</td><td class="n">50&#176;</td><td class="n">0.8846</td><td class="n">11.5 per cent</td><td class="n">1.000</td><td class="n">23</td></tr>
+    <tr><td class="n">70&#176;</td><td class="n">60&#176;</td><td class="n">0.9216</td><td class="n">7.8 per cent</td><td class="n">1.000</td><td class="n">15</td></tr>
+    <tr><td class="n">30&#176;</td><td class="n">20&#176;</td><td class="n">0.6840</td><td class="n">31.6 per cent</td><td class="n">1.000</td><td class="n">62</td></tr>
   </tbody>
 </table>
 
@@ -852,7 +904,7 @@ model.</p>
     <line class="sp" x1="394" y1="354" x2="432" y2="354" stroke-width="2.8"/>
     <text class="t" x="442" y="358">local source — proportional to sin &#945;</text>
   </svg>
-  <figcaption><b>Figure 2 — The two predictions.</b> Points mark the six altitudes recommended for the campaign. At 20&#176; the two models differ by <b>66 per cent</b> of the diameter; at 15&#176;, by 74 per cent. Required precision is of order 1 per cent. No overlap exists below 80&#176;.</figcaption>
+  <figcaption><b>Figure 2 — The two predictions.</b> Points mark the six altitudes recommended for the campaign. The curve is drawn relative to the zenith, but that is only a choice of scale: the measurable quantity is the <b>ratio between two points on the curve</b>, and it does not depend on what the curve is normalised to. From 70&#176; to 20&#176; that ratio is <b>0.364</b> for the local source and <b>1.000</b> for the distant one. Required precision is of order 1 per cent. No overlap exists below 80&#176;.</figcaption>
 </figure>
 
 <figure>
@@ -1144,8 +1196,9 @@ reduction.</p>
 </table>
 <div class="box key">
   <span class="lab">Signal-to-noise ratio</span>
-  <p>Signal predicted by the local-source model at 20&#176; elevation: <strong>66 per cent</strong>.
-  Total uncertainty: <strong>0.51 per cent</strong>. <strong>Ratio &#8776; 130.</strong> To our knowledge
+  <p>Signal predicted by the local family between 70&#176; and 20&#176; elevation: <strong>63.6 per cent</strong>.
+  Total uncertainty: <strong>0.51 per cent</strong>. <strong>Ratio &#8776; 125.</strong> A far smaller altitude
+  swing would already do: from 70&#176;, descending <strong>2.3&#176;</strong> puts the signal at 3 &#963;. To our knowledge
   this is the most favourable ratio of any measurement accessible to a single observer in this
   question.</p>
 </div>
@@ -1182,7 +1235,7 @@ reduction.</p>
   tests it directly: it should inflate the low Moon in the same proportion, whereas measurement
   finds it <em>smaller</em> &#8212; by 1.42 per cent at the latitude of Paris, and by 1.20 to
   1.52 per cent depending on latitude (table&#160;2).</li>
-  <li><strong>&#8220;Videos show the Sun changing size, solar filter included.&#8221;</strong> This is the only observation in circulation that would contradict the distant source, and it must be named rather than ignored. Those recordings state neither the focal length used, nor the exposure, nor whether the disk was saturated &#8212; and a saturated disk grows. These are precisely the three quantities this protocol locks down. <strong>If the effect is real, this protocol finds it, and massively:</strong> the predicted signal at 20&#176; is 66 per cent against a budget of 0.51.</li>
+  <li><strong>&#8220;Videos show the Sun changing size, solar filter included.&#8221;</strong> This is the only observation in circulation that would contradict the distant source, and it must be named rather than ignored. Those recordings state neither the focal length used, nor the exposure, nor whether the disk was saturated &#8212; and a saturated disk grows. These are precisely the three quantities this protocol locks down. <strong>If the effect is real, this protocol finds it, and massively:</strong> the predicted signal between 70&#176; and 20&#176; is 63.6 per cent against a budget of 0.51.</li>
   <li><strong>&#8220;Scattering near the horizon inflates the disk.&#8221;</strong> The scattering aureole can broaden the limb and corrupt the 50 per cent criterion if the sky background ceases to be separable from the disk. The objection is sound, and it is handled by a rejection criterion: discard any series whose sky background, measured one radius from the edge, exceeds one fifth of the plateau. A rejected series is recorded as such, never deleted.</li>
   <li><strong>&#8220;The Moon illusion proves the eye is fooled.&#8221;</strong> It does, which is
   precisely why this protocol photographs rather than looks. The sensor does not share the
@@ -1224,6 +1277,6 @@ are invited before the campaign begins.</p>
   <p>Reference values: Earth-Sun distance 149.6&#215;10<sup>6</sup> km, mean apparent diameter
   31.5&#8242;; Earth-Moon distance 384 400 km, perigee 356 500 km, apogee 406 700 km; Earth radius
   6 371 km. The document is reproducible from these values and the relation d = H/sin&#945; alone.
-  &#8212; Open protocol, version 1.5.</p>
+  &#8212; Open protocol, version 1.6.</p>
 </footer>
 </div>
