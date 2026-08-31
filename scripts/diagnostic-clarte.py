@@ -65,13 +65,22 @@ def sans_sources(html):
     calcul des redites.
     """
     i = html.find('id="sources"')
-    if i < 0:
-        return html
-    return html[:html.rfind("<h2", 0, i)]
+    if i >= 0:
+        html = html[:html.rfind("<h2", 0, i)]
+    # Les tableaux répètent par construction : une colonne d'unités donne
+    # « km mm mm mm m m » à chaque ligne. Un tableau de mesures était ainsi
+    # signalé comme du copier-coller alors qu'il est la forme même de la donnée.
+    return re.sub(r"<table\b.*?</table>", " ", html, flags=re.S | re.I)
 
 
 def nu(html):
-    t = re.sub(r"<[^>]+>", " ", html)
+    # Retirer les balises ne suffit pas : le contenu de <style> n'en est pas une.
+    # Les feuilles embarquées dans les diagrammes SVG passaient donc dans le
+    # texte, et leurs déclarations répétées d'un schéma à l'autre — « font 11px
+    # ui-monospace, fill #c9ccd1 » — étaient comptées comme des redites de
+    # l'auteur.
+    t = re.sub(r"<(style|script)\b[^>]*>.*?</\1>", " ", html, flags=re.S | re.I)
+    t = re.sub(r"<[^>]+>", " ", t)
     t = re.sub(r"&#(\d+);", lambda m: chr(int(m.group(1))), t)
     t = t.replace("&nbsp;", " ").replace("&amp;", "&")
     return re.sub(r"\s+", " ", t)
@@ -91,10 +100,37 @@ def sections(html):
 
 
 def redites(texte):
-    """Les suites de huit mots qui reviennent. Deux occurrences suffisent."""
+    """Les passages d'au moins huit mots qui reviennent ailleurs.
+
+    La fenêtre glissante seule ne compte pas des redites : elle compte des
+    fenêtres. Un paragraphe de trente mots recopié deux fois produit vingt-trois
+    fenêtres répétées, et l'article passe pour vingt-trois fois fautif quand il
+    l'est une fois — mais lourdement. Le tri s'en trouvait inversé : un article
+    qui répète une longue tirade dépassait celui qui répète dix formules
+    distinctes, alors que la seconde faute est la plus étendue.
+
+    Les fenêtres contiguës sont donc recollées en passages maximaux, et c'est le
+    passage qui est compté, avec sa longueur — la seule grandeur qui dise ce
+    qu'on gagnerait à le retirer.
+    """
     mots = re.findall(r"[a-zà-ÿ]+", texte.lower())
-    fenetres = Counter(" ".join(mots[i:i + 8]) for i in range(len(mots) - 8))
-    return [f for f, n in fenetres.items() if n > 1]
+    if len(mots) <= 8:
+        return []
+    fenetres = [" ".join(mots[i:i + 8]) for i in range(len(mots) - 8 + 1)]
+    repetee = {f for f, n in Counter(fenetres).items() if n > 1}
+
+    passages, i = {}, 0
+    while i < len(fenetres):
+        if fenetres[i] not in repetee:
+            i += 1
+            continue
+        j = i
+        while j + 1 < len(fenetres) and fenetres[j + 1] in repetee:
+            j += 1
+        texte_passage = " ".join(mots[i:j + 8])
+        passages[texte_passage] = j + 8 - i
+        i = j + 1
+    return sorted(passages.items(), key=lambda p: -p[1])
 
 
 def biographies(texte):
@@ -112,10 +148,17 @@ def biographies(texte):
     return [n for n, c in presente.items() if c > 1]
 
 
+# Deux pages sont des listes, pas des exposés : l'index thématique nomme le même
+# article sous chacun de ses thèmes, le glossaire répète la forme de ses entrées.
+# La répétition y est la structure, pas un défaut — et elles occupaient les deux
+# premières places du classement.
+LISTES = {"index-thematique", "glossaire"}
+
+
 def main():
     lignes = []
     for fichier in sorted(os.listdir(ARTICLES)):
-        if not fichier.endswith(".json"):
+        if not fichier.endswith(".json") or fichier[:-5] in LISTES:
             continue
         with open(os.path.join(ARTICLES, fichier), encoding="utf-8") as f:
             art = json.load(f)
@@ -138,23 +181,27 @@ def main():
         deci = len(re.findall(r"<h3[^>]*>\s*\d+\.\d+", html))
         chev = sum(sans_accent(corps_nu).count(sans_accent(c)) for c in CHEVILLES)
 
-        score = (3 * len(fleuves) + 2 * len(sans_fait) + len(red)
+        # Une redite pèse ce qu'elle coûte à lire : sa longueur, ramenée à
+        # l'unité de la fenêtre. Huit mots répétés valent 1, quarante valent 5.
+        poids_red = sum(round(n / 8) for _, n in red)
+        score = (3 * len(fleuves) + 2 * len(sans_fait) + poids_red
                  + 2 * len(bio) + deci + chev)
         if score:
             lignes.append((score, fichier[:-5], total, fleuves, sans_fait,
-                           len(red), bio, deci, chev))
+                           red, bio, deci, chev))
 
     lignes.sort(reverse=True)
     print("%-52s %6s %5s  symptômes" % ("article", "mots", "score"))
     print("─" * 100)
-    for score, slug, total, fleuves, sans_fait, nred, bio, deci, chev in lignes:
+    for score, slug, total, fleuves, sans_fait, red, bio, deci, chev in lignes:
         sym = []
         if fleuves:
             sym.append("%d section(s)-fleuve" % len(fleuves))
         if sans_fait:
             sym.append("%d sans encadré-clé" % len(sans_fait))
-        if nred:
-            sym.append("%d redite(s)" % nred)
+        if red:
+            sym.append("%d redite(s), %d mots répétés"
+                       % (len(red), sum(n for _, n in red)))
         if bio:
             sym.append("bio ×2 : %s" % ", ".join(bio[:2]))
         if deci:
@@ -164,6 +211,9 @@ def main():
         print("%-52s %6d %5d  %s" % (slug[:52], total, score, " · ".join(sym)))
         for titre, n in fleuves:
             print("%59s → %d mots : %s" % ("", n, titre[:50]))
+        for passage, n in red[:2]:
+            if n >= 16:
+                print("%59s ↺ %d mots : « %s… »" % ("", n, passage[:60]))
     print("\n%d articles portent au moins un symptôme." % len(lignes))
     return 0
 
