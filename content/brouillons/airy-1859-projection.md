@@ -130,29 +130,64 @@ diffuse, la frontière visible s'étendant de plus en plus loin dans l'obscurit�
 
 Royal Observatory, Greenwich, 2 avril 1859.
 
-## 08 — Ce que ce mémoire établit, et ce qu'il n'établit pas
+## 08 — En faveur de quoi ? De rien. C'est une question restée ouverte
 
-**Ce qu'il établit.** Qu'un phénomène d'apparence dépendante de l'observateur a
-été observé, catalogué sur 233 entrées, publié par l'institution astronomique
-la plus établie de son temps, et **laissé sans explication**. Que l'Astronome
-Royal lui-même l'a constaté « en grande perfection ». Que des observateurs de
-premier plan — Arago, Bessel, Struve, Babbage, Baily, Robinson, Bond — figurent
-au catalogue. Et qu'un siècle et demi plus tard, aucune des « observations
-critiques » qu'Airy réclamait ne nous est connue.
+Il faut répondre franchement, parce que c'est la première chose qu'un lecteur
+demandera. **Ce mémoire ne soutient aucun des deux modèles.** Il ne parle ni de
+la forme de la Terre, ni de la distance du Soleil, ni du mouvement. Il n'est
+d'aucun camp, et le présenter comme une pièce à charge ou à décharge serait le
+trahir.
 
-**Ce qu'il n'établit pas.** Rien sur la forme de la Terre, rien sur le Soleil,
-rien sur la nature de la lumière. Et surtout : **Airy attribue le phénomène à
-l'œil, pas au ciel.** Son irradiation est physiologique. Qu'un observateur voie
-ce qu'un autre ne voit pas, au même endroit, est précisément ce qu'on attend
-d'un artefact de perception — et c'est un argument contre une origine
-physique, pas pour.
+Ce qu'il pose, c'est une **question**, et elle est restée ouverte cent
+soixante-six ans.
 
-**Et la remarque qui doit être faite dans les deux sens.** L'explication de
-remplacement d'Airy a exactement la structure que nous appelons ailleurs
-*hypothèse ad hoc* : elle existe quand le phénomène apparaît, elle est absente
-quand il n'apparaît pas, elle varie d'un observateur à l'autre. Airy le dit
-lui-même, en toutes lettres, et c'est à son honneur. Nous ne pouvons pas
-reprocher cette structure à LIGO et la lui passer.
+### La question, telle qu'Airy la laisse
+
+Pourquoi une étoile paraît-elle parfois projetée sur le disque lunaire&nbsp;?
+Pourquoi le phénomène apparaît-il dans certaines occultations et pas dans
+d'autres, *dans les mêmes circonstances astronomiques*&nbsp;? Et pourquoi, au
+même endroit et au même instant, treize observateurs consignent-ils des choses
+différentes&nbsp;?
+
+Deux familles de réponses sont possibles, et le mémoire ne permet pas de
+choisir.
+
+**Ou bien c'est dans l'œil.** C'est la réponse d'Airy&nbsp;: une irradiation,
+un effet de perception. Elle explique bien la divergence entre observateurs —
+c'est même ce qu'on attend d'un artefact de perception. Mais Airy écrit
+lui-même que cette irradiation-là n'a jamais été constatée ailleurs, qu'elle
+existe parfois et parfois non, qu'elle varie d'un instant à l'autre. Une
+explication qui a besoin d'être exceptionnelle à ce point n'explique pas
+grand-chose, et il le sait&nbsp;: il termine en réclamant des observations
+critiques.
+
+**Ou bien c'est dans le trajet de la lumière.** Airy avait proposé cette voie —
+la réfrangibilité différentielle — et il l'a lui-même écartée par son propre
+critère. Ce qui ferme cette hypothèse-là, pas la famille entière.
+
+### Ce qui trancherait, et qui n'a jamais été fait
+
+Airy réclamait des «&nbsp;observations critiques&nbsp;». Il ne pouvait pas les
+faire&nbsp;: en 1859, l'instrument de mesure était l'œil, et l'œil est
+précisément ce qui est en cause.
+
+Aujourd'hui il existe un moyen simple de séparer les deux familles.
+**Enregistrer une occultation au capteur, avec deux instruments côte à côte au
+même lieu.** Si le phénomène apparaît sur l'image, il est dans la lumière. S'il
+n'apparaît que dans le compte rendu des observateurs, il est dans l'œil. Si les
+deux capteurs divergent alors que l'optique est identique, la question devient
+tout autre chose.
+
+Une occultation d'Aldébaran suffit — c'est l'étoile qui revient le plus souvent
+dans les tables d'Airy —, une nuit, deux boîtiers, une horloge commune. C'est à
+la portée de deux participants, et c'est la seule chose que ce dossier réclame.
+
+### Ce qu'il ne faudra pas en faire
+
+Ni «&nbsp;Airy a prouvé que le ciel est une projection&nbsp;» — il n'a rien
+prouvé de tel et ne l'a jamais suggéré. Ni «&nbsp;l'affaire est classée,
+c'était l'œil&nbsp;» — l'auteur lui-même refuse de classer. Une question
+ouverte se dit ouverte, et se ferme par une mesure.
 
 ## 09 — Sources proposées
 
@@ -174,10 +209,11 @@ reprocher cette structure à LIGO et la lui passer.
 ## Ce sur quoi j'attends ta décision
 
 1. Le pilier : Centre de Recherche, ou Bibliothèque ?
-2. La section 08 dit franchement que ce mémoire ne soutient pas la thèse d'une
-   projection cosmologique, et que l'explication d'Airy est ad hoc de son
-   propre aveu. C'est ce que je crois juste. Tu peux ne pas vouloir de cette
-   section sous cette forme — dis-le.
+2. La section 08 a été refaite : elle ne rend plus de verdict, elle dit que ce
+   mémoire n'est en faveur d'aucun modèle, que la question est restée ouverte
+   depuis 1859, et elle nomme la mesure qui la fermerait — une occultation
+   enregistrée au capteur par deux instruments côte à côte. Est-ce la bonne
+   forme ?
 3. Faut-il que je lise les pages 4 à 9 avant publication ? Elles portent les
    tables A et B, donc les cas de projection avérée. Je ne les ai pas lues, et
    l'article le dirait tant que ce n'est pas fait.
