@@ -443,11 +443,11 @@ ne peut pas atteindre 1. L'&#233;nonc&#233; simple est aussi le plus fort.</p>
 
 <h2><span class="n">05</span>Test 3 &#8212; l'ajustement global, en distance au sol</h2>
 <div class="box warn">
-  <span class="lab">Correction apport&#233;e &#224; la version 1.0</span>
-  <p>La version 1.0 portait la hauteur du p&#244;le <em>contre la latitude</em>, et souffrait donc de
-  la m&#234;me circularit&#233; que le test 2. Le test est ici r&#233;exprim&#233; en <strong>distance au sol
-  mesur&#233;e &#224; l'odom&#232;tre</strong> depuis une station de r&#233;f&#233;rence. Les chiffres ne changent pas ;
-  la circularit&#233; dispara&#238;t.</p>
+  <span class="lab">Pourquoi une distance au sol, et non une latitude</span>
+  <p>Porter la hauteur du p&#244;le <em>contre la latitude</em> rendrait ce test circulaire, de la m&#234;me mani&#232;re
+  que le test 2&#160;: la latitude est elle-m&#234;me d&#233;finie &#224; partir de la hauteur du p&#244;le. Le test s'exprime donc
+  en <strong>distance au sol mesur&#233;e &#224; l'odom&#232;tre</strong> depuis une station de r&#233;f&#233;rence, grandeur qui ne
+  doit rien &#224; l'astronomie. Les chiffres attendus sont les m&#234;mes ; la circularit&#233; dispara&#238;t.</p>
 </div>
 <table>
   <caption>Tableau 5 &#8212; Station de r&#233;f&#233;rence &#224; 60&#176;, distances compt&#233;es vers le sud. Meilleur
@@ -537,7 +537,7 @@ une pose bo&#238;tier normal, une pose bo&#238;tier tourn&#233; &#224; 180&#176;
 deux lectures &#233;limine exactement le biais de montage. Cette proc&#233;dure est d&#233;crite dans le
 protocole de d&#233;pression de l'horizon, dont c'est la section 05.</p>
 
-<h3>La déviation de la verticale &#8212; ajout&#233; en 1.2</h3>
+<h3>La déviation de la verticale</h3>
 <div class="box warn">
   <span class="lab">Ce que « latitude » veut dire, exactement</span>
   <p>La hauteur du p&#244;le donne la latitude <strong>astronomique</strong>, rapport&#233;e au fil
@@ -952,11 +952,11 @@ reach 1. The simple statement is also the stronger one.</p>
 
 <h2><span class="n">05</span>Test 3 &#8212; the global fit, in ground distance</h2>
 <div class="box warn">
-  <span class="lab">Correction to version 1.0</span>
-  <p>Version 1.0 plotted pole altitude <em>against latitude</em>, and therefore suffered the same
-  circularity as test 2. The test is here re-expressed in <strong>ground distance measured by
-  odometer</strong> from a reference station. The figures do not change; the circularity
-  goes.</p>
+  <span class="lab">Why a ground distance, and not a latitude</span>
+  <p>Plotting pole altitude <em>against latitude</em> would make this test circular, in the same way as
+  test 2: latitude is itself defined from the altitude of the pole. The test is therefore expressed
+  in <strong>ground distance measured by odometer</strong> from a reference station, a quantity that
+  owes nothing to astronomy. The expected figures are the same; the circularity goes.</p>
 </div>
 <table>
   <caption>Table 5 &#8212; Reference station at 60&#176;, distances counted southward. Best azimuthal fit,
@@ -1044,7 +1044,7 @@ camera normal, one frame camera turned 180&#176; on the same base, the mean of t
 eliminating the mounting bias exactly. That procedure is described in the horizon-dip protocol,
 section 05.</p>
 
-<h3>Deflection of the vertical &#8212; added in 1.2</h3>
+<h3>Deflection of the vertical</h3>
 <div class="box warn">
   <span class="lab">What &#8220;latitude&#8221; means, exactly</span>
   <p>The pole's altitude gives <strong>astronomical</strong> latitude, referred to the plumb
