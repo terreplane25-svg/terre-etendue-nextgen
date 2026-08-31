@@ -18,7 +18,6 @@ const SECTIONS = [
   { label: 'Expériences', href: '/experiences' },
   { label: 'Outils', href: '/lab' },
   // { label: 'Projets', href: '/projets' },
-  { label: 'Financement', href: '/article/financement-et-independance' },
   { label: 'À propos', href: '/about' },
 ];
 
@@ -104,6 +103,32 @@ export default function DashboardFooter() {
               </a>
             ))}
           </div>
+        </div>
+
+        {/* Soutien — présent en bas de chaque page. Un bouton, une phrase,
+            et une page qui explique. Rien de plus : ni montant, ni palier,
+            ni compteur. */}
+        <div style={{
+          marginTop: 32, paddingTop: 24,
+          borderTop: '1px solid var(--border-soft)',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          flexWrap: 'wrap', gap: 16,
+        }}>
+          <div style={{
+            fontSize: 13, color: 'var(--ink-soft)', maxWidth: 560, lineHeight: 1.6,
+            fontFamily: "'Plus Jakarta Sans', sans-serif",
+          }}>
+            Tout ce que vous lisez ici est gratuit et le restera. Derrière chaque page,
+            il y a du temps, du terrain et des calculs refaits.
+          </div>
+          <Link href="/article/financement-et-independance" style={{
+            display: 'inline-block', padding: '11px 24px', borderRadius: 8,
+            background: 'var(--gold)', color: '#fff',
+            fontSize: 13, fontWeight: 700, whiteSpace: 'nowrap',
+            fontFamily: "'Plus Jakarta Sans', sans-serif",
+          }}>
+            Soutenir le travail
+          </Link>
         </div>
 
         {/* Bottom bar */}

@@ -64,6 +64,13 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "topDomains": ["histoire_sciences", "epistemologie", "cosmologie"]
   },
   {
+    "id": "corrections",
+    "title": "Corrections et signalements",
+    "category": "meta",
+    "primaryDomain": "epistemologie",
+    "topDomains": ["epistemologie"]
+  },
+  {
     "id": "dune-terre-plate-universelle-a-la-sphere-grecque",
     "title": "D'une Terre plate universelle à la sphère grecque",
     "category": "headquarters",
@@ -97,13 +104,6 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "category": "library",
     "primaryDomain": "islam_sources",
     "topDomains": ["islam_sources", "cosmologie", "astronomie"]
-  },
-  {
-    "id": "financement-et-independance",
-    "title": "Financement et indépendance",
-    "category": "meta",
-    "primaryDomain": "epistemologie",
-    "topDomains": ["epistemologie", "histoire_sciences"]
   },
   {
     "id": "glossaire",
@@ -372,18 +372,18 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "topDomains": ["epistemologie", "geometrie", "optique"]
   },
   {
-    "id": "corrections",
-    "title": "Registre des corrections",
-    "category": "meta",
-    "primaryDomain": "epistemologie",
-    "topDomains": ["epistemologie"]
-  },
-  {
     "id": "sources-historiques-fonds-documentaire",
     "title": "Sources historiques : le fonds documentaire (1865-1920)",
     "category": "library",
     "primaryDomain": "histoire_sciences",
     "topDomains": ["histoire_sciences", "epistemologie", "islam_sources"]
+  },
+  {
+    "id": "financement-et-independance",
+    "title": "Soutenir le travail",
+    "category": "meta",
+    "primaryDomain": "epistemologie",
+    "topDomains": ["epistemologie", "histoire_sciences"]
   },
   {
     "id": "standards-et-methode",

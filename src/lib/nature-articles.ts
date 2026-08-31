@@ -414,15 +414,16 @@ const N: Record<string, Nature> = {
   // ══ MÉTA ══════════════════════════════════════════════════════════════════
   corrections: {
     genre: 'outil',
-    repose: "Le relevé daté de nos propres erreurs et de ce qui a été changé.",
-    netablit: "N'avance aucune thèse. Le registre est tenu à charge contre nous.",
+    repose:
+      "Ce que nous tenons pour une erreur, et la procédure par laquelle une erreur signalée est traitée.",
+    netablit:
+      "N'avance aucune thèse. Ne garantit pas l'absence d'erreur — dit ce qui arrive quand il y en a une.",
   },
   'financement-et-independance': {
     genre: 'outil',
-    repose:
-      "Nos propres comptes : ce que le terrain coûte, ce qui a été reçu, ce qui a été dépensé.",
+    repose: "Ce que le site s'engage à faire d'un don, et à ne pas en faire.",
     netablit:
-      "Ne prouve pas notre impartialité. Rend seulement vérifiable, chiffre par chiffre, l'absence d'un motif vénal — ce qui n'est pas la même chose.",
+      "N'avance aucune thèse et ne demande rien. Un don ne change ni ce qui est mesuré, ni ce qui est conclu.",
   },
   'etat-des-lieux-ou-en-sommes-nous': {
     genre: 'outil',
