@@ -526,10 +526,10 @@ html, body { overflow-x: hidden; }
   box-shadow: 0 2px 12px rgba(0,0,0,0.08) !important;
 }
 
-/* ═══ ARTICLE LAYOUT with sidebar ═══ */
-@media (min-width: 1024px) {
-  .article-layout { grid-template-columns: 1fr 280px !important; }
-}
+/* La colonne latérale de 280px hébergeait le mini-graphe du Nexus, replié
+   derrière un bouton et masqué sous 1024px : invisible pour qui lit sur
+   téléphone, discret au point d'être inerte sur écran large. Le graphe reste
+   entier sur /nexus, désormais accessible depuis le pied de page. */
 
 /* ═══ DROPDOWN ANIMATION ═══ */
 @keyframes fadeIn {

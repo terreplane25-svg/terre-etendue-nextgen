@@ -84,40 +84,43 @@ function simulate(nodes: Node[], links: NexusLinkData[], w: number, h: number) {
   }
 }
 
-interface Props {
-  mini?: boolean;
-  highlightSlug?: string;
-}
-
-export default function NexusGraph({ mini, highlightSlug }: Props) {
+// Le graphe s'affiche sur /nexus, en pleine largeur. Il a longtemps eu un mode
+// « mini » pour une colonne latérale d'article, repliée derrière un bouton et
+// masquée sous 1024 px ; cette colonne a été retirée, et le mode avec elle.
+export default function NexusGraph() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const nodesRef = useRef<Node[]>([]);
   const [hovered, setHovered] = useState<Node | null>(null);
-  const [dims, setDims] = useState({ w: 900, h: mini ? 300 : 600 });
+  const [dims, setDims] = useState({ w: 900, h: 600 });
+  const [sombre, setSombre] = useState(false);
   const animRef = useRef<number>(0);
   const router = useRouter();
-  const dragRef = useRef<{ node: Node | null; ox: number; oy: number }>({ node: null, ox: 0, oy: 0 });
+  const dragRef = useRef<{ node: Node | null; ox: number; oy: number; bouge: boolean }>(
+    { node: null, ox: 0, oy: 0, bouge: false });
 
-  const filteredLinks = mini && highlightSlug
-    ? NEXUS_LINKS.filter(l => l.source === highlightSlug || l.target === highlightSlug)
-    : NEXUS_LINKS;
+  const filteredLinks = NEXUS_LINKS;
+  const nodeData = NEXUS_NODES;
 
-  const filteredNodeIds = mini && highlightSlug
-    ? new Set([highlightSlug, ...filteredLinks.map(l => l.source), ...filteredLinks.map(l => l.target)])
-    : null;
-
-  const nodeData = filteredNodeIds
-    ? NEXUS_NODES.filter(n => filteredNodeIds.has(n.id))
-    : NEXUS_NODES;
+  // Le canevas ne peut pas lire les variables CSS : les libellés sont peints,
+  // pas stylés. Sans ce suivi du thème, ils restaient en encre sombre sur fond
+  // sombre — c'est-à-dire illisibles.
+  useEffect(() => {
+    const racine = document.documentElement;
+    const lire = () => setSombre(racine.getAttribute('data-theme') === 'dark');
+    lire();
+    const obs = new MutationObserver(lire);
+    obs.observe(racine, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => obs.disconnect();
+  }, []);
 
   useEffect(() => {
     const container = canvasRef.current?.parentElement;
     if (!container) return;
     const w = container.clientWidth;
-    const h = mini ? 280 : Math.max(480, Math.min(650, window.innerHeight * 0.6));
+    const h = Math.max(480, Math.min(650, window.innerHeight * 0.6));
     setDims({ w, h });
     nodesRef.current = initNodes(nodeData, w, h);
-  }, [nodeData.length, mini]);
+  }, [nodeData.length]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -144,30 +147,26 @@ export default function NexusGraph({ mini, highlightSlug }: Props) {
         const a = map.get(link.source), b = map.get(link.target);
         if (!a || !b) continue;
         const isHL = hovered && (hovered.id === link.source || hovered.id === link.target);
-        const isArticle = highlightSlug && (link.source === highlightSlug || link.target === highlightSlug);
         ctx.beginPath();
         ctx.moveTo(a.px, a.py);
         ctx.lineTo(b.px, b.py);
         ctx.strokeStyle = isHL
           ? `rgba(139, 126, 200, 0.6)`
-          : isArticle
-          ? `rgba(139, 126, 200, 0.3)`
-          : `rgba(200, 200, 200, ${link.strength === 'strong' ? 0.4 : link.strength === 'medium' ? 0.25 : 0.15})`;
-        ctx.lineWidth = isHL ? 2.5 : isArticle ? 2 : 1;
+          : `rgba(${sombre ? '150, 155, 165' : '200, 200, 200'}, ${link.strength === 'strong' ? 0.4 : link.strength === 'medium' ? 0.25 : 0.15})`;
+        ctx.lineWidth = isHL ? 2.5 : 1;
         ctx.stroke();
       }
 
       for (const node of nodes) {
         const color = CAT_COLORS[node.category] || '#8B8F96';
         const isHovered = hovered?.id === node.id;
-        const isHighlight = node.id === highlightSlug;
         const isConnected = hovered && filteredLinks.some(
           e => (e.source === hovered.id && e.target === node.id) || (e.target === hovered.id && e.source === node.id)
         );
-        const radius = isHovered ? 10 : isHighlight ? 9 : isConnected ? 7 : 5;
-        const alpha = hovered ? (isHovered || isConnected ? 1 : 0.25) : isHighlight ? 1 : 0.8;
+        const radius = isHovered ? 10 : isConnected ? 7 : 5;
+        const alpha = hovered ? (isHovered || isConnected ? 1 : 0.25) : 0.8;
 
-        if (isHovered || isHighlight) {
+        if (isHovered) {
           ctx.beginPath();
           ctx.arc(node.px, node.py, radius + 8, 0, Math.PI * 2);
           ctx.fillStyle = color + '18';
@@ -181,9 +180,13 @@ export default function NexusGraph({ mini, highlightSlug }: Props) {
         ctx.fill();
         ctx.globalAlpha = 1;
 
-        const fontSize = mini ? (isHovered ? 11 : 9) : (isHovered ? 13 : 11);
-        ctx.font = `${isHovered || isHighlight ? '600' : '400'} ${fontSize}px system-ui, sans-serif`;
-        ctx.fillStyle = isHovered ? '#1A1D23' : hovered && !isConnected ? '#B8BBC2' : '#4A4E57';
+        const fontSize = isHovered ? 13 : 11;
+        ctx.font = `${isHovered ? '600' : '400'} ${fontSize}px system-ui, sans-serif`;
+        ctx.fillStyle = isHovered
+          ? (sombre ? '#F2F4F8' : '#1A1D23')
+          : hovered && !isConnected
+          ? (sombre ? '#5A5F68' : '#B8BBC2')
+          : (sombre ? '#A8ADB6' : '#4A4E57');
         ctx.textAlign = 'center';
 
         const label = node.title.length > 30 ? node.title.slice(0, 28) + '…' : node.title;
@@ -195,7 +198,7 @@ export default function NexusGraph({ mini, highlightSlug }: Props) {
 
     draw();
     return () => { running = false; cancelAnimationFrame(animRef.current); };
-  }, [dims, hovered, filteredLinks, highlightSlug, mini]);
+  }, [dims, hovered, filteredLinks, sombre]);
 
   const getNodeAt = useCallback((mx: number, my: number): Node | null => {
     for (const n of nodesRef.current) {
@@ -210,10 +213,15 @@ export default function NexusGraph({ mini, highlightSlug }: Props) {
     if (!rect) return;
     const mx = e.clientX - rect.left, my = e.clientY - rect.top;
     if (dragRef.current.node) {
+      const avantX = dragRef.current.node.px, avantY = dragRef.current.node.py;
       dragRef.current.node.px = mx - dragRef.current.ox;
       dragRef.current.node.py = my - dragRef.current.oy;
       dragRef.current.node.vx = 0;
       dragRef.current.node.vy = 0;
+      if (Math.abs(dragRef.current.node.px - avantX)
+          + Math.abs(dragRef.current.node.py - avantY) > 1) {
+        dragRef.current.bouge = true;
+      }
       return;
     }
     const node = getNodeAt(mx, my);
@@ -227,40 +235,31 @@ export default function NexusGraph({ mini, highlightSlug }: Props) {
     const mx = e.clientX - rect.left, my = e.clientY - rect.top;
     const node = getNodeAt(mx, my);
     if (node) {
-      dragRef.current = { node, ox: mx - node.px, oy: my - node.py };
+      dragRef.current = { node, ox: mx - node.px, oy: my - node.py, bouge: false };
       if (canvasRef.current) canvasRef.current.style.cursor = 'grabbing';
     }
   }, [getNodeAt]);
 
+  // Un seul chemin vers l'article : le relâchement sur un nœud qu'on n'a pas
+  // déplacé. Il y avait aussi un `onClick` sans garde, qui ouvrait l'article
+  // dès qu'on lâchait un nœud après l'avoir traîné — le geste « ranger le
+  // graphe » envoyait donc lire.
   const handleMouseUp = useCallback(() => {
-    if (dragRef.current.node && hovered && dragRef.current.node.id === hovered.id) {
-      const moved = Math.abs(dragRef.current.ox) + Math.abs(dragRef.current.oy);
-      if (moved < 5) {
-        router.push(`/article/${hovered.id}`);
-      }
-    }
-    dragRef.current = { node: null, ox: 0, oy: 0 };
-    if (canvasRef.current) canvasRef.current.style.cursor = 'default';
-  }, [hovered, router]);
-
-  const handleClick = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    const mx = e.clientX - rect.left, my = e.clientY - rect.top;
-    const node = getNodeAt(mx, my);
-    if (node) router.push(`/article/${node.id}`);
-  }, [getNodeAt, router]);
+    const { node, bouge } = dragRef.current;
+    dragRef.current = { node: null, ox: 0, oy: 0, bouge: false };
+    if (canvasRef.current) canvasRef.current.style.cursor = node ? 'pointer' : 'default';
+    if (node && !bouge) router.push(`/article/${node.id}`);
+  }, [router]);
 
   return (
     <div style={{ position: 'relative', width: '100%' }}>
       <canvas
         ref={canvasRef}
-        style={{ width: dims.w, height: dims.h, borderRadius: mini ? 8 : 12, border: '1px solid #E8EAED', background: '#FAFBFC' }}
+        style={{ width: dims.w, height: dims.h, borderRadius: 12, border: '1px solid var(--border)', background: 'var(--card)' }}
         onMouseMove={handleMouseMove}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
-        onClick={handleClick}
-        onMouseLeave={() => { setHovered(null); dragRef.current = { node: null, ox: 0, oy: 0 }; }}
+        onMouseLeave={() => { setHovered(null); dragRef.current = { node: null, ox: 0, oy: 0, bouge: false }; }}
       />
 
       {/* Tooltip */}
@@ -285,19 +284,17 @@ export default function NexusGraph({ mini, highlightSlug }: Props) {
       )}
 
       {/* Legend */}
-      {!mini && (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, marginTop: 12 }}>
-          {Object.entries(CAT_LABELS).map(([key, label]) => (
-            <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: '#8B8F96' }}>
-              <span style={{ width: 8, height: 8, borderRadius: '50%', background: CAT_COLORS[key] }} />
-              {label}
-            </div>
-          ))}
-          <span style={{ marginLeft: 'auto', fontSize: 11, color: '#B8BBC2' }}>
-            Glissez les nœuds · Cliquez pour ouvrir
-          </span>
-        </div>
-      )}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, marginTop: 12 }}>
+        {Object.entries(CAT_LABELS).map(([key, label]) => (
+          <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: 'var(--ink-muted)' }}>
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: CAT_COLORS[key] }} />
+            {label}
+          </div>
+        ))}
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: 'var(--ink-muted)' }}>
+          Glissez les nœuds · Cliquez pour ouvrir
+        </span>
+      </div>
     </div>
   );
 }

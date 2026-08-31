@@ -15,6 +15,7 @@ const SECTIONS = [
   { label: 'Observatoire', href: '/observatory' },
   { label: 'Expériences', href: '/experiences' },
   { label: 'Outils', href: '/lab' },
+  { label: 'Le Nexus', href: '/nexus' },
   { label: 'À propos', href: '/about' },
 ];
 
