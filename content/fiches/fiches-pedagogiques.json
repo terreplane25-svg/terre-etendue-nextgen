@@ -95,11 +95,11 @@
       ]
     },
     "articlesLies": [
-      "200-ans-de-resultats-nuls-darago-a-einstein",
-      "la-rotation-terrestre-deux-experiences-zero-preuve",
+      "lenigme-de-la-terre-immobile",
+      "la-rotation-terrestre-experiences-preuves-verdict",
       "le-mythe-deratosthene"
     ],
-    "simulateur": "geo"
+    "simulateur": null
   },
   {
     "id": "densite-flottabilite",
@@ -182,7 +182,7 @@
     },
     "articlesLies": [
       "la-perspective-pourquoi-les-objets-disparaissent",
-      "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite",
+      "loeil-humain-la-machine-a-voir",
       "la-perspective-pourquoi-les-objets-disparaissent"
     ],
     "simulateur": ""
@@ -234,8 +234,8 @@
     },
     "articlesLies": [
       "les-distances-cosmiques-au-dela-de-la-regle",
-      "les-trous-noirs-nexistent-pas",
-      "les-trous-noirs-nexistent-pas"
+      "les-trous-noirs-existent-ils",
+      "les-trous-noirs-existent-ils"
     ],
     "simulateur": null
   },
@@ -424,7 +424,7 @@
     "articlesLies": [
       "la-gravite-70-theories-et-aucune-preuve",
       "pourquoi-tout-remettre-en-question",
-      "la-rotation-terrestre-deux-experiences-zero-preuve"
+      "la-rotation-terrestre-experiences-preuves-verdict"
     ],
     "simulateur": "classifier"
   },
@@ -466,7 +466,7 @@
     },
     "articlesLies": [
       "la-gravite-70-theories-et-aucune-preuve",
-      "les-trous-noirs-nexistent-pas"
+      "les-trous-noirs-existent-ils"
     ],
     "simulateur": "curvature"
   },
@@ -508,9 +508,9 @@
     },
     "articlesLies": [
       "dune-terre-plate-universelle-a-la-sphere-grecque",
-      "chronologie-de-la-tromperie-du-globe",
+      "chronologie-critique-du-modele-globe",
       "neptune-et-pluton-les-faux-triomphes"
     ],
-    "simulateur": "geo"
+    "simulateur": null
   }
 ]

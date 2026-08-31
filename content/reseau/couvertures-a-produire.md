@@ -49,7 +49,7 @@ pourrait illustrer n'importe quel article de n'importe quel site.
 | `la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas` | Observatoire | Pleine lune au téléobjectif, très détaillée, décentrée à gauche du cadre sur fond noir — le format paysage impose de ne pas la centrer. |
 | `la-qibla-et-la-direction-cote-ouest` | Bibliothèque | Un miḥrāb en lumière rasante, ou une boussole de qibla ancienne. |
 | `levolution-et-lislam` | Bibliothèque | Sobre : une page de traité, ou une strate géologique. Éviter le cliché du primate, qui caricature le débat au lieu de l'ouvrir. |
-| `loeil-humain-la-machine-a-voir-qui-faconne-notre-realite` | Expériences | Macro d'un iris humain, cadré à droite du format paysage. |
+| `loeil-humain-la-machine-a-voir` | Expériences | Macro d'un iris humain, cadré à droite du format paysage. |
 
 ## Priorité 3 — les cinq pages d'appareil
 

@@ -75,14 +75,14 @@ export const GENRE_DEFINITION: Record<Genre, string> = {
 
 const N: Record<string, Nature> = {
   // ══ CENTRE DE RECHERCHE ═══════════════════════════════════════════════════
-  '200-ans-de-resultats-nuls-darago-a-einstein': {
+  'lenigme-de-la-terre-immobile': {
     genre: 'analyse',
     repose:
       "Les publications d'Arago, Fresnel, Fizeau, Airy et Michelson-Morley, lues dans des éditions modernes. Nous n'avons ni les cahiers de laboratoire ni les données brutes d'aucune de ces expériences.",
     netablit:
       "N'établit pas que la Terre est immobile. Retrace une suite de résultats nuls et les hypothèses successivement introduites pour les concilier avec le mouvement.",
   },
-  'chronologie-de-la-tromperie-du-globe': {
+  'chronologie-critique-du-modele-globe': {
     genre: 'analyse',
     repose:
       "Des textes d'époque et des travaux d'historiens des sciences, cités d'après des éditions modernes.",
@@ -110,7 +110,7 @@ const N: Record<string, Nature> = {
     netablit:
       "N'établit pas que la gravité n'existe pas, ni que la Terre est immobile. Montre qu'aucune théorie unique n'en rend compte, que G reste la constante fondamentale la moins bien mesurée, et que la masse s'annule dans les équations orbitales — ce qui borne ce qu'elles mesurent, sans dire ce qui les cause.",
   },
-  'la-rotation-terrestre-deux-experiences-zero-preuve': {
+  'la-rotation-terrestre-experiences-preuves-verdict': {
     genre: 'analyse',
     repose:
       "Les publications originales de Foucault, Sagnac, Hafele-Keating, Eötvös et Thirring. Aucune n'a été reproduite par nous.",
@@ -124,7 +124,7 @@ const N: Record<string, Nature> = {
     netablit:
       "N'établit pas la forme de la Terre. Porte sur ce qu'un mot arabe signifie, et sur l'écart entre ce sens et ce qu'on lui fait dire aujourd'hui.",
   },
-  'le-mouvement-zetetique-150-ans-de-resistance': {
+  'lexperience-contre-la-theorie': {
     genre: 'analyse',
     repose:
       "Les publications zététiques du XIXᵉ siècle, prises comme documents d'histoire. Nous n'avons vérifié aucune des mesures qu'elles rapportent.",
@@ -145,7 +145,7 @@ const N: Record<string, Nature> = {
     netablit:
       "N'établit aucune distance de remplacement, et ne reprend pas à son compte les objections qu'il rapporte — celle d'Hickson sur les horizons de Halley est même signalée comme géométriquement fausse. Montre à partir de quel maillon la chaîne de mesure cesse d'être directe.",
   },
-  'les-trous-noirs-nexistent-pas': {
+  'les-trous-noirs-existent-ils': {
     genre: 'analyse',
     repose:
       "La littérature de relativité générale, des alternatives publiées et évaluées par les pairs, et les objections méthodologiques portées aux données de LIGO — dont celle de Creswell et collaborateurs. Aucune observation de ce dossier n'est la nôtre, et aucune ne pourrait l'être : nous n'avons pas accès aux données de LIGO ni à celles de l'Event Horizon Telescope.",
@@ -217,7 +217,7 @@ const N: Record<string, Nature> = {
     netablit:
       "N'établit pas qu'il n'existe pas de région polaire australe — le titre est plus tranchant que le contenu. Porte sur le fait que « pôle Sud » désigne quatre points distincts, et sur ce que le régime du Traité autorise.",
   },
-  'le-theodolite-celeste': {
+  'mesures-sous-le-ciel-trigonometrie-plane': {
     genre: 'analyse',
     repose:
       "Un jeu de 11 320 points de données produit par un tiers, à partir d'occultations stellaires et d'éclipses. Nous n'avons ni les mesures brutes, ni le budget d'erreur, ni le détail de la réduction.",
@@ -375,7 +375,7 @@ const N: Record<string, Nature> = {
     netablit:
       "Ne tranche aucun modèle cosmologique. Établit qu'une force peut agir sans contact — fait ordinaire, et non argument. C'est une page de socle : ce qu'on y montre sert ailleurs sans être redémontré.",
   },
-  'loeil-humain-la-machine-a-voir-qui-faconne-notre-realite': {
+  'loeil-humain-la-machine-a-voir': {
     genre: 'explication',
     repose:
       "La physiologie de la vision publiée — accommodation, champ, résolution angulaire, tache aveugle.",
@@ -395,6 +395,13 @@ const N: Record<string, Nature> = {
       "L'optique atmosphérique et l'acoustique, sur des phénomènes observables sans instrument.",
     netablit:
       "Ne tranche aucun modèle. Rassemble des phénomènes atmosphériques et ce que chacun suppose du milieu.",
+  },
+  'participer-aux-campagnes-de-mesure': {
+    genre: 'outil',
+    repose:
+      "Les protocoles que nous publions, leur état d'avancement, et le matériel que chacun demande.",
+    netablit:
+      "Ne rapporte aucun résultat, parce qu'aucune campagne n'a commencé. C'est un appel : elle dit ce qui est prêt à être fait, par qui, et à quelles conditions.",
   },
   'les-protocoles-ce-que-c-est-et-pourquoi': {
     genre: 'outil',

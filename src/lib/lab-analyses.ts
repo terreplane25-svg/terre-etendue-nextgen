@@ -604,7 +604,7 @@ export const ANALYSES: AnalyseMedia[] = [
       `Le frottement de l'axe est-il minimisé (roulement de qualité) ?`,
       `L'expérience est-elle reproductible avec les mêmes paramètres ?`,
     ],
-    relatedArticle: 'la-rotation-terrestre-deux-experiences-zero-preuve',
+    relatedArticle: 'la-rotation-terrestre-experiences-preuves-verdict',
   },
   {
     id: 'coriolis-evier-drain',
@@ -635,7 +635,7 @@ export const ANALYSES: AnalyseMedia[] = [
       `Le sens de rotation est-il cohérent avec l'hémisphère (antihoraire au Nord, horaire au Sud) ?`,
       `A-t-on exclu les effets de la géométrie du bassin et des conditions initiales ?`,
     ],
-    relatedArticle: 'la-rotation-terrestre-deux-experiences-zero-preuve',
+    relatedArticle: 'la-rotation-terrestre-experiences-preuves-verdict',
   },
   {
     id: 'pendule-foucault-rotation',
@@ -668,7 +668,7 @@ export const ANALYSES: AnalyseMedia[] = [
       `L'expérience dure-t-elle assez longtemps pour mesurer plusieurs degrés de rotation ?`,
       `A-t-on documenté d'éventuelles anomalies ou irrégularités ?`,
     ],
-    relatedArticle: 'la-rotation-terrestre-deux-experiences-zero-preuve',
+    relatedArticle: 'la-rotation-terrestre-experiences-preuves-verdict',
   },
   {
     id: 'nivellement-eau-communicants',

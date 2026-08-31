@@ -12,21 +12,12 @@ export interface LabTool {
 
 export const TOOLS: LabTool[] = [
   {
-    id: 'flat',
-    label: 'Terre Plane',
-    desc: "Carte plane avec dôme céleste, éphémérides, terminateur, phases lunaires, boussole et géolocalisation.",
-    icon: '🗺️',
-    color: '#D4943A',
-    num: '01',
-    tags: ['3D', 'dôme', 'éphémérides', 'carte'],
-  },
-  {
     id: 'curvature',
     label: 'Calculateur de Courbure',
     desc: "Courbure théorique avec réfraction. Graphique interactif, 6 cas réels, export.",
     icon: '📐',
     color: '#3D9E7C',
-    num: '02',
+    num: '01',
     tags: ['courbure', 'réfraction', 'graphique'],
   },
   {
@@ -35,17 +26,8 @@ export const TOOLS: LabTool[] = [
     desc: "Colonne de fluides interactive. Lâchez des objets, observez la flottabilité.",
     icon: '⚗️',
     color: '#3D9E7C',
-    num: '03',
+    num: '02',
     tags: ['densité', 'flottabilité', 'Archimède'],
-  },
-  {
-    id: 'geo',
-    label: 'Système Solaire',
-    desc: "8 planètes, anneaux de Saturne, vitesses orbitales. Classique ou vortex.",
-    icon: '🪐',
-    color: '#3B8FD4',
-    num: '04',
-    tags: ['3D', 'planètes', 'orbites'],
   },
   {
     id: 'classifier',
@@ -53,7 +35,7 @@ export const TOOLS: LabTool[] = [
     desc: "Classez 24 affirmations scientifiques. Feedback immédiat et sources.",
     icon: '🎯',
     color: '#2B7A5F',
-    num: '05',
+    num: '03',
     tags: ['pédagogie', 'épistémologie', 'quiz', 'enseignants'],
   },
 ];

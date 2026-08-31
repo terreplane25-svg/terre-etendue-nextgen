@@ -11,7 +11,7 @@ interface A { slug: string; title: string; description: string; tags: string[]; 
 const SECTIONS = [
   { id: 'optique', label: 'Optique & horizon', icon: '🔭', slugs: [
     'la-perspective-pourquoi-les-objets-disparaissent',
-    'loeil-humain-la-machine-a-voir-qui-faconne-notre-realite',
+    'loeil-humain-la-machine-a-voir',
     'pression-lumiere-halos-rayons-et-ondes',
   ]},
   { id: 'hydrologie', label: 'Hydrologie', icon: '🌊', slugs: [
@@ -26,8 +26,8 @@ const SECTIONS = [
     'la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre',
     'la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas',
     'la-lune-fonction-et-anomalies',
-    'le-theodolite-celeste',
-    'la-rotation-terrestre-deux-experiences-zero-preuve',
+    'mesures-sous-le-ciel-trigonometrie-plane',
+    'la-rotation-terrestre-experiences-preuves-verdict',
   ]},
 ];
 

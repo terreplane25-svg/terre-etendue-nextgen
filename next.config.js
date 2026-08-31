@@ -27,7 +27,17 @@ const nextConfig = {
       { source: '/article/experiences-sous-pression-reduite', destination: '/article/la-pression-atmospherique-un-ocean-d-air-invisible', permanent: true },
       { source: '/article/lhypothese-nulle-dynamique-et-cinematique', destination: '/article/la-gravite-70-theories-et-aucune-preuve', permanent: true },
       { source: '/article/kings-dethroned-leffondrement-de-la-triangulation-stellaire', destination: '/article/les-distances-cosmiques-au-dela-de-la-regle', permanent: true },
-      { source: '/article/ligo-londe-qui-nexistait-pas', destination: '/article/les-trous-noirs-nexistent-pas', permanent: true },
+      { source: '/article/ligo-londe-qui-nexistait-pas', destination: '/article/les-trous-noirs-existent-ils', permanent: true },
+      // Adresses alignées sur les titres : l'adresse est ce qui s'affiche
+      // quand un article est partagé, et elle disait encore ce que le titre
+      // avait cessé de dire.
+      { source: '/article/200-ans-de-resultats-nuls-darago-a-einstein', destination: '/article/lenigme-de-la-terre-immobile', permanent: true },
+      { source: '/article/la-rotation-terrestre-deux-experiences-zero-preuve', destination: '/article/la-rotation-terrestre-experiences-preuves-verdict', permanent: true },
+      { source: '/article/le-mouvement-zetetique-150-ans-de-resistance', destination: '/article/lexperience-contre-la-theorie', permanent: true },
+      { source: '/article/le-theodolite-celeste', destination: '/article/mesures-sous-le-ciel-trigonometrie-plane', permanent: true },
+      { source: '/article/loeil-humain-la-machine-a-voir-qui-faconne-notre-realite', destination: '/article/loeil-humain-la-machine-a-voir', permanent: true },
+      { source: '/article/chronologie-de-la-tromperie-du-globe', destination: '/article/chronologie-critique-du-modele-globe', permanent: true },
+      { source: '/article/les-trous-noirs-nexistent-pas', destination: '/article/les-trous-noirs-existent-ils', permanent: true },
     ];
   },
 };

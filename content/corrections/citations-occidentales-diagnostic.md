@@ -19,7 +19,7 @@ elle vaut comme piste à vérifier, pas comme source.
 ## A. Erreur d'attribution certaine — corrigée
 
 ### Copernic → Osiander
-**Article :** `chronologie-de-la-tromperie-du-globe` #2
+**Article :** `chronologie-critique-du-modele-globe` #2
 **Citation :** « Il n'est pas nécessaire que ces hypothèses soient vraies, ni même vraisemblables… »
 
 Ce texte n'est **pas** de Copernic. C'est l'*Ad lectorem de hypothesibus huius
@@ -36,7 +36,7 @@ soutient l'inverse. **Corrigé et documenté dans l'article.**
 ## B. Citations dont je doute sérieusement — à vérifier ou retirer
 
 ### Aristote, *Sur le Ciel*
-**Article :** `chronologie-de-la-tromperie-du-globe` #1
+**Article :** `chronologie-critique-du-modele-globe` #1
 **Citation :** « La forme parfaite est la sphère. Puisque la nature tend vers la perfection, la Terre doit être sphérique. »
 
 **Deux problèmes.** L'argument de la perfection de la sphère concerne chez
@@ -52,7 +52,7 @@ intéressant est précisément qu'il argumentait par l'observation.
 **Recommandation :** citer *De Caelo* II.14 avec son vrai contenu, ou retirer.
 
 ### Johannes Kepler
-**Article :** `chronologie-de-la-tromperie-du-globe` #3
+**Article :** `chronologie-critique-du-modele-globe` #3
 **Citation :** « J'ai démontré la rotondité de la Terre et son mouvement autour du Soleil — grâce à la philosophie. »
 
 Je **ne reconnais pas** cette phrase dans le corpus de Kepler, et sa formulation
@@ -60,7 +60,7 @@ ne ressemble pas à sa manière. **Recommandation : retirer**, à moins que la
 source exacte ne soit produite.
 
 ### Albert Michelson
-**Article :** `chronologie-de-la-tromperie-du-globe` #5
+**Article :** `chronologie-critique-du-modele-globe` #5
 **Citation :** « Il semble que la Terre soit en état de repos relatif par rapport à l'éther luminifère. »
 
 L'article de Michelson et Morley (*American Journal of Science*, 34, 1887) conclut

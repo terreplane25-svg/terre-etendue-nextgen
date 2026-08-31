@@ -81,18 +81,18 @@ export default function HomeClient({ articles }: { articles: A[] }) {
             La cosmologie coranique et la science moderne, examinées avec la même rigueur.
           </p>
           <div style={{ marginTop: 38, display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-            <a href="#protocole" style={{
+            <Link href="/library" style={{
               fontSize: 15.5, fontWeight: 700, color: '#0D1528', background: '#4FD1A0',
               padding: '15px 30px', borderRadius: 10, boxShadow: '0 6px 24px rgba(79,209,160,0.35)',
             }}>
-              Le protocole de terrain
-            </a>
-            <Link href="/about" style={{
+              Commencer l’exploration
+            </Link>
+            <Link href="/article/participer-aux-campagnes-de-mesure" style={{
               fontSize: 15.5, fontWeight: 700, color: '#F4F8FC', background: 'rgba(255,255,255,0.08)',
               padding: '15px 30px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.35)',
               backdropFilter: 'blur(4px)',
             }}>
-              Lire le manifeste
+              Participer aux mesures
             </Link>
           </div>
         </div>

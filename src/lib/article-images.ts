@@ -17,18 +17,20 @@ const IMG: Record<string, string> = {
   "la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas": `${UNSPLASH}/photo-1522030299830-16b8d3d049fe?w=600&h=400&fit=crop`,
   "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre": `${HOSTINGER}/2026/07/lune_soleil_etoile.png`,
   "le-pole-sud-nexiste-pas": `${HOSTINGER}/2026/07/pole_sud.png`,
-  "le-theodolite-celeste": `${HOSTINGER}/2026/07/teodolite.png`,
+  "mesures-sous-le-ciel-trigonometrie-plane": `${HOSTINGER}/2026/07/teodolite.png`,
 
   // ── Experiments ──
   "densite-pourquoi-les-choses-montent-et-descendent": `${HOSTINGER}/2026/06/ChatGPT-Image-21-juin-2026-00_39_16.png`,
   "la-pression-atmospherique-un-ocean-d-air-invisible": `${HOSTINGER}/2026/07/pression_atmos.png`,
   "les-forces-invisibles-a-faire-chez-soi": `${HOSTINGER}/2026/07/electromagnetisme.png`,
-  "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite": `${UNSPLASH}/photo-1494869042583-f6c911f04b4c?w=600&h=400&fit=crop`,
+  "loeil-humain-la-machine-a-voir": `${UNSPLASH}/photo-1494869042583-f6c911f04b4c?w=600&h=400&fit=crop`,
   // TODO couverture dédiée 1200×630 : une perche et son puits sur un plan d'eau.
   "monter-l-experience-des-trois-mires": `${HOSTINGER}/2026/06/mer_horizon-e1784751872495.png`,
   // TODO couverture dédiée 1200×630 : la ligne d'horizon vue d'altitude, de nuit,
   // avec l'astre et son reflet dans la nappe — c'est la figure 1 de la page.
   "les-protocoles-ce-que-c-est-et-pourquoi": `${HOSTINGER}/2026/06/mer_horizon-e1784751872495.png`,
+  // TODO couverture dédiée 1200×630 : une main sur un trépied, de nuit, face à la mer.
+  "participer-aux-campagnes-de-mesure": `${HOSTINGER}/2026/07/teodolite.png`,
 
   // ── Library (Islamic) ──
   "debut-de-la-creation-selon-le-coran-et-la-sunna": `${HOSTINGER}/2026/06/mer_horizon.png`,
@@ -51,17 +53,17 @@ const IMG: Record<string, string> = {
 
   // ── Headquarters ──
   "la-gravite-70-theories-et-aucune-preuve": `${HOSTINGER}/2026/07/gravity_theorie.png`,
-  "200-ans-de-resultats-nuls-darago-a-einstein": `${HOSTINGER}/2025/10/Solar_sys.jpg`,
-  "chronologie-de-la-tromperie-du-globe": `${HOSTINGER}/2026/07/chronologie_de_tro-e1784751688322.png`,
+  "lenigme-de-la-terre-immobile": `${HOSTINGER}/2025/10/Solar_sys.jpg`,
+  "chronologie-critique-du-modele-globe": `${HOSTINGER}/2026/07/chronologie_de_tro-e1784751688322.png`,
   "dune-terre-plate-universelle-a-la-sphere-grecque": `${HOSTINGER}/2025/09/photo_2025-09-29_04-34-50-1.jpg`,
   "la-cosmologie-comme-instrument-de-domination": `${HOSTINGER}/2026/07/cosmoligie.png`,
-  "la-rotation-terrestre-deux-experiences-zero-preuve": `${HOSTINGER}/2026/06/pantheon_pendule_de_foucault1.jpg`,
+  "la-rotation-terrestre-experiences-preuves-verdict": `${HOSTINGER}/2026/06/pantheon_pendule_de_foucault1.jpg`,
   "le-concordisme": `${HOSTINGER}/2026/07/concordiste.png`,
-  "le-mouvement-zetetique-150-ans-de-resistance": `${HOSTINGER}/2026/07/resistance.png`,
+  "lexperience-contre-la-theorie": `${HOSTINGER}/2026/07/resistance.png`,
   "le-mythe-deratosthene": `${HOSTINGER}/2026/07/myth_herato.jpg`,
   "lire-le-ciel-avant-le-globe": `${HOSTINGER}/2026/05/observatoire-scaled.jpeg`,
   "les-distances-cosmiques-au-dela-de-la-regle": `${HOSTINGER}/2026/04/mesure-soleil.jpg`,
-  "les-trous-noirs-nexistent-pas": `${HOSTINGER}/2026/06/Black_Holes_-_Monsters_in_Space-scaled.jpg`,
+  "les-trous-noirs-existent-ils": `${HOSTINGER}/2026/06/Black_Holes_-_Monsters_in_Space-scaled.jpg`,
   "neptune-et-pluton-les-faux-triomphes": `${HOSTINGER}/2026/04/pluto_neptune.jpeg`,
   "pourquoi-tout-remettre-en-question": `${HOSTINGER}/2026/04/interrogation.avif`,
   "par-rapport-a-quoi-mesure-t-on-une-altitude": `${HOSTINGER}/2026/08/teodolite2-e1785710240343.png`,

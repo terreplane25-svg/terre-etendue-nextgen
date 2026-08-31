@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
 };
 
-const EXCLUDE = ['le-mouvement-zetetique-150-ans-de-resistance'];
+const EXCLUDE = ['lexperience-contre-la-theorie'];
 
 export default function HomePage() {
   const articles = getAllArticles() as any[];

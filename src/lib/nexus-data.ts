@@ -134,7 +134,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
-    "id": "200-ans-de-resultats-nuls-darago-a-einstein",
+    "id": "lenigme-de-la-terre-immobile",
     "title": "200 ans de résultats nuls : d'Arago à Einstein",
     "category": "headquarters",
     "pillar": "Q.G.",
@@ -165,7 +165,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
   },
   /* merged into la-perspective-pourquoi-les-objets-disparaissent */
   {
-    "id": "chronologie-de-la-tromperie-du-globe",
+    "id": "chronologie-critique-du-modele-globe",
     "title": "Chronologie de la tromperie du globe",
     "category": "headquarters",
     "pillar": "Q.G.",
@@ -421,7 +421,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
-    "id": "la-rotation-terrestre-deux-experiences-zero-preuve",
+    "id": "la-rotation-terrestre-experiences-preuves-verdict",
     "title": "La Rotation Terrestre : deux expériences canoniques, zéro preuve",
     "category": "headquarters",
     "pillar": "Q.G.",
@@ -511,7 +511,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
-    "id": "le-mouvement-zetetique-150-ans-de-resistance",
+    "id": "lexperience-contre-la-theorie",
     "title": "Le mouvement zététique : 150 ans de résistance (1849-2000)",
     "category": "headquarters",
     "pillar": "Q.G.",
@@ -541,7 +541,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
-    "id": "la-rotation-terrestre-deux-experiences-zero-preuve",
+    "id": "la-rotation-terrestre-experiences-preuves-verdict",
     "title": "Le pendule de Foucault : une preuve contestée",
     "category": "observatory",
     "pillar": "OBS",
@@ -571,7 +571,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
-    "id": "le-theodolite-celeste",
+    "id": "mesures-sous-le-ciel-trigonometrie-plane",
     "title": "Le théodolite céleste",
     "category": "observatory",
     "pillar": "OBS",
@@ -677,7 +677,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
   },
   /* merged into la-perspective-pourquoi-les-objets-disparaissent */
   {
-    "id": "les-trous-noirs-nexistent-pas",
+    "id": "les-trous-noirs-existent-ils",
     "title": "Les trous noirs n'existent pas",
     "category": "headquarters",
     "pillar": "Q.G.",
@@ -722,7 +722,7 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "size": 8
   },
   {
-    "id": "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite",
+    "id": "loeil-humain-la-machine-a-voir",
     "title": "L'Œil Humain : la machine à voir qui façonne notre réalité",
     "category": "observatory",
     "pillar": "OBS",
@@ -936,7 +936,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "lire-le-ciel-avant-le-globe",
-    "target": "le-theodolite-celeste",
+    "target": "mesures-sous-le-ciel-trigonometrie-plane",
     "score": 334.0,
     "strength": "strong",
     "sharedDomains": ["astronomie"]
@@ -1013,7 +1013,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "un-traite-ottoman-contre-la-sphericite-1314h",
-    "target": "le-mouvement-zetetique-150-ans-de-resistance",
+    "target": "lexperience-contre-la-theorie",
     "score": 281.0,
     "strength": "medium",
     "sharedDomains": ["histoire_sciences", "epistemologie"]
@@ -1048,7 +1048,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "la-cosmologie-comme-instrument-de-domination",
-    "target": "la-rotation-terrestre-deux-experiences-zero-preuve",
+    "target": "la-rotation-terrestre-experiences-preuves-verdict",
     "score": 373.4,
     "strength": "strong",
     "sharedDomains": ["epistemologie", "cosmologie", "histoire_sciences"]
@@ -1062,14 +1062,14 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "la-perspective-pourquoi-les-objets-disparaissent",
-    "target": "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite",
+    "target": "loeil-humain-la-machine-a-voir",
     "score": 362.2,
     "strength": "strong",
     "sharedDomains": ["optique", "geometrie", "physique"]
   },
   {
     "source": "la-gravite-70-theories-et-aucune-preuve",
-    "target": "les-trous-noirs-nexistent-pas",
+    "target": "les-trous-noirs-existent-ils",
     "score": 355.0,
     "strength": "strong",
     "sharedDomains": ["gravite", "epistemologie", "physique"]
@@ -1103,15 +1103,15 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["physique", "gravite", "cartographie"]
   },
   {
-    "source": "la-rotation-terrestre-deux-experiences-zero-preuve",
-    "target": "le-mouvement-zetetique-150-ans-de-resistance",
+    "source": "la-rotation-terrestre-experiences-preuves-verdict",
+    "target": "lexperience-contre-la-theorie",
     "score": 335.8,
     "strength": "strong",
     "sharedDomains": ["epistemologie", "cosmologie", "histoire_sciences"]
   },
   {
     "source": "la-cosmologie-comme-instrument-de-domination",
-    "target": "le-mouvement-zetetique-150-ans-de-resistance",
+    "target": "lexperience-contre-la-theorie",
     "score": 334.8,
     "strength": "strong",
     "sharedDomains": ["epistemologie", "cosmologie", "histoire_sciences"]
@@ -1139,7 +1139,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "index-thematique",
-    "target": "la-rotation-terrestre-deux-experiences-zero-preuve",
+    "target": "la-rotation-terrestre-experiences-preuves-verdict",
     "score": 327.6,
     "strength": "strong",
     "sharedDomains": ["epistemologie", "cosmologie"]
@@ -1159,14 +1159,14 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["physique", "gravite", "modelisation"]
   },
   {
-    "source": "chronologie-de-la-tromperie-du-globe",
+    "source": "chronologie-critique-du-modele-globe",
     "target": "sources-historiques-fonds-documentaire",
     "score": 324.3,
     "strength": "strong",
     "sharedDomains": ["histoire_sciences", "epistemologie"]
   },
   {
-    "source": "les-trous-noirs-nexistent-pas",
+    "source": "les-trous-noirs-existent-ils",
     "target": "lespace-une-frontiere-infranchissable",
     "score": 323.0,
     "strength": "strong",
@@ -1187,15 +1187,15 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["islam_sources", "cosmologie"]
   },
   {
-    "source": "200-ans-de-resultats-nuls-darago-a-einstein",
-    "target": "la-rotation-terrestre-deux-experiences-zero-preuve",
+    "source": "lenigme-de-la-terre-immobile",
+    "target": "la-rotation-terrestre-experiences-preuves-verdict",
     "score": 316.7,
     "strength": "strong",
     "sharedDomains": ["physique", "epistemologie"]
   },
   {
     "source": "glossaire",
-    "target": "la-rotation-terrestre-deux-experiences-zero-preuve",
+    "target": "la-rotation-terrestre-experiences-preuves-verdict",
     "score": 314.9,
     "strength": "strong",
     "sharedDomains": ["epistemologie", "histoire_sciences"]
@@ -1307,7 +1307,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "la-pression-atmospherique-un-ocean-d-air-invisible",
-    "target": "loeil-humain-la-machine-a-voir-qui-faconne-notre-realite",
+    "target": "loeil-humain-la-machine-a-voir",
     "score": 286.3,
     "strength": "strong",
     "sharedDomains": ["optique", "geometrie"]
@@ -1356,7 +1356,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "index-thematique",
-    "target": "le-mouvement-zetetique-150-ans-de-resistance",
+    "target": "lexperience-contre-la-theorie",
     "score": 274.8,
     "strength": "strong",
     "sharedDomains": ["epistemologie", "cosmologie"]
@@ -1370,7 +1370,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "glossaire",
-    "target": "le-mouvement-zetetique-150-ans-de-resistance",
+    "target": "lexperience-contre-la-theorie",
     "score": 273.4,
     "strength": "strong",
     "sharedDomains": ["epistemologie", "histoire_sciences"]
@@ -1383,7 +1383,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["islam_sources", "epistemologie"]
   },
   {
-    "source": "la-rotation-terrestre-deux-experiences-zero-preuve",
+    "source": "la-rotation-terrestre-experiences-preuves-verdict",
     "target": "les-forces-invisibles-a-faire-chez-soi",
     "score": 148.4,
     "strength": "medium",
@@ -1411,7 +1411,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["astronomie"]
   },
   {
-    "source": "chronologie-de-la-tromperie-du-globe",
+    "source": "chronologie-critique-du-modele-globe",
     "target": "le-mythe-deratosthene",
     "score": 139.7,
     "strength": "medium",
@@ -1453,7 +1453,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["epistemologie", "geometrie"]
   },
   {
-    "source": "les-trous-noirs-nexistent-pas",
+    "source": "les-trous-noirs-existent-ils",
     "target": "neptune-et-pluton-les-faux-triomphes",
     "score": 138.0,
     "strength": "medium",
@@ -1467,14 +1467,14 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["geometrie", "optique"]
   },
   {
-    "source": "le-theodolite-celeste",
+    "source": "mesures-sous-le-ciel-trigonometrie-plane",
     "target": "neptune-et-pluton-les-faux-triomphes",
     "score": 135.9,
     "strength": "medium",
     "sharedDomains": ["astronomie", "modelisation"]
   },
   {
-    "source": "200-ans-de-resultats-nuls-darago-a-einstein",
+    "source": "lenigme-de-la-terre-immobile",
     "target": "les-forces-invisibles-a-faire-chez-soi",
     "score": 135.7,
     "strength": "medium",
@@ -1482,13 +1482,13 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "les-distances-cosmiques-au-dela-de-la-regle",
-    "target": "les-trous-noirs-nexistent-pas",
+    "target": "les-trous-noirs-existent-ils",
     "score": 134.9,
     "strength": "medium",
     "sharedDomains": ["epistemologie", "cosmologie"]
   },
   {
-    "source": "le-theodolite-celeste",
+    "source": "mesures-sous-le-ciel-trigonometrie-plane",
     "target": "pression-lumiere-halos-rayons-et-ondes",
     "score": 132.2,
     "strength": "medium",
@@ -1503,13 +1503,13 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "dune-terre-plate-universelle-a-la-sphere-grecque",
-    "target": "les-trous-noirs-nexistent-pas",
+    "target": "les-trous-noirs-existent-ils",
     "score": 130.7,
     "strength": "medium",
     "sharedDomains": ["cosmologie"]
   },
   {
-    "source": "chronologie-de-la-tromperie-du-globe",
+    "source": "chronologie-critique-du-modele-globe",
     "target": "dune-terre-plate-universelle-a-la-sphere-grecque",
     "score": 129.7,
     "strength": "medium",
@@ -1523,7 +1523,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["epistemologie", "histoire_sciences"]
   },
   {
-    "source": "chronologie-de-la-tromperie-du-globe",
+    "source": "chronologie-critique-du-modele-globe",
     "target": "les-distances-cosmiques-au-dela-de-la-regle",
     "score": 128.2,
     "strength": "medium",
@@ -1531,14 +1531,14 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
-    "target": "le-theodolite-celeste",
+    "target": "mesures-sous-le-ciel-trigonometrie-plane",
     "score": 127.4,
     "strength": "medium",
     "sharedDomains": ["astronomie", "geometrie"]
   },
   {
     "source": "le-mythe-deratosthene",
-    "target": "le-theodolite-celeste",
+    "target": "mesures-sous-le-ciel-trigonometrie-plane",
     "score": 127.1,
     "strength": "medium",
     "sharedDomains": ["geometrie"]
@@ -1608,7 +1608,7 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "cartes-routes-boussoles-et-le-mystere-antarctique",
-    "target": "le-theodolite-celeste",
+    "target": "mesures-sous-le-ciel-trigonometrie-plane",
     "score": 47.8,
     "strength": "weak",
     "sharedDomains": ["geometrie"]

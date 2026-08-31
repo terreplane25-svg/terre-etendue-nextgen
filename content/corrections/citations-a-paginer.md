@@ -26,7 +26,7 @@ huit ont reçu leur localisation.
 Ces trois-là ne sont pas de simples paginations manquantes. Tant qu'elles ne
 sont pas levées, l'attribution n'est pas sûre.
 
-### « Lee, 2005 » — `la-rotation-terrestre-deux-experiences-zero-preuve`
+### « Lee, 2005 » — `la-rotation-terrestre-experiences-preuves-verdict`
 
 > « Le plan du pendule de Foucault ne reste, en tout état de cause, qu'une hypothèse. »
 
@@ -43,7 +43,7 @@ Trois citations renvoient à *La Science et l'Hypothèse* (1902) :
 |---|---|
 | `la-gravite-70-theories-et-aucune-preuve` | « Ces deux propositions, "la Terre tourne" et "il est plus commode de supposer que la Terre tourne", ont un seul et même sens » |
 | `pourquoi-tout-remettre-en-question` | le même passage |
-| `la-rotation-terrestre-deux-experiences-zero-preuve` | « Cette affirmation : "la Terre tourne", n'a aucun sens » |
+| `la-rotation-terrestre-experiences-preuves-verdict` | « Cette affirmation : "la Terre tourne", n'a aucun sens » |
 
 Le premier passage est bien de *La Science et l'Hypothèse*. **Le second est à
 vérifier** : cette formule circule aussi comme venant de *La Valeur de la
@@ -51,7 +51,7 @@ Science* (1905) ou de *Science et Méthode* (1908), et nous n'avons pas pu
 trancher. Il faut identifier l'ouvrage avant la page. Une fois le premier
 passage localisé, la référence vaut pour deux articles.
 
-### « — Edwin Hubble », sans ouvrage — `chronologie-de-la-tromperie-du-globe`
+### « — Edwin Hubble », sans ouvrage — `chronologie-critique-du-modele-globe`
 
 > « Une telle condition impliquerait que nous occupions une position unique dans l'univers, analogue à… »
 
@@ -70,13 +70,13 @@ consulté et daté.
 | `vols-avion-et-courbure-terrestre` | AOPA, *Autopilot Basics* | URL de l'article, date de consultation |
 | `vols-avion-et-courbure-terrestre` | Flight Safety Foundation, *Upset by a False Cue* | Numéro et date d'*AeroSafety World*, ou URL du PDF |
 | `neptune-et-pluton-les-faux-triomphes` | JHU Applied Physics Laboratory, matériaux éducatifs New Horizons | URL de la page, date de consultation |
-| `le-theodolite-celeste` | Henning Umland, *A Short Guide to Celestial Navigation* (2015) | Le PDF est libre et paginé : chapitre et page |
+| `mesures-sous-le-ciel-trigonometrie-plane` | Henning Umland, *A Short Guide to Celestial Navigation* (2015) | Le PDF est libre et paginé : chapitre et page |
 
 ## 3. Ouvrages occidentaux — pagination à relever, volume en main
 
 | Article | Référence | Remarque |
 |---|---|---|
-| `200-ans-de-resultats-nuls-darago-a-einstein` | E.T. Whittaker, *A History of the Theories of Aether and Electricity* | Deux volumes ; préciser lequel avant la page |
+| `lenigme-de-la-terre-immobile` | E.T. Whittaker, *A History of the Theories of Aether and Electricity* | Deux volumes ; préciser lequel avant la page |
 | `pourquoi-tout-remettre-en-question` | James Woodward, *Making Things Happen*, 2003 | La définition manipulationniste de la cause |
 | `pourquoi-tout-remettre-en-question` | Ian Hacking, *Representing and Intervening*, 1983 | « Si vous pouvez les pulvériser, c'est qu'ils sont réels » — la formule apparaît à deux endroits du livre, choisir celui qui porte l'argument |
 | `pourquoi-tout-remettre-en-question` | Ernst Mach, *La Mécanique* (1883) | Équivalence Ptolémée / Copernic, dans la critique du seau de Newton |

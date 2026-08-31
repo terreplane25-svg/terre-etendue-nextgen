@@ -11,8 +11,6 @@ import PageIntro from '@/components/PageIntro';
 import { TOOLS } from '@/lib/lab-tools';
 
 const CurvatureCalc = dynamic(() => import('@/components/lab/CurvatureCalc'), { ssr: false });
-const FlatEarthSim = dynamic(() => import('@/components/lab/FlatEarthSim'), { ssr: false });
-const GeoHelioSim = dynamic(() => import('@/components/lab/GeoHelioSim'), { ssr: false });
 const DensitySim = dynamic(() => import('@/components/lab/DensitySim'), { ssr: false });
 const ClassifierSim = dynamic(() => import('@/components/lab/ClassifierSim'), { ssr: false });
 
@@ -149,8 +147,6 @@ export default function LabClient({ articles }: { articles: A[] }) {
     switch (activeTool) {
       case 'curvature': return <CurvatureCalc />;
       case 'density': return <DensitySim />;
-      case 'flat': return <FlatEarthSim />;
-      case 'geo': return <GeoHelioSim />;
       case 'classifier': return <ClassifierSim />;
       default: return null;
     }

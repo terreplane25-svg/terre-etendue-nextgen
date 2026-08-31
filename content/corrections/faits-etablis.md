@@ -41,7 +41,7 @@ Label imposé par la charte : **FAIT ÉTABLI N°X**
 
 ### L'énigme de la Terre immobile : Comment deux siècles d'échecs ont donné naissance à la Relativité
 
-`200-ans-de-resultats-nuls-darago-a-einstein` — 8 encadrés
+`lenigme-de-la-terre-immobile` — 8 encadrés
 
 | # | Énoncé | Verdict |
 |---|---|---|
@@ -56,7 +56,7 @@ Label imposé par la charte : **FAIT ÉTABLI N°X**
 
 ### Chronologie critique du modèle globe
 
-`chronologie-de-la-tromperie-du-globe` — 14 encadrés
+`chronologie-critique-du-modele-globe` — 14 encadrés
 
 | # | Énoncé | Verdict |
 |---|---|---|
@@ -130,7 +130,7 @@ Label imposé par la charte : **FAIT ÉTABLI N°X**
 
 ### La rotation terrestre : les expériences, les preuves, le verdict
 
-`la-rotation-terrestre-deux-experiences-zero-preuve` — 13 encadrés
+`la-rotation-terrestre-experiences-preuves-verdict` — 13 encadrés
 
 | # | Énoncé | Verdict |
 |---|---|---|
@@ -163,7 +163,7 @@ Label imposé par la charte : **FAIT ÉTABLI N°X**
 
 ### L'expérience contre la théorie
 
-`le-mouvement-zetetique-150-ans-de-resistance` — 4 encadrés
+`lexperience-contre-la-theorie` — 4 encadrés
 
 | # | Énoncé | Verdict |
 |---|---|---|
@@ -200,7 +200,7 @@ Label imposé par la charte : **FAIT ÉTABLI N°X**
 
 ### Les trous noirs existent-ils ?
 
-`les-trous-noirs-nexistent-pas` — 7 encadrés
+`les-trous-noirs-existent-ils` — 7 encadrés
 
 | # | Énoncé | Verdict |
 |---|---|---|
@@ -226,7 +226,7 @@ Label imposé par la charte : **FAIT ÉTABLI N°X**
 
 ### LIGO : l'onde qui n'existait pas
 
-`ligo-londe-qui-nexistait-pas` — 4 encadrés · **article fusionné le 30 août 2026** dans `les-trous-noirs-nexistent-pas`
+`ligo-londe-qui-nexistait-pas` — 4 encadrés · **article fusionné le 30 août 2026** dans `les-trous-noirs-existent-ils`
 
 | # | Énoncé | Verdict |
 |---|---|---|
@@ -366,7 +366,7 @@ Label imposé par la charte : **CE QUE MONTRENT LES DONNÉES**
 
 ### 11 320 mesures sous le ciel : L'épreuve de la trigonométrie plane
 
-`le-theodolite-celeste` — 3 encadrés
+`mesures-sous-le-ciel-trigonometrie-plane` — 3 encadrés
 
 | # | Énoncé | Verdict |
 |---|---|---|
@@ -620,7 +620,7 @@ Label imposé par la charte : **CE QUE L'EXPÉRIENCE ÉTABLIT**
 
 ### L'Œil humain : la machine à voir
 
-`loeil-humain-la-machine-a-voir-qui-faconne-notre-realite` — 3 encadrés
+`loeil-humain-la-machine-a-voir` — 3 encadrés
 
 | # | Énoncé | Verdict |
 |---|---|---|

@@ -47,15 +47,6 @@ const SIMULATEURS = [
     icon: '📐',
     color: '#3D9E7C',
   },
-  {
-    id: 'geo',
-    titre: 'Le système solaire en 3D',
-    description: '8 planètes avec orbites, anneaux de Saturne, vitesses réelles. Mode classique (héliocentrique) ou vortex.',
-    usage: 'Visualiser les échelles et les vitesses. Montrer que "modèle" signifie "représentation", pas "photographie". Question : "Pourquoi y a-t-il deux modes d\'affichage ?"',
-    programme: 'Cycle 3 — Le système solaire',
-    icon: '🪐',
-    color: '#D4943A',
-  },
 ];
 
 const FAQ = [

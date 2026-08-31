@@ -43,10 +43,8 @@ const SECTIONS = [
   {
     label: 'Outils', href: '/lab', color: '#3D9E7C',
     subs: [
-      { label: '🗺️ Terre Plane', href: '/lab?sim=flat' },
       { label: '📐 Calculateur de Courbure', href: '/lab?sim=curvature' },
       { label: '⚗️ Simulateur de Densité', href: '/lab?sim=density' },
-      { label: '🪐 Système Solaire', href: '/lab?sim=geo' },
       { label: '🎯 Fait / Modèle / Hypothèse', href: '/lab?sim=classifier' },
     ],
   },

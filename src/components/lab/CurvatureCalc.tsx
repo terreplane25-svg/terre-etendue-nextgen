@@ -489,7 +489,7 @@ export default function CurvatureCalc(){
       <span className="text-[11px] font-tech-mono text-slate-400">ARTICLES :</span>
       <a href="/article/leau-ne-ment-pas" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;eau ne ment pas →</a>
       <a href="/article/la-gravite-70-theories-et-aucune-preuve" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;hypothèse nulle →</a>
-      <a href="/article/loeil-humain-la-machine-a-voir-qui-faconne-notre-realite" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;œil humain →</a>
+      <a href="/article/loeil-humain-la-machine-a-voir" className="text-[12px] font-tech-mono text-[#00C8FF] hover:text-[#40E0FF]">L&apos;œil humain →</a>
     </div>
   </div>;
 }
