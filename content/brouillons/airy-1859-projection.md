@@ -3,11 +3,10 @@
 **Titre proposé :** Airy 1859 : une anomalie cataloguée, une hypothèse réfutée
 par son auteur, et un aveu
 
-**Pilier proposé :** Centre de Recherche · **Genre :** dossier d'analyse
+**Pilier :** Centre de Recherche · **Genre :** dossier d'analyse ·
+**Le scan** renvoie au NASA ADS, il n'est pas hébergé chez nous.
 
-**Ce qui a été lu.** Le scan que tu m'as transmis, pages 1, 2, 3, 10, 11, 12 et
-14 sur 14. Je n'ai pas lu les pages 4 à 9, qui portent les tables des classes A
-et B. Tout ce qui suit vient des pages lues, et je le signale là où ça compte.
+**Ce qui a été lu.** Les quatorze pages du mémoire, tables comprises.
 
 ---
 
@@ -62,16 +61,48 @@ lunaire — ce qui suppose, pour les occultations antérieures aux tables
 d'angles de position, de calculer la distance zénithale de la Lune, de la
 corriger de la parallaxe, puis celle de l'étoile.
 
-Le résultat est un catalogue de **233 entrées**, réparties en quatre classes :
+Le résultat est un catalogue de **233 entrées couvrant 159 ans** — de
+l'occultation d'Aldébaran observée par De La Hire à Paris le 18 août 1699 à
+celle de Régulus à Manchester le 19 mai 1858. Airy les répartit en quatre
+classes, qu'il définit ainsi mot pour mot :
 
-| classe | contenu |
-|---|---|
-| A | avec projection |
-| B | avec « adhérence » ou étoile « suspendue » au bord |
-| C | avec **démenti** de projection ou d'adhérence |
-| D | **avec remarques discordantes au même lieu ou dans le voisinage** |
+| classe | définition d'Airy | effectif |
+|---|---|---|
+| A | « avec relevé distinct d'une projection observée » | 74 (n° 1 à 74) |
+| B | « avec relevé d'une suspension au bord, sous une forme qui **nie** la projection » | 81 (n° 75 à 155) |
+| C | « avec relevé distinct d'aucune projection ni suspension » | 37 (n° 156 à 192) |
+| D | « où les comptes rendus **au même lieu ou dans le même voisinage se contredisent** : les uns de classe A ou B, les autres de classe C » | 41 (n° 193 à 233) |
 
-La classe D est celle qu'il faut retenir, et j'y reviens.
+La distinction entre B et A n'est pas cosmétique : une étoile « suspendue » au
+bord n'est pas une étoile projetée sur le disque, et Airy classe la première
+comme une **négation** de la seconde. Il s'attend pourtant, dit-il, à ce que les
+deux phénomènes soient « intimement liés ».
+
+Les observateurs du catalogue ne sont pas des amateurs isolés : De La Hire,
+Le Monnier, Messier, Maskelyne, Pingré, Darquier, **Arago**, Bouvard, Mathieu,
+Savary, Méchain, Struve, Bessel, Sir James South, Sir Thomas Brisbane, Lassell,
+Smyth, Babbage, Baily, Robinson, W. C. Bond, Dawes.
+
+### Les dix-huit formules relevées
+
+Airy remarque que les observateurs emploient un petit nombre de tournures, qu'il
+numérote pour les citer en abrégé. Elles sont en quatre langues, et elles disent
+mieux que tout commentaire ce qui a été vu :
+
+Pour la classe A — « entamer le disque », « imbedded in the limb », « in die
+Licht-gränze völlig eindrang », « sur le disque », « sobre el disco », « vor der
+Mondscheibe, as if it were on this and not on the other side of the moon », et
+la plus frappante : « à travers la partie claire, **as if it had been seen
+through a transparent moon** ».
+
+Pour la classe B — « adhérente au bord », « hängt am Rande », « der Stern am
+Rande klebte », « dancing in the limb », « avancer sur le disque **la moitié de
+son image** et y rester », « ne se détacha du bord que deux secondes après ».
+Airy note que ces relevés s'accompagnent d'ordinaire d'une mesure de temps.
+
+Pour la classe C — « keine Projection », « pas vu se projeter sur le disque »,
+« er verschwand als der Mondrand ihn erreichte und nicht später », « came out
+with full brightness instantaneously and did not hang ».
 
 ## 04 — Le verdict, rendu par Airy contre sa propre hypothèse
 
@@ -98,7 +129,8 @@ observateurs non nommés) ; Spica à Greenwich en 1857 (Main et Dunkin).
 
 Ce n'est pas une divergence entre lieux ni entre nuits. C'est une divergence
 **entre observateurs placés au même endroit, au même instant, devant le même
-astre**.
+astre**. Airy en compte quarante et une, sur deux cent trente-trois — près d'une
+sur six.
 
 ## 06 — L'observation d'Innes, et l'explication qu'Airy propose
 
@@ -193,8 +225,10 @@ ouverte se dit ouverte, et se ferme par une mesure.
 
 - **A** — G. B. Airy, *On the Apparent Projection of Stars upon the Moon's Disk
   in Occultations*, Memoirs of the Royal Astronomical Society, vol. 28,
-  p. 173-186, lu le 8 avril 1859. Scan intégral consulté. Référence exacte,
-  document primaire.
+  p. 173-186, lu le 8 avril 1859. Document primaire, quatorze pages lues en
+  entier, tables comprises. Bibcode `1860MmRAS..28..173A`, consultable au NASA
+  Astrophysics Data System — nous renvoyons au dépôt plutôt que d'héberger le
+  scan.
 - **B** — Les 233 observations qu'il catalogue, tirées de Greenwich, Cambridge,
   Paris, Madras, des *Notices* et *Memoirs* de la RAS, des *Astronomische
   Nachrichten* et de l'*Astronomical Journal*. Rapportées par Airy, non
@@ -206,15 +240,11 @@ ouverte se dit ouverte, et se ferme par une mesure.
 
 ---
 
-## Ce sur quoi j'attends ta décision
+## Ce qui reste à décider
 
-1. Le pilier : Centre de Recherche, ou Bibliothèque ?
-2. La section 08 a été refaite : elle ne rend plus de verdict, elle dit que ce
-   mémoire n'est en faveur d'aucun modèle, que la question est restée ouverte
-   depuis 1859, et elle nomme la mesure qui la fermerait — une occultation
-   enregistrée au capteur par deux instruments côte à côte. Est-ce la bonne
-   forme ?
-3. Faut-il que je lise les pages 4 à 9 avant publication ? Elles portent les
-   tables A et B, donc les cas de projection avérée. Je ne les ai pas lues, et
-   l'article le dirait tant que ce n'est pas fait.
-4. Le scan doit-il être hébergé sur le site, ou renvoie-t-on au NASA ADS ?
+Tranchés : pilier Centre de Recherche, renvoi au NASA ADS, quatorze pages lues.
+
+Reste la section 08 — celle qui dit que ce mémoire n'est en faveur d'aucun
+modèle, que la question est ouverte depuis 1859, et qui nomme la mesure qui la
+fermerait. Elle a été refaite dans ce sens. Si la forme te convient, je convertis
+le brouillon en article et je te le soumets une dernière fois avant mise en ligne.
