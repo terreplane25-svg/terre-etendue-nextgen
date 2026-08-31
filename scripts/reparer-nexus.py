@@ -53,6 +53,14 @@ LIENS_AJOUTES = [
      "strong", ["physique", "astronomie", "epistemologie"]),
     ("ligo-londe-qui-nexistait-pas", "la-gravite-70-theories-et-aucune-preuve",
      "medium", ["gravite", "physique"]),
+    ("mesurer-le-diametre-du-soleil", "les-protocoles-ce-que-c-est-et-pourquoi",
+     "strong", ["epistemologie", "modelisation"]),
+    ("mesurer-le-diametre-du-soleil", "la-perspective-pourquoi-les-objets-disparaissent",
+     "strong", ["optique", "geometrie"]),
+    ("mesurer-le-diametre-du-soleil", "participer-aux-campagnes-de-mesure",
+     "medium", ["epistemologie"]),
+    ("mesurer-le-diametre-du-soleil", "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
+     "medium", ["astronomie", "optique"]),
 ]
 DOMAINES_AJOUTES = {
     "participer-aux-campagnes-de-mesure": ("epistemologie",
@@ -61,6 +69,8 @@ DOMAINES_AJOUTES = {
                                     ["epistemologie", "histoire_sciences"]),
     "ligo-londe-qui-nexistait-pas": ("physique",
                                      ["physique", "epistemologie", "astronomie"]),
+    "mesurer-le-diametre-du-soleil": ("astronomie",
+                                      ["astronomie", "optique", "geometrie", "modelisation"]),
 }
 SCORE_AJOUTE = {"strong": 250.0, "medium": 150.0, "weak": 60.0}
 

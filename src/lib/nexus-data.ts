@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-// NEXUS DATA — 54 articles, 121 liens
+// NEXUS DATA — 55 articles, 125 liens
 // Terre Étendue Islam — Graphe de connaissances
 //
 // Fichier généré. Ne pas éditer à la main :
@@ -307,6 +307,13 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "category": "observatory",
     "primaryDomain": "geometrie",
     "topDomains": ["geometrie", "optique", "hydrologie"]
+  },
+  {
+    "id": "mesurer-le-diametre-du-soleil",
+    "title": "Mesurer le diamètre du Soleil, du zénith à l'horizon",
+    "category": "experiences",
+    "primaryDomain": "astronomie",
+    "topDomains": ["astronomie", "optique", "geometrie", "modelisation"]
   },
   {
     "id": "mise-en-garde-la-kaaba-et-saturne",
@@ -970,6 +977,20 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["physique", "astronomie", "epistemologie"]
   },
   {
+    "source": "mesurer-le-diametre-du-soleil",
+    "target": "les-protocoles-ce-que-c-est-et-pourquoi",
+    "score": 250.0,
+    "strength": "strong",
+    "sharedDomains": ["epistemologie", "modelisation"]
+  },
+  {
+    "source": "mesurer-le-diametre-du-soleil",
+    "target": "la-perspective-pourquoi-les-objets-disparaissent",
+    "score": 250.0,
+    "strength": "strong",
+    "sharedDomains": ["optique", "geometrie"]
+  },
+  {
     "source": "les-protocoles-ce-que-c-est-et-pourquoi",
     "target": "monter-l-experience-des-trois-mires",
     "score": 204.0,
@@ -1052,6 +1073,20 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 150.0,
     "strength": "medium",
     "sharedDomains": ["gravite", "physique"]
+  },
+  {
+    "source": "mesurer-le-diametre-du-soleil",
+    "target": "participer-aux-campagnes-de-mesure",
+    "score": 150.0,
+    "strength": "medium",
+    "sharedDomains": ["epistemologie"]
+  },
+  {
+    "source": "mesurer-le-diametre-du-soleil",
+    "target": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
+    "score": 150.0,
+    "strength": "medium",
+    "sharedDomains": ["astronomie", "optique"]
   },
   {
     "source": "la-rotation-terrestre-experiences-preuves-verdict",

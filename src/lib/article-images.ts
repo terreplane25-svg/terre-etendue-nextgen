@@ -29,6 +29,8 @@ const IMG: Record<string, string> = {
   // TODO couverture dédiée 1200×630 : la ligne d'horizon vue d'altitude, de nuit,
   // avec l'astre et son reflet dans la nappe — c'est la figure 1 de la page.
   "les-protocoles-ce-que-c-est-et-pourquoi": `${HOSTINGER}/2026/06/mer_horizon-e1784751872495.png`,
+  // TODO couverture dédiée 1200×630 : un disque solaire filtré, bas sur l'horizon.
+  "mesurer-le-diametre-du-soleil": `${HOSTINGER}/2026/07/StockCake-Horizon_de_Lever_de_Soleil_Ethere-297875-standard.jpg`,
   // TODO couverture dédiée 1200×630 : une main sur un trépied, de nuit, face à la mer.
   "participer-aux-campagnes-de-mesure": `${HOSTINGER}/2026/07/teodolite.png`,
 
