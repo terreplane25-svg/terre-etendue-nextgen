@@ -41,10 +41,18 @@ LIENS_AJOUTES = [
      "medium", ["geometrie", "epistemologie"]),
     ("participer-aux-campagnes-de-mesure", "standards-et-methode",
      "medium", ["epistemologie"]),
+    ("financement-et-independance", "standards-et-methode",
+     "strong", ["epistemologie"]),
+    ("financement-et-independance", "corrections",
+     "medium", ["epistemologie"]),
+    ("financement-et-independance", "participer-aux-campagnes-de-mesure",
+     "weak", ["epistemologie"]),
 ]
 DOMAINES_AJOUTES = {
     "participer-aux-campagnes-de-mesure": ("epistemologie",
                                            ["epistemologie", "modelisation", "physique"]),
+    "financement-et-independance": ("epistemologie",
+                                    ["epistemologie", "histoire_sciences"]),
 }
 SCORE_AJOUTE = {"strong": 250.0, "medium": 150.0, "weak": 60.0}
 

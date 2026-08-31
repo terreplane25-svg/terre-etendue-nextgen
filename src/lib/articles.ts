@@ -172,3 +172,27 @@ export function searchArticles(query: string): ArticleMeta[] {
     .sort((a, b) => b.score - a.score)
     .map((s) => s.meta);
 }
+
+/**
+ * Le nombre de sources classées A/B/C/D dans tout le corpus.
+ *
+ * Compté plutôt qu'écrit en dur : le pied de page annonçait « 450+ sources »
+ * depuis des mois, sans que rien ne relie ce nombre au corpus. Sur un site dont
+ * la règle est de publier le chiffre exact, un ordre de grandeur figé est
+ * exactement ce qu'il ne faut pas faire — d'autant qu'il se démode dans le
+ * mauvais sens, en sous-estimant le travail fait.
+ *
+ * Les renvois vers nos propres articles (`grade-lien`) sont exclus : ce ne sont
+ * pas des sources, et les compter reviendrait à se citer soi-même.
+ */
+export function countSources(): number {
+  if (!fs.existsSync(articlesDirectory)) return 0;
+  let total = 0;
+  for (const fileName of fs.readdirSync(articlesDirectory)) {
+    if (!fileName.endsWith('.json')) continue;
+    const raw = fs.readFileSync(path.join(articlesDirectory, fileName), 'utf8');
+    const body = (JSON.parse(raw).htmlBody as string) || '';
+    total += (body.match(/tei-grade grade-[abcd]"/g) || []).length;
+  }
+  return total;
+}

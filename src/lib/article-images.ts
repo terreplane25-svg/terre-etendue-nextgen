@@ -78,6 +78,8 @@ const IMG: Record<string, string> = {
   // ── Meta ──
   "standards-et-methode": `${UNSPLASH}/photo-1457364887197-9150188c107b?w=600&h=400&fit=crop`,
   "corrections": `${UNSPLASH}/photo-1507413245164-6160d8298b31?w=600&h=400&fit=crop`,
+  // TODO couverture dédiée 1200×630 : un registre manuscrit ouvert, colonnes visibles.
+  "financement-et-independance": `${UNSPLASH}/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop`,
   "etat-des-lieux-ou-en-sommes-nous": `${UNSPLASH}/photo-1504711434969-e33886168d9c?w=600&h=400&fit=crop`,
   "glossaire": `${UNSPLASH}/photo-1524995997946-a1c2e315a42f?w=600&h=400&fit=crop`,
   "index-thematique": `${UNSPLASH}/photo-1524995997946-a1c2e315a42f?w=600&h=400&fit=crop`,

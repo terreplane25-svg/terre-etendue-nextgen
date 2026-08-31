@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getAllArticles } from '@/lib/articles';
+import { getAllArticles, countSources } from '@/lib/articles';
 import { getActiveProjet } from '@/lib/projets';
 import ExperimentCTA from '@/components/ExperimentCTA';
 
@@ -18,11 +18,13 @@ const SECTIONS = [
   { label: 'Expériences', href: '/experiences' },
   { label: 'Outils', href: '/lab' },
   // { label: 'Projets', href: '/projets' },
+  { label: 'Financement', href: '/article/financement-et-independance' },
   { label: 'À propos', href: '/about' },
 ];
 
 export default function DashboardFooter() {
   const count = getAllArticles().length;
+  const sources = countSources();
   const activeProjet = getActiveProjet();
   return (
     <footer style={{
@@ -118,7 +120,7 @@ export default function DashboardFooter() {
             fontSize: 11, color: 'var(--ink-ghost)',
             fontFamily: "'JetBrains Mono', monospace",
           }}>
-            {count} publications · 450+ sources
+            {count} publications · {sources} sources classées
           </div>
         </div>
       </div>

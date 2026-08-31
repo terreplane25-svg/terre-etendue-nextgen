@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-// NEXUS DATA — 52 articles, 116 liens
+// NEXUS DATA — 53 articles, 119 liens
 // Terre Étendue Islam — Graphe de connaissances
 //
 // Fichier généré. Ne pas éditer à la main :
@@ -97,6 +97,13 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "category": "library",
     "primaryDomain": "islam_sources",
     "topDomains": ["islam_sources", "cosmologie", "astronomie"]
+  },
+  {
+    "id": "financement-et-independance",
+    "title": "Financement et indépendance",
+    "category": "meta",
+    "primaryDomain": "epistemologie",
+    "topDomains": ["epistemologie", "histoire_sciences"]
   },
   {
     "id": "glossaire",
@@ -942,6 +949,13 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["epistemologie", "modelisation"]
   },
   {
+    "source": "financement-et-independance",
+    "target": "standards-et-methode",
+    "score": 250.0,
+    "strength": "strong",
+    "sharedDomains": ["epistemologie"]
+  },
+  {
     "source": "les-protocoles-ce-que-c-est-et-pourquoi",
     "target": "monter-l-experience-des-trois-mires",
     "score": 204.0,
@@ -1007,6 +1021,13 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   {
     "source": "participer-aux-campagnes-de-mesure",
     "target": "standards-et-methode",
+    "score": 150.0,
+    "strength": "medium",
+    "sharedDomains": ["epistemologie"]
+  },
+  {
+    "source": "financement-et-independance",
+    "target": "corrections",
     "score": 150.0,
     "strength": "medium",
     "sharedDomains": ["epistemologie"]
@@ -1206,6 +1227,13 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 114.6,
     "strength": "medium",
     "sharedDomains": ["islam_sources"]
+  },
+  {
+    "source": "financement-et-independance",
+    "target": "participer-aux-campagnes-de-mesure",
+    "score": 60.0,
+    "strength": "weak",
+    "sharedDomains": ["epistemologie"]
   },
   {
     "source": "cartes-routes-boussoles-et-le-mystere-antarctique",

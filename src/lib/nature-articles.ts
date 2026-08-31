@@ -417,6 +417,13 @@ const N: Record<string, Nature> = {
     repose: "Le relevé daté de nos propres erreurs et de ce qui a été changé.",
     netablit: "N'avance aucune thèse. Le registre est tenu à charge contre nous.",
   },
+  'financement-et-independance': {
+    genre: 'outil',
+    repose:
+      "Nos propres comptes : ce que le terrain coûte, ce qui a été reçu, ce qui a été dépensé.",
+    netablit:
+      "Ne prouve pas notre impartialité. Rend seulement vérifiable, chiffre par chiffre, l'absence d'un motif vénal — ce qui n'est pas la même chose.",
+  },
   'etat-des-lieux-ou-en-sommes-nous': {
     genre: 'outil',
     repose: "Un bilan interne de ce que le site a publié et de ce qui reste ouvert.",
