@@ -69,8 +69,6 @@ DOMAINES_AJOUTES = {
                                     ["epistemologie", "histoire_sciences"]),
     "ligo-londe-qui-nexistait-pas": ("physique",
                                      ["physique", "epistemologie", "astronomie"]),
-    "mesurer-le-diametre-du-soleil": ("astronomie",
-                                      ["astronomie", "optique", "geometrie", "modelisation"]),
 }
 SCORE_AJOUTE = {"strong": 250.0, "medium": 150.0, "weak": 60.0}
 

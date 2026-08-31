@@ -389,13 +389,6 @@ const N: Record<string, Nature> = {
     netablit:
       "Ne tranche aucun modèle. Établit les limites de l'instrument avec lequel toute observation à l'œil nu est faite.",
   },
-  'mesurer-le-diametre-du-soleil': {
-    genre: 'protocole',
-    repose:
-      "De la géométrie recalculée à l'exécution — θ = 2·arctan(R/s) avec s = h/sin(α) — et sur une mesure que nous n'avons pas encore faite.",
-    netablit:
-      "N'établit rien pour l'instant : aucune donnée n'a été acquise. Le document énonce deux prédictions incompatibles et les critères qui les départageront, avant la première photographie.",
-  },
   'monter-l-experience-des-trois-mires': {
     genre: 'protocole',
     repose:
