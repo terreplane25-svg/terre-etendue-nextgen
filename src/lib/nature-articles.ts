@@ -148,7 +148,7 @@ const N: Record<string, Nature> = {
   'les-trous-noirs-existent-ils': {
     genre: 'analyse',
     repose:
-      "La littérature de relativité générale, des alternatives publiées et évaluées par les pairs, et les objections méthodologiques portées aux données de LIGO — dont celle de Creswell et collaborateurs. Aucune observation de ce dossier n'est la nôtre, et aucune ne pourrait l'être : nous n'avons pas accès aux données de LIGO ni à celles de l'Event Horizon Telescope.",
+      "La littérature de relativité générale et deux alternatives publiées et évaluées par les pairs, celles de Logunov et de Greiner. Aucune observation de ce dossier n'est la nôtre, et aucune ne pourrait l'être : nous n'avons accès ni aux données de l'Event Horizon Telescope ni à celles de LIGO, dont les objections méthodologiques sont traitées dans un dossier séparé.",
     netablit:
       "Ne tranche pas l'existence des trous noirs, ni celle des ondes gravitationnelles. Recense ce que le modèle suppose, ce que les images montrent réellement, et quelles objections publiées restent sans réponse.",
   },
