@@ -38,6 +38,11 @@ const nextConfig = {
       { source: '/article/loeil-humain-la-machine-a-voir-qui-faconne-notre-realite', destination: '/article/loeil-humain-la-machine-a-voir', permanent: true },
       { source: '/article/chronologie-de-la-tromperie-du-globe', destination: '/article/chronologie-critique-du-modele-globe', permanent: true },
       { source: '/article/les-trous-noirs-nexistent-pas', destination: '/article/les-trous-noirs-existent-ils', permanent: true },
+      // La page des campagnes finançables est retirée : elle chiffrait chaque
+      // expérience et proposait des paliers de contreparties, ce que la page
+      // de soutien exclut désormais explicitement. Son adresse répondait
+      // encore, hors navigation ; elle mène là où la question est tranchée.
+      { source: '/projets', destination: '/article/financement-et-independance', permanent: true },
     ];
   },
 };

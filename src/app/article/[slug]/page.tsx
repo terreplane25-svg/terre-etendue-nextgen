@@ -1,9 +1,7 @@
 import { notFound } from "next/navigation";
 import { getArticle, getAllArticles } from "@/lib/articles";
 import { getArticleOgImage } from "@/lib/article-images";
-import { getActiveProjet } from "@/lib/projets";
 import ArticleReader from "@/components/ArticleReader";
-import ExperimentCTA from "@/components/ExperimentCTA";
 import RelatedArticles from "@/components/RelatedArticles";
 import ArticleNexusMini from "@/components/ArticleNexusMini";
 
@@ -97,24 +95,6 @@ export default async function ArticlePage({ params }: PageProps) {
       <div className="article-layout" style={{ display: 'grid', gridTemplateColumns: '1fr', maxWidth: 1400, margin: '0 auto', gap: 32, padding: '0 24px' }}>
         <div>
           <ArticleReader article={article} />
-          {/* ExperimentCTA — réactivé quand /projets sera prêt
-          {(() => {
-            const projet = getActiveProjet();
-            if (!projet) return null;
-            return (
-              <div className="max-w-[960px] mx-auto px-6">
-                <ExperimentCTA
-                  titre={projet.titre}
-                  objectif={projet.objectif}
-                  collecte={projet.collecte}
-                  donateurs={projet.donateurs}
-                  id={projet.id}
-                  variant="article"
-                />
-              </div>
-            );
-          })()}
-          */}
           <div className="max-w-[960px] mx-auto px-6">
             <RelatedArticles
               currentSlug={slug}
