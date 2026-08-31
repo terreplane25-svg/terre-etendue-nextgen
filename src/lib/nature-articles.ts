@@ -257,7 +257,7 @@ const N: Record<string, Nature> = {
     repose:
       "Des manuels de construction aéronautique, des documents déclassifiés et les définitions officielles des instruments de bord. Aucun vol n'a été instrumenté par nous.",
     netablit:
-      "N'établit pas que la trajectoire d'un avion est rectiligne. Montre ce que chaque instrument mesure réellement, et ce qu'il ne mesure pas.",
+      "N'établit pas que la trajectoire d'un avion est rectiligne, et ne peut pas l'établir : l'horizon artificiel est asservi à la verticale locale et l'accélération en jeu est sous le bruit des enregistreurs. Montre ce que chaque instrument mesure réellement, et ce qu'il ne peut pas mesurer.",
   },
 
   // ══ BIBLIOTHÈQUE ══════════════════════════════════════════════════════════
