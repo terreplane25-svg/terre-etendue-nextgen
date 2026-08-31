@@ -152,6 +152,13 @@ const N: Record<string, Nature> = {
     netablit:
       "Ne tranche pas l'existence des trous noirs, ni celle des ondes gravitationnelles. Recense ce que le modèle suppose, ce que les images montrent réellement, et quelles objections publiées restent sans réponse.",
   },
+  'ligo-londe-qui-nexistait-pas': {
+    genre: 'analyse',
+    repose:
+      "Des objections méthodologiques publiées, dont l'analyse de Creswell et collaborateurs. Nous n'avons pas accès aux données de LIGO et ne les avons pas traitées.",
+    netablit:
+      "N'établit pas que les ondes gravitationnelles n'existent pas, ni que la détection de 2015 est fausse. Recense des objections publiées et l'état de leur réponse.",
+  },
   'lire-le-ciel-avant-le-globe': {
     genre: 'analyse',
     repose:

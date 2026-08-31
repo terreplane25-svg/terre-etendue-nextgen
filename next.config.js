@@ -27,7 +27,6 @@ const nextConfig = {
       { source: '/article/experiences-sous-pression-reduite', destination: '/article/la-pression-atmospherique-un-ocean-d-air-invisible', permanent: true },
       { source: '/article/lhypothese-nulle-dynamique-et-cinematique', destination: '/article/la-gravite-70-theories-et-aucune-preuve', permanent: true },
       { source: '/article/kings-dethroned-leffondrement-de-la-triangulation-stellaire', destination: '/article/les-distances-cosmiques-au-dela-de-la-regle', permanent: true },
-      { source: '/article/ligo-londe-qui-nexistait-pas', destination: '/article/les-trous-noirs-existent-ils', permanent: true },
       // Adresses alignées sur les titres : l'adresse est ce qui s'affiche
       // quand un article est partagé, et elle disait encore ce que le titre
       // avait cessé de dire.

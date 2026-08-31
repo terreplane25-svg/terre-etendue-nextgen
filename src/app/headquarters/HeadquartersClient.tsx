@@ -14,6 +14,7 @@ const SECTIONS = [
     'le-concordisme',
     'les-distances-cosmiques-au-dela-de-la-regle',
     'les-trous-noirs-existent-ils',
+    'ligo-londe-qui-nexistait-pas',
   ]},
   { id: 'zetetique', label: 'Méthode zététique', icon: '🔬', slugs: [
     'lexperience-contre-la-theorie-1849-2000',

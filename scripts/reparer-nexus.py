@@ -47,12 +47,20 @@ LIENS_AJOUTES = [
      "medium", ["epistemologie"]),
     ("financement-et-independance", "participer-aux-campagnes-de-mesure",
      "weak", ["epistemologie"]),
+    # LIGO ressort du dossier des trous noirs : le lien qui les unissait
+    # redevient un lien entre deux articles au lieu d'une section imbriquée.
+    ("ligo-londe-qui-nexistait-pas", "les-trous-noirs-existent-ils",
+     "strong", ["physique", "astronomie", "epistemologie"]),
+    ("ligo-londe-qui-nexistait-pas", "la-gravite-70-theories-et-aucune-preuve",
+     "medium", ["gravite", "physique"]),
 ]
 DOMAINES_AJOUTES = {
     "participer-aux-campagnes-de-mesure": ("epistemologie",
                                            ["epistemologie", "modelisation", "physique"]),
     "financement-et-independance": ("epistemologie",
                                     ["epistemologie", "histoire_sciences"]),
+    "ligo-londe-qui-nexistait-pas": ("physique",
+                                     ["physique", "epistemologie", "astronomie"]),
 }
 SCORE_AJOUTE = {"strong": 250.0, "medium": 150.0, "weak": 60.0}
 

@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-// NEXUS DATA — 53 articles, 119 liens
+// NEXUS DATA — 54 articles, 121 liens
 // Terre Étendue Islam — Graphe de connaissances
 //
 // Fichier généré. Ne pas éditer à la main :
@@ -286,6 +286,13 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "category": "headquarters",
     "primaryDomain": "cosmologie",
     "topDomains": ["cosmologie", "epistemologie", "physique"]
+  },
+  {
+    "id": "ligo-londe-qui-nexistait-pas",
+    "title": "LIGO : l'onde qui n'existait pas",
+    "category": "headquarters",
+    "primaryDomain": "physique",
+    "topDomains": ["physique", "epistemologie", "astronomie"]
   },
   {
     "id": "lire-le-ciel-avant-le-globe",
@@ -956,6 +963,13 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["epistemologie"]
   },
   {
+    "source": "ligo-londe-qui-nexistait-pas",
+    "target": "les-trous-noirs-existent-ils",
+    "score": 250.0,
+    "strength": "strong",
+    "sharedDomains": ["physique", "astronomie", "epistemologie"]
+  },
+  {
     "source": "les-protocoles-ce-que-c-est-et-pourquoi",
     "target": "monter-l-experience-des-trois-mires",
     "score": 204.0,
@@ -1031,6 +1045,13 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 150.0,
     "strength": "medium",
     "sharedDomains": ["epistemologie"]
+  },
+  {
+    "source": "ligo-londe-qui-nexistait-pas",
+    "target": "la-gravite-70-theories-et-aucune-preuve",
+    "score": 150.0,
+    "strength": "medium",
+    "sharedDomains": ["gravite", "physique"]
   },
   {
     "source": "la-rotation-terrestre-experiences-preuves-verdict",

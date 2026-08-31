@@ -64,6 +64,9 @@ const IMG: Record<string, string> = {
   "lire-le-ciel-avant-le-globe": `${HOSTINGER}/2026/05/observatoire-scaled.jpeg`,
   "les-distances-cosmiques-au-dela-de-la-regle": `${HOSTINGER}/2026/04/mesure-soleil.jpg`,
   "les-trous-noirs-existent-ils": `${HOSTINGER}/2026/06/Black_Holes_-_Monsters_in_Space-scaled.jpg`,
+  // TODO couverture dédiée 1200×630 : un bras d'interféromètre, ou un
+  // interférogramme. L'image actuelle est un ciel générique.
+  "ligo-londe-qui-nexistait-pas": `${UNSPLASH}/photo-1462332420958-a05d1e002413?w=600&h=400&fit=crop`,
   "neptune-et-pluton-les-faux-triomphes": `${HOSTINGER}/2026/04/pluto_neptune.jpeg`,
   "pourquoi-tout-remettre-en-question": `${HOSTINGER}/2026/04/interrogation.avif`,
   "par-rapport-a-quoi-mesure-t-on-une-altitude": `${HOSTINGER}/2026/08/teodolite2-e1785710240343.png`,
