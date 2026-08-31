@@ -179,7 +179,7 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
   deux mod&#232;les : 66 %. Pr&#233;cision requise : 1 %.</p>
   <div class="byline">
     <span>R&#233;dacteur<b>&nbsp;</b></span><span>Affiliation<b>&nbsp;</b></span>
-    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.4</b></span><span>Date<b>&nbsp;</b></span>
+    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.5</b></span><span>Date<b>&nbsp;</b></span>
   </div>
 </div>
 
@@ -198,8 +198,8 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
   l'incertitude de la plupart des observations &#224; longue port&#233;e.</p>
   <p>Budget d'erreur estim&#233; &#224; <strong>0,51 % (1 &#963;)</strong> pour une acquisition &#224; 400 mm
   sur capteur plein format. Signal pr&#233;dit &#224; 20&#176; de hauteur : 66 %.
-  <strong>Rapport signal sur bruit &#8776; 130.</strong> Deux contr&#244;les positifs sur la Lune
-  valident la cha&#238;ne de mesure &#224; 14 % puis &#224; 1,7 %, avant toute conclusion sur le Soleil.</p>
+  <strong>Rapport signal sur bruit &#8776; 130.</strong> Deux contr&#244;les positifs sur la Lune qualifient la cha&#238;ne de mesure avant toute
+  conclusion sur le Soleil. Aucun des deux ne porte sur une valeur pr&#233;-annonc&#233;e&#160;: le premier v&#233;rifie une <em>loi</em>, le second un signal dont la valeur d&#233;pend de la latitude de l'observateur.</p>
 </div>
 
 <h2><span class="n">01</span>L'observable et sa pr&#233;diction</h2>
@@ -394,7 +394,7 @@ document ne le pr&#233;tend nulle part.</p>
 <h2><span class="n">03</span>Pourquoi le diam&#232;tre horizontal, et pas vertical</h2>
 <p>La r&#233;fraction atmosph&#233;rique croissant vers le bas, le bord inf&#233;rieur du disque est relev&#233;
 davantage que le bord sup&#233;rieur : le Soleil est <strong>aplati verticalement</strong> pr&#232;s de
-l'horizon, jusqu'&#224; 17 % &#224; hauteur nulle. Cet effet est r&#233;el, bien document&#233;, et il
+l'horizon. Calcul&#233; par la formule de Bennett (1982), l'aplatissement atteint 19&#160;% au moment o&#249; le limbe inf&#233;rieur touche l'horizon, 17&#160;% lorsque le centre du disque est &#224; un demi-degr&#233;, et 13&#160;% &#224; un degr&#233;&#160;: ce qui aplatit le disque n'est pas la r&#233;fraction elle-m&#234;me mais son <em>gradient</em>, maximal juste au-dessus de l'horizon. Un autre mod&#232;le de r&#233;fraction donnerait des valeurs voisines&#160;; c'est pourquoi celui qu'on emploie est nomm&#233;. Cet effet est r&#233;el, bien document&#233;, et il
 contaminerait toute mesure verticale.</p>
 <p>Il n'a en revanche <strong>aucun effet lat&#233;ral</strong> : &#224; azimut donn&#233;, la r&#233;fraction est
 la m&#234;me des deux c&#244;t&#233;s du disque et le d&#233;place en bloc. Le diam&#232;tre horizontal est donc
@@ -555,13 +555,14 @@ distance g&#233;ocentrique change r&#233;ellement. C'est un syst&#233;matique du
 <h2><span class="n">06</span>Proc&#233;dure</h2>
 <ol class="st">
   <li><b>Qualifier la cha&#238;ne</b>Ex&#233;cuter les contr&#244;les A et B de la section 04. Ne pas
-  passer au Soleil tant que les 14 % et les 1,7 % ne sont pas retrouv&#233;s.</li>
+  passer au Soleil tant que le contr&#244;le A n'a pas donn&#233; une pente de 1,000 pour &#952; contre 1/d, et que le contr&#244;le B n'a pas retrouv&#233; le signal pr&#233;dit <em>&#224; la latitude de la station</em> (tableau&#160;2). Aucune valeur n'est &#224; retrouver&#160;: un mois lunaire d&#233;favorable donne 9,5&#160;% l&#224; o&#249; un mois favorable en donne 12,0, et les deux sont corrects.</li>
   <li><b>Choisir une journ&#233;e stable</b>Ciel clair, air calme. Noter temp&#233;rature, pression,
   humidit&#233; au d&#233;but et &#224; la fin.</li>
   <li><b>Acqu&#233;rir six s&#233;ries</b>Aux hauteurs approximatives 75&#176;, 60&#176;, 45&#176;, 30&#176;, 20&#176; et 15&#176;.
   Vingt clich&#233;s par s&#233;rie, &#224; empiler pour moyenner la turbulence.</li>
   <li><b>Relever la hauteur</b>&#192; chaque s&#233;rie, noter l'heure UTC &#224; la seconde. La hauteur
-  vraie du Soleil s'en d&#233;duit par &#233;ph&#233;m&#233;ride, sans instrument suppl&#233;mentaire.</li>
+  du Soleil s'en d&#233;duit par &#233;ph&#233;m&#233;ride, sans instrument suppl&#233;mentaire. <strong>Employer la hauteur apparente, r&#233;fract&#233;e</strong>, et non la hauteur vraie&#160;: l'observable est la direction dans laquelle le disque est vu. L'&#233;cart n'est pas n&#233;gligeable devant le budget d'erreur &#8212; il vaut 0,40&#160;% sur sin&#160;&#945; &#224; 15&#176; de hauteur, 0,22&#160;% &#224; 20&#176;, 0,09&#160;% &#224; 30&#176; &#8212; et les deux mod&#232;les doivent &#234;tre compar&#233;s sur la <em>m&#234;me</em> hauteur, faute de quoi on compare deux grandeurs diff&#233;rentes.</li>
+  <li><b>Relever l'&#233;chelle par la d&#233;rive</b>Appareil fixe, sans suivi&#160;: le disque d&#233;file &#224; 15,041&#8243;/s &#215; cos&#160;&#948;, soit 4,9 pixels par seconde &#224; 400&#160;mm sur plein format. Une rafale de dix secondes &#224; chaque s&#233;rie donne l'&#233;chelle angulaire du moment <strong>sans conna&#238;tre la focale</strong>. C'est le seul contr&#244;le qui d&#233;tecte une bague qui a gliss&#233; ou un objectif qui respire &#224; la mise au point.</li>
   <li><b>Ne rien changer</b>Focale, mise au point et filtre restent identiques d'un bout &#224;
   l'autre. L'exposition peut varier &#8212; le crit&#232;re de r&#233;duction la neutralise.</li>
   <li><b>R&#233;duire au crit&#232;re des 50 %</b>Mesurer la largeur du disque &#224; mi-hauteur du profil
@@ -577,16 +578,41 @@ horizontal, et prendre le bord l&#224; o&#249; l'intensit&#233; vaut la moiti&#2
 plateau du disque. Ce crit&#232;re est <strong>invariant par changement d'exposition</strong> et
 robuste &#224; un flou sym&#233;trique.</p>
 
+<h3>Variante &#224; deux stations &#8212; ce qu'elle ferme</h3>
+<p>La section 02 laisse hors d'atteinte les mod&#232;les dans lesquels le disque visible n'est
+pas l'astre lui-m&#234;me&#160;: projection, image form&#233;e par une couche atmosph&#233;rique,
+ph&#233;nom&#232;ne optique propre &#224; chaque observateur. C'est vrai <em>d'un observateur
+isol&#233;</em>. Deux observateurs simultan&#233;s referment cette sortie.</p>
+<p>Deux stations photographient <strong>au m&#234;me instant</strong>, &#224; des hauteurs
+solaires diff&#233;rentes &#8212; une station o&#249; le Soleil est haut, une o&#249; il est bas.
+La tol&#233;rance de simultan&#233;it&#233; est large&#160;: le Soleil ne se d&#233;place que de
+0,25&#176; par minute, une minute suffit donc largement.</p>
+<table>
+  <caption>Tableau 4 &#8212; Ce que chaque hypoth&#232;se pr&#233;dit pour deux stations
+  simultan&#233;es, l'une voyant le Soleil &#224; 60&#176;, l'autre &#224; 20&#176;.</caption>
+  <thead><tr><th>hypoth&#232;se</th><th>station &#224; 60&#176;</th><th>station &#224; 20&#176;</th><th>rapport</th></tr></thead>
+  <tbody>
+    <tr><td>source lointaine</td><td class="n">31,5&#8242;</td><td class="n">31,5&#8242;</td><td class="n">1,000</td></tr>
+    <tr><td>source locale, hauteur finie</td><td class="n">27,3&#8242;</td><td class="n">10,8&#8242;</td><td class="n">0,395</td></tr>
+    <tr><td>projection propre &#224; l'observateur</td><td class="n">?</td><td class="n">?</td><td class="n">&#224; &#233;noncer</td></tr>
+  </tbody>
+</table>
+<p>Le point n'est pas de pi&#233;ger qui que ce soit. C'est qu'une projection qui ne dit pas ce
+qu'elle pr&#233;dit ici <strong>ne pr&#233;dit rien du tout</strong>, et cesse par l&#224;
+d'&#234;tre une hypoth&#232;se testable. Le dispositif ne co&#251;te qu'un second participant, et
+il s'ex&#233;cute avec le m&#234;me mat&#233;riel et la m&#234;me r&#233;duction.</p>
+
+
 <h2 class="brk"><span class="n">07</span>Budget d'erreur et crit&#232;res de d&#233;cision</h2>
 <table>
-  <caption>Tableau 4 &#8212; Budget d'erreur &#224; 400 mm sur capteur plein format &#233;chantillonn&#233; &#224;
+  <caption>Tableau 5 &#8212; Budget d'erreur &#224; 400 mm sur capteur plein format &#233;chantillonn&#233; &#224;
   4 000 pixels. Le Soleil y couvre 611 pixels.</caption>
   <thead><tr><th>SOURCE</th><th class="n">contribution</th><th>TRAITEMENT</th></tr></thead>
   <tbody>
     <tr><td>Point&#233; du limbe (&#177;2 px, crit&#232;re 50 %)</td><td class="n">0,33 %</td><td>profil moyenn&#233; sur plusieurs lignes</td></tr>
     <tr><td>Turbulence r&#233;siduelle apr&#232;s empilement</td><td class="n">0,25 %</td><td>20 clich&#233;s par s&#233;rie</td></tr>
     <tr><td>Distorsion optique au centre du champ</td><td class="n">0,13 %</td><td>disque centr&#233; dans le cadre</td></tr>
-    <tr><td>Stabilit&#233; de la focale</td><td class="n">0,08 %</td><td>bague immobilis&#233;e</td></tr>
+    <tr><td>Stabilit&#233; de la focale</td><td class="n">0,08 %</td><td>mesur&#233;e par la d&#233;rive, non suppos&#233;e</td></tr>
     <tr><td>Total INSTRUMENTAL</td><td class="n">0,44 %</td><td>sous-total</td></tr>
     <tr class="pl"><td>Assombrissement centre-bord et rougissement du limbe</td><td class="n">0,20 %</td><td><strong>ajouté en 1.3</strong> &#8212; systématique, corrélé à la hauteur</td></tr>
     <tr class="pl"><td>Résidu d'éphéméride si la campagne s'étale</td><td class="n">0,15 %</td><td><strong>ajouté en 1.3</strong> &#8212; 0,019 % par jour</td></tr>
@@ -631,7 +657,9 @@ robuste &#224; un flou sym&#233;trique.</p>
   <li><strong>&#171; L'atmosph&#232;re grossit le Soleil bas. &#187;</strong> Il faudrait un grossissement lat&#233;ral de &#215;2,9 &#224; 20&#176; de hauteur.
   Un tel effet n'a jamais &#233;t&#233; mesur&#233;, et le contr&#244;le B le testerait directement : il devrait
   gonfler la Lune basse dans les m&#234;mes proportions, alors que la mesure la trouve
-  <em>plus petite</em> de 1,7 %.</li>
+  <em>plus petite</em> &#8212; de 1,42&#160;% &#224; la latitude de Paris, et de 1,20 &#224; 1,52&#160;% selon la latitude (tableau&#160;2).</li>
+  <li><strong>&#171; Des vid&#233;os montrent le Soleil changer de taille, filtre compris. &#187;</strong> C'est la seule observation en circulation qui contredirait la source lointaine, et il faut la nommer plut&#244;t que l'ignorer. Ces enregistrements n'indiquent ni la focale employ&#233;e, ni l'exposition, ni si le disque &#233;tait satur&#233; &#8212; et un disque satur&#233; s'&#233;largit. Ce sont pr&#233;cis&#233;ment les trois grandeurs que ce protocole verrouille. <strong>Si l'effet est r&#233;el, ce protocole le trouve, et massivement&#160;:</strong> le signal pr&#233;dit &#224; 20&#176; vaut 66&#160;% pour un budget de 0,51.</li>
+  <li><strong>&#171; La diffusion pr&#232;s de l'horizon gonfle le disque. &#187;</strong> L'aur&#233;ole de diffusion peut &#233;largir le limbe et fausser le crit&#232;re des 50&#160;% si le fond de ciel cesse d'&#234;tre s&#233;parable du disque. C'est une objection juste, et elle se traite par un crit&#232;re de rejet&#160;: &#233;carter toute s&#233;rie dont le fond de ciel, mesur&#233; &#224; un rayon du bord, d&#233;passe le cinqui&#232;me du plateau. Une s&#233;rie rejet&#233;e est consign&#233;e comme telle, jamais supprim&#233;e.</li>
   <li><strong>&#171; L'illusion lunaire prouve que l'&#339;il se trompe. &#187;</strong> Elle le prouve, et
   c'est pr&#233;cis&#233;ment pourquoi ce protocole photographie au lieu de regarder. Le capteur ne
   partage pas l'illusion.</li>
@@ -673,7 +701,7 @@ imposent. Les remarques m&#233;thodologiques sont sollicit&#233;es avant le lanc
   <p>Valeurs de r&#233;f&#233;rence : distance Terre-Soleil 149,6&#215;10<sup>6</sup> km, diam&#232;tre apparent
   moyen 31,5&#8242; ; distance Terre-Lune 384 400 km, p&#233;rig&#233;e 356 500 km, apog&#233;e 406 700 km ;
   rayon terrestre 6 371 km. Le document est reproductible &#224; partir de ces seules valeurs et
-  de la relation d = H/sin&#945;. &#8212; Protocole ouvert, version 1.4.</p>
+  de la relation d = H/sin&#945;. &#8212; Protocole ouvert, version 1.5.</p>
 </footer>
 </div>
 
@@ -687,7 +715,7 @@ imposent. Les remarques m&#233;thodologiques sont sollicit&#233;es avant le lanc
   models: 66 per cent. Required precision: 1 per cent.</p>
   <div class="byline">
     <span>Author<b>&nbsp;</b></span><span>Affiliation<b>&nbsp;</b></span>
-    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.4</b></span><span>Date<b>&nbsp;</b></span>
+    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.5</b></span><span>Date<b>&nbsp;</b></span>
   </div>
 </div>
 
@@ -706,9 +734,9 @@ imposent. Les remarques m&#233;thodologiques sont sollicit&#233;es avant le lanc
   long-range observations.</p>
   <p>Error budget estimated at <strong>0.51 per cent (1 &#963;)</strong> for an acquisition at
   400 mm on a full-frame sensor. Predicted signal at 20&#176; elevation: 66 per cent.
-  <strong>Signal-to-noise ratio &#8776; 130.</strong> Two positive controls on the Moon validate the
-  measurement chain at 14 per cent and then at 1.7 per cent, before any conclusion about the
-  Sun.</p>
+  <strong>Signal-to-noise ratio &#8776; 130.</strong> Two positive controls on the Moon qualify the measurement chain before any conclusion
+  about the Sun. Neither turns on a pre-announced figure: the first verifies a <em>law</em>,
+  the second a signal whose value depends on the observer's latitude.</p>
 </div>
 
 <h2><span class="n">01</span>The observable and its prediction</h2>
@@ -902,8 +930,7 @@ that it does.</p>
 
 <h2><span class="n">03</span>Why the horizontal diameter, not the vertical</h2>
 <p>Because refraction increases downward, the lower limb is lifted more than the upper: the
-Sun is <strong>vertically flattened</strong> near the horizon, by up to 17 per cent at zero
-elevation. The effect is real, well documented, and would contaminate any vertical
+Sun is <strong>vertically flattened</strong> near the horizon. Computed with Bennett's formula (1982), the flattening reaches 19 per cent at the moment the lower limb touches the horizon, 17 per cent when the disk centre is at half a degree, and 13 per cent at one degree: what flattens the disk is not refraction itself but its <em>gradient</em>, greatest just above the horizon. Another refraction model would give neighbouring values; this is why the one used is named. The effect is real, well documented, and would contaminate any vertical
 measurement.</p>
 <p>It has, by contrast, <strong>no lateral effect</strong>: at a given azimuth, refraction is
 identical on both sides of the disk and displaces it as a block. The horizontal diameter is
@@ -1050,13 +1077,17 @@ distance genuinely changes. This is a systematic of the same order as the signal
 <h2><span class="n">06</span>Procedure</h2>
 <ol class="st">
   <li><b>Qualify the chain</b>Run controls A and B of section 04. Do not proceed to the Sun
-  until the 14 per cent and the 1.7 per cent have been recovered.</li>
+  until control A has yielded a slope of 1.000 for &#952; against 1/d, and control B has
+  recovered the predicted signal <em>at the station's latitude</em> (table&#160;2). No figure
+  is to be matched: an unfavourable lunar month gives 9.5 per cent where a favourable one
+  gives 12.0, and both are correct.</li>
   <li><b>Choose a stable day</b>Clear sky, calm air. Record temperature, pressure and humidity
   at the start and end.</li>
   <li><b>Acquire six series</b>At approximate altitudes 75&#176;, 60&#176;, 45&#176;, 30&#176;, 20&#176; and 15&#176;.
   Twenty frames per series, to be stacked so as to average out turbulence.</li>
-  <li><b>Record the altitude</b>For each series, note UTC time to the second. The Sun's true
-  altitude then follows from ephemeris, with no additional instrument.</li>
+  <li><b>Record the altitude</b>For each series, note UTC time to the second. The Sun's
+  altitude then follows from ephemeris, with no additional instrument. <strong>Use the apparent, refracted altitude</strong>, not the true one: the observable is the direction in which the disk is seen. The difference is not negligible against the error budget &#8212; it amounts to 0.40 per cent on sin&#160;&#945; at 15&#176;, 0.22 per cent at 20&#176;, 0.09 per cent at 30&#176; &#8212; and both models must be compared at the <em>same</em> altitude, failing which one compares two different quantities.</li>
+  <li><b>Record the plate scale by drift</b>Camera fixed, no tracking: the disk drifts at 15.041&#8243;/s &#215; cos&#160;&#948;, that is 4.9 pixels per second at 400&#160;mm on full frame. A ten-second burst at each series gives the angular scale of the moment <strong>without knowing the focal length</strong>. It is the only check that catches a ring that has slipped or a lens that breathes on focus.</li>
   <li><b>Change nothing</b>Focal length, focus and filter stay identical throughout. Exposure
   may vary &#8212; the reduction criterion neutralises it.</li>
   <li><b>Reduce with the 50 % criterion</b>Measure the disk width at half-height of the limb
@@ -1072,9 +1103,32 @@ diameter and take the edge where intensity is halfway between sky background and
 This criterion is <strong>invariant under exposure change</strong> and robust to symmetric
 blur.</p>
 
+<h3>Two-station variant &#8212; what it closes</h3>
+<p>Section 02 leaves out of reach those models in which the visible disk is not the body itself:
+projection, an image formed by an atmospheric layer, an optical phenomenon proper to each
+observer. That is true <em>of a lone observer</em>. Two simultaneous observers close that exit.</p>
+<p>Two stations photograph <strong>at the same instant</strong>, at different solar altitudes
+&#8212; one station with the Sun high, one with it low. The simultaneity tolerance is generous:
+the Sun moves only 0.25&#176; per minute, so one minute is ample.</p>
+<table>
+  <caption>Table 4 &#8212; What each hypothesis predicts for two simultaneous stations, one
+  seeing the Sun at 60&#176;, the other at 20&#176;.</caption>
+  <thead><tr><th>hypothesis</th><th>station at 60&#176;</th><th>station at 20&#176;</th><th>ratio</th></tr></thead>
+  <tbody>
+    <tr><td>distant source</td><td class="n">31.5&#8242;</td><td class="n">31.5&#8242;</td><td class="n">1.000</td></tr>
+    <tr><td>local source, finite height</td><td class="n">27.3&#8242;</td><td class="n">10.8&#8242;</td><td class="n">0.395</td></tr>
+    <tr><td>projection proper to the observer</td><td class="n">?</td><td class="n">?</td><td class="n">to be stated</td></tr>
+  </tbody>
+</table>
+<p>The point is not to trap anyone. It is that a projection which does not say what it predicts
+here <strong>predicts nothing at all</strong>, and thereby ceases to be a testable hypothesis. The
+arrangement costs only a second participant, and runs with the same equipment and the same
+reduction.</p>
+
+
 <h2 class="brk"><span class="n">07</span>Error budget and decision criteria</h2>
 <table>
-  <caption>Table 4 &#8212; Error budget at 400 mm on a full-frame sensor sampled at 4 000 pixels.
+  <caption>Table 5 &#8212; Error budget at 400 mm on a full-frame sensor sampled at 4 000 pixels.
   The Sun spans 611 pixels.</caption>
   <thead><tr><th>SOURCE</th><th class="n">contribution</th><th>TREATMENT</th></tr></thead>
   <tbody>
@@ -1126,7 +1180,10 @@ blur.</p>
   <li><strong>&#8220;The atmosphere magnifies the low Sun.&#8221;</strong> That would require lateral
   magnification of &#215;2.9 at 20&#176; elevation. No such effect has ever been measured, and control B
   tests it directly: it should inflate the low Moon in the same proportion, whereas measurement
-  finds it <em>smaller</em> by 1.7 per cent.</li>
+  finds it <em>smaller</em> &#8212; by 1.42 per cent at the latitude of Paris, and by 1.20 to
+  1.52 per cent depending on latitude (table&#160;2).</li>
+  <li><strong>&#8220;Videos show the Sun changing size, solar filter included.&#8221;</strong> This is the only observation in circulation that would contradict the distant source, and it must be named rather than ignored. Those recordings state neither the focal length used, nor the exposure, nor whether the disk was saturated &#8212; and a saturated disk grows. These are precisely the three quantities this protocol locks down. <strong>If the effect is real, this protocol finds it, and massively:</strong> the predicted signal at 20&#176; is 66 per cent against a budget of 0.51.</li>
+  <li><strong>&#8220;Scattering near the horizon inflates the disk.&#8221;</strong> The scattering aureole can broaden the limb and corrupt the 50 per cent criterion if the sky background ceases to be separable from the disk. The objection is sound, and it is handled by a rejection criterion: discard any series whose sky background, measured one radius from the edge, exceeds one fifth of the plateau. A rejected series is recorded as such, never deleted.</li>
   <li><strong>&#8220;The Moon illusion proves the eye is fooled.&#8221;</strong> It does, which is
   precisely why this protocol photographs rather than looks. The sensor does not share the
   illusion.</li>
@@ -1167,6 +1224,6 @@ are invited before the campaign begins.</p>
   <p>Reference values: Earth-Sun distance 149.6&#215;10<sup>6</sup> km, mean apparent diameter
   31.5&#8242;; Earth-Moon distance 384 400 km, perigee 356 500 km, apogee 406 700 km; Earth radius
   6 371 km. The document is reproducible from these values and the relation d = H/sin&#945; alone.
-  &#8212; Open protocol, version 1.4.</p>
+  &#8212; Open protocol, version 1.5.</p>
 </footer>
 </div>
