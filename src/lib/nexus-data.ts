@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-// NEXUS DATA — 54 articles, 121 liens
+// NEXUS DATA — 55 articles, 125 liens
 // Terre Étendue Islam — Graphe de connaissances
 //
 // Fichier généré. Ne pas éditer à la main :
@@ -48,6 +48,13 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "category": "observatory",
     "primaryDomain": "geometrie",
     "topDomains": ["geometrie", "astronomie", "modelisation"]
+  },
+  {
+    "id": "airy-1859-la-projection-des-etoiles",
+    "title": "Airy 1859 : une anomalie cataloguée, une hypothèse réfutée par son auteur, et un aveu",
+    "category": "headquarters",
+    "primaryDomain": "astronomie",
+    "topDomains": ["astronomie", "optique", "histoire_sciences", "epistemologie"]
   },
   {
     "id": "cartes-routes-boussoles-et-le-mystere-antarctique",
@@ -970,6 +977,20 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["physique", "astronomie", "epistemologie"]
   },
   {
+    "source": "airy-1859-la-projection-des-etoiles",
+    "target": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
+    "score": 250.0,
+    "strength": "strong",
+    "sharedDomains": ["astronomie", "optique"]
+  },
+  {
+    "source": "airy-1859-la-projection-des-etoiles",
+    "target": "loeil-humain-la-machine-a-voir",
+    "score": 250.0,
+    "strength": "strong",
+    "sharedDomains": ["optique"]
+  },
+  {
     "source": "les-protocoles-ce-que-c-est-et-pourquoi",
     "target": "monter-l-experience-des-trois-mires",
     "score": 204.0,
@@ -1052,6 +1073,20 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 150.0,
     "strength": "medium",
     "sharedDomains": ["gravite", "physique"]
+  },
+  {
+    "source": "airy-1859-la-projection-des-etoiles",
+    "target": "lenigme-de-la-terre-immobile",
+    "score": 150.0,
+    "strength": "medium",
+    "sharedDomains": ["astronomie", "histoire_sciences"]
+  },
+  {
+    "source": "airy-1859-la-projection-des-etoiles",
+    "target": "standards-et-methode",
+    "score": 150.0,
+    "strength": "medium",
+    "sharedDomains": ["epistemologie"]
   },
   {
     "source": "la-rotation-terrestre-experiences-preuves-verdict",

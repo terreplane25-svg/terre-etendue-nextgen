@@ -52,6 +52,8 @@ const IMG: Record<string, string> = {
   "ou-est-allah-le-uluww-et-la-forme-du-monde": `${HOSTINGER}/2026/07/lune_soleil_etoile.png`,
 
   // ── Headquarters ──
+  // TODO couverture dédiée 1200×630 : une occultation lunaire, limbe et étoile.
+  "airy-1859-la-projection-des-etoiles": `${UNSPLASH}/photo-1522030299830-16b8d3d049fe?w=600&h=400&fit=crop`,
   "la-gravite-70-theories-et-aucune-preuve": `${HOSTINGER}/2026/07/gravity_theorie.png`,
   "lenigme-de-la-terre-immobile": `${HOSTINGER}/2025/10/Solar_sys.jpg`,
   "chronologie-critique-du-modele-globe": `${HOSTINGER}/2026/07/chronologie_de_tro-e1784751688322.png`,

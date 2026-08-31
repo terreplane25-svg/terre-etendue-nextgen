@@ -82,6 +82,13 @@ const N: Record<string, Nature> = {
     netablit:
       "N'établit pas que la Terre est immobile. Retrace une suite de résultats nuls et les hypothèses successivement introduites pour les concilier avec le mouvement.",
   },
+  'airy-1859-la-projection-des-etoiles': {
+    genre: 'analyse',
+    repose:
+      "Un seul document primaire, lu en entier au scan : le mémoire de G. B. Airy aux Memoirs of the Royal Astronomical Society, 1859. Les 233 observations qu'il catalogue sont rapportées par lui ; nous n'en avons consulté aucune dans son édition d'origine.",
+    netablit:
+      "N'établit rien sur la forme de la Terre, la distance du Soleil ou la nature de la lumière, et ne soutient aucun modèle cosmologique. Rapporte une anomalie observée pendant 159 ans, restée sans explication, et nomme la mesure qui la trancherait.",
+  },
   'chronologie-critique-du-modele-globe': {
     genre: 'analyse',
     repose:

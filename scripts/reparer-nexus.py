@@ -53,14 +53,16 @@ LIENS_AJOUTES = [
      "strong", ["physique", "astronomie", "epistemologie"]),
     ("ligo-londe-qui-nexistait-pas", "la-gravite-70-theories-et-aucune-preuve",
      "medium", ["gravite", "physique"]),
-    ("mesurer-le-diametre-du-soleil", "les-protocoles-ce-que-c-est-et-pourquoi",
-     "strong", ["epistemologie", "modelisation"]),
-    ("mesurer-le-diametre-du-soleil", "la-perspective-pourquoi-les-objets-disparaissent",
-     "strong", ["optique", "geometrie"]),
-    ("mesurer-le-diametre-du-soleil", "participer-aux-campagnes-de-mesure",
+    # Airy 1859 : une observation d'occultation lunaire, sa classification des
+    # témoignages, et ce qu'elle ne tranche pas.
+    ("airy-1859-la-projection-des-etoiles", "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
+     "strong", ["astronomie", "optique"]),
+    ("airy-1859-la-projection-des-etoiles", "loeil-humain-la-machine-a-voir",
+     "strong", ["optique"]),
+    ("airy-1859-la-projection-des-etoiles", "lenigme-de-la-terre-immobile",
+     "medium", ["astronomie", "histoire_sciences"]),
+    ("airy-1859-la-projection-des-etoiles", "standards-et-methode",
      "medium", ["epistemologie"]),
-    ("mesurer-le-diametre-du-soleil", "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
-     "medium", ["astronomie", "optique"]),
 ]
 DOMAINES_AJOUTES = {
     "participer-aux-campagnes-de-mesure": ("epistemologie",
@@ -69,6 +71,9 @@ DOMAINES_AJOUTES = {
                                     ["epistemologie", "histoire_sciences"]),
     "ligo-londe-qui-nexistait-pas": ("physique",
                                      ["physique", "epistemologie", "astronomie"]),
+    "airy-1859-la-projection-des-etoiles": ("astronomie",
+                                            ["astronomie", "optique",
+                                             "histoire_sciences", "epistemologie"]),
 }
 SCORE_AJOUTE = {"strong": 250.0, "medium": 150.0, "weak": 60.0}
 
