@@ -1,22 +1,21 @@
 // ═══════════════════════════════════════════════════════
-// NEXUS DATA — 51 articles
+// NEXUS DATA — 52 articles, 116 liens
 // Terre Étendue Islam — Graphe de connaissances
+//
+// Fichier généré. Ne pas éditer à la main :
+//   python3 scripts/reparer-nexus.py
+//
+// Les titres et les catégories viennent de content/articles/*.json,
+// seule source qui fasse foi. Les domaines et les liens sont conservés
+// d'une génération à l'autre : ce sont eux le travail humain.
 // ═══════════════════════════════════════════════════════
 
 export interface NexusNodeData {
   id: string;
   title: string;
-  category: 'headquarters' | 'observatory' | 'library' | 'lab' | 'meta' | 'experiences';
-  pillar: string;
-  pillarNum: string;
-  color: string;
+  category: 'headquarters' | 'observatory' | 'library' | 'experiences' | 'meta';
   primaryDomain: string;
   topDomains: string[];
-  quranRefs: number;
-  wordCount: number;
-  x?: number;
-  y?: number;
-  size?: number;
 }
 
 export interface NexusLinkData {
@@ -44,817 +43,377 @@ export const DOMAIN_LABELS: Record<string, string> = {
 
 export const NEXUS_NODES: NexusNodeData[] = [
   {
-    "id": "ou-est-allah-le-uluww-et-la-forme-du-monde",
-    "title": "Où est Allah ? Le ʿuluww et la forme du monde",
-    "category": "library",
-    "pillar": "BIBLIO",
-    "pillarNum": "03",
-    "color": "#D4A843",
-    "primaryDomain": "islam_sources",
-    "topDomains": ["islam_sources", "cosmologie", "epistemologie"],
-    "quranRefs": 9,
-    "wordCount": 4299,
-    "x": 231.6,
-    "y": 142.8,
-    "size": 10
-  },
-  {
-    "id": "par-rapport-a-quoi-mesure-t-on-une-altitude",
-    "title": "Par rapport à quoi mesure-t-on une altitude ?",
-    "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#FF5722",
-    "primaryDomain": "geometrie",
-    "topDomains": ["geometrie", "epistemologie", "hydrologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -120.4,
-    "y": -188.9,
-    "size": 8
-  },
-  {
-    "id": "vols-avion-et-courbure-terrestre",
-    "title": "Vols d'avion et courbure terrestre — ce que disent vraiment les instruments",
+    "id": "mesures-sous-le-ciel-trigonometrie-plane",
+    "title": "11 320 mesures sous le ciel : L'épreuve de la trigonométrie plane",
     "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#3B8FD4",
     "primaryDomain": "geometrie",
-    "topDomains": ["geometrie", "astronomie", "epistemologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -58.7,
-    "y": 318.2,
-    "size": 8
-  },
-  {
-    "id": "lire-le-ciel-avant-le-globe",
-    "title": "Lire le ciel avant le globe",
-    "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#FF5722",
-    "primaryDomain": "astronomie",
-    "topDomains": ["astronomie", "histoire_sciences", "islam_sources"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -296.1,
-    "y": 64.3,
-    "size": 8
-  },
-  {
-    "id": "standards-et-methode",
-    "title": "Standards et méthode",
-    "category": "meta",
-    "pillar": "META",
-    "pillarNum": "06",
-    "color": "#8B7EC8",
-    "primaryDomain": "epistemologie",
-    "topDomains": ["epistemologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 12.5,
-    "y": -402.7,
-    "size": 8
-  },
-  {
-    "id": "corrections",
-    "title": "Registre des corrections",
-    "category": "meta",
-    "pillar": "META",
-    "pillarNum": "06",
-    "color": "#8B7EC8",
-    "primaryDomain": "epistemologie",
-    "topDomains": ["epistemologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 74.9,
-    "y": -421.3,
-    "size": 8
-  },
-  {
-    "id": "lenigme-de-la-terre-immobile",
-    "title": "200 ans de résultats nuls : d'Arago à Einstein",
-    "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#FF5722",
-    "primaryDomain": "physique",
-    "topDomains": ["physique", "epistemologie", "cosmologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 50.8,
-    "y": -359.5,
-    "size": 8
+    "topDomains": ["geometrie", "astronomie", "modelisation"]
   },
   {
     "id": "cartes-routes-boussoles-et-le-mystere-antarctique",
     "title": "Cartes, routes, boussoles et le mystère antarctique",
     "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#4CAF50",
     "primaryDomain": "cartographie",
-    "topDomains": ["cartographie", "hydrologie", "geometrie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 318.4,
-    "y": -145.4,
-    "size": 8
+    "topDomains": ["cartographie", "hydrologie", "geometrie"]
   },
-  /* merged into la-perspective-pourquoi-les-objets-disparaissent */
   {
     "id": "chronologie-critique-du-modele-globe",
-    "title": "Chronologie de la tromperie du globe",
+    "title": "Chronologie critique du modèle globe",
     "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#9C27B0",
     "primaryDomain": "histoire_sciences",
-    "topDomains": ["histoire_sciences", "epistemologie", "cosmologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 377.4,
-    "y": 52.0,
-    "size": 8
+    "topDomains": ["histoire_sciences", "epistemologie", "cosmologie"]
   },
   {
-    "id": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
-    "title": "Début de la Création : le Soleil mobile, la Terre immobile",
-    "category": "library",
-    "pillar": "BIBLIO",
-    "pillarNum": "03",
-    "color": "#D4A843",
-    "primaryDomain": "islam_sources",
-    "topDomains": ["islam_sources", "astronomie", "cosmologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 305.8,
-    "y": 226.8,
-    "size": 8
-  },
-  {
-    "id": "debut-de-la-creation-selon-le-coran-et-la-sunna",
-    "title": "Début de la Création : Selon le Coran et la Sunna",
-    "category": "library",
-    "pillar": "BIBLIO",
-    "pillarNum": "03",
-    "color": "#D4A843",
-    "primaryDomain": "islam_sources",
-    "topDomains": ["islam_sources", "cosmologie", "astronomie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 342.3,
-    "y": 281.4,
-    "size": 8
+    "id": "dune-terre-plate-universelle-a-la-sphere-grecque",
+    "title": "D'une Terre plate universelle à la sphère grecque",
+    "category": "headquarters",
+    "primaryDomain": "cosmologie",
+    "topDomains": ["cosmologie", "geometrie", "histoire_sciences"]
   },
   {
     "id": "densite-pourquoi-les-choses-montent-et-descendent",
-    "title": "Densité : la vraie raison pour laquelle les choses montent, flottent ou coulent",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF5722",
+    "title": "Densité et flottabilité : pourquoi les choses montent, flottent ou coulent",
+    "category": "experiences",
     "primaryDomain": "physique",
-    "topDomains": ["physique", "gravite", "modelisation"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 68.2,
-    "y": -313.5,
-    "size": 8
+    "topDomains": ["physique", "gravite", "modelisation"]
   },
   {
     "id": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
     "title": "Dhū al-Qarnayn : confins terrestres et rupture ptoléméenne",
     "category": "library",
-    "pillar": "BIBLIO",
-    "pillarNum": "03",
-    "color": "#D4A843",
     "primaryDomain": "islam_sources",
-    "topDomains": ["islam_sources", "cosmologie", "cartographie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 302.7,
-    "y": 347.0,
-    "size": 8
-  },
-  /* merged into la-perspective-pourquoi-les-objets-disparaissent */
-  {
-    "id": "dune-terre-plate-universelle-a-la-sphere-grecque",
-    "title": "D'une Terre plate universelle à la sphère grecque",
-    "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#3F51B5",
-    "primaryDomain": "cosmologie",
-    "topDomains": ["cosmologie", "geometrie", "histoire_sciences"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 127.9,
-    "y": 330.8,
-    "size": 8
+    "topDomains": ["islam_sources", "cosmologie", "cartographie"]
   },
   {
-    "id": "les-forces-invisibles-a-faire-chez-soi",
-    "title": "Les forces invisibles : électricité, magnétisme, action-réaction",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF5722",
-    "primaryDomain": "physique",
-    "topDomains": ["physique", "gravite", "modelisation"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 64.7,
-    "y": -242.5,
-    "size": 8
+    "id": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
+    "title": "Début de la Création : le Soleil mobile, la Terre immobile",
+    "category": "library",
+    "primaryDomain": "islam_sources",
+    "topDomains": ["islam_sources", "astronomie", "cosmologie"]
   },
   {
-    "id": "etat-des-lieux-ou-en-sommes-nous",
-    "title": "État des lieux : où en sommes-nous ?",
-    "category": "meta",
-    "pillar": "META",
-    "pillarNum": "00",
-    "color": "#E91E63",
-    "primaryDomain": "epistemologie",
-    "topDomains": ["epistemologie", "geometrie", "hydrologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -52.6,
-    "y": 330.2,
-    "size": 8
+    "id": "debut-de-la-creation-selon-le-coran-et-la-sunna",
+    "title": "Début de la Création : Selon le Coran et la Sunna",
+    "category": "library",
+    "primaryDomain": "islam_sources",
+    "topDomains": ["islam_sources", "cosmologie", "astronomie"]
   },
   {
     "id": "glossaire",
     "title": "Glossaire",
     "category": "meta",
-    "pillar": "META",
-    "pillarNum": "00",
-    "color": "#E91E63",
     "primaryDomain": "epistemologie",
-    "topDomains": ["epistemologie", "islam_sources", "histoire_sciences"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -69.7,
-    "y": 440.9,
-    "size": 8
+    "topDomains": ["epistemologie", "islam_sources", "histoire_sciences"]
   },
   {
     "id": "index-thematique",
     "title": "Index thématique",
     "category": "meta",
-    "pillar": "META",
-    "pillarNum": "00",
-    "color": "#E91E63",
     "primaryDomain": "epistemologie",
-    "topDomains": ["epistemologie", "cosmologie", "islam_sources"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -121.2,
-    "y": 384.0,
-    "size": 8
-  },
-  {
-    "id": "la-cosmologie-comme-instrument-de-domination",
-    "title": "La cosmologie comme instrument de domination",
-    "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#E91E63",
-    "primaryDomain": "epistemologie",
-    "topDomains": ["epistemologie", "cosmologie", "histoire_sciences"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -160.7,
-    "y": 383.6,
-    "size": 8
-  },
-  {
-    "id": "la-gravite-70-theories-et-aucune-preuve",
-    "title": "La Gravité : 70 théories, aucune preuve, et une crise que personne ne nomme",
-    "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#FF9800",
-    "primaryDomain": "gravite",
-    "topDomains": ["gravite", "epistemologie", "physique"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -312.4,
-    "y": 43.4,
-    "size": 8
-  },
-  {
-    "id": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
-    "title": "La Lune, le Soleil et les étoiles : ce que le ciel nous montre",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#7B68EE",
-    "primaryDomain": "astronomie",
-    "topDomains": ["astronomie", "optique", "geometrie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -272.3,
-    "y": 297.9,
-    "size": 8
-  },
-  {
-    "id": "la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas",
-    "title": "La Lune : six anomalies que le modèle standard ne résout pas",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF6B6B",
-    "primaryDomain": "optique",
-    "topDomains": ["optique", "geometrie", "hydrologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 181.2,
-    "y": -201.4,
-    "size": 8
-  },
-  {
-    "id": "la-perspective-pourquoi-les-objets-disparaissent",
-    "title": "La Perspective : pourquoi les objets disparaissent",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF6B6B",
-    "primaryDomain": "optique",
-    "topDomains": ["optique", "geometrie", "physique"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 114.3,
-    "y": -275.4,
-    "size": 8
-  },
-  {
-    "id": "la-pression-atmospherique-un-ocean-d-air-invisible",
-    "title": "La Pression Atmosphérique : un océan d'air invisible qui n'a pas besoin de la gravité",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF6B6B",
-    "primaryDomain": "optique",
-    "topDomains": ["optique", "geometrie", "hydrologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 75.9,
-    "y": -328.5,
-    "size": 8
-  },
-  {
-    "id": "la-qibla-et-la-direction-cote-ouest",
-    "title": "La qibla et la direction côté ouest",
-    "category": "library",
-    "pillar": "BIBLIO",
-    "pillarNum": "03",
-    "color": "#D4A843",
-    "primaryDomain": "islam_sources",
-    "topDomains": ["islam_sources", "cartographie", "geometrie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 256.5,
-    "y": 280.4,
-    "size": 8
-  },
-  {
-    "id": "la-rotation-terrestre-experiences-preuves-verdict",
-    "title": "La Rotation Terrestre : deux expériences canoniques, zéro preuve",
-    "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#E91E63",
-    "primaryDomain": "epistemologie",
-    "topDomains": ["epistemologie", "cosmologie", "histoire_sciences"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -227.3,
-    "y": 333.5,
-    "size": 8
-  },
-  {
-    "id": "la-terre-dans-le-coran",
-    "title": "La Terre dans le Coran",
-    "category": "library",
-    "pillar": "BIBLIO",
-    "pillarNum": "03",
-    "color": "#D4A843",
-    "primaryDomain": "islam_sources",
-    "topDomains": ["islam_sources", "cosmologie", "astronomie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 191.1,
-    "y": 269.2,
-    "size": 8
-  },
-  {
-    "id": "le-concordisme",
-    "title": "Le concordisme",
-    "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#D4A843",
-    "primaryDomain": "islam_sources",
-    "topDomains": ["islam_sources", "epistemologie", "cosmologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 140.8,
-    "y": 224.6,
-    "size": 8
-  },
-  {
-    "id": "la-mobilite-de-la-terre-attribuee-a-ibn-taymiyyah",
-    "title": "La mobilité de la Terre attribuée à Ibn Taymiyyah : anatomie d'un taṣḥīf",
-    "category": "library",
-    "pillar": "BIBLIO",
-    "pillarNum": "03",
-    "color": "#D4A843",
-    "primaryDomain": "islam_sources",
-    "topDomains": ["islam_sources", "epistemologie", "histoire_sciences"],
-    "quranRefs": 0,
-    "wordCount": 2385,
-    "x": 256.4,
-    "y": 176.2,
-    "size": 8
-  },
-  {
-    "id": "un-traite-ottoman-contre-la-sphericite-1314h",
-    "title": "Un traité ottoman contre la sphéricité (1314 H)",
-    "category": "library",
-    "pillar": "BIBLIO",
-    "pillarNum": "03",
-    "color": "#D4A843",
-    "primaryDomain": "islam_sources",
-    "topDomains": ["islam_sources", "geometrie", "histoire_sciences"],
-    "quranRefs": 3,
-    "wordCount": 3505,
-    "x": 188.7,
-    "y": 251.5,
-    "size": 9
-  },
-  {
-    "id": "le-consensus-sur-la-sphericite",
-    "title": "Le « consensus » sur la sphéricité",
-    "category": "library",
-    "pillar": "BIBLIO",
-    "pillarNum": "03",
-    "color": "#D4A843",
-    "primaryDomain": "islam_sources",
-    "topDomains": ["islam_sources", "epistemologie", "geometrie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 219.9,
-    "y": 209.8,
-    "size": 8
-  },
-  {
-    "id": "lexperience-contre-la-theorie",
-    "title": "Le mouvement zététique : 150 ans de résistance (1849-2000)",
-    "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#E91E63",
-    "primaryDomain": "epistemologie",
-    "topDomains": ["epistemologie", "cosmologie", "histoire_sciences"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -127.5,
-    "y": 308.2,
-    "size": 8
-  },
-  {
-    "id": "le-mythe-deratosthene",
-    "title": "Le mythe d'Ératosthène",
-    "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#00C8FF",
-    "primaryDomain": "geometrie",
-    "topDomains": ["geometrie", "epistemologie", "cosmologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -288.2,
-    "y": -152.3,
-    "size": 8
-  },
-  {
-    "id": "la-rotation-terrestre-experiences-preuves-verdict",
-    "title": "Le pendule de Foucault : une preuve contestée",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF5722",
-    "primaryDomain": "physique",
-    "topDomains": ["physique", "astronomie", "epistemologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -43.6,
-    "y": -286.7,
-    "size": 8
-  },
-  {
-    "id": "le-pole-sud-nexiste-pas",
-    "title": "Le pôle Sud n'existe pas",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF5722",
-    "primaryDomain": "physique",
-    "topDomains": ["physique", "gravite", "cartographie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -109.6,
-    "y": -289.9,
-    "size": 8
-  },
-  {
-    "id": "mesures-sous-le-ciel-trigonometrie-plane",
-    "title": "Le théodolite céleste",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#00C8FF",
-    "primaryDomain": "geometrie",
-    "topDomains": ["geometrie", "astronomie", "modelisation"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -362.1,
-    "y": -144.6,
-    "size": 8
-  },
-  {
-    "id": "les-protocoles-ce-que-c-est-et-pourquoi",
-    "title": "Qu'est-ce qu'un protocole, et pourquoi nous en écrivons",
-    "category": "experiences",
-    "pillar": "EXP",
-    "pillarNum": "04",
-    "color": "#C45E6A",
-    "primaryDomain": "epistemologie",
-    "topDomains": ["epistemologie", "geometrie", "optique"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -288.0,
-    "y": -166.0,
-    "size": 8
-  },
-  {
-    "id": "monter-l-experience-des-trois-mires",
-    "title": "Monter l'expérience des trois mires",
-    "category": "experiences",
-    "pillar": "EXP",
-    "pillarNum": "04",
-    "color": "#C45E6A",
-    "primaryDomain": "geometrie",
-    "topDomains": ["geometrie", "hydrologie", "optique"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -244.0,
-    "y": -218.5,
-    "size": 8
-  },
-  {
-    "id": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
-    "title": "Mesurer la courbure sur l'eau : cinq campagnes, et celle qui manque",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#3B8FD4",
-    "primaryDomain": "geometrie",
-    "topDomains": ["geometrie", "optique", "hydrologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -212.5,
-    "y": -256.8,
-    "size": 8
+    "topDomains": ["epistemologie", "cosmologie", "islam_sources"]
   },
   {
     "id": "leau-ne-ment-pas",
     "title": "L'eau ne ment pas",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#00BCD4",
+    "category": "experiences",
     "primaryDomain": "hydrologie",
-    "topDomains": ["hydrologie", "geometrie", "optique"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -189.2,
-    "y": -294.4,
-    "size": 8
-  },
-  {
-    "id": "les-distances-cosmiques-au-dela-de-la-regle",
-    "title": "Les distances cosmiques : au-delà de la règle",
-    "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#7B68EE",
-    "primaryDomain": "astronomie",
-    "topDomains": ["astronomie", "epistemologie", "cosmologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -365.4,
-    "y": 238.3,
-    "size": 8
-  },
-  {
-    "id": "les-marees-contre-lheliocentrisme",
-    "title": "Les marées contre l'héliocentrisme",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF5722",
-    "primaryDomain": "physique",
-    "topDomains": ["physique", "gravite", "cartographie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -69.7,
-    "y": -391.1,
-    "size": 8
-  },
-  /* merged into la-perspective-pourquoi-les-objets-disparaissent */
-  {
-    "id": "les-trous-noirs-existent-ils",
-    "title": "Les trous noirs n'existent pas",
-    "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#3F51B5",
-    "primaryDomain": "cosmologie",
-    "topDomains": ["cosmologie", "epistemologie", "physique"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 70.1,
-    "y": 382.6,
-    "size": 8
+    "topDomains": ["hydrologie", "geometrie", "optique"]
   },
   {
     "id": "lespace-une-frontiere-infranchissable",
     "title": "L'espace : une frontière infranchissable ?",
     "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#3F51B5",
     "primaryDomain": "cosmologie",
-    "topDomains": ["cosmologie", "geometrie", "physique"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 57.8,
-    "y": 270.2,
-    "size": 8
+    "topDomains": ["cosmologie", "geometrie", "physique"]
+  },
+  {
+    "id": "lexperience-contre-la-theorie",
+    "title": "L'expérience contre la théorie",
+    "category": "headquarters",
+    "primaryDomain": "epistemologie",
+    "topDomains": ["epistemologie", "cosmologie", "histoire_sciences"]
+  },
+  {
+    "id": "lenigme-de-la-terre-immobile",
+    "title": "L'énigme de la Terre immobile : Comment deux siècles d'échecs ont donné naissance à la Relativité",
+    "category": "headquarters",
+    "primaryDomain": "physique",
+    "topDomains": ["physique", "epistemologie", "cosmologie"]
   },
   {
     "id": "levolution-et-lislam",
     "title": "L'évolution et l'Islam",
     "category": "library",
-    "pillar": "BIBLIO",
-    "pillarNum": "03",
-    "color": "#D4A843",
     "primaryDomain": "islam_sources",
-    "topDomains": ["islam_sources", "epistemologie", "cosmologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 246.1,
-    "y": 145.6,
-    "size": 8
+    "topDomains": ["islam_sources", "epistemologie", "cosmologie"]
   },
   {
     "id": "loeil-humain-la-machine-a-voir",
-    "title": "L'Œil Humain : la machine à voir qui façonne notre réalité",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF6B6B",
+    "title": "L'Œil humain : la machine à voir",
+    "category": "experiences",
     "primaryDomain": "optique",
-    "topDomains": ["optique", "physique", "geometrie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 168.7,
-    "y": -418.2,
-    "size": 8
+    "topDomains": ["optique", "physique", "geometrie"]
+  },
+  {
+    "id": "la-cosmologie-comme-instrument-de-domination",
+    "title": "La cosmologie comme instrument de domination",
+    "category": "headquarters",
+    "primaryDomain": "epistemologie",
+    "topDomains": ["epistemologie", "cosmologie", "histoire_sciences"]
+  },
+  {
+    "id": "la-gravite-70-theories-et-aucune-preuve",
+    "title": "La Gravité : 70 théories, aucune preuve, et une crise que personne ne nomme",
+    "category": "headquarters",
+    "primaryDomain": "gravite",
+    "topDomains": ["gravite", "epistemologie", "physique"]
+  },
+  {
+    "id": "la-lune-six-anomalies-que-le-modele-standard-ne-resout-pas",
+    "title": "La Lune : six anomalies que le modèle standard ne résout pas",
+    "category": "observatory",
+    "primaryDomain": "optique",
+    "topDomains": ["optique", "geometrie", "hydrologie"]
+  },
+  {
+    "id": "la-lune-le-soleil-et-les-etoiles-ce-que-le-ciel-nous-montre",
+    "title": "La Lune, le Soleil et les étoiles : ce que le ciel nous montre",
+    "category": "observatory",
+    "primaryDomain": "astronomie",
+    "topDomains": ["astronomie", "optique", "geometrie"]
+  },
+  {
+    "id": "la-mobilite-de-la-terre-attribuee-a-ibn-taymiyyah",
+    "title": "La mobilité de la Terre attribuée à Ibn Taymiyyah : anatomie d'un taṣḥīf",
+    "category": "library",
+    "primaryDomain": "islam_sources",
+    "topDomains": ["islam_sources", "epistemologie", "histoire_sciences"]
+  },
+  {
+    "id": "la-perspective-pourquoi-les-objets-disparaissent",
+    "title": "La Perspective : pourquoi les objets disparaissent",
+    "category": "observatory",
+    "primaryDomain": "optique",
+    "topDomains": ["optique", "geometrie", "physique"]
+  },
+  {
+    "id": "la-pression-atmospherique-un-ocean-d-air-invisible",
+    "title": "La Pression Atmosphérique : un océan d'air invisible qui n'a pas besoin de la gravité",
+    "category": "experiences",
+    "primaryDomain": "optique",
+    "topDomains": ["optique", "geometrie", "hydrologie"]
+  },
+  {
+    "id": "la-qibla-et-la-direction-cote-ouest",
+    "title": "La qibla et la direction côté ouest",
+    "category": "library",
+    "primaryDomain": "islam_sources",
+    "topDomains": ["islam_sources", "cartographie", "geometrie"]
+  },
+  {
+    "id": "la-rotation-terrestre-experiences-preuves-verdict",
+    "title": "La rotation terrestre : les expériences, les preuves, le verdict",
+    "category": "headquarters",
+    "primaryDomain": "epistemologie",
+    "topDomains": ["epistemologie", "cosmologie", "histoire_sciences", "physique"]
+  },
+  {
+    "id": "la-terre-dans-le-coran",
+    "title": "La Terre dans le Coran",
+    "category": "library",
+    "primaryDomain": "islam_sources",
+    "topDomains": ["islam_sources", "cosmologie", "astronomie"]
+  },
+  {
+    "id": "le-concordisme",
+    "title": "Le concordisme",
+    "category": "headquarters",
+    "primaryDomain": "islam_sources",
+    "topDomains": ["islam_sources", "epistemologie", "cosmologie"]
+  },
+  {
+    "id": "le-mythe-deratosthene",
+    "title": "Le mythe d'Ératosthène",
+    "category": "headquarters",
+    "primaryDomain": "geometrie",
+    "topDomains": ["geometrie", "epistemologie", "cosmologie"]
+  },
+  {
+    "id": "le-pole-sud-nexiste-pas",
+    "title": "Le pôle Sud n'existe pas",
+    "category": "observatory",
+    "primaryDomain": "physique",
+    "topDomains": ["physique", "gravite", "cartographie"]
+  },
+  {
+    "id": "le-consensus-sur-la-sphericite",
+    "title": "Le « consensus » sur la sphéricité",
+    "category": "library",
+    "primaryDomain": "islam_sources",
+    "topDomains": ["islam_sources", "epistemologie", "geometrie"]
+  },
+  {
+    "id": "les-distances-cosmiques-au-dela-de-la-regle",
+    "title": "Les distances cosmiques : au-delà de la règle",
+    "category": "headquarters",
+    "primaryDomain": "astronomie",
+    "topDomains": ["astronomie", "epistemologie", "cosmologie"]
+  },
+  {
+    "id": "les-forces-invisibles-a-faire-chez-soi",
+    "title": "Les forces invisibles : électricité, magnétisme, action-réaction",
+    "category": "experiences",
+    "primaryDomain": "physique",
+    "topDomains": ["physique", "gravite", "modelisation"]
+  },
+  {
+    "id": "les-marees-contre-lheliocentrisme",
+    "title": "Les marées contre l'héliocentrisme",
+    "category": "observatory",
+    "primaryDomain": "physique",
+    "topDomains": ["physique", "gravite", "cartographie"]
+  },
+  {
+    "id": "les-trous-noirs-existent-ils",
+    "title": "Les trous noirs existent-ils ?",
+    "category": "headquarters",
+    "primaryDomain": "cosmologie",
+    "topDomains": ["cosmologie", "epistemologie", "physique"]
+  },
+  {
+    "id": "lire-le-ciel-avant-le-globe",
+    "title": "Lire le ciel avant le globe",
+    "category": "headquarters",
+    "primaryDomain": "astronomie",
+    "topDomains": ["astronomie", "histoire_sciences", "islam_sources"]
+  },
+  {
+    "id": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
+    "title": "Mesurer la courbure sur l'eau : cinq campagnes, et celle qui manque",
+    "category": "observatory",
+    "primaryDomain": "geometrie",
+    "topDomains": ["geometrie", "optique", "hydrologie"]
   },
   {
     "id": "mise-en-garde-la-kaaba-et-saturne",
     "title": "Mise en garde : la Kaaba et Saturne",
     "category": "library",
-    "pillar": "BIBLIO",
-    "pillarNum": "03",
-    "color": "#D4A843",
     "primaryDomain": "islam_sources",
-    "topDomains": ["islam_sources", "histoire_sciences", "epistemologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 304.7,
-    "y": 113.0,
-    "size": 8
+    "topDomains": ["islam_sources", "histoire_sciences", "epistemologie"]
+  },
+  {
+    "id": "monter-l-experience-des-trois-mires",
+    "title": "Monter l'expérience des trois mires",
+    "category": "experiences",
+    "primaryDomain": "geometrie",
+    "topDomains": ["geometrie", "hydrologie", "optique"]
   },
   {
     "id": "neptune-et-pluton-les-faux-triomphes",
     "title": "Neptune et Pluton : les faux triomphes",
     "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#FF9800",
     "primaryDomain": "gravite",
-    "topDomains": ["gravite", "astronomie", "modelisation"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -393.0,
-    "y": -21.0,
-    "size": 8
+    "topDomains": ["gravite", "astronomie", "modelisation"]
+  },
+  {
+    "id": "ou-est-allah-le-uluww-et-la-forme-du-monde",
+    "title": "Où est Allah ? Le ʿuluww et la forme du monde",
+    "category": "library",
+    "primaryDomain": "islam_sources",
+    "topDomains": ["islam_sources", "cosmologie", "epistemologie"]
+  },
+  {
+    "id": "par-rapport-a-quoi-mesure-t-on-une-altitude",
+    "title": "Par rapport à quoi mesure-t-on une altitude ?",
+    "category": "headquarters",
+    "primaryDomain": "geometrie",
+    "topDomains": ["geometrie", "epistemologie", "hydrologie"]
+  },
+  {
+    "id": "participer-aux-campagnes-de-mesure",
+    "title": "Participer : nos protocoles, et comment y prendre part",
+    "category": "experiences",
+    "primaryDomain": "epistemologie",
+    "topDomains": ["epistemologie", "modelisation", "physique"]
   },
   {
     "id": "pourquoi-tout-remettre-en-question",
     "title": "Pourquoi tout remettre en question",
     "category": "headquarters",
-    "pillar": "Q.G.",
-    "pillarNum": "01",
-    "color": "#E91E63",
     "primaryDomain": "epistemologie",
-    "topDomains": ["epistemologie", "cosmologie", "histoire_sciences"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": -56.1,
-    "y": 308.3,
-    "size": 8
+    "topDomains": ["epistemologie", "cosmologie", "histoire_sciences"]
+  },
+  {
+    "id": "pression-lumiere-halos-rayons-et-ondes",
+    "title": "Pression, lumière, halos, rayons et ondes",
+    "category": "experiences",
+    "primaryDomain": "optique",
+    "topDomains": ["optique", "astronomie", "geometrie"]
   },
   {
     "id": "pres-de-cent-savants-de-lislam",
     "title": "Près de cent savants de l'islam",
     "category": "library",
-    "pillar": "BIBLIO",
-    "pillarNum": "03",
-    "color": "#D4A843",
     "primaryDomain": "islam_sources",
-    "topDomains": ["islam_sources", "histoire_sciences", "cosmologie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 311.6,
-    "y": 200.2,
-    "size": 8
+    "topDomains": ["islam_sources", "histoire_sciences", "cosmologie"]
   },
   {
-    "id": "pression-lumiere-halos-rayons-et-ondes",
-    "title": "Pression, lumière, halos, rayons et ondes",
-    "category": "observatory",
-    "pillar": "OBS",
-    "pillarNum": "02",
-    "color": "#FF6B6B",
-    "primaryDomain": "optique",
-    "topDomains": ["optique", "astronomie", "geometrie"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 242.8,
-    "y": -362.7,
-    "size": 8
+    "id": "les-protocoles-ce-que-c-est-et-pourquoi",
+    "title": "Qu'est-ce qu'un protocole, et pourquoi nous en écrivons",
+    "category": "experiences",
+    "primaryDomain": "epistemologie",
+    "topDomains": ["epistemologie", "geometrie", "optique"]
+  },
+  {
+    "id": "corrections",
+    "title": "Registre des corrections",
+    "category": "meta",
+    "primaryDomain": "epistemologie",
+    "topDomains": ["epistemologie"]
   },
   {
     "id": "sources-historiques-fonds-documentaire",
     "title": "Sources historiques : le fonds documentaire (1865-1920)",
     "category": "library",
-    "pillar": "BIBLIO",
-    "pillarNum": "03",
-    "color": "#9C27B0",
     "primaryDomain": "histoire_sciences",
-    "topDomains": ["histoire_sciences", "epistemologie", "islam_sources"],
-    "quranRefs": 0,
-    "wordCount": 0,
-    "x": 290.9,
-    "y": 54.4,
-    "size": 8
+    "topDomains": ["histoire_sciences", "epistemologie", "islam_sources"]
+  },
+  {
+    "id": "standards-et-methode",
+    "title": "Standards et méthode",
+    "category": "meta",
+    "primaryDomain": "epistemologie",
+    "topDomains": ["epistemologie"]
+  },
+  {
+    "id": "un-traite-ottoman-contre-la-sphericite-1314h",
+    "title": "Un traité ottoman contre la sphéricité (1314 H)",
+    "category": "library",
+    "primaryDomain": "islam_sources",
+    "topDomains": ["islam_sources", "geometrie", "histoire_sciences"]
+  },
+  {
+    "id": "vols-avion-et-courbure-terrestre",
+    "title": "Vols d'avion et courbure terrestre — ce que disent vraiment les instruments",
+    "category": "observatory",
+    "primaryDomain": "geometrie",
+    "topDomains": ["geometrie", "astronomie", "epistemologie"]
+  },
+  {
+    "id": "etat-des-lieux-ou-en-sommes-nous",
+    "title": "État des lieux : où en sommes-nous ?",
+    "category": "meta",
+    "primaryDomain": "epistemologie",
+    "topDomains": ["epistemologie", "geometrie", "hydrologie"]
   },
 ];
 
 export const NEXUS_LINKS: NexusLinkData[] = [
   {
-    "source": "les-protocoles-ce-que-c-est-et-pourquoi",
-    "target": "monter-l-experience-des-trois-mires",
-    "score": 204.0,
-    "strength": "medium",
-    "sharedDomains": ["epistemologie", "geometrie"]
-  },
-  {
-    "source": "les-protocoles-ce-que-c-est-et-pourquoi",
-    "target": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
-    "score": 186.0,
-    "strength": "medium",
-    "sharedDomains": ["geometrie", "hydrologie"]
-  },
-  {
-    "source": "les-protocoles-ce-que-c-est-et-pourquoi",
-    "target": "la-perspective-pourquoi-les-objets-disparaissent",
-    "score": 178.0,
-    "strength": "medium",
-    "sharedDomains": ["optique", "geometrie"]
-  },
-  {
-    "source": "les-protocoles-ce-que-c-est-et-pourquoi",
-    "target": "standards-et-methode",
-    "score": 162.0,
-    "strength": "medium",
+    "source": "standards-et-methode",
+    "target": "corrections",
+    "score": 445.0,
+    "strength": "strong",
     "sharedDomains": ["epistemologie"]
   },
   {
@@ -865,39 +424,11 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["islam_sources", "cosmologie"]
   },
   {
-    "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
+    "source": "la-mobilite-de-la-terre-attribuee-a-ibn-taymiyyah",
     "target": "le-consensus-sur-la-sphericite",
-    "score": 396.0,
+    "score": 420.0,
     "strength": "strong",
     "sharedDomains": ["islam_sources", "epistemologie"]
-  },
-  {
-    "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
-    "target": "debut-de-la-creation-selon-le-coran-et-la-sunna",
-    "score": 362.0,
-    "strength": "strong",
-    "sharedDomains": ["islam_sources", "cosmologie"]
-  },
-  {
-    "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
-    "target": "le-concordisme",
-    "score": 318.0,
-    "strength": "strong",
-    "sharedDomains": ["islam_sources", "epistemologie"]
-  },
-  {
-    "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
-    "target": "la-mobilite-de-la-terre-attribuee-a-ibn-taymiyyah",
-    "score": 294.0,
-    "strength": "medium",
-    "sharedDomains": ["islam_sources"]
-  },
-  {
-    "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
-    "target": "un-traite-ottoman-contre-la-sphericite-1314h",
-    "score": 276.0,
-    "strength": "medium",
-    "sharedDomains": ["islam_sources", "cosmologie"]
   },
   {
     "source": "par-rapport-a-quoi-mesure-t-on-une-altitude",
@@ -907,130 +438,18 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["geometrie", "hydrologie"]
   },
   {
+    "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
+    "target": "le-consensus-sur-la-sphericite",
+    "score": 396.0,
+    "strength": "strong",
+    "sharedDomains": ["islam_sources", "epistemologie"]
+  },
+  {
     "source": "par-rapport-a-quoi-mesure-t-on-une-altitude",
     "target": "monter-l-experience-des-trois-mires",
     "score": 388.0,
     "strength": "strong",
     "sharedDomains": ["geometrie"]
-  },
-  {
-    "source": "par-rapport-a-quoi-mesure-t-on-une-altitude",
-    "target": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
-    "score": 371.0,
-    "strength": "strong",
-    "sharedDomains": ["geometrie", "hydrologie"]
-  },
-  {
-    "source": "vols-avion-et-courbure-terrestre",
-    "target": "la-perspective-pourquoi-les-objets-disparaissent",
-    "score": 312.0,
-    "strength": "strong",
-    "sharedDomains": ["geometrie", "optique"]
-  },
-  {
-    "source": "vols-avion-et-courbure-terrestre",
-    "target": "leau-ne-ment-pas",
-    "score": 287.0,
-    "strength": "medium",
-    "sharedDomains": ["geometrie"]
-  },
-  {
-    "source": "lire-le-ciel-avant-le-globe",
-    "target": "mesures-sous-le-ciel-trigonometrie-plane",
-    "score": 334.0,
-    "strength": "strong",
-    "sharedDomains": ["astronomie"]
-  },
-  {
-    "source": "lire-le-ciel-avant-le-globe",
-    "target": "la-qibla-et-la-direction-cote-ouest",
-    "score": 296.0,
-    "strength": "medium",
-    "sharedDomains": ["astronomie", "islam_sources"]
-  },
-  {
-    "source": "lire-le-ciel-avant-le-globe",
-    "target": "un-traite-ottoman-contre-la-sphericite-1314h",
-    "score": 271.0,
-    "strength": "medium",
-    "sharedDomains": ["astronomie", "histoire_sciences"]
-  },
-  {
-    "source": "standards-et-methode",
-    "target": "corrections",
-    "score": 445.0,
-    "strength": "strong",
-    "sharedDomains": ["epistemologie"]
-  },
-  {
-    "source": "standards-et-methode",
-    "target": "pourquoi-tout-remettre-en-question",
-    "score": 318.0,
-    "strength": "strong",
-    "sharedDomains": ["epistemologie"]
-  },
-  {
-    "source": "standards-et-methode",
-    "target": "la-gravite-70-theories-et-aucune-preuve",
-    "score": 302.0,
-    "strength": "strong",
-    "sharedDomains": ["epistemologie"]
-  },
-  {
-    "source": "corrections",
-    "target": "etat-des-lieux-ou-en-sommes-nous",
-    "score": 327.0,
-    "strength": "strong",
-    "sharedDomains": ["epistemologie"]
-  },
-  {
-    "source": "la-mobilite-de-la-terre-attribuee-a-ibn-taymiyyah",
-    "target": "le-consensus-sur-la-sphericite",
-    "score": 420.0,
-    "strength": "strong",
-    "sharedDomains": ["islam_sources", "epistemologie"]
-  },
-  {
-    "source": "la-mobilite-de-la-terre-attribuee-a-ibn-taymiyyah",
-    "target": "un-traite-ottoman-contre-la-sphericite-1314h",
-    "score": 296.0,
-    "strength": "medium",
-    "sharedDomains": ["islam_sources", "histoire_sciences"]
-  },
-  {
-    "source": "la-mobilite-de-la-terre-attribuee-a-ibn-taymiyyah",
-    "target": "pres-de-cent-savants-de-lislam",
-    "score": 288.0,
-    "strength": "medium",
-    "sharedDomains": ["islam_sources"]
-  },
-  {
-    "source": "un-traite-ottoman-contre-la-sphericite-1314h",
-    "target": "le-consensus-sur-la-sphericite",
-    "score": 305.0,
-    "strength": "strong",
-    "sharedDomains": ["islam_sources", "epistemologie"]
-  },
-  {
-    "source": "un-traite-ottoman-contre-la-sphericite-1314h",
-    "target": "lexperience-contre-la-theorie",
-    "score": 281.0,
-    "strength": "medium",
-    "sharedDomains": ["histoire_sciences", "epistemologie"]
-  },
-  {
-    "source": "un-traite-ottoman-contre-la-sphericite-1314h",
-    "target": "monter-l-experience-des-trois-mires",
-    "score": 274.0,
-    "strength": "medium",
-    "sharedDomains": ["geometrie"]
-  },
-  {
-    "source": "un-traite-ottoman-contre-la-sphericite-1314h",
-    "target": "le-mythe-deratosthene",
-    "score": 268.0,
-    "strength": "medium",
-    "sharedDomains": ["geometrie", "histoire_sciences"]
   },
   {
     "source": "les-forces-invisibles-a-faire-chez-soi",
@@ -1061,11 +480,25 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["islam_sources", "astronomie", "cosmologie"]
   },
   {
+    "source": "par-rapport-a-quoi-mesure-t-on-une-altitude",
+    "target": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
+    "score": 371.0,
+    "strength": "strong",
+    "sharedDomains": ["geometrie", "hydrologie"]
+  },
+  {
     "source": "la-perspective-pourquoi-les-objets-disparaissent",
     "target": "loeil-humain-la-machine-a-voir",
     "score": 362.2,
     "strength": "strong",
     "sharedDomains": ["optique", "geometrie", "physique"]
+  },
+  {
+    "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
+    "target": "debut-de-la-creation-selon-le-coran-et-la-sunna",
+    "score": 362.0,
+    "strength": "strong",
+    "sharedDomains": ["islam_sources", "cosmologie"]
   },
   {
     "source": "la-gravite-70-theories-et-aucune-preuve",
@@ -1124,6 +557,13 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["islam_sources", "astronomie", "cosmologie"]
   },
   {
+    "source": "lire-le-ciel-avant-le-globe",
+    "target": "mesures-sous-le-ciel-trigonometrie-plane",
+    "score": 334.0,
+    "strength": "strong",
+    "sharedDomains": ["astronomie"]
+  },
+  {
     "source": "densite-pourquoi-les-choses-montent-et-descendent",
     "target": "les-forces-invisibles-a-faire-chez-soi",
     "score": 331.4,
@@ -1143,6 +583,13 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 327.6,
     "strength": "strong",
     "sharedDomains": ["epistemologie", "cosmologie"]
+  },
+  {
+    "source": "corrections",
+    "target": "etat-des-lieux-ou-en-sommes-nous",
+    "score": 327.0,
+    "strength": "strong",
+    "sharedDomains": ["epistemologie"]
   },
   {
     "source": "debut-de-la-creation-selon-le-coran-et-la-sunna",
@@ -1180,6 +627,20 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["cosmologie", "geometrie"]
   },
   {
+    "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
+    "target": "le-concordisme",
+    "score": 318.0,
+    "strength": "strong",
+    "sharedDomains": ["islam_sources", "epistemologie"]
+  },
+  {
+    "source": "standards-et-methode",
+    "target": "pourquoi-tout-remettre-en-question",
+    "score": 318.0,
+    "strength": "strong",
+    "sharedDomains": ["epistemologie"]
+  },
+  {
     "source": "debut-de-la-creation-selon-le-coran-et-la-sunna",
     "target": "levolution-et-lislam",
     "score": 317.1,
@@ -1208,6 +669,13 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["islam_sources", "epistemologie"]
   },
   {
+    "source": "vols-avion-et-courbure-terrestre",
+    "target": "la-perspective-pourquoi-les-objets-disparaissent",
+    "score": 312.0,
+    "strength": "strong",
+    "sharedDomains": ["geometrie", "optique"]
+  },
+  {
     "source": "debut-de-la-creation-le-soleil-mobile-la-terre-immobile",
     "target": "le-concordisme",
     "score": 310.1,
@@ -1220,6 +688,13 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 308.1,
     "strength": "strong",
     "sharedDomains": ["islam_sources", "geometrie"]
+  },
+  {
+    "source": "un-traite-ottoman-contre-la-sphericite-1314h",
+    "target": "le-consensus-sur-la-sphericite",
+    "score": 305.0,
+    "strength": "strong",
+    "sharedDomains": ["islam_sources", "epistemologie"]
   },
   {
     "source": "glossaire",
@@ -1257,11 +732,32 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["epistemologie", "histoire_sciences"]
   },
   {
+    "source": "standards-et-methode",
+    "target": "la-gravite-70-theories-et-aucune-preuve",
+    "score": 302.0,
+    "strength": "strong",
+    "sharedDomains": ["epistemologie"]
+  },
+  {
     "source": "debut-de-la-creation-selon-le-coran-et-la-sunna",
     "target": "le-concordisme",
     "score": 298.4,
     "strength": "strong",
     "sharedDomains": ["islam_sources", "cosmologie"]
+  },
+  {
+    "source": "lire-le-ciel-avant-le-globe",
+    "target": "la-qibla-et-la-direction-cote-ouest",
+    "score": 296.0,
+    "strength": "medium",
+    "sharedDomains": ["astronomie", "islam_sources"]
+  },
+  {
+    "source": "la-mobilite-de-la-terre-attribuee-a-ibn-taymiyyah",
+    "target": "un-traite-ottoman-contre-la-sphericite-1314h",
+    "score": 296.0,
+    "strength": "medium",
+    "sharedDomains": ["islam_sources", "histoire_sciences"]
   },
   {
     "source": "densite-pourquoi-les-choses-montent-et-descendent",
@@ -1299,11 +795,32 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["islam_sources", "cosmologie"]
   },
   {
+    "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
+    "target": "la-mobilite-de-la-terre-attribuee-a-ibn-taymiyyah",
+    "score": 294.0,
+    "strength": "medium",
+    "sharedDomains": ["islam_sources"]
+  },
+  {
     "source": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
     "target": "le-concordisme",
     "score": 290.4,
     "strength": "strong",
     "sharedDomains": ["islam_sources", "cosmologie"]
+  },
+  {
+    "source": "la-mobilite-de-la-terre-attribuee-a-ibn-taymiyyah",
+    "target": "pres-de-cent-savants-de-lislam",
+    "score": 288.0,
+    "strength": "medium",
+    "sharedDomains": ["islam_sources"]
+  },
+  {
+    "source": "vols-avion-et-courbure-terrestre",
+    "target": "leau-ne-ment-pas",
+    "score": 287.0,
+    "strength": "medium",
+    "sharedDomains": ["geometrie"]
   },
   {
     "source": "la-pression-atmospherique-un-ocean-d-air-invisible",
@@ -1318,6 +835,13 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 282.9,
     "strength": "strong",
     "sharedDomains": ["islam_sources", "cosmologie"]
+  },
+  {
+    "source": "un-traite-ottoman-contre-la-sphericite-1314h",
+    "target": "lexperience-contre-la-theorie",
+    "score": 281.0,
+    "strength": "medium",
+    "sharedDomains": ["histoire_sciences", "epistemologie"]
   },
   {
     "source": "index-thematique",
@@ -1339,6 +863,13 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 276.5,
     "strength": "strong",
     "sharedDomains": ["islam_sources", "histoire_sciences"]
+  },
+  {
+    "source": "ou-est-allah-le-uluww-et-la-forme-du-monde",
+    "target": "un-traite-ottoman-contre-la-sphericite-1314h",
+    "score": 276.0,
+    "strength": "medium",
+    "sharedDomains": ["islam_sources", "cosmologie"]
   },
   {
     "source": "dhu-al-qarnayn-confins-terrestres-et-rupture-ptolemeenne",
@@ -1369,6 +900,13 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["islam_sources", "cosmologie"]
   },
   {
+    "source": "un-traite-ottoman-contre-la-sphericite-1314h",
+    "target": "monter-l-experience-des-trois-mires",
+    "score": 274.0,
+    "strength": "medium",
+    "sharedDomains": ["geometrie"]
+  },
+  {
     "source": "glossaire",
     "target": "lexperience-contre-la-theorie",
     "score": 273.4,
@@ -1376,11 +914,102 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["epistemologie", "histoire_sciences"]
   },
   {
+    "source": "lire-le-ciel-avant-le-globe",
+    "target": "un-traite-ottoman-contre-la-sphericite-1314h",
+    "score": 271.0,
+    "strength": "medium",
+    "sharedDomains": ["astronomie", "histoire_sciences"]
+  },
+  {
     "source": "le-concordisme",
     "target": "le-consensus-sur-la-sphericite",
     "score": 270.2,
     "strength": "strong",
     "sharedDomains": ["islam_sources", "epistemologie"]
+  },
+  {
+    "source": "un-traite-ottoman-contre-la-sphericite-1314h",
+    "target": "le-mythe-deratosthene",
+    "score": 268.0,
+    "strength": "medium",
+    "sharedDomains": ["geometrie", "histoire_sciences"]
+  },
+  {
+    "source": "participer-aux-campagnes-de-mesure",
+    "target": "les-protocoles-ce-que-c-est-et-pourquoi",
+    "score": 250.0,
+    "strength": "strong",
+    "sharedDomains": ["epistemologie", "modelisation"]
+  },
+  {
+    "source": "les-protocoles-ce-que-c-est-et-pourquoi",
+    "target": "monter-l-experience-des-trois-mires",
+    "score": 204.0,
+    "strength": "medium",
+    "sharedDomains": ["epistemologie", "geometrie"]
+  },
+  {
+    "source": "les-protocoles-ce-que-c-est-et-pourquoi",
+    "target": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
+    "score": 186.0,
+    "strength": "medium",
+    "sharedDomains": ["geometrie", "hydrologie"]
+  },
+  {
+    "source": "monter-l-experience-des-trois-mires",
+    "target": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
+    "score": 186.0,
+    "strength": "strong",
+    "sharedDomains": ["geometrie", "hydrologie", "optique"]
+  },
+  {
+    "source": "les-protocoles-ce-que-c-est-et-pourquoi",
+    "target": "la-perspective-pourquoi-les-objets-disparaissent",
+    "score": 178.0,
+    "strength": "medium",
+    "sharedDomains": ["optique", "geometrie"]
+  },
+  {
+    "source": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
+    "target": "leau-ne-ment-pas",
+    "score": 168.0,
+    "strength": "strong",
+    "sharedDomains": ["geometrie", "hydrologie", "optique"]
+  },
+  {
+    "source": "les-protocoles-ce-que-c-est-et-pourquoi",
+    "target": "standards-et-methode",
+    "score": 162.0,
+    "strength": "medium",
+    "sharedDomains": ["epistemologie"]
+  },
+  {
+    "source": "monter-l-experience-des-trois-mires",
+    "target": "leau-ne-ment-pas",
+    "score": 158.0,
+    "strength": "strong",
+    "sharedDomains": ["hydrologie", "geometrie"]
+  },
+  {
+    "source": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
+    "target": "la-perspective-pourquoi-les-objets-disparaissent",
+    "score": 152.0,
+    "strength": "strong",
+    "sharedDomains": ["optique", "geometrie"]
+  },
+  {
+    "source": "participer-aux-campagnes-de-mesure",
+    "target": "monter-l-experience-des-trois-mires",
+    "score": 150.0,
+    "strength": "medium",
+    "sharedDomains": ["geometrie", "epistemologie"]
+  },
+  {
+    "source": "participer-aux-campagnes-de-mesure",
+    "target": "standards-et-methode",
+    "score": 150.0,
+    "strength": "medium",
+    "sharedDomains": ["epistemologie"]
   },
   {
     "source": "la-rotation-terrestre-experiences-preuves-verdict",
@@ -1416,34 +1045,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 139.7,
     "strength": "medium",
     "sharedDomains": ["epistemologie", "cosmologie"]
-  },
-  {
-    "source": "monter-l-experience-des-trois-mires",
-    "target": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
-    "score": 186.0,
-    "strength": "strong",
-    "sharedDomains": ["geometrie", "hydrologie", "optique"]
-  },
-  {
-    "source": "monter-l-experience-des-trois-mires",
-    "target": "leau-ne-ment-pas",
-    "score": 158.0,
-    "strength": "strong",
-    "sharedDomains": ["hydrologie", "geometrie"]
-  },
-  {
-    "source": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
-    "target": "leau-ne-ment-pas",
-    "score": 168.0,
-    "strength": "strong",
-    "sharedDomains": ["geometrie", "hydrologie", "optique"]
-  },
-  {
-    "source": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
-    "target": "la-perspective-pourquoi-les-objets-disparaissent",
-    "score": 152.0,
-    "strength": "strong",
-    "sharedDomains": ["optique", "geometrie"]
   },
   {
     "source": "etat-des-lieux-ou-en-sommes-nous",
@@ -1619,17 +1220,5 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 41.8,
     "strength": "weak",
     "sharedDomains": ["physique"]
-  }
-];
-
-export const NEXUS_STATS = {
-  "totalArticles": 63,
-  "totalLinks": 152,
-  "pillars": {
-    "headquarters": 16,
-    "observatory": 31,
-    "library": 10,
-    "meta": 6,
   },
-  "domainCoverage": 11
-};
+];

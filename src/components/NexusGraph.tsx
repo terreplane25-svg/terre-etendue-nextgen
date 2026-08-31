@@ -11,18 +11,24 @@ interface Node extends NexusNodeData {
   vy: number;
 }
 
+// Les quatre piliers, plus les pages de méthode. Les couleurs sont celles de
+// la charte (globals.css) ; aucune ne doit être inventée ici.
+// Toute catégorie présente dans le corpus doit figurer dans les deux tables :
+// une catégorie manquante donnait un point gris et un libellé « undefined ».
 const CAT_COLORS: Record<string, string> = {
   headquarters: '#8B7EC8',
   observatory: '#3B8FD4',
   library: '#D4943A',
-  lab: '#3D9E7C',
+  experiences: '#C45E6A',
+  meta: '#B8941F',
 };
 
 const CAT_LABELS: Record<string, string> = {
   headquarters: 'Centre de Recherche',
   observatory: 'Observatoire',
   library: 'Bibliothèque',
-  lab: 'Outils',
+  experiences: 'Expériences',
+  meta: 'Méthode',
 };
 
 function initNodes(data: NexusNodeData[], w: number, h: number): Node[] {
