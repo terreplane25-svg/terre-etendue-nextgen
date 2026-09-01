@@ -66,6 +66,25 @@ HAUTEURS = [1, 2, 5, 10, 20, 50]
 DISTANCES = [10, 20, 30, 50, 80]
 DIFF_D = [10, 15, 20, 30, 40, 50]
 H_BAS, H_HAUT = 1, 20
+K_MAX = 0.50               # borne haute admissible hors conduit
+JOURS_MINI = 3             # journées à conditions thermiques distinctes
+
+# Les régimes de réfraction, et ce qu'ils autorisent. La dernière ligne est la
+# raison pour laquelle un seul relevé ne suffit jamais : au-delà de k = 1, le
+# rayon se courbe plus que la surface et des objets normalement masqués
+# redeviennent visibles.
+REGIMES = [
+    (0.00, "aucune r&#233;fraction", "no refraction",
+     "borne g&#233;om&#233;trique inf&#233;rieure", "lower geometric bound"),
+    (0.13, "standard optique", "standard optical",
+     "atmosph&#232;re ordinaire", "ordinary atmosphere"),
+    (0.25, "4/3 R, standard radio", "4/3 R, radio standard",
+     "gradient renforc&#233;", "enhanced gradient"),
+    (0.50, "inversion forte au ras de l'eau", "strong inversion above water",
+     "borne haute retenue", "upper bound adopted"),
+    (1.00, "conduit, mirage sup&#233;rieur", "duct, superior mirage",
+     "le test de 8.6 le d&#233;tecte", "detected by the test of 8.6"),
+]
 
 
 def cachee(h_m, d_km, k):
@@ -143,8 +162,16 @@ def t_seuil(fr):
 
 def t_k(fr):
     cas = [(2, 10), (2, 20), (2, 30), (10, 30), (10, 50), (30, 80)]
-    return [ligne(["%d m" % h, "%d km" % d, nb(k_pour(h, d, 0.0), 3, fr)],
+    return [ligne(["%d m" % h, "%d km" % d, nb(k_pour(h, d, 0.0), 3, fr),
+                   ("oui" if k_pour(h, d, 0.0) <= K_MAX else "non") if fr
+                   else ("yes" if k_pour(h, d, 0.0) <= K_MAX else "no")],
                   (h, d) == (2, 30)) for h, d in cas]
+
+
+def t_regimes(fr):
+    return [ligne([nb(k, 2, fr), lfr if fr else len_, cfr if fr else cen],
+                  abs(k - K_MAX) < 1e-9)
+            for k, lfr, len_, cfr, cen in REGIMES]
 
 
 def corps(fr):
@@ -173,10 +200,18 @@ def corps(fr):
                  "<strong>diff&#233;rentielle</strong> &#224; trois hauteurs d'&#339;il "
                  "au moins (8.5). La seconde est exig&#233;e&#160;; la premi&#232;re "
                  "seule ne conclut pas."))
-        A(clause("1.4", "Elle ne d&#233;termine pas la forme de la Terre et ne conclut "
-                 "sur aucun mod&#232;le. Elle produit <code>c</code>, <code>k</code>, "
-                 "et leurs incertitudes."))
-        A(clause("1.5", "Les valeurs sont exprim&#233;es en unit&#233;s SI."))
+        A(clause("1.4", "Elle <strong>conclut</strong> sur deux mod&#232;les "
+                 "enti&#232;rement sp&#233;cifi&#233;s&#160;: une surface "
+                 "<strong>sph&#233;rique de rayon 6&#8239;371 km</strong> assortie d'un "
+                 "coefficient de r&#233;fraction admissible, et une surface "
+                 "<strong>plane &#224; profil d&#233;gag&#233;</strong>. Le verdict est "
+                 "&#233;nonc&#233; au 9.7, et chacun des deux mod&#232;les peut y "
+                 "&#234;tre r&#233;fut&#233;."))
+        A(clause("1.5", "Elle ne conclut pas sur des mod&#232;les qui ne sont pas "
+                 "&#233;nonc&#233;s, ni sur la forme de la Terre comme proposition "
+                 "g&#233;n&#233;rale. Une ligne de vis&#233;e n'est pas une "
+                 "plan&#232;te."))
+        A(clause("1.6", "Les valeurs sont exprim&#233;es en unit&#233;s SI."))
     else:
         A(clause("1.1", "This method determines the <strong>hidden portion</strong> "
                  "<code>c</code> at the base of a distant object, and the "
@@ -188,10 +223,15 @@ def corps(fr):
                  "(8.4) and a <strong>differential</strong> measurement at three eye "
                  "heights at least (8.5). The second is required; the first alone does "
                  "not conclude."))
-        A(clause("1.4", "It does not determine the shape of the Earth and concludes on "
-                 "no model. It produces <code>c</code>, <code>k</code>, and their "
-                 "uncertainties."))
-        A(clause("1.5", "Values are expressed in SI units."))
+        A(clause("1.4", "It <strong>concludes</strong> on two fully specified models: a "
+                 "<strong>spherical surface of radius 6&#8239;371 km</strong> with an "
+                 "admissible refraction coefficient, and a <strong>plane surface with a "
+                 "clear profile</strong>. The verdict is stated at 9.7, and either model "
+                 "can be refuted there."))
+        A(clause("1.5", "It does not conclude on models that are not stated, nor on the "
+                 "shape of the Earth as a general proposition. One sight line is not a "
+                 "planet."))
+        A(clause("1.6", "Values are expressed in SI units."))
 
     # ── 2 Documents de référence ────────────────────────────────────────────
     A(h2(2, fr))
@@ -445,7 +485,22 @@ def corps(fr):
                  "d'&#339;il satisfaisant 7.6, <strong>&#224; la m&#234;me distance et "
                  "dans la m&#234;me heure</strong>, sans changer d'objectif ni de "
                  "r&#233;glage."))
-        A(clause("8.6", "Photographier &#233;galement la sc&#232;ne au grand angle, "
+        A(clause("8.6", "<strong>Test de proportionnalit&#233; &#8212; exig&#233;.</strong> "
+                 "Mesurer sur le clich&#233; l'&#233;cart angulaire entre chaque paire de "
+                 "rep&#232;res de hauteur. Sous une atmosph&#232;re r&#233;guli&#232;re, "
+                 "cet &#233;cart vaut <code>(z&#8322;&#8722;z&#8321;)/d</code> et ne "
+                 "d&#233;pend <strong>ni de <code>k</code>, ni de la hauteur "
+                 "d'&#339;il</strong>. Un &#233;cart mesur&#233; s'&#233;loignant de "
+                 "plus de 10&#160;% de cette valeur signale un gradient non uniforme "
+                 "&#8212; un conduit &#8212; et la formule du 9.2 ne s'applique "
+                 "plus."))
+        A(clause("8.7", "<strong>R&#233;p&#233;tition &#8212; exig&#233;e.</strong> La "
+                 "s&#233;rie compl&#232;te est reprise sur au moins <strong>%d "
+                 "journ&#233;es</strong> pr&#233;sentant des &#233;carts "
+                 "air&#8722;eau distincts. Une occultation g&#233;om&#233;trique est "
+                 "pr&#233;sente tous les jours&#160;; un conduit ne l'est pas."
+                 % JOURS_MINI))
+        A(clause("8.8", "Photographier &#233;galement la sc&#232;ne au grand angle, "
                  "avec des rep&#232;res proches identifiables, pour permettre &#224; un "
                  "tiers de v&#233;rifier la station et l'orientation."))
         A(encadre("Distinguer la brume de l'occultation",
@@ -489,7 +544,19 @@ def corps(fr):
                  "Repeat 8.2 and 8.4 from at least three eye heights satisfying 7.6, "
                  "<strong>at the same distance and within the same hour</strong>, "
                  "without changing lens or settings."))
-        A(clause("8.6", "Also photograph the scene at wide angle, with identifiable near "
+        A(clause("8.6", "<strong>Proportionality test &#8212; required.</strong> Measure "
+                 "on the frame the angular spacing between each pair of height markers. "
+                 "Under a regular atmosphere that spacing equals "
+                 "<code>(z&#8322;&#8722;z&#8321;)/d</code> and depends on <strong>neither "
+                 "<code>k</code> nor the eye height</strong>. A measured spacing "
+                 "departing by more than 10 per cent from that value signals a "
+                 "non-uniform gradient &#8212; a duct &#8212; and the formula of 9.2 no "
+                 "longer applies."))
+        A(clause("8.7", "<strong>Repetition &#8212; required.</strong> The full series "
+                 "is repeated on at least <strong>%d days</strong> showing distinct "
+                 "air&#8722;water temperature differences. A geometric occultation is "
+                 "present every day; a duct is not." % JOURS_MINI))
+        A(clause("8.8", "Also photograph the scene at wide angle, with identifiable near "
                  "landmarks, so a third party can verify the station and the bearing."))
         A(encadre("Telling haze from occultation",
                   "  <p>An atmospheric veil erases the bottom of a distant object and "
@@ -544,11 +611,51 @@ def corps(fr):
         A(clause("9.6", "&#201;valuer les incertitudes selon 2.1. Les composantes "
                  "minimales sont&#160;: lecture du rep&#232;re, hauteur d'&#339;il, "
                  "niveau d'eau, distance."))
-        A(tableau("Tableau 4 &#8212; Coefficient qu'il faudrait pour que la base de la "
-                  "cible reste visible. L'atmosph&#232;re r&#233;elle donne "
-                  "<code>k</code> &#8776; 0,13 en r&#233;gime ordinaire, jusqu'&#224; "
-                  "environ 0,5 sous inversion forte.",
-                  ["hauteur d'&#339;il", "distance", "k n&#233;cessaire"], t_k(fr)))
+        A(tableau("Tableau 4 &#8212; R&#233;gimes de r&#233;fraction. La ligne "
+                  "surlign&#233;e est la <strong>borne haute admissible</strong> "
+                  "retenue pour le verdict du 9.7.",
+                  ["k", "r&#233;gime", "remarque"], t_regimes(fr)))
+        A(tableau("Tableau 5 &#8212; Coefficient qu'il faudrait pour que la base de la "
+                  "cible reste visible, et compatibilit&#233; avec la borne du "
+                  "tableau 4.",
+                  ["hauteur d'&#339;il", "distance", "k n&#233;cessaire",
+                   "admissible&#160;?"], t_k(fr)))
+        A(clause("9.7", "<strong>Verdict.</strong> Il s'&#233;nonce sur les deux "
+                 "mod&#232;les du 1.4, et seulement si 7.1, 8.6 et 8.7 sont "
+                 "satisfaits&#160;:"))
+        A('<div class="two">\n'
+          '  <div class="vc p">\n'
+          '    <p class="h">k<sub>exig&#233;</sub> &gt; %s</p>\n'
+          '    <p class="v">La sph&#232;re de 6&#8239;371 km est r&#233;fut&#233;e sur '
+          'cette ligne</p>\n'
+          '    <p>Aucun coefficient de r&#233;fraction admissible ne rend compte de ce '
+          'qui est vu, le profil est d&#233;gag&#233;, la proportionnalit&#233; est '
+          'respect&#233;e, et le r&#233;sultat tient sur %d journ&#233;es de conditions '
+          'thermiques diff&#233;rentes.</p>\n'
+          '  </div>\n'
+          '  <div class="vc g">\n'
+          '    <p class="h">&#233;cart diff&#233;rentiel &gt; 3&#963;</p>\n'
+          '    <p class="v">Le plan &#224; profil d&#233;gag&#233; est '
+          'r&#233;fut&#233;</p>\n'
+          '    <p>Il pr&#233;dit un &#233;cart nul entre deux hauteurs d\'&#339;il, '
+          'exactement et sans param&#232;tre ajustable. Un &#233;cart mesur&#233; non '
+          'nul le r&#233;fute sans qu\'aucune valeur de <code>k</code> puisse le '
+          'sauver.</p>\n'
+          '  </div>\n'
+          '</div>' % (nb(K_MAX, 2, fr), JOURS_MINI))
+        A(encadre("Les deux mod&#232;les ne se r&#233;futent pas au m&#234;me prix",
+                  "  <p>Le plan &#224; profil d&#233;gag&#233; pr&#233;dit "
+                  "<strong>z&#233;ro, sans param&#232;tre libre</strong>&#160;: il "
+                  "suffit d'un &#233;cart diff&#233;rentiel mesur&#233; pour le "
+                  "r&#233;futer. La sph&#232;re dispose d'un param&#232;tre, "
+                  "<code>k</code>&#160;; la r&#233;futer demande donc de le "
+                  "<strong>borner</strong>, ce que fait le tableau 4, et d'&#233;carter "
+                  "le conduit, ce que font 8.6 et 8.7.</p>\n"
+                  "  <p>Cette asym&#233;trie n'est pas un parti pris&#160;: c'est la "
+                  "structure des deux hypoth&#232;ses. Une pr&#233;diction rigide se "
+                  "r&#233;fute plus facilement qu'une pr&#233;diction &#224; "
+                  "param&#232;tre &#8212; et c'est le mod&#232;le plan qui porte ici la "
+                  "pr&#233;diction rigide.</p>", "key"))
     else:
         A(clause("9.1", "Correct the eye height and the target's base height for the "
                  "tide level recorded at 8.3."))
@@ -572,11 +679,40 @@ def corps(fr):
                  "exactly zero on a plane."))
         A(clause("9.6", "Evaluate uncertainties per 2.1. The minimum components are: "
                  "marker reading, eye height, water level, distance."))
-        A(tableau("Table 4 &#8212; Coefficient that would be required for the target's "
-                  "base to remain visible. The real atmosphere gives <code>k</code> "
-                  "&#8776; 0.13 in ordinary regime, up to about 0.5 under strong "
-                  "inversion.",
-                  ["eye height", "distance", "k required"], t_k(fr)))
+        A(tableau("Table 4 &#8212; Refraction regimes. The highlighted row is the "
+                  "<strong>admissible upper bound</strong> adopted for the verdict of "
+                  "9.7.", ["k", "regime", "remark"], t_regimes(fr)))
+        A(tableau("Table 5 &#8212; Coefficient that would be required for the target's "
+                  "base to remain visible, and compatibility with the bound of Table 4.",
+                  ["eye height", "distance", "k required", "admissible?"], t_k(fr)))
+        A(clause("9.7", "<strong>Verdict.</strong> It is stated on the two models of "
+                 "1.4, and only if 7.1, 8.6 and 8.7 are satisfied:"))
+        A('<div class="two">\n'
+          '  <div class="vc p">\n'
+          '    <p class="h">k<sub>required</sub> &gt; %s</p>\n'
+          '    <p class="v">The 6&#8239;371 km sphere is refuted on this line</p>\n'
+          '    <p>No admissible refraction coefficient accounts for what is seen, the '
+          'profile is clear, proportionality holds, and the result stands over %d days '
+          'of differing thermal conditions.</p>\n'
+          '  </div>\n'
+          '  <div class="vc g">\n'
+          '    <p class="h">differential &gt; 3&#963;</p>\n'
+          '    <p class="v">The plane with clear profile is refuted</p>\n'
+          '    <p>It predicts a zero difference between two eye heights, exactly and '
+          'with no adjustable parameter. A measured non-zero difference refutes it, and '
+          'no value of <code>k</code> can save it.</p>\n'
+          '  </div>\n'
+          '</div>' % (nb(K_MAX, 2, fr), JOURS_MINI))
+        A(encadre("The two models are not refuted at the same price",
+                  "  <p>The plane with clear profile predicts <strong>zero, with no free "
+                  "parameter</strong>: a single measured differential refutes it. The "
+                  "sphere has one parameter, <code>k</code>; refuting it therefore "
+                  "requires <strong>bounding</strong> it, which Table 4 does, and ruling "
+                  "out ducting, which 8.6 and 8.7 do.</p>\n"
+                  "  <p>That asymmetry is not a bias: it is the structure of the two "
+                  "hypotheses. A rigid prediction is easier to refute than one with a "
+                  "parameter &#8212; and here it is the plane model that carries the "
+                  "rigid prediction.</p>", "key"))
 
     # ── 10 Rapport d'essai ──────────────────────────────────────────────────
     A(h2(10, fr))
@@ -695,11 +831,27 @@ def corps(fr):
           "  <li>trois lectures au lieu d'une donnent une dispersion, donc une "
           "incertitude mesur&#233;e plut&#244;t que suppos&#233;e.</li>\n"
           "</ul>")
-        A("<h3>X1.4 &#8212; Ce que la m&#233;thode n'&#233;tablit pas</h3>")
-        A("<p>Elle donne <code>k</code> sur une ligne de vis&#233;e, &#224; un moment, "
-          "dans une masse d'air. Elle ne donne pas la forme de la Terre, et elle ne "
-          "s&#233;pare pas la courbure de la surface de celle du rayon lumineux&#160;: "
-          "un <code>R&#8242; = R/(1&#8722;k)</code> mesur&#233; contient les deux.</p>")
+        A("<h3>X1.4 &#8212; La port&#233;e du verdict</h3>")
+        A("<p>Le verdict du 9.7 porte sur une <strong>proposition "
+          "compl&#232;tement &#233;nonc&#233;e</strong>&#160;: telle observation "
+          "est-elle possible sur une surface de rayon 6&#8239;371 km, sous un "
+          "coefficient de r&#233;fraction born&#233; par le tableau 4&#160;? "
+          "C'est une question ferm&#233;e, et la mesure y r&#233;pond par oui ou par "
+          "non.</p>")
+        A("<p>Ce qu'elle ne fait pas, c'est trancher &#171;&#160;la forme de la "
+          "Terre&#160;&#187; comme proposition g&#233;n&#233;rale, pour deux raisons "
+          "qui sont des faits et non des pr&#233;cautions.</p>")
+        A("<p><strong>Une ligne de vis&#233;e n'est pas une plan&#232;te.</strong> Un "
+          "relev&#233; d&#233;crit un azimut, un jour, une masse d'air. Ce qui vaut "
+          "&#224; l'&#233;chelle du globe demande des relev&#233;s r&#233;partis, et "
+          "c'est vrai quel que soit leur r&#233;sultat.</p>")
+        A("<p><strong>Une mesure isol&#233;e donne <code>R&#8242; = R/(1&#8722;k)</code>, "
+          "pas <code>R</code>.</strong> La courbure de la surface et celle du rayon "
+          "lumineux entrent dans la m&#234;me quantit&#233; et ne s'en s&#233;parent "
+          "pas. C'est pr&#233;cis&#233;ment pourquoi la m&#233;thode borne "
+          "<code>k</code> par le tableau 4 et &#233;carte le conduit par 8.6 et "
+          "8.7&#160;: sans ces trois clauses, le verdict ne serait pas prononçable. "
+          "Avec elles, il l'est.</p>")
         A("<p>Elle ne valide ni n'invalide r&#233;troactivement une photographie prise "
           "ailleurs, un autre jour, dans une autre atmosph&#232;re.</p>")
         A("<p>Si une application de la m&#233;thode trouve un &#233;cart "
@@ -746,11 +898,23 @@ def corps(fr):
           "  <li>three readings instead of one give a scatter, hence a measured rather "
           "than assumed uncertainty.</li>\n"
           "</ul>")
-        A("<h3>X1.4 &#8212; What the method does not establish</h3>")
-        A("<p>It gives <code>k</code> on one sight line, at one moment, through one air "
-          "mass. It does not give the shape of the Earth, and it does not separate the "
-          "curvature of the surface from that of the light ray: a measured "
-          "<code>R&#8242; = R/(1&#8722;k)</code> contains both.</p>")
+        A("<h3>X1.4 &#8212; The reach of the verdict</h3>")
+        A("<p>The verdict of 9.7 bears on a <strong>fully stated "
+          "proposition</strong>: is this observation possible on a surface of radius "
+          "6&#8239;371 km, under a refraction coefficient bounded by Table 4? That is a "
+          "closed question, and the measurement answers it yes or no.</p>")
+        A("<p>What it does not do is settle &#8220;the shape of the Earth&#8221; as a "
+          "general proposition, for two reasons that are facts rather than "
+          "precautions.</p>")
+        A("<p><strong>One sight line is not a planet.</strong> A record describes one "
+          "azimuth, one day, one air mass. What holds at the scale of a globe requires "
+          "distributed records, and that is true whatever their result.</p>")
+        A("<p><strong>An isolated measurement gives <code>R&#8242; = R/(1&#8722;k)</code>, "
+          "not <code>R</code>.</strong> The curvature of the surface and that of the "
+          "light ray enter the same quantity and do not separate within it. That is "
+          "precisely why the method bounds <code>k</code> by Table 4 and rules out "
+          "ducting by 8.6 and 8.7: without those three clauses the verdict could not be "
+          "pronounced. With them, it can.</p>")
         A("<p>It neither validates nor invalidates, retroactively, a photograph taken "
           "elsewhere, on another day, through another atmosphere.</p>")
         A("<p>If an application of the method finds a null differential where Table 2 "
