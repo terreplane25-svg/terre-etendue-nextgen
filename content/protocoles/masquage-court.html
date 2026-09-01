@@ -1,0 +1,366 @@
+<title>Compatibilit&#233; d'une observation avec R = 6 371 km</title>
+
+<style>
+/* @@POLICES@@ — injecté au rendu depuis polices.css */
+@page{ size:A4; margin:19mm 17mm 16mm; }
+
+:root{
+  --ink:#12181e; --soft:#3d4952; --mute:#6c7883;
+  --line:#cfd7dd; --line2:#9aa7b1; --wash:#f2f5f7;
+  --globe:#14608f; --globe-w:#14608f14;
+  --plane:#96600f; --plane-w:#96600f14;
+  --alert:#8f2f2b; --alert-w:#8f2f2b10;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:#fff; color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,sans-serif;
+  font-size:9.7pt; line-height:1.52;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+.page{padding:0}
+p{margin:0 0 7pt; color:var(--soft); text-align:justify; hyphens:auto}
+p.lead{color:var(--ink); font-size:10.4pt}
+strong{color:var(--ink); font-weight:600}
+code{font-family:"IBM Plex Mono",monospace; font-size:.9em; color:var(--ink)}
+
+/* ── Bloc-titre ── */
+.masthead{border-bottom:2.2pt solid var(--ink); padding-bottom:9pt; margin-bottom:14pt}
+.kicker{
+  font-family:"IBM Plex Mono",monospace; font-size:7.4pt; font-weight:600;
+  letter-spacing:.19em; text-transform:uppercase; color:var(--globe);
+  margin-bottom:8pt;
+}
+h1{
+  font-family:Spectral,Georgia,serif; font-weight:700; font-size:23pt;
+  line-height:1.13; letter-spacing:-.015em; margin:0 0 6pt; color:var(--ink);
+}
+.dek{font-family:Spectral,Georgia,serif; font-size:11.3pt; line-height:1.42;
+  color:var(--soft); font-style:italic; margin:0 0 10pt}
+.byline{
+  display:flex; gap:26pt; flex-wrap:wrap;
+  font-family:"IBM Plex Mono",monospace; font-size:7.6pt; color:var(--mute);
+  letter-spacing:.05em; border-top:.6pt solid var(--line); padding-top:7pt;
+}
+.byline b{display:block; color:var(--ink); font-weight:600; font-size:8pt; margin-top:1pt}
+
+.abstract{
+  background:var(--wash); border-left:2.6pt solid var(--globe);
+  padding:11pt 13pt; margin:0 0 16pt;
+}
+.abstract .lab{
+  font-family:"IBM Plex Mono",monospace; font-size:7.2pt; font-weight:600;
+  letter-spacing:.17em; text-transform:uppercase; color:var(--globe); display:block; margin-bottom:5pt;
+}
+.abstract p{margin-bottom:5pt; font-size:9.2pt}
+.abstract p:last-child{margin-bottom:0}
+
+/* ── Titres ── */
+h2{
+  font-family:Spectral,Georgia,serif; font-weight:600; font-size:13.6pt;
+  line-height:1.2; margin:17pt 0 5pt; color:var(--ink);
+  padding-bottom:3.5pt; border-bottom:.7pt solid var(--line2);
+  break-after:avoid; page-break-after:avoid;
+}
+h2 .n{font-family:"IBM Plex Mono",monospace; font-size:8.4pt; color:var(--globe);
+  font-weight:600; margin-right:8pt; letter-spacing:.06em}
+h3{font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:9.8pt;
+  margin:11pt 0 4pt; color:var(--ink); break-after:avoid; page-break-after:avoid}
+
+ul,ol{margin:0 0 8pt; padding-left:15pt; color:var(--soft)}
+li{margin:0 0 3.5pt}
+ol.st{list-style:none; padding:0; counter-reset:s}
+ol.st>li{counter-increment:s; position:relative; padding-left:26pt; margin-bottom:7pt}
+ol.st>li::before{
+  content:counter(s,decimal-leading-zero); position:absolute; left:0; top:.4pt;
+  font-family:"IBM Plex Mono",monospace; font-size:7.6pt; font-weight:600;
+  color:#fff; background:var(--globe); width:18pt; height:12pt;
+  display:flex; align-items:center; justify-content:center; border-radius:1.5pt;
+}
+ol.st>li>b{display:block; color:var(--ink); font-weight:600}
+
+/* ── Formules ── */
+.eq{
+  font-family:"IBM Plex Mono",monospace; font-size:10.2pt; color:var(--ink);
+  background:var(--wash); border:.6pt solid var(--line);
+  padding:8pt 12pt; margin:8pt 0; text-align:center; letter-spacing:.02em;
+}
+.eq .cap{display:block; font-family:"IBM Plex Sans",sans-serif; font-size:7.6pt;
+  color:var(--mute); margin-top:4pt; letter-spacing:0}
+
+/* ── Tableaux ── */
+table{border-collapse:collapse; width:100%; font-size:8.6pt; margin:8pt 0 10pt;
+  break-inside:avoid; page-break-inside:avoid}
+th,td{padding:4pt 7pt; text-align:left; border-bottom:.5pt solid var(--line)}
+thead th{
+  font-family:"IBM Plex Mono",monospace; font-size:6.9pt; font-weight:600;
+  letter-spacing:.11em; color:var(--mute);
+  background:var(--wash); border-bottom:.9pt solid var(--line2);
+}
+td.n,th.n{text-align:right; font-family:"IBM Plex Mono",monospace;
+  font-variant-numeric:tabular-nums; font-size:8.4pt}
+tbody tr:last-child td{border-bottom:.7pt solid var(--line2)}
+tr.hi td{background:var(--globe-w)}
+tr.hi td,tr.hi td strong{color:var(--globe); font-weight:600}
+tr.pl td{background:var(--plane-w)}
+tr.pl td{color:var(--plane); font-weight:600}
+caption{caption-side:bottom; text-align:left; font-size:7.8pt; color:var(--mute);
+  padding-top:4pt; font-style:italic}
+
+/* ── Figures ── */
+figure{margin:10pt 0 12pt; break-inside:avoid; page-break-inside:avoid}
+figure svg{display:block; width:100%; height:auto; border:.6pt solid var(--line);
+  background:#fff; padding:7pt}
+figcaption{font-size:7.9pt; line-height:1.45; color:var(--mute); margin-top:4pt; text-align:justify}
+figcaption b{color:var(--ink)}
+
+/* SVG */
+.sl{stroke:var(--line2); fill:none}
+.si{stroke:var(--soft); fill:none}
+.sg{stroke:var(--globe); fill:none}
+.sp{stroke:var(--plane); fill:none}
+.sa{stroke:var(--alert); fill:none}
+.fg{fill:var(--globe)} .fp{fill:var(--plane)} .fi{fill:var(--ink)} .fs{fill:var(--soft)}
+.t{font-family:"IBM Plex Sans",sans-serif; font-size:12px; fill:var(--soft)}
+.tm{font-family:"IBM Plex Mono",monospace; font-size:11px; fill:var(--mute); letter-spacing:.05em}
+.tb{font-family:"IBM Plex Mono",monospace; font-size:11.5px; font-weight:600; letter-spacing:.09em}
+.dash{stroke-dasharray:5 4} .dash2{stroke-dasharray:2 3}
+
+/* ── Encadrés ── */
+.box{border:.7pt solid var(--line2); padding:9pt 11pt; margin:9pt 0;
+  break-inside:avoid; page-break-inside:avoid}
+.box .lab{font-family:"IBM Plex Mono",monospace; font-size:7pt; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; display:block; margin-bottom:4pt}
+.box p:last-child{margin-bottom:0}
+.box.key{border-color:var(--globe); background:var(--globe-w)} .box.key .lab{color:var(--globe)}
+.box.warn{border-color:var(--alert); background:var(--alert-w)} .box.warn .lab{color:var(--alert)}
+.box.flat{border-color:var(--plane); background:var(--plane-w)} .box.flat .lab{color:var(--plane)}
+
+.two{display:grid; grid-template-columns:1fr 1fr; gap:9pt; margin:9pt 0;
+  break-inside:avoid; page-break-inside:avoid}
+.vc{border:1pt solid var(--line2); padding:9pt 11pt}
+.vc.g{border-color:var(--globe)} .vc.p{border-color:var(--plane)}
+.vc .h{font-family:"IBM Plex Mono",monospace; font-size:7.2pt; letter-spacing:.14em;
+  margin:0 0 3pt}
+.vc.g .h{color:var(--globe)} .vc.p .h{color:var(--plane)}
+.vc .v{font-family:Spectral,Georgia,serif; font-size:13pt; font-weight:600;
+  color:var(--ink); margin:0 0 4pt; line-height:1.2}
+.vc p{font-size:8.4pt; margin:0}
+
+.sheet{border:.9pt solid var(--line2); padding:9pt 13pt; break-inside:avoid; page-break-inside:avoid}
+.fr{display:flex; gap:9pt; align-items:baseline; padding:3.1pt 0; border-bottom:.4pt dotted var(--line2)}
+.fr:last-child{border-bottom:0}
+.fr .a{font-size:8.5pt; color:var(--soft); flex:1 1 auto}
+.fr .b{font-family:"IBM Plex Mono",monospace; font-size:8pt; color:var(--mute);
+  border-bottom:.5pt solid var(--line2); min-width:104pt; text-align:center}
+
+.brk{break-before:page; page-break-before:always}
+footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
+  font-size:7.6pt; color:var(--mute)}
+.refs{font-size:7.85pt; color:var(--soft); line-height:1.4}
+.refs li{margin-bottom:3pt}
+
+.langbar{display:flex; gap:0; margin:0 0 12pt; border:.8pt solid var(--line2)}
+.langbar span{flex:1; text-align:center; padding:5pt; font-family:"IBM Plex Mono",monospace;
+  font-size:7.4pt; letter-spacing:.14em; color:var(--mute)}
+.langbar span.on{background:var(--globe); color:#fff; font-weight:600}
+.disk{fill:var(--plane); opacity:.85}
+.disk2{fill:var(--globe); opacity:.85}
+</style>
+
+<div class="page">
+<div class="masthead">
+  <div class="kicker">Protocole de terrain &#183; Trois pages &#183; Ex&#233;cutable en amateur</div>
+  <h1>Une observation lointaine est-elle compatible avec une Terre de 6&#8239;371&#8239;km&#8239;?</h1>
+  <p class="sub">Mesure de la portion masqu&#233;e d'une cible, au-dessus d'un plan d'eau</p>
+</div>
+
+<h2><span class="n">1</span>Le principe, en trois phrases</h2>
+<p class="lead">Sur une surface de rayon 6&#8239;371&#8239;km, une cible situ&#233;e au-del&#224;
+de l'horizon a sa base masqu&#233;e d'une hauteur qui ne d&#233;pend que de la hauteur
+d'&#339;il, de la distance, et de la r&#233;fraction.</p>
+<p>La r&#233;fraction rel&#232;ve le rayon lumineux et <strong>r&#233;duit</strong> ce
+masquage. Elle ne l'annule pas&#160;: pass&#233;e une certaine distance, m&#234;me
+l'inversion thermique la plus forte qu'on mesure dans l'atmosph&#232;re laisse une
+portion cach&#233;e.</p>
+<p>On calcule donc le <strong>masquage minimal</strong> <code>c<sub>min</sub></code>,
+c'est-&#224;-dire celui qui subsiste au coefficient de r&#233;fraction extr&#234;me
+<code>k</code>&#8239;=&#8239;0,50. Puis on mesure ce qui est r&#233;ellement
+cach&#233;.</p>
+<div class="box key">
+  <span class="lab">Le crit&#232;re, et pourquoi il ferme le d&#233;bat</span>
+  <p>Si la portion mesur&#233;e est <strong>inf&#233;rieure &#224;
+  <code>c<sub>min</sub></code></strong>, l'observation n'est pas compatible avec une
+  surface de rayon 6&#8239;371&#8239;km.</p>
+  <p>Et la r&#233;fraction ne peut pas &#234;tre invoqu&#233;e pour l'expliquer,
+  <strong>puisque <code>c<sub>min</sub></code> est d&#233;j&#224; calcul&#233; &#224; sa
+  valeur extr&#234;me</strong>. C'est tout l'int&#233;r&#234;t de proc&#233;der ainsi
+  plut&#244;t que de comparer &#224; une valeur &#171;&#160;standard&#160;&#187; qui
+  d&#233;pendrait d'un coefficient suppos&#233;.</p>
+</div>
+
+<h2><span class="n">2</span>Mat&#233;riel</h2>
+<ul>
+  <li><strong>Appareil photo</strong> et t&#233;l&#233;objectif de 300&#8239;mm ou
+  plus en &#233;quivalent plein format. Tr&#233;pied. Enregistrement en format brut,
+  sans recadrage.</li>
+  <li><strong>Une cible portant des rep&#232;res de hauteur connus</strong> &#8212;
+  phare &#224; bandes, immeuble &#224; &#233;tages, pyl&#244;ne &#224; traverses,
+  ch&#226;teau d'eau. <strong>Sans rep&#232;res, on ne peut rien mesurer</strong>&#160;:
+  ils donnent l'&#233;chelle de l'image.</li>
+  <li><strong>Un m&#232;tre</strong> pour la hauteur d'&#339;il au-dessus de l'eau.</li>
+  <li><strong>Une carte en ligne ou un GPS</strong> pour la distance, au dixi&#232;me de
+  kilom&#232;tre.</li>
+</ul>
+<p>Rien d'autre. Pas de th&#233;odolite, pas de laboratoire.</p>
+
+<h2><span class="n">3</span>Le site &#8212; quatre conditions</h2>
+<div class="box warn">
+  <span class="lab">Sans elles, la mesure ne vaut rien</span>
+  <p><strong>1. La vis&#233;e passe enti&#232;rement au-dessus de l'eau.</strong> Une
+  colline &#224; mi-parcours masque une base quelle que soit la forme du sol. C'est ce
+  qui invalide le plus de relev&#233;s.</p>
+  <p><strong>2. La base de la cible est &#224; la ligne d'eau</strong>, sur le
+  m&#234;me plan d'eau que vous.</p>
+  <p><strong>3. Distance d'au moins 20&#8239;km.</strong> En dessous, le masquage
+  minimal devient trop petit devant la pr&#233;cision de lecture (section 5).</p>
+  <p><strong>4. Hauteur d'&#339;il faible</strong>, deux ou trois m&#232;tres. C'est ce
+  qui rend le masquage grand&#160;: l'horizon recule comme la racine de la
+  hauteur.</p>
+</div>
+<p>Un grand lac ou une baie conviennent. Relever la mar&#233;e si le site est
+maritime&#160;: elle d&#233;place &#224; la fois votre hauteur d'&#339;il et la base de
+la cible.</p>
+
+<h2><span class="n">4</span>La prise de vue</h2>
+<ol>
+  <li>Mesurer la <strong>hauteur d'&#339;il au-dessus de l'eau</strong> et la noter.</li>
+  <li>Photographier la cible, <strong>plusieurs vues</strong>, sans recadrage ni
+  redressement, mise au point verrouill&#233;e.</li>
+  <li>Photographier ensuite la <strong>sc&#232;ne au grand angle</strong> avec des
+  rep&#232;res proches, pour qu'un tiers puisse retrouver la station.</li>
+  <li>Noter <strong>l'heure</strong>, la temp&#233;rature de l'air et, si possible, celle
+  de l'eau.</li>
+  <li><strong>Recommencer depuis une hauteur d'&#339;il nettement diff&#233;rente</strong>
+  &#8212; une digue, un balcon, un pont &#8212; sans changer d'objectif. La base
+  masqu&#233;e doit alors remonter d'une quantit&#233; que la grille donne. C'est le
+  contr&#244;le le plus simple qui distingue une occultation d'un banc de brume.</li>
+</ol>
+<div class="box">
+  <span class="lab">Un signe qui ne trompe pas</span>
+  <p>Une occultation coupe <strong>net</strong>, &#224; une hauteur pr&#233;cise, et
+  <strong>change beaucoup</strong> quand on monte de quelques m&#232;tres. La brume
+  s'efface progressivement et ne bouge presque pas avec la hauteur d'&#339;il.</p>
+</div>
+
+<h2><span class="n">5</span>La grille &#8212; masquage minimal
+<code>c<sub>min</sub></code></h2>
+<p class="lead">Portion que la sph&#232;re impose de masquer <strong>au minimum</strong>,
+en m&#232;tres, calcul&#233;e au coefficient extr&#234;me <code>k</code>&#8239;=&#8239;0,50.
+Aucune atmosph&#232;re mesur&#233;e ne descend en dessous de ces valeurs.</p>
+<table>
+  <caption>Tableau 1 &#8212; <code>c<sub>min</sub></code>, masquage minimal en
+  m&#232;tres. Un tiret signifie que la cible est en de&#231;&#224; de l'horizon&#160;:
+  aucune conclusion possible.</caption>
+  <thead><tr><th class="n">hauteur d'&#339;il</th><th class="n">10 km</th><th class="n">15 km</th><th class="n">20 km</th><th class="n">25 km</th><th class="n">30 km</th><th class="n">40 km</th></tr></thead>
+  <tbody>
+    <tr><td class="n">1 m</td><td class="n">1,0</td><td class="n">3,9</td><td class="n">8,8</td><td class="n">15,6</td><td class="n">24,4</td><td class="n">47,9</td></tr>
+    <tr class="hi"><td class="n"><strong>2 m</strong></td><td class="n">0,3</td><td class="n">2,4</td><td class="n">6,5</td><td class="n">12,5</td><td class="n">20,5</td><td class="n">42,4</td></tr>
+    <tr><td class="n">3 m</td><td class="n">0,1</td><td class="n">1,5</td><td class="n">5,0</td><td class="n">10,4</td><td class="n">17,7</td><td class="n">38,3</td></tr>
+    <tr><td class="n">5 m</td><td class="n">&#8212;</td><td class="n">0,5</td><td class="n">3,0</td><td class="n">7,4</td><td class="n">13,7</td><td class="n">32,3</td></tr>
+    <tr><td class="n">10 m</td><td class="n">&#8212;</td><td class="n">&#8212;</td><td class="n">0,6</td><td class="n">3,2</td><td class="n">7,7</td><td class="n">22,7</td></tr>
+    <tr><td class="n">20 m</td><td class="n">&#8212;</td><td class="n">&#8212;</td><td class="n">&#8212;</td><td class="n">0,2</td><td class="n">2,2</td><td class="n">11,9</td></tr>
+    <tr><td class="n">50 m</td><td class="n">&#8212;</td><td class="n">&#8212;</td><td class="n">&#8212;</td><td class="n">&#8212;</td><td class="n">&#8212;</td><td class="n">0,7</td></tr>
+  </tbody>
+</table>
+<p>&#192; titre de comparaison, en conditions ordinaires
+(<code>k</code>&#8239;=&#8239;0,13) le masquage &#224; 20&#8239;km depuis
+2&#8239;m vaut 14,5&#8239;m au lieu de
+6,5&#8239;m. <strong>C'est la valeur basse qu'on
+retient</strong>, parce qu'elle ne pr&#234;te &#224; aucune discussion m&#233;t&#233;o.</p>
+<table>
+  <caption>Tableau 2 &#8212; Pourquoi 20&#8239;km au minimum. L'incertitude est
+  celle d'un pointé du bord &#224; &#177;&#8239;2&#8239;pixels &#224;
+  300&#8239;mm sur un capteur de 4000&#8239;pixels.</caption>
+  <thead><tr><th class="n">h</th><th class="n">d</th><th class="n">c<sub>min</sub></th><th class="n">incertitude</th><th class="n">marge</th></tr></thead>
+  <tbody>
+    <tr><td class="n">2 m</td><td class="n">15 km</td><td class="n">2,4 m</td><td class="n">&#177;&#8239;0,6 m</td><td class="n">4&#215;</td></tr>
+    <tr class="hi"><td class="n">2 m</td><td class="n">20 km</td><td class="n">6,5 m</td><td class="n">&#177;&#8239;0,8 m</td><td class="n">8&#215;</td></tr>
+    <tr><td class="n">2 m</td><td class="n">25 km</td><td class="n">12,5 m</td><td class="n">&#177;&#8239;1,0 m</td><td class="n">13&#215;</td></tr>
+    <tr><td class="n">2 m</td><td class="n">30 km</td><td class="n">20,5 m</td><td class="n">&#177;&#8239;1,2 m</td><td class="n">17&#215;</td></tr>
+    <tr><td class="n">1 m</td><td class="n">30 km</td><td class="n">24,4 m</td><td class="n">&#177;&#8239;1,2 m</td><td class="n">20&#215;</td></tr>
+    <tr><td class="n">5 m</td><td class="n">30 km</td><td class="n">13,7 m</td><td class="n">&#177;&#8239;1,2 m</td><td class="n">11&#215;</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">6</span>La mesure, sur l'image</h2>
+<p>L'&#233;chelle se lit sur la cible elle-m&#234;me, sans conna&#238;tre la focale.</p>
+<ol>
+  <li>Rep&#233;rer deux rep&#232;res de hauteurs connues <code>z&#8321;</code> et
+  <code>z&#8322;</code>, mesurer leur &#233;cart en pixels
+  <code>&#916;px</code>.</li>
+  <li>L'&#233;chelle vaut <code>(z&#8322; &#8722; z&#8321;) / &#916;px</code>, en
+  m&#232;tres par pixel.</li>
+  <li>Mesurer en pixels la distance entre le rep&#232;re le plus bas visible et le bord
+  inf&#233;rieur de la cible tel qu'il appara&#238;t, puis convertir.</li>
+  <li>La portion masqu&#233;e mesur&#233;e <code>c<sub>obs</sub></code> est la hauteur,
+  compt&#233;e depuis la base r&#233;elle de la cible, du plus bas point encore visible.
+  Si la base au ras de l'eau se voit, <code>c<sub>obs</sub></code>&#8239;=&#8239;0.</li>
+</ol>
+<p>&#192; 20&#8239;km et 300&#8239;mm, un pixel vaut
+0,40&#8239;m&#160;; l'incertitude de pointé est donc de l'ordre de
+&#177;&#8239;0,8&#8239;m.</p>
+
+<h2><span class="n">7</span>Conclusion &#8212; les trois issues</h2>
+<div class="two">
+  <div class="vc p">
+    <p class="h">c<sub>obs</sub> &lt; c<sub>min</sub> &#8722; 3&#963;</p>
+    <p class="v">Incompatible avec R = 6&#8239;371&#8239;km</p>
+    <p>On voit plus bas que ce que la sph&#232;re autorise sous n'importe quelle
+    r&#233;fraction. La m&#233;t&#233;o ne peut pas &#234;tre invoqu&#233;e.</p>
+  </div>
+  <div class="vc g">
+    <p class="h">c<sub>obs</sub> &#8805; c<sub>min</sub></p>
+    <p class="v">Compatible</p>
+    <p>L'observation entre dans ce que la sph&#232;re autorise. La valeur de
+    <code>c<sub>obs</sub></code> donne alors le coefficient de r&#233;fraction du
+    moment.</p>
+  </div>
+</div>
+<p><code>3&#963;</code> vaut trois fois l'incertitude de lecture de la section 6, soit
+environ 2,4&#8239;m &#224; 20&#8239;km. La
+troisi&#232;me issue est le rejet&#160;: si le profil n'est pas d&#233;gag&#233;, si le
+bord est trop diffus pour qu'on lui assigne une hauteur, ou si la cible est en
+de&#231;&#224; de l'horizon, la mesure ne conclut rien et doit &#234;tre refaite.</p>
+
+<h2 class="brk"><span class="n">8</span>Fiche de relev&#233;</h2>
+<p>Station&#160;: &#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;
+&#160;&#160;&#183;&#160;&#160; Date&#160;: &#8230;&#8230;&#8230;&#8230;&#8230;&#8230;
+&#160;&#160;&#183;&#160;&#160; Focale&#160;: &#8230;&#8230;&#8239;mm<br/>
+Cible&#160;: &#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;
+&#160;&#160;&#183;&#160;&#160; Hauteur totale&#160;: &#8230;&#8230;&#8239;m
+&#160;&#160;&#183;&#160;&#160; Source des rep&#232;res&#160;:
+&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;<br/>
+Distance mesur&#233;e&#160;: &#8230;&#8230;&#8239;km
+&#160;&#160;&#183;&#160;&#160; Profil d&#233;gag&#233; v&#233;rifi&#233; sur&#160;:
+&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;
+&#160;&#160;&#183;&#160;&#160; Mar&#233;e&#160;: &#8230;&#8230;&#8239;m</p>
+<table>
+  <caption>Une ligne par hauteur d'&#339;il. Deux au minimum (&#233;tape 4.5).</caption>
+  <thead><tr><th class="n">heure</th><th class="n">hauteur d'&#339;il</th><th class="n">&#233;chelle (m/px)</th><th class="n">c<sub>obs</sub> mesur&#233;</th><th class="n">c<sub>min</sub> (tableau 1)</th><th class="n">T air / T eau</th></tr></thead>
+  <tbody>
+    <tr><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td></tr>
+    <tr><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td></tr>
+    <tr><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td></tr>
+    <tr><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td></tr>
+  </tbody>
+</table>
+<p><strong>Conclusion</strong> (section 7)&#160;:
+&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;<br/>
+<strong>Observations</strong> &#8212; &#233;tat de l'eau, nettet&#233; du bord, couverture
+nuageuse&#160;:<br/>
+&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;</p>
+<p style="margin-top:14pt"><em>Les photographies brutes, non recadr&#233;es, font partie
+du relev&#233;. Une conclusion sans elles n'est pas v&#233;rifiable.</em></p>
+</div>
