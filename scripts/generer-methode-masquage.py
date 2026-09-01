@@ -958,6 +958,37 @@ def corps(fr):
           "proportionnalit&#233; du 8.6, l'accord des trois <code>k</code> du 9.4 et la "
           "r&#233;p&#233;tition du 8.7 qui disent si les conditions "
           "&#233;taient bonnes, apr&#232;s coup et sur les donn&#233;es.</p>")
+
+        A(h2_annexe(fr, numero=3,
+                    titre="Annexe non normative &#8212; feuille de relev&#233;"))
+        A("<p>&#192; recopier ou photocopier et emporter sur le terrain. Une ligne par "
+          "hauteur d'&#339;il, trois au minimum, m&#234;me distance et m&#234;me heure "
+          "(8.5).</p>")
+        A("<p>Station&#160;: &#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;"
+          "&#8230;&#8230;&#160;&#160;&#183;&#160;&#160; Cible et source de ses "
+          "rep&#232;res&#160;: &#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;"
+          "&#8230;&#8230;&#160;&#160;&#183;&#160;&#160; Distance&#160;: "
+          "&#8230;&#8230;&#8230;&#8239;km<br/>Date&#160;: "
+          "&#8230;&#8230;&#8230;&#8230;&#8230;&#160;&#160;&#183;&#160;&#160; "
+          "Focale&#160;: &#8230;&#8230;&#8239;mm&#160;&#160;&#183;&#160;&#160; "
+          "Profil d&#233;gag&#233; v&#233;rifi&#233; par&#160;: "
+          "&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;</p>")
+        A(tableau("Feuille de relev&#233; &#8212; portion masqu&#233;e",
+                  ["heure UTC", "hauteur d'&#339;il", "niveau d'eau",
+                   "plus bas rep&#232;re visible", "T air", "T eau"],
+                  [ligne(["&nbsp;"] * 6) for _ in range(6)]))
+        A("<p>&#201;carts angulaires entre rep&#232;res, pour le test de "
+          "proportionnalit&#233; du 8.6 &#8212; attendu "
+          "<code>(z&#8322;&#8722;z&#8321;)/d</code> pour chaque paire&#160;:</p>")
+        A(tableau("&#201;carts angulaires mesur&#233;s",
+                  ["paire de rep&#232;res", "&#233;cart de hauteur",
+                   "&#233;cart angulaire mesur&#233;", "attendu", "&#233;cart"],
+                  [ligne(["&nbsp;"] * 5) for _ in range(4)]))
+        A("<p>Observations&#160;: &#233;tat de la mer, ondulation du bord de la cible, "
+          "couverture nuageuse, vent&#160;:<br/>"
+          "&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;"
+          "&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;"
+          "&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;</p>")
         A("<p>Si une application de la m&#233;thode trouve un &#233;cart "
           "diff&#233;rentiel nul l&#224; o&#249; le tableau 2 en pr&#233;dit un, ou un "
           "<code>k</code> compatible avec l'atmosph&#232;re ordinaire l&#224; o&#249; "
@@ -1085,6 +1116,34 @@ def corps(fr):
           "validity: it is the proportionality test of 8.6, the agreement of the three "
           "<code>k</code> of 9.4 and the repetition of 8.7 that say whether conditions "
           "were good &#8212; afterwards, and from the data.</p>")
+
+        A(h2_annexe(fr, numero=3,
+                    titre="Non-mandatory appendix &#8212; record sheet"))
+        A("<p>To be copied and taken into the field. One row per eye height, three at "
+          "minimum, same distance and same hour (8.5).</p>")
+        A("<p>Station: &#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;"
+          "&#8230;&#160;&#160;&#183;&#160;&#160; Target and source of its markers: "
+          "&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;"
+          "&#160;&#160;&#183;&#160;&#160; Distance: &#8230;&#8230;&#8230;&#8239;km<br/>"
+          "Date: &#8230;&#8230;&#8230;&#8230;&#8230;&#160;&#160;&#183;&#160;&#160; "
+          "Focal length: &#8230;&#8230;&#8239;mm&#160;&#160;&#183;&#160;&#160; "
+          "Clear profile verified by: &#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;"
+          "&#8230;</p>")
+        A(tableau("Record sheet &#8212; hidden portion",
+                  ["UTC time", "eye height", "water level", "lowest visible marker",
+                   "T air", "T water"],
+                  [ligne(["&nbsp;"] * 6) for _ in range(6)]))
+        A("<p>Angular spacings between markers, for the proportionality test of 8.6 "
+          "&#8212; expected <code>(z&#8322;&#8722;z&#8321;)/d</code> for each pair:</p>")
+        A(tableau("Measured angular spacings",
+                  ["marker pair", "height difference", "measured spacing", "expected",
+                   "departure"],
+                  [ligne(["&nbsp;"] * 5) for _ in range(4)]))
+        A("<p>Observations: sea state, undulation of the target's edge, cloud cover, "
+          "wind:<br/>"
+          "&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;"
+          "&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;"
+          "&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;</p>")
         A("<p>If an application of the method finds a null differential where Table 2 "
           "predicts one, or a <code>k</code> consistent with the ordinary atmosphere "
           "where we maintain the contrary, that result will be published as it stands "

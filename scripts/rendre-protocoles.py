@@ -68,11 +68,6 @@ DOCUMENTS = {
         "Protocole-pole-celeste.pdf",
         "Hauteur du pôle céleste — Altitude of the celestial pole — v1.3",
     ),
-    "fiche": (
-        "fiche-terrain-masquage.html",
-        "Fiche-terrain-portion-masquee.pdf",
-        "Fiche de terrain — portion masquée — Field sheet",
-    ),
     "visee": (
         "visee-terrestre-bilingue.html",
         "Protocole-portion-masquee.pdf",
@@ -90,7 +85,7 @@ DOCUMENTS = {
 #
 # Ils restent rendables à la demande — « rendre-protocoles.py soleil » — mais
 # ne sortent plus quand on lance le script sans argument.
-SUSPENDUS = {"soleil", "pole", "visee", "fiche"}
+SUSPENDUS = {"soleil", "pole", "visee"}
 
 
 def chromium():
