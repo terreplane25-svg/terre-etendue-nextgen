@@ -75,10 +75,14 @@ def h2(numero, fr, saut=False):
     return '<h2%s><span class="n">%d</span>%s</h2>' % (cls, numero, titre)
 
 
-def h2_annexe(fr, saut=True):
+def h2_annexe(fr, saut=True, numero=1, titre=None):
+    """Une annexe non normative. X1 porte la justification des clauses ;
+    les suivantes portent des recommandations, jamais des exigences."""
     cls = ' class="brk"' if saut else ""
-    return ('<h2%s><span class="n">X1</span>%s</h2>\n<p class="lead">%s</p>'
-            % (cls, ANNEXE[0 if fr else 1], AVIS_ANNEXE[0 if fr else 1]))
+    if titre is None:
+        titre = ANNEXE[0 if fr else 1]
+    return ('<h2%s><span class="n">X%d</span>%s</h2>\n<p class="lead">%s</p>'
+            % (cls, numero, titre, AVIS_ANNEXE[0 if fr else 1]))
 
 
 def clause(numero, texte):

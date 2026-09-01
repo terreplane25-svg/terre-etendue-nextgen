@@ -485,6 +485,63 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
 
 <p>Sans ces trois clauses, un r&#233;sultat ne serait qu'une observation de plus. Avec elles, c'est une mesure opposable.</p>
 
+<h2 class="brk"><span class="n">X2</span>Annexe non normative &#8212; choisir les conditions</h2>
+<p class="lead">Les informations de la pr&#233;sente annexe ne constituent pas des exigences.</p>
+
+<h3>X2.1 &#8212; Ce qui gouverne k</h3>
+
+<p>Le coefficient de r&#233;fraction ne d&#233;pend que du <strong>gradient thermique vertical</strong> le long du trajet&#160;:</p>
+
+<div class="eq">
+  k = 503 &#183; (P/T&#178;) &#183; (0,0342 + dT/dz)
+  <span class="cap">P en hectopascals, T en kelvins, dT/dz en kelvins par m&#232;tre. Valeurs ci-dessous &#224; 1013 hPa et 15 &#176;C.</span>
+</div>
+
+<table>
+  <caption>Tableau X2.1 &#8212; Le coefficient produit par chaque r&#233;gime thermique. La ligne surlign&#233;e est celle qui donne la valeur ordinaire de 0,13.</caption>
+  <thead><tr><th class="n">dT/dz (K/100 m)</th><th class="n">r&#233;gime</th><th class="n">k</th></tr></thead>
+  <tbody>
+    <tr><td class="n">+5,00</td><td class="n">inversion tr&#232;s forte</td><td class="n">0,52</td></tr>
+    <tr><td class="n">+2,00</td><td class="n">inversion forte</td><td class="n">0,33</td></tr>
+    <tr><td class="n">0,00</td><td class="n">isotherme</td><td class="n">0,21</td></tr>
+    <tr><td class="n">-0,65</td><td class="n">atmosph&#232;re standard</td><td class="n">0,17</td></tr>
+    <tr class="hi"><td class="n"><strong>-1,30</strong></td><td class="n"><strong>gradient renforc&#233;</strong></td><td class="n"><strong>0,13</strong></td></tr>
+    <tr><td class="n">-5,00</td><td class="n">surchauffe de surface</td><td class="n">-0,10</td></tr>
+  </tbody>
+</table>
+
+<p>Un conduit &#8212; <code>k</code> = 1 &#8212; demande une inversion de 12,9 K par 100 m&#232;tres. C'est rare, mais c'est exactement ce qui se produit au-dessus d'une eau froide sous de l'air doux.
+
+<h3>X2.2 &#8212; Sur l'eau, l'&#233;cart air&#8722;eau pilote tout</h3>
+
+<p>L'eau impose sa temp&#233;rature &#224; la couche d'air qui la touche. Le signe de <code>T<sub>air</sub> &#8722; T<sub>eau</sub></code> d&#233;cide donc du gradient, et par lui de <code>k</code>&#160;:</p>
+
+<ul>
+  <li><strong>Air plus chaud que l'eau</strong> &#8212; l'air du bas est refroidi, le gradient s'inverse, <code>k</code> grandit. C'est le r&#233;gime des mirages sup&#233;rieurs et des conduits, et celui qu'il faut &#233;viter.</li>
+  <li><strong>Air plus froid que l'eau</strong> &#8212; l'air du bas est r&#233;chauff&#233;, le gradient se renforce, <code>k</code> diminue. Le masquage est maximal et le r&#233;gime stable.</li>
+  <li><strong>&#201;carts &#233;gaux &#224; quelques dixi&#232;mes</strong> &#8212; couche neutre, <code>k</code> ordinaire et surtout <strong>uniforme le long du trajet</strong>. C'est ce que la m&#233;thode suppose.</li>
+</ul>
+
+<div class="box key">
+  <span class="lab">Le pi&#232;ge de la belle image</span>
+  <p>Une inversion stratifie l'air et <strong>&#233;teint la turbulence</strong>&#160;: l'image au t&#233;l&#233;objectif devient nette, calme, magnifique. C'est pr&#233;cis&#233;ment le r&#233;gime o&#249; la r&#233;fraction est la plus grande, la plus variable et la plus susceptible de conduire.</p>
+  <p>Inversement, une eau plus chaude que l'air fait bouillonner l'image &#8212; mais la r&#233;fraction moyenne y est petite et r&#233;guli&#232;re. <strong>Les plus beaux clich&#233;s sont ceux auxquels il faut le moins se fier.</strong> C'est la raison d'&#234;tre du test de proportionnalit&#233; du 8.6.</p>
+</div>
+
+<h3>X2.3 &#8212; Conditions recommand&#233;es</h3>
+
+<ul>
+  <li><strong>&#201;cart air&#8722;eau inf&#233;rieur &#224; 2 &#176;C</strong>, mesur&#233; et non estim&#233;.</li>
+  <li><strong>Ciel couvert</strong> plut&#244;t que grand soleil&#160;: l'ensoleillement cr&#233;e des gradients locaux le long du trajet.</li>
+  <li><strong>Vent mod&#233;r&#233;</strong>, de 3 &#224; 6 m&#183;s<sup>&#8722;1</sup>. Le calme plat laisse la stratification s'&#233;tablir&#160;; le vent fort agite l'eau et emp&#234;che de lire la ligne de flottaison.</li>
+  <li><strong>&#201;viter les deux heures encadrant le lever et le coucher du soleil</strong>&#160;: le gradient s'y renverse et n'est stable &#224; aucun moment.</li>
+  <li><strong>&#201;viter le printemps sur une eau froide</strong> aux latitudes temp&#233;r&#233;es&#160;: air doux sur mer encore hivernale, c'est la saison des conduits. L'automne, eau encore chaude sous air refroidi, est la p&#233;riode la plus s&#251;re.</li>
+  <li><strong>Trajet thermiquement homog&#232;ne</strong>&#160;: &#233;viter les embouchures, les rejets, les fronts de courant, qui cassent l'hypoth&#232;se d'un <code>k</code> unique.</li>
+  <li><strong>Image stable au t&#233;l&#233;objectif.</strong> Si le bord de la cible ondule visiblement, attendre. C'est le seul indicateur de turbulence qui ne co&#251;te aucun instrument.</li>
+</ul>
+
+<p>Ces recommandations aident &#224; obtenir un bon relev&#233;. Elles ne conditionnent pas sa validit&#233;&#160;: c'est le test de proportionnalit&#233; du 8.6, l'accord des trois <code>k</code> du 9.4 et la r&#233;p&#233;tition du 8.7 qui disent si les conditions &#233;taient bonnes, apr&#232;s coup et sur les donn&#233;es.</p>
+
 <p>Si une application de la m&#233;thode trouve un &#233;cart diff&#233;rentiel nul l&#224; o&#249; le tableau 2 en pr&#233;dit un, ou un <code>k</code> compatible avec l'atmosph&#232;re ordinaire l&#224; o&#249; nous soutenons le contraire, ce r&#233;sultat sera publi&#233; tel quel avec ses donn&#233;es brutes, et les pages concern&#233;es seront corrig&#233;es.</p>
 
 <div class="langbar"><span>FRAN&#199;AIS &#8212; first half</span><span class="on">ENGLISH</span></div>
@@ -801,6 +858,63 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
 </ul>
 
 <p>Without these three clauses a result would be one more observation. With them, it is a measurement that can be contested on its merits.</p>
+
+<h2 class="brk"><span class="n">X2</span>Non-mandatory appendix &#8212; choosing the conditions</h2>
+<p class="lead">The information in this appendix does not constitute requirements.</p>
+
+<h3>X2.1 &#8212; What governs k</h3>
+
+<p>The refraction coefficient depends only on the <strong>vertical thermal gradient</strong> along the path:</p>
+
+<div class="eq">
+  k = 503 &#183; (P/T&#178;) &#183; (0.0342 + dT/dz)
+  <span class="cap">P in hectopascals, T in kelvins, dT/dz in kelvins per metre. Values below at 1013 hPa and 15 &#176;C.</span>
+</div>
+
+<table>
+  <caption>Table X2.1 &#8212; The coefficient produced by each thermal regime. The highlighted row is the one giving the ordinary value of 0.13.</caption>
+  <thead><tr><th class="n">dT/dz (K/100 m)</th><th class="n">regime</th><th class="n">k</th></tr></thead>
+  <tbody>
+    <tr><td class="n">+5.00</td><td class="n">very strong inversion</td><td class="n">0.52</td></tr>
+    <tr><td class="n">+2.00</td><td class="n">strong inversion</td><td class="n">0.33</td></tr>
+    <tr><td class="n">0.00</td><td class="n">isothermal</td><td class="n">0.21</td></tr>
+    <tr><td class="n">-0.65</td><td class="n">standard atmosphere</td><td class="n">0.17</td></tr>
+    <tr class="hi"><td class="n"><strong>-1.30</strong></td><td class="n"><strong>enhanced lapse</strong></td><td class="n"><strong>0.13</strong></td></tr>
+    <tr><td class="n">-5.00</td><td class="n">surface overheating</td><td class="n">-0.10</td></tr>
+  </tbody>
+</table>
+
+<p>A duct &#8212; <code>k</code> = 1 &#8212; requires an inversion of 12.9 K per 100 metres. That is rare, but it is exactly what forms above cold water under mild air.</p>
+
+<h3>X2.2 &#8212; Over water, the air&#8722;water difference governs everything</h3>
+
+<p>Water imposes its temperature on the air layer touching it. The sign of <code>T<sub>air</sub> &#8722; T<sub>water</sub></code> therefore decides the gradient, and through it <code>k</code>:</p>
+
+<ul>
+  <li><strong>Air warmer than water</strong> &#8212; the lower air is cooled, the gradient inverts, <code>k</code> grows. This is the regime of superior mirages and ducts, and the one to avoid.</li>
+  <li><strong>Air colder than water</strong> &#8212; the lower air is warmed, the lapse steepens, <code>k</code> falls. Hiding is maximal and the regime stable.</li>
+  <li><strong>Differences of a few tenths</strong> &#8212; neutral layer, <code>k</code> ordinary and above all <strong>uniform along the path</strong>. That is what the method assumes.</li>
+</ul>
+
+<div class="box key">
+  <span class="lab">The trap of the beautiful image</span>
+  <p>An inversion stratifies the air and <strong>extinguishes turbulence</strong>: the telephoto image becomes sharp, calm, magnificent. That is precisely the regime where refraction is largest, most variable and most liable to duct.</p>
+  <p>Conversely, water warmer than air makes the image boil &#8212; but the mean refraction there is small and regular. <strong>The finest photographs are the ones to trust least.</strong> This is the reason for the proportionality test of 8.6.</p>
+</div>
+
+<h3>X2.3 &#8212; Recommended conditions</h3>
+
+<ul>
+  <li><strong>Air&#8722;water difference below 2 &#176;C</strong>, measured and not estimated.</li>
+  <li><strong>Overcast</strong> rather than bright sun: insolation creates local gradients along the path.</li>
+  <li><strong>Moderate wind</strong>, 3 to 6 m&#183;s<sup>&#8722;1</sup>. Dead calm lets stratification build; strong wind roughens the water and prevents reading the water line.</li>
+  <li><strong>Avoid the two hours around sunrise and sunset</strong>: the gradient reverses there and is stable at no moment.</li>
+  <li><strong>Avoid spring over cold water</strong> at temperate latitudes: mild air over a still-wintry sea is the ducting season. Autumn, water still warm under cooling air, is the safest period.</li>
+  <li><strong>Thermally homogeneous path</strong>: avoid river mouths, outfalls and current fronts, which break the assumption of a single <code>k</code>.</li>
+  <li><strong>Steady image in the telephoto.</strong> If the target's edge visibly undulates, wait. It is the only turbulence indicator that costs no instrument.</li>
+</ul>
+
+<p>These recommendations help obtain a good record. They do not condition its validity: it is the proportionality test of 8.6, the agreement of the three <code>k</code> of 9.4 and the repetition of 8.7 that say whether conditions were good &#8212; afterwards, and from the data.</p>
 
 <p>If an application of the method finds a null differential where Table 2 predicts one, or a <code>k</code> consistent with the ordinary atmosphere where we maintain the contrary, that result will be published as it stands with its raw data, and the pages concerned will be corrected.</p>
 </div>

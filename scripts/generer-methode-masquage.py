@@ -68,6 +68,19 @@ DIFF_D = [10, 15, 20, 30, 40, 50]
 H_BAS, H_HAUT = 1, 20
 K_MAX = 0.50               # borne haute admissible hors conduit
 JOURS_MINI = 3             # journées à conditions thermiques distinctes
+ECART_IDEAL = 2.0          # °C — écart air−eau au-delà duquel le régime dérive
+
+# Le coefficient de réfraction se calcule depuis le gradient thermique vertical :
+#   k = 503 · (P/T²) · (0,0342 + dT/dz)     P en hPa, T en K, dT/dz en K/m
+# C'est la relation qui rend l'annexe X2 chiffrable plutôt que vague.
+GRADIENTS = [
+    (+5.0, "inversion tr&#232;s forte", "very strong inversion"),
+    (+2.0, "inversion forte", "strong inversion"),
+    (0.0, "isotherme", "isothermal"),
+    (-0.65, "atmosph&#232;re standard", "standard atmosphere"),
+    (-1.30, "gradient renforc&#233;", "enhanced lapse"),
+    (-5.00, "surchauffe de surface", "surface overheating"),
+]
 
 # Les régimes de réfraction, et ce qu'ils autorisent. La dernière ligne est la
 # raison pour laquelle un seul relevé ne suffit jamais : au-delà de k = 1, le
@@ -166,6 +179,29 @@ def t_k(fr):
                    ("oui" if k_pour(h, d, 0.0) <= K_MAX else "non") if fr
                    else ("yes" if k_pour(h, d, 0.0) <= K_MAX else "no")],
                   (h, d) == (2, 30)) for h, d in cas]
+
+
+def k_de_gradient(dTdz_par_100m, P=1013.0, T=288.15):
+    """k à partir du gradient thermique vertical, exprimé en K par 100 m."""
+    return 503.0 * (P / T ** 2) * (0.0342 + dTdz_par_100m / 100.0)
+
+
+def gradient_pour_k(cible):
+    lo, hi = -0.30, 0.60
+    for _ in range(300):
+        m = (lo + hi) / 2
+        if k_de_gradient(m * 100) > cible:
+            hi = m
+        else:
+            lo = m
+    return hi * 100
+
+
+def t_gradients(fr):
+    return [ligne([("+" if g > 0 else "") + nb(g, 2, fr),
+                   lfr if fr else len_, nb(k_de_gradient(g), 2, fr)],
+                  abs(g + 1.30) < 0.01)
+            for g, lfr, len_ in GRADIENTS]
 
 
 def t_regimes(fr):
@@ -848,6 +884,80 @@ def corps(fr):
           "</ul>" % nb(K_MAX, 2, fr))
         A("<p>Sans ces trois clauses, un r&#233;sultat ne serait qu'une "
           "observation de plus. Avec elles, c'est une mesure opposable.</p>")
+
+        A(h2_annexe(fr, numero=2,
+                    titre="Annexe non normative &#8212; choisir les conditions"))
+        A("<h3>X2.1 &#8212; Ce qui gouverne k</h3>")
+        A("<p>Le coefficient de r&#233;fraction ne d&#233;pend que du <strong>gradient "
+          "thermique vertical</strong> le long du trajet&#160;:</p>")
+        A('<div class="eq">\n  k = 503 &#183; (P/T&#178;) &#183; (0,0342 + dT/dz)\n'
+          '  <span class="cap">P en hectopascals, T en kelvins, dT/dz en kelvins par '
+          'm&#232;tre. Valeurs ci-dessous &#224; 1013 hPa et 15 &#176;C.</span>\n</div>')
+        A(tableau("Tableau X2.1 &#8212; Le coefficient produit par chaque r&#233;gime "
+                  "thermique. La ligne surlign&#233;e est celle qui donne la valeur "
+                  "ordinaire de 0,13.",
+                  ["dT/dz (K/100 m)", "r&#233;gime", "k"], t_gradients(fr)))
+        A("<p>Un conduit &#8212; <code>k</code> = 1 &#8212; demande une inversion de "
+          "%s K par 100 m&#232;tres. C'est rare, mais c'est exactement ce qui se produit "
+          "au-dessus d'une eau froide sous de l'air doux."
+          % nb(gradient_pour_k(1.0), 1, fr))
+        A("<h3>X2.2 &#8212; Sur l'eau, l'&#233;cart air&#8722;eau pilote tout</h3>")
+        A("<p>L'eau impose sa temp&#233;rature &#224; la couche d'air qui la touche. "
+          "Le signe de <code>T<sub>air</sub> &#8722; T<sub>eau</sub></code> d&#233;cide "
+          "donc du gradient, et par lui de <code>k</code>&#160;:</p>")
+        A("<ul>\n"
+          "  <li><strong>Air plus chaud que l'eau</strong> &#8212; l'air du bas est "
+          "refroidi, le gradient s'inverse, <code>k</code> grandit. C'est le r&#233;gime "
+          "des mirages sup&#233;rieurs et des conduits, et celui qu'il faut "
+          "&#233;viter.</li>\n"
+          "  <li><strong>Air plus froid que l'eau</strong> &#8212; l'air du bas est "
+          "r&#233;chauff&#233;, le gradient se renforce, <code>k</code> diminue. Le "
+          "masquage est maximal et le r&#233;gime stable.</li>\n"
+          "  <li><strong>&#201;carts &#233;gaux &#224; quelques dixi&#232;mes</strong> "
+          "&#8212; couche neutre, <code>k</code> ordinaire et surtout "
+          "<strong>uniforme le long du trajet</strong>. C'est ce que la m&#233;thode "
+          "suppose.</li>\n"
+          "</ul>")
+        A(encadre("Le pi&#232;ge de la belle image",
+                  "  <p>Une inversion stratifie l'air et <strong>&#233;teint la "
+                  "turbulence</strong>&#160;: l'image au t&#233;l&#233;objectif devient "
+                  "nette, calme, magnifique. C'est pr&#233;cis&#233;ment le r&#233;gime "
+                  "o&#249; la r&#233;fraction est la plus grande, la plus variable et la "
+                  "plus susceptible de conduire.</p>\n"
+                  "  <p>Inversement, une eau plus chaude que l'air fait bouillonner "
+                  "l'image &#8212; mais la r&#233;fraction moyenne y est petite et "
+                  "r&#233;guli&#232;re. <strong>Les plus beaux clich&#233;s sont ceux "
+                  "auxquels il faut le moins se fier.</strong> C'est la raison d'&#234;tre "
+                  "du test de proportionnalit&#233; du 8.6.</p>", "key"))
+        A("<h3>X2.3 &#8212; Conditions recommand&#233;es</h3>")
+        A("<ul>\n"
+          "  <li><strong>&#201;cart air&#8722;eau inf&#233;rieur &#224; %s &#176;C</strong>, "
+          "mesur&#233; et non estim&#233;.</li>\n"
+          "  <li><strong>Ciel couvert</strong> plut&#244;t que grand soleil&#160;: "
+          "l'ensoleillement cr&#233;e des gradients locaux le long du trajet.</li>\n"
+          "  <li><strong>Vent mod&#233;r&#233;</strong>, de 3 &#224; 6 m&#183;s"
+          "<sup>&#8722;1</sup>. Le calme plat laisse la stratification "
+          "s'&#233;tablir&#160;; le vent fort agite l'eau et emp&#234;che de lire la "
+          "ligne de flottaison.</li>\n"
+          "  <li><strong>&#201;viter les deux heures encadrant le lever et le coucher "
+          "du soleil</strong>&#160;: le gradient s'y renverse et n'est stable &#224; "
+          "aucun moment.</li>\n"
+          "  <li><strong>&#201;viter le printemps sur une eau froide</strong> aux "
+          "latitudes temp&#233;r&#233;es&#160;: air doux sur mer encore hivernale, c'est "
+          "la saison des conduits. L'automne, eau encore chaude sous air refroidi, est "
+          "la p&#233;riode la plus s&#251;re.</li>\n"
+          "  <li><strong>Trajet thermiquement homog&#232;ne</strong>&#160;: &#233;viter "
+          "les embouchures, les rejets, les fronts de courant, qui cassent l'hypoth&#232;se "
+          "d'un <code>k</code> unique.</li>\n"
+          "  <li><strong>Image stable au t&#233;l&#233;objectif.</strong> Si le bord de "
+          "la cible ondule visiblement, attendre. C'est le seul indicateur de "
+          "turbulence qui ne co&#251;te aucun instrument.</li>\n"
+          "</ul>" % nb(ECART_IDEAL, 0, fr))
+        A("<p>Ces recommandations aident &#224; obtenir un bon relev&#233;. Elles ne "
+          "conditionnent pas sa validit&#233;&#160;: c'est le test de "
+          "proportionnalit&#233; du 8.6, l'accord des trois <code>k</code> du 9.4 et la "
+          "r&#233;p&#233;tition du 8.7 qui disent si les conditions "
+          "&#233;taient bonnes, apr&#232;s coup et sur les donn&#233;es.</p>")
         A("<p>Si une application de la m&#233;thode trouve un &#233;cart "
           "diff&#233;rentiel nul l&#224; o&#249; le tableau 2 en pr&#233;dit un, ou un "
           "<code>k</code> compatible avec l'atmosph&#232;re ordinaire l&#224; o&#249; "
@@ -910,6 +1020,71 @@ def corps(fr):
           "</ul>" % nb(K_MAX, 2, fr))
         A("<p>Without these three clauses a result would be one more observation. With "
           "them, it is a measurement that can be contested on its merits.</p>")
+
+        A(h2_annexe(fr, numero=2,
+                    titre="Non-mandatory appendix &#8212; choosing the conditions"))
+        A("<h3>X2.1 &#8212; What governs k</h3>")
+        A("<p>The refraction coefficient depends only on the <strong>vertical thermal "
+          "gradient</strong> along the path:</p>")
+        A('<div class="eq">\n  k = 503 &#183; (P/T&#178;) &#183; (0.0342 + dT/dz)\n'
+          '  <span class="cap">P in hectopascals, T in kelvins, dT/dz in kelvins per '
+          'metre. Values below at 1013 hPa and 15 &#176;C.</span>\n</div>')
+        A(tableau("Table X2.1 &#8212; The coefficient produced by each thermal regime. "
+                  "The highlighted row is the one giving the ordinary value of 0.13.",
+                  ["dT/dz (K/100 m)", "regime", "k"], t_gradients(fr)))
+        A("<p>A duct &#8212; <code>k</code> = 1 &#8212; requires an inversion of %s K per "
+          "100 metres. That is rare, but it is exactly what forms above cold water under "
+          "mild air.</p>" % nb(gradient_pour_k(1.0), 1, fr))
+        A("<h3>X2.2 &#8212; Over water, the air&#8722;water difference governs "
+          "everything</h3>")
+        A("<p>Water imposes its temperature on the air layer touching it. The sign of "
+          "<code>T<sub>air</sub> &#8722; T<sub>water</sub></code> therefore decides the "
+          "gradient, and through it <code>k</code>:</p>")
+        A("<ul>\n"
+          "  <li><strong>Air warmer than water</strong> &#8212; the lower air is cooled, "
+          "the gradient inverts, <code>k</code> grows. This is the regime of superior "
+          "mirages and ducts, and the one to avoid.</li>\n"
+          "  <li><strong>Air colder than water</strong> &#8212; the lower air is warmed, "
+          "the lapse steepens, <code>k</code> falls. Hiding is maximal and the regime "
+          "stable.</li>\n"
+          "  <li><strong>Differences of a few tenths</strong> &#8212; neutral layer, "
+          "<code>k</code> ordinary and above all <strong>uniform along the path</strong>. "
+          "That is what the method assumes.</li>\n"
+          "</ul>")
+        A(encadre("The trap of the beautiful image",
+                  "  <p>An inversion stratifies the air and <strong>extinguishes "
+                  "turbulence</strong>: the telephoto image becomes sharp, calm, "
+                  "magnificent. That is precisely the regime where refraction is largest, "
+                  "most variable and most liable to duct.</p>\n"
+                  "  <p>Conversely, water warmer than air makes the image boil &#8212; "
+                  "but the mean refraction there is small and regular. <strong>The finest "
+                  "photographs are the ones to trust least.</strong> This is the reason "
+                  "for the proportionality test of 8.6.</p>", "key"))
+        A("<h3>X2.3 &#8212; Recommended conditions</h3>")
+        A("<ul>\n"
+          "  <li><strong>Air&#8722;water difference below %s &#176;C</strong>, measured "
+          "and not estimated.</li>\n"
+          "  <li><strong>Overcast</strong> rather than bright sun: insolation creates "
+          "local gradients along the path.</li>\n"
+          "  <li><strong>Moderate wind</strong>, 3 to 6 m&#183;s<sup>&#8722;1</sup>. Dead "
+          "calm lets stratification build; strong wind roughens the water and prevents "
+          "reading the water line.</li>\n"
+          "  <li><strong>Avoid the two hours around sunrise and sunset</strong>: the "
+          "gradient reverses there and is stable at no moment.</li>\n"
+          "  <li><strong>Avoid spring over cold water</strong> at temperate latitudes: "
+          "mild air over a still-wintry sea is the ducting season. Autumn, water still "
+          "warm under cooling air, is the safest period.</li>\n"
+          "  <li><strong>Thermally homogeneous path</strong>: avoid river mouths, "
+          "outfalls and current fronts, which break the assumption of a single "
+          "<code>k</code>.</li>\n"
+          "  <li><strong>Steady image in the telephoto.</strong> If the target's edge "
+          "visibly undulates, wait. It is the only turbulence indicator that costs no "
+          "instrument.</li>\n"
+          "</ul>" % nb(ECART_IDEAL, 0, fr))
+        A("<p>These recommendations help obtain a good record. They do not condition its "
+          "validity: it is the proportionality test of 8.6, the agreement of the three "
+          "<code>k</code> of 9.4 and the repetition of 8.7 that say whether conditions "
+          "were good &#8212; afterwards, and from the data.</p>")
         A("<p>If an application of the method finds a null differential where Table 2 "
           "predicts one, or a <code>k</code> consistent with the ordinary atmosphere "
           "where we maintain the contrary, that result will be published as it stands "
