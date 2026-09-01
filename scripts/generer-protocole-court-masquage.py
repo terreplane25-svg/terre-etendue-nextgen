@@ -12,7 +12,8 @@ Cadre fixé par l'auteur du site, et suivi à la lettre
   5. Réfraction traitée par le seuil de basculement : on calcule le masquage
      minimal à k = 0,50, l'inversion la plus forte admissible. En dessous de
      cette valeur, aucune météo ne peut être invoquée.
-  6. Trois pages.
+  6. Format court. Le cadre disait trois pages ; la grille des marges, dont
+     l'auteur a demandé le maintien, en occupe une quatrième.
 
 Le choix de calculer à k = 0,50 change la nature de la conclusion
 ────────────────────────────────────────────────────────────────
@@ -119,7 +120,7 @@ def t_marges():
 def corps():
     marge = cachee(2, D_MINI, K_MAX) / (LECTURE_PX * echelle(D_MINI))
     return f"""<div class="masthead">
-  <div class="kicker">Protocole de terrain &#183; Trois pages &#183; Ex&#233;cutable en amateur</div>
+  <div class="kicker">Protocole de terrain &#183; Quatre pages &#183; Ex&#233;cutable en amateur</div>
   <h1>Une observation lointaine est-elle compatible avec une Terre de 6&#8239;371&#8239;km&#8239;?</h1>
   <p class="sub">Mesure de la portion masqu&#233;e d'une cible, au-dessus d'un plan d'eau</p>
 </div>
