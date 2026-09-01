@@ -174,13 +174,14 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
 
 <div class="masthead">
   <div class="kicker">Protocole ouvert &#183; Pr&#233;dictions pr&#233;enregistr&#233;es &#183; Contr&#244;les positifs int&#233;gr&#233;s</div>
-  <h1>Le diam&#232;tre angulaire du Soleil au cours d'une journ&#233;e</h1>
+  <h1>Le Soleil est-il proche ou lointain&#160;?</h1>
+  <p class="sub">Mesure de son diam&#232;tre angulaire au cours d'une journ&#233;e</p>
   <p class="dek">Un observateur, une journ&#233;e, un t&#233;l&#233;objectif. Le disque r&#233;tr&#233;cit-il
   en descendant&#160;? &#201;cart pr&#233;dit entre les deux mod&#232;les, du plus haut au plus bas
   du jour (70&#176;&#8594;20&#176;) : 63,6 %. Budget d'erreur : 0,51 %.</p>
   <div class="byline">
     <span>R&#233;dacteur<b>&nbsp;</b></span><span>Affiliation<b>&nbsp;</b></span>
-    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.6</b></span><span>Date<b>&nbsp;</b></span>
+    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.7</b></span><span>Date<b>&nbsp;</b></span>
   </div>
 </div>
 
@@ -197,7 +198,9 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
   <p>Une source &#224; hauteur finie ne la satisfait pas. Sa distance &#224; l'&#339;il vaut
   <code>H / sin &#945;</code>, et le <strong>rapport</strong> des diam&#232;tres entre deux hauteurs de la
   m&#234;me journ&#233;e vaut <code>sin &#945;&#8322; / sin &#945;&#8321;</code> &#8212; grandeur o&#249; le diam&#232;tre D et la
-  hauteur H se sont &#233;limin&#233;s. <strong>Le rapport est donc pr&#233;dit sans qu'on connaisse
+  hauteur H se sont &#233;limin&#233;s. Cette loi vaut pour <em>une</em> hypoth&#232;se de source proche, celle o&#249;
+  la hauteur reste constante&#160;; une variation qui ne la suivrait pas resterait une variation, et
+  &#233;carterait tout autant la source lointaine. <strong>Le rapport est donc pr&#233;dit sans qu'on connaisse
   rien de l'astre</strong>, et c'est lui que la campagne mesure. Du plus haut au plus bas
   d'une journ&#233;e ordinaire de moyenne latitude (70&#176; puis 20&#176;), la famille locale
   impose une r&#233;duction de <strong>63,6 %</strong> et la source lointaine <strong>z&#233;ro</strong>.</p>
@@ -218,7 +221,8 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
   n'en dit rien de sa nature. Une r&#233;duction mesur&#233;e signerait une source dont la distance
   &#224; l'&#339;il varie au cours du jour&#160;; elle ne dirait pas de combien elle est &#233;loign&#233;e. Si
   cette r&#233;duction suit <code>sin &#945;</code>, alors &#8212; et seulement alors &#8212; la hauteur H se
-  d&#233;duit d'une seconde station, ce qui est un autre protocole.</p>
+  d&#233;duit d'une seconde station, ce qui est un autre protocole. <strong>Une station donne le
+  profil de distance, jamais la distance elle-m&#234;me</strong>&#160;: il y faut une base.</p>
   <p>Il ne s&#233;pare pas non plus une source lointaine d'une source dont la distance &#224; <em>chaque</em>
   observateur resterait constante par construction &#8212; une projection propre &#224; l'&#339;il qui la
   regarde. Les deux pr&#233;disent la m&#234;me constance, et aucune mesure d'un observateur isol&#233;
@@ -584,8 +588,11 @@ distance g&#233;ocentrique change r&#233;ellement. C'est un syst&#233;matique du
   passer au Soleil tant que le contr&#244;le A n'a pas donn&#233; une pente de 1,000 pour &#952; contre 1/d, et que le contr&#244;le B n'a pas retrouv&#233; le signal pr&#233;dit <em>&#224; la latitude de la station</em> (tableau&#160;2). Aucune valeur n'est &#224; retrouver&#160;: un mois lunaire d&#233;favorable donne 9,5&#160;% l&#224; o&#249; un mois favorable en donne 12,0, et les deux sont corrects.</li>
   <li><b>Choisir une journ&#233;e stable</b>Ciel clair, air calme. Noter temp&#233;rature, pression,
   humidit&#233; au d&#233;but et &#224; la fin.</li>
-  <li><b>Acqu&#233;rir six s&#233;ries</b>Aux hauteurs approximatives 75&#176;, 60&#176;, 45&#176;, 30&#176;, 20&#176; et 15&#176;.
-  Vingt clich&#233;s par s&#233;rie, &#224; empiler pour moyenner la turbulence.</li>
+  <li><b>Acqu&#233;rir douze s&#233;ries, appari&#233;es</b>Six en mont&#233;e le matin, six en descente
+  l'apr&#232;s-midi, aux <em>m&#234;mes</em> hauteurs &#8212; 15&#176;, 20&#176;, 30&#176;, 45&#176;, 60&#176; et le maximum du jour. Vingt
+  clich&#233;s par s&#233;rie, &#224; empiler pour moyenner la turbulence. L'appariement n'est pas un luxe&#160;:
+  c'est lui qui rend possible le contr&#244;le par sym&#233;trie de la section 07, seul crit&#232;re de rejet du
+  protocole. Une journ&#233;e ne donnant qu'une demi-course est inexploitable.</li>
   <li><b>Relever la hauteur</b>&#192; chaque s&#233;rie, noter l'heure UTC &#224; la seconde. La hauteur
   du Soleil s'en d&#233;duit par &#233;ph&#233;m&#233;ride, sans instrument suppl&#233;mentaire. <strong>Employer la hauteur apparente, r&#233;fract&#233;e</strong>, et non la hauteur vraie&#160;: l'observable est la direction dans laquelle le disque est vu. L'&#233;cart n'est pas n&#233;gligeable devant le budget d'erreur &#8212; il vaut 0,40&#160;% sur sin&#160;&#945; &#224; 15&#176; de hauteur, 0,22&#160;% &#224; 20&#176;, 0,09&#160;% &#224; 30&#176; &#8212; et les deux mod&#232;les doivent &#234;tre compar&#233;s sur la <em>m&#234;me</em> hauteur, faute de quoi on compare deux grandeurs diff&#233;rentes.</li>
   <li><b>Relever l'&#233;chelle par la d&#233;rive</b>Appareil fixe, sans suivi&#160;: le disque d&#233;file &#224; 15,041&#8243;/s &#215; cos&#160;&#948;, soit 4,9 pixels par seconde &#224; 400&#160;mm sur plein format. Une rafale de dix secondes &#224; chaque s&#233;rie donne l'&#233;chelle angulaire du moment <strong>sans conna&#238;tre la focale</strong>. C'est le seul contr&#244;le qui d&#233;tecte une bague qui a gliss&#233; ou un objectif qui respire &#224; la mise au point.</li>
@@ -654,28 +661,55 @@ il s'ex&#233;cute avec le m&#234;me mat&#233;riel et la m&#234;me r&#233;duction
   observateur isol&#233; dans cette question.</p>
 </div>
 
-<h3>Crit&#232;res fix&#233;s a priori</h3>
+<h3>Ce que la mesure &#233;tablit</h3>
+<p>Le r&#233;sultat de la campagne n'est pas un mod&#232;le mais une grandeur&#160;: le <strong>profil de
+distance</strong> du Soleil au cours de la journ&#233;e. Pour un corps rigide, le diam&#232;tre angulaire vaut D/d,
+donc un rapport <code>r = &#952;(bas)/&#952;(haut)</code> signifie que la distance a &#233;t&#233; multipli&#233;e par
+<code>1/r</code>. Aucune hypoth&#232;se sur la nature de l'astre n'entre dans cette conversion.</p>
 <div class="two">
-  <div class="vc p">
-    <p class="h">&#952;(20&#176;)/&#952;(75&#176;) &#8776; 0,35</p>
-    <p class="v">Source lointaine r&#233;fut&#233;e</p>
-    <p>Le diam&#232;tre suit sin&#945;. Le Soleil est &#224; une hauteur finie, et la valeur ajust&#233;e de H
-    se d&#233;duit directement de la courbe.</p>
-  </div>
   <div class="vc g">
-    <p class="h">&#952;(20&#176;)/&#952;(75&#176;) = 1,00 &#177; 0,01</p>
-    <p class="v">Source locale r&#233;fut&#233;e</p>
-    <p>Aucune hauteur finie ne reproduit une constance &#224; 1 %. Le Soleil est &#224; une distance
-    tr&#232;s grande devant les dimensions du dispositif.</p>
+    <p class="h">r = 1,000 &#177; 0,010</p>
+    <p class="v">Le Soleil est lointain</p>
+    <p>Sa distance &#224; l'&#339;il ne change pas mesurablement pendant qu'il traverse le ciel d'un
+    horizon &#224; l'autre. Aucune source port&#233;e &#224; hauteur finie au-dessus d'un plan ne reproduit cela&#160;: en
+    s'&#233;loignant vers l'horizon elle devrait reculer.</p>
+  </div>
+  <div class="vc p">
+    <p class="h">r &lt; 0,99</p>
+    <p class="v">Le Soleil est proche</p>
+    <p>Sa distance &#224; l'&#339;il augmente quand il descend, de <code>1/r &#8722; 1</code>. C'est incompatible
+    avec une source &#224; 149,6 millions de kilom&#232;tres, dont la distance ne peut varier que de
+    2&#215;10<sup>&#8722;2</sup> % en un jour. La valeur du rapport dit <em>de combien</em>&#160;; elle ne dit pas
+    par quelle g&#233;om&#233;trie.</p>
   </div>
 </div>
+<table>
+  <caption>Tableau 6 &#8212; Lecture d'un rapport mesur&#233;. La conversion ne suppose que la rigidit&#233; de
+  l'astre. <strong>Aucune valeur n'est d&#233;clar&#233;e impossible</strong>&#160;: la derni&#232;re ligne, surlign&#233;e, est
+  simplement celle qu'imposerait une hauteur constante au-dessus d'un plan entre 70&#176; et 20&#176;.</caption>
+  <thead><tr><th class="n">rapport mesur&#233; r</th><th class="n">la distance augmente de</th></tr></thead>
+  <tbody>
+    <tr><td class="n">1,000</td><td class="n">+0,0&#160;%</td></tr>
+    <tr><td class="n">0,990</td><td class="n">+1,0&#160;%</td></tr>
+    <tr><td class="n">0,950</td><td class="n">+5,3&#160;%</td></tr>
+    <tr><td class="n">0,910</td><td class="n">+9,9&#160;%</td></tr>
+    <tr><td class="n">0,800</td><td class="n">+25,0&#160;%</td></tr>
+    <tr><td class="n">0,600</td><td class="n">+66,7&#160;%</td></tr>
+    <tr><td class="n">0,500</td><td class="n">+100,0&#160;%</td></tr>
+    <tr class="hi"><td class="n"><strong>0,364</strong></td><td class="n"><strong>+174,7&#160;%</strong></td></tr>
+  </tbody>
+</table>
 <div class="box warn">
-  <span class="lab">Zone morte &#8212; rapport compris entre 0,40 et 0,95</span>
-  <p>Aucun des deux mod&#232;les ne pr&#233;dit cette plage. Un r&#233;sultat qui s'y situe signale un
-  <strong>d&#233;faut de protocole</strong>. Causes &#224; &#233;liminer par ordre de fr&#233;quence : seuil de
-  luminosit&#233; fixe au lieu du crit&#232;re des 50 %, mesure du diam&#232;tre vertical au lieu de
-  l'horizontal, focale modifi&#233;e en cours de s&#233;rie, recadrage, correction automatique de
-  distorsion laiss&#233;e active.</p>
+  <span class="lab">Contr&#244;le par sym&#233;trie &#8212; le seul crit&#232;re de rejet</span>
+  <p>Une variation g&#233;om&#233;trique ne d&#233;pend que de la <strong>hauteur</strong>. Une prise &#224; 40&#176; le matin et
+  une prise &#224; 40&#176; l'apr&#232;s-midi doivent donc donner le m&#234;me diam&#232;tre. Un artefact &#8212; d&#233;rive thermique
+  du f&#251;t, d&#233;placement de la mise au point, transparence, saturation du disque &#8212; n'a aucune raison
+  d'&#234;tre sym&#233;trique par rapport au midi solaire.</p>
+  <p><strong>Crit&#232;re&#160;:</strong> pour chaque couple de hauteurs appari&#233;es, l'&#233;cart matin/apr&#232;s-midi doit
+  rester sous <strong>1,53 %</strong> (3&#963;). Au-del&#224;, la s&#233;rie est rejet&#233;e et refaite &#8212; quelle que soit la
+  valeur du rapport. Causes &#224; &#233;liminer&#160;: seuil de luminosit&#233; fixe au lieu du crit&#232;re des 50 %,
+  diam&#232;tre vertical mesur&#233; au lieu de l'horizontal, focale modifi&#233;e en cours de s&#233;rie, recadrage,
+  correction automatique de distorsion laiss&#233;e active.</p>
 </div>
 
 <h2><span class="n">08</span>Objections anticip&#233;es</h2>
@@ -728,7 +762,7 @@ imposent. Les remarques m&#233;thodologiques sont sollicit&#233;es avant le lanc
   <p>Valeurs de r&#233;f&#233;rence : distance Terre-Soleil 149,6&#215;10<sup>6</sup> km, diam&#232;tre apparent
   moyen 31,5&#8242; ; distance Terre-Lune 384 400 km, p&#233;rig&#233;e 356 500 km, apog&#233;e 406 700 km ;
   rayon terrestre 6 371 km. Le document est reproductible &#224; partir de ces seules valeurs et
-  de la relation d = H/sin&#945;. &#8212; Protocole ouvert, version 1.6.</p>
+  de la relation d = H/sin&#945;. &#8212; Protocole ouvert, version 1.7.</p>
 </footer>
 </div>
 
@@ -737,13 +771,14 @@ imposent. Les remarques m&#233;thodologiques sont sollicit&#233;es avant le lanc
 
 <div class="masthead">
   <div class="kicker">Open protocol &#183; Pre-registered predictions &#183; Built-in positive controls</div>
-  <h1>The Sun's angular diameter over the course of a day</h1>
+  <h1>Is the Sun near or distant?</h1>
+  <p class="sub">Measuring its angular diameter over the course of a day</p>
   <p class="dek">One observer, one day, one telephoto lens. Does the disk shrink as it
   descends? Predicted gap between the two models, from the day's highest point to its
   lowest (70&#176;&#8594;20&#176;): 63.6 per cent. Error budget: 0.51 per cent.</p>
   <div class="byline">
     <span>Author<b>&nbsp;</b></span><span>Affiliation<b>&nbsp;</b></span>
-    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.6</b></span><span>Date<b>&nbsp;</b></span>
+    <span>Contact<b>&nbsp;</b></span><span>Version<b>1.7</b></span><span>Date<b>&nbsp;</b></span>
   </div>
 </div>
 
@@ -759,7 +794,9 @@ imposent. Les remarques m&#233;thodologiques sont sollicit&#233;es avant le lanc
   <p>A source at finite height does not. Its distance to the eye is <code>H / sin &#945;</code>,
   and the <strong>ratio</strong> of diameters between two altitudes of the same day is
   <code>sin &#945;&#8322; / sin &#945;&#8321;</code> &#8212; a quantity in which the diameter D and the height H
-  have cancelled. <strong>The ratio is therefore predicted without knowing anything about
+  have cancelled. That law holds for <em>one</em> near-source hypothesis, the one where the height
+  stays constant; a variation that did not follow it would still be a variation, and would rule
+  out the distant source just as firmly. <strong>The ratio is therefore predicted without knowing anything about
   the body</strong>, and it is what the campaign measures. From the highest to the lowest point
   of an ordinary mid-latitude day (70&#176; then 20&#176;), the local family requires a reduction
   of <strong>63.6 per cent</strong> and the distant source <strong>zero</strong>.</p>
@@ -781,7 +818,8 @@ imposent. Les remarques m&#233;thodologiques sont sollicit&#233;es avant le lanc
   says nothing of its nature. A measured reduction would indicate a source whose distance to
   the eye varies through the day; it would not say how far away it is. If that reduction
   follows <code>sin &#945;</code>, then &#8212; and only then &#8212; the height H follows from a second
-  station, which is a different protocol.</p>
+  station, which is a different protocol. <strong>One station yields the distance profile, never the
+  distance itself</strong>: that requires a baseline.</p>
   <p>Nor does it separate a distant source from one whose distance to <em>each</em> observer
   would stay constant by construction &#8212; a projection proper to the eye that beholds it.
   Both predict the same constancy, and no measurement by a single observer tells them apart.
@@ -1132,8 +1170,11 @@ distance genuinely changes. This is a systematic of the same order as the signal
   gives 12.0, and both are correct.</li>
   <li><b>Choose a stable day</b>Clear sky, calm air. Record temperature, pressure and humidity
   at the start and end.</li>
-  <li><b>Acquire six series</b>At approximate altitudes 75&#176;, 60&#176;, 45&#176;, 30&#176;, 20&#176; and 15&#176;.
-  Twenty frames per series, to be stacked so as to average out turbulence.</li>
+  <li><b>Acquire twelve series, in matched pairs</b>Six ascending in the morning, six descending
+  in the afternoon, at the <em>same</em> altitudes &#8212; 15&#176;, 20&#176;, 30&#176;, 45&#176;, 60&#176; and the day's maximum.
+  Twenty frames per series, to be stacked so as to average out turbulence. The pairing is not a
+  luxury: it is what makes the symmetry control of section 07 possible, the protocol's only
+  rejection criterion. A day yielding only half a course is unusable.</li>
   <li><b>Record the altitude</b>For each series, note UTC time to the second. The Sun's
   altitude then follows from ephemeris, with no additional instrument. <strong>Use the apparent, refracted altitude</strong>, not the true one: the observable is the direction in which the disk is seen. The difference is not negligible against the error budget &#8212; it amounts to 0.40 per cent on sin&#160;&#945; at 15&#176;, 0.22 per cent at 20&#176;, 0.09 per cent at 30&#176; &#8212; and both models must be compared at the <em>same</em> altitude, failing which one compares two different quantities.</li>
   <li><b>Record the plate scale by drift</b>Camera fixed, no tracking: the disk drifts at 15.041&#8243;/s &#215; cos&#160;&#948;, that is 4.9 pixels per second at 400&#160;mm on full frame. A ten-second burst at each series gives the angular scale of the moment <strong>without knowing the focal length</strong>. It is the only check that catches a ring that has slipped or a lens that breathes on focus.</li>
@@ -1200,28 +1241,55 @@ reduction.</p>
   question.</p>
 </div>
 
-<h3>Criteria fixed a priori</h3>
+<h3>What the measurement establishes</h3>
+<p>The campaign's output is not a model but a quantity: the Sun's <strong>distance profile</strong>
+over the day. For a rigid body the angular diameter is D/d, so a ratio
+<code>r = &#952;(low)/&#952;(high)</code> means the distance has been multiplied by <code>1/r</code>. No
+assumption about the body's nature enters that conversion.</p>
 <div class="two">
-  <div class="vc p">
-    <p class="h">&#952;(20&#176;)/&#952;(75&#176;) &#8776; 0.35</p>
-    <p class="v">Distant source refuted</p>
-    <p>The diameter follows sin&#945;. The Sun is at a finite height, and the fitted value of H
-    follows directly from the curve.</p>
-  </div>
   <div class="vc g">
-    <p class="h">&#952;(20&#176;)/&#952;(75&#176;) = 1.00 &#177; 0.01</p>
-    <p class="v">Local source refuted</p>
-    <p>No finite height reproduces constancy at the 1 per cent level. The Sun is at a distance
-    very large compared with the dimensions of the setup.</p>
+    <p class="h">r = 1.000 &#177; 0.010</p>
+    <p class="v">The Sun is distant</p>
+    <p>Its distance to the eye does not measurably change while it crosses the sky from one
+    horizon to the other. No source held at a finite height above a plane reproduces that: as it
+    moves towards the horizon it would have to recede.</p>
+  </div>
+  <div class="vc p">
+    <p class="h">r &lt; 0.99</p>
+    <p class="v">The Sun is near</p>
+    <p>Its distance to the eye grows as it descends, by <code>1/r &#8722; 1</code>. That is incompatible
+    with a source at 149.6 million kilometres, whose distance can vary by no more than
+    2&#215;10<sup>&#8722;2</sup> per cent in a day. The value of the ratio says <em>by how much</em>; it does not
+    say through what geometry.</p>
   </div>
 </div>
+<table>
+  <caption>Table 6 &#8212; Reading a measured ratio. The conversion assumes only that the body is rigid.
+  <strong>No value is declared impossible</strong>: the highlighted last row is simply the one a constant
+  height above a plane would require between 70&#176; and 20&#176;.</caption>
+  <thead><tr><th class="n">measured ratio r</th><th class="n">distance increases by</th></tr></thead>
+  <tbody>
+    <tr><td class="n">1.000</td><td class="n">+0.0 per cent</td></tr>
+    <tr><td class="n">0.990</td><td class="n">+1.0 per cent</td></tr>
+    <tr><td class="n">0.950</td><td class="n">+5.3 per cent</td></tr>
+    <tr><td class="n">0.910</td><td class="n">+9.9 per cent</td></tr>
+    <tr><td class="n">0.800</td><td class="n">+25.0 per cent</td></tr>
+    <tr><td class="n">0.600</td><td class="n">+66.7 per cent</td></tr>
+    <tr><td class="n">0.500</td><td class="n">+100.0 per cent</td></tr>
+    <tr class="hi"><td class="n"><strong>0.364</strong></td><td class="n"><strong>+174.7 per cent</strong></td></tr>
+  </tbody>
+</table>
 <div class="box warn">
-  <span class="lab">Dead zone &#8212; ratio between 0.40 and 0.95</span>
-  <p>Neither model predicts this range. A result falling within it indicates a
-  <strong>protocol failure</strong>. Causes to rule out, in order of frequency: fixed brightness
-  threshold instead of the 50 per cent criterion, vertical diameter measured instead of
-  horizontal, focal length changed mid-series, cropping, automatic distortion correction left
-  enabled.</p>
+  <span class="lab">Symmetry control &#8212; the only rejection criterion</span>
+  <p>A geometric variation depends on <strong>altitude</strong> alone. A frame taken at 40&#176; in the
+  morning and one at 40&#176; in the afternoon must therefore give the same diameter. An artefact &#8212;
+  thermal drift of the barrel, focus shift, transparency, disk saturation &#8212; has no reason to be
+  symmetric about solar noon.</p>
+  <p><strong>Criterion:</strong> for each paired altitude, the morning/afternoon discrepancy must stay
+  below <strong>1.53 per cent</strong> (3&#963;). Beyond that the series is rejected and repeated &#8212; whatever
+  the value of the ratio. Causes to rule out: fixed brightness threshold instead of the 50 per cent
+  criterion, vertical diameter measured instead of horizontal, focal length changed mid-series,
+  cropping, automatic distortion correction left enabled.</p>
 </div>
 
 <h2><span class="n">08</span>Anticipated objections</h2>
@@ -1274,6 +1342,6 @@ are invited before the campaign begins.</p>
   <p>Reference values: Earth-Sun distance 149.6&#215;10<sup>6</sup> km, mean apparent diameter
   31.5&#8242;; Earth-Moon distance 384 400 km, perigee 356 500 km, apogee 406 700 km; Earth radius
   6 371 km. The document is reproducible from these values and the relation d = H/sin&#945; alone.
-  &#8212; Open protocol, version 1.6.</p>
+  &#8212; Open protocol, version 1.7.</p>
 </footer>
 </div>
