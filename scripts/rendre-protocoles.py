@@ -68,6 +68,11 @@ DOCUMENTS = {
         "Protocole-pole-celeste.pdf",
         "Hauteur du pôle céleste — Altitude of the celestial pole — v1.3",
     ),
+    "visee": (
+        "visee-terrestre-bilingue.html",
+        "Protocole-rayon-apparent.pdf",
+        "Rayon apparent de la Terre — The Earth's apparent radius — v1.0",
+    ),
 }
 
 # Protocoles SUSPENDUS : les sources restent, le rendu par défaut les ignore.
@@ -80,7 +85,7 @@ DOCUMENTS = {
 #
 # Ils restent rendables à la demande — « rendre-protocoles.py soleil » — mais
 # ne sortent plus quand on lance le script sans argument.
-SUSPENDUS = {"soleil", "pole"}
+SUSPENDUS = {"soleil", "pole", "visee"}
 
 
 def chromium():
