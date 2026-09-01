@@ -163,7 +163,7 @@ def corps(fr):
                  "austral (8.2), la pente locale (8.3) et l'ajustement global "
                  "(8.4)."))
         A(clause("1.4", "Elle produit une pente en degr&#233;s par kilom&#232;tre et "
-                 "son incertitude. Elle ne conclut sur aucun mod&#232;le."))
+                 "son incertitude."))
         A(clause("1.5", "Les valeurs sont exprim&#233;es en unit&#233;s SI, les "
                  "angles en degr&#233;s."))
     else:
@@ -178,7 +178,7 @@ def corps(fr):
                  "of the southern rotation centre (8.2), the local slope (8.3) and the "
                  "global fit (8.4)."))
         A(clause("1.4", "It produces a slope in degrees per kilometre and its "
-                 "uncertainty. It concludes on no model."))
+                 "uncertainty."))
         A(clause("1.5", "Values are expressed in SI units, angles in degrees."))
 
     A(h2(2, fr))

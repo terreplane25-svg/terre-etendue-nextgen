@@ -207,11 +207,7 @@ def corps(fr):
                  "<strong>plane &#224; profil d&#233;gag&#233;</strong>. Le verdict est "
                  "&#233;nonc&#233; au 9.7, et chacun des deux mod&#232;les peut y "
                  "&#234;tre r&#233;fut&#233;."))
-        A(clause("1.5", "Elle ne conclut pas sur des mod&#232;les qui ne sont pas "
-                 "&#233;nonc&#233;s, ni sur la forme de la Terre comme proposition "
-                 "g&#233;n&#233;rale. Une ligne de vis&#233;e n'est pas une "
-                 "plan&#232;te."))
-        A(clause("1.6", "Les valeurs sont exprim&#233;es en unit&#233;s SI."))
+        A(clause("1.5", "Les valeurs sont exprim&#233;es en unit&#233;s SI."))
     else:
         A(clause("1.1", "This method determines the <strong>hidden portion</strong> "
                  "<code>c</code> at the base of a distant object, and the "
@@ -228,10 +224,7 @@ def corps(fr):
                  "admissible refraction coefficient, and a <strong>plane surface with a "
                  "clear profile</strong>. The verdict is stated at 9.7, and either model "
                  "can be refuted there."))
-        A(clause("1.5", "It does not conclude on models that are not stated, nor on the "
-                 "shape of the Earth as a general proposition. One sight line is not a "
-                 "planet."))
-        A(clause("1.6", "Values are expressed in SI units."))
+        A(clause("1.5", "Values are expressed in SI units."))
 
     # ── 2 Documents de référence ────────────────────────────────────────────
     A(h2(2, fr))
@@ -831,29 +824,30 @@ def corps(fr):
           "  <li>trois lectures au lieu d'une donnent une dispersion, donc une "
           "incertitude mesur&#233;e plut&#244;t que suppos&#233;e.</li>\n"
           "</ul>")
-        A("<h3>X1.4 &#8212; La port&#233;e du verdict</h3>")
-        A("<p>Le verdict du 9.7 porte sur une <strong>proposition "
-          "compl&#232;tement &#233;nonc&#233;e</strong>&#160;: telle observation "
-          "est-elle possible sur une surface de rayon 6&#8239;371 km, sous un "
-          "coefficient de r&#233;fraction born&#233; par le tableau 4&#160;? "
-          "C'est une question ferm&#233;e, et la mesure y r&#233;pond par oui ou par "
-          "non.</p>")
-        A("<p>Ce qu'elle ne fait pas, c'est trancher &#171;&#160;la forme de la "
-          "Terre&#160;&#187; comme proposition g&#233;n&#233;rale, pour deux raisons "
-          "qui sont des faits et non des pr&#233;cautions.</p>")
-        A("<p><strong>Une ligne de vis&#233;e n'est pas une plan&#232;te.</strong> Un "
-          "relev&#233; d&#233;crit un azimut, un jour, une masse d'air. Ce qui vaut "
-          "&#224; l'&#233;chelle du globe demande des relev&#233;s r&#233;partis, et "
-          "c'est vrai quel que soit leur r&#233;sultat.</p>")
-        A("<p><strong>Une mesure isol&#233;e donne <code>R&#8242; = R/(1&#8722;k)</code>, "
-          "pas <code>R</code>.</strong> La courbure de la surface et celle du rayon "
-          "lumineux entrent dans la m&#234;me quantit&#233; et ne s'en s&#233;parent "
-          "pas. C'est pr&#233;cis&#233;ment pourquoi la m&#233;thode borne "
-          "<code>k</code> par le tableau 4 et &#233;carte le conduit par 8.6 et "
-          "8.7&#160;: sans ces trois clauses, le verdict ne serait pas prononçable. "
-          "Avec elles, il l'est.</p>")
-        A("<p>Elle ne valide ni n'invalide r&#233;troactivement une photographie prise "
-          "ailleurs, un autre jour, dans une autre atmosph&#232;re.</p>")
+        A("<h3>X1.4 &#8212; Pourquoi k doit &#234;tre born&#233; et le conduit "
+          "&#233;cart&#233;</h3>")
+        A("<p>Une observation isol&#233;e ne donne pas <code>R</code> mais "
+          "<code>R&#8242; = R/(1&#8722;k)</code>&#160;: la courbure de la surface et "
+          "celle du rayon lumineux entrent dans la m&#234;me quantit&#233; et ne s'en "
+          "s&#233;parent pas. Un relev&#233; seul est donc muet &#8212; il admet "
+          "n'importe quelle surface pourvu qu'on lui accorde le <code>k</code> "
+          "correspondant.</p>")
+        A("<p>Les trois clauses de la m&#233;thode sont ce qui referme cette "
+          "libert&#233;, et c'est &#224; elles que le verdict du 9.7 doit d'&#234;tre "
+          "prononçable&#160;:</p>")
+        A("<ul>\n"
+          "  <li>le <strong>tableau 4</strong> borne <code>k</code> &#224; %s, valeur "
+          "au-del&#224; de laquelle aucun r&#233;gime atmosph&#233;rique ordinaire ne "
+          "va&#160;;</li>\n"
+          "  <li>le <strong>test de proportionnalit&#233; du 8.6</strong> "
+          "&#233;carte le conduit, seul r&#233;gime capable de franchir cette "
+          "borne&#160;;</li>\n"
+          "  <li>la <strong>r&#233;p&#233;tition du 8.7</strong> distingue une "
+          "occultation g&#233;om&#233;trique, pr&#233;sente tous les jours, d'un "
+          "conduit qui ne l'est pas.</li>\n"
+          "</ul>" % nb(K_MAX, 2, fr))
+        A("<p>Sans ces trois clauses, un r&#233;sultat ne serait qu'une "
+          "observation de plus. Avec elles, c'est une mesure opposable.</p>")
         A("<p>Si une application de la m&#233;thode trouve un &#233;cart "
           "diff&#233;rentiel nul l&#224; o&#249; le tableau 2 en pr&#233;dit un, ou un "
           "<code>k</code> compatible avec l'atmosph&#232;re ordinaire l&#224; o&#249; "
@@ -898,25 +892,24 @@ def corps(fr):
           "  <li>three readings instead of one give a scatter, hence a measured rather "
           "than assumed uncertainty.</li>\n"
           "</ul>")
-        A("<h3>X1.4 &#8212; The reach of the verdict</h3>")
-        A("<p>The verdict of 9.7 bears on a <strong>fully stated "
-          "proposition</strong>: is this observation possible on a surface of radius "
-          "6&#8239;371 km, under a refraction coefficient bounded by Table 4? That is a "
-          "closed question, and the measurement answers it yes or no.</p>")
-        A("<p>What it does not do is settle &#8220;the shape of the Earth&#8221; as a "
-          "general proposition, for two reasons that are facts rather than "
-          "precautions.</p>")
-        A("<p><strong>One sight line is not a planet.</strong> A record describes one "
-          "azimuth, one day, one air mass. What holds at the scale of a globe requires "
-          "distributed records, and that is true whatever their result.</p>")
-        A("<p><strong>An isolated measurement gives <code>R&#8242; = R/(1&#8722;k)</code>, "
-          "not <code>R</code>.</strong> The curvature of the surface and that of the "
-          "light ray enter the same quantity and do not separate within it. That is "
-          "precisely why the method bounds <code>k</code> by Table 4 and rules out "
-          "ducting by 8.6 and 8.7: without those three clauses the verdict could not be "
-          "pronounced. With them, it can.</p>")
-        A("<p>It neither validates nor invalidates, retroactively, a photograph taken "
-          "elsewhere, on another day, through another atmosphere.</p>")
+        A("<h3>X1.4 &#8212; Why k must be bounded and ducting ruled out</h3>")
+        A("<p>An isolated observation does not give <code>R</code> but "
+          "<code>R&#8242; = R/(1&#8722;k)</code>: the curvature of the surface and that "
+          "of the light ray enter the same quantity and do not separate within it. A "
+          "single record is therefore mute &#8212; it admits any surface provided one "
+          "grants it the matching <code>k</code>.</p>")
+        A("<p>The method's three clauses are what close that freedom, and it is to them "
+          "that the verdict of 9.7 owes being pronounceable:</p>")
+        A("<ul>\n"
+          "  <li><strong>Table 4</strong> bounds <code>k</code> at %s, beyond which no "
+          "ordinary atmospheric regime goes;</li>\n"
+          "  <li>the <strong>proportionality test of 8.6</strong> rules out ducting, the "
+          "only regime able to cross that bound;</li>\n"
+          "  <li>the <strong>repetition of 8.7</strong> distinguishes a geometric "
+          "occultation, present every day, from a duct which is not.</li>\n"
+          "</ul>" % nb(K_MAX, 2, fr))
+        A("<p>Without these three clauses a result would be one more observation. With "
+          "them, it is a measurement that can be contested on its merits.</p>")
         A("<p>If an application of the method finds a null differential where Table 2 "
           "predicts one, or a <code>k</code> consistent with the ordinary atmosphere "
           "where we maintain the contrary, that result will be published as it stands "
