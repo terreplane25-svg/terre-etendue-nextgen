@@ -70,8 +70,8 @@ DOCUMENTS = {
     ),
     "visee": (
         "visee-terrestre-bilingue.html",
-        "Protocole-rayon-apparent.pdf",
-        "Rayon apparent de la Terre — The Earth's apparent radius — v1.0",
+        "Protocole-portion-masquee.pdf",
+        "Portion masquée d'un objet éloigné — Hidden portion of a distant object — v3.0",
     ),
 }
 
