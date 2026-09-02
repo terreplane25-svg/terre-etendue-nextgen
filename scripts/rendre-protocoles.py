@@ -76,7 +76,7 @@ DOCUMENTS = {
     "photo": (
         "analyse-photo-bilingue.html",
         "Protocole-analyse-photographique.pdf",
-        "Analyse a posteriori d'une photographie — A posteriori analysis of a photograph — v1.0",
+        "Photographie d'un objet éloigné — Photograph of a distant object — v2.0",
     ),
     "court": (
         "masquage-court.html",
