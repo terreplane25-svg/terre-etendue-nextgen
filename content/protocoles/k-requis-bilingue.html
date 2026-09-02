@@ -1,0 +1,669 @@
+<title>Quelle r&#233;fraction faudrait-il&#8239;?</title>
+
+<style>
+/* @@POLICES@@ — injecté au rendu depuis polices.css */
+@page{ size:A4; margin:19mm 17mm 16mm; }
+
+:root{
+  --ink:#12181e; --soft:#3d4952; --mute:#6c7883;
+  --line:#cfd7dd; --line2:#9aa7b1; --wash:#f2f5f7;
+  --globe:#14608f; --globe-w:#14608f14;
+  --plane:#96600f; --plane-w:#96600f14;
+  --alert:#8f2f2b; --alert-w:#8f2f2b10;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:#fff; color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,sans-serif;
+  font-size:9.7pt; line-height:1.52;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+.page{padding:0}
+p{margin:0 0 7pt; color:var(--soft); text-align:justify; hyphens:auto}
+p.lead{color:var(--ink); font-size:10.4pt}
+strong{color:var(--ink); font-weight:600}
+code{font-family:"IBM Plex Mono",monospace; font-size:.9em; color:var(--ink)}
+
+/* ── Bloc-titre ── */
+.masthead{border-bottom:2.2pt solid var(--ink); padding-bottom:9pt; margin-bottom:14pt}
+.kicker{
+  font-family:"IBM Plex Mono",monospace; font-size:7.4pt; font-weight:600;
+  letter-spacing:.19em; text-transform:uppercase; color:var(--globe);
+  margin-bottom:8pt;
+}
+h1{
+  font-family:Spectral,Georgia,serif; font-weight:700; font-size:23pt;
+  line-height:1.13; letter-spacing:-.015em; margin:0 0 6pt; color:var(--ink);
+}
+.dek{font-family:Spectral,Georgia,serif; font-size:11.3pt; line-height:1.42;
+  color:var(--soft); font-style:italic; margin:0 0 10pt}
+.byline{
+  display:flex; gap:26pt; flex-wrap:wrap;
+  font-family:"IBM Plex Mono",monospace; font-size:7.6pt; color:var(--mute);
+  letter-spacing:.05em; border-top:.6pt solid var(--line); padding-top:7pt;
+}
+.byline b{display:block; color:var(--ink); font-weight:600; font-size:8pt; margin-top:1pt}
+
+.abstract{
+  background:var(--wash); border-left:2.6pt solid var(--globe);
+  padding:11pt 13pt; margin:0 0 16pt;
+}
+.abstract .lab{
+  font-family:"IBM Plex Mono",monospace; font-size:7.2pt; font-weight:600;
+  letter-spacing:.17em; text-transform:uppercase; color:var(--globe); display:block; margin-bottom:5pt;
+}
+.abstract p{margin-bottom:5pt; font-size:9.2pt}
+.abstract p:last-child{margin-bottom:0}
+
+/* ── Titres ── */
+h2{
+  font-family:Spectral,Georgia,serif; font-weight:600; font-size:13.6pt;
+  line-height:1.2; margin:17pt 0 5pt; color:var(--ink);
+  padding-bottom:3.5pt; border-bottom:.7pt solid var(--line2);
+  break-after:avoid; page-break-after:avoid;
+}
+h2 .n{font-family:"IBM Plex Mono",monospace; font-size:8.4pt; color:var(--globe);
+  font-weight:600; margin-right:8pt; letter-spacing:.06em}
+h3{font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:9.8pt;
+  margin:11pt 0 4pt; color:var(--ink); break-after:avoid; page-break-after:avoid}
+
+ul,ol{margin:0 0 8pt; padding-left:15pt; color:var(--soft)}
+li{margin:0 0 3.5pt}
+ol.st{list-style:none; padding:0; counter-reset:s}
+ol.st>li{counter-increment:s; position:relative; padding-left:26pt; margin-bottom:7pt}
+ol.st>li::before{
+  content:counter(s,decimal-leading-zero); position:absolute; left:0; top:.4pt;
+  font-family:"IBM Plex Mono",monospace; font-size:7.6pt; font-weight:600;
+  color:#fff; background:var(--globe); width:18pt; height:12pt;
+  display:flex; align-items:center; justify-content:center; border-radius:1.5pt;
+}
+ol.st>li>b{display:block; color:var(--ink); font-weight:600}
+
+/* ── Formules ── */
+.eq{
+  font-family:"IBM Plex Mono",monospace; font-size:10.2pt; color:var(--ink);
+  background:var(--wash); border:.6pt solid var(--line);
+  padding:8pt 12pt; margin:8pt 0; text-align:center; letter-spacing:.02em;
+}
+.eq .cap{display:block; font-family:"IBM Plex Sans",sans-serif; font-size:7.6pt;
+  color:var(--mute); margin-top:4pt; letter-spacing:0}
+
+/* ── Tableaux ── */
+table{border-collapse:collapse; width:100%; font-size:8.6pt; margin:8pt 0 10pt;
+  break-inside:avoid; page-break-inside:avoid}
+th,td{padding:4pt 7pt; text-align:left; border-bottom:.5pt solid var(--line)}
+thead th{
+  font-family:"IBM Plex Mono",monospace; font-size:6.9pt; font-weight:600;
+  letter-spacing:.11em; color:var(--mute);
+  background:var(--wash); border-bottom:.9pt solid var(--line2);
+}
+td.n,th.n{text-align:right; font-family:"IBM Plex Mono",monospace;
+  font-variant-numeric:tabular-nums; font-size:8.4pt}
+tbody tr:last-child td{border-bottom:.7pt solid var(--line2)}
+tr.hi td{background:var(--globe-w)}
+tr.hi td,tr.hi td strong{color:var(--globe); font-weight:600}
+tr.pl td{background:var(--plane-w)}
+tr.pl td{color:var(--plane); font-weight:600}
+caption{caption-side:bottom; text-align:left; font-size:7.8pt; color:var(--mute);
+  padding-top:4pt; font-style:italic}
+
+/* ── Figures ── */
+figure{margin:10pt 0 12pt; break-inside:avoid; page-break-inside:avoid}
+figure svg{display:block; width:100%; height:auto; border:.6pt solid var(--line);
+  background:#fff; padding:7pt}
+figcaption{font-size:7.9pt; line-height:1.45; color:var(--mute); margin-top:4pt; text-align:justify}
+figcaption b{color:var(--ink)}
+
+/* SVG */
+.sl{stroke:var(--line2); fill:none}
+.si{stroke:var(--soft); fill:none}
+.sg{stroke:var(--globe); fill:none}
+.sp{stroke:var(--plane); fill:none}
+.sa{stroke:var(--alert); fill:none}
+.fg{fill:var(--globe)} .fp{fill:var(--plane)} .fi{fill:var(--ink)} .fs{fill:var(--soft)}
+.t{font-family:"IBM Plex Sans",sans-serif; font-size:12px; fill:var(--soft)}
+.tm{font-family:"IBM Plex Mono",monospace; font-size:11px; fill:var(--mute); letter-spacing:.05em}
+.tb{font-family:"IBM Plex Mono",monospace; font-size:11.5px; font-weight:600; letter-spacing:.09em}
+.dash{stroke-dasharray:5 4} .dash2{stroke-dasharray:2 3}
+
+/* ── Encadrés ── */
+.box{border:.7pt solid var(--line2); padding:9pt 11pt; margin:9pt 0;
+  break-inside:avoid; page-break-inside:avoid}
+.box .lab{font-family:"IBM Plex Mono",monospace; font-size:7pt; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; display:block; margin-bottom:4pt}
+.box p:last-child{margin-bottom:0}
+.box.key{border-color:var(--globe); background:var(--globe-w)} .box.key .lab{color:var(--globe)}
+.box.warn{border-color:var(--alert); background:var(--alert-w)} .box.warn .lab{color:var(--alert)}
+.box.flat{border-color:var(--plane); background:var(--plane-w)} .box.flat .lab{color:var(--plane)}
+
+.two{display:grid; grid-template-columns:1fr 1fr; gap:9pt; margin:9pt 0;
+  break-inside:avoid; page-break-inside:avoid}
+.vc{border:1pt solid var(--line2); padding:9pt 11pt}
+.vc.g{border-color:var(--globe)} .vc.p{border-color:var(--plane)}
+.vc .h{font-family:"IBM Plex Mono",monospace; font-size:7.2pt; letter-spacing:.14em;
+  margin:0 0 3pt}
+.vc.g .h{color:var(--globe)} .vc.p .h{color:var(--plane)}
+.vc .v{font-family:Spectral,Georgia,serif; font-size:13pt; font-weight:600;
+  color:var(--ink); margin:0 0 4pt; line-height:1.2}
+.vc p{font-size:8.4pt; margin:0}
+
+.sheet{border:.9pt solid var(--line2); padding:9pt 13pt; break-inside:avoid; page-break-inside:avoid}
+.fr{display:flex; gap:9pt; align-items:baseline; padding:3.1pt 0; border-bottom:.4pt dotted var(--line2)}
+.fr:last-child{border-bottom:0}
+.fr .a{font-size:8.5pt; color:var(--soft); flex:1 1 auto}
+.fr .b{font-family:"IBM Plex Mono",monospace; font-size:8pt; color:var(--mute);
+  border-bottom:.5pt solid var(--line2); min-width:104pt; text-align:center}
+
+.brk{break-before:page; page-break-before:always}
+footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
+  font-size:7.6pt; color:var(--mute)}
+.refs{font-size:7.85pt; color:var(--soft); line-height:1.4}
+.refs li{margin-bottom:3pt}
+
+.langbar{display:flex; gap:0; margin:0 0 12pt; border:.8pt solid var(--line2)}
+.langbar span{flex:1; text-align:center; padding:5pt; font-family:"IBM Plex Mono",monospace;
+  font-size:7.4pt; letter-spacing:.14em; color:var(--mute)}
+.langbar span.on{background:var(--globe); color:#fff; font-weight:600}
+.disk{fill:var(--plane); opacity:.85}
+.disk2{fill:var(--globe); opacity:.85}
+</style>
+
+<div class="page">
+<div class="langbar"><span class="on">FRAN&#199;AIS</span><span>ENGLISH &#8212; seconde moiti&#233;</span></div>
+
+<div class="masthead">
+  <div class="kicker">Protocole de terrain &#183; Toutes altitudes &#183; Un r&#233;sultat chiffr&#233;</div>
+  <h1>Quelle r&#233;fraction faudrait-il pour voir cet objet&#8239;?</h1>
+  <p class="sub">M&#233;thode de calcul et de relev&#233; pour une observation &#224; longue distance</p>
+</div>
+
+<h2><span class="n">1</span>Ce que la m&#233;thode produit</h2>
+<p class="lead">Un nombre et une longueur. Le nombre est le coefficient de
+r&#233;fraction qu'il faudrait pour qu'une cible donn&#233;e soit visible depuis un
+point donn&#233;, &#224; une distance donn&#233;e, sur une surface de rayon
+6&#8239;371&#8239;km. La longueur est celle du trajet sur lequel ce coefficient
+devrait &#234;tre maintenu.</p>
+<p>Trois grandeurs suffisent &#224; le calculer&#160;: <strong>l'altitude de
+l'&#339;il</strong>, <strong>la hauteur de la cible</strong> et <strong>la
+distance</strong>. Rien d'autre n'entre dans le r&#233;sultat.</p>
+<p>Ce coefficient se compare ensuite &#224; ce que l'atmosph&#232;re produit
+r&#233;ellement, sur une &#233;chelle fix&#233;e avant toute observation.</p>
+<table>
+  <caption>Tableau 1 &#8212; L'&#233;chelle de lecture, arr&#234;t&#233;e avant toute
+  mesure.</caption>
+  <thead><tr><th class="n">k exig&#233;</th><th>r&#233;gime</th><th>ce que cela suppose</th></tr></thead>
+  <tbody>
+    <tr><td class="n">&lt; 0,25</td><td>ordinaire</td><td>atmosph&#232;re courante&#160;; l'observation n'a rien d'anormal</td></tr>
+    <tr><td class="n">0,25 &#8211; 0,50</td><td>inversion forte</td><td>inversion thermique marqu&#233;e, document&#233;e et fr&#233;quente au-dessus de l'eau</td></tr>
+    <tr><td class="n">0,50 &#8211; 0,75</td><td>super-r&#233;fraction</td><td>r&#233;gime rare, mesur&#233; sur de courtes distances, jamais soutenu sur des dizaines de kilom&#232;tres</td></tr>
+    <tr class="hi"><td class="n"><strong>0,75 &#8211; 1,00</strong></td><td><strong>conduit soutenu</strong></td><td>le rayon suivrait presque la surface sur toute la port&#233;e&#160;; aucune mesure publi&#233;e n'approche cela sur une telle longueur</td></tr>
+  </tbody>
+</table>
+<div class="box key">
+  <span class="lab">Ce que le r&#233;sultat vaut</span>
+  <p>Une observation qui ressort &#224; <strong>k&#8239;=&#8239;0,9 sur
+  200&#8239;km</strong> n'est pas balay&#233;e d'un &#171;&#160;c'est la
+  r&#233;fraction&#160;&#187;, parce que le calcul a d&#233;j&#224; dit
+  <em>laquelle</em>, et sur quelle longueur il faudrait la tenir.</p>
+  <p>Inversement, une observation qui ressort sous 0,25 est ordinaire, et il faut le
+  dire aussi nettement.</p>
+</div>
+
+<h2><span class="n">2</span>La condition d'altitude</h2>
+<p class="lead">L'&#339;il et le sommet de la cible doivent tous deux se trouver
+&#224; <strong>100&#8239;m au moins</strong> au-dessus de la surface.</p>
+<p>Sous cette hauteur, on se trouve dans la couche o&#249; les gradients thermiques
+mesur&#233;s sont extr&#234;mes et o&#249; se forment les conduits d'&#233;vaporation.
+Un relev&#233; fait au ras de l'eau se discute&#160;; un relev&#233; fait
+au-dessus de cette couche se discute beaucoup moins.</p>
+<p>Au-del&#224; de ce plancher, <strong>toutes les altitudes sont accept&#233;es</strong>
+&#8212; 300, 800, 2&#8239;000, 4&#8239;000&#8239;m &#8212; puisque chacune se calcule.
+Une remarque toutefois, contre-intuitive et qu'il vaut mieux conna&#238;tre avant de
+choisir son site.</p>
+<table>
+  <caption>Tableau 2 &#8212; Une m&#234;me cible de 50&#8239;m &#224; 200&#8239;km, vue
+  de diff&#233;rentes altitudes. <strong>Monter affaiblit l'exigence</strong>&#160;: la
+  cible est moins profond&#233;ment enfouie.</caption>
+  <thead><tr><th class="n">altitude de l'&#339;il</th><th class="n">k exig&#233;</th><th>r&#233;gime</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td class="n">100 m</td><td class="n">0,907</td><td>conduit soutenu</td></tr>
+    <tr><td class="n">300 m</td><td class="n">0,810</td><td>conduit soutenu</td></tr>
+    <tr><td class="n">800 m</td><td class="n">0,602</td><td>super-r&#233;fraction</td></tr>
+    <tr><td class="n">2&#8239;000 m</td><td class="n">0,145</td><td>ordinaire</td></tr>
+    <tr><td class="n">4&#8239;000 m</td><td class="n">0,000</td><td>ordinaire</td></tr>
+  </tbody>
+</table>
+<p>Les vues de haute montagne &#224; tr&#232;s longue distance sont donc les
+<em>moins</em> contraignantes. Ce sont les observations <strong>basses et
+lointaines</strong> qui p&#232;sent le plus.</p>
+
+<h2><span class="n">3</span>Choisir la configuration</h2>
+<p class="lead">Les trois tableaux qui suivent donnent, pour chaque altitude
+d'observation, la distance &#224; laquelle le coefficient exig&#233; atteint chaque
+r&#233;gime.</p>
+<table>
+  <caption>Tableau 3 &#8212; Cible de 50&#8239;m de hauteur. Distance &#224; partir de laquelle le coefficient exig&#233; entre dans chaque r&#233;gime.</caption>
+  <thead><tr><th class="n">altitude de l'&#339;il</th><th class="n">k &gt; 0,25</th><th class="n">k &gt; 0,50</th><th class="n">k &gt; 0,75</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td class="n">100 m</td><td class="n">70 km</td><td class="n">86 km</td><td class="n">122 km</td></tr>
+    <tr><td class="n">300 m</td><td class="n">101 km</td><td class="n">123 km</td><td class="n">174 km</td></tr>
+    <tr><td class="n">800 m</td><td class="n">146 km</td><td class="n">178 km</td><td class="n">252 km</td></tr>
+    <tr><td class="n">2&#8239;000 m</td><td class="n">213 km</td><td class="n">261 km</td><td class="n">370 km</td></tr>
+    <tr><td class="n">4&#8239;000 m</td><td class="n">290 km</td><td class="n">355 km</td><td class="n">502 km</td></tr>
+  </tbody>
+</table>
+<table>
+  <caption>Tableau 4 &#8212; Cible de 200&#8239;m de hauteur. Distance &#224; partir de laquelle le coefficient exig&#233; entre dans chaque r&#233;gime.</caption>
+  <thead><tr><th class="n">altitude de l'&#339;il</th><th class="n">k &gt; 0,25</th><th class="n">k &gt; 0,50</th><th class="n">k &gt; 0,75</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td class="n">100 m</td><td class="n">100 km</td><td class="n">122 km</td><td class="n">172 km</td></tr>
+    <tr><td class="n">300 m</td><td class="n">130 km</td><td class="n">159 km</td><td class="n">225 km</td></tr>
+    <tr><td class="n">800 m</td><td class="n">175 km</td><td class="n">214 km</td><td class="n">303 km</td></tr>
+    <tr><td class="n">2&#8239;000 m</td><td class="n">243 km</td><td class="n">297 km</td><td class="n">420 km</td></tr>
+    <tr><td class="n">4&#8239;000 m</td><td class="n">319 km</td><td class="n">391 km</td><td class="n">553 km</td></tr>
+  </tbody>
+</table>
+<table>
+  <caption>Tableau 5 &#8212; Cible de 500&#8239;m de hauteur. Distance &#224; partir de laquelle le coefficient exig&#233; entre dans chaque r&#233;gime.</caption>
+  <thead><tr><th class="n">altitude de l'&#339;il</th><th class="n">k &gt; 0,25</th><th class="n">k &gt; 0,50</th><th class="n">k &gt; 0,75</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td class="n">100 m</td><td class="n">133 km</td><td class="n">163 km</td><td class="n">231 km</td></tr>
+    <tr><td class="n">300 m</td><td class="n">164 km</td><td class="n">200 km</td><td class="n">283 km</td></tr>
+    <tr><td class="n">800 m</td><td class="n">209 km</td><td class="n">256 km</td><td class="n">362 km</td></tr>
+    <tr><td class="n">2&#8239;000 m</td><td class="n">277 km</td><td class="n">339 km</td><td class="n">479 km</td></tr>
+    <tr><td class="n">4&#8239;000 m</td><td class="n">353 km</td><td class="n">432 km</td><td class="n">611 km</td></tr>
+  </tbody>
+</table>
+<div class="box warn">
+  <span class="lab">Ce qu'il faut viser</span>
+  <p>Depuis 100&#8239;m sur une cible de 50&#8239;m, il faut d&#233;passer
+  <strong>122&#8239;km</strong> pour entrer dans le r&#233;gime du conduit soutenu.
+  Depuis 2&#8239;000&#8239;m sur la m&#234;me cible, il faut aller &#224;
+  370&#8239;km.</p>
+  <p>C'est le tableau qui d&#233;cide du site, et non l'inverse.</p>
+</div>
+
+<h2 class="brk"><span class="n">4</span>Le mat&#233;riel et le site</h2>
+<ul>
+  <li>Un appareil &#224; <strong>600&#8239;mm &#233;quivalent 24&#215;36 ou
+  plus</strong>, enregistrant en brut et en vid&#233;o.</li>
+  <li>Un <strong>tr&#233;pied lourd</strong>, colonne centrale rentr&#233;e,
+  d&#233;clenchement &#224; distance, stabilisation d&#233;sactiv&#233;e.</li>
+  <li>Un <strong>relev&#233; GNSS</strong> ou une carte donnant l'altitude de
+  l'&#339;il et les deux positions.</li>
+  <li>Un <strong>thermom&#232;tre</strong>, pour l'air et si possible pour l'eau.</li>
+</ul>
+<p>Le site doit satisfaire deux conditions, et elles ne se n&#233;gocient pas.</p>
+<div class="box warn">
+  <span class="lab">Les deux conditions du site</span>
+  <p><strong>1. Le trajet est enti&#232;rement d&#233;gag&#233;.</strong> Un relief
+  interm&#233;diaire masque une cible quelle que soit la forme du sol, et c'est ce qui
+  invalide le plus de relev&#233;s. La v&#233;rification se fait sur carte, avant de se
+  d&#233;placer, et la trace est jointe au relev&#233;.</p>
+  <p><strong>2. La hauteur de la cible est publi&#233;e.</strong> Sans source, la
+  troisi&#232;me grandeur du calcul manque, et le coefficient ne peut pas &#234;tre
+  &#233;tabli.</p>
+</div>
+
+<h2><span class="n">5</span>Le calcul</h2>
+<p>Avec <code>R</code>&#8239;=&#8239;6&#8239;371&#8239;km, <code>h</code> l'altitude de
+l'&#339;il et <code>d</code> la distance&#160;:</p>
+<div class="eq">
+  R&#8242; = R / (1 &#8722; k)&#160;&#160;&#160;&#160;
+  a = &#8730;[(R&#8242;+h)&#178; &#8722; R&#8242;&#178;]&#160;&#160;&#160;&#160;
+  c = &#8730;[R&#8242;&#178; + (d&#8722;a)&#178;] &#8722; R&#8242;
+  <span class="cap">c est la hauteur masqu&#233;e &#224; la base de la cible. Si d &#8804; a, la cible n'est pas masqu&#233;e et la m&#233;thode ne s'applique pas.</span>
+</div>
+<p>Le coefficient exig&#233; est celui qui rend <code>c</code> &#233;gal &#224; la
+hauteur du point le plus bas r&#233;ellement visible. On le r&#233;sout par dichotomie
+sur <code>k</code> entre 0 et 1.</p>
+<p>Si la <strong>base</strong> de la cible est visible, la hauteur du point le plus bas
+vaut z&#233;ro. Si seul le <strong>sommet</strong> affleure, elle vaut la hauteur totale
+de la cible.</p>
+<table>
+  <caption>Tableau 6 &#8212; Exemples r&#233;solus. Les lignes surlign&#233;es
+  demandent un conduit soutenu.</caption>
+  <thead><tr><th class="n">&#339;il</th><th class="n">cible</th><th class="n">distance</th><th class="n">k exig&#233;</th><th>r&#233;gime</th></tr></thead>
+  <tbody>
+    <tr><td class="n">100 m</td><td class="n">50 m</td><td class="n">90 km</td><td class="n">0,542</td><td>super-r&#233;fraction</td></tr>
+    <tr><td class="n">100 m</td><td class="n">100 m</td><td class="n">120 km</td><td class="n">0,646</td><td>super-r&#233;fraction</td></tr>
+    <tr class="hi"><td class="n">100 m</td><td class="n">50 m</td><td class="n">200 km</td><td class="n">0,907</td><td>conduit soutenu</td></tr>
+    <tr><td class="n">300 m</td><td class="n">200 m</td><td class="n">160 km</td><td class="n">0,507</td><td>super-r&#233;fraction</td></tr>
+    <tr class="hi"><td class="n">300 m</td><td class="n">50 m</td><td class="n">200 km</td><td class="n">0,810</td><td>conduit soutenu</td></tr>
+    <tr><td class="n">800 m</td><td class="n">500 m</td><td class="n">250 km</td><td class="n">0,477</td><td>inversion forte</td></tr>
+    <tr><td class="n">2&#8239;000 m</td><td class="n">1&#8239;000 m</td><td class="n">350 km</td><td class="n">0,394</td><td>inversion forte</td></tr>
+    <tr><td class="n">4&#8239;000 m</td><td class="n">1&#8239;500 m</td><td class="n">450 km</td><td class="n">0,346</td><td>inversion forte</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">6</span>La prise de vue</h2>
+<ol>
+  <li><strong>Relever</strong> l'altitude de l'&#339;il, l'heure, les
+  temp&#233;ratures, et la visibilit&#233; annonc&#233;e par le bulletin
+  a&#233;ronautique le plus proche.</li>
+  <li><strong>Filmer la cible</strong> trente &#224; soixante secondes au
+  t&#233;l&#233;objectif, r&#233;glages verrouill&#233;s, exposition manuelle et fixe,
+  sans recadrage. Puis quelques images fixes en brut.</li>
+  <li><strong>Ne garder que les images les plus nettes</strong> &#8212; une sur vingt,
+  une sur cinquante. &#192; ces distances la turbulence fait bouillonner l'image
+  plusieurs fois par seconde&#160;; une prise unique attrape un instant au hasard.</li>
+  <li><strong>Photographier la sc&#232;ne au grand angle</strong>, avec des
+  rep&#232;res proches, pour qu'un tiers puisse retrouver la station.</li>
+  <li><strong>Identifier le point le plus bas visible</strong> sur la cible et relever
+  sa hauteur au-dessus de la base, en s'appuyant sur un rep&#232;re dont la hauteur
+  est publi&#233;e.</li>
+</ol>
+<p>Un choix de jour&#160;: viser une masse d'air froid et s&#232;che apr&#232;s le
+passage d'un front, quand la visibilit&#233; annonc&#233;e d&#233;passe la distance
+vis&#233;e. La plupart des jours, on ne verra rien &#224; ces distances, et ce n'est
+pas un r&#233;sultat.</p>
+
+<h2><span class="n">7</span>Ce qui est rapport&#233;</h2>
+<p>Le r&#233;sultat d'essai tient en trois lignes&#160;: le <strong>coefficient
+exig&#233;</strong>, le <strong>r&#233;gime</strong> du tableau 1, et la
+<strong>longueur</strong> sur laquelle ce coefficient devrait &#234;tre tenu &#8212;
+c'est-&#224;-dire la distance elle-m&#234;me.</p>
+<p>S'y ajoutent les trois grandeurs d'entr&#233;e avec leurs sources, les conditions
+relev&#233;es, et les fichiers bruts. Un relev&#233; dont l'une des trois grandeurs
+n'est pas sourc&#233;e n'est pas &#233;valu&#233;.</p>
+<p>Le rapport n'&#233;nonce pas de conclusion sur un mod&#232;le. Il &#233;nonce un
+coefficient et une longueur, et laisse chacun juger si l'atmosph&#232;re les
+produit.</p>
+
+<style>
+.fiche{font-size:8.7pt; line-height:1.34}
+.fiche h2{margin:0 0 10pt}
+.fiche h3{font-family:"IBM Plex Mono",monospace; font-size:8.2pt; font-weight:600;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--globe);
+  margin:11pt 0 5pt; padding-bottom:2.5pt; border-bottom:.6pt solid var(--line)}
+.fiche table{width:100%; border-collapse:collapse; margin:0 0 4pt}
+.fiche td,.fiche th{padding:4pt 5pt; border:.5pt solid var(--line); vertical-align:middle}
+.fiche th{background:var(--wash); font-family:"IBM Plex Mono",monospace;
+  font-size:7.4pt; font-weight:600; letter-spacing:.05em; text-transform:uppercase;
+  color:var(--soft); text-align:center}
+.fiche td.lab{width:21%; background:var(--wash); font-weight:600; color:var(--soft);
+  font-size:8.2pt}
+.fiche td.val{width:29%}
+.fiche tr.vide td{height:15pt}
+.rem{display:inline-block; border-bottom:.6pt solid var(--line2); min-width:26mm; height:9pt}
+.rem.court{min-width:12mm}
+.rem.long{min-width:100%}
+.case{display:inline-block; width:9.5pt; height:9.5pt; border:.8pt solid var(--soft);
+  vertical-align:-1.5pt; margin-right:5pt}
+.fiche ul.just{list-style:none; padding:0; margin:0 0 6pt}
+.fiche ul.just li{margin:0 0 5.5pt; padding-left:15pt; text-indent:-15pt; text-align:left}
+.fiche p{margin:0 0 5pt; text-align:left}
+.fiche .regle{border-left:2.4pt solid var(--alert); background:var(--alert-w);
+  padding:6pt 9pt; margin-top:7pt; font-size:8.3pt}
+</style>
+<div class="fiche">
+<h2 class="brk">Fiche de relev&#233;</h2>
+
+<h3>1. La configuration</h3>
+<table>
+  <tbody>
+    <tr><td class="lab">Station (lieu)</td><td class="val"><span class="rem"></span></td><td class="lab">Date / heure</td><td class="val"><span class="rem court"></span> / <span class="rem court"></span> / <span class="rem court"></span> &#224; <span class="rem court"></span> h</td></tr>
+    <tr><td class="lab">Altitude de l'&#339;il</td><td class="val"><span class="rem court"></span> m</td><td class="lab">Source de cette altitude</td><td class="val"><span class="rem"></span></td></tr>
+    <tr><td class="lab">Cible</td><td class="val"><span class="rem"></span></td><td class="lab">Appareil / focale</td><td class="val"><span class="rem court"></span> / <span class="rem court"></span> mm</td></tr>
+    <tr><td class="lab">Hauteur de la cible</td><td class="val"><span class="rem court"></span> m</td><td class="lab">Source de cette hauteur</td><td class="val"><span class="rem"></span></td></tr>
+    <tr><td class="lab">Distance</td><td class="val"><span class="rem court"></span> km</td><td class="lab">Source de la distance</td><td class="val"><span class="rem"></span></td></tr>
+  </tbody>
+</table>
+
+<h3>2. Ce qui est vu</h3>
+<p><strong>Ce qui est visible.</strong> D&#233;crire le point le plus bas de la cible que l'on distingue, et donner sa hauteur au-dessus de la base de la cible.</p>
+<table>
+  <thead><tr><th>point le plus bas visible</th><th>hauteur au-dessus de la base</th><th>source du rep&#232;re</th></tr></thead>
+  <tbody>
+    <tr class="vide"><td></td><td></td><td></td></tr>
+    <tr class="vide"><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+<p><span class="case"></span>profil interm&#233;diaire d&#233;gag&#233;, v&#233;rifi&#233; sur carte&#160;&#160;&#160;&#160;<span class="case"></span>bord de la cible net, une hauteur peut lui &#234;tre assign&#233;e</p>
+
+<h3>3. R&#233;sultat</h3>
+<p><strong>k exig&#233;</strong> (section 5)&#160;: <span class="rem court"></span>&#160;&#160;&#160;&#160;<strong>r&#233;gime</strong> (tableau 1)&#160;: <span class="rem"></span></p>
+<p><strong>Longueur sur laquelle ce coefficient devrait &#234;tre tenu</strong>&#160;: <span class="rem court"></span> km</p>
+<p style="margin-top:7pt"><strong>Conditions.</strong> Temp&#233;rature de l'air <span class="rem court"></span> &#176;C, de l'eau <span class="rem court"></span> &#176;C, visibilit&#233; annonc&#233;e <span class="rem court"></span> km, &#233;tat du ciel <span class="rem"></span></p>
+
+<h3>4. Pi&#232;ces &#224; joindre</h3>
+<ul class="just">
+  <li><span class="case"></span><strong>Fichiers d'origine</strong> &#8212; images ou vid&#233;o brutes issues de la carte m&#233;moire, non retouch&#233;es et non recadr&#233;es, m&#233;tadonn&#233;es intactes.</li>
+  <li><span class="case"></span><strong>Photo d'amorce</strong> &#8212; clich&#233; grand-angle situant la station et ses rep&#232;res proches.</li>
+  <li><span class="case"></span><strong>Preuve d'altitude</strong> &#8212; relev&#233; GNSS ou extrait cartographique donnant l'altitude de l'&#339;il.</li>
+  <li><span class="case"></span><strong>Preuve de distance</strong> &#8212; extrait de carte ou calcul g&#233;od&#233;sique entre les deux positions.</li>
+  <li><span class="case"></span><strong>Source de la hauteur de cible</strong> &#8212; document officiel, plan ou fiche technique.</li>
+</ul>
+<div class="regle"><strong>R&#232;gle d'analyse.</strong> Si une seule pi&#232;ce manque, ou si l'une des trois grandeurs &#8212; altitude de l'&#339;il, hauteur de cible, distance &#8212; n'est pas sourc&#233;e, le relev&#233; est class&#233; <strong>&#171;&#160;non &#233;valuable&#160;&#187;</strong> et le coefficient n'est pas calcul&#233;.</div>
+</div>
+
+<div class="langbar" style="break-before:page;page-break-before:always"><span>FRAN&#199;AIS &#8212; first half</span><span class="on">ENGLISH</span></div>
+
+<div class="masthead">
+  <div class="kicker">Field protocol &#183; All elevations &#183; A numerical result</div>
+  <h1>What refraction would be needed to see this object?</h1>
+  <p class="sub">Calculation and recording method for a long-range observation</p>
+</div>
+
+<h2><span class="n">1</span>What the method produces</h2>
+<p class="lead">A number and a length. The number is the refraction coefficient that
+would be needed for a given target to be visible from a given point, at a given
+distance, on a surface of radius 6&#8239;371&#8239;km. The length is that of the path
+over which the coefficient would have to be sustained.</p>
+<p>Three quantities suffice to compute it: <strong>the eye elevation</strong>,
+<strong>the target height</strong> and <strong>the distance</strong>. Nothing else
+enters the result.</p>
+<p>That coefficient is then compared with what the atmosphere actually produces, on a
+scale fixed before any observation.</p>
+<table>
+  <caption>Table 1 &#8212; The reading scale, settled before any measurement.</caption>
+  <thead><tr><th class="n">k required</th><th>regime</th><th>what it implies</th></tr></thead>
+  <tbody>
+    <tr><td class="n">&lt; 0.25</td><td>ordinary</td><td>everyday atmosphere; the observation is unremarkable</td></tr>
+    <tr><td class="n">0.25 &#8211; 0.50</td><td>strong inversion</td><td>marked thermal inversion, documented and frequent over water</td></tr>
+    <tr><td class="n">0.50 &#8211; 0.75</td><td>super-refraction</td><td>rare regime, measured over short distances, never sustained over tens of kilometres</td></tr>
+    <tr class="hi"><td class="n"><strong>0.75 &#8211; 1.00</strong></td><td><strong>sustained duct</strong></td><td>the ray would nearly follow the surface over the whole range; no published measurement approaches this over such a length</td></tr>
+  </tbody>
+</table>
+<div class="box key">
+  <span class="lab">What the result is worth</span>
+  <p>An observation coming out at <strong>k&#8239;=&#8239;0.9 over 200&#8239;km</strong>
+  is not dismissed with &#8220;that's refraction&#8221;, because the calculation has
+  already said <em>which</em> refraction, and over what length it would have to
+  hold.</p>
+  <p>Conversely, an observation coming out below 0.25 is ordinary, and that must be
+  said just as plainly.</p>
+</div>
+
+<h2><span class="n">2</span>The elevation condition</h2>
+<p class="lead">The eye and the top of the target shall both lie at least
+<strong>100&#8239;m</strong> above the surface.</p>
+<p>Below that height one is in the layer where measured thermal gradients are extreme
+and where evaporation ducts form. A record made at water level is arguable; one made
+above that layer is far less so.</p>
+<p>Above that floor, <strong>all elevations are accepted</strong> &#8212; 300, 800,
+2&#8239;000, 4&#8239;000&#8239;m &#8212; since each one can be computed. One remark
+though, counter-intuitive and worth knowing before choosing a site.</p>
+<table>
+  <caption>Table 2 &#8212; The same 50&#8239;m target at 200&#8239;km, seen from
+  different elevations. <strong>Going higher weakens the requirement</strong>: the
+  target is less deeply buried.</caption>
+  <thead><tr><th class="n">eye elevation</th><th class="n">k required</th><th>regime</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td class="n">100 m</td><td class="n">0.907</td><td>sustained duct</td></tr>
+    <tr><td class="n">300 m</td><td class="n">0.810</td><td>sustained duct</td></tr>
+    <tr><td class="n">800 m</td><td class="n">0.602</td><td>super-refraction</td></tr>
+    <tr><td class="n">2&#8239;000 m</td><td class="n">0.145</td><td>ordinary</td></tr>
+    <tr><td class="n">4&#8239;000 m</td><td class="n">0.000</td><td>ordinary</td></tr>
+  </tbody>
+</table>
+<p>High-mountain views at very long range are therefore the <em>least</em> demanding.
+It is the <strong>low and distant</strong> observations that weigh most.</p>
+
+<h2><span class="n">3</span>Choosing the configuration</h2>
+<p class="lead">The three tables below give, for each observing elevation, the distance
+at which the required coefficient reaches each regime.</p>
+<table>
+  <caption>Table 3 &#8212; Target 50&#8239;m high. Distance from which the required coefficient enters each regime.</caption>
+  <thead><tr><th class="n">eye elevation</th><th class="n">k &gt; 0.25</th><th class="n">k &gt; 0.50</th><th class="n">k &gt; 0.75</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td class="n">100 m</td><td class="n">70 km</td><td class="n">86 km</td><td class="n">122 km</td></tr>
+    <tr><td class="n">300 m</td><td class="n">101 km</td><td class="n">123 km</td><td class="n">174 km</td></tr>
+    <tr><td class="n">800 m</td><td class="n">146 km</td><td class="n">178 km</td><td class="n">252 km</td></tr>
+    <tr><td class="n">2&#8239;000 m</td><td class="n">213 km</td><td class="n">261 km</td><td class="n">370 km</td></tr>
+    <tr><td class="n">4&#8239;000 m</td><td class="n">290 km</td><td class="n">355 km</td><td class="n">502 km</td></tr>
+  </tbody>
+</table>
+<table>
+  <caption>Table 4 &#8212; Target 200&#8239;m high. Distance from which the required coefficient enters each regime.</caption>
+  <thead><tr><th class="n">eye elevation</th><th class="n">k &gt; 0.25</th><th class="n">k &gt; 0.50</th><th class="n">k &gt; 0.75</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td class="n">100 m</td><td class="n">100 km</td><td class="n">122 km</td><td class="n">172 km</td></tr>
+    <tr><td class="n">300 m</td><td class="n">130 km</td><td class="n">159 km</td><td class="n">225 km</td></tr>
+    <tr><td class="n">800 m</td><td class="n">175 km</td><td class="n">214 km</td><td class="n">303 km</td></tr>
+    <tr><td class="n">2&#8239;000 m</td><td class="n">243 km</td><td class="n">297 km</td><td class="n">420 km</td></tr>
+    <tr><td class="n">4&#8239;000 m</td><td class="n">319 km</td><td class="n">391 km</td><td class="n">553 km</td></tr>
+  </tbody>
+</table>
+<table>
+  <caption>Table 5 &#8212; Target 500&#8239;m high. Distance from which the required coefficient enters each regime.</caption>
+  <thead><tr><th class="n">eye elevation</th><th class="n">k &gt; 0.25</th><th class="n">k &gt; 0.50</th><th class="n">k &gt; 0.75</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td class="n">100 m</td><td class="n">133 km</td><td class="n">163 km</td><td class="n">231 km</td></tr>
+    <tr><td class="n">300 m</td><td class="n">164 km</td><td class="n">200 km</td><td class="n">283 km</td></tr>
+    <tr><td class="n">800 m</td><td class="n">209 km</td><td class="n">256 km</td><td class="n">362 km</td></tr>
+    <tr><td class="n">2&#8239;000 m</td><td class="n">277 km</td><td class="n">339 km</td><td class="n">479 km</td></tr>
+    <tr><td class="n">4&#8239;000 m</td><td class="n">353 km</td><td class="n">432 km</td><td class="n">611 km</td></tr>
+  </tbody>
+</table>
+<div class="box warn">
+  <span class="lab">What to aim for</span>
+  <p>From 100&#8239;m on a 50&#8239;m target, one must exceed
+  <strong>122&#8239;km</strong> to enter the sustained-duct regime. From
+  2&#8239;000&#8239;m on the same target, 370&#8239;km are needed.</p>
+  <p>It is the table that decides the site, not the other way round.</p>
+</div>
+
+<h2 class="brk"><span class="n">4</span>Equipment and site</h2>
+<ul>
+  <li>A camera at <strong>600&#8239;mm full-frame equivalent or more</strong>,
+  recording raw and video.</li>
+  <li>A <strong>heavy tripod</strong>, centre column retracted, remote release,
+  stabilisation switched off.</li>
+  <li>A <strong>GNSS reading</strong> or a map giving the eye elevation and both
+  positions.</li>
+  <li>A <strong>thermometer</strong>, for the air and if possible for the water.</li>
+</ul>
+<p>The site shall satisfy two conditions, and they are not negotiable.</p>
+<div class="box warn">
+  <span class="lab">The two site conditions</span>
+  <p><strong>1. The path is entirely clear.</strong> Intervening relief hides a target
+  whatever the shape of the ground, and this is what voids most records. Verification is
+  done on a map, before travelling, and the trace is attached to the record.</p>
+  <p><strong>2. The target height is published.</strong> Without a source, the third
+  quantity of the calculation is missing, and the coefficient cannot be
+  established.</p>
+</div>
+
+<h2><span class="n">5</span>The calculation</h2>
+<p>With <code>R</code>&#8239;=&#8239;6&#8239;371&#8239;km, <code>h</code> the eye
+elevation and <code>d</code> the distance:</p>
+<div class="eq">
+  R&#8242; = R / (1 &#8722; k)&#160;&#160;&#160;&#160;
+  a = &#8730;[(R&#8242;+h)&#178; &#8722; R&#8242;&#178;]&#160;&#160;&#160;&#160;
+  c = &#8730;[R&#8242;&#178; + (d&#8722;a)&#178;] &#8722; R&#8242;
+  <span class="cap">c is the height hidden at the target's base. If d &#8804; a the target is not hidden and the method does not apply.</span>
+</div>
+<p>The required coefficient is the one that makes <code>c</code> equal to the height of
+the lowest point actually visible. It is solved by bisection on <code>k</code> between
+0 and 1.</p>
+<p>If the target's <strong>base</strong> is visible, the height of the lowest point is
+zero. If only the <strong>top</strong> shows, it equals the target's full height.</p>
+<table>
+  <caption>Table 6 &#8212; Worked examples. Highlighted rows demand a sustained
+  duct.</caption>
+  <thead><tr><th class="n">eye</th><th class="n">target</th><th class="n">distance</th><th class="n">k required</th><th>regime</th></tr></thead>
+  <tbody>
+    <tr><td class="n">100 m</td><td class="n">50 m</td><td class="n">90 km</td><td class="n">0.542</td><td>super-refraction</td></tr>
+    <tr><td class="n">100 m</td><td class="n">100 m</td><td class="n">120 km</td><td class="n">0.646</td><td>super-refraction</td></tr>
+    <tr class="hi"><td class="n">100 m</td><td class="n">50 m</td><td class="n">200 km</td><td class="n">0.907</td><td>sustained duct</td></tr>
+    <tr><td class="n">300 m</td><td class="n">200 m</td><td class="n">160 km</td><td class="n">0.507</td><td>super-refraction</td></tr>
+    <tr class="hi"><td class="n">300 m</td><td class="n">50 m</td><td class="n">200 km</td><td class="n">0.810</td><td>sustained duct</td></tr>
+    <tr><td class="n">800 m</td><td class="n">500 m</td><td class="n">250 km</td><td class="n">0.477</td><td>strong inversion</td></tr>
+    <tr><td class="n">2&#8239;000 m</td><td class="n">1&#8239;000 m</td><td class="n">350 km</td><td class="n">0.394</td><td>strong inversion</td></tr>
+    <tr><td class="n">4&#8239;000 m</td><td class="n">1&#8239;500 m</td><td class="n">450 km</td><td class="n">0.346</td><td>strong inversion</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">6</span>Shooting</h2>
+<ol>
+  <li><strong>Record</strong> the eye elevation, the time, the temperatures, and the
+  visibility reported by the nearest aviation bulletin.</li>
+  <li><strong>Film the target</strong> for thirty to sixty seconds at the telephoto
+  setting, settings locked, manual fixed exposure, no cropping. Then a few raw
+  stills.</li>
+  <li><strong>Keep only the sharpest frames</strong> &#8212; one in twenty, one in
+  fifty. At these distances turbulence makes the image boil several times per second; a
+  single shot catches one instant at random.</li>
+  <li><strong>Photograph the scene at wide angle</strong>, with near landmarks, so a
+  third party can find the station again.</li>
+  <li><strong>Identify the lowest visible point</strong> on the target and read its
+  height above the base, using a marker whose height is published.</li>
+</ol>
+<p>One remark on choosing the day: aim for a cold dry air mass after a front has
+passed, when the reported visibility exceeds the distance aimed at. On most days
+nothing will be seen at these ranges, and that is not a result.</p>
+
+<h2><span class="n">7</span>What is reported</h2>
+<p>The test result is three lines: the <strong>required coefficient</strong>, the
+<strong>regime</strong> from Table 1, and the <strong>length</strong> over which that
+coefficient would have to hold &#8212; that is, the distance itself.</p>
+<p>To these are added the three input quantities with their sources, the recorded
+conditions, and the raw files. A record in which any one of the three quantities is
+unsourced is not assessed.</p>
+<p>The report states no conclusion about a model. It states a coefficient and a length,
+and leaves each reader to judge whether the atmosphere produces them.</p>
+
+
+<div class="fiche">
+<h2 class="brk">Record sheet</h2>
+
+<h3>1. The configuration</h3>
+<table>
+  <tbody>
+    <tr><td class="lab">Station (place)</td><td class="val"><span class="rem"></span></td><td class="lab">Date / time</td><td class="val"><span class="rem court"></span> / <span class="rem court"></span> / <span class="rem court"></span> at <span class="rem court"></span> h</td></tr>
+    <tr><td class="lab">Eye elevation</td><td class="val"><span class="rem court"></span> m</td><td class="lab">Source of that elevation</td><td class="val"><span class="rem"></span></td></tr>
+    <tr><td class="lab">Target</td><td class="val"><span class="rem"></span></td><td class="lab">Camera / focal length</td><td class="val"><span class="rem court"></span> / <span class="rem court"></span> mm</td></tr>
+    <tr><td class="lab">Target height</td><td class="val"><span class="rem court"></span> m</td><td class="lab">Source of that height</td><td class="val"><span class="rem"></span></td></tr>
+    <tr><td class="lab">Distance</td><td class="val"><span class="rem court"></span> km</td><td class="lab">Source of the distance</td><td class="val"><span class="rem"></span></td></tr>
+  </tbody>
+</table>
+
+<h3>2. What is seen</h3>
+<p><strong>What is visible.</strong> Describe the lowest point of the target that can be made out, and give its height above the target's base.</p>
+<table>
+  <thead><tr><th>lowest visible point</th><th>height above the base</th><th>source of the marker</th></tr></thead>
+  <tbody>
+    <tr class="vide"><td></td><td></td><td></td></tr>
+    <tr class="vide"><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+<p><span class="case"></span>intervening profile clear, verified on a map&#160;&#160;&#160;&#160;<span class="case"></span>target edge sharp, a height can be assigned to it</p>
+
+<h3>3. Result</h3>
+<p><strong>k required</strong> (section 5): <span class="rem court"></span>&#160;&#160;&#160;&#160;<strong>regime</strong> (Table 1): <span class="rem"></span></p>
+<p><strong>Length over which that coefficient would have to be sustained</strong>: <span class="rem court"></span> km</p>
+<p style="margin-top:7pt"><strong>Conditions.</strong> Air temperature <span class="rem court"></span> &#176;C, water <span class="rem court"></span> &#176;C, reported visibility <span class="rem court"></span> km, state of the sky <span class="rem"></span></p>
+
+<h3>4. Evidence to attach</h3>
+<ul class="just">
+  <li><span class="case"></span><strong>Original files</strong> &#8212; raw images or video straight from the memory card, neither retouched nor cropped, metadata intact.</li>
+  <li><span class="case"></span><strong>Establishing shot</strong> &#8212; wide-angle frame locating the station and its near landmarks.</li>
+  <li><span class="case"></span><strong>Proof of elevation</strong> &#8212; GNSS reading or map extract giving the eye elevation.</li>
+  <li><span class="case"></span><strong>Proof of distance</strong> &#8212; map extract or geodetic computation between the two positions.</li>
+  <li><span class="case"></span><strong>Source of target height</strong> &#8212; official document, drawing or data sheet.</li>
+</ul>
+<div class="regle"><strong>Analysis rule.</strong> If a single item is missing, or if any of the three quantities &#8212; eye elevation, target height, distance &#8212; is unsourced, the record is classified <strong>&#8220;not assessable&#8221;</strong> and the coefficient is not computed.</div>
+</div>
+</div>

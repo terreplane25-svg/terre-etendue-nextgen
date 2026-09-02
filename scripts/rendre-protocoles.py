@@ -68,6 +68,11 @@ DOCUMENTS = {
         "Protocole-pole-celeste.pdf",
         "Hauteur du pôle céleste — Altitude of the celestial pole — v1.3",
     ),
+    "krequis": (
+        "k-requis-bilingue.html",
+        "Protocole-refraction-exigee.pdf",
+        "Quelle réfraction faudrait-il pour voir cet objet — What refraction would be needed",
+    ),
     "court": (
         "masquage-court.html",
         "Protocole-court-masquage.pdf",
@@ -90,7 +95,7 @@ DOCUMENTS = {
 #
 # Ils restent rendables à la demande — « rendre-protocoles.py soleil » — mais
 # ne sortent plus quand on lance le script sans argument.
-SUSPENDUS = {"soleil", "pole", "visee", "court"}
+SUSPENDUS = {"soleil", "pole", "visee", "court", "krequis"}
 
 
 def chromium():
