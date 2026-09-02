@@ -73,6 +73,11 @@ DOCUMENTS = {
         "Protocole-refraction-exigee.pdf",
         "Quelle réfraction faudrait-il pour voir cet objet — What refraction would be needed",
     ),
+    "photo": (
+        "analyse-photo-bilingue.html",
+        "Protocole-analyse-photographique.pdf",
+        "Analyse a posteriori d'une photographie — A posteriori analysis of a photograph — v1.0",
+    ),
     "court": (
         "masquage-court.html",
         "Protocole-court-masquage.pdf",

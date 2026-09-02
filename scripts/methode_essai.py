@@ -121,7 +121,7 @@ def masthead(fr, titre, sous_titre, version):
         "<span>%s<b>%s</b></span>" % (c, version if c == "Version" else "&nbsp;")
         for c in champs)
     return ('<div class="masthead">\n  <div class="kicker">%s</div>\n'
-            '  <h1>%s</h1>\n  <p class="sub">%s</p>\n'
+            '  <h1>%s</h1>\n  <p class="dek">%s</p>\n'
             '  <div class="byline">\n    %s\n  </div>\n</div>'
             % (kicker, titre, sous_titre, cases))
 
