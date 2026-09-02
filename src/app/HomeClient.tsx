@@ -107,7 +107,7 @@ export default function HomeClient({ articles }: { articles: A[] }) {
             fontFamily: "'JetBrains Mono', monospace",
             border: '1px solid rgba(196,94,106,0.4)', padding: '6px 14px', borderRadius: 100,
           }}>
-            Protocole de recevabilité — version 2.0
+            Protocole de recevabilité — version 2.1
           </div>
 
           <h2 style={{
@@ -121,7 +121,9 @@ export default function HomeClient({ articles }: { articles: A[] }) {
             Deux parties, et pas une ligne de théorie. La première dit comment prendre un cliché
             qui ne sera pas écarté d’entrée&nbsp;: format brut conservé tel quel, trépied lourd et
             lesté, déclenchement sans contact, vingt vues, focale minimale selon la distance,
-            métadonnées intactes, empreinte SHA-256 dès le transfert.
+            métadonnées intactes, empreinte SHA-256 dès le transfert. Un fort grossissement est
+            autorisé, y compris numérique — ce qui est exigé, c’est de documenter exactement ce que
+            l’appareil a fait entre la scène et le fichier.
           </p>
           <p style={{ fontSize: 17, color: '#a8b8cc', lineHeight: 1.7, maxWidth: 760, margin: '0 0 34px' }}>
             La seconde dit ce qu’il faut fournir avec, ce qui est vérifié, et à quelle condition une
@@ -148,7 +150,7 @@ export default function HomeClient({ articles }: { articles: A[] }) {
           </div>
 
           <p style={{ fontSize: 13.5, color: '#6f829c', lineHeight: 1.65, marginTop: 26, maxWidth: 760 }}>
-            Version 2.0, 8 pages, français et anglais dans le même fichier. Licence CC BY 4.0.
+            Version 2.1, 10 pages, français et anglais dans le même fichier. Licence CC BY 4.0.
           </p>
           <p style={{ fontSize: 13.5, color: '#6f829c', lineHeight: 1.65, marginTop: 10, maxWidth: 760 }}>
             Le protocole de dépression de l’horizon marin, déposé le 30 août 2026 sous le

@@ -76,7 +76,7 @@ DOCUMENTS = {
     "photo": (
         "analyse-photo-bilingue.html",
         "Protocole-analyse-photographique.pdf",
-        "Photographie d'un objet éloigné — Photograph of a distant object — v2.0",
+        "Photographie d'un objet éloigné — Photograph of a distant object — v2.1",
     ),
     "court": (
         "masquage-court.html",
