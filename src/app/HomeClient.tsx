@@ -107,27 +107,29 @@ export default function HomeClient({ articles }: { articles: A[] }) {
             fontFamily: "'JetBrains Mono', monospace",
             border: '1px solid rgba(196,94,106,0.4)', padding: '6px 14px', borderRadius: 100,
           }}>
-            Protocole déposé — DOI 10.5281/zenodo.22167798
+            Protocole de recevabilité — version 2.0
           </div>
 
           <h2 style={{
             fontSize: 'clamp(1.75rem, 3.4vw, 2.6rem)', fontWeight: 800, color: '#F4F8FC',
             letterSpacing: '-0.025em', lineHeight: 1.15, margin: '0 0 22px', maxWidth: 860,
           }}>
-            Une mesure que chacun peut refaire, et dont le résultat était écrit d’avance
+            Une photographie ne prouve rien tant qu’on ne peut pas dire d’où elle vient
           </h2>
 
           <p style={{ fontSize: 17, color: '#a8b8cc', lineHeight: 1.7, maxWidth: 760, margin: '0 0 18px' }}>
-            La dépression de l’horizon marin&nbsp;: l’angle entre l’horizontale du fil à plomb et la
-            ligne d’horizon. Une sphère prédit qu’il croît comme la racine de l’altitude. Un plan
-            prédit qu’il reste nul, à toute hauteur.
+            Deux parties, et pas une ligne de théorie. La première dit comment prendre un cliché
+            qui ne sera pas écarté d’entrée&nbsp;: format brut conservé tel quel, trépied lourd et
+            lesté, déclenchement sans contact, vingt vues, focale minimale selon la distance,
+            métadonnées intactes, empreinte SHA-256 dès le transfert.
           </p>
           <p style={{ fontSize: 17, color: '#a8b8cc', lineHeight: 1.7, maxWidth: 760, margin: '0 0 34px' }}>
-            Depuis 3&nbsp;107 mètres, l’écart entre les deux prédictions vaut au minimum
-            <strong style={{ color: '#F4F8FC' }}> 78 minutes d’arc</strong>, pour une incertitude de
-            mesure de <strong style={{ color: '#F4F8FC' }}>2,2 minutes d’arc</strong>. C’est ce
-            rapport, calculé avant la première image, qui rend la question décidable — et c’est ce
-            que la plupart des observations amateurs ne fournissent jamais.
+            La seconde dit ce qu’il faut fournir avec, ce qui est vérifié, et à quelle condition une
+            conclusion est rendue. Trois verdicts, et pas un quatrième&nbsp;:
+            <strong style={{ color: '#F4F8FC' }}> rejet immédiat</strong>,
+            <strong style={{ color: '#F4F8FC' }}> non concluant</strong>, ou
+            <strong style={{ color: '#F4F8FC' }}> analyse valide</strong> — ce dernier seulement si
+            100&nbsp;% des pièces et des sources indépendantes sont fournies et authentifiées.
           </p>
 
           <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', alignItems: 'center' }}>
@@ -137,24 +139,23 @@ export default function HomeClient({ articles }: { articles: A[] }) {
             }}>
               Comprendre le protocole
             </Link>
-            <a href="/protocoles/Protocole-depression-horizon.pdf" style={{
+            <a href="/protocoles/Protocole-photographie-objet-eloigne.pdf" style={{
               fontSize: 15, fontWeight: 700, color: '#F4F8FC', background: 'rgba(255,255,255,0.06)',
               padding: '15px 26px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.22)',
             }}>
-              Télécharger le PDF · français
-            </a>
-            <a href="/protocoles/Horizon-Dip-Protocol.pdf" style={{
-              fontSize: 15, fontWeight: 700, color: '#F4F8FC', background: 'rgba(255,255,255,0.06)',
-              padding: '15px 26px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.22)',
-            }}>
-              English PDF
+              Télécharger le PDF · bilingue
             </a>
           </div>
 
           <p style={{ fontSize: 13.5, color: '#6f829c', lineHeight: 1.65, marginTop: 26, maxWidth: 760 }}>
-            Version 1.9, 22 pages, français et anglais. Prédictions et critères de décision
-            enregistrés publiquement le 30 août 2026, avant toute acquisition de données. Licence
-            CC BY 4.0.
+            Version 2.0, 8 pages, français et anglais dans le même fichier. Licence CC BY 4.0.
+          </p>
+          <p style={{ fontSize: 13.5, color: '#6f829c', lineHeight: 1.65, marginTop: 10, maxWidth: 760 }}>
+            Le protocole de dépression de l’horizon marin, déposé le 30 août 2026 sous le
+            DOI 10.5281/zenodo.22167798, reste disponible&nbsp;:{' '}
+            <a href="/protocoles/Protocole-depression-horizon.pdf" style={{ color: '#a8b8cc', textDecoration: 'underline' }}>français</a>
+            {' · '}
+            <a href="/protocoles/Horizon-Dip-Protocol.pdf" style={{ color: '#a8b8cc', textDecoration: 'underline' }}>English</a>.
           </p>
         </div>
       </div>
