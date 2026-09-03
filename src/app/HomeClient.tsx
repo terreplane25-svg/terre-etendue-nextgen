@@ -107,35 +107,29 @@ export default function HomeClient({ articles }: { articles: A[] }) {
             fontFamily: "'JetBrains Mono', monospace",
             border: '1px solid rgba(196,94,106,0.4)', padding: '6px 14px', borderRadius: 100,
           }}>
-            Protocole de recevabilité — version 3.0
+            Protocole expérimental — version 1.0
           </div>
 
           <h2 style={{
             fontSize: 'clamp(1.75rem, 3.4vw, 2.6rem)', fontWeight: 800, color: '#F4F8FC',
             letterSpacing: '-0.025em', lineHeight: 1.15, margin: '0 0 22px', maxWidth: 860,
           }}>
-            Une photographie ne prouve rien tant qu’on ne peut pas dire d’où elle vient
+            Quelle part de l’objet devrait être visible, et quelle part l’est vraiment
           </h2>
 
           <p style={{ fontSize: 17, color: '#a8b8cc', lineHeight: 1.7, maxWidth: 760, margin: '0 0 18px' }}>
-            Deux parties, et pas une ligne de théorie. La première dit comment prendre un cliché
-            qui ne sera pas écarté d’entrée&nbsp;: format brut conservé tel quel, trépied lourd et
-            lesté, déclenchement sans contact, vingt vues, focale minimale selon la distance,
-            métadonnées intactes, empreinte SHA-256 dès le transfert. Un fort grossissement est
-            autorisé, y compris numérique — ce qui est exigé, c’est de documenter exactement ce que
-            l’appareil a fait entre la scène et le fichier.
+            «&nbsp;Voit-on encore le bâtiment à cette distance&nbsp;?&nbsp;» appelle une réponse par oui
+            ou par non, et une réponse par oui ou par non se laisse expliquer par la brume, l’objectif,
+            le contraste ou l’heure. La question devient mesurable si on la pose autrement&nbsp;:
+            <strong style={{ color: '#F4F8FC' }}> quelle fraction de la hauteur de la cible reste
+            visible</strong>, et que prédit chaque modèle géométrique pour cette même fraction&nbsp;?
           </p>
           <p style={{ fontSize: 17, color: '#a8b8cc', lineHeight: 1.7, maxWidth: 760, margin: '0 0 34px' }}>
-Trois choses ne s’y négocient pas. Le
-            <strong style={{ color: '#F4F8FC' }}> seuil de réfutation</strong> est déposé et daté
-            avant que les images soient vues. La conclusion doit tenir sur
-            <strong style={{ color: '#F4F8FC' }}> toute l’enveloppe d’incertitude</strong>&nbsp;: si une
-            seule combinaison admissible des paramètres rend l’observation conforme à la prédiction,
-            le résultat n’est pas anomal. Et
-            <strong style={{ color: '#F4F8FC' }}> aucun verdict n’est certifié par un seul analyste</strong>
-            &nbsp;— trois analyses indépendantes, toute divergence rendant le résultat non concluant.
+            Le seuil à partir duquel un écart compte est déposé et daté avant que les images soient
+            vues. La conclusion doit tenir sur toute l’enveloppe d’incertitude. Et aucun verdict n’est
+            certifié par un seul analyste. La conclusion prend trois valeurs&nbsp;: compatible,
+            incompatible, indéterminé — et l’indéterminé n’est une preuve ni pour ni contre.
           </p>
-
           <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', alignItems: 'center' }}>
             <Link href="/article/les-protocoles-ce-que-c-est-et-pourquoi" style={{
               fontSize: 15.5, fontWeight: 700, color: '#0D1528', background: '#C45E6A',
@@ -143,23 +137,18 @@ Trois choses ne s’y négocient pas. Le
             }}>
               Comprendre le protocole
             </Link>
-            <a href="/protocoles/Protocole-photographie-objet-eloigne.pdf" style={{
+            <a href="/protocoles/Protocole-visibilite-cible-eloignee.pdf" style={{
               fontSize: 15, fontWeight: 700, color: '#F4F8FC', background: 'rgba(255,255,255,0.06)',
               padding: '15px 26px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.22)',
             }}>
-              Télécharger le PDF · bilingue
+              Télécharger le PDF · 36 pages
             </a>
           </div>
 
           <p style={{ fontSize: 13.5, color: '#6f829c', lineHeight: 1.65, marginTop: 26, maxWidth: 760 }}>
-            Version 3.0, 18 pages, français et anglais dans le même fichier. Licence CC BY 4.0.
-          </p>
-          <p style={{ fontSize: 13.5, color: '#6f829c', lineHeight: 1.65, marginTop: 10, maxWidth: 760 }}>
-            Le protocole de dépression de l’horizon marin, déposé le 30 août 2026 sous le
-            DOI 10.5281/zenodo.22167798, reste disponible&nbsp;:{' '}
-            <a href="/protocoles/Protocole-depression-horizon.pdf" style={{ color: '#a8b8cc', textDecoration: 'underline' }}>français</a>
-            {' · '}
-            <a href="/protocoles/Horizon-Dip-Protocol.pdf" style={{ color: '#a8b8cc', textDecoration: 'underline' }}>English</a>.
+            Version 1.0, 36 pages, français. Trente-cinq rubriques, de la géométrie aux critères de
+            décision, avec l’audit critique du protocole par lui-même et une bibliographie dont le
+            statut de vérification est déclaré entrée par entrée. Licence CC BY 4.0.
           </p>
         </div>
       </div>

@@ -396,13 +396,6 @@ const N: Record<string, Nature> = {
     netablit:
       "Ne tranche aucun modèle. Établit les limites de l'instrument avec lequel toute observation à l'œil nu est faite.",
   },
-  'monter-l-experience-des-trois-mires': {
-    genre: 'protocole',
-    repose:
-      "Un dispositif à trois perches, un budget d'erreur, des règles de rejet écrites d'avance, et des prédictions figées le 2 août 2026 dans un fichier public daté.",
-    netablit:
-      "Ne conclut rien à ce jour : aucune campagne n'a encore été menée. N'est pas déposé et ne porte pas de DOI, contrairement au protocole de dépression de l'horizon.",
-  },
   'pression-lumiere-halos-rayons-et-ondes': {
     genre: 'explication',
     repose:

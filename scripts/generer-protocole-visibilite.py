@@ -63,6 +63,13 @@ C_OPT = 79e-6                       # réfractivité optique : n − 1 = 79e-6 P
 GH = G0/RD                          # 0,034163 K/m — gradient autoconvectif
 CONST_K = R_MOYEN*C_OPT             # 503,3
 
+# Bornes du rayon de courbure de l'ellipsoïde : méridien à l'équateur pour le
+# minimum, grande normale au pôle pour le maximum. Un premier jet donnait a
+# comme borne haute, ce qui est la normale à l'équateur, pas le maximum.
+E2_GRS80 = F_GRS80*(2.0 - F_GRS80)
+RC_MIN = A_GRS80*(1.0 - E2_GRS80)          # 6 335,4 km
+RC_MAX = A_GRS80/(1.0 - F_GRS80)           # 6 399,6 km
+
 H_OBS = 800.0                       # m — exemple imposé
 H_CIBLE = 100.0                     # m — exemple imposé
 P0, T0 = 1013.25, 288.15            # hPa, K — atmosphère de référence
@@ -84,18 +91,25 @@ def d_approx(h, R=R_MOYEN):
     return math.sqrt(2.0*R*h)
 
 
-def cachee(h_obs, D, R=R_MOYEN):
-    """Hauteur occultée à la base de la cible — formule fermée en sécante."""
+def cachee(h_obs, D, R=R_MOYEN, z_b=0.0):
+    """Hauteur occultée à la base de la cible — formule fermée en sécante.
+
+    La tangente coupe D en deux arcs : s(h) côté observateur, s(z_v) côté
+    cible, où z_v est l'altitude du plus bas point visible. La hauteur occultée
+    se compte depuis la base, donc c = z_v − z_b. L'altitude de base n'entre
+    pas dans l'argument de la sécante : un premier jet l'y avait glissée, ce
+    qui donnait jusqu'à 147 m d'erreur pour une base à 20 m.
+    """
     s1 = s_arc(h_obs, R)
-    if D <= s1:
+    if D <= s1 + s_arc(z_b, R):
         return 0.0
-    return R*(1.0/math.cos((D - s1)/R) - 1.0)
+    return R*(1.0/math.cos((D - s1)/R) - 1.0) - z_b
 
 
-def cachee_dicho(h_obs, D, R=R_MOYEN):
-    """La même, résolue numériquement : s(h) + s(c) = D. Contrôle indépendant."""
+def cachee_dicho(h_obs, D, R=R_MOYEN, z_b=0.0):
+    """La même, résolue numériquement : s(h) + s(z_v) = D, puis c = z_v − z_b."""
     s1 = s_arc(h_obs, R)
-    if D <= s1:
+    if D <= s1 + s_arc(z_b, R):
         return 0.0
     vise, lo, hi = D - s1, 0.0, 50000.0
     for _ in range(200):
@@ -104,7 +118,7 @@ def cachee_dicho(h_obs, D, R=R_MOYEN):
             lo = m
         else:
             hi = m
-    return hi
+    return hi - z_b
 
 
 def cachee_approx(h_obs, D, R=R_MOYEN):
@@ -248,13 +262,22 @@ def controle():
     assert abs(s_arc(H_CIBLE) - 35695.7) < 1.0
     assert abs(cachee(H_OBS, 120000.0) - 28.457) < 0.01
     assert abs(cachee(H_OBS, s_arc(H_OBS) + s_arc(H_CIBLE)) - H_CIBLE) < 0.05
-    # 6. L'approximation classique reste sous 4 cm sur la plage utile.
+    # 6. Base surélevée : les deux distances critiques et les deux bornes.
+    zb, H = 20.0, 100.0
+    d_crit = s_arc(H_OBS) + s_arc(zb)
+    d_lim = s_arc(H_OBS) + s_arc(zb + H)
+    assert abs(cachee(H_OBS, d_crit, z_b=zb)) < 1e-6, cachee(H_OBS, d_crit, z_b=zb)
+    assert abs(cachee(H_OBS, d_lim, z_b=zb) - H) < 1e-4
+    for D in (125e3, 135e3, 145e3):
+        assert abs(cachee(H_OBS, D, z_b=zb)
+                   - cachee_dicho(H_OBS, D, z_b=zb)) < 1e-6, D
+    # 7. L'approximation classique reste sous 4 cm sur la plage utile.
     for D in (110e3, 120e3, 130e3, 136.654e3):
         assert abs(cachee(H_OBS, D) - cachee_approx(H_OBS, D)) < 0.04, D
-    # 7. Terme humide : le rapport radio/optique dépasse 100.
+    # 8. Terme humide : le rapport radio/optique dépasse 100.
     e, T = 20.0, 288.15
     assert abs(3.73e5*e/T**2/(11.27*e/T)) > 100.0
-    # 8. Taille d'échantillon.
+    # 9. Taille d'échantillon.
     assert abs(FACTEUR_N - 24.36) < 0.01
     return True
 
@@ -352,6 +375,9 @@ def ecrire(corps):
 def sec_resume():
     return "\n\n".join([
         h2("02", "R&#233;sum&#233;"),
+        p("<em>Le bloc-titre ci-dessus constitue la rubrique&#160;01. La "
+          "num&#233;rotation suit celle du cahier des charges, o&#249; le "
+          "titre est la premi&#232;re rubrique.</em>"),
         p("Ce protocole d&#233;finit une exp&#233;rience photographique "
           "destin&#233;e &#224; mesurer, sur une cible &#233;loign&#233;e "
           "observ&#233;e au-dessus de la mer, la <strong>fraction de sa "
@@ -783,14 +809,16 @@ visible.</figcaption>
 
 def sec_equations():
     c1 = ("<em>s</em>(<em>x</em>) = R &#183; arccos[ R / (R + <em>x</em>) ]")
-    c2 = ("<em>D</em><sub>crit</sub> = <em>s</em>(<em>h</em>)"
+    c2 = ("<em>D</em><sub>crit</sub> = <em>s</em>(<em>h</em>) + "
+          "<em>s</em>(<em>z</em><sub>b</sub>)"
           "&#160;&#160;&#160;&#160;"
           "<em>D</em><sub>lim</sub> = <em>s</em>(<em>h</em>) + "
-          "<em>s</em>(<em>z</em><sub>b</sub> + <em>H</em>) &#8722; "
-          "<em>s</em>(<em>z</em><sub>b</sub>)")
-    c3 = ("<em>c</em> = R &#183; { sec[ (<em>D</em> &#8722; "
-          "<em>s</em>(<em>h</em>) + <em>s</em>(<em>z</em><sub>b</sub>)) / R ] "
-          "&#8722; 1 } &#8722; <em>z</em><sub>b</sub>")
+          "<em>s</em>(<em>z</em><sub>b</sub> + <em>H</em>)")
+    c3 = ("<em>z</em><sub>v</sub> = R &#183; { sec[ (<em>D</em> &#8722; "
+          "<em>s</em>(<em>h</em>)) / R ] &#8722; 1 }"
+          "&#160;&#160;&#160;&#160;"
+          "<em>c</em> = <em>z</em><sub>v</sub> &#8722; "
+          "<em>z</em><sub>b</sub>")
     c4 = ("<em>f</em> = ( <em>H</em> &#8722; <em>c</em> ) / <em>H</em>, "
           "born&#233;e &#224; [0 ; 1]")
     c5 = ("<em>c</em> &#8776; ( <em>D</em> &#8722; &#8730;(2R<em>h</em>) )&#178; "
@@ -820,14 +848,21 @@ def sec_equations():
           "<em>D</em><sub>crit</sub>. Le sommet cesse de l'&#234;tre "
           "au-del&#224; de <em>D</em><sub>lim</sub>."),
         eq(c2, "pour une base au niveau de la surface, "
-               "<em>z</em><sub>b</sub>&#160;=&#160;0 et "
+               "<em>z</em><sub>b</sub>&#160;=&#160;0, "
+               "<em>D</em><sub>crit</sub> = <em>s</em>(<em>h</em>) et "
                "<em>D</em><sub>lim</sub> = <em>s</em>(<em>h</em>) + "
                "<em>s</em>(<em>H</em>)."),
         h3("9.3 Hauteur occult&#233;e et fraction visible"),
-        p("Pour <em>D</em>&#160;&gt;&#160;<em>D</em><sub>crit</sub>, la "
-          "hauteur occult&#233;e compt&#233;e depuis la base vaut&#160;:"),
-        eq(c3, "l'argument de la s&#233;cante est un angle "
-               "g&#233;ocentrique, en radians."),
+        p("La tangente coupe <em>D</em> en deux arcs&#160;: "
+          "<em>s</em>(<em>h</em>) c&#244;t&#233; observateur et "
+          "<em>s</em>(<em>z</em><sub>v</sub>) c&#244;t&#233; cible, "
+          "o&#249; <em>z</em><sub>v</sub> est l'altitude du plus bas point "
+          "visible. Pour "
+          "<em>D</em>&#160;&gt;&#160;<em>D</em><sub>crit</sub>&#160;:"),
+        eq(c3, "<em>z</em><sub>v</sub> est l'altitude du plus bas point "
+               "visible&#160;; l'argument de la s&#233;cante est un angle "
+               "g&#233;ocentrique, en radians. L'altitude de base n'entre pas "
+               "dans cet argument&#160;: elle se retranche apr&#232;s."),
         eq(c4, "grandeur compar&#233;e entre mod&#232;les et mesure."),
         p("Cette forme ferm&#233;e a &#233;t&#233; v&#233;rifi&#233;e contre "
           "la r&#233;solution num&#233;rique directe de "
@@ -959,27 +994,36 @@ def sec_exemple():
 
 
 def sec_refraction():
+    def g(k):
+        """Le gradient qu'exige un k, en K/km, calculé et non recopié.
+
+        Signé explicitement, et avec le vrai signe moins typographique : le
+        signe porte ici tout le sens physique, entre décroissance et inversion.
+        """
+        x = gradient_de_k(k)*1000
+        return ("&#8722;" if x < 0 else "+") + nb(abs(x), 0)
+
     regimes = [
         ("Aucune r&#233;fraction", "k = 0",
          "cas de r&#233;f&#233;rence th&#233;orique, physiquement "
          "irr&#233;alisable dans l'atmosph&#232;re&#160;; correspond au "
-         "gradient autoconvectif &#8722;%s&#8239;K/100&#8239;m"
-         % nb(GH*100, 2)),
+         "gradient autoconvectif %s&#8239;K/km" % g(0.0)),
         ("R&#233;fraction standard", "k &#8776; 0,13 &#224; 0,17",
-         "gradient de &#8722;13 &#224; &#8722;6,5&#8239;K/km&#160;; "
-         "atmosph&#232;re bien m&#233;lang&#233;e, cas courant de jour "
-         "au-dessus de la terre"),
+         "gradient de %s &#224; %s&#8239;K/km&#160;; atmosph&#232;re bien "
+         "m&#233;lang&#233;e, cas courant de jour au-dessus de la terre"
+         % (g(0.13), g(0.17))),
         ("R&#233;fraction forte", "k &#8776; 0,20 &#224; 0,40",
-         "air isotherme ou l&#233;g&#232;re inversion&#160;: gradient de 0 "
-         "&#224; +25&#8239;K/km&#160;; fr&#233;quent au-dessus d'une mer "
-         "plus froide que l'air"),
+         "air isotherme ou l&#233;g&#232;re inversion&#160;: gradient de %s "
+         "&#224; %s&#8239;K/km&#160;; fr&#233;quent au-dessus d'une mer plus "
+         "froide que l'air" % (g(0.20), g(0.40))),
         ("R&#233;fraction tr&#232;s forte", "k &#8776; 0,40 &#224; 0,80",
-         "inversion marqu&#233;e, gradient de +25 &#224; "
-         "+100&#8239;K/km sur la couche travers&#233;e&#160;; "
-         "physiquement admissible, &#224; documenter"),
+         "inversion marqu&#233;e, gradient de %s &#224; %s&#8239;K/km sur la "
+         "couche travers&#233;e&#160;; physiquement admissible, &#224; "
+         "documenter" % (g(0.40), g(0.80))),
         ("Inversion et mirage sup&#233;rieur", "k &#8776; 0,80 &#224; 1",
-         "inversion intense&#160;; images renvers&#233;es au-dessus de "
-         "l'objet, d&#233;formation verticale mesurable"),
+         "inversion intense, gradient de %s &#224; %s&#8239;K/km&#160;; "
+         "images renvers&#233;es au-dessus de l'objet, d&#233;formation "
+         "verticale mesurable" % (g(0.80), g(1.0))),
         ("Conduit optique", "k &#8805; 1",
          "exige un gradient d'au moins +%s&#8239;K/100&#8239;m soutenu sur "
          "la couche o&#249; passe le rayon&#160;; le rayon &#233;pouse ou "
@@ -1170,12 +1214,14 @@ def sec_geodesie():
         p("La sph&#232;re de rayon R<sub>1</sub>&#160;=&#160;"
           "(2<em>a</em>&#160;+&#160;<em>b</em>)/3&#160;=&#160;%s&#8239;m est "
           "une approximation. Le rayon de courbure r&#233;el de "
-          "l'ellipso&#239;de d&#233;pend de la latitude et de l'azimut "
-          "de la vis&#233;e&#160;; il varie du rayon m&#233;ridien "
-          "&#224; la grande normale, soit environ %s&#8239;km &#224; "
-          "%s&#8239;km." % (nb(R_MOYEN, 1), nb(A_GRS80*(1 - F_GRS80)**2/1000, 0),
-                            nb(A_GRS80/1000, 0)),
-        ),
+          "l'ellipso&#239;de d&#233;pend de la latitude et de l'azimut de la "
+          "vis&#233;e&#160;: il va du rayon m&#233;ridien &#224; "
+          "l'&#233;quateur, %s&#8239;km, &#224; la grande normale au "
+          "p&#244;le, %s&#8239;km. L'&#233;cart atteint %s&#8239;km, soit "
+          "%s&#8239;%%."
+          % (nb(R_MOYEN, 1), nb(RC_MIN/1000, 1), nb(RC_MAX/1000, 1),
+             nb((RC_MAX - RC_MIN)/1000, 1),
+             nb(100*(RC_MAX - RC_MIN)/RC_MIN, 2))),
         p("Le protocole exige donc, pour chaque observation, le "
           "<strong>rayon de courbure normal &#224; l'azimut de la "
           "vis&#233;e</strong> (rayon d'Euler) calcul&#233; &#224; la "
@@ -1297,7 +1343,7 @@ def sec_photographie():
 
 def sec_zoom():
     return "\n\n".join([
-        h2("15", "Grossissement"),
+        h2("15", "Grossissement (zoom)"),
         h3("15.1 Principe"),
         p("Un fort grossissement est <strong>autoris&#233;</strong>, y "
           "compris num&#233;rique. Une photographie n'est jamais "
@@ -2033,6 +2079,16 @@ def sec_preenregistrement():
           "d&#233;pos&#233; est publi&#233; comme tel, avec sa date et son "
           "motif, et l'analyse correspondante est &#233;tiquet&#233;e "
           "<em>exploratoire</em>&#160;: elle ne peut pas conclure."),
+        encadre("Seuil recommand&#233;, &#224; adopter faute de mieux",
+                p("Les deux conditions sont exig&#233;es ensemble&#160;: "
+                  "l'&#233;cart entre fraction observ&#233;e et fraction "
+                  "pr&#233;dite atteint <strong>trois fois</strong> "
+                  "l'incertitude compos&#233;e de la mesure et de la "
+                  "pr&#233;diction, <strong>et</strong> il tombe hors de "
+                  "l'enveloppe de sensibilit&#233; du &#167;&#160;23. Ce "
+                  "seuil n'a rien d'obligatoire&#160;: il est propos&#233; "
+                  "pour qu'une campagne qui n'en d&#233;pose pas d'autre en "
+                  "ait un, d&#233;clar&#233; d'avance.")),
         p("Un dossier analys&#233; sans seuil pr&#233;alablement "
           "d&#233;pos&#233; ne peut pas conclure &#224; une "
           "incompatibilit&#233;. Il peut conclure &#224; une "
@@ -2250,10 +2306,11 @@ def sec_limites():
 ATTAQUES = [
     ("G&#233;om&#233;trie", "Rayon sph&#233;rique moyen",
      "Vous calculez avec R<sub>1</sub> alors que le rayon de courbure "
-     "d&#233;pend de la latitude et de l'azimut. L'&#233;cart entre rayon "
-     "m&#233;ridien et grande normale d&#233;passe 40&#8239;km, soit "
-     "0,6&#8239;%, ce qui exc&#232;de l'erreur d'approximation dont vous "
-     "vous vantez au &#167;&#160;9.4.",
+     "d&#233;pend de la latitude et de l'azimut. L'&#233;cart entre le rayon "
+     "m&#233;ridien &#224; l'&#233;quateur et la grande normale au p&#244;le "
+     "atteint 64&#8239;km, soit 1,0&#8239;%, ce qui exc&#232;de de trois "
+     "ordres de grandeur l'erreur d'approximation dont vous vous vantez au "
+     "&#167;&#160;9.4.",
      "Exact, et c'est pourquoi le &#167;&#160;12.2 impose le rayon d'Euler "
      "&#224; l'azimut de la vis&#233;e, et non R<sub>1</sub>. La "
      "diff&#233;rence est quantifi&#233;e au rapport."),
@@ -2613,7 +2670,7 @@ rapport.</span></div>"""
             "Le fichier <code>SHA256SUMS</code> couvre l'ensemble de "
             "l'archive, et son empreinte est elle-m&#234;me "
             "d&#233;pos&#233;e.",
-            "Le journal du &#167;&#160;90 est append-only&#160;: on n'y "
+            "Le r&#233;pertoire <code>90-journal</code> est en ajout seul&#160;: on n'y "
             "efface rien, on y ajoute les corrections.",
             "L'archive est publi&#233;e sous une licence permettant la "
             "reprise et la red&#233;marche&#160;; si un fichier ne peut "

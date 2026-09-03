@@ -25,7 +25,6 @@ const IMG: Record<string, string> = {
   "les-forces-invisibles-a-faire-chez-soi": `${HOSTINGER}/2026/07/electromagnetisme.png`,
   "loeil-humain-la-machine-a-voir": `${UNSPLASH}/photo-1494869042583-f6c911f04b4c?w=600&h=400&fit=crop`,
   // TODO couverture dédiée 1200×630 : une perche et son puits sur un plan d'eau.
-  "monter-l-experience-des-trois-mires": `${HOSTINGER}/2026/06/mer_horizon-e1784751872495.png`,
   // TODO couverture dédiée 1200×630 : la ligne d'horizon vue d'altitude, de nuit,
   // avec l'astre et son reflet dans la nappe — c'est la figure 1 de la page.
   "les-protocoles-ce-que-c-est-et-pourquoi": `${HOSTINGER}/2026/06/mer_horizon-e1784751872495.png`,

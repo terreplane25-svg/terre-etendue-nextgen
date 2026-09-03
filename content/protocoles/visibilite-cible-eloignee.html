@@ -181,6 +181,8 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
 
 <h2><span class="n">02</span>R&#233;sum&#233;</h2>
 
+<p><em>Le bloc-titre ci-dessus constitue la rubrique&#160;01. La num&#233;rotation suit celle du cahier des charges, o&#249; le titre est la premi&#232;re rubrique.</em></p>
+
 <p>Ce protocole d&#233;finit une exp&#233;rience photographique destin&#233;e &#224; mesurer, sur une cible &#233;loign&#233;e observ&#233;e au-dessus de la mer, la <strong>fraction de sa hauteur qui reste visible</strong>, puis &#224; confronter cette mesure aux pr&#233;dictions de mod&#232;les g&#233;om&#233;triques concurrents. La grandeur mesur&#233;e est continue, ce qui la rend beaucoup plus discriminante que la seule alternative visible ou invisible.</p>
 
 <p>La cible peut &#234;tre un navire, un phare, une &#233;olienne, un b&#226;timent ou un relief. Sa nature n'entre pas dans les calculs&#160;: seules comptent sa hauteur, l'altitude de sa base, sa position, la distance, et la g&#233;om&#233;trie de la ligne de vis&#233;e. Toutes ces grandeurs sont &#233;tablies par des sources ind&#233;pendantes de la photographie.</p>
@@ -358,13 +360,13 @@ visible.</figcaption>
 
 <p>La base de la cible, situ&#233;e &#224; l'altitude <em>z</em><sub>b</sub>, cesse d'&#234;tre visible au-del&#224; de <em>D</em><sub>crit</sub>. Le sommet cesse de l'&#234;tre au-del&#224; de <em>D</em><sub>lim</sub>.</p>
 
-<div class="eq"><em>D</em><sub>crit</sub> = <em>s</em>(<em>h</em>)&#160;&#160;&#160;&#160;<em>D</em><sub>lim</sub> = <em>s</em>(<em>h</em>) + <em>s</em>(<em>z</em><sub>b</sub> + <em>H</em>) &#8722; <em>s</em>(<em>z</em><sub>b</sub>)<span class="cap">pour une base au niveau de la surface, <em>z</em><sub>b</sub>&#160;=&#160;0 et <em>D</em><sub>lim</sub> = <em>s</em>(<em>h</em>) + <em>s</em>(<em>H</em>).</span></div>
+<div class="eq"><em>D</em><sub>crit</sub> = <em>s</em>(<em>h</em>) + <em>s</em>(<em>z</em><sub>b</sub>)&#160;&#160;&#160;&#160;<em>D</em><sub>lim</sub> = <em>s</em>(<em>h</em>) + <em>s</em>(<em>z</em><sub>b</sub> + <em>H</em>)<span class="cap">pour une base au niveau de la surface, <em>z</em><sub>b</sub>&#160;=&#160;0, <em>D</em><sub>crit</sub> = <em>s</em>(<em>h</em>) et <em>D</em><sub>lim</sub> = <em>s</em>(<em>h</em>) + <em>s</em>(<em>H</em>).</span></div>
 
 <h3>9.3 Hauteur occult&#233;e et fraction visible</h3>
 
-<p>Pour <em>D</em>&#160;&gt;&#160;<em>D</em><sub>crit</sub>, la hauteur occult&#233;e compt&#233;e depuis la base vaut&#160;:</p>
+<p>La tangente coupe <em>D</em> en deux arcs&#160;: <em>s</em>(<em>h</em>) c&#244;t&#233; observateur et <em>s</em>(<em>z</em><sub>v</sub>) c&#244;t&#233; cible, o&#249; <em>z</em><sub>v</sub> est l'altitude du plus bas point visible. Pour <em>D</em>&#160;&gt;&#160;<em>D</em><sub>crit</sub>&#160;:</p>
 
-<div class="eq"><em>c</em> = R &#183; { sec[ (<em>D</em> &#8722; <em>s</em>(<em>h</em>) + <em>s</em>(<em>z</em><sub>b</sub>)) / R ] &#8722; 1 } &#8722; <em>z</em><sub>b</sub><span class="cap">l'argument de la s&#233;cante est un angle g&#233;ocentrique, en radians.</span></div>
+<div class="eq"><em>z</em><sub>v</sub> = R &#183; { sec[ (<em>D</em> &#8722; <em>s</em>(<em>h</em>)) / R ] &#8722; 1 }&#160;&#160;&#160;&#160;<em>c</em> = <em>z</em><sub>v</sub> &#8722; <em>z</em><sub>b</sub><span class="cap"><em>z</em><sub>v</sub> est l'altitude du plus bas point visible&#160;; l'argument de la s&#233;cante est un angle g&#233;ocentrique, en radians. L'altitude de base n'entre pas dans cet argument&#160;: elle se retranche apr&#232;s.</span></div>
 
 <div class="eq"><em>f</em> = ( <em>H</em> &#8722; <em>c</em> ) / <em>H</em>, born&#233;e &#224; [0 ; 1]<span class="cap">grandeur compar&#233;e entre mod&#232;les et mesure.</span></div>
 
@@ -492,11 +494,11 @@ visible.</figcaption>
   <caption>Tableau&#160;8 &#8212; r&#233;gimes de r&#233;fraction et conditions physiques correspondantes.</caption>
   <thead><tr><th>R&#233;gime</th><th class="n"><em>k</em></th><th>Conditions physiques</th></tr></thead>
   <tbody>
-    <tr><td>Aucune r&#233;fraction</td><td class="n">k = 0</td><td>cas de r&#233;f&#233;rence th&#233;orique, physiquement irr&#233;alisable dans l'atmosph&#232;re&#160;; correspond au gradient autoconvectif &#8722;3,42&#8239;K/100&#8239;m</td></tr>
-    <tr><td>R&#233;fraction standard</td><td class="n">k &#8776; 0,13 &#224; 0,17</td><td>gradient de &#8722;13 &#224; &#8722;6,5&#8239;K/km&#160;; atmosph&#232;re bien m&#233;lang&#233;e, cas courant de jour au-dessus de la terre</td></tr>
-    <tr><td>R&#233;fraction forte</td><td class="n">k &#8776; 0,20 &#224; 0,40</td><td>air isotherme ou l&#233;g&#232;re inversion&#160;: gradient de 0 &#224; +25&#8239;K/km&#160;; fr&#233;quent au-dessus d'une mer plus froide que l'air</td></tr>
-    <tr><td>R&#233;fraction tr&#232;s forte</td><td class="n">k &#8776; 0,40 &#224; 0,80</td><td>inversion marqu&#233;e, gradient de +25 &#224; +100&#8239;K/km sur la couche travers&#233;e&#160;; physiquement admissible, &#224; documenter</td></tr>
-    <tr><td>Inversion et mirage sup&#233;rieur</td><td class="n">k &#8776; 0,80 &#224; 1</td><td>inversion intense&#160;; images renvers&#233;es au-dessus de l'objet, d&#233;formation verticale mesurable</td></tr>
+    <tr><td>Aucune r&#233;fraction</td><td class="n">k = 0</td><td>cas de r&#233;f&#233;rence th&#233;orique, physiquement irr&#233;alisable dans l'atmosph&#232;re&#160;; correspond au gradient autoconvectif &#8722;34&#8239;K/km</td></tr>
+    <tr><td>R&#233;fraction standard</td><td class="n">k &#8776; 0,13 &#224; 0,17</td><td>gradient de &#8722;13 &#224; &#8722;6&#8239;K/km&#160;; atmosph&#232;re bien m&#233;lang&#233;e, cas courant de jour au-dessus de la terre</td></tr>
+    <tr><td>R&#233;fraction forte</td><td class="n">k &#8776; 0,20 &#224; 0,40</td><td>air isotherme ou l&#233;g&#232;re inversion&#160;: gradient de &#8722;2 &#224; +31&#8239;K/km&#160;; fr&#233;quent au-dessus d'une mer plus froide que l'air</td></tr>
+    <tr><td>R&#233;fraction tr&#232;s forte</td><td class="n">k &#8776; 0,40 &#224; 0,80</td><td>inversion marqu&#233;e, gradient de +31 &#224; +96&#8239;K/km sur la couche travers&#233;e&#160;; physiquement admissible, &#224; documenter</td></tr>
+    <tr><td>Inversion et mirage sup&#233;rieur</td><td class="n">k &#8776; 0,80 &#224; 1</td><td>inversion intense, gradient de +96 &#224; +129&#8239;K/km&#160;; images renvers&#233;es au-dessus de l'objet, d&#233;formation verticale mesurable</td></tr>
     <tr><td>Conduit optique</td><td class="n">k &#8805; 1</td><td>exige un gradient d'au moins +12,9&#8239;K/100&#8239;m soutenu sur la couche o&#249; passe le rayon&#160;; le rayon &#233;pouse ou d&#233;passe la courbure de la surface</td></tr>
   </tbody>
 </table>
@@ -545,7 +547,7 @@ visible.</figcaption>
 
 <h3>12.2 Sph&#232;re ou ellipso&#239;de</h3>
 
-<p>La sph&#232;re de rayon R<sub>1</sub>&#160;=&#160;(2<em>a</em>&#160;+&#160;<em>b</em>)/3&#160;=&#160;6&#8239;371&#8239;008,8&#8239;m est une approximation. Le rayon de courbure r&#233;el de l'ellipso&#239;de d&#233;pend de la latitude et de l'azimut de la vis&#233;e&#160;; il varie du rayon m&#233;ridien &#224; la grande normale, soit environ 6&#8239;335&#8239;km &#224; 6&#8239;378&#8239;km.</p>
+<p>La sph&#232;re de rayon R<sub>1</sub>&#160;=&#160;(2<em>a</em>&#160;+&#160;<em>b</em>)/3&#160;=&#160;6&#8239;371&#8239;008,8&#8239;m est une approximation. Le rayon de courbure r&#233;el de l'ellipso&#239;de d&#233;pend de la latitude et de l'azimut de la vis&#233;e&#160;: il va du rayon m&#233;ridien &#224; l'&#233;quateur, 6&#8239;335,4&#8239;km, &#224; la grande normale au p&#244;le, 6&#8239;399,6&#8239;km. L'&#233;cart atteint 64,2&#8239;km, soit 1,01&#8239;%.</p>
 
 <p>Le protocole exige donc, pour chaque observation, le <strong>rayon de courbure normal &#224; l'azimut de la vis&#233;e</strong> (rayon d'Euler) calcul&#233; &#224; la latitude du trajet, et non R<sub>1</sub>. La diff&#233;rence est quantifi&#233;e au rapport&#160;: substituer R<sub>1</sub> au rayon d'Euler peut changer la hauteur occult&#233;e de plusieurs pour cent, ce qui est sup&#233;rieur &#224; l'erreur de l'approximation corde-contre-arc du &#167;&#160;9.4.</p>
 
@@ -617,7 +619,7 @@ visible.</figcaption>
 
 <p>La m&#234;me vis&#233;e est reprise &#224; au moins deux moments s&#233;par&#233;s de plusieurs heures, et si possible &#224; deux dates. Un &#233;cart syst&#233;matique entre les deux moments signale un effet atmosph&#233;rique&#160;; un &#233;cart nul sur des conditions diff&#233;rentes renforce la mesure.</p>
 
-<h2><span class="n">15</span>Grossissement</h2>
+<h2><span class="n">15</span>Grossissement (zoom)</h2>
 
 <h3>15.1 Principe</h3>
 
@@ -996,6 +998,11 @@ visible.</figcaption>
 
 <p>Aucun de ces &#233;l&#233;ments n'est modifi&#233; apr&#232;s examen des r&#233;sultats. Tout &#233;cart au plan d&#233;pos&#233; est publi&#233; comme tel, avec sa date et son motif, et l'analyse correspondante est &#233;tiquet&#233;e <em>exploratoire</em>&#160;: elle ne peut pas conclure.</p>
 
+<div class="box key">
+  <span class="lab">Seuil recommand&#233;, &#224; adopter faute de mieux</span>
+<p>Les deux conditions sont exig&#233;es ensemble&#160;: l'&#233;cart entre fraction observ&#233;e et fraction pr&#233;dite atteint <strong>trois fois</strong> l'incertitude compos&#233;e de la mesure et de la pr&#233;diction, <strong>et</strong> il tombe hors de l'enveloppe de sensibilit&#233; du &#167;&#160;23. Ce seuil n'a rien d'obligatoire&#160;: il est propos&#233; pour qu'une campagne qui n'en d&#233;pose pas d'autre en ait un, d&#233;clar&#233; d'avance.</p>
+</div>
+
 <p>Un dossier analys&#233; sans seuil pr&#233;alablement d&#233;pos&#233; ne peut pas conclure &#224; une incompatibilit&#233;. Il peut conclure &#224; une compatibilit&#233; ou rester ind&#233;termin&#233;. L'asym&#233;trie est d&#233;lib&#233;r&#233;e&#160;: c'est l'affirmation la plus forte qui exige l'engagement pr&#233;alable.</p>
 
 <h2><span class="n">27</span>Analyse statistique</h2>
@@ -1107,7 +1114,7 @@ visible.</figcaption>
   <caption>Tableau&#160;19 &#8212; objections et corrections. Une objection sans correction serait une limite, pas un audit&#160;: les limites irr&#233;ductibles sont &#233;num&#233;r&#233;es s&#233;par&#233;ment au &#167;&#160;30.</caption>
   <thead><tr><th class="n">N&#176;</th><th>Domaine</th><th>Objection</th><th>Formulation hostile</th><th>Correction</th></tr></thead>
   <tbody>
-    <tr><td class="n">01</td><td>G&#233;om&#233;trie</td><td>Rayon sph&#233;rique moyen</td><td>Vous calculez avec R<sub>1</sub> alors que le rayon de courbure d&#233;pend de la latitude et de l'azimut. L'&#233;cart entre rayon m&#233;ridien et grande normale d&#233;passe 40&#8239;km, soit 0,6&#8239;%, ce qui exc&#232;de l'erreur d'approximation dont vous vous vantez au &#167;&#160;9.4.</td><td>Exact, et c'est pourquoi le &#167;&#160;12.2 impose le rayon d'Euler &#224; l'azimut de la vis&#233;e, et non R<sub>1</sub>. La diff&#233;rence est quantifi&#233;e au rapport.</td></tr>
+    <tr><td class="n">01</td><td>G&#233;om&#233;trie</td><td>Rayon sph&#233;rique moyen</td><td>Vous calculez avec R<sub>1</sub> alors que le rayon de courbure d&#233;pend de la latitude et de l'azimut. L'&#233;cart entre le rayon m&#233;ridien &#224; l'&#233;quateur et la grande normale au p&#244;le atteint 64&#8239;km, soit 1,0&#8239;%, ce qui exc&#232;de de trois ordres de grandeur l'erreur d'approximation dont vous vous vantez au &#167;&#160;9.4.</td><td>Exact, et c'est pourquoi le &#167;&#160;12.2 impose le rayon d'Euler &#224; l'azimut de la vis&#233;e, et non R<sub>1</sub>. La diff&#233;rence est quantifi&#233;e au rapport.</td></tr>
     <tr><td class="n">02</td><td>G&#233;om&#233;trie</td><td>Cible non ponctuelle</td><td>Vous traitez la cible comme un segment vertical au-dessus d'un point. Un navire ou une montagne a une extension le long de la vis&#233;e, et sa base n'est pas &#224; une distance unique.</td><td>L'incertitude sur <em>D</em> est &#233;largie &#224; l'extension longitudinale de la cible, et cette composante est d&#233;clar&#233;e. Une cible dont l'extension d&#233;passe l'incertitude vis&#233;e sur <em>D</em> est &#233;cart&#233;e.</td></tr>
     <tr><td class="n">03</td><td>G&#233;od&#233;sie</td><td>G&#233;o&#239;de et ellipso&#239;de</td><td>Une altitude GNSS brute est une hauteur ellipso&#239;dale. La confondre avec une altitude introduit des dizaines de m&#232;tres d'erreur, donc plusieurs m&#232;tres sur <em>c</em>.</td><td>Le &#167;&#160;12.1 impose la conversion par un mod&#232;le de g&#233;o&#239;de publi&#233; et la d&#233;claration du mod&#232;le. Le contr&#244;le du &#167;&#160;24 v&#233;rifie la coh&#233;rence sur un point de cote connue.</td></tr>
     <tr><td class="n">04</td><td>G&#233;od&#233;sie</td><td>Mar&#233;e et z&#233;ro hydrographique</td><td>Pour un ouvrage c&#244;tier, la base &#171;&#160;au niveau de la mer&#160;&#187; bouge de plusieurs m&#232;tres dans la journ&#233;e, et le z&#233;ro des cartes n'est pas le niveau moyen.</td><td>L'altitude de la base est prise &#224; l'heure exacte, corrig&#233;e de la mar&#233;e observ&#233;e et non pr&#233;dite quand un mar&#233;graphe existe, et le z&#233;ro de r&#233;f&#233;rence est nomm&#233;.</td></tr>
@@ -1315,7 +1322,7 @@ rapport.</span></div>
 <ul>
   <li>Le r&#233;pertoire <code>10-originaux</code> est en lecture seule. Toute copie de travail vit ailleurs.</li>
   <li>Le fichier <code>SHA256SUMS</code> couvre l'ensemble de l'archive, et son empreinte est elle-m&#234;me d&#233;pos&#233;e.</li>
-  <li>Le journal du &#167;&#160;90 est append-only&#160;: on n'y efface rien, on y ajoute les corrections.</li>
+  <li>Le r&#233;pertoire <code>90-journal</code> est en ajout seul&#160;: on n'y efface rien, on y ajoute les corrections.</li>
   <li>L'archive est publi&#233;e sous une licence permettant la reprise et la red&#233;marche&#160;; si un fichier ne peut &#234;tre diffus&#233;, son empreinte et le nom de son d&#233;tenteur le sont.</li>
 </ul>
 

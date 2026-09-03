@@ -323,13 +323,6 @@ export const NEXUS_NODES: NexusNodeData[] = [
     "topDomains": ["islam_sources", "histoire_sciences", "epistemologie"]
   },
   {
-    "id": "monter-l-experience-des-trois-mires",
-    "title": "Monter l'expérience des trois mires",
-    "category": "experiences",
-    "primaryDomain": "geometrie",
-    "topDomains": ["geometrie", "hydrologie", "optique"]
-  },
-  {
     "id": "neptune-et-pluton-les-faux-triomphes",
     "title": "Neptune et Pluton : les faux triomphes",
     "category": "headquarters",
@@ -464,13 +457,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "score": 396.0,
     "strength": "strong",
     "sharedDomains": ["islam_sources", "epistemologie"]
-  },
-  {
-    "source": "par-rapport-a-quoi-mesure-t-on-une-altitude",
-    "target": "monter-l-experience-des-trois-mires",
-    "score": 388.0,
-    "strength": "strong",
-    "sharedDomains": ["geometrie"]
   },
   {
     "source": "les-forces-invisibles-a-faire-chez-soi",
@@ -921,13 +907,6 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["islam_sources", "cosmologie"]
   },
   {
-    "source": "un-traite-ottoman-contre-la-sphericite-1314h",
-    "target": "monter-l-experience-des-trois-mires",
-    "score": 274.0,
-    "strength": "medium",
-    "sharedDomains": ["geometrie"]
-  },
-  {
     "source": "glossaire",
     "target": "lexperience-contre-la-theorie",
     "score": 273.4,
@@ -992,24 +971,10 @@ export const NEXUS_LINKS: NexusLinkData[] = [
   },
   {
     "source": "les-protocoles-ce-que-c-est-et-pourquoi",
-    "target": "monter-l-experience-des-trois-mires",
-    "score": 204.0,
-    "strength": "medium",
-    "sharedDomains": ["epistemologie", "geometrie"]
-  },
-  {
-    "source": "les-protocoles-ce-que-c-est-et-pourquoi",
     "target": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
     "score": 186.0,
     "strength": "medium",
     "sharedDomains": ["geometrie", "hydrologie"]
-  },
-  {
-    "source": "monter-l-experience-des-trois-mires",
-    "target": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
-    "score": 186.0,
-    "strength": "strong",
-    "sharedDomains": ["geometrie", "hydrologie", "optique"]
   },
   {
     "source": "les-protocoles-ce-que-c-est-et-pourquoi",
@@ -1033,25 +998,11 @@ export const NEXUS_LINKS: NexusLinkData[] = [
     "sharedDomains": ["epistemologie"]
   },
   {
-    "source": "monter-l-experience-des-trois-mires",
-    "target": "leau-ne-ment-pas",
-    "score": 158.0,
-    "strength": "strong",
-    "sharedDomains": ["hydrologie", "geometrie"]
-  },
-  {
     "source": "mesurer-la-courbure-sur-l-eau-cinq-campagnes",
     "target": "la-perspective-pourquoi-les-objets-disparaissent",
     "score": 152.0,
     "strength": "strong",
     "sharedDomains": ["optique", "geometrie"]
-  },
-  {
-    "source": "participer-aux-campagnes-de-mesure",
-    "target": "monter-l-experience-des-trois-mires",
-    "score": 150.0,
-    "strength": "medium",
-    "sharedDomains": ["geometrie", "epistemologie"]
   },
   {
     "source": "participer-aux-campagnes-de-mesure",

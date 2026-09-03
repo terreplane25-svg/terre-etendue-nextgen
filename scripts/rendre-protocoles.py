@@ -97,6 +97,12 @@ DOCUMENTS = {
 
 # Protocoles SUSPENDUS : les sources restent, le rendu par défaut les ignore.
 #
+# Depuis septembre 2026, le site ne publie plus qu'un seul protocole, pour que
+# tous soient tenus au même niveau d'exigence. Les autres sont donc tous
+# suspendus, y compris le protocole de l'horizon marin déposé sous DOI : son
+# dépôt Zenodo reste ce qu'il est, un enregistrement daté que le retrait des
+# fichiers du site ne rétracte pas, mais le site ne le sert plus.
+#
 # Le diamètre solaire et la hauteur du pôle céleste ont été écrits sans que
 # leur auteur ait transmis tout ce qu'il sait de ces deux expériences. Un
 # protocole incomplet qui a l'air fini est pire qu'un protocole absent : on le
@@ -105,7 +111,8 @@ DOCUMENTS = {
 #
 # Ils restent rendables à la demande — « rendre-protocoles.py soleil » — mais
 # ne sortent plus quand on lance le script sans argument.
-SUSPENDUS = {"soleil", "pole", "visee", "court", "krequis"}
+SUSPENDUS = {"soleil", "pole", "visee", "court", "krequis", "photo",
+             "horizon-fr", "horizon-en", "ballon"}
 
 
 def chromium():
