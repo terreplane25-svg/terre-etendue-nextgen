@@ -1,0 +1,1361 @@
+<title>Portion visible d'une cible &#233;loign&#233;e &#8212; protocole exp&#233;rimental</title>
+
+<style>
+/* @@POLICES@@ — injecté au rendu depuis polices.css */
+@page{ size:A4; margin:19mm 17mm 16mm; }
+
+:root{
+  --ink:#12181e; --soft:#3d4952; --mute:#6c7883;
+  --line:#cfd7dd; --line2:#9aa7b1; --wash:#f2f5f7;
+  --globe:#14608f; --globe-w:#14608f14;
+  --plane:#96600f; --plane-w:#96600f14;
+  --alert:#8f2f2b; --alert-w:#8f2f2b10;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:#fff; color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,sans-serif;
+  font-size:9.7pt; line-height:1.52;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+.page{padding:0}
+p{margin:0 0 7pt; color:var(--soft); text-align:justify; hyphens:auto}
+p.lead{color:var(--ink); font-size:10.4pt}
+strong{color:var(--ink); font-weight:600}
+code{font-family:"IBM Plex Mono",monospace; font-size:.9em; color:var(--ink)}
+
+/* ── Bloc-titre ── */
+.masthead{border-bottom:2.2pt solid var(--ink); padding-bottom:9pt; margin-bottom:14pt}
+.kicker{
+  font-family:"IBM Plex Mono",monospace; font-size:7.4pt; font-weight:600;
+  letter-spacing:.19em; text-transform:uppercase; color:var(--globe);
+  margin-bottom:8pt;
+}
+h1{
+  font-family:Spectral,Georgia,serif; font-weight:700; font-size:23pt;
+  line-height:1.13; letter-spacing:-.015em; margin:0 0 6pt; color:var(--ink);
+}
+.dek{font-family:Spectral,Georgia,serif; font-size:11.3pt; line-height:1.42;
+  color:var(--soft); font-style:italic; margin:0 0 10pt}
+.byline{
+  display:flex; gap:26pt; flex-wrap:wrap;
+  font-family:"IBM Plex Mono",monospace; font-size:7.6pt; color:var(--mute);
+  letter-spacing:.05em; border-top:.6pt solid var(--line); padding-top:7pt;
+}
+.byline b{display:block; color:var(--ink); font-weight:600; font-size:8pt; margin-top:1pt}
+
+.abstract{
+  background:var(--wash); border-left:2.6pt solid var(--globe);
+  padding:11pt 13pt; margin:0 0 16pt;
+}
+.abstract .lab{
+  font-family:"IBM Plex Mono",monospace; font-size:7.2pt; font-weight:600;
+  letter-spacing:.17em; text-transform:uppercase; color:var(--globe); display:block; margin-bottom:5pt;
+}
+.abstract p{margin-bottom:5pt; font-size:9.2pt}
+.abstract p:last-child{margin-bottom:0}
+
+/* ── Titres ── */
+h2{
+  font-family:Spectral,Georgia,serif; font-weight:600; font-size:13.6pt;
+  line-height:1.2; margin:17pt 0 5pt; color:var(--ink);
+  padding-bottom:3.5pt; border-bottom:.7pt solid var(--line2);
+  break-after:avoid; page-break-after:avoid;
+}
+h2 .n{font-family:"IBM Plex Mono",monospace; font-size:8.4pt; color:var(--globe);
+  font-weight:600; margin-right:8pt; letter-spacing:.06em}
+h3{font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:9.8pt;
+  margin:11pt 0 4pt; color:var(--ink); break-after:avoid; page-break-after:avoid}
+
+ul,ol{margin:0 0 8pt; padding-left:15pt; color:var(--soft)}
+li{margin:0 0 3.5pt}
+ol.st{list-style:none; padding:0; counter-reset:s}
+ol.st>li{counter-increment:s; position:relative; padding-left:26pt; margin-bottom:7pt}
+ol.st>li::before{
+  content:counter(s,decimal-leading-zero); position:absolute; left:0; top:.4pt;
+  font-family:"IBM Plex Mono",monospace; font-size:7.6pt; font-weight:600;
+  color:#fff; background:var(--globe); width:18pt; height:12pt;
+  display:flex; align-items:center; justify-content:center; border-radius:1.5pt;
+}
+ol.st>li>b{display:block; color:var(--ink); font-weight:600}
+
+/* ── Formules ── */
+.eq{
+  font-family:"IBM Plex Mono",monospace; font-size:10.2pt; color:var(--ink);
+  background:var(--wash); border:.6pt solid var(--line);
+  padding:8pt 12pt; margin:8pt 0; text-align:center; letter-spacing:.02em;
+}
+.eq .cap{display:block; font-family:"IBM Plex Sans",sans-serif; font-size:7.6pt;
+  color:var(--mute); margin-top:4pt; letter-spacing:0}
+
+/* ── Tableaux ── */
+table{border-collapse:collapse; width:100%; font-size:8.6pt; margin:8pt 0 10pt;
+  break-inside:avoid; page-break-inside:avoid}
+th,td{padding:4pt 7pt; text-align:left; border-bottom:.5pt solid var(--line)}
+thead th{
+  font-family:"IBM Plex Mono",monospace; font-size:6.9pt; font-weight:600;
+  letter-spacing:.11em; color:var(--mute);
+  background:var(--wash); border-bottom:.9pt solid var(--line2);
+}
+td.n,th.n{text-align:right; font-family:"IBM Plex Mono",monospace;
+  font-variant-numeric:tabular-nums; font-size:8.4pt}
+tbody tr:last-child td{border-bottom:.7pt solid var(--line2)}
+tr.hi td{background:var(--globe-w)}
+tr.hi td,tr.hi td strong{color:var(--globe); font-weight:600}
+tr.pl td{background:var(--plane-w)}
+tr.pl td{color:var(--plane); font-weight:600}
+caption{caption-side:bottom; text-align:left; font-size:7.8pt; color:var(--mute);
+  padding-top:4pt; font-style:italic}
+
+/* ── Figures ── */
+figure{margin:10pt 0 12pt; break-inside:avoid; page-break-inside:avoid}
+figure svg{display:block; width:100%; height:auto; border:.6pt solid var(--line);
+  background:#fff; padding:7pt}
+figcaption{font-size:7.9pt; line-height:1.45; color:var(--mute); margin-top:4pt; text-align:justify}
+figcaption b{color:var(--ink)}
+
+/* SVG */
+.sl{stroke:var(--line2); fill:none}
+.si{stroke:var(--soft); fill:none}
+.sg{stroke:var(--globe); fill:none}
+.sp{stroke:var(--plane); fill:none}
+.sa{stroke:var(--alert); fill:none}
+.fg{fill:var(--globe)} .fp{fill:var(--plane)} .fi{fill:var(--ink)} .fs{fill:var(--soft)}
+.t{font-family:"IBM Plex Sans",sans-serif; font-size:12px; fill:var(--soft)}
+.tm{font-family:"IBM Plex Mono",monospace; font-size:11px; fill:var(--mute); letter-spacing:.05em}
+.tb{font-family:"IBM Plex Mono",monospace; font-size:11.5px; font-weight:600; letter-spacing:.09em}
+.dash{stroke-dasharray:5 4} .dash2{stroke-dasharray:2 3}
+
+/* ── Encadrés ── */
+.box{border:.7pt solid var(--line2); padding:9pt 11pt; margin:9pt 0;
+  break-inside:avoid; page-break-inside:avoid}
+.box .lab{font-family:"IBM Plex Mono",monospace; font-size:7pt; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; display:block; margin-bottom:4pt}
+.box p:last-child{margin-bottom:0}
+.box.key{border-color:var(--globe); background:var(--globe-w)} .box.key .lab{color:var(--globe)}
+.box.warn{border-color:var(--alert); background:var(--alert-w)} .box.warn .lab{color:var(--alert)}
+.box.flat{border-color:var(--plane); background:var(--plane-w)} .box.flat .lab{color:var(--plane)}
+
+.two{display:grid; grid-template-columns:1fr 1fr; gap:9pt; margin:9pt 0;
+  break-inside:avoid; page-break-inside:avoid}
+.vc{border:1pt solid var(--line2); padding:9pt 11pt}
+.vc.g{border-color:var(--globe)} .vc.p{border-color:var(--plane)}
+.vc .h{font-family:"IBM Plex Mono",monospace; font-size:7.2pt; letter-spacing:.14em;
+  margin:0 0 3pt}
+.vc.g .h{color:var(--globe)} .vc.p .h{color:var(--plane)}
+.vc .v{font-family:Spectral,Georgia,serif; font-size:13pt; font-weight:600;
+  color:var(--ink); margin:0 0 4pt; line-height:1.2}
+.vc p{font-size:8.4pt; margin:0}
+
+.sheet{border:.9pt solid var(--line2); padding:9pt 13pt; break-inside:avoid; page-break-inside:avoid}
+.fr{display:flex; gap:9pt; align-items:baseline; padding:3.1pt 0; border-bottom:.4pt dotted var(--line2)}
+.fr:last-child{border-bottom:0}
+.fr .a{font-size:8.5pt; color:var(--soft); flex:1 1 auto}
+.fr .b{font-family:"IBM Plex Mono",monospace; font-size:8pt; color:var(--mute);
+  border-bottom:.5pt solid var(--line2); min-width:104pt; text-align:center}
+
+.brk{break-before:page; page-break-before:always}
+footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
+  font-size:7.6pt; color:var(--mute)}
+.refs{font-size:7.85pt; color:var(--soft); line-height:1.4}
+.refs li{margin-bottom:3pt}
+
+.langbar{display:flex; gap:0; margin:0 0 12pt; border:.8pt solid var(--line2)}
+.langbar span{flex:1; text-align:center; padding:5pt; font-family:"IBM Plex Mono",monospace;
+  font-size:7.4pt; letter-spacing:.14em; color:var(--mute)}
+.langbar span.on{background:var(--globe); color:#fff; font-weight:600}
+.disk{fill:var(--plane); opacity:.85}
+.disk2{fill:var(--globe); opacity:.85}
+</style>
+
+<div class="page">
+<div class="masthead">
+  <div class="kicker">Protocole exp&#233;rimental &#183; Observation photographique &#183; Pr&#233;-enregistrement</div>
+  <h1>Portion visible d'une cible &#233;loign&#233;e au-dessus de la mer</h1>
+  <p class="dek">Mesure quantitative de la fraction visible d'un objet de dimensions connues, et confrontation aux pr&#233;dictions de mod&#232;les g&#233;om&#233;triques concurrents</p>
+  <div class="byline">
+    <span>R&#233;dacteur<b>Terre &#201;tendue</b></span><span>Contact<b>terre-etendue-islam.fr</b></span><span>Version<b>1.0</b></span><span>Date<b>3 septembre 2026</b></span><span>Licence<b>CC BY 4.0</b></span>
+  </div>
+</div>
+
+<h2><span class="n">02</span>R&#233;sum&#233;</h2>
+
+<p>Ce protocole d&#233;finit une exp&#233;rience photographique destin&#233;e &#224; mesurer, sur une cible &#233;loign&#233;e observ&#233;e au-dessus de la mer, la <strong>fraction de sa hauteur qui reste visible</strong>, puis &#224; confronter cette mesure aux pr&#233;dictions de mod&#232;les g&#233;om&#233;triques concurrents. La grandeur mesur&#233;e est continue, ce qui la rend beaucoup plus discriminante que la seule alternative visible ou invisible.</p>
+
+<p>La cible peut &#234;tre un navire, un phare, une &#233;olienne, un b&#226;timent ou un relief. Sa nature n'entre pas dans les calculs&#160;: seules comptent sa hauteur, l'altitude de sa base, sa position, la distance, et la g&#233;om&#233;trie de la ligne de vis&#233;e. Toutes ces grandeurs sont &#233;tablies par des sources ind&#233;pendantes de la photographie.</p>
+
+<p>L'acquisition et l'analyse sont s&#233;par&#233;es. Au moment du d&#233;clenchement, l'op&#233;rateur n'a besoin de conna&#238;tre ni la distance, ni la hauteur de la cible, ni la pr&#233;diction attendue. Les param&#232;tres sont reconstitu&#233;s ensuite&#160;; une donn&#233;e reconstruite a posteriori n'est jamais pr&#233;sent&#233;e comme une mesure directe.</p>
+
+<p>Les crit&#232;res de s&#233;lection, de qualit&#233; d'image, de mesure, de mod&#233;lisation atmosph&#233;rique et de d&#233;cision sont fix&#233;s et d&#233;pos&#233;s <strong>avant</strong> l'examen des r&#233;sultats. La conclusion prend exactement trois valeurs&#160;: compatible, incompatible, ind&#233;termin&#233;. Aucun r&#233;sultat n'est trait&#233; diff&#233;remment selon le sens dans lequel il va.</p>
+
+<div class="box warn">
+  <span class="lab">Ce que le protocole ne fait pas</span>
+<p>Il ne mesure pas le rayon de la Terre, il ne d&#233;montre aucun mod&#232;le, et il ne consid&#232;re aucun mod&#232;le comme &#233;tabli d'avance. Il produit une mesure et une comparaison, avec leurs incertitudes. Un r&#233;sultat ind&#233;termin&#233; &#8212; le plus fr&#233;quent quand les donn&#233;es atmosph&#233;riques manquent &#8212; n'est une preuve ni pour ni contre quoi que ce soit.</p>
+</div>
+
+<h2><span class="n">&#8212;</span>&#201;carts au cahier des charges</h2>
+
+<p>Le cahier des charges demande que toute erreur scientifique ou m&#233;thodologique soit signal&#233;e avant int&#233;gration. Sept points ont &#233;t&#233; corrig&#233;s. Le protocole qui suit int&#232;gre les corrections de la troisi&#232;me colonne.</p>
+
+<table>
+  <caption>Tableau&#160;1 &#8212; corrections apport&#233;es au cahier des charges, et o&#249; elles sont int&#233;gr&#233;es.</caption>
+  <thead><tr><th class="n">N&#176;</th><th>Point</th><th>Ce qui ne va pas</th><th>Correction retenue</th></tr></thead>
+  <tbody>
+    <tr><td class="n">01</td><td>Seuils g&#233;om&#233;triques fixes (&#167;&#160;3 du cahier)</td><td>Le cahier impose au moins 100&#8239;m d'altitude et au moins 50&#8239;km de distance. Ces valeurs ne garantissent pas un signal mesurable. Depuis 100&#8239;m &#224; 50&#8239;km, la hauteur occult&#233;e vaut 16,1&#8239;m sans r&#233;fraction, 6,4&#8239;m &#224; k&#160;=&#160;0,20, et <strong>z&#233;ro</strong> d&#232;s k&#160;&#8805;&#160;0,49. Un seuil en kilom&#232;tres ne peut donc pas d&#233;finir la validit&#233; d'une observation.</td><td>Le crit&#232;re d'admission porte sur la <em>plus petite</em> hauteur occult&#233;e pr&#233;dite sur l'intervalle de r&#233;fraction retenu, et non sur la distance&#160;: la g&#233;om&#233;trie est admissible si cette valeur atteint au moins cinq fois l'incertitude de mesure (&#167;&#160;28). Les seuils de 100&#8239;m et 50&#8239;km deviennent des minimums pratiques, non des conditions de validit&#233;.</td></tr>
+    <tr><td class="n">02</td><td>Conduit d'&#233;vaporation en optique (&#167;&#160;7 du cahier)</td><td>Le cahier range le <em>ducting</em> parmi les r&#233;gimes &#224; traiter, sans distinguer le domaine radio du domaine optique. Le conduit d'&#233;vaporation marin est pilot&#233; par le gradient d'humidit&#233;, dont le terme dans la r&#233;fractivit&#233; vaut 89,8&#8239;N en radio&#233;lectrique &#224; e&#160;=&#160;20&#8239;hPa et T&#160;=&#160;288&#8239;K, contre -0,78&#8239;N en optique&#160;: un rapport de 115. Transposer un raisonnement radio &#224; une exp&#233;rience optique est une erreur de domaine.</td><td>Le protocole traite s&#233;par&#233;ment le conduit optique, qui exige une inversion thermique d'environ +12,9&#8239;K/100&#8239;m, et le conduit radio, qui n'est pas le sujet. Les crit&#232;res de reconnaissance sont &#233;tablis sur les signatures visibles (&#167;&#160;11).</td></tr>
+    <tr><td class="n">03</td><td>Coefficient de r&#233;fraction moyen (&#167;&#160;9 du cahier)</td><td>Le cahier envisage un coefficient global. Le tracé de rayon montre qu'une couche d'inversion de 60&#8239;m &#224; k&#160;=&#160;0,80 surmont&#233;e d'une atmosph&#232;re standard &#224; k&#160;=&#160;0,13 se comporte comme un k homog&#232;ne de <strong>0,563</strong>, et non comme la moyenne pond&#233;r&#233;e en hauteur, qui vaut 0,180. Le rayon rasant passe l'essentiel de son trajet &#224; faible pente dans la couche basse.</td><td>Le protocole exige un profil vertical r&#233;solu dans les premi&#232;res dizaines de m&#232;tres au-dessus de l'eau, et non une valeur moyenne&#160;; &#224; d&#233;faut, l'incertitude report&#233;e couvre l'&#233;cart entre les deux traitements.</td></tr>
+    <tr><td class="n">04</td><td>Photographie vide (&#167;&#160;14 du cahier)</td><td>Le cahier &#233;carte les photographies o&#249; la cible n'appara&#238;t pas. &#201;carter syst&#233;matiquement les non-d&#233;tections introduit un biais de s&#233;lection&#160;: une cible absente est une information, &#224; condition que sa taille apparente pr&#233;dite ait d&#233;pass&#233; la limite de d&#233;tection du syst&#232;me.</td><td>Une non-d&#233;tection est retenue et class&#233;e <em>informative</em> si la taille angulaire pr&#233;dite de la partie attendue exc&#232;de trois fois la r&#233;solution effective mesur&#233;e&#160;; sinon elle est class&#233;e <em>ind&#233;termin&#233;e</em>. Les deux cas sont publi&#233;s (&#167;&#160;19).</td></tr>
+    <tr><td class="n">05</td><td>Mod&#232;le concurrent non sp&#233;cifi&#233; (&#167;&#160;23 du cahier)</td><td>Comparer &#224; &#171;&#160;un mod&#232;le de surface plane&#160;&#187; n'a de sens que si ce mod&#232;le est compl&#232;tement sp&#233;cifi&#233;. Un mod&#232;le plan assorti d'une loi de r&#233;fraction libre reproduit n'importe quelle observation, et cesse d'&#234;tre r&#233;futable.</td><td>Chaque mod&#232;le compar&#233; est d&#233;clar&#233; avec sa g&#233;om&#233;trie <em>et</em> sa loi de propagation, d&#233;pos&#233;es avant l'observation, avec le m&#234;me nombre de param&#232;tres libres autoris&#233;s (&#167;&#160;29).</td></tr>
+    <tr><td class="n">06</td><td>Hauteur de cible et altitude de base confondues (&#167;&#160;5 et&#160;6 du cahier)</td><td>L'exemple num&#233;rique demand&#233; ne pr&#233;cise pas l'altitude de la base de la cible. Une cible de 100&#8239;m dont la base est &#224; 20&#8239;m d'altitude n'est pas une cible de 100&#8239;m au niveau de la mer&#160;: son horizon propre vaut celui de 120&#8239;m, pas celui de 100&#8239;m.</td><td>Les &#233;quations du &#167;&#160;9 sont &#233;crites avec une altitude de base explicite. L'exemple du &#167;&#160;10 d&#233;clare que la base est au niveau moyen de la mer, conform&#233;ment &#224; l'&#233;nonc&#233;.</td></tr>
+    <tr><td class="n">07</td><td>Quatre verdicts (versions ant&#233;rieures de ce document)</td><td>Les documents pr&#233;paratoires distinguaient recevabilit&#233; et conclusion en quatre cat&#233;gories. Le cahier en demande exactement trois.</td><td>La recevabilit&#233; devient un filtre pr&#233;alable, sans valeur de conclusion. La conclusion scientifique prend exactement trois valeurs&#160;: compatible, incompatible, ind&#233;termin&#233; (&#167;&#160;28).</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">03</span>Question scientifique</h2>
+
+<p>Pour une cible dont la position, l'altitude de base et la hauteur sont &#233;tablies ind&#233;pendamment de la photographie, et pour un observateur dont la position et l'altitude sont &#233;tablies de m&#234;me&#160;:</p>
+
+<div class="box key">
+  <span class="lab">Question</span>
+<p><strong>Quelle fraction de la hauteur de la cible est effectivement observable sur l'image, quelle fraction chaque mod&#232;le g&#233;om&#233;trique consid&#233;r&#233; pr&#233;dit visible, et l'&#233;cart est-il assez grand pour discriminer ces mod&#232;les compte tenu de toutes les incertitudes&#160;?</strong></p>
+</div>
+
+<p>La question n'est pas &#171;&#160;l'objet est-il visible&#160;?&#160;&#187;. Une r&#233;ponse binaire perd l'essentiel de l'information et se laisse expliquer par trop de causes. La fraction visible est continue, born&#233;e entre 0 et&#160;1, mesurable avec une incertitude quantifiable, et pr&#233;dite diff&#233;remment par les mod&#232;les en concurrence.</p>
+
+<h2><span class="n">04</span>Hypoth&#232;ses</h2>
+
+<p>Deux mod&#232;les au moins sont mis en concurrence. Aucun n'est tenu pour &#233;tabli, aucun ne re&#231;oit le statut de r&#233;f&#233;rence, et les deux subissent exactement le m&#234;me traitement.</p>
+
+<h3>4.1 Mod&#232;le S &#8212; surface sph&#233;rique</h3>
+
+<p>La surface de r&#233;f&#233;rence est une sph&#232;re de rayon R&#160;=&#160;6&#8239;371&#8239;008,8&#8239;m, valeur R<sub>1</sub> de l'IUGG d&#233;duite de l'ellipso&#239;de GRS&#8239;80. La lumi&#232;re se propage selon un rayon dont la courbure est celle qu'impose le profil vertical d'indice de r&#233;fraction, param&#233;tr&#233;e par le coefficient <em>k</em> d&#233;fini au &#167;&#160;11. La surface occulte la partie de la cible situ&#233;e sous le rayon rasant.</p>
+
+<h3>4.2 Mod&#232;le P &#8212; surface plane</h3>
+
+<p>La surface de r&#233;f&#233;rence est un plan. Aucune partie de la cible n'est occult&#233;e par la surface, &#224; quelque distance que ce soit. La fraction visible pr&#233;dite vaut donc 1 partout, sous r&#233;serve de la limite de d&#233;tection du syst&#232;me optique et de l'extinction atmosph&#233;rique, qui sont trait&#233;es aux &#167;&#167;&#160;15 et&#160;20 et qui s'appliquent identiquement aux deux mod&#232;les.</p>
+
+<h3>4.3 Contrainte commune</h3>
+
+<p>Un mod&#232;le n'est admis dans la comparaison que s'il est d&#233;pos&#233; avec sa g&#233;om&#233;trie <em>et</em> sa loi de propagation, et avec un nombre de param&#232;tres libres d&#233;clar&#233;. Une loi de propagation laiss&#233;e libre reproduit n'importe quelle observation&#160;: elle n'est pas r&#233;futable, donc pas comparable. Le nombre de param&#232;tres libres entre dans la comparaison statistique (&#167;&#160;27).</p>
+
+<div class="box warn">
+  <span class="lab">Ce que le protocole ne suppose pas</span>
+<p>Il ne suppose pas que le mod&#232;le S est vrai. La valeur de R et la loi de r&#233;fraction y sont des <em>hypoth&#232;ses de travail dont on d&#233;duit une pr&#233;diction testable</em>, au m&#234;me titre que l'absence d'occultation dans le mod&#232;le P. L'exp&#233;rience porte sur l'&#233;cart entre pr&#233;diction et mesure, jamais sur la v&#233;rit&#233; suppos&#233;e de l'une des deux.</p>
+</div>
+
+<h2><span class="n">05</span>Objectifs</h2>
+
+<ol>
+  <li>Mesurer, sur une image dont l'int&#233;grit&#233; est &#233;tablie, la fraction visible d'une cible de dimensions connues, avec son incertitude.</li>
+  <li>&#201;tablir, pour la m&#234;me configuration, la fraction visible pr&#233;dite par chaque mod&#232;le d&#233;pos&#233;, avec l'enveloppe d'incertitude que produisent les param&#232;tres g&#233;od&#233;siques et atmosph&#233;riques.</li>
+  <li>D&#233;terminer si l'&#233;cart entre mesure et pr&#233;diction d&#233;passe le seuil d&#233;pos&#233; avant l'observation.</li>
+  <li>Rendre l'un des trois verdicts du &#167;&#160;28 et publier l'ensemble des donn&#233;es permettant &#224; un tiers de refaire l'analyse depuis les fichiers d'origine.</li>
+</ol>
+
+<h2><span class="n">06</span>D&#233;finitions</h2>
+
+<h3>6.1 Grandeurs</h3>
+
+<ul>
+  <li><strong>Cible</strong> &#8212; objet &#233;loign&#233; dont la fraction visible est mesur&#233;e.</li>
+  <li><strong>Hauteur de la cible <em>H</em></strong> &#8212; distance verticale entre la base de la cible et son sommet, en m&#232;tres.</li>
+  <li><strong>Altitude de base <em>z</em><sub>b</sub></strong> &#8212; altitude de la base de la cible au-dessus de la surface de r&#233;f&#233;rence adopt&#233;e, en m&#232;tres.</li>
+  <li><strong>Altitude de l'observateur <em>h</em></strong> &#8212; altitude de l'axe optique au-dessus de la m&#234;me surface, en m&#232;tres.</li>
+  <li><strong>Distance <em>D</em></strong> &#8212; longueur de la g&#233;od&#233;sique entre le pied de l'observateur et le pied de la cible, en m&#232;tres.</li>
+  <li><strong>Hauteur occult&#233;e <em>c</em></strong> &#8212; hauteur, compt&#233;e depuis la base de la cible, du plus bas point que le mod&#232;le pr&#233;dit visible.</li>
+  <li><strong>Fraction visible <em>f</em></strong> &#8212; <em>f</em>&#160;=&#160;(<em>H</em>&#160;&#8722;&#160;<em>c</em>)/<em>H</em>, born&#233;e &#224; l'intervalle [0&#160;;&#160;1]. C'est la grandeur compar&#233;e.</li>
+  <li><strong>Coefficient de r&#233;fraction <em>k</em></strong> &#8212; rapport de la courbure du rayon &#224; celle de la surface de r&#233;f&#233;rence (&#167;&#160;11).</li>
+  <li><strong>R&#233;solution effective</strong> &#8212; plus petite structure r&#233;ellement s&#233;par&#233;e sur l'image, mesur&#233;e et non calcul&#233;e (&#167;&#160;20).</li>
+</ul>
+
+<h3>6.2 Statut d'un &#233;nonc&#233;</h3>
+
+<p>Chaque valeur figurant dans un rapport porte l'une de ces huit &#233;tiquettes, et une seule. Un tableau de r&#233;sultats o&#249; l'&#233;tiquette manque n'est pas recevable.</p>
+
+<table>
+  <caption>Tableau&#160;2 &#8212; statut des &#233;nonc&#233;s. La distinction est la r&#232;gle fondamentale du protocole.</caption>
+  <thead><tr><th>Statut</th><th>D&#233;finition</th></tr></thead>
+  <tbody>
+    <tr><td>Fait mesur&#233;</td><td>grandeur obtenue par un instrument, sur place, au moment de l'observation, avec l'instrument et sa cha&#238;ne d'&#233;talonnage identifi&#233;s</td></tr>
+    <tr><td>Donn&#233;e externe</td><td>grandeur tir&#233;e d'une source ind&#233;pendante de la photographie, dat&#233;e et citable&#160;: carte, fiche d'ouvrage, mod&#232;le num&#233;rique de terrain, registre</td></tr>
+    <tr><td>Hypoth&#232;se</td><td>&#233;nonc&#233; pos&#233; pour d&#233;duire une pr&#233;diction, sans &#234;tre lui-m&#234;me mesur&#233; dans l'exp&#233;rience</td></tr>
+    <tr><td>Calcul</td><td>op&#233;ration d&#233;terministe sur des faits mesur&#233;s, des donn&#233;es externes et des hypoth&#232;ses</td></tr>
+    <tr><td>Mod&#232;le</td><td>ensemble coh&#233;rent d'hypoth&#232;ses g&#233;om&#233;triques et de propagation, d&#233;pos&#233; avant l'observation</td></tr>
+    <tr><td>Incertitude</td><td>intervalle associ&#233; &#224; une grandeur, &#233;valu&#233; selon le guide JCGM&#160;100:2008, avec son type et son facteur d'&#233;largissement</td></tr>
+    <tr><td>Observation photographique</td><td>le fichier d'origine et ce qu'on y mesure&#160;; c'est la donn&#233;e observationnelle primaire</td></tr>
+    <tr><td>Interpr&#233;tation</td><td>&#233;nonc&#233; qui va au-del&#224; de la comparaison chiffr&#233;e&#160;; jamais m&#234;l&#233;e aux six cat&#233;gories pr&#233;c&#233;dentes dans un tableau de r&#233;sultats</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">07</span>Fondement th&#233;orique</h2>
+
+<p>Sur une surface convexe, un observateur plac&#233; &#224; une altitude <em>h</em> voit la surface jusqu'&#224; un point de tangence. Au-del&#224;, la surface s'interpose entre lui et tout objet dont le sommet est plus bas que le rayon rasant. La hauteur occult&#233;e cro&#238;t avec la distance&#160;; la fraction visible d&#233;cro&#238;t, atteint z&#233;ro &#224; une distance finie, et cette d&#233;croissance a une forme pr&#233;cise que le &#167;&#160;9 &#233;tablit.</p>
+
+<p>Sur une surface plane, aucune occultation par la surface n'existe. La cible reste enti&#232;rement visible &#224; toute distance, sa taille angulaire d&#233;cro&#238;t comme 1/<em>D</em>, et sa disparition &#233;ventuelle rel&#232;ve de la r&#233;solution du syst&#232;me ou de l'extinction atmosph&#233;rique, non de la g&#233;om&#233;trie.</p>
+
+<p>Ces deux comportements sont quantitativement distincts, et c'est ce qui rend l'exp&#233;rience possible. Ils ne le sont pas partout&#160;: &#224; courte distance les deux mod&#232;les pr&#233;disent la m&#234;me chose, et il existe des g&#233;om&#233;tries o&#249; l'&#233;cart pr&#233;dit tombe sous l'incertitude de mesure. Le &#167;&#160;28 exige donc que la g&#233;om&#233;trie choisie s&#233;pare les pr&#233;dictions d'une quantit&#233; d&#233;clar&#233;e d'avance.</p>
+
+<p>La r&#233;fraction atmosph&#233;rique intervient dans le mod&#232;le S comme une correction physique r&#233;elle, non comme un param&#232;tre d'ajustement. Elle courbe le rayon vers les indices croissants, donc vers le bas dans une atmosph&#232;re normale, ce qui recule l'horizon et diminue la hauteur occult&#233;e. Son amplitude est born&#233;e par la physique du profil vertical, et le &#167;&#160;11 &#233;tablit ces bornes avant l'observation.</p>
+
+<h2 class="brk"><span class="n">08</span>G&#233;om&#233;trie</h2>
+
+<p>Le rayon rasant est tangent &#224; la surface de r&#233;f&#233;rence en un point unique. La distance entre le pied de l'observateur et le pied de la cible se d&#233;compose en deux arcs&#160;: celui qui s&#233;pare l'observateur du point de tangence, et celui qui s&#233;pare le point de tangence du pied de la cible. Le second correspond exactement &#224; la hauteur occult&#233;e.</p>
+
+<figure>
+<svg viewBox="0 140 700 182" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="fl" markerWidth="7" markerHeight="7" refX="6" refY="3"
+    orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#14608f"/></marker></defs>
+  <path d="M 20 290 A 900 900 0 0 1 680 290" fill="none" stroke="#3d4952"
+    stroke-width="1.7"/>
+  <line x1="120" y1="257.0" x2="120" y2="227.6" stroke="#8f2f2b"
+    stroke-width="1.6"/>
+  <circle cx="120" cy="227.6" r="4" fill="#8f2f2b"/>
+  <text class="t" x="60" y="219">observateur</text>
+  <text class="tm" x="86" y="248">h</text>
+  <line x1="120" y1="227.6" x2="612" y2="227.6" stroke="#14608f"
+    stroke-width="1.6" marker-end="url(#fl)"/>
+  <circle cx="350" cy="227.6" r="3.6" fill="#14608f"/>
+  <text class="tm" x="286" y="221">point de tangence</text>
+  <line x1="560" y1="252.5" x2="560" y2="150" stroke="#96600f"
+    stroke-width="1.8"/>
+  <line x1="560" y1="252.5" x2="560" y2="227.6" stroke="#8f2f2b"
+    stroke-width="4.2"/>
+  <text class="t" x="572" y="152">sommet</text>
+  <text class="t" x="578" y="274">base</text>
+  <text class="tb" x="538" y="244" fill="#8f2f2b">c</text>
+  <text class="tb" x="572" y="196" fill="#96600f">H</text>
+  <text class="t" x="618" y="224" fill="#14608f">rayon rasant</text>
+  <path d="M 120 288 L 350 277" fill="none" stroke="#6c7883" stroke-width=".8"
+    class="dash"/>
+  <path d="M 350 277 L 560 288" fill="none" stroke="#6c7883" stroke-width=".8"
+    class="dash"/>
+  <text class="tm" x="205" y="300">s(h)</text>
+  <text class="tm" x="438" y="302">s(c)</text>
+  <text class="tm" x="316" y="318">D = s(h) + s(c)</text>
+</svg>
+<figcaption>Construction de la hauteur occult&#233;e. Le rayon rasant est
+tangent &#224; la surface au point de tangence, o&#249; la tangente est
+horizontale&#160;; la distance se d&#233;compose en deux arcs, celui de
+l'observateur et celui de la partie cach&#233;e de la cible. La partie de la
+cible situ&#233;e sous le rayon, de hauteur <em>c</em>, n'est pas
+visible.</figcaption>
+</figure>
+
+<p>Cette d&#233;composition est exacte et ne fait aucune approximation de petit angle. Elle vaut pour le mod&#232;le S avec R, et pour le mod&#232;le S avec r&#233;fraction en rempla&#231;ant R par le rayon effectif du &#167;&#160;11. Elle ne s'applique pas au mod&#232;le P, qui ne pr&#233;dit aucune occultation.</p>
+
+<p>Trois grandeurs en d&#233;coulent&#160;: la <strong>distance critique</strong>, &#224; laquelle la base cesse d'&#234;tre visible&#160;; la <strong>distance limite</strong>, &#224; laquelle le sommet cesse de l'&#234;tre&#160;; et entre les deux, la <strong>fraction visible</strong>, qui d&#233;cro&#238;t de 1 &#224; 0. C'est cette d&#233;croissance, et non les deux distances seules, qui porte l'information.</p>
+
+<h2><span class="n">09</span>&#201;quations</h2>
+
+<h3>9.1 Arc de tangence</h3>
+
+<p>Pour une altitude <em>x</em> au-dessus d'une sph&#232;re de rayon R, l'arc au sol entre le pied du point et son point de tangence vaut&#160;:</p>
+
+<div class="eq"><em>s</em>(<em>x</em>) = R &#183; arccos[ R / (R + <em>x</em>) ]<span class="cap">x et R en m&#232;tres&#160;; le r&#233;sultat est un arc mesur&#233; sur la sph&#232;re.</span></div>
+
+<h3>9.2 Distances critiques</h3>
+
+<p>La base de la cible, situ&#233;e &#224; l'altitude <em>z</em><sub>b</sub>, cesse d'&#234;tre visible au-del&#224; de <em>D</em><sub>crit</sub>. Le sommet cesse de l'&#234;tre au-del&#224; de <em>D</em><sub>lim</sub>.</p>
+
+<div class="eq"><em>D</em><sub>crit</sub> = <em>s</em>(<em>h</em>)&#160;&#160;&#160;&#160;<em>D</em><sub>lim</sub> = <em>s</em>(<em>h</em>) + <em>s</em>(<em>z</em><sub>b</sub> + <em>H</em>) &#8722; <em>s</em>(<em>z</em><sub>b</sub>)<span class="cap">pour une base au niveau de la surface, <em>z</em><sub>b</sub>&#160;=&#160;0 et <em>D</em><sub>lim</sub> = <em>s</em>(<em>h</em>) + <em>s</em>(<em>H</em>).</span></div>
+
+<h3>9.3 Hauteur occult&#233;e et fraction visible</h3>
+
+<p>Pour <em>D</em>&#160;&gt;&#160;<em>D</em><sub>crit</sub>, la hauteur occult&#233;e compt&#233;e depuis la base vaut&#160;:</p>
+
+<div class="eq"><em>c</em> = R &#183; { sec[ (<em>D</em> &#8722; <em>s</em>(<em>h</em>) + <em>s</em>(<em>z</em><sub>b</sub>)) / R ] &#8722; 1 } &#8722; <em>z</em><sub>b</sub><span class="cap">l'argument de la s&#233;cante est un angle g&#233;ocentrique, en radians.</span></div>
+
+<div class="eq"><em>f</em> = ( <em>H</em> &#8722; <em>c</em> ) / <em>H</em>, born&#233;e &#224; [0 ; 1]<span class="cap">grandeur compar&#233;e entre mod&#232;les et mesure.</span></div>
+
+<p>Cette forme ferm&#233;e a &#233;t&#233; v&#233;rifi&#233;e contre la r&#233;solution num&#233;rique directe de <em>s</em>(<em>h</em>)&#160;+&#160;<em>s</em>(<em>c</em>)&#160;=&#160;<em>D</em>&#160;: les deux m&#233;thodes co&#239;ncident &#224; mieux d'un microm&#232;tre sur toute la plage utile.</p>
+
+<h3>9.4 Comparaison aux approximations classiques</h3>
+
+<p>L'approximation usuelle remplace l'arc par la corde et d&#233;veloppe la s&#233;cante au premier ordre&#160;:</p>
+
+<div class="eq"><em>c</em> &#8776; ( <em>D</em> &#8722; &#8730;(2R<em>h</em>) )&#178; / (2R)<span class="cap">approximation classique&#160;; &#224; ne pas employer sans avoir born&#233; son erreur.</span></div>
+
+<table>
+  <caption>Tableau&#160;3 &#8212; distance d'horizon selon trois formulations. L'&#233;cart entre l'arc exact et &#8730;(2R<em>h</em>) reste sous 6&#8239;m jusqu'&#224; 800&#8239;m d'altitude, mais atteint 40&#8239;m &#224; 3&#8239;107&#8239;m.</caption>
+  <thead><tr><th class="n">h (m)</th><th class="n">arc exact (m)</th><th class="n">corde (m)</th><th class="n">&#8730;(2Rh) (m)</th><th class="n">arc &#8722; &#8730;(2Rh)</th></tr></thead>
+  <tbody>
+    <tr><td class="n">2</td><td class="n">5&#8239;048,2</td><td class="n">5&#8239;048,2</td><td class="n">5&#8239;048,2</td><td class="n">-0,00</td></tr>
+    <tr><td class="n">100</td><td class="n">35&#8239;695,7</td><td class="n">35&#8239;696,1</td><td class="n">35&#8239;696,0</td><td class="n">-0,23</td></tr>
+    <tr><td class="n">800</td><td class="n">100&#8239;958,1</td><td class="n">100&#8239;966,6</td><td class="n">100&#8239;963,4</td><td class="n">-5,28</td></tr>
+    <tr><td class="n">3&#8239;107</td><td class="n">198&#8239;930,6</td><td class="n">198&#8239;995,2</td><td class="n">198&#8239;971,0</td><td class="n">-40,42</td></tr>
+  </tbody>
+</table>
+
+<table>
+  <caption>Tableau&#160;4 &#8212; hauteur occult&#233;e, exacte contre approch&#233;e, pour <em>h</em>&#160;=&#160;800&#8239;m. L'&#233;cart reste sous 4&#8239;cm, donc n&#233;gligeable devant toute incertitude de mesure&#160;; l'approximation est acceptable ici, et cette conclusion doit &#234;tre rev&#233;rifi&#233;e pour toute autre g&#233;om&#233;trie.</caption>
+  <thead><tr><th class="n">D (km)</th><th class="n">c exact (m)</th><th class="n">c approch&#233; (m)</th><th class="n">&#233;cart (m)</th></tr></thead>
+  <tbody>
+    <tr><td class="n">110,000</td><td class="n">6,416</td><td class="n">6,409</td><td class="n">0,007</td></tr>
+    <tr><td class="n">120,000</td><td class="n">28,457</td><td class="n">28,441</td><td class="n">0,016</td></tr>
+    <tr><td class="n">130,000</td><td class="n">66,193</td><td class="n">66,169</td><td class="n">0,025</td></tr>
+    <tr><td class="n">136,654</td><td class="n">100,001</td><td class="n">99,970</td><td class="n">0,031</td></tr>
+  </tbody>
+</table>
+
+<h3>9.5 Mod&#232;le P</h3>
+
+<p>Le mod&#232;le P pr&#233;dit <em>c</em>&#160;=&#160;0 et <em>f</em>&#160;=&#160;1 pour toute distance. Sa taille angulaire pr&#233;dite vaut <em>H</em>/<em>D</em> en radians, &#224; comparer &#224; la r&#233;solution effective du &#167;&#160;20.</p>
+
+<h2 class="brk"><span class="n">10</span>Exemple num&#233;rique</h2>
+
+<p>Configuration impos&#233;e par le cahier des charges&#160;: observateur &#224; <strong>800&#8239;m</strong> au-dessus du niveau moyen de la mer, cible de <strong>100&#8239;m</strong> de hauteur, base au niveau moyen de la mer (<em>z</em><sub>b</sub>&#160;=&#160;0), ligne de vis&#233;e enti&#232;rement au-dessus de l'eau, <strong>sans r&#233;fraction</strong> (<em>k</em>&#160;=&#160;0), sur une sph&#232;re de rayon R&#160;=&#160;6&#8239;371&#8239;008,8&#8239;m.</p>
+
+<h3>10.1 R&#233;sultats interm&#233;diaires</h3>
+
+<table>
+  <caption>Tableau&#160;5 &#8212; valeurs interm&#233;diaires, avec leurs unit&#233;s. Chacune est recalcul&#233;e &#224; chaque g&#233;n&#233;ration du document.</caption>
+  <thead><tr><th>Grandeur</th><th class="n">Valeur</th><th>Unit&#233;</th></tr></thead>
+  <tbody>
+    <tr><td>R / (R + h)</td><td class="n">0,999874447</td><td>&#8212;</td></tr>
+    <tr><td>arccos[ R / (R + h) ]</td><td class="n">0,015846493</td><td>rad</td></tr>
+    <tr><td><em>s</em>(800&#8239;m)</td><td class="n">100&#8239;958,147</td><td>m</td></tr>
+    <tr><td><em>s</em>(100&#8239;m)</td><td class="n">35&#8239;695,729</td><td>m</td></tr>
+    <tr><td><em>D</em><sub>crit</sub></td><td class="n">100&#8239;958,147</td><td>m</td></tr>
+    <tr><td><em>D</em><sub>lim</sub></td><td class="n">136&#8239;653,876</td><td>m</td></tr>
+    <tr><td>&#8730;(2R&#183;800)</td><td class="n">100&#8239;963,429</td><td>m</td></tr>
+    <tr><td>&#233;cart arc &#8722; &#8730;(2Rh)</td><td class="n">-5,282</td><td>m</td></tr>
+  </tbody>
+</table>
+
+<h3>10.2 R&#233;sultats</h3>
+
+<ol>
+  <li>Distance &#224; l'horizon de l'observateur&#160;: <strong>100,958&#8239;km</strong>. Au-del&#224;, la base de la cible est occult&#233;e.</li>
+  <li>Distance &#224; laquelle le sommet cesse d'&#234;tre g&#233;om&#233;triquement visible&#160;: <strong>136,654&#8239;km</strong>.</li>
+  <li>Distance &#224; laquelle la cible enti&#232;re est occult&#233;e&#160;: la m&#234;me, <strong>136,654&#8239;km</strong>&#160;; au-del&#224; la hauteur occult&#233;e d&#233;passe 100&#8239;m.</li>
+  <li>Hauteur occult&#233;e en fonction de la distance&#160;: tableau&#160;6.</li>
+</ol>
+
+<table>
+  <caption>Tableau&#160;6 &#8212; hauteur occult&#233;e et fraction visible, <em>h</em>&#160;=&#160;800&#8239;m, <em>H</em>&#160;=&#160;100&#8239;m, <em>k</em>&#160;=&#160;0. La colonne &#171;&#160;dichotomie&#160;&#187; est une r&#233;solution num&#233;rique ind&#233;pendante de la formule ferm&#233;e.</caption>
+  <thead><tr><th class="n">D (km)</th><th class="n">c ferm&#233;e (m)</th><th class="n">c dichotomie (m)</th><th class="n">c approch&#233;e (m)</th><th class="n">fraction visible</th></tr></thead>
+  <tbody>
+    <tr><td class="n">50,000</td><td class="n">0,000</td><td class="n">0,000</td><td class="n">0,000</td><td class="n">1,0000</td></tr>
+    <tr><td class="n">100,958</td><td class="n">0,000</td><td class="n">0,000</td><td class="n">0,000</td><td class="n">1,0000</td></tr>
+    <tr><td class="n">110,000</td><td class="n">6,416</td><td class="n">6,416</td><td class="n">6,409</td><td class="n">0,9358</td></tr>
+    <tr><td class="n">120,000</td><td class="n">28,457</td><td class="n">28,457</td><td class="n">28,441</td><td class="n">0,7154</td></tr>
+    <tr><td class="n">130,000</td><td class="n">66,193</td><td class="n">66,193</td><td class="n">66,169</td><td class="n">0,3381</td></tr>
+    <tr class="hi"><td class="n">136,654</td><td class="n">100,001</td><td class="n">100,001</td><td class="n">99,970</td><td class="n">0,0000</td></tr>
+    <tr><td class="n">140,000</td><td class="n">119,627</td><td class="n">119,627</td><td class="n">119,593</td><td class="n">0,0000</td></tr>
+  </tbody>
+</table>
+
+<h3>10.3 V&#233;rification ind&#233;pendante</h3>
+
+<p>Trois m&#233;thodes ont &#233;t&#233; compar&#233;es. La formule ferm&#233;e en s&#233;cante et la r&#233;solution num&#233;rique de <em>s</em>(<em>h</em>)&#160;+&#160;<em>s</em>(<em>c</em>)&#160;=&#160;<em>D</em> co&#239;ncident &#224; mieux d'un microm&#232;tre&#160;: elles expriment la m&#234;me construction, l'une analytiquement, l'autre par bissection, et leur accord ne teste que l'impl&#233;mentation.</p>
+
+<p>L'approximation classique, elle, repose sur deux simplifications distinctes&#160;: la corde remplace l'arc, et la s&#233;cante est d&#233;velopp&#233;e au premier ordre. Les deux erreurs sont de signes oppos&#233;s et se compensent partiellement, ce qui explique un &#233;cart r&#233;siduel de 3,1&#8239;cm seulement &#224; 136,654&#8239;km alors que chaque terme pris s&#233;par&#233;ment vaut plusieurs m&#232;tres. Cette compensation est fortuite&#160;: elle d&#233;pend de la g&#233;om&#233;trie et ne doit pas &#234;tre g&#233;n&#233;ralis&#233;e.</p>
+
+<div class="box warn">
+  <span class="lab">Ce que cet exemple n'&#233;tablit pas</span>
+<p>Ces valeurs sont des <strong>pr&#233;dictions du mod&#232;le S sans r&#233;fraction</strong>, c'est-&#224;-dire d'un cas physiquement irr&#233;alisable&#160;: l'atmosph&#232;re courbe toujours les rayons. Elles servent de borne, pas de pr&#233;vision. La pr&#233;diction r&#233;elle du mod&#232;le S est l'enveloppe du &#167;&#160;11, sensiblement plus favorable &#224; la visibilit&#233;.</p>
+</div>
+
+<h2 class="brk"><span class="n">11</span>R&#233;fraction atmosph&#233;rique</h2>
+
+<h3>11.1 Coefficient et rayon effectif</h3>
+
+<p>Le coefficient de r&#233;fraction <em>k</em> est le rapport de la courbure du rayon &#224; celle de la surface. Dans une atmosph&#232;re &#224; gradient d'indice constant, tout le &#167;&#160;9 reste valable en rempla&#231;ant R par le rayon effectif&#160;:</p>
+
+<div class="eq">R<sub>eff</sub> = R / (1 &#8722; <em>k</em>)<span class="cap">valable pour k &lt; 1. Pour k &#8805; 1 le rayon ne s'&#233;l&#232;ve plus au-dessus de la surface et la construction du &#167;&#160;8 ne s'applique plus.</span></div>
+
+<h3>11.2 Du gradient thermique au coefficient</h3>
+
+<p>Pour la lumi&#232;re visible, la r&#233;fractivit&#233; de l'air vaut sensiblement <em>n</em>&#160;&#8722;&#160;1&#160;=&#160;79&#215;10&#8315;&#8310;&#160;<em>P</em>/<em>T</em> avec <em>P</em> en hPa et <em>T</em> en K. En combinant avec l'&#233;quilibre hydrostatique d<em>P</em>/d<em>h</em>&#160;=&#160;&#8722;<em>Pg</em>/(<em>R</em><sub>d</sub><em>T</em>), on obtient&#160;:</p>
+
+<div class="eq"><em>k</em> = 503,3 &#183; (<em>P</em>/<em>T</em>&#178;) &#183; ( 0,0342 + d<em>T</em>/d<em>h</em> )<span class="cap">P en hPa, T en K, dT/dh en K/m. La constante est R&#183;79&#215;10&#8315;&#8310; et le terme 0,0342&#8239;K/m est g/R<sub>d</sub>, le gradient autoconvectif.</span></div>
+
+<table>
+  <caption>Tableau&#160;7 &#8212; correspondance gradient-coefficient &#224; 1&#8239;013,25&#8239;hPa et 288,15&#8239;K. Le gradient autoconvectif annule <em>k</em>&#160;; le seuil de conduit optique est en gras.</caption>
+  <thead><tr><th class="n">d<em>T</em>/d<em>h</em> (K/km)</th><th class="n"><em>k</em></th></tr></thead>
+  <tbody>
+    <tr><td class="n">-34,16</td><td class="n">0,0000</td></tr>
+    <tr><td class="n">-13,00</td><td class="n">0,1300</td></tr>
+    <tr><td class="n">-6,50</td><td class="n">0,1699</td></tr>
+    <tr><td class="n">0,00</td><td class="n">0,2098</td></tr>
+    <tr><td class="n">25,00</td><td class="n">0,3634</td></tr>
+    <tr><td class="n">50,00</td><td class="n">0,5169</td></tr>
+    <tr><td class="n">100,00</td><td class="n">0,8240</td></tr>
+    <tr class="hi"><td class="n">128,65</td><td class="n">1,0000</td></tr>
+  </tbody>
+</table>
+
+<h3>11.3 Les six r&#233;gimes</h3>
+
+<table>
+  <caption>Tableau&#160;8 &#8212; r&#233;gimes de r&#233;fraction et conditions physiques correspondantes.</caption>
+  <thead><tr><th>R&#233;gime</th><th class="n"><em>k</em></th><th>Conditions physiques</th></tr></thead>
+  <tbody>
+    <tr><td>Aucune r&#233;fraction</td><td class="n">k = 0</td><td>cas de r&#233;f&#233;rence th&#233;orique, physiquement irr&#233;alisable dans l'atmosph&#232;re&#160;; correspond au gradient autoconvectif &#8722;3,42&#8239;K/100&#8239;m</td></tr>
+    <tr><td>R&#233;fraction standard</td><td class="n">k &#8776; 0,13 &#224; 0,17</td><td>gradient de &#8722;13 &#224; &#8722;6,5&#8239;K/km&#160;; atmosph&#232;re bien m&#233;lang&#233;e, cas courant de jour au-dessus de la terre</td></tr>
+    <tr><td>R&#233;fraction forte</td><td class="n">k &#8776; 0,20 &#224; 0,40</td><td>air isotherme ou l&#233;g&#232;re inversion&#160;: gradient de 0 &#224; +25&#8239;K/km&#160;; fr&#233;quent au-dessus d'une mer plus froide que l'air</td></tr>
+    <tr><td>R&#233;fraction tr&#232;s forte</td><td class="n">k &#8776; 0,40 &#224; 0,80</td><td>inversion marqu&#233;e, gradient de +25 &#224; +100&#8239;K/km sur la couche travers&#233;e&#160;; physiquement admissible, &#224; documenter</td></tr>
+    <tr><td>Inversion et mirage sup&#233;rieur</td><td class="n">k &#8776; 0,80 &#224; 1</td><td>inversion intense&#160;; images renvers&#233;es au-dessus de l'objet, d&#233;formation verticale mesurable</td></tr>
+    <tr><td>Conduit optique</td><td class="n">k &#8805; 1</td><td>exige un gradient d'au moins +12,9&#8239;K/100&#8239;m soutenu sur la couche o&#249; passe le rayon&#160;; le rayon &#233;pouse ou d&#233;passe la courbure de la surface</td></tr>
+  </tbody>
+</table>
+
+<h3>11.4 Conduit optique et conduit radio&#160;: ne pas confondre</h3>
+
+<p>Le conduit d'&#233;vaporation marin, abondamment document&#233; en propagation radio&#233;lectrique, est pilot&#233; par le gradient d'humidit&#233;. Le terme humide de la r&#233;fractivit&#233; vaut environ 3,73&#215;10&#8309;&#160;<em>e</em>/<em>T</em>&#178; en radio, soit <strong>+89,8&#8239;N</strong> &#224; <em>e</em>&#160;=&#160;20&#8239;hPa et <em>T</em>&#160;=&#160;288&#8239;K, contre environ &#8722;11,3&#160;<em>e</em>/<em>T</em> en optique, soit <strong>-0,78&#8239;N</strong>&#160;: un rapport de <strong>115</strong> en valeur absolue, et de signe oppos&#233;.</p>
+
+<p>Un conduit optique ne peut donc pas &#234;tre produit par l'humidit&#233;&#160;: il exige une inversion thermique d'au moins <strong>+12,9&#8239;K/100&#8239;m</strong> soutenue sur la couche travers&#233;e. Invoquer un conduit d'&#233;vaporation pour expliquer une observation optique est une erreur de domaine, et le protocole la refuse.</p>
+
+<h3>11.5 Le profil ne se moyenne pas</h3>
+
+<p>Le rayon rasant passe l'essentiel de son trajet &#224; faible pente pr&#232;s de la surface. Une couche basse anormale y p&#232;se donc bien plus que sa part en hauteur. Un tra&#231;age de rayon par quadrature dans un profil &#224; deux couches &#8212; <em>k</em>&#160;=&#160;0,80 sous 60&#8239;m, <em>k</em>&#160;=&#160;0,13 au-dessus &#8212; donne un comportement identique &#224; celui d'un <em>k</em> homog&#232;ne de <strong>0,563</strong>, alors que la moyenne pond&#233;r&#233;e en hauteur vaut 0,180.</p>
+
+<div class="box key">
+  <span class="lab">Cons&#233;quence op&#233;ratoire</span>
+<p>Un coefficient moyen, une valeur de manuel ou une climatologie ne suffisent pas. Ce qui est exig&#233; est le profil vertical <em>r&#233;solu dans les premi&#232;res dizaines de m&#232;tres au-dessus de l'eau</em> (&#167;&#160;21). &#192; d&#233;faut, l'incertitude report&#233;e doit couvrir l'&#233;cart entre les deux traitements, soit ici un facteur trois sur <em>k</em>.</p>
+</div>
+
+<h3>11.6 Validation du rayon effectif par tra&#231;age de rayon</h3>
+
+<p>L'approximation du rayon effectif a &#233;t&#233; compar&#233;e &#224; une int&#233;gration exacte de l'invariant de Bouguer <em>n</em>(<em>r</em>)&#183;<em>r</em>&#183;sin&#160;<em>z</em>&#160;=&#160;cte dans un profil d'indice lin&#233;aire.</p>
+
+<table>
+  <caption>Tableau&#160;9 &#8212; arc au sol entre le point rasant et 800&#8239;m d'altitude. L'accord sub-m&#233;trique valide l'emploi de R<sub>eff</sub> pour k&#160;&#8804;&#160;0,5. Au-del&#224;, l'&#233;cart cro&#238;t et le tra&#231;age devient obligatoire.</caption>
+  <thead><tr><th class="n"><em>k</em></th><th class="n">tra&#231;age (m)</th><th class="n">R<sub>eff</sub> (m)</th><th class="n">&#233;cart (m)</th></tr></thead>
+  <tbody>
+    <tr><td class="n">0,00</td><td class="n">100&#8239;957,99</td><td class="n">100&#8239;958,15</td><td class="n">-0,162</td></tr>
+    <tr><td class="n">0,13</td><td class="n">108&#8239;238,82</td><td class="n">108&#8239;239,23</td><td class="n">-0,411</td></tr>
+    <tr><td class="n">0,25</td><td class="n">116&#8239;577,36</td><td class="n">116&#8239;577,95</td><td class="n">-0,591</td></tr>
+    <tr><td class="n">0,50</td><td class="n">142&#8239;779,89</td><td class="n">142&#8239;780,12</td><td class="n">-0,229</td></tr>
+  </tbody>
+</table>
+
+<h3>11.7 Interdiction d'ajustement</h3>
+
+<p>La valeur de <em>k</em> retenue, ou l'intervalle retenu, est d&#233;pos&#233;e avant l'analyse et justifi&#233;e par les donn&#233;es atmosph&#233;riques du &#167;&#160;21. Une r&#233;fraction plus forte ne peut jamais &#234;tre introduite apr&#232;s coup pour rendre compte d'un &#233;cart constat&#233;, dans un sens comme dans l'autre. Si les donn&#233;es ne permettent pas de borner <em>k</em>, l'observation est class&#233;e ind&#233;termin&#233;e (&#167;&#160;28), et non expliqu&#233;e.</p>
+
+<h2><span class="n">12</span>G&#233;od&#233;sie</h2>
+
+<h3>12.1 Syst&#232;mes de r&#233;f&#233;rence</h3>
+
+<p>Toutes les positions sont exprim&#233;es dans un rep&#232;re d&#233;clar&#233;, avec son &#233;poque. Le rapport nomme explicitement le syst&#232;me, le mod&#232;le de g&#233;o&#239;de, la r&#233;f&#233;rence verticale et, le cas &#233;ch&#233;ant, la transformation appliqu&#233;e entre deux syst&#232;mes.</p>
+
+<p>Il faut distinguer trois surfaces qui ne co&#239;ncident pas&#160;: l'<strong>ellipso&#239;de</strong>, sur lequel se calcule la g&#233;od&#233;sique&#160;; le <strong>g&#233;o&#239;de</strong>, auquel se rapportent les altitudes&#160;; et la <strong>sph&#232;re de r&#233;f&#233;rence</strong> du &#167;&#160;9, qui est une commodit&#233; de calcul. L'&#233;cart entre g&#233;o&#239;de et ellipso&#239;de atteint plusieurs dizaines de m&#232;tres et affecte directement <em>h</em> et <em>z</em><sub>b</sub>&#160;: le confondre avec z&#233;ro est une erreur de plusieurs dizaines de m&#232;tres sur l'altitude, donc de plusieurs m&#232;tres sur la hauteur occult&#233;e.</p>
+
+<h3>12.2 Sph&#232;re ou ellipso&#239;de</h3>
+
+<p>La sph&#232;re de rayon R<sub>1</sub>&#160;=&#160;(2<em>a</em>&#160;+&#160;<em>b</em>)/3&#160;=&#160;6&#8239;371&#8239;008,8&#8239;m est une approximation. Le rayon de courbure r&#233;el de l'ellipso&#239;de d&#233;pend de la latitude et de l'azimut de la vis&#233;e&#160;; il varie du rayon m&#233;ridien &#224; la grande normale, soit environ 6&#8239;335&#8239;km &#224; 6&#8239;378&#8239;km.</p>
+
+<p>Le protocole exige donc, pour chaque observation, le <strong>rayon de courbure normal &#224; l'azimut de la vis&#233;e</strong> (rayon d'Euler) calcul&#233; &#224; la latitude du trajet, et non R<sub>1</sub>. La diff&#233;rence est quantifi&#233;e au rapport&#160;: substituer R<sub>1</sub> au rayon d'Euler peut changer la hauteur occult&#233;e de plusieurs pour cent, ce qui est sup&#233;rieur &#224; l'erreur de l'approximation corde-contre-arc du &#167;&#160;9.4.</p>
+
+<h3>12.3 Sources et pr&#233;cisions</h3>
+
+<table>
+  <caption>Tableau&#160;10 &#8212; postes g&#233;od&#233;siques, sources admises et pr&#233;cisions typiques. Les valeurs de la derni&#232;re colonne sont indicatives&#160;: chaque observation reporte l'incertitude r&#233;elle de sa propre source.</caption>
+  <thead><tr><th>Poste</th><th>Source admise</th><th>R&#233;f&#233;rentiel</th><th class="n">Incertitude typique</th></tr></thead>
+  <tbody>
+    <tr><td>Position horizontale de l'observateur</td><td>r&#233;cepteur GNSS bi-fr&#233;quence en post-traitement, ou positionnement sur un point g&#233;od&#233;sique publi&#233;</td><td>ITRF / ETRS89</td><td class="n">&#177;&#160;0,1 &#224; 5&#8239;m</td></tr>
+    <tr><td>Altitude de l'observateur</td><td>hauteur ellipso&#239;dale GNSS convertie en altitude par un mod&#232;le de g&#233;o&#239;de publi&#233;, plus la hauteur mesur&#233;e de l'axe optique au-dessus du sol</td><td>ellipso&#239;de GRS&#8239;80 &#8594; g&#233;o&#239;de</td><td class="n">&#177;&#160;0,3 &#224; 2&#8239;m</td></tr>
+    <tr><td>Position de la cible</td><td>fiche officielle de l'ouvrage, relev&#233; g&#233;od&#233;sique, base cartographique nationale&#160;; pour un navire, position horodat&#233;e d'un registre</td><td>ITRF / syst&#232;me national</td><td class="n">&#177;&#160;1 &#224; 50&#8239;m</td></tr>
+    <tr><td>Altitude de la base de la cible</td><td>mod&#232;le num&#233;rique de terrain officiel&#160;; pour un ouvrage c&#244;tier ou un navire, niveau d'eau &#224; l'heure exacte, corrig&#233; de la mar&#233;e et du z&#233;ro hydrographique</td><td>altitude normale ou orthom&#233;trique</td><td class="n">&#177;&#160;0,2 &#224; 2&#8239;m</td></tr>
+    <tr><td>Hauteur de la cible</td><td>plan cot&#233;, fiche technique du constructeur, liste officielle de feux, sp&#233;cification de navire&#160;; jamais d&#233;duite de la photographie</td><td>&#8212;</td><td class="n">&#177;&#160;0,1 &#224; 1&#8239;m</td></tr>
+    <tr><td>Distance</td><td>g&#233;od&#233;sique sur l'ellipso&#239;de calcul&#233;e par un algorithme publi&#233; et v&#233;rifiable</td><td>GRS&#8239;80 / WGS&#8239;84</td><td class="n">&#177;&#160;quelques m&#232;tres</td></tr>
+    <tr><td>Azimut</td><td>azimut g&#233;od&#233;sique direct issu du m&#234;me calcul</td><td>GRS&#8239;80 / WGS&#8239;84</td><td class="n">&#177;&#160;0,01&#176;</td></tr>
+    <tr><td>Profil interm&#233;diaire</td><td>&#233;chantillonnage du mod&#232;le de terrain et de la bathym&#233;trie le long de la g&#233;od&#233;sique, au pas de 500&#8239;m au plus</td><td>id.</td><td class="n">&#177;&#160;2 &#224; 10&#8239;m</td></tr>
+  </tbody>
+</table>
+
+<h3>12.4 R&#232;gle d'ind&#233;pendance</h3>
+
+<p>Aucune de ces grandeurs n'est d&#233;duite de la photographie analys&#233;e. En particulier, la hauteur de la cible ne peut pas &#234;tre estim&#233;e depuis l'image lorsque cette m&#234;me hauteur sert ensuite &#224; juger l'image&#160;: le raisonnement serait circulaire et le r&#233;sultat automatiquement compatible.</p>
+
+<h2><span class="n">13</span>Mat&#233;riel</h2>
+
+<p>Le protocole ne prescrit ni marque ni mod&#232;le. Il fixe des caract&#233;ristiques minimales, et toute configuration qui les atteint est recevable.</p>
+
+<h3>13.1 Caract&#233;ristiques minimales</h3>
+
+<ul>
+  <li><strong>Enregistrement brut.</strong> L'appareil produit un fichier natif non compress&#233; avec pertes, ou &#224; d&#233;faut un fichier compress&#233; dont les m&#233;tadonn&#233;es sont compl&#232;tes. Le fichier brut est pr&#233;f&#233;r&#233; parce qu'il n'a subi ni accentuation ni r&#233;duction de bruit.</li>
+  <li><strong>R&#233;solution angulaire.</strong> La cha&#238;ne optique doit r&#233;soudre la caract&#233;ristique mesur&#233;e au sens du &#167;&#160;20&#160;; c'est un crit&#232;re sur le r&#233;sultat, pas sur le mat&#233;riel.</li>
+  <li><strong>Support.</strong> Tr&#233;pied stable et lest&#233;, colonne rentr&#233;e, rotule bloqu&#233;e, sur sol ferme. Stabilisation d&#233;sactiv&#233;e.</li>
+  <li><strong>D&#233;clenchement.</strong> Sans contact&#160;: retardateur d'au moins deux secondes, ou commande &#224; distance.</li>
+  <li><strong>Mise au point.</strong> Manuelle, &#224; l'infini, affin&#233;e en vis&#233;e agrandie sur la cible elle-m&#234;me. La mise au point automatique est d&#233;sactiv&#233;e&#160;: elle d&#233;rive d'une vue &#224; l'autre.</li>
+  <li><strong>Exposition.</strong> Fixe pour toute la s&#233;rie, r&#233;gl&#233;e pour qu'aucun pixel de la cible ne soit satur&#233;. Sensibilit&#233; la plus basse compatible avec un temps de pose court.</li>
+  <li><strong>Horloge.</strong> R&#233;gl&#233;e sur le temps universel &#224; mieux que 5&#8239;s, et v&#233;rifi&#233;e juste avant la s&#233;rie.</li>
+  <li><strong>Position.</strong> R&#233;cepteur GNSS enregistrant la position et l'incertitude annonc&#233;e&#160;; un point g&#233;od&#233;sique publi&#233; vaut mieux.</li>
+  <li><strong>Mesure de la hauteur d'&#339;il.</strong> M&#232;tre ruban, du sol ou du plan d'eau &#224; l'axe optique, photographi&#233;.</li>
+</ul>
+
+<h3>13.2 Mat&#233;riel compl&#233;mentaire recommand&#233;</h3>
+
+<ul>
+  <li>Thermom&#232;tres &#224; au moins deux hauteurs au point de vue, et thermom&#232;tre de surface pour l'eau si accessible.</li>
+  <li>Barom&#232;tre et hygrom&#232;tre &#233;talonn&#233;s.</li>
+  <li>Mire ou cible de r&#233;solution photographi&#233;e &#224; distance connue, pour le contr&#244;le du &#167;&#160;24.</li>
+</ul>
+
+<h2><span class="n">14</span>Photographie</h2>
+
+<h3>14.1 S&#233;rie</h3>
+
+<p>Chaque observation est une <strong>s&#233;rie</strong>, jamais une vue isol&#233;e. Au moins vingt vues cons&#233;cutives de la m&#234;me vis&#233;e sont enregistr&#233;es sans toucher &#224; la mise au point, au cadrage ni au grossissement. Toutes sont remises&#160;; aucune n'est &#233;cart&#233;e par l'op&#233;rateur.</p>
+
+<p>La s&#233;rie sert &#224; trois choses&#160;: estimer la dispersion due &#224; la turbulence, rechercher les signatures atmosph&#233;riques du &#167;&#160;19, et permettre une s&#233;lection des vues les plus nettes selon un crit&#232;re d&#233;clar&#233; d'avance et appliqu&#233; automatiquement.</p>
+
+<h3>14.2 Vues de contexte</h3>
+
+<ul>
+  <li>Une vue grand-angle depuis la m&#234;me position, montrant les rep&#232;res proches.</li>
+  <li>Une vue de la mire de r&#233;solution, si elle est disponible.</li>
+  <li>Une photographie du m&#232;tre mesurant la hauteur de l'axe optique.</li>
+  <li>Une vue de l'horizon dans la m&#234;me direction, &#224; la m&#234;me focale, pour la r&#233;f&#233;rence angulaire du &#167;&#160;19.</li>
+</ul>
+
+<h3>14.3 R&#233;p&#233;tition</h3>
+
+<p>La m&#234;me vis&#233;e est reprise &#224; au moins deux moments s&#233;par&#233;s de plusieurs heures, et si possible &#224; deux dates. Un &#233;cart syst&#233;matique entre les deux moments signale un effet atmosph&#233;rique&#160;; un &#233;cart nul sur des conditions diff&#233;rentes renforce la mesure.</p>
+
+<h2><span class="n">15</span>Grossissement</h2>
+
+<h3>15.1 Principe</h3>
+
+<p>Un fort grossissement est <strong>autoris&#233;</strong>, y compris num&#233;rique. Une photographie n'est jamais irrecevable au seul motif qu'un zoom important a &#233;t&#233; employ&#233;.</p>
+
+<p>Le grossissement ne modifie ni la distance entre l'observateur et la cible, ni la g&#233;om&#233;trie du terrain, ni la trajectoire physique des rayons lumineux. Il ne peut pas rendre visible une partie d'objet r&#233;ellement occult&#233;e par la surface. Il rend la cible assez grande sur le capteur pour &#234;tre mesur&#233;e, et c'est &#224; cela qu'il sert&#160;: &#224; 100&#8239;km, une hauteur de 20&#8239;m ne sous-tend que 41,3 secondes d'arc.</p>
+
+<div class="box warn">
+  <span class="lab">L'inf&#233;rence inverse est fausse</span>
+<p>Ne pas distinguer un objet sans zoom n'&#233;tablit <em>pas</em> qu'il est occult&#233;. Un objet peut &#234;tre non r&#233;solu, ou trop peu contrast&#233;, tout en &#233;tant g&#233;om&#233;triquement visible. Confondre &#171;&#160;je ne le distinguais pas&#160;&#187; et &#171;&#160;il &#233;tait occult&#233;&#160;&#187; est l'erreur la plus courante du domaine, et le &#167;&#160;20 la traite explicitement.</p>
+</div>
+
+<h3>15.2 Quatre op&#233;rations &#224; distinguer</h3>
+
+<ul>
+  <li><strong>Focale optique r&#233;elle</strong> &#8212; seule grandeur qui d&#233;termine l'&#233;chelle angulaire du syst&#232;me.</li>
+  <li><strong>Zoom optique</strong> &#8212; variation de la focale r&#233;elle&#160;; ajoute de l'information.</li>
+  <li><strong>Zoom num&#233;rique et recadrage interne</strong> &#8212; s&#233;lection d'une partie du capteur, avec ou sans r&#233;&#233;chantillonnage&#160;; n'ajoute aucune information, et n'en retire pas non plus tant que le r&#233;&#233;chantillonnage reste interpolant.</li>
+  <li><strong>Traitement computationnel</strong> &#8212; fusion de plusieurs vues, r&#233;duction de bruit, accentuation, reconnaissance de sujet&#160;; peut cr&#233;er ou d&#233;placer de l'information.</li>
+</ul>
+
+<h3>15.3 Ligne de partage</h3>
+
+<p><strong>Agrandir</strong> une information d&#233;j&#224; enregistr&#233;e est acceptable&#160;: interpolation bilin&#233;aire ou bicubique, affichage agrandi, recadrage. Ces op&#233;rations ne cr&#233;ent aucun d&#233;tail et se d&#233;font.</p>
+
+<p><strong>Reconstruire</strong> une information qui n'a pas &#233;t&#233; enregistr&#233;e est exclu de la mesure&#160;: synth&#232;se g&#233;n&#233;rative, sur-r&#233;solution apprise, rehaussement de sujet, accentuation agressive, fusion inventant une structure absente des vues individuelles. Les zones concern&#233;es ne sont pas mesur&#233;es.</p>
+
+<h3>15.4 Ce qui doit &#234;tre document&#233;</h3>
+
+<ul>
+  <li>focale optique r&#233;elle et focale &#233;quivalente&#160;;</li>
+  <li>facteur de grossissement employ&#233; et sa part optique contre num&#233;rique&#160;;</li>
+  <li>r&#233;solution native du capteur, en pixels et en pas de photosite&#160;;</li>
+  <li>r&#233;solution du fichier final&#160;;</li>
+  <li>recadrage effectu&#233; par l'appareil avant l'enregistrement&#160;;</li>
+  <li>traitements computationnels actifs&#160;;</li>
+  <li>toute autre &#233;tape entre la sc&#232;ne et le fichier.</li>
+</ul>
+
+<p>Une information indisponible est d&#233;clar&#233;e indisponible, jamais estim&#233;e. Le crit&#232;re d'acceptation n'est pas &#171;&#160;grossissement autoris&#233; ou interdit&#160;&#187;&#160;: c'est <strong>l'information est-elle assez document&#233;e et assez exploitable pour permettre une mesure fiable&#160;?</strong></p>
+
+<h2 class="brk"><span class="n">16</span>Acquisition</h2>
+
+<p>L'acquisition et l'analyse sont s&#233;par&#233;es. Au moment du d&#233;clenchement, l'op&#233;rateur n'a besoin de conna&#238;tre ni la distance exacte, ni la hauteur de la cible, ni la pr&#233;diction attendue. Cette s&#233;paration n'est pas une commodit&#233;&#160;: elle emp&#234;che le r&#233;glage de la prise de vue en fonction du r&#233;sultat esp&#233;r&#233;.</p>
+
+<h3>16.1 Ce qui est consign&#233; sur place</h3>
+
+<ul>
+  <li>date et heure en temps universel, et &#233;cart mesur&#233; de l'horloge&#160;;</li>
+  <li>position GNSS et incertitude annonc&#233;e par le r&#233;cepteur&#160;;</li>
+  <li>altitude du point de vue et hauteur de l'axe optique au-dessus du sol ou de l'eau&#160;;</li>
+  <li>orientation approch&#233;e de la vis&#233;e&#160;;</li>
+  <li>bo&#238;tier, objectif, focale r&#233;elle, ouverture, temps de pose, sensibilit&#233;, format&#160;;</li>
+  <li>grossissement employ&#233; et sa nature&#160;;</li>
+  <li>temp&#233;rature de l'air &#224; deux hauteurs si possible, temp&#233;rature de l'eau, pression, humidit&#233;&#160;;</li>
+  <li>&#233;tat du ciel, visibilit&#233; estim&#233;e, &#233;tat de la mer&#160;;</li>
+  <li>ce qui est vis&#233;, en une phrase.</li>
+</ul>
+
+<h3>16.2 Ce qui n'est pas fait sur place</h3>
+
+<p>Aucun calcul, aucune comparaison, aucune conclusion. L'op&#233;rateur ne consulte pas la pr&#233;diction avant la fin de la s&#233;rie. S'il la conna&#238;t d&#233;j&#224;, il le d&#233;clare, et la mesure du &#167;&#160;19 est alors conduite par un analyste qui l'ignore.</p>
+
+<h3>16.3 Acquisition a posteriori</h3>
+
+<p>Une photographie prise sans intention exp&#233;rimentale reste recevable si le fichier d'origine existe, si son authenticit&#233; peut &#234;tre &#233;tablie, si la cible est identifiable, si la position de l'observateur est d&#233;terminable et si les param&#232;tres du &#167;&#160;12 sont &#233;tablissables aux pr&#233;cisions vis&#233;es. Les donn&#233;es manquantes sont d&#233;clar&#233;es manquantes, et leur absence est report&#233;e dans l'incertitude.</p>
+
+<p>Une donn&#233;e reconstruite a posteriori n'est jamais pr&#233;sent&#233;e comme une mesure directe effectu&#233;e lors de la photographie. Le &#167;&#160;21 en fixe les classes.</p>
+
+<h2><span class="n">17</span>Conservation des donn&#233;es</h2>
+
+<h3>17.1 Int&#233;grit&#233;</h3>
+
+<ul>
+  <li>Les fichiers d'origine sont conserv&#233;s tels qu'ils sortent de l'appareil. Ils ne sont jamais ouverts en &#233;criture.</li>
+  <li>L'empreinte SHA-256 de chaque fichier est calcul&#233;e d&#232;s le transfert, avant toute autre op&#233;ration, et consign&#233;e avec la date.</li>
+  <li>L'empreinte est d&#233;pos&#233;e le jour m&#234;me aupr&#232;s d'un tiers qui la date. &#192; d&#233;faut, la date de calcul n'est qu'une d&#233;claration de l'op&#233;rateur, et le rapport le dit.</li>
+  <li>Toute manipulation se fait sur une copie, et la liste des op&#233;rations appliqu&#233;es &#224; cette copie est jointe.</li>
+</ul>
+
+<div class="box warn">
+  <span class="lab">Ce que l'empreinte prouve, et ce qu'elle ne prouve pas</span>
+<p>Elle &#233;tablit que le fichier n'a pas chang&#233; depuis sa d&#233;claration. Elle n'&#233;tablit ni qu'il sort d'un appareil, ni la date de la prise de vue. Les m&#233;tadonn&#233;es EXIF s'&#233;crivent&#160;: elles documentent la cha&#238;ne, elles ne prouvent pas l'origine. L'authenticit&#233; repose sur les concordances externes du &#167;&#160;24.</p>
+</div>
+
+<h3>17.2 Traitements admis</h3>
+
+<p>Sont admis, sur la copie, les traitements qui ne d&#233;placent aucun pixel et n'en cr&#233;ent aucun&#160;: r&#233;glage d'affichage du contraste et de la luminosit&#233;, conversion lin&#233;aire du fichier brut sans accentuation ni r&#233;duction de bruit, agrandissement par interpolation d&#233;clar&#233;e, recadrage d&#233;clar&#233; dont les coordonn&#233;es d'origine sont conserv&#233;es.</p>
+
+<p>Sont exclus de la mesure&#160;: la synth&#232;se g&#233;n&#233;rative, la sur-r&#233;solution apprise, la reconstruction de d&#233;tail, l'interpolation cr&#233;atrice, l'accentuation agressive, la r&#233;duction de bruit non&#8209;lin&#233;aire, et toute fusion multi-vues qui produit une structure absente des vues individuelles.</p>
+
+<h3>17.3 Archivage</h3>
+
+<p>La structure d'archivage est fix&#233;e au &#167;&#160;34. L'ensemble &#8212; fichiers d'origine, empreintes, fiche d'observation, donn&#233;es externes, code de calcul, rapport &#8212; est publi&#233; sous une licence permettant la reprise, de fa&#231;on qu'un tiers puisse refaire l'analyse depuis les fichiers d'origine.</p>
+
+<h2><span class="n">18</span>Validation des images</h2>
+
+<p>Les crit&#232;res ci-dessous sont fix&#233;s et d&#233;pos&#233;s <strong>avant</strong> l'examen des r&#233;sultats, et appliqu&#233;s par un op&#233;rateur qui ignore la pr&#233;diction. Ils ne portent que sur la qualit&#233; de l'image, jamais sur ce qu'elle montre.</p>
+
+<table>
+  <caption>Tableau&#160;11 &#8212; grille de validation. Une image est <em>valide</em> si tous les postes sont en colonne&#160;1, <em>valide avec r&#233;serves</em> si aucun n'est en colonne&#160;3, <em>non valide</em> d&#232;s qu'un poste est en colonne&#160;3.</caption>
+  <thead><tr><th>Poste</th><th>Valide</th><th>Valide avec r&#233;serves</th><th>Non valide</th></tr></thead>
+  <tbody>
+    <tr><td>Mise au point</td><td>bord franc de r&#233;f&#233;rence dont la largeur de transition est &#224; moins de 1,5&#215; le minimum de la s&#233;rie</td><td>entre 1,5 et 3&#215;</td><td>au-del&#224; de 3&#215;</td></tr>
+    <tr><td>Flou de boug&#233;</td><td>aucun allongement directionnel d&#233;tectable sur une source ponctuelle</td><td>allongement &#8804;&#160;2 pixels</td><td>allongement &gt;&#160;2 pixels</td></tr>
+    <tr><td>Turbulence</td><td>dispersion de la position du bord sur la s&#233;rie &#8804;&#160;1 pixel</td><td>&#8804;&#160;3 pixels</td><td>&gt;&#160;3 pixels</td></tr>
+    <tr><td>Exposition</td><td>aucun pixel satur&#233; ni &#233;cr&#234;t&#233; sur la cible et son fond imm&#233;diat</td><td>saturation hors zone mesur&#233;e</td><td>saturation dans la zone mesur&#233;e</td></tr>
+    <tr><td>Contraste</td><td>&#233;cart cible-fond &#8805;&#160;10&#215; l'&#233;cart-type du bruit local</td><td>entre 3 et 10&#215;</td><td>&lt;&#160;3&#215;</td></tr>
+    <tr><td>Artefacts</td><td>aucun artefact de compression, de capteur ou de traitement dans la zone mesur&#233;e</td><td>artefacts hors zone</td><td>artefacts dans la zone</td></tr>
+    <tr><td>Distorsion</td><td>r&#233;siduel de distorsion &lt;&#160;1 pixel apr&#232;s &#233;talonnage du couple bo&#238;tier-objectif</td><td>entre 1 et 3 pixels</td><td>&gt;&#160;3 pixels ou non &#233;talonn&#233;</td></tr>
+    <tr><td>Occultation parasite</td><td>aucune&#160;: toute occultation visible est identifi&#233;e et attribu&#233;e</td><td>occultation hors zone mesur&#233;e</td><td>occultation de cause ind&#233;termin&#233;e</td></tr>
+  </tbody>
+</table>
+
+<p>Une image <em>valide avec r&#233;serves</em> entre dans l'analyse avec une incertitude de mesure major&#233;e d'un facteur d&#233;clar&#233; d'avance. Une image <em>non valide</em> est exclue, et son exclusion est publi&#233;e&#160;: le taux d'exclusion fait partie du r&#233;sultat.</p>
+
+<div class="box key">
+  <span class="lab">Contre le tri d'apr&#232;s le r&#233;sultat</span>
+<p>Le classement est fait avant toute mesure de la fraction visible, par une personne qui ne conna&#238;t ni la pr&#233;diction ni la distance. Le journal de classement est horodat&#233; et joint au dossier. Un classement post&#233;rieur &#224; la mesure est irrecevable.</p>
+</div>
+
+<h2><span class="n">19</span>Analyse des images</h2>
+
+<h3>19.1 &#201;chelle m&#233;trique</h3>
+
+<p>L'&#233;chelle se d&#233;termine de deux fa&#231;ons ind&#233;pendantes, et les deux sont report&#233;es&#160;: &#224; partir de la focale r&#233;elle et du pas de photosite d'une part&#160;; &#224; partir de deux parties pertinentes de la cible dont l'altitude est connue d'autre part. Un &#233;cart sup&#233;rieur &#224; 2&#8239;% entre les deux invalide la focale d&#233;clar&#233;e, non les rep&#232;res.</p>
+
+<h3>19.2 Grandeurs mesur&#233;es</h3>
+
+<ul>
+  <li>position apparente du sommet de la cible, en pixels&#160;;</li>
+  <li>position apparente de la limite inf&#233;rieure visible, en pixels&#160;;</li>
+  <li>hauteur visible, en m&#232;tres, par conversion&#160;;</li>
+  <li>hauteur occult&#233;e, par diff&#233;rence avec la hauteur totale &#233;tablie au &#167;&#160;12&#160;;</li>
+  <li>fraction visible <em>f</em>, avec son incertitude&#160;;</li>
+  <li>rapports de hauteur entre au moins trois &#233;l&#233;ments de cote connue, pour le test de d&#233;formation verticale.</li>
+</ul>
+
+<h3>19.3 Bord mesurable</h3>
+
+<p>Un bord n'est mesurable que s'il est une discontinuit&#233; r&#233;solue. Si la transition entre l'objet et son fond s'&#233;tend sur plus de trois fois la structure r&#233;solue du &#167;&#160;20, ce n'est pas un bord mais un d&#233;grad&#233;, et sa position n'est pas mesur&#233;e. C'est le cas typique d'une base noy&#233;e dans la brume.</p>
+
+<h3>19.4 R&#233;gimes atmosph&#233;riques &#224; rechercher</h3>
+
+<p>Les signatures suivantes sont recherch&#233;es <strong>sur la s&#233;rie enti&#232;re et avant</strong> la comparaison du &#167;&#160;28. Le r&#233;sultat de cette recherche est consign&#233; qu'il soit positif ou n&#233;gatif.</p>
+
+<ul>
+  <li><strong>Mirage inf&#233;rieur</strong> &#8212; image invers&#233;e sous l'objet, s&#233;par&#233;e par une ligne nette&#160;; s'att&#233;nue quand le point de vue s'&#233;l&#232;ve.</li>
+  <li><strong>Mirage sup&#233;rieur</strong> &#8212; image invers&#233;e au-dessus de l'objet&#160;; appara&#238;t et dispara&#238;t au fil des heures.</li>
+  <li><strong>Looming</strong> &#8212; l'objet entier remonte sans se d&#233;former&#160;: les rapports de hauteur internes sont conserv&#233;s.</li>
+  <li><strong>Conduit optique</strong> &#8212; contraste soutenu &#224; tr&#232;s grande distance, bandes horizontales, transitions abruptes d'une vue &#224; l'autre.</li>
+  <li><strong>D&#233;formation verticale</strong> &#8212; les rapports de hauteur entre &#233;l&#233;ments de cote connue ne sont pas conserv&#233;s.</li>
+</ul>
+
+<p>Test op&#233;ratoire de la d&#233;formation verticale&#160;: les rapports de hauteur entre au moins trois &#233;l&#233;ments de cote connue sont mesur&#233;s dans l'image et compar&#233;s &#224; leurs valeurs r&#233;elles. Un &#233;cart sup&#233;rieur &#224; trois fois l'incertitude de ces rapports signale une d&#233;formation, et l'observation est class&#233;e ind&#233;termin&#233;e.</p>
+
+<p>Un r&#233;gime ne peut &#234;tre invoqu&#233; que s'il a &#233;t&#233; recherch&#233; avant la comparaison et s'il est &#233;tabli par des signatures relev&#233;es dans les images <em>et</em> par les donn&#233;es atmosph&#233;riques du &#167;&#160;21. Il n'est jamais introduit apr&#232;s coup pour rendre compte d'un &#233;cart, dans un sens comme dans l'autre.</p>
+
+<h3>19.5 Mesure en aveugle</h3>
+
+<p>Les mesures du &#167;&#160;19.2 sont faites par au moins trois analystes travaillant s&#233;par&#233;ment, &#224; qui l'on communique l'image et l'&#233;chelle mais ni la distance, ni la hauteur totale de la cible, ni la pr&#233;diction. Ils rendent des positions en pixels. La conversion en m&#232;tres et la comparaison viennent ensuite.</p>
+
+<p>La dispersion entre analystes est report&#233;e comme composante d'incertitude de type&#160;A. Si elle exc&#232;de la r&#233;solution effective du &#167;&#160;20, le dossier revient en 19.3&#160;: le bord mesur&#233; est ambigu.</p>
+
+<h3>19.6 Non-d&#233;tection</h3>
+
+<p>Une s&#233;rie o&#249; la cible n'appara&#238;t pas n'est pas &#233;cart&#233;e d'office. Elle est class&#233;e <em>informative</em> si la taille angulaire pr&#233;dite de la partie attendue exc&#232;de trois fois la r&#233;solution effective mesur&#233;e&#160;; sinon <em>ind&#233;termin&#233;e</em>. Les deux cas sont publi&#233;s. &#201;carter les non-d&#233;tections sans ce test introduirait un biais de s&#233;lection.</p>
+
+<h2 class="brk"><span class="n">20</span>R&#233;solution angulaire</h2>
+
+<h3>20.1 Trois limites, et c'est la plus grande qui compte</h3>
+
+<ul>
+  <li><strong>Pas de photosite projet&#233;</strong> &#8212; l'angle sous-tendu par un pixel, &#233;gal au pas de photosite divis&#233; par la focale r&#233;elle.</li>
+  <li><strong>Limite de diffraction</strong> &#8212; environ 1,22&#160;&#955;/<em>d</em> pour une pupille de diam&#232;tre <em>d</em>.</li>
+  <li><strong>Turbulence atmosph&#233;rique</strong> &#8212; sur un trajet rasant de plusieurs dizaines de kilom&#232;tres, elle domine g&#233;n&#233;ralement les deux pr&#233;c&#233;dentes.</li>
+</ul>
+
+<p>La turbulence sur un trajet marin rasant ne se calcule pas de fa&#231;on fiable&#160;: la structure du champ d'indice n'y est pas connue. Le protocole exige donc qu'elle soit <strong>mesur&#233;e sur l'image</strong>, et non estim&#233;e.</p>
+
+<h3>20.2 Mesure de la r&#233;solution effective</h3>
+
+<p>La r&#233;solution effective est la largeur de transition d'un bord franc de dimension connue pr&#233;sent dans le champ, mesur&#233;e par la m&#233;thode du bord inclin&#233; de la norme applicable (&#167;&#160;35), et convertie en m&#232;tres &#224; la distance de la cible. La caract&#233;ristique mesur&#233;e doit &#234;tre au moins trois fois plus grande que cette valeur.</p>
+
+<h3>20.3 Occult&#233; contre non r&#233;solu</h3>
+
+<div class="box key">
+  <span class="lab">La distinction d&#233;cisive</span>
+<p><strong>Occult&#233;</strong>&#160;: la partie de l'objet est absente de l'image parce qu'un corps s'interpose. Le mod&#232;le pr&#233;dit une position pr&#233;cise pour la limite, et cette limite est un bord r&#233;solu.</p>
+<p><strong>Non r&#233;solu</strong>&#160;: la partie de l'objet est pr&#233;sente mais trop petite ou trop peu contrast&#233;e pour &#234;tre s&#233;par&#233;e. Aucune limite nette n'appara&#238;t&#160;; le signal s'&#233;teint progressivement.</p>
+<p>Les deux se distinguent par trois signes&#160;: la nettet&#233; de la limite, compar&#233;e &#224; la r&#233;solution effective&#160;; la stabilit&#233; de sa position sur la s&#233;rie&#160;; et son d&#233;placement, ou son absence de d&#233;placement, quand la focale change &#224; position constante. Une limite d'occultation ne bouge pas avec la focale&#160;; une limite de d&#233;tection recule.</p>
+</div>
+
+<h3>20.4 Ordres de grandeur</h3>
+
+<table>
+  <caption>Tableau&#160;12 &#8212; &#233;chelle angulaire et taille angulaire de la hauteur occult&#233;e pr&#233;dite, <em>h</em>&#160;=&#160;800&#8239;m. &#192; 120&#8239;km, la pr&#233;diction &#224; <em>k</em>&#160;=&#160;0,25 ne sous-tend qu'une seconde d'arc&#160;: cette g&#233;om&#233;trie ne discrimine pas. &#192; 150&#8239;km, elle en sous-tend quatre-vingt-dix.</caption>
+  <thead><tr><th class="n">D (km)</th><th class="n">m par seconde d'arc</th><th class="n">20&#8239;m (&#8243;)</th><th class="n">c &#224; k=0 (&#8243;)</th><th class="n">c &#224; k=0,25 (&#8243;)</th></tr></thead>
+  <tbody>
+    <tr><td class="n">50</td><td class="n">0,242</td><td class="n">82,5</td><td class="n">0,0</td><td class="n">0,0</td></tr>
+    <tr><td class="n">80</td><td class="n">0,388</td><td class="n">51,6</td><td class="n">0,0</td><td class="n">0,0</td></tr>
+    <tr><td class="n">100</td><td class="n">0,485</td><td class="n">41,3</td><td class="n">0,0</td><td class="n">0,0</td></tr>
+    <tr><td class="n">120</td><td class="n">0,582</td><td class="n">34,4</td><td class="n">48,9</td><td class="n">1,2</td></tr>
+    <tr><td class="n">150</td><td class="n">0,727</td><td class="n">27,5</td><td class="n">259,6</td><td class="n">90,4</td></tr>
+    <tr><td class="n">200</td><td class="n">0,970</td><td class="n">20,6</td><td class="n">794,0</td><td class="n">422,5</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">21</span>Donn&#233;es m&#233;t&#233;orologiques</h2>
+
+<h3>21.1 Ce qu'il faut, et &#224; quelle r&#233;solution</h3>
+
+<p>La grandeur qui gouverne la pr&#233;diction est le <strong>gradient vertical de temp&#233;rature dans la couche o&#249; passe le rayon rasant</strong>, non la temp&#233;rature moyenne. Le &#167;&#160;11.5 montre qu'une couche basse de quelques dizaines de m&#232;tres suffit &#224; tripler le coefficient effectif.</p>
+
+<ul>
+  <li><strong>R&#233;solution verticale</strong> &#8212; au moins un point tous les 10&#8239;m dans les 100 premiers m&#232;tres au-dessus de l'eau, puis tous les 100&#8239;m jusqu'&#224; l'altitude de l'observateur. C'est la r&#233;solution qui permet de d&#233;tecter une couche d'inversion mince.</li>
+  <li><strong>&#201;tendue horizontale</strong> &#8212; la couche concern&#233;e est celle qui borde le point de tangence, au milieu du trajet. Un profil pris &#224; une seule extr&#233;mit&#233; ne renseigne pas sur le milieu&#160;: le rapport le dit, et l'incertitude en tient compte.</li>
+  <li><strong>Grandeurs</strong> &#8212; temp&#233;rature, pression, humidit&#233;, et temp&#233;rature de surface de la mer. L'&#233;cart entre temp&#233;rature de l'air et temp&#233;rature de l'eau est le meilleur indicateur disponible d'une inversion de surface.</li>
+  <li><strong>Cadence</strong> &#8212; au d&#233;but et &#224; la fin de chaque s&#233;rie au minimum.</li>
+</ul>
+
+<h3>21.2 Classes de donn&#233;e</h3>
+
+<table>
+  <caption>Tableau&#160;13 &#8212; classes de donn&#233;e atmosph&#233;rique. La classe dit comment la valeur a &#233;t&#233; obtenue, pas si elle est juste.</caption>
+  <thead><tr><th class="n">Classe</th><th>Origine</th><th>D&#233;finition</th><th>Statut au rapport</th></tr></thead>
+  <tbody>
+    <tr><td class="n">A</td><td>Mesure directe sur site</td><td>instrument &#233;talonn&#233; relev&#233; par l'op&#233;rateur au point de vue, pendant l'observation</td><td>mesure</td></tr>
+    <tr><td class="n">B</td><td>Sondage a&#233;rologique</td><td>profil vertical mesur&#233; par ballon, &#224; moins de 100&#8239;km et 3&#8239;h, l'&#233;cart &#233;tant consign&#233; et report&#233; dans l'incertitude</td><td>mesure d&#233;port&#233;e</td></tr>
+    <tr><td class="n">C</td><td>Station m&#233;t&#233;orologique officielle</td><td>observation horodat&#233;e d'un r&#233;seau reconnu, &#224; moins de 30&#8239;km et 1&#8239;h&#160;; ne donne que des valeurs de surface</td><td>mesure de surface</td></tr>
+    <tr><td class="n">D</td><td>Sortie de mod&#232;le ou r&#233;analyse</td><td>valeur calcul&#233;e sur une maille, jamais observ&#233;e en ce point&#160;; r&#233;solution verticale insuffisante pr&#232;s de la surface</td><td>valeur calcul&#233;e</td></tr>
+    <tr><td class="n">E</td><td>Climatologie ou estimation</td><td>moyenne saisonni&#232;re, ou valeur choisie par l'analyste faute de mieux, y compris le coefficient dit standard</td><td>d&#233;clarative</td></tr>
+  </tbody>
+</table>
+
+<p>Une donn&#233;e estim&#233;e a posteriori n'est jamais pr&#233;sent&#233;e comme une mesure directe. La classe accompagne la valeur partout o&#249; elle appara&#238;t, y compris dans la conclusion.</p>
+
+<h3>21.3 Insuffisance</h3>
+
+<p>L'insuffisance des donn&#233;es ne se traite pas par un choix prudent&#160;: elle se traite en reportant la plage enti&#232;re des valeurs plausibles dans l'incertitude, selon le &#167;&#160;23. Concr&#232;tement, en l'absence de donn&#233;e de classe A ou B, l'intervalle de <em>k</em> retenu est celui que les conditions de surface autorisent, born&#233; par le tableau&#160;8&#160;; il est d&#233;pos&#233; avant l'analyse.</p>
+
+<h2><span class="n">22</span>Analyse des incertitudes</h2>
+
+<p>Les incertitudes sont &#233;valu&#233;es et compos&#233;es selon le guide pour l'expression de l'incertitude de mesure (&#167;&#160;35). Chaque composante porte son type &#8212; A si elle vient d'une dispersion statistique, B sinon &#8212; et son facteur d'&#233;largissement.</p>
+
+<h3>22.1 Composantes de mesure</h3>
+
+<ul>
+  <li>dispersion entre les trois analystes en aveugle (type&#160;A)&#160;;</li>
+  <li>dispersion de la position du bord sur la s&#233;rie, due &#224; la turbulence (type&#160;A)&#160;;</li>
+  <li>r&#233;solution effective, en m&#232;tres &#224; la distance de la cible (type&#160;B)&#160;;</li>
+  <li>incertitude d'&#233;chelle, &#233;cart entre les deux d&#233;terminations du &#167;&#160;19.1 (type&#160;B)&#160;;</li>
+  <li>r&#233;siduel de distorsion apr&#232;s &#233;talonnage (type&#160;B).</li>
+</ul>
+
+<h3>22.2 Composantes de pr&#233;diction</h3>
+
+<p>La pr&#233;diction h&#233;rite des incertitudes g&#233;od&#233;siques et atmosph&#233;riques. Le tableau&#160;14 donne les coefficients de sensibilit&#233; pour deux g&#233;om&#233;tries.</p>
+
+<table>
+  <caption>Tableau&#160;14 &#8212; effet sur la hauteur occult&#233;e pr&#233;dite, en m&#232;tres, pour <em>h</em>&#160;=&#160;800&#8239;m et <em>k</em>&#160;=&#160;0,13. La hauteur de la cible n'intervient pas dans <em>c</em>&#160;; elle n'intervient que dans la fraction. &#192; 120&#8239;km, l'ignorance de <em>k</em> &#233;crase tout le reste, ce qui rend cette g&#233;om&#233;trie inutilisable sans donn&#233;e atmosph&#233;rique.</caption>
+  <thead><tr><th>Param&#232;tre</th><th>&#201;cart consid&#233;r&#233;</th><th class="n">&#224; 120&#8239;km (m)</th><th class="n">&#224; 150&#8239;km (m)</th></tr></thead>
+  <tbody>
+    <tr><td>Altitude de l'observateur <em>h</em></td><td>&#177;&#160;1&#8239;m</td><td class="n">0,109</td><td class="n">0,386</td></tr>
+    <tr><td>Distance <em>D</em></td><td>&#177;&#160;100&#8239;m</td><td class="n">0,161</td><td class="n">0,570</td></tr>
+    <tr><td>Hauteur de la cible <em>H</em></td><td>&#177;&#160;0,5&#8239;m</td><td class="n">0,000</td><td class="n">0,000</td></tr>
+    <tr><td>Coefficient <em>k</em></td><td>&#177;&#160;0,01</td><td class="n">1,108</td><td class="n">4,917</td></tr>
+    <tr class="hi"><td>Coefficient <em>k</em> non mesur&#233;</td><td>plage 0,10 &#224; 0,40</td><td class="n">16,61</td><td class="n">73,75</td></tr>
+  </tbody>
+</table>
+
+<p>&#192; 120&#8239;km la hauteur occult&#233;e pr&#233;dite vaut 9,4&#8239;m et l'ignorance de <em>k</em> sur une plage de 0,10 &#224; 0,40 en vaut 16,6&#8239;m&#160;: la pr&#233;diction est noy&#233;e. &#192; 150&#8239;km elle vaut 119,1&#8239;m pour une m&#234;me ignorance de 73,7&#8239;m&#160;: le rapport devient favorable. C'est cette comparaison, et non une distance ronde, qui doit fixer la g&#233;om&#233;trie d'une campagne.</p>
+
+<h3>22.3 Composition</h3>
+
+<p>Les composantes ind&#233;pendantes se composent en quadrature. Les composantes corr&#233;l&#233;es &#8212; typiquement l'altitude de l'observateur et l'altitude de la base quand elles viennent du m&#234;me mod&#232;le de terrain &#8212; sont compos&#233;es en tenant compte de leur corr&#233;lation, dont la valeur retenue est justifi&#233;e au rapport.</p>
+
+<h2 class="brk"><span class="n">23</span>Analyse de sensibilit&#233;</h2>
+
+<h3>23.1 M&#233;thode</h3>
+
+<p>Chaque param&#232;tre est vari&#233; syst&#233;matiquement dans son intervalle d'incertitude, et l'<strong>enveloppe</strong> des pr&#233;dictions qui en r&#233;sulte est rapport&#233;e. L'intervalle retenu est celui que permettent les meilleures sources et les meilleurs instruments dont l'observateur disposait&#160;; il n'est ni &#233;largi par pr&#233;caution, ni resserr&#233; par commodit&#233;, et son origine est cit&#233;e.</p>
+
+<p>Les param&#232;tres vari&#233;s sont&#160;: altitude de l'observateur, distance, position, altitude de la base, hauteur de la cible, coefficient de r&#233;fraction et profil vertical, focale r&#233;elle et param&#232;tres optiques. Le balayage est conduit sur la grille compl&#232;te lorsque le nombre de combinaisons le permet, sinon par tirage de Monte-Carlo dont le germe est publi&#233;.</p>
+
+<h3>23.2 R&#232;gle de conclusion</h3>
+
+<div class="box key">
+  <span class="lab">La conclusion ne porte que si elle tient sur l'enveloppe enti&#232;re</span>
+<p>Si une seule combinaison admissible des param&#232;tres rend l'observation conforme &#224; la pr&#233;diction d'un mod&#232;le, ce mod&#232;le n'est pas r&#233;fut&#233; par cette observation.</p>
+<p>L'analyste rapporte explicitement la combinaison la plus d&#233;favorable &#224; sa propre conclusion, et ce qu'elle donne. Cette exigence s'applique dans les deux sens et pour les deux mod&#232;les.</p>
+</div>
+
+<h3>23.3 Enveloppe sur l'exemple</h3>
+
+<table>
+  <caption>Tableau&#160;15 &#8212; fraction visible pr&#233;dite pour <em>h</em>&#160;=&#160;800&#8239;m et <em>H</em>&#160;=&#160;100&#8239;m, selon <em>k</em>, compar&#233;e au mod&#232;le P. Les deux mod&#232;les ne se s&#233;parent qu'au-del&#224; de la distance o&#249; l'enveloppe du mod&#232;le S s'&#233;carte de 1.</caption>
+  <thead><tr><th class="n">D (km)</th><th class="n">S, k=0</th><th class="n">S, k=0,13</th><th class="n">S, k=0,25</th><th class="n">S, k=0,50</th><th class="n">mod&#232;le P</th></tr></thead>
+  <tbody>
+    <tr><td class="n">100</td><td class="n">1,000</td><td class="n">1,000</td><td class="n">1,000</td><td class="n">1,000</td><td class="n">1,000</td></tr>
+    <tr><td class="n">110</td><td class="n">0,936</td><td class="n">0,998</td><td class="n">1,000</td><td class="n">1,000</td><td class="n">1,000</td></tr>
+    <tr><td class="n">120</td><td class="n">0,715</td><td class="n">0,906</td><td class="n">0,993</td><td class="n">1,000</td><td class="n">1,000</td></tr>
+    <tr><td class="n">130</td><td class="n">0,338</td><td class="n">0,677</td><td class="n">0,894</td><td class="n">1,000</td><td class="n">1,000</td></tr>
+    <tr><td class="n">140</td><td class="n">0,000</td><td class="n">0,311</td><td class="n">0,677</td><td class="n">1,000</td><td class="n">1,000</td></tr>
+    <tr><td class="n">150</td><td class="n">0,000</td><td class="n">0,000</td><td class="n">0,343</td><td class="n">0,980</td><td class="n">1,000</td></tr>
+    <tr><td class="n">160</td><td class="n">0,000</td><td class="n">0,000</td><td class="n">0,000</td><td class="n">0,884</td><td class="n">1,000</td></tr>
+  </tbody>
+</table>
+
+<h3>23.4 Choix de la g&#233;om&#233;trie d'une campagne</h3>
+
+<p>La g&#233;om&#233;trie doit &#234;tre choisie pour que la pr&#233;diction du mod&#232;le S <em>la plus favorable au mod&#232;le P</em> &#8212; c'est-&#224;-dire celle obtenue avec le <em>k</em> maximal retenu &#8212; s'&#233;carte encore nettement de la pr&#233;diction du mod&#232;le P.</p>
+
+<table>
+  <caption>Tableau&#160;16 &#8212; distance &#224; laquelle la hauteur occult&#233;e pr&#233;dite atteint 20&#8239;m, m&#234;me sous le coefficient maximal retenu. C'est ce tableau, et non un seuil en kilom&#232;tres, qui doit dimensionner une campagne.</caption>
+  <thead><tr><th class="n">Altitude observateur (m)</th><th class="n">k<sub>max</sub>=0,20</th><th class="n">k<sub>max</sub>=0,35</th><th class="n">k<sub>max</sub>=0,50</th></tr></thead>
+  <tbody>
+    <tr><td class="n">100</td><td class="n">57,8</td><td class="n">64,1</td><td class="n">73,1</td></tr>
+    <tr><td class="n">300</td><td class="n">87,0</td><td class="n">96,5</td><td class="n">110,0</td></tr>
+    <tr><td class="n">800</td><td class="n">130,7</td><td class="n">145,0</td><td class="n">165,4</td></tr>
+    <tr><td class="n">2&#8239;000</td><td class="n">196,3</td><td class="n">217,8</td><td class="n">248,3</td></tr>
+  </tbody>
+</table>
+
+<p>Lecture&#160;: depuis 100&#8239;m, il faut d&#233;j&#224; 73,1&#8239;km si l'on admet <em>k</em> jusqu'&#224; 0,50. Le seuil de 50&#8239;km du cahier des charges ne suffit donc pas d&#232;s que la r&#233;fraction n'est pas born&#233;e par une mesure.</p>
+
+<h2><span class="n">24</span>Contr&#244;les</h2>
+
+<p>Ces contr&#244;les sont ex&#233;cut&#233;s au moins une fois par campagne et &#224; chaque changement de mat&#233;riel. Leurs r&#233;sultats sont joints au dossier, qu'ils soient favorables ou non.</p>
+
+<table>
+  <caption>Tableau&#160;17 &#8212; contr&#244;les exp&#233;rimentaux et crit&#232;res d'acceptation.</caption>
+  <thead><tr><th>Contr&#244;le</th><th>Mode op&#233;ratoire</th><th>Crit&#232;re</th></tr></thead>
+  <tbody>
+    <tr><td>&#201;talonnage d'&#233;chelle</td><td>photographier une mire de dimensions connues &#224; distance mesur&#233;e, &#224; la focale employ&#233;e</td><td>l'&#233;chelle calcul&#233;e depuis la focale et celle mesur&#233;e sur la mire s'accordent &#224; mieux de 2&#8239;%</td></tr>
+    <tr><td>R&#233;solution</td><td>mesurer la largeur de transition d'un bord franc de la mire</td><td>la valeur est report&#233;e et sert de r&#233;f&#233;rence instrumentale au &#167;&#160;20</td></tr>
+    <tr><td>Distorsion</td><td>photographier une grille r&#233;guli&#232;re et ajuster un mod&#232;le de distorsion</td><td>r&#233;siduel &lt;&#160;1 pixel apr&#232;s correction</td></tr>
+    <tr><td>Stabilit&#233;</td><td>vingt vues cons&#233;cutives d'une cible fixe proche</td><td>d&#233;placement du centro&#239;de &#8804;&#160;1 pixel</td></tr>
+    <tr><td>Orientation</td><td>vis&#233;e sur deux rep&#232;res d'azimut connu</td><td>azimut retrouv&#233; &#224; mieux que 0,05&#176;</td></tr>
+    <tr><td>Coh&#233;rence entre focales</td><td>photographier la m&#234;me sc&#232;ne &#224; trois focales, position inchang&#233;e</td><td>la limite d'occultation mesur&#233;e ne se d&#233;place pas&#160;; une limite de d&#233;tection, elle, recule</td></tr>
+    <tr><td>Coh&#233;rence entre images</td><td>mesurer la fraction visible sur cinq vues de la m&#234;me s&#233;rie</td><td>dispersion compatible avec la r&#233;solution effective</td></tr>
+    <tr><td>Reproductibilit&#233; entre analystes</td><td>trois mesures en aveugle du m&#234;me bord</td><td>dispersion inf&#233;rieure &#224; la r&#233;solution effective</td></tr>
+    <tr><td>Concordance externe</td><td>position du Soleil d&#233;duite des ombres, hauteur de mar&#233;e, registre horodat&#233; d'un mobile, m&#233;t&#233;o observ&#233;e, rep&#232;res attendus dans le champ</td><td>au moins deux concordances &#233;tablies, aucune discordance</td></tr>
+  </tbody>
+</table>
+
+<p>Le contr&#244;le de coh&#233;rence entre focales est le plus discriminant du lot&#160;: il s&#233;pare exp&#233;rimentalement une limite d'occultation d'une limite de d&#233;tection, sans recourir &#224; aucun mod&#232;le.</p>
+
+<h2><span class="n">25</span>R&#233;plication</h2>
+
+<ul>
+  <li><strong>Plusieurs observateurs.</strong> La m&#234;me cible est photographi&#233;e par au moins deux op&#233;rateurs ind&#233;pendants, si possible depuis deux sites d'altitudes diff&#233;rentes.</li>
+  <li><strong>Plusieurs analystes.</strong> Au moins trois analyses ind&#233;pendantes du m&#234;me dossier, sous le m&#234;me seuil d&#233;pos&#233;, conduites s&#233;par&#233;ment.</li>
+  <li><strong>Mesure en aveugle.</strong> Les analystes mesurent des positions en pixels sans conna&#238;tre la distance, la hauteur totale ni la pr&#233;diction.</li>
+  <li><strong>D&#233;claration d'int&#233;r&#234;t.</strong> Chaque analyste d&#233;clare tout int&#233;r&#234;t dans l'issue et toute participation &#224; la prise de vue. L'op&#233;rateur du clich&#233; n'est aucun des trois.</li>
+  <li><strong>R&#233;p&#233;tition.</strong> La m&#234;me g&#233;om&#233;trie est reprise &#224; des dates et dans des conditions atmosph&#233;riques diff&#233;rentes.</li>
+  <li><strong>Publication des donn&#233;es brutes.</strong> Fichiers d'origine, empreintes, fiches, donn&#233;es externes et code de calcul, sous licence permettant la reprise.</li>
+</ul>
+
+<p>Le r&#233;sultat est certifi&#233; lorsque les trois analyses convergent. Toute divergence rend le r&#233;sultat ind&#233;termin&#233;&#160;: les trois analyses sont publi&#233;es, le point de d&#233;saccord est nomm&#233;, et le dossier reste ouvert.</p>
+
+<h2><span class="n">26</span>Pr&#233;-enregistrement</h2>
+
+<p>Les &#233;l&#233;ments suivants sont fix&#233;s, dat&#233;s et d&#233;pos&#233;s aupr&#232;s d'un tiers <strong>avant</strong> toute acquisition, ou &#224; d&#233;faut avant tout examen des images pour un dossier a posteriori.</p>
+
+<ul>
+  <li>les mod&#232;les compar&#233;s, avec leur g&#233;om&#233;trie, leur loi de propagation et leur nombre de param&#232;tres libres&#160;;</li>
+  <li>l'intervalle de <em>k</em> retenu et sa justification&#160;;</li>
+  <li>les crit&#232;res de s&#233;lection des observations et des images (&#167;&#160;18)&#160;;</li>
+  <li>la m&#233;thode de mesure de la fraction visible (&#167;&#160;19)&#160;;</li>
+  <li>le mode de composition des incertitudes (&#167;&#160;22) et le plan de sensibilit&#233; (&#167;&#160;23)&#160;;</li>
+  <li>le <strong>seuil de r&#233;futation</strong>&#160;: l'&#233;cart &#224; partir duquel un r&#233;sultat est d&#233;clar&#233; incompatible&#160;;</li>
+  <li>la taille d'&#233;chantillon vis&#233;e et la r&#232;gle d'arr&#234;t&#160;;</li>
+  <li>le plan d'analyse statistique (&#167;&#160;27).</li>
+</ul>
+
+<p>Aucun de ces &#233;l&#233;ments n'est modifi&#233; apr&#232;s examen des r&#233;sultats. Tout &#233;cart au plan d&#233;pos&#233; est publi&#233; comme tel, avec sa date et son motif, et l'analyse correspondante est &#233;tiquet&#233;e <em>exploratoire</em>&#160;: elle ne peut pas conclure.</p>
+
+<p>Un dossier analys&#233; sans seuil pr&#233;alablement d&#233;pos&#233; ne peut pas conclure &#224; une incompatibilit&#233;. Il peut conclure &#224; une compatibilit&#233; ou rester ind&#233;termin&#233;. L'asym&#233;trie est d&#233;lib&#233;r&#233;e&#160;: c'est l'affirmation la plus forte qui exige l'engagement pr&#233;alable.</p>
+
+<h2><span class="n">27</span>Analyse statistique</h2>
+
+<h3>27.1 Grandeur analys&#233;e</h3>
+
+<p>L'analyse porte sur la fraction visible <em>f</em>, et sur l'&#233;cart <em>f</em><sub>obs</sub>&#160;&#8722;&#160;<em>f</em><sub>pr&#233;d</sub> pour chaque mod&#232;le. Les observations d'une campagne sont ajust&#233;es <strong>conjointement</strong> sur la courbe <em>f</em>(<em>D</em>), et non compar&#233;es une &#224; une.</p>
+
+<h3>27.2 Comparaison de mod&#232;les</h3>
+
+<p>Les mod&#232;les sont compar&#233;s par leur vraisemblance, p&#233;nalis&#233;e du nombre de param&#232;tres libres d&#233;clar&#233;s au &#167;&#160;26. La statistique retenue, le crit&#232;re de p&#233;nalisation et le seuil de d&#233;cision sont d&#233;pos&#233;s avant l'analyse. Aucun mod&#232;le ne re&#231;oit le statut d'hypoth&#232;se nulle privil&#233;gi&#233;e&#160;: les deux sont trait&#233;s sym&#233;triquement.</p>
+
+<h3>27.3 Taille d'&#233;chantillon</h3>
+
+<p>Pour s&#233;parer deux pr&#233;dictions distantes de &#916; avec un bruit par observation &#963;, au risque de premi&#232;re esp&#232;ce &#945;&#160;=&#160;0,001 bilat&#233;ral et &#224; la puissance 95&#8239;%&#160;:</p>
+
+<div class="eq"><em>n</em> &#8805; (<em>z</em><sub>1&#8722;&#945;/2</sub> + <em>z</em><sub>1&#8722;&#946;</sub>)&#178; &#183; (&#963;/&#916;)&#178; = 24,36 &#183; (&#963;/&#916;)&#178;<span class="cap">z<sub>0,9995</sub> = 3,2905, z<sub>0,95</sub> = 1,6449</span></div>
+
+<table>
+  <caption>Tableau&#160;18 &#8212; nombre minimal d'observations ind&#233;pendantes. Le rapport &#963;/&#916; se calcule &#224; partir du tableau&#160;15 et de l'incertitude de mesure du &#167;&#160;22.</caption>
+  <thead><tr><th class="n">&#963;/&#916;</th><th class="n"><em>n</em> minimal</th></tr></thead>
+  <tbody>
+    <tr><td class="n">0,20</td><td class="n">1,0</td></tr>
+    <tr><td class="n">0,33</td><td class="n">2,7</td></tr>
+    <tr><td class="n">0,50</td><td class="n">6,1</td></tr>
+    <tr><td class="n">0,75</td><td class="n">13,7</td></tr>
+    <tr><td class="n">1,00</td><td class="n">24,4</td></tr>
+  </tbody>
+</table>
+
+<p>Cette formule est un dimensionnement, non l'analyse elle-m&#234;me. Elle suppose des observations ind&#233;pendantes et un bruit de m&#234;me &#233;cart-type&#160;; deux vues du m&#234;me jour, depuis le m&#234;me site, sur la m&#234;me cible, ne sont pas deux observations ind&#233;pendantes. Le d&#233;compte porte sur les configurations distinctes&#160;: site, cible, date, conditions.</p>
+
+<h3>27.4 Ce qui est publi&#233;</h3>
+
+<p>Toutes les observations recevables entrent dans l'analyse, y compris celles qui ne vont pas dans le sens attendu et celles class&#233;es ind&#233;termin&#233;es. Le taux d'exclusion, ses motifs et la liste des dossiers &#233;cart&#233;s sont publi&#233;s avec les r&#233;sultats.</p>
+
+<h2 class="brk"><span class="n">28</span>Crit&#232;res de d&#233;cision</h2>
+
+<h3>28.1 Filtre pr&#233;alable</h3>
+
+<p>La <strong>recevabilit&#233;</strong> est un filtre, non une conclusion. Un dossier est recevable s'il fournit les pi&#232;ces du &#167;&#160;33, s'il passe les contr&#244;les du &#167;&#160;24, si l'image est valide ou valide avec r&#233;serves au sens du &#167;&#160;18, et si toute occultation visible est identifi&#233;e et attribu&#233;e. Un dossier irrecevable n'est ni favorable ni d&#233;favorable&#160;: il n'entre pas dans l'analyse, et son exclusion est publi&#233;e.</p>
+
+<h3>28.2 Condition de discrimination</h3>
+
+<p>Une observation ne peut discriminer que si sa g&#233;om&#233;trie s&#233;pare assez les pr&#233;dictions. La condition, d&#233;pos&#233;e avant l'observation&#160;:</p>
+
+<div class="box key">
+  <span class="lab">Condition de discrimination</span>
+<p>L'&#233;cart entre la pr&#233;diction du mod&#232;le S sous le coefficient <em>le plus favorable au mod&#232;le P</em> et la pr&#233;diction du mod&#232;le P doit atteindre au moins <strong>cinq fois</strong> l'incertitude compos&#233;e de mesure. En de&#231;&#224;, l'observation est class&#233;e ind&#233;termin&#233;e avant m&#234;me d'&#234;tre mesur&#233;e.</p>
+</div>
+
+<h3>28.3 Les trois cat&#233;gories</h3>
+
+<ul>
+  <li><strong>Compatible.</strong> La fraction visible observ&#233;e tombe dans l'enveloppe de pr&#233;diction du mod&#232;le, incertitudes de mesure et de pr&#233;diction compos&#233;es, et l'&#233;cart reste sous le seuil de r&#233;futation d&#233;pos&#233;.</li>
+  <li><strong>Incompatible.</strong> L'&#233;cart franchit le seuil d&#233;pos&#233;, il tient sur l'enveloppe enti&#232;re de sensibilit&#233; du &#167;&#160;23, aucun r&#233;gime atmosph&#233;rique du &#167;&#160;19.4 n'est &#233;tabli, aucune occultation n'est inexpliqu&#233;e, et les trois analyses ind&#233;pendantes convergent.</li>
+  <li><strong>Ind&#233;termin&#233;.</strong> Tout le reste&#160;: donn&#233;es atmosph&#233;riques insuffisantes pour borner <em>k</em>, caract&#233;ristique non r&#233;solue, bord non mesurable, r&#233;gime atmosph&#233;rique &#233;tabli, enveloppe de sensibilit&#233; recouvrant les deux pr&#233;dictions, ou divergence entre analystes.</li>
+</ul>
+
+<p>Un m&#234;me dossier peut &#234;tre compatible avec un mod&#232;le et incompatible avec l'autre&#160;: c'est le cas recherch&#233;. Il peut aussi &#234;tre compatible avec les deux, ou incompatible avec les deux&#160;; ces deux issues sont publi&#233;es telles quelles, la seconde signalant qu'un &#233;l&#233;ment du dispositif est mal compris.</p>
+
+<div class="box warn">
+  <span class="lab">Sym&#233;trie de traitement</span>
+<p>Les m&#234;mes r&#232;gles, les m&#234;mes seuils et les m&#234;mes incertitudes s'appliquent aux deux mod&#232;les. Un r&#233;sultat allant dans un sens n'est ni examin&#233; plus s&#233;v&#232;rement ni accept&#233; plus facilement qu'un r&#233;sultat allant dans l'autre.</p>
+<p>Une observation <em>ind&#233;termin&#233;e</em> n'est jamais pr&#233;sent&#233;e comme une preuve pour ou contre un mod&#232;le, ni comme un demi-r&#233;sultat. Elle est publi&#233;e avec le motif exact de l'ind&#233;termination et ce qu'il faudrait pour la lever.</p>
+</div>
+
+<h2><span class="n">29</span>Mod&#232;les concurrents</h2>
+
+<p>Un mod&#232;le n'entre dans la comparaison que s'il est d&#233;pos&#233; avec quatre &#233;l&#233;ments&#160;: sa g&#233;om&#233;trie de surface, sa loi de propagation de la lumi&#232;re, ses param&#232;tres libres et leurs intervalles, et la pr&#233;diction explicite qu'il fait sur <em>f</em>(<em>D</em>) pour la configuration observ&#233;e.</p>
+
+<h3>29.1 Pourquoi cette exigence</h3>
+
+<p>Un mod&#232;le dont la loi de propagation reste libre reproduit n'importe quelle observation. Il n'est pas r&#233;futable, donc pas comparable. Cela vaut pour un mod&#232;le plan assorti d'une r&#233;fraction ad hoc comme pour un mod&#232;le sph&#233;rique assorti d'un <em>k</em> libre&#160;: les deux sont exclus de la comparaison par la m&#234;me r&#232;gle.</p>
+
+<h3>29.2 Traitement identique</h3>
+
+<ul>
+  <li>m&#234;mes donn&#233;es d'entr&#233;e, m&#234;mes sources, m&#234;mes incertitudes&#160;;</li>
+  <li>m&#234;mes r&#232;gles de mesure sur les images&#160;;</li>
+  <li>m&#234;me analyse de sensibilit&#233;, sur les m&#234;mes intervalles&#160;;</li>
+  <li>m&#234;me seuil de r&#233;futation&#160;;</li>
+  <li>m&#234;me p&#233;nalisation du nombre de param&#232;tres libres.</li>
+</ul>
+
+<h3>29.3 Cas particulier du mod&#232;le P</h3>
+
+<p>Le mod&#232;le P tel que d&#233;fini au &#167;&#160;4.2 n'a aucun param&#232;tre libre&#160;: il pr&#233;dit <em>f</em>&#160;=&#160;1 partout. C'est un avantage dans la comparaison p&#233;nalis&#233;e, et il faut le dire&#160;: un mod&#232;le sans param&#232;tre libre est plus facilement r&#233;futable, mais aussi moins facilement &#233;cart&#233; quand les donn&#233;es sont pauvres. C'est la raison de la condition de discrimination du &#167;&#160;28.2.</p>
+
+<p>Toute variante du mod&#232;le P introduisant une loi de propagation, une perspective particuli&#232;re ou une limite de visibilit&#233; doit &#234;tre d&#233;pos&#233;e comme un mod&#232;le distinct, avec ses param&#232;tres, et subit exactement le m&#234;me traitement.</p>
+
+<h2><span class="n">30</span>Limites</h2>
+
+<ul>
+  <li><strong>La r&#233;fraction n'est jamais mesur&#233;e sur le trajet lui-m&#234;me.</strong> Elle est estim&#233;e depuis des profils pris ailleurs, ou born&#233;e. C'est la limite principale, et elle est irr&#233;ductible sans instrumentation du trajet.</li>
+  <li><strong>Le point de tangence est le plus mal document&#233;.</strong> Il se trouve au milieu du trajet, l&#224; o&#249; l'on ne mesure rien.</li>
+  <li><strong>La turbulence n'est pas mod&#233;lisable ici.</strong> Elle est mesur&#233;e sur l'image, ce qui la traite comme un bruit et non comme un biais&#160;; un biais syst&#233;matique de turbulence n'est pas exclu.</li>
+  <li><strong>Les altitudes d&#233;pendent d'un mod&#232;le de g&#233;o&#239;de.</strong> Elles ne sont pas des mesures directes, et leur incertitude est corr&#233;l&#233;e entre l'observateur et la cible quand la source est la m&#234;me.</li>
+  <li><strong>La s&#233;lection des cibles n'est pas al&#233;atoire.</strong> On photographie ce qui est photographiable&#160;; la campagne doit d&#233;clarer sa r&#232;gle de choix &#224; l'avance.</li>
+  <li><strong>Un dossier a posteriori est presque toujours plus pauvre.</strong> L'absence de mesure atmosph&#233;rique sur site suffit le plus souvent &#224; rendre le r&#233;sultat ind&#233;termin&#233;.</li>
+  <li><strong>Le protocole ne mesure pas R.</strong> Il teste une pr&#233;diction construite avec une valeur de R pos&#233;e&#160;; une conclusion d'incompatibilit&#233; porterait sur le couple g&#233;om&#233;trie-propagation, pas sur R seul.</li>
+</ul>
+
+<h2 class="brk"><span class="n">31</span>Audit critique</h2>
+
+<p>Le protocole a &#233;t&#233; attaqu&#233; du point de vue d'un contradicteur comp&#233;tent et hostile. Dix-huit objections ont &#233;t&#233; retenues. Chacune est reproduite telle qu'elle serait formul&#233;e, avec la correction int&#233;gr&#233;e&#160;; celles qui restent sans correction compl&#232;te figurent au &#167;&#160;30.</p>
+
+<table>
+  <caption>Tableau&#160;19 &#8212; objections et corrections. Une objection sans correction serait une limite, pas un audit&#160;: les limites irr&#233;ductibles sont &#233;num&#233;r&#233;es s&#233;par&#233;ment au &#167;&#160;30.</caption>
+  <thead><tr><th class="n">N&#176;</th><th>Domaine</th><th>Objection</th><th>Formulation hostile</th><th>Correction</th></tr></thead>
+  <tbody>
+    <tr><td class="n">01</td><td>G&#233;om&#233;trie</td><td>Rayon sph&#233;rique moyen</td><td>Vous calculez avec R<sub>1</sub> alors que le rayon de courbure d&#233;pend de la latitude et de l'azimut. L'&#233;cart entre rayon m&#233;ridien et grande normale d&#233;passe 40&#8239;km, soit 0,6&#8239;%, ce qui exc&#232;de l'erreur d'approximation dont vous vous vantez au &#167;&#160;9.4.</td><td>Exact, et c'est pourquoi le &#167;&#160;12.2 impose le rayon d'Euler &#224; l'azimut de la vis&#233;e, et non R<sub>1</sub>. La diff&#233;rence est quantifi&#233;e au rapport.</td></tr>
+    <tr><td class="n">02</td><td>G&#233;om&#233;trie</td><td>Cible non ponctuelle</td><td>Vous traitez la cible comme un segment vertical au-dessus d'un point. Un navire ou une montagne a une extension le long de la vis&#233;e, et sa base n'est pas &#224; une distance unique.</td><td>L'incertitude sur <em>D</em> est &#233;largie &#224; l'extension longitudinale de la cible, et cette composante est d&#233;clar&#233;e. Une cible dont l'extension d&#233;passe l'incertitude vis&#233;e sur <em>D</em> est &#233;cart&#233;e.</td></tr>
+    <tr><td class="n">03</td><td>G&#233;od&#233;sie</td><td>G&#233;o&#239;de et ellipso&#239;de</td><td>Une altitude GNSS brute est une hauteur ellipso&#239;dale. La confondre avec une altitude introduit des dizaines de m&#232;tres d'erreur, donc plusieurs m&#232;tres sur <em>c</em>.</td><td>Le &#167;&#160;12.1 impose la conversion par un mod&#232;le de g&#233;o&#239;de publi&#233; et la d&#233;claration du mod&#232;le. Le contr&#244;le du &#167;&#160;24 v&#233;rifie la coh&#233;rence sur un point de cote connue.</td></tr>
+    <tr><td class="n">04</td><td>G&#233;od&#233;sie</td><td>Mar&#233;e et z&#233;ro hydrographique</td><td>Pour un ouvrage c&#244;tier, la base &#171;&#160;au niveau de la mer&#160;&#187; bouge de plusieurs m&#232;tres dans la journ&#233;e, et le z&#233;ro des cartes n'est pas le niveau moyen.</td><td>L'altitude de la base est prise &#224; l'heure exacte, corrig&#233;e de la mar&#233;e observ&#233;e et non pr&#233;dite quand un mar&#233;graphe existe, et le z&#233;ro de r&#233;f&#233;rence est nomm&#233;.</td></tr>
+    <tr><td class="n">05</td><td>Atmosph&#232;re</td><td>Rayon effectif inappropri&#233;</td><td>R/(1&#8722;<em>k</em>) suppose un gradient d'indice constant sur toute la hauteur. C'est faux d&#232;s qu'il y a une couche.</td><td>Reconnu et quantifi&#233;&#160;: le &#167;&#160;11.5 montre un facteur trois sur un profil &#224; deux couches. Le tra&#231;age de rayon est obligatoire d&#232;s qu'un profil non lin&#233;aire est document&#233;, et l'incertitude couvre l'&#233;cart quand il ne l'est pas.</td></tr>
+    <tr><td class="n">06</td><td>Atmosph&#232;re</td><td>R&#233;fraction ajust&#233;e apr&#232;s coup</td><td>Il suffira d'invoquer une inversion pour sauver le mod&#232;le S, ou de la nier pour le condamner.</td><td>Le &#167;&#160;11.7 interdit l'ajustement post&#233;rieur, dans les deux sens. L'intervalle de <em>k</em> est d&#233;pos&#233; avant analyse, et un r&#233;gime n'est invocable que s'il a &#233;t&#233; recherch&#233; avant la comparaison et &#233;tabli par des signatures d'image et des donn&#233;es m&#233;t&#233;o.</td></tr>
+    <tr><td class="n">07</td><td>Atmosph&#232;re</td><td>Conduit d'&#233;vaporation</td><td>Au-dessus de la mer, le conduit d'&#233;vaporation est omnipr&#233;sent&#160;: votre exp&#233;rience ne prouvera jamais rien.</td><td>Erreur de domaine, et le &#167;&#160;11.4 la chiffre&#160;: le terme humide vaut environ 90&#8239;N en radio contre &#8722;0,8&#8239;N en optique. Le conduit d'&#233;vaporation est un ph&#233;nom&#232;ne radio&#233;lectrique&#160;; un conduit optique exige une inversion thermique extr&#234;me, recherch&#233;e explicitement.</td></tr>
+    <tr><td class="n">08</td><td>Photographie</td><td>Zoom num&#233;rique</td><td>Une image agrandie num&#233;riquement ne contient pas plus d'information&#160;: vous mesurez du bruit interpol&#233;.</td><td>Le &#167;&#160;15 l'&#233;nonce&#160;: l'agrandissement n'ajoute rien et n'est pas compt&#233; dans la r&#233;solution. C'est la r&#233;solution effective <em>mesur&#233;e</em> du &#167;&#160;20 qui d&#233;cide, et elle est insensible &#224; l'agrandissement.</td></tr>
+    <tr><td class="n">09</td><td>Photographie</td><td>Traitement interne</td><td>Les appareils modernes reconstruisent. Vous ne mesurez pas une sc&#232;ne, vous mesurez une inf&#233;rence.</td><td>Le &#167;&#160;15.3 exclut de la mesure toute zone issue d'une reconstruction, et le &#167;&#160;17.2 liste les traitements admis. Le format brut est exig&#233; d&#232;s que l'appareil en produit un.</td></tr>
+    <tr><td class="n">10</td><td>R&#233;solution</td><td>Occult&#233; ou non r&#233;solu</td><td>Vous ne pouvez pas distinguer une base cach&#233;e d'une base trop petite pour &#234;tre vue.</td><td>C'est l'objet du &#167;&#160;20.3, et le contr&#244;le exp&#233;rimental du &#167;&#160;24 le tranche sans mod&#232;le&#160;: &#224; position constante, une limite d'occultation ne se d&#233;place pas quand la focale change, une limite de d&#233;tection recule.</td></tr>
+    <tr><td class="n">11</td><td>R&#233;solution</td><td>Brume prise pour un bord</td><td>&#192; 150&#8239;km la base d'un objet dispara&#238;t dans la brume bien avant d'&#234;tre occult&#233;e. Vous mesurerez une limite d'extinction.</td><td>Le &#167;&#160;19.3 refuse de mesurer un bord dont la transition exc&#232;de trois fois la structure r&#233;solue&#160;; le &#167;&#160;18 &#233;carte les images dont le contraste cible-fond est insuffisant. Le cas &#233;ch&#233;ant, l'observation est ind&#233;termin&#233;e.</td></tr>
+    <tr><td class="n">12</td><td>Mesure</td><td>Biais de l'analyste</td><td>Celui qui mesure sait ce qu'il cherche.</td><td>Trois analystes en aveugle mesurent des positions en pixels sans conna&#238;tre distance, hauteur ni pr&#233;diction (&#167;&#160;19.5)&#160;; la dispersion entre eux est une composante d'incertitude, et une divergence rouvre le dossier.</td></tr>
+    <tr><td class="n">13</td><td>S&#233;lection</td><td>Tri des images</td><td>Vingt vues, on garde les meilleures&#160;: le tri fabrique le r&#233;sultat.</td><td>Le crit&#232;re de tri est d&#233;pos&#233; d'avance, appliqu&#233; automatiquement, et ex&#233;cut&#233; par une personne qui ignore la pr&#233;diction (&#167;&#160;18). Toutes les vues sont remises et publi&#233;es, et le taux d'exclusion fait partie du r&#233;sultat.</td></tr>
+    <tr><td class="n">14</td><td>S&#233;lection</td><td>Dossiers qui ne parviennent pas</td><td>Les observations sont soumises parce qu'elles ont paru remarquables. Votre s&#233;rie ne dit rien de la population.</td><td>Reconnu au &#167;&#160;30. Une campagne pr&#233;-enregistr&#233;e d&#233;clare sa r&#232;gle de choix des cibles avant l'acquisition&#160;; les dossiers a posteriori sont analys&#233;s s&#233;par&#233;ment et ne sont pas m&#233;lang&#233;s aux campagnes.</td></tr>
+    <tr><td class="n">15</td><td>Statistique</td><td>Observations non ind&#233;pendantes</td><td>Vingt vues du m&#234;me jour ne font pas vingt observations.</td><td>Le &#167;&#160;27.3 le dit&#160;: le d&#233;compte porte sur les configurations distinctes &#8212; site, cible, date, conditions &#8212; et la s&#233;rie ne sert qu'&#224; estimer la dispersion.</td></tr>
+    <tr><td class="n">16</td><td>Statistique</td><td>Mod&#232;le nul privil&#233;gi&#233;</td><td>Vous testez le mod&#232;le plan contre le mod&#232;le sph&#233;rique en donnant &#224; ce dernier un param&#232;tre libre suppl&#233;mentaire.</td><td>Le &#167;&#160;27.2 p&#233;nalise le nombre de param&#232;tres libres d&#233;clar&#233;s, et le &#167;&#160;29.3 dit explicitement que l'absence de param&#232;tre libre du mod&#232;le P est un avantage dans la comparaison p&#233;nalis&#233;e.</td></tr>
+    <tr><td class="n">17</td><td>Donn&#233;es historiques</td><td>Photographie ancienne</td><td>Une photographie de vacances n'a ni horloge synchronis&#233;e, ni position certifi&#233;e, ni m&#233;t&#233;o.</td><td>Elle est recevable si les conditions du &#167;&#160;16.3 sont remplies, et elle finit le plus souvent <em>ind&#233;termin&#233;e</em> faute de donn&#233;e atmosph&#233;rique. Le protocole le dit d'avance plut&#244;t que de conclure &#224; partir d'un dossier pauvre.</td></tr>
+    <tr><td class="n">18</td><td>Int&#233;grit&#233;</td><td>Empreinte fabriqu&#233;e</td><td>L'empreinte est calcul&#233;e par celui qui soumet le fichier. Elle ne prouve rien sur l'origine.</td><td>Reconnu explicitement au &#167;&#160;17.1. L'empreinte n'&#233;tablit que l'int&#233;grit&#233;&#160;; l'authenticit&#233; repose sur au moins deux concordances externes que le fichier ne peut pas fabriquer &#8212; position du Soleil, mar&#233;e, registre horodat&#233;, m&#233;t&#233;o observ&#233;e &#8212; et le d&#233;p&#244;t de l'empreinte aupr&#232;s d'un tiers datant.</td></tr>
+  </tbody>
+</table>
+
+<h2 class="brk"><span class="n">32</span>Checklist</h2>
+
+<h3>32.1 Op&#233;rateur, sur le terrain</h3>
+
+<ol>
+  <li>V&#233;rifier que le seuil de r&#233;futation et le plan d'analyse sont d&#233;pos&#233;s et dat&#233;s.</li>
+  <li>R&#233;gler l'horloge sur le temps universel et noter l'&#233;cart.</li>
+  <li>Installer le tr&#233;pied, lester, mettre de niveau, bloquer la rotule, rentrer la colonne.</li>
+  <li>D&#233;sactiver la stabilisation. Mise au point manuelle &#224; l'infini, affin&#233;e en vis&#233;e agrandie sur la cible.</li>
+  <li>Fixer l'exposition&#160;; v&#233;rifier qu'aucun pixel de la cible n'est satur&#233;. Sensibilit&#233; minimale.</li>
+  <li>Relever la position GNSS et son incertitude&#160;; mesurer et photographier la hauteur de l'axe optique.</li>
+  <li>Enregistrer en format brut. Vingt vues au minimum, sans toucher &#224; la mise au point, au cadrage ni au grossissement.</li>
+  <li>Prendre la vue grand-angle du point de vue, la vue de l'horizon &#224; la m&#234;me focale, et la mire si elle est disponible.</li>
+  <li>Relever temp&#233;rature de l'air &#224; deux hauteurs, temp&#233;rature de l'eau, pression, humidit&#233;, au d&#233;but et &#224; la fin.</li>
+  <li>Noter l'&#233;tat du ciel, la visibilit&#233;, l'&#233;tat de la mer, et ce qui est vis&#233; en une phrase.</li>
+  <li>Reprendre la m&#234;me vis&#233;e plusieurs heures plus tard.</li>
+  <li>Au retour&#160;: transf&#233;rer sans conversion, calculer les empreintes SHA-256, les d&#233;poser aupr&#232;s d'un tiers datant, remplir la fiche du &#167;&#160;33.</li>
+</ol>
+
+<h3>32.2 Analyste, sur dossier</h3>
+
+<ol>
+  <li>V&#233;rifier les empreintes et leur datation par un tiers.</li>
+  <li>&#201;tablir au moins deux concordances externes&#160;; v&#233;rifier qu'aucune discordance n'existe.</li>
+  <li>Reconstituer la cha&#238;ne optique et num&#233;rique&#160;; s&#233;parer la part optique du grossissement de sa part num&#233;rique.</li>
+  <li>&#201;tablir position, altitudes, distance, azimut et profil interm&#233;diaire depuis des sources ind&#233;pendantes dat&#233;es&#160;; noter chaque incertitude.</li>
+  <li>&#201;tablir la hauteur de la cible et l'altitude de sa base depuis une source ind&#233;pendante&#160;; ne jamais les lire dans l'image.</li>
+  <li>Classer les images selon la grille du &#167;&#160;18, sans conna&#238;tre la pr&#233;diction.</li>
+  <li>Mesurer la r&#233;solution effective sur un bord franc de dimension connue.</li>
+  <li>V&#233;rifier la condition de discrimination du &#167;&#160;28.2 avant toute mesure de la fraction visible.</li>
+  <li>Rechercher les cinq r&#233;gimes atmosph&#233;riques sur la s&#233;rie&#160;; consigner le r&#233;sultat, positif ou n&#233;gatif.</li>
+  <li>Faire mesurer les positions en pixels par trois analystes en aveugle&#160;; reporter la dispersion.</li>
+  <li>Calculer la fraction visible observ&#233;e et son incertitude.</li>
+  <li>Calculer la fraction pr&#233;dite par chaque mod&#232;le d&#233;pos&#233;, et l'enveloppe de sensibilit&#233;.</li>
+  <li>Rapporter la combinaison de param&#232;tres la plus d&#233;favorable &#224; sa propre conclusion.</li>
+  <li>Rendre l'un des trois verdicts du &#167;&#160;28, et publier l'archive du &#167;&#160;34.</li>
+</ol>
+
+<div class="box warn">
+  <span class="lab">Trois interdits</span>
+<ul>
+  <li>Ne pas d&#233;placer le seuil apr&#232;s avoir vu les images.</li>
+  <li>Ne pas invoquer un r&#233;gime atmosph&#233;rique qu'on n'a pas cherch&#233; avant la comparaison.</li>
+  <li>Ne pas lire dans l'image un param&#232;tre qui servira ensuite &#224; juger cette image.</li>
+</ul>
+</div>
+
+<h2 class="brk"><span class="n">33</span>Fiche standard d'observation</h2>
+
+<p>Un dossier incomplet est ind&#233;termin&#233;, pas d&#233;favorable. Un champ sans valeur porte la mention <em>indisponible</em>&#160;; il n'est jamais laiss&#233; en blanc ni rempli d'une valeur plausible.</p>
+
+<h3>Identification</h3>
+
+<div class="sheet">
+  <div class="fr"><span class="a">Identifiant du dossier</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Date et heure UTC de la s&#233;rie</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">&#201;cart d'horloge mesur&#233;</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Op&#233;rateur</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Campagne et r&#233;f&#233;rence du pr&#233;-enregistrement</span><span class="b">&nbsp;</span></div>
+</div>
+
+<h3>Observateur</h3>
+
+<div class="sheet">
+  <div class="fr"><span class="a">Coordonn&#233;es et syst&#232;me de r&#233;f&#233;rence</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Incertitude annonc&#233;e par le r&#233;cepteur</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Hauteur ellipso&#239;dale et mod&#232;le de g&#233;o&#239;de</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Altitude du sol ou niveau d'eau</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Hauteur de l'axe optique au-dessus du sol</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Altitude <em>h</em> retenue et son incertitude</span><span class="b">&nbsp;</span></div>
+</div>
+
+<h3>Cible</h3>
+
+<div class="sheet">
+  <div class="fr"><span class="a">D&#233;signation exacte et sources d'identification</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Coordonn&#233;es et syst&#232;me de r&#233;f&#233;rence</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Altitude de la base <em>z</em><sub>b</sub> et sa source</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Hauteur totale <em>H</em> et sa source</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Parties pertinentes de cote connue, avec leurs sources</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Extension longitudinale de la cible</span><span class="b">&nbsp;</span></div>
+</div>
+
+<h3>G&#233;om&#233;trie</h3>
+
+<div class="sheet">
+  <div class="fr"><span class="a">Distance <em>D</em>, algorithme et incertitude</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Azimut g&#233;od&#233;sique</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Rayon de courbure d'Euler &#224; cet azimut</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Profil interm&#233;diaire&#160;: source, pas d'&#233;chantillonnage</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Altitude maximale du profil et marge sous la ligne de vis&#233;e</span><span class="b">&nbsp;</span></div>
+</div>
+
+<h3>Syst&#232;me photographique</h3>
+
+<div class="sheet">
+  <div class="fr"><span class="a">Bo&#238;tier, objectif, num&#233;ros de s&#233;rie</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Focale optique r&#233;elle et focale &#233;quivalente</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Ouverture, temps de pose, sensibilit&#233;</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">R&#233;solution native du capteur et pas de photosite</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">R&#233;solution du fichier final</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Facteur de grossissement, part optique et part num&#233;rique</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Recadrage interne avant enregistrement</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Traitements computationnels actifs</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Profil de distorsion appliqu&#233; et r&#233;siduel</span><span class="b">&nbsp;</span></div>
+</div>
+
+<h3>Atmosph&#232;re</h3>
+
+<div class="sheet">
+  <div class="fr"><span class="a">Temp&#233;rature de l'air &#224; chaque hauteur mesur&#233;e</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Temp&#233;rature de surface de la mer</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Pression, humidit&#233;</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Profil vertical disponible&#160;: source, r&#233;solution, distance et &#233;cart horaire</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Classe de chaque donn&#233;e (A &#224; E)</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Intervalle de <em>k</em> retenu et sa justification</span><span class="b">&nbsp;</span></div>
+</div>
+
+<h3>Images</h3>
+
+<div class="sheet">
+  <div class="fr"><span class="a">Nombre de vues, noms de fichiers, empreintes SHA-256</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Preuve de datation des empreintes</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Classement de chaque vue selon le &#167;&#160;18</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Vues exclues et motif</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">R&#233;solution effective mesur&#233;e</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Toute transformation appliqu&#233;e &#224; la copie</span><span class="b">&nbsp;</span></div>
+</div>
+
+<h3>Mesures</h3>
+
+<div class="sheet">
+  <div class="fr"><span class="a">Caract&#233;ristique d&#233;sign&#233;e, et date de sa d&#233;signation</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Positions en pixels rendues par chaque analyste en aveugle</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">&#201;chelle par la focale, et &#233;chelle par les rep&#232;res</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Hauteur visible, hauteur occult&#233;e</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Fraction visible observ&#233;e et son incertitude</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Rapports de hauteur mesur&#233;s et attendus</span><span class="b">&nbsp;</span></div>
+</div>
+
+<h3>R&#233;sultat</h3>
+
+<div class="sheet">
+  <div class="fr"><span class="a">Fraction pr&#233;dite par chaque mod&#232;le, avec enveloppe</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">&#201;cart observ&#233;-pr&#233;dit et incertitude compos&#233;e</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Combinaison la plus d&#233;favorable &#224; la conclusion</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">R&#233;sultat de la recherche de r&#233;gimes</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Verdict pour chaque mod&#232;le&#160;: compatible, incompatible, ind&#233;termin&#233;</span><span class="b">&nbsp;</span></div>
+  <div class="fr"><span class="a">Motif d'ind&#233;termination le cas &#233;ch&#233;ant</span><span class="b">&nbsp;</span></div>
+</div>
+
+<h2><span class="n">34</span>Structure d'archivage</h2>
+
+<p>L'archive doit permettre &#224; un tiers de refaire l'analyse depuis les fichiers d'origine, sans rien demander &#224; personne.</p>
+
+<div class="eq" style="text-align:left; font-size:8.6pt;
+ line-height:1.5">
+dossier-&lt;identifiant&gt;/<br>
+&nbsp;&nbsp;00-preenregistrement/&nbsp;&nbsp;&nbsp;plan dat&#233;, seuil,
+mod&#232;les d&#233;pos&#233;s, preuve de d&#233;p&#244;t<br>
+&nbsp;&nbsp;10-originaux/&nbsp;&nbsp;&nbsp;fichiers tels que sortis de
+l'appareil, jamais modifi&#233;s<br>
+&nbsp;&nbsp;11-empreintes/&nbsp;&nbsp;&nbsp;SHA256SUMS, date de calcul, preuve
+de datation par un tiers<br>
+&nbsp;&nbsp;20-fiche/&nbsp;&nbsp;&nbsp;fiche du &#167;&#160;33, en texte
+structur&#233; et en PDF<br>
+&nbsp;&nbsp;30-donnees-externes/&nbsp;&nbsp;&nbsp;extraits
+g&#233;od&#233;siques, topographiques, mar&#233;graphiques,
+m&#233;t&#233;orologiques, avec leur date d'&#233;dition<br>
+&nbsp;&nbsp;40-controles/&nbsp;&nbsp;&nbsp;mire, distorsion,
+stabilit&#233;, orientation, coh&#233;rence entre focales<br>
+&nbsp;&nbsp;50-mesures/&nbsp;&nbsp;&nbsp;relev&#233;s en pixels de chaque
+analyste, journal de classement horodat&#233;<br>
+&nbsp;&nbsp;60-calcul/&nbsp;&nbsp;&nbsp;code, param&#232;tres, germe
+al&#233;atoire, sorties interm&#233;diaires<br>
+&nbsp;&nbsp;70-rapport/&nbsp;&nbsp;&nbsp;rapport de chaque analyste,
+d&#233;clarations d'int&#233;r&#234;t, rapport de synth&#232;se<br>
+&nbsp;&nbsp;90-journal/&nbsp;&nbsp;&nbsp;journal horodat&#233; de toutes les
+op&#233;rations, y compris les &#233;carts au plan
+<span class="cap">Arborescence impos&#233;e. Les num&#233;ros fixent
+l'ordre de lecture&#160;: le pr&#233;-enregistrement vient avant les
+donn&#233;es, les donn&#233;es avant les mesures, les mesures avant le
+rapport.</span></div>
+
+<ul>
+  <li>Le r&#233;pertoire <code>10-originaux</code> est en lecture seule. Toute copie de travail vit ailleurs.</li>
+  <li>Le fichier <code>SHA256SUMS</code> couvre l'ensemble de l'archive, et son empreinte est elle-m&#234;me d&#233;pos&#233;e.</li>
+  <li>Le journal du &#167;&#160;90 est append-only&#160;: on n'y efface rien, on y ajoute les corrections.</li>
+  <li>L'archive est publi&#233;e sous une licence permettant la reprise et la red&#233;marche&#160;; si un fichier ne peut &#234;tre diffus&#233;, son empreinte et le nom de son d&#233;tenteur le sont.</li>
+</ul>
+
+<h2 class="brk"><span class="n">35</span>Bibliographie</h2>
+
+<div class="box warn">
+  <span class="lab">Statut de v&#233;rification</span>
+<p>Le cahier des charges interdit de citer une source non v&#233;rifi&#233;e. Les r&#233;f&#233;rences sont donc s&#233;par&#233;es en deux listes selon ce qui a pu &#234;tre contr&#244;l&#233; le 3 septembre 2026.</p>
+<p>La premi&#232;re liste rassemble les r&#233;f&#233;rences dont le titre exact, les auteurs, la revue, le volume, la pagination ou le num&#233;ro d'article et l'identifiant ont &#233;t&#233; retrouv&#233;s aupr&#232;s de l'&#233;diteur ou d'un catalogue bibliographique.</p>
+<p>La seconde rassemble des documents d'organisme d&#233;sign&#233;s par leur r&#233;f&#233;rence officielle, dont l'&#233;dition en vigueur <strong>n'a pas pu &#234;tre revérifiée</strong> &#224; cette date. Ils sont nomm&#233;s sans num&#233;ro d'&#233;dition ni ann&#233;e invent&#233;s, et l'&#233;dition applicable doit &#234;tre confirm&#233;e avant toute publication du protocole.</p>
+</div>
+
+<h3>35.1 R&#233;f&#233;rences v&#233;rifi&#233;es</h3>
+
+<ol class="refs">
+  <li>Moritz, H. (2000). <em>Geodetic Reference System 1980</em>. Journal of Geodesy 74, 128&#8211;133. DOI&#160;10.1007/s001900050278.<br><em>Justifie&#160;:</em> &#167;&#160;4.1, &#167;&#160;12 &#8212; d&#233;finition de l'ellipso&#239;de GRS&#8239;80 et du rayon moyen R<sub>1</sub>.</li>
+  <li>Karney, C.&#8239;F.&#8239;F. (2013). <em>Algorithms for geodesics</em>. Journal of Geodesy 87, 43&#8211;55. DOI&#160;10.1007/s00190-012-0578-z.<br><em>Justifie&#160;:</em> &#167;&#160;12.3 &#8212; calcul de la g&#233;od&#233;sique et de l'azimut sur l'ellipso&#239;de.</li>
+  <li>Pavlis, N.&#8239;K., Holmes, S.&#8239;A., Kenyon, S.&#8239;C., Factor, J.&#8239;K. (2012). <em>The development and evaluation of the Earth Gravitational Model 2008 (EGM2008)</em>. Journal of Geophysical Research&#160;: Solid Earth 117, B04406. DOI&#160;10.1029/2011JB008916. Correction&#160;: J. Geophys. Res. Solid Earth (2013), DOI&#160;10.1002/jgrb.50167.<br><em>Justifie&#160;:</em> &#167;&#160;12.1 &#8212; conversion entre hauteur ellipso&#239;dale et altitude.</li>
+  <li>Ciddor, P.&#8239;E. (1996). <em>Refractive index of air&#160;: new equations for the visible and near infrared</em>. Applied Optics 35(9), 1566&#8211;1573. DOI&#160;10.1364/AO.35.001566.<br><em>Justifie&#160;:</em> &#167;&#160;11.2 &#8212; r&#233;fractivit&#233; optique de l'air&#160;; base de la constante employ&#233;e.</li>
+  <li>van der Werf, S.&#8239;Y. (2003). <em>Ray tracing and refraction in the modified US1976 atmosphere</em>. Applied Optics 42(3), 354&#8211;366. DOI&#160;10.1364/AO.42.000354.<br><em>Justifie&#160;:</em> &#167;&#160;11.6 &#8212; m&#233;thode de tra&#231;age de rayon en atmosph&#232;re stratifi&#233;e.</li>
+  <li>Lehn, W.&#8239;H. (1979). <em>The Novaya Zemlya effect&#160;: an arctic mirage</em>. Journal of the Optical Society of America 69(5), 776&#8211;781.<br><em>Justifie&#160;:</em> &#167;&#160;11.3, &#167;&#160;19.4 &#8212; conduit optique et mirages de forte inversion.</li>
+  <li>Hirt, C., Guillaume, S., Wisbar, A., B&#252;rki, B., Sternberg, H. (2010). <em>Monitoring of the refraction coefficient in the lower atmosphere using a controlled setup of simultaneous reciprocal vertical angle measurements</em>. Journal of Geophysical Research 115, D21102. DOI&#160;10.1029/2010JD014067.<br><em>Justifie&#160;:</em> &#167;&#160;11.3 &#8212; amplitude mesur&#233;e des variations de <em>k</em> pr&#232;s du sol. <strong>Port&#233;e limit&#233;e</strong>&#160;: mesures &#224; environ 1,8&#8239;m au-dessus d'une prairie, sur des trajets courts, par temps ensoleill&#233;&#160;; les valeurs extr&#234;mes rapport&#233;es (&#8722;4 &#224; +16) ne sont pas transposables telles quelles &#224; un trajet marin rasant de plusieurs dizaines de kilom&#232;tres.</li>
+  <li>Recommandation UIT-R P.453-14 (2019). <em>The radio refractive index&#160;: its formula and refractivity data</em>. Union internationale des t&#233;l&#233;communications.<br><em>Justifie&#160;:</em> &#167;&#160;11.4 &#8212; formule de la r&#233;fractivit&#233; radio&#233;lectrique et d&#233;finition des conduits. <strong>Domaine radio</strong>&#160;: cit&#233;e pr&#233;cis&#233;ment pour &#233;tablir la diff&#233;rence avec le domaine optique.</li>
+  <li>ISO 12233:2024. <em>Photography &#8212; Electronic still picture imaging &#8212; Resolution and spatial frequency responses</em>. Organisation internationale de normalisation.<br><em>Justifie&#160;:</em> &#167;&#160;20.2, &#167;&#160;24 &#8212; mesure de la r&#233;solution par la m&#233;thode du bord inclin&#233;.</li>
+</ol>
+
+<h3>35.2 Documents d'organisme, &#233;dition &#224; confirmer</h3>
+
+<ol class="refs">
+  <li>JCGM 100:2008, <em>&#201;valuation des donn&#233;es de mesure &#8212; Guide pour l'expression de l'incertitude de mesure</em> (GUM), Bureau international des poids et mesures.<br><em>Justifierait&#160;:</em> &#167;&#160;22 &#8212; &#233;valuation et composition des incertitudes.</li>
+  <li>JCGM 200:2012, <em>Vocabulaire international de m&#233;trologie</em> (VIM), 3<sup>e</sup> &#233;dition.<br><em>Justifierait&#160;:</em> &#167;&#160;6 &#8212; terminologie des grandeurs et des incertitudes.</li>
+  <li>Organisation m&#233;t&#233;orologique mondiale, publication n&#176;&#8239;8, <em>Guide des instruments et des m&#233;thodes d'observation</em>.<br><em>Justifierait&#160;:</em> &#167;&#160;21 &#8212; conditions de mesure des grandeurs atmosph&#233;riques de surface.</li>
+  <li>CIPA DC-008 / JEITA CP-3451, <em>Exchangeable image file format for digital still cameras&#160;: Exif</em>.<br><em>Justifierait&#160;:</em> &#167;&#160;15.4, &#167;&#160;17 &#8212; champs de m&#233;tadonn&#233;es exig&#233;s.</li>
+  <li>Rüeger, J.&#8239;M., <em>Refractive Index Formulae for Radio Waves</em>, F&#233;d&#233;ration internationale des g&#233;om&#232;tres.<br><em>Justifierait&#160;:</em> &#167;&#160;11.4 &#8212; termes sec et humide de la r&#233;fractivit&#233;.</li>
+  <li>Torge, W., M&#252;ller, J., <em>Geodesy</em>, De Gruyter.<br><em>Justifierait&#160;:</em> &#167;&#160;11.1, &#167;&#160;12.2 &#8212; coefficient de r&#233;fraction g&#233;od&#233;sique et rayons de courbure de l'ellipso&#239;de.</li>
+  <li>Copernicus DEM &#8212; <em>Global and European Digital Elevation Model</em>, Agence spatiale europ&#233;enne.<br><em>Justifierait&#160;:</em> &#167;&#160;12.3 &#8212; profil interm&#233;diaire et altitude de base.</li>
+  <li>Organisation hydrographique internationale, publication S-44, <em>Normes pour les lev&#233;s hydrographiques</em>.<br><em>Justifierait&#160;:</em> &#167;&#160;12.3 &#8212; incertitudes bathym&#233;triques et z&#233;ro des cartes.</li>
+</ol>
+
+<h3>35.3 Ce qui n'est cit&#233; nulle part</h3>
+
+<p>Aucune valeur du pr&#233;sent protocole n'est reprise d'une source secondaire non v&#233;rifi&#233;e. Les constantes physiques &#8212; g, R<sub>d</sub>, la r&#233;fractivit&#233; optique &#8212; et les relations qui en d&#233;coulent sont red&#233;riv&#233;es dans le code qui produit ce document, et l'accord de cette red&#233;rivation avec ses deux points d'ancrage physiques &#8212; gradient autoconvectif et seuil de conduit &#8212; est v&#233;rifi&#233; &#224; chaque g&#233;n&#233;ration.</p>
+</div>

@@ -73,6 +73,11 @@ DOCUMENTS = {
         "Protocole-refraction-exigee.pdf",
         "Quelle réfraction faudrait-il pour voir cet objet — What refraction would be needed",
     ),
+    "visibilite": (
+        "visibilite-cible-eloignee.html",
+        "Protocole-visibilite-cible-eloignee.pdf",
+        "Portion visible d'une cible éloignée au-dessus de la mer — protocole expérimental v1.0",
+    ),
     "photo": (
         "analyse-photo-bilingue.html",
         "Protocole-analyse-photographique.pdf",
