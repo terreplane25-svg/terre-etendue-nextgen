@@ -107,7 +107,7 @@ export default function HomeClient({ articles }: { articles: A[] }) {
             fontFamily: "'JetBrains Mono', monospace",
             border: '1px solid rgba(196,94,106,0.4)', padding: '6px 14px', borderRadius: 100,
           }}>
-            Protocole de recevabilité — version 2.1
+            Protocole de recevabilité — version 3.0
           </div>
 
           <h2 style={{
@@ -126,12 +126,14 @@ export default function HomeClient({ articles }: { articles: A[] }) {
             l’appareil a fait entre la scène et le fichier.
           </p>
           <p style={{ fontSize: 17, color: '#a8b8cc', lineHeight: 1.7, maxWidth: 760, margin: '0 0 34px' }}>
-            La seconde dit ce qu’il faut fournir avec, ce qui est vérifié, et à quelle condition une
-            conclusion est rendue. Trois verdicts, et pas un quatrième&nbsp;:
-            <strong style={{ color: '#F4F8FC' }}> rejet immédiat</strong>,
-            <strong style={{ color: '#F4F8FC' }}> non concluant</strong>, ou
-            <strong style={{ color: '#F4F8FC' }}> analyse valide</strong> — ce dernier seulement si
-            100&nbsp;% des pièces et des sources indépendantes sont fournies et authentifiées.
+Trois choses ne s’y négocient pas. Le
+            <strong style={{ color: '#F4F8FC' }}> seuil de réfutation</strong> est déposé et daté
+            avant que les images soient vues. La conclusion doit tenir sur
+            <strong style={{ color: '#F4F8FC' }}> toute l’enveloppe d’incertitude</strong>&nbsp;: si une
+            seule combinaison admissible des paramètres rend l’observation conforme à la prédiction,
+            le résultat n’est pas anomal. Et
+            <strong style={{ color: '#F4F8FC' }}> aucun verdict n’est certifié par un seul analyste</strong>
+            &nbsp;— trois analyses indépendantes, toute divergence rendant le résultat non concluant.
           </p>
 
           <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', alignItems: 'center' }}>
@@ -150,7 +152,7 @@ export default function HomeClient({ articles }: { articles: A[] }) {
           </div>
 
           <p style={{ fontSize: 13.5, color: '#6f829c', lineHeight: 1.65, marginTop: 26, maxWidth: 760 }}>
-            Version 2.1, 10 pages, français et anglais dans le même fichier. Licence CC BY 4.0.
+            Version 3.0, 18 pages, français et anglais dans le même fichier. Licence CC BY 4.0.
           </p>
           <p style={{ fontSize: 13.5, color: '#6f829c', lineHeight: 1.65, marginTop: 10, maxWidth: 760 }}>
             Le protocole de dépression de l’horizon marin, déposé le 30 août 2026 sous le
