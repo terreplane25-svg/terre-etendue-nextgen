@@ -141,12 +141,12 @@ export default function HomeClient({ articles }: { articles: A[] }) {
               fontSize: 15, fontWeight: 700, color: '#F4F8FC', background: 'rgba(255,255,255,0.06)',
               padding: '15px 26px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.22)',
             }}>
-              Télécharger le PDF · 36 pages
+              Télécharger le PDF · 38 pages
             </a>
           </div>
 
           <p style={{ fontSize: 13.5, color: '#6f829c', lineHeight: 1.65, marginTop: 26, maxWidth: 760 }}>
-            Version 1.0, 36 pages, français. Trente-cinq rubriques, de la géométrie aux critères de
+            Version 1.0, 38 pages, français. Trente-cinq rubriques, de la géométrie aux critères de
             décision, avec l’audit critique du protocole par lui-même et une bibliographie dont le
             statut de vérification est déclaré entrée par entrée. Licence CC BY 4.0.
           </p>

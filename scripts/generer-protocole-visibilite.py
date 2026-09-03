@@ -438,13 +438,14 @@ def sec_ecarts():
          "d&#232;s k&#160;&#8805;&#160;%s. Un seuil en kilom&#232;tres ne "
          "peut donc pas d&#233;finir la validit&#233; d'une observation."
          % (nb(c_50, 1), nb(c_50_k20, 1), nb(k_annule, 2)),
-         "Le crit&#232;re d'admission porte sur la <em>plus petite</em> "
-         "hauteur occult&#233;e pr&#233;dite sur l'intervalle de "
-         "r&#233;fraction retenu, et non sur la distance&#160;: la "
-         "g&#233;om&#233;trie est admissible si cette valeur atteint au "
-         "moins cinq fois l'incertitude de mesure (&#167;&#160;28). Les "
-         "seuils de 100&#8239;m et 50&#8239;km deviennent des minimums "
-         "pratiques, non des conditions de validit&#233;."),
+         "<strong>Les deux seuils sont supprim&#233;s.</strong> Aucune "
+         "altitude ni aucune distance minimale n'est pos&#233;e a priori. "
+         "L'admissibilit&#233; d'une configuration se calcule, observation "
+         "par observation, &#224; partir des donn&#233;es r&#233;colt&#233;es "
+         "et des enveloppes de pr&#233;diction&#160;: elle est admise si "
+         "l'&#233;cart entre les pr&#233;dictions des mod&#232;les, pris au "
+         "bord d'enveloppe le plus d&#233;favorable, atteint cinq fois "
+         "l'incertitude de mesure (&#167;&#160;28.2)."),
         ("Conduit d'&#233;vaporation en optique (&#167;&#160;7 du cahier)",
          "Le cahier range le <em>ducting</em> parmi les r&#233;gimes &#224; "
          "traiter, sans distinguer le domaine radio du domaine optique. Le "
@@ -1937,25 +1938,32 @@ def sec_sensibilite():
             "l'enveloppe du mod&#232;le S s'&#233;carte de 1.",
             ["D (km)", "S, k=0", "S, k=0,13", "S, k=0,25", "S, k=0,50",
              "mod&#232;le P"], lignes, num=(0, 1, 2, 3, 4, 5)),
-        h3("23.4 Choix de la g&#233;om&#233;trie d'une campagne"),
-        p("La g&#233;om&#233;trie doit &#234;tre choisie pour que la "
-          "pr&#233;diction du mod&#232;le S <em>la plus favorable au "
-          "mod&#232;le P</em> &#8212; c'est-&#224;-dire celle obtenue avec "
-          "le <em>k</em> maximal retenu &#8212; s'&#233;carte encore "
-          "nettement de la pr&#233;diction du mod&#232;le P."),
+        h3("23.4 Pr&#233;parer une campagne"),
+        p("Le tableau ci-dessous aide &#224; choisir o&#249; aller. Il ne "
+          "pose aucun seuil&#160;: la validit&#233; d'une observation ne se "
+          "d&#233;cide qu'apr&#232;s coup, par le calcul du "
+          "&#167;&#160;28.2, sur les param&#232;tres r&#233;ellement "
+          "&#233;tablis. Une g&#233;om&#233;trie qui para&#238;t "
+          "confortable ici peut se r&#233;v&#233;ler inexploitable si la "
+          "r&#233;fraction n'a pas pu &#234;tre born&#233;e, et une "
+          "g&#233;om&#233;trie modeste peut suffire si l'incertitude de "
+          "mesure est petite."),
         tab("Tableau&#160;16 &#8212; distance &#224; laquelle la hauteur "
-            "occult&#233;e pr&#233;dite atteint 20&#8239;m, m&#234;me sous "
-            "le coefficient maximal retenu. C'est ce tableau, et non un "
-            "seuil en kilom&#232;tres, qui doit dimensionner une "
-            "campagne.",
+            "occult&#233;e pr&#233;dite atteint 20&#8239;m, sous le "
+            "coefficient maximal retenu. Tableau de pr&#233;paration "
+            "seulement&#160;: il n'&#233;nonce aucune condition de "
+            "validit&#233;.",
             ["Altitude observateur (m)", "k<sub>max</sub>=0,20",
              "k<sub>max</sub>=0,35", "k<sub>max</sub>=0,50"],
             design, num=(0, 1, 2, 3)),
-        p("Lecture&#160;: depuis 100&#8239;m, il faut d&#233;j&#224; "
-          "%s&#8239;km si l'on admet <em>k</em> jusqu'&#224; 0,50. Le seuil "
-          "de 50&#8239;km du cahier des charges ne suffit donc pas d&#232;s "
-          "que la r&#233;fraction n'est pas born&#233;e par une mesure."
-          % nb(D_pour_c(100.0, 20.0, 0.50)/1000, 1)),
+        p("Lecture&#160;: depuis 100&#8239;m, il faut %s&#8239;km pour que "
+          "20&#8239;m soient occult&#233;s si l'on admet <em>k</em> "
+          "jusqu'&#224; 0,50, contre %s&#8239;km si une mesure "
+          "atmosph&#233;rique permet de le borner &#224; 0,20. L'&#233;cart "
+          "entre ces deux colonnes est la valeur, en kilom&#232;tres "
+          "&#233;pargn&#233;s, d'un profil vertical mesur&#233; sur place."
+          % (nb(D_pour_c(100.0, 20.0, 0.50)/1000, 1),
+             nb(D_pour_c(100.0, 20.0, 0.20)/1000, 1))),
     ])
 
 
@@ -2153,6 +2161,25 @@ def sec_statistique():
 
 
 def sec_decision():
+    lignes = []
+    for u in (2.0, 5.0):
+        for h in (2, 10, 50, 100, 300, 800, 2000):
+            lignes.append(rang(
+                [nb(u, 0), nb(h)]
+                + [nb(D_pour_c(float(h), 5.0*u, k)/1000, 1)
+                   for k in (0.20, 0.35, 0.50)],
+                num=(0, 1, 2, 3, 4), vedette=(u == 2.0 and h == 2)))
+    t_admis = tab(
+        "Tableau&#160;19 &#8212; distance &#224; partir de laquelle la "
+        "condition de discrimination est tenue, en kilom&#232;tres. Aucune "
+        "de ces valeurs n'est un seuil&#160;: chaque observation refait le "
+        "calcul avec ses propres param&#232;tres. La ligne en &#233;vidence "
+        "montre qu'une hauteur d'&#339;il de deux m&#232;tres suffit, si la "
+        "distance suit.",
+        ["<em>u</em>(<em>c</em>) (m)", "Altitude observateur (m)",
+         "k<sub>max</sub>=0,20", "k<sub>max</sub>=0,35",
+         "k<sub>max</sub>=0,50"],
+        lignes, num=(0, 1, 2, 3, 4))
     return "\n\n".join([
         h2("28", "Crit&#232;res de d&#233;cision", saut=True),
         h3("28.1 Filtre pr&#233;alable"),
@@ -2166,18 +2193,77 @@ def sec_decision():
           "d&#233;favorable&#160;: il n'entre pas dans l'analyse, et son "
           "exclusion est publi&#233;e."),
         h3("28.2 Condition de discrimination"),
-        p("Une observation ne peut discriminer que si sa "
-          "g&#233;om&#233;trie s&#233;pare assez les pr&#233;dictions. La "
-          "condition, d&#233;pos&#233;e avant l'observation&#160;:"),
+        p("<strong>Aucune altitude ni aucune distance minimale n'est "
+          "pos&#233;e a priori.</strong> Une configuration n'est pas "
+          "admissible parce qu'elle franchit un seuil rond&#160;; elle "
+          "l'est parce que le calcul ci-dessous, conduit sur ses propres "
+          "param&#232;tres une fois qu'ils sont &#233;tablis, montre "
+          "qu'elle s&#233;pare les pr&#233;dictions."),
         encadre("Condition de discrimination",
-                p("L'&#233;cart entre la pr&#233;diction du mod&#232;le S "
-                  "sous le coefficient <em>le plus favorable au mod&#232;le "
-                  "P</em> et la pr&#233;diction du mod&#232;le P doit "
-                  "atteindre au moins <strong>cinq fois</strong> "
-                  "l'incertitude compos&#233;e de mesure. En de&#231;&#224;, "
-                  "l'observation est class&#233;e "
-                  "ind&#233;termin&#233;e avant m&#234;me d'&#234;tre "
-                  "mesur&#233;e.")),
+                "\n".join([
+                    p("Soit &#916; l'&#233;cart entre les fractions "
+                      "visibles pr&#233;dites par les deux mod&#232;les, "
+                      "&#233;valu&#233; au bord d'enveloppe le plus "
+                      "<em>d&#233;favorable</em> &#224; la discrimination "
+                      "&#8212; pour le couple S contre P, le coefficient de "
+                      "r&#233;fraction maximal retenu. Soit "
+                      "<em>u</em>(<em>f</em>) l'incertitude compos&#233;e "
+                      "de mesure sur la fraction observ&#233;e. La "
+                      "configuration est exploitable si&#160;:"),
+                    eq("&#916; &#8805; 5 &#183; <em>u</em>(<em>f</em>)",
+                       "&#233;valu&#233; a posteriori, sur les "
+                       "param&#232;tres r&#233;ellement &#233;tablis."),
+                    p("En de&#231;&#224;, l'observation est class&#233;e "
+                      "ind&#233;termin&#233;e avant m&#234;me que la "
+                      "fraction visible soit mesur&#233;e, et cette "
+                      "classification est publi&#233;e avec le motif."),
+                ])),
+        p("Le facteur 5 est un choix, d&#233;pos&#233; avec le reste du plan "
+          "et applicable identiquement aux deux mod&#232;les. Il place la "
+          "barre d'admission au-dessus du seuil de d&#233;cision de 3&#963; "
+          "du &#167;&#160;26&#160;: on n'accepte d'analyser que des "
+          "configurations o&#249; un &#233;cart significatif aurait de la "
+          "marge pour appara&#238;tre."),
+        h3("28.2.1 La hauteur de la cible dispara&#238;t du crit&#232;re"),
+        p("Le mod&#232;le P pr&#233;dit "
+          "<em>f</em>&#160;=&#160;1&#160;; le mod&#232;le S pr&#233;dit "
+          "1&#160;&#8722;&#160;<em>c</em>/<em>H</em>. L'&#233;cart vaut "
+          "donc &#916;&#160;=&#160;<em>c</em>/<em>H</em>, et l'incertitude "
+          "de mesure sur la fraction vaut "
+          "<em>u</em>(<em>f</em>)&#160;=&#160;<em>u</em>(<em>c</em>)/<em>H</em>. "
+          "La hauteur de la cible se simplifie&#160;:"),
+        eq("&#916; / <em>u</em>(<em>f</em>) = <em>c</em> / "
+           "<em>u</em>(<em>c</em>)&#160;&#160;&#160;&#160;donc&#160;&#160;"
+           "&#160;&#160;<em>c</em>(<em>h</em>, <em>D</em>, "
+           "<em>k</em><sub>max</sub>) &#8805; 5 &#183; <em>u</em>(<em>c</em>)",
+           "u(c) est l'incertitude de mesure sur la hauteur occult&#233;e, "
+           "en m&#232;tres &#224; la distance de la cible (&#167;&#160;20 "
+           "et &#167;&#160;22.1)."),
+        p("La condition ne d&#233;pend donc pas de la hauteur de la "
+          "cible&#160;: une cible haute donne une fraction plus "
+          "pr&#233;cise, mais aussi un &#233;cart relatif plus petit, et les "
+          "deux effets se compensent exactement. Ce qui d&#233;cide, c'est "
+          "la hauteur occult&#233;e pr&#233;dite compar&#233;e &#224; ce "
+          "que l'image permet de mesurer."),
+        h3("28.2.2 Ce que la condition donne"),
+        p("Le tableau&#160;19 r&#233;sout la condition en distance, pour "
+          "deux incertitudes de mesure r&#233;alistes. Il n'est pas un "
+          "bar&#232;me&#160;: c'est la m&#234;me formule, tabul&#233;e, et "
+          "chaque observation refait le calcul avec ses propres valeurs."),
+        t_admis,
+        p("Ce tableau suffit &#224; montrer qu'aucun plancher fixe ne tient. "
+          "Depuis une hauteur d'&#339;il de deux m&#232;tres, une "
+          "configuration &#224; %s&#8239;km satisfait la condition d&#232;s "
+          "que la hauteur occult&#233;e se mesure &#224; %s&#8239;m "
+          "pr&#232;s, m&#234;me en admettant <em>k</em> jusqu'&#224; 0,50 "
+          "&#8212; et les %s&#8239;m occult&#233;s y sous-tendent "
+          "%s secondes d'arc, largement au-dessus de ce qu'un syst&#232;me "
+          "correct r&#233;sout. &#192; l'inverse, une observation depuis "
+          "800&#8239;m &#224; 120&#8239;km ne satisfait pas la condition si "
+          "la r&#233;fraction n'a pas &#233;t&#233; born&#233;e, alors "
+          "qu'elle para&#238;t bien plus impressionnante."
+          % (nb(D_pour_c(2.0, 10.0, 0.50)/1000, 1), nb(2.0, 0), nb(10.0, 0),
+             nb(10.0/(D_pour_c(2.0, 10.0, 0.50)*4.8481368e-6), 0))),
         h3("28.3 Les trois cat&#233;gories"),
         liste([
             "<strong>Compatible.</strong> La fraction visible "
@@ -2457,7 +2543,7 @@ def sec_audit():
           "serait formul&#233;e, avec la correction "
           "int&#233;gr&#233;e&#160;; celles qui restent sans correction "
           "compl&#232;te figurent au &#167;&#160;30."),
-        tab("Tableau&#160;19 &#8212; objections et corrections. Une "
+        tab("Tableau&#160;20 &#8212; objections et corrections. Une "
             "objection sans correction serait une limite, pas un "
             "audit&#160;: les limites irr&#233;ductibles sont "
             "&#233;num&#233;r&#233;es s&#233;par&#233;ment au "

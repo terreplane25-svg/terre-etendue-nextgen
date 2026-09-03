@@ -204,7 +204,7 @@ footer{margin-top:11pt; padding-top:7pt; border-top:.7pt solid var(--line2);
   <caption>Tableau&#160;1 &#8212; corrections apport&#233;es au cahier des charges, et o&#249; elles sont int&#233;gr&#233;es.</caption>
   <thead><tr><th class="n">N&#176;</th><th>Point</th><th>Ce qui ne va pas</th><th>Correction retenue</th></tr></thead>
   <tbody>
-    <tr><td class="n">01</td><td>Seuils g&#233;om&#233;triques fixes (&#167;&#160;3 du cahier)</td><td>Le cahier impose au moins 100&#8239;m d'altitude et au moins 50&#8239;km de distance. Ces valeurs ne garantissent pas un signal mesurable. Depuis 100&#8239;m &#224; 50&#8239;km, la hauteur occult&#233;e vaut 16,1&#8239;m sans r&#233;fraction, 6,4&#8239;m &#224; k&#160;=&#160;0,20, et <strong>z&#233;ro</strong> d&#232;s k&#160;&#8805;&#160;0,49. Un seuil en kilom&#232;tres ne peut donc pas d&#233;finir la validit&#233; d'une observation.</td><td>Le crit&#232;re d'admission porte sur la <em>plus petite</em> hauteur occult&#233;e pr&#233;dite sur l'intervalle de r&#233;fraction retenu, et non sur la distance&#160;: la g&#233;om&#233;trie est admissible si cette valeur atteint au moins cinq fois l'incertitude de mesure (&#167;&#160;28). Les seuils de 100&#8239;m et 50&#8239;km deviennent des minimums pratiques, non des conditions de validit&#233;.</td></tr>
+    <tr><td class="n">01</td><td>Seuils g&#233;om&#233;triques fixes (&#167;&#160;3 du cahier)</td><td>Le cahier impose au moins 100&#8239;m d'altitude et au moins 50&#8239;km de distance. Ces valeurs ne garantissent pas un signal mesurable. Depuis 100&#8239;m &#224; 50&#8239;km, la hauteur occult&#233;e vaut 16,1&#8239;m sans r&#233;fraction, 6,4&#8239;m &#224; k&#160;=&#160;0,20, et <strong>z&#233;ro</strong> d&#232;s k&#160;&#8805;&#160;0,49. Un seuil en kilom&#232;tres ne peut donc pas d&#233;finir la validit&#233; d'une observation.</td><td><strong>Les deux seuils sont supprim&#233;s.</strong> Aucune altitude ni aucune distance minimale n'est pos&#233;e a priori. L'admissibilit&#233; d'une configuration se calcule, observation par observation, &#224; partir des donn&#233;es r&#233;colt&#233;es et des enveloppes de pr&#233;diction&#160;: elle est admise si l'&#233;cart entre les pr&#233;dictions des mod&#232;les, pris au bord d'enveloppe le plus d&#233;favorable, atteint cinq fois l'incertitude de mesure (&#167;&#160;28.2).</td></tr>
     <tr><td class="n">02</td><td>Conduit d'&#233;vaporation en optique (&#167;&#160;7 du cahier)</td><td>Le cahier range le <em>ducting</em> parmi les r&#233;gimes &#224; traiter, sans distinguer le domaine radio du domaine optique. Le conduit d'&#233;vaporation marin est pilot&#233; par le gradient d'humidit&#233;, dont le terme dans la r&#233;fractivit&#233; vaut 89,8&#8239;N en radio&#233;lectrique &#224; e&#160;=&#160;20&#8239;hPa et T&#160;=&#160;288&#8239;K, contre -0,78&#8239;N en optique&#160;: un rapport de 115. Transposer un raisonnement radio &#224; une exp&#233;rience optique est une erreur de domaine.</td><td>Le protocole traite s&#233;par&#233;ment le conduit optique, qui exige une inversion thermique d'environ +12,9&#8239;K/100&#8239;m, et le conduit radio, qui n'est pas le sujet. Les crit&#232;res de reconnaissance sont &#233;tablis sur les signatures visibles (&#167;&#160;11).</td></tr>
     <tr><td class="n">03</td><td>Coefficient de r&#233;fraction moyen (&#167;&#160;9 du cahier)</td><td>Le cahier envisage un coefficient global. Le tracé de rayon montre qu'une couche d'inversion de 60&#8239;m &#224; k&#160;=&#160;0,80 surmont&#233;e d'une atmosph&#232;re standard &#224; k&#160;=&#160;0,13 se comporte comme un k homog&#232;ne de <strong>0,563</strong>, et non comme la moyenne pond&#233;r&#233;e en hauteur, qui vaut 0,180. Le rayon rasant passe l'essentiel de son trajet &#224; faible pente dans la couche basse.</td><td>Le protocole exige un profil vertical r&#233;solu dans les premi&#232;res dizaines de m&#232;tres au-dessus de l'eau, et non une valeur moyenne&#160;; &#224; d&#233;faut, l'incertitude report&#233;e couvre l'&#233;cart entre les deux traitements.</td></tr>
     <tr><td class="n">04</td><td>Photographie vide (&#167;&#160;14 du cahier)</td><td>Le cahier &#233;carte les photographies o&#249; la cible n'appara&#238;t pas. &#201;carter syst&#233;matiquement les non-d&#233;tections introduit un biais de s&#233;lection&#160;: une cible absente est une information, &#224; condition que sa taille apparente pr&#233;dite ait d&#233;pass&#233; la limite de d&#233;tection du syst&#232;me.</td><td>Une non-d&#233;tection est retenue et class&#233;e <em>informative</em> si la taille angulaire pr&#233;dite de la partie attendue exc&#232;de trois fois la r&#233;solution effective mesur&#233;e&#160;; sinon elle est class&#233;e <em>ind&#233;termin&#233;e</em>. Les deux cas sont publi&#233;s (&#167;&#160;19).</td></tr>
@@ -929,12 +929,12 @@ visible.</figcaption>
   </tbody>
 </table>
 
-<h3>23.4 Choix de la g&#233;om&#233;trie d'une campagne</h3>
+<h3>23.4 Pr&#233;parer une campagne</h3>
 
-<p>La g&#233;om&#233;trie doit &#234;tre choisie pour que la pr&#233;diction du mod&#232;le S <em>la plus favorable au mod&#232;le P</em> &#8212; c'est-&#224;-dire celle obtenue avec le <em>k</em> maximal retenu &#8212; s'&#233;carte encore nettement de la pr&#233;diction du mod&#232;le P.</p>
+<p>Le tableau ci-dessous aide &#224; choisir o&#249; aller. Il ne pose aucun seuil&#160;: la validit&#233; d'une observation ne se d&#233;cide qu'apr&#232;s coup, par le calcul du &#167;&#160;28.2, sur les param&#232;tres r&#233;ellement &#233;tablis. Une g&#233;om&#233;trie qui para&#238;t confortable ici peut se r&#233;v&#233;ler inexploitable si la r&#233;fraction n'a pas pu &#234;tre born&#233;e, et une g&#233;om&#233;trie modeste peut suffire si l'incertitude de mesure est petite.</p>
 
 <table>
-  <caption>Tableau&#160;16 &#8212; distance &#224; laquelle la hauteur occult&#233;e pr&#233;dite atteint 20&#8239;m, m&#234;me sous le coefficient maximal retenu. C'est ce tableau, et non un seuil en kilom&#232;tres, qui doit dimensionner une campagne.</caption>
+  <caption>Tableau&#160;16 &#8212; distance &#224; laquelle la hauteur occult&#233;e pr&#233;dite atteint 20&#8239;m, sous le coefficient maximal retenu. Tableau de pr&#233;paration seulement&#160;: il n'&#233;nonce aucune condition de validit&#233;.</caption>
   <thead><tr><th class="n">Altitude observateur (m)</th><th class="n">k<sub>max</sub>=0,20</th><th class="n">k<sub>max</sub>=0,35</th><th class="n">k<sub>max</sub>=0,50</th></tr></thead>
   <tbody>
     <tr><td class="n">100</td><td class="n">57,8</td><td class="n">64,1</td><td class="n">73,1</td></tr>
@@ -944,7 +944,7 @@ visible.</figcaption>
   </tbody>
 </table>
 
-<p>Lecture&#160;: depuis 100&#8239;m, il faut d&#233;j&#224; 73,1&#8239;km si l'on admet <em>k</em> jusqu'&#224; 0,50. Le seuil de 50&#8239;km du cahier des charges ne suffit donc pas d&#232;s que la r&#233;fraction n'est pas born&#233;e par une mesure.</p>
+<p>Lecture&#160;: depuis 100&#8239;m, il faut 73,1&#8239;km pour que 20&#8239;m soient occult&#233;s si l'on admet <em>k</em> jusqu'&#224; 0,50, contre 57,8&#8239;km si une mesure atmosph&#233;rique permet de le borner &#224; 0,20. L'&#233;cart entre ces deux colonnes est la valeur, en kilom&#232;tres &#233;pargn&#233;s, d'un profil vertical mesur&#233; sur place.</p>
 
 <h2><span class="n">24</span>Contr&#244;les</h2>
 
@@ -1047,12 +1047,51 @@ visible.</figcaption>
 
 <h3>28.2 Condition de discrimination</h3>
 
-<p>Une observation ne peut discriminer que si sa g&#233;om&#233;trie s&#233;pare assez les pr&#233;dictions. La condition, d&#233;pos&#233;e avant l'observation&#160;:</p>
+<p><strong>Aucune altitude ni aucune distance minimale n'est pos&#233;e a priori.</strong> Une configuration n'est pas admissible parce qu'elle franchit un seuil rond&#160;; elle l'est parce que le calcul ci-dessous, conduit sur ses propres param&#232;tres une fois qu'ils sont &#233;tablis, montre qu'elle s&#233;pare les pr&#233;dictions.</p>
 
 <div class="box key">
   <span class="lab">Condition de discrimination</span>
-<p>L'&#233;cart entre la pr&#233;diction du mod&#232;le S sous le coefficient <em>le plus favorable au mod&#232;le P</em> et la pr&#233;diction du mod&#232;le P doit atteindre au moins <strong>cinq fois</strong> l'incertitude compos&#233;e de mesure. En de&#231;&#224;, l'observation est class&#233;e ind&#233;termin&#233;e avant m&#234;me d'&#234;tre mesur&#233;e.</p>
+<p>Soit &#916; l'&#233;cart entre les fractions visibles pr&#233;dites par les deux mod&#232;les, &#233;valu&#233; au bord d'enveloppe le plus <em>d&#233;favorable</em> &#224; la discrimination &#8212; pour le couple S contre P, le coefficient de r&#233;fraction maximal retenu. Soit <em>u</em>(<em>f</em>) l'incertitude compos&#233;e de mesure sur la fraction observ&#233;e. La configuration est exploitable si&#160;:</p>
+<div class="eq">&#916; &#8805; 5 &#183; <em>u</em>(<em>f</em>)<span class="cap">&#233;valu&#233; a posteriori, sur les param&#232;tres r&#233;ellement &#233;tablis.</span></div>
+<p>En de&#231;&#224;, l'observation est class&#233;e ind&#233;termin&#233;e avant m&#234;me que la fraction visible soit mesur&#233;e, et cette classification est publi&#233;e avec le motif.</p>
 </div>
+
+<p>Le facteur 5 est un choix, d&#233;pos&#233; avec le reste du plan et applicable identiquement aux deux mod&#232;les. Il place la barre d'admission au-dessus du seuil de d&#233;cision de 3&#963; du &#167;&#160;26&#160;: on n'accepte d'analyser que des configurations o&#249; un &#233;cart significatif aurait de la marge pour appara&#238;tre.</p>
+
+<h3>28.2.1 La hauteur de la cible dispara&#238;t du crit&#232;re</h3>
+
+<p>Le mod&#232;le P pr&#233;dit <em>f</em>&#160;=&#160;1&#160;; le mod&#232;le S pr&#233;dit 1&#160;&#8722;&#160;<em>c</em>/<em>H</em>. L'&#233;cart vaut donc &#916;&#160;=&#160;<em>c</em>/<em>H</em>, et l'incertitude de mesure sur la fraction vaut <em>u</em>(<em>f</em>)&#160;=&#160;<em>u</em>(<em>c</em>)/<em>H</em>. La hauteur de la cible se simplifie&#160;:</p>
+
+<div class="eq">&#916; / <em>u</em>(<em>f</em>) = <em>c</em> / <em>u</em>(<em>c</em>)&#160;&#160;&#160;&#160;donc&#160;&#160;&#160;&#160;<em>c</em>(<em>h</em>, <em>D</em>, <em>k</em><sub>max</sub>) &#8805; 5 &#183; <em>u</em>(<em>c</em>)<span class="cap">u(c) est l'incertitude de mesure sur la hauteur occult&#233;e, en m&#232;tres &#224; la distance de la cible (&#167;&#160;20 et &#167;&#160;22.1).</span></div>
+
+<p>La condition ne d&#233;pend donc pas de la hauteur de la cible&#160;: une cible haute donne une fraction plus pr&#233;cise, mais aussi un &#233;cart relatif plus petit, et les deux effets se compensent exactement. Ce qui d&#233;cide, c'est la hauteur occult&#233;e pr&#233;dite compar&#233;e &#224; ce que l'image permet de mesurer.</p>
+
+<h3>28.2.2 Ce que la condition donne</h3>
+
+<p>Le tableau&#160;19 r&#233;sout la condition en distance, pour deux incertitudes de mesure r&#233;alistes. Il n'est pas un bar&#232;me&#160;: c'est la m&#234;me formule, tabul&#233;e, et chaque observation refait le calcul avec ses propres valeurs.</p>
+
+<table>
+  <caption>Tableau&#160;19 &#8212; distance &#224; partir de laquelle la condition de discrimination est tenue, en kilom&#232;tres. Aucune de ces valeurs n'est un seuil&#160;: chaque observation refait le calcul avec ses propres param&#232;tres. La ligne en &#233;vidence montre qu'une hauteur d'&#339;il de deux m&#232;tres suffit, si la distance suit.</caption>
+  <thead><tr><th class="n"><em>u</em>(<em>c</em>) (m)</th><th class="n">Altitude observateur (m)</th><th class="n">k<sub>max</sub>=0,20</th><th class="n">k<sub>max</sub>=0,35</th><th class="n">k<sub>max</sub>=0,50</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td class="n">2</td><td class="n">2</td><td class="n">18,3</td><td class="n">20,3</td><td class="n">23,1</td></tr>
+    <tr><td class="n">2</td><td class="n">10</td><td class="n">25,2</td><td class="n">28,0</td><td class="n">31,9</td></tr>
+    <tr><td class="n">2</td><td class="n">50</td><td class="n">40,8</td><td class="n">45,3</td><td class="n">51,7</td></tr>
+    <tr><td class="n">2</td><td class="n">100</td><td class="n">52,5</td><td class="n">58,3</td><td class="n">66,4</td></tr>
+    <tr><td class="n">2</td><td class="n">300</td><td class="n">81,7</td><td class="n">90,7</td><td class="n">103,4</td></tr>
+    <tr><td class="n">2</td><td class="n">800</td><td class="n">125,5</td><td class="n">139,2</td><td class="n">158,7</td></tr>
+    <tr><td class="n">2</td><td class="n">2&#8239;000</td><td class="n">191,1</td><td class="n">212,0</td><td class="n">241,7</td></tr>
+    <tr><td class="n">5</td><td class="n">2</td><td class="n">25,6</td><td class="n">28,4</td><td class="n">32,4</td></tr>
+    <tr><td class="n">5</td><td class="n">10</td><td class="n">32,6</td><td class="n">36,1</td><td class="n">41,2</td></tr>
+    <tr><td class="n">5</td><td class="n">50</td><td class="n">48,2</td><td class="n">53,4</td><td class="n">60,9</td></tr>
+    <tr><td class="n">5</td><td class="n">100</td><td class="n">59,9</td><td class="n">66,4</td><td class="n">75,7</td></tr>
+    <tr><td class="n">5</td><td class="n">300</td><td class="n">89,1</td><td class="n">98,8</td><td class="n">112,7</td></tr>
+    <tr><td class="n">5</td><td class="n">800</td><td class="n">132,8</td><td class="n">147,4</td><td class="n">168,0</td></tr>
+    <tr><td class="n">5</td><td class="n">2&#8239;000</td><td class="n">198,4</td><td class="n">220,1</td><td class="n">251,0</td></tr>
+  </tbody>
+</table>
+
+<p>Ce tableau suffit &#224; montrer qu'aucun plancher fixe ne tient. Depuis une hauteur d'&#339;il de deux m&#232;tres, une configuration &#224; 23,1&#8239;km satisfait la condition d&#232;s que la hauteur occult&#233;e se mesure &#224; 2&#8239;m pr&#232;s, m&#234;me en admettant <em>k</em> jusqu'&#224; 0,50 &#8212; et les 10&#8239;m occult&#233;s y sous-tendent 89 secondes d'arc, largement au-dessus de ce qu'un syst&#232;me correct r&#233;sout. &#192; l'inverse, une observation depuis 800&#8239;m &#224; 120&#8239;km ne satisfait pas la condition si la r&#233;fraction n'a pas &#233;t&#233; born&#233;e, alors qu'elle para&#238;t bien plus impressionnante.</p>
 
 <h3>28.3 Les trois cat&#233;gories</h3>
 
@@ -1111,7 +1150,7 @@ visible.</figcaption>
 <p>Le protocole a &#233;t&#233; attaqu&#233; du point de vue d'un contradicteur comp&#233;tent et hostile. Dix-huit objections ont &#233;t&#233; retenues. Chacune est reproduite telle qu'elle serait formul&#233;e, avec la correction int&#233;gr&#233;e&#160;; celles qui restent sans correction compl&#232;te figurent au &#167;&#160;30.</p>
 
 <table>
-  <caption>Tableau&#160;19 &#8212; objections et corrections. Une objection sans correction serait une limite, pas un audit&#160;: les limites irr&#233;ductibles sont &#233;num&#233;r&#233;es s&#233;par&#233;ment au &#167;&#160;30.</caption>
+  <caption>Tableau&#160;20 &#8212; objections et corrections. Une objection sans correction serait une limite, pas un audit&#160;: les limites irr&#233;ductibles sont &#233;num&#233;r&#233;es s&#233;par&#233;ment au &#167;&#160;30.</caption>
   <thead><tr><th class="n">N&#176;</th><th>Domaine</th><th>Objection</th><th>Formulation hostile</th><th>Correction</th></tr></thead>
   <tbody>
     <tr><td class="n">01</td><td>G&#233;om&#233;trie</td><td>Rayon sph&#233;rique moyen</td><td>Vous calculez avec R<sub>1</sub> alors que le rayon de courbure d&#233;pend de la latitude et de l'azimut. L'&#233;cart entre le rayon m&#233;ridien &#224; l'&#233;quateur et la grande normale au p&#244;le atteint 64&#8239;km, soit 1,0&#8239;%, ce qui exc&#232;de de trois ordres de grandeur l'erreur d'approximation dont vous vous vantez au &#167;&#160;9.4.</td><td>Exact, et c'est pourquoi le &#167;&#160;12.2 impose le rayon d'Euler &#224; l'azimut de la vis&#233;e, et non R<sub>1</sub>. La diff&#233;rence est quantifi&#233;e au rapport.</td></tr>
