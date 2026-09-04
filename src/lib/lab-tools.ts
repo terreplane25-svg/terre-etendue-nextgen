@@ -21,12 +21,21 @@ export const TOOLS: LabTool[] = [
     tags: ['protocole', 'géodésie', 'réfraction', 'enveloppe'],
   },
   {
+    id: 'integrite-image',
+    label: 'Vérificateur d’intégrité d’image',
+    desc: "Empreinte SHA-256 et métadonnées EXIF/GPS d’un fichier, calculées dans votre navigateur. Le fichier ne quitte pas votre machine.",
+    icon: '🔒',
+    color: '#3B8FD4',
+    num: '02',
+    tags: ['intégrité', 'SHA-256', 'EXIF', 'confidentialité'],
+  },
+  {
     id: 'density',
     label: 'Simulateur de Densité',
     desc: "Colonne de fluides interactive. Lâchez des objets, observez la flottabilité.",
     icon: '⚗️',
     color: '#3D9E7C',
-    num: '02',
+    num: '03',
     tags: ['densité', 'flottabilité', 'Archimède'],
   },
   {
@@ -35,7 +44,7 @@ export const TOOLS: LabTool[] = [
     desc: "Classez 24 affirmations scientifiques. Feedback immédiat et sources.",
     icon: '🎯',
     color: '#2B7A5F',
-    num: '03',
+    num: '04',
     tags: ['pédagogie', 'épistémologie', 'quiz', 'enseignants'],
   },
 ];

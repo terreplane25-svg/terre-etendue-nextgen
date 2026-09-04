@@ -10,8 +10,20 @@ cas d'étude.
 TypeScript (`src/lib/visee-optique/noyau.ts`), mais ce port n'est pas
 autoritaire : il est épinglé à ce Python par 61 vecteurs d'or et 263 contrôles.
 
-    python3 scripts/generer-vecteurs-or-visee.py   # regénère les vecteurs
-    npm run verifier:visee                         # vérifie que le port n'a pas dérivé
+    python3 scripts/generer-vecteurs-or-visee.py    # outil A — regénère les vecteurs
+    python3 scripts/generer-vecteurs-or-preuve.py  # outil B — idem
+    npm run verifier:ports                         # vérifie que les deux ports n'ont pas dérivé
+
+Deux ports sont épinglés :
+
+| Port | Référence | Vecteurs | Contrôles |
+|---|---|---|---|
+| `src/lib/visee-optique/noyau.ts` | outil A, 321 tests | 61 | 263 |
+| `src/lib/preuve-image/noyau.ts` | outil B, 137 tests | 26 | 152 |
+
+Les deux harnais ont été éprouvés en cassant volontairement le port : un tag
+EXIF décalé d'un cran, le signe de l'hémisphère sud oublié, l'arc de tangence
+biaisé de 10⁻⁷ — chacun est détecté et nommé.
 
 Toute correction de formule se fait **dans le Python d'abord**, puis se
 répercute dans le port, puis les vecteurs sont régénérés. Jamais l'inverse.
@@ -53,6 +65,18 @@ Vingt-six tests couvrent désormais ces deux fonctions, dont deux qui les
 confrontent à des résultats obtenus **sans** Vincenty : sur l'équateur la
 distance vaut exactement a·Δλ, et sur un méridien elle vaut l'intégrale du
 rayon méridien, calculée ici par quadrature.
+
+## Ce que le port de l'outil B fait en plus
+
+Le vérificateur d'intégrité tourne **entièrement dans le navigateur** : le
+fichier de l'utilisateur n'est jamais transmis, ni stocké, ni journalisé. Ce
+n'est pas qu'une commodité d'hébergement, c'est ce qu'un tiers de confiance
+doit pouvoir dire de son propre outil — et c'est vérifié plutôt qu'affirmé :
+zéro requête réseau relevée pendant l'analyse d'un fichier.
+
+Le SHA-256 passe par WebCrypto, la même primitive dans le navigateur et dans
+Node. Il a été confronté à `sha256sum` du système, une troisième
+implémentation indépendante du Python comme du navigateur : identique.
 
 ## Ce qui reste à faire
 
