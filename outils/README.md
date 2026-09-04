@@ -12,18 +12,21 @@ autoritaire : il est épinglé à ce Python par 61 vecteurs d'or et 263 contrôl
 
     python3 scripts/generer-vecteurs-or-visee.py    # outil A — regénère les vecteurs
     python3 scripts/generer-vecteurs-or-preuve.py  # outil B — idem
-    npm run verifier:ports                         # vérifie que les deux ports n'ont pas dérivé
+    python3 scripts/generer-vecteurs-or-rapport.py # outil C — idem
+    npm run verifier:ports                         # vérifie que les trois ports n'ont pas dérivé
 
-Deux ports sont épinglés :
+Les trois ports sont épinglés :
 
 | Port | Référence | Vecteurs | Contrôles |
 |---|---|---|---|
 | `src/lib/visee-optique/noyau.ts` | outil A, 321 tests | 61 | 263 |
 | `src/lib/preuve-image/noyau.ts` | outil B, 137 tests | 26 | 152 |
+| `src/lib/rapport-expertise/noyau.ts` | outil C, 42 tests | 22 | 117 |
 
-Les deux harnais ont été éprouvés en cassant volontairement le port : un tag
+Les trois harnais ont été éprouvés en cassant volontairement le port : un tag
 EXIF décalé d'un cran, le signe de l'hémisphère sud oublié, l'arc de tangence
-biaisé de 10⁻⁷ — chacun est détecté et nommé.
+biaisé de 10⁻⁷, un champ retiré d'un bloc de la fiche, deux répertoires de
+l'arborescence intervertis — chacun est détecté et nommé.
 
 Toute correction de formule se fait **dans le Python d'abord**, puis se
 répercute dans le port, puis les vecteurs sont régénérés. Jamais l'inverse.
@@ -77,6 +80,27 @@ zéro requête réseau relevée pendant l'analyse d'un fichier.
 Le SHA-256 passe par WebCrypto, la même primitive dans le navigateur et dans
 Node. Il a été confronté à `sha256sum` du système, une troisième
 implémentation indépendante du Python comme du navigateur : identique.
+
+## L'archive produite par le navigateur, validée par le Python
+
+Le générateur de fiche écrit un ZIP sans compression, à la main
+(`src/lib/rapport-expertise/zip.ts`, aucune dépendance). Sans compression
+délibérément : l'empreinte d'un fichier est alors la même dans l'archive et
+hors d'elle, donc le manifeste se contrôle sans décompresseur.
+
+Trois contre-épreuves indépendantes plutôt qu'une affirmation :
+
+- `unzip -t` ne détecte aucune erreur, et le CRC-32 rend la valeur normalisée
+  `cbf43926` sur la chaîne d'épreuve `123456789` ;
+- `sha256sum -c SHA256SUMS` valide le manifeste produit dans le navigateur,
+  avec les vrais fichiers ;
+- `rapport_expertise.archive.verifier_arborescence` — la fonction Python
+  elle-même — déclare l'arborescence conforme au §34, aucun répertoire
+  manquant.
+
+Et `originaux_proteges` retourne False, comme attendu : le verrouillage Unix de
+`10-originaux/` est la seule chose que le navigateur ne peut pas faire. Le
+LISEZ-MOI de l'archive donne la commande plutôt que de la simuler.
 
 ## Ce qui reste à faire
 

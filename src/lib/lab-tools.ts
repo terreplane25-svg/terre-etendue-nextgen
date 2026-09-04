@@ -30,12 +30,21 @@ export const TOOLS: LabTool[] = [
     tags: ['intégrité', 'SHA-256', 'EXIF', 'confidentialité'],
   },
   {
+    id: 'fiche-archive',
+    label: 'Fiche d’observation et archive',
+    desc: "Les cinquante-six champs du §33 — chacun exige une valeur ou la mention « indisponible » — et l’arborescence d’archive du §34, téléchargeable.",
+    icon: '🗂️',
+    color: '#8B7EC8',
+    num: '03',
+    tags: ['fiche', 'archive', 'traçabilité', 'SHA-256'],
+  },
+  {
     id: 'density',
     label: 'Simulateur de Densité',
     desc: "Colonne de fluides interactive. Lâchez des objets, observez la flottabilité.",
     icon: '⚗️',
     color: '#3D9E7C',
-    num: '03',
+    num: '04',
     tags: ['densité', 'flottabilité', 'Archimède'],
   },
   {
@@ -44,7 +53,7 @@ export const TOOLS: LabTool[] = [
     desc: "Classez 24 affirmations scientifiques. Feedback immédiat et sources.",
     icon: '🎯',
     color: '#2B7A5F',
-    num: '04',
+    num: '05',
     tags: ['pédagogie', 'épistémologie', 'quiz', 'enseignants'],
   },
 ];

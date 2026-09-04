@@ -10,7 +10,8 @@
     "lint": "next lint",
     "verifier:visee": "node scripts/verifier-port-visee.mjs",
     "verifier:preuve": "node scripts/verifier-port-preuve.mjs",
-    "verifier:ports": "npm run verifier:visee && npm run verifier:preuve"
+    "verifier:ports": "npm run verifier:visee && npm run verifier:preuve && npm run verifier:rapport",
+    "verifier:rapport": "node scripts/verifier-port-rapport.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.0",

@@ -1,0 +1,492 @@
+{
+  "genere_le": "2026-09-04T01:56:31.179774+00:00",
+  "source": "rapport_expertise (paquet Python, 42 tests)",
+  "avertissement": "Fichier généré. Ne pas modifier à la main : il est la référence contre laquelle le port TypeScript est vérifié.",
+  "sentinel_indisponible": "indisponible",
+  "blocs": [
+    {
+      "nom": "identification",
+      "champs": [
+        "identifiant_dossier",
+        "date_heure_utc_serie",
+        "ecart_horloge_mesure",
+        "operateur",
+        "campagne_et_reference_preenregistrement"
+      ]
+    },
+    {
+      "nom": "poste_observation",
+      "champs": [
+        "observateur",
+        "coordonnees_et_systeme_reference",
+        "incertitude_recepteur",
+        "hauteur_ellipsoidale_et_geoide",
+        "altitude_sol_ou_niveau_eau",
+        "hauteur_axe_optique",
+        "altitude_h_retenue_et_incertitude"
+      ]
+    },
+    {
+      "nom": "cible",
+      "champs": [
+        "designation_et_sources",
+        "coordonnees_et_systeme_reference",
+        "altitude_base_zb_et_source",
+        "hauteur_totale_H_et_source",
+        "parties_pertinentes_cote_connue",
+        "extension_longitudinale"
+      ]
+    },
+    {
+      "nom": "geometrie",
+      "champs": [
+        "distance_D_algorithme_et_incertitude",
+        "azimut_geodesique",
+        "rayon_courbure_euler",
+        "profil_intermediaire_source_et_pas",
+        "altitude_maximale_profil_et_marge"
+      ]
+    },
+    {
+      "nom": "systeme_photographique",
+      "champs": [
+        "boitier_objectif_numeros_serie",
+        "focale_reelle_et_equivalente",
+        "ouverture_temps_pose_sensibilite",
+        "resolution_native_et_pas_photosite",
+        "resolution_fichier_final",
+        "grossissement",
+        "recadrage_interne_avant_enregistrement",
+        "traitements_computationnels_actifs",
+        "profil_distorsion_et_residuel"
+      ]
+    },
+    {
+      "nom": "atmosphere",
+      "champs": [
+        "temperature_air_par_hauteur",
+        "temperature_surface_mer",
+        "pression_humidite",
+        "profil_vertical_disponible",
+        "classe_de_chaque_donnee",
+        "intervalle_k_retenu_et_justification"
+      ]
+    },
+    {
+      "nom": "images",
+      "champs": [
+        "nombre_vues_noms_fichiers_empreintes",
+        "preuve_datation_empreintes",
+        "classement_chaque_vue",
+        "vues_exclues_et_motif",
+        "resolution_effective_mesuree",
+        "transformations_appliquees_copie"
+      ]
+    },
+    {
+      "nom": "mesures",
+      "champs": [
+        "caracteristique_designee_et_date",
+        "positions_pixels_par_analyste",
+        "echelle_par_focale_et_par_reperes",
+        "hauteur_visible_et_occultee",
+        "fraction_visible_observee_et_incertitude",
+        "rapports_hauteur_mesures_et_attendus"
+      ]
+    },
+    {
+      "nom": "resultat",
+      "champs": [
+        "fraction_predite_par_modele_avec_enveloppe",
+        "ecart_observe_predit_et_incertitude",
+        "combinaison_plus_defavorable",
+        "resultat_recherche_regimes",
+        "verdict_par_modele",
+        "motif_indetermination"
+      ]
+    }
+  ],
+  "fiches": [
+    {
+      "mode": "remplie",
+      "contenu": {
+        "identification": {
+          "identifiant_dossier": "identification::identifiant_dossier",
+          "date_heure_utc_serie": "identification::date_heure_utc_serie",
+          "ecart_horloge_mesure": "identification::ecart_horloge_mesure",
+          "operateur": "identification::operateur",
+          "campagne_et_reference_preenregistrement": "identification::campagne_et_reference_preenregistrement"
+        },
+        "poste_observation": {
+          "observateur": "poste_observation::observateur",
+          "coordonnees_et_systeme_reference": "poste_observation::coordonnees_et_systeme_reference",
+          "incertitude_recepteur": "poste_observation::incertitude_recepteur",
+          "hauteur_ellipsoidale_et_geoide": "poste_observation::hauteur_ellipsoidale_et_geoide",
+          "altitude_sol_ou_niveau_eau": "poste_observation::altitude_sol_ou_niveau_eau",
+          "hauteur_axe_optique": "poste_observation::hauteur_axe_optique",
+          "altitude_h_retenue_et_incertitude": "poste_observation::altitude_h_retenue_et_incertitude"
+        },
+        "cible": {
+          "designation_et_sources": "cible::designation_et_sources",
+          "coordonnees_et_systeme_reference": "cible::coordonnees_et_systeme_reference",
+          "altitude_base_zb_et_source": "cible::altitude_base_zb_et_source",
+          "hauteur_totale_H_et_source": "cible::hauteur_totale_H_et_source",
+          "parties_pertinentes_cote_connue": "cible::parties_pertinentes_cote_connue",
+          "extension_longitudinale": "cible::extension_longitudinale"
+        },
+        "geometrie": {
+          "distance_D_algorithme_et_incertitude": "geometrie::distance_D_algorithme_et_incertitude",
+          "azimut_geodesique": "geometrie::azimut_geodesique",
+          "rayon_courbure_euler": "geometrie::rayon_courbure_euler",
+          "profil_intermediaire_source_et_pas": "geometrie::profil_intermediaire_source_et_pas",
+          "altitude_maximale_profil_et_marge": "geometrie::altitude_maximale_profil_et_marge"
+        },
+        "systeme_photographique": {
+          "boitier_objectif_numeros_serie": "systeme_photographique::boitier_objectif_numeros_serie",
+          "focale_reelle_et_equivalente": "systeme_photographique::focale_reelle_et_equivalente",
+          "ouverture_temps_pose_sensibilite": "systeme_photographique::ouverture_temps_pose_sensibilite",
+          "resolution_native_et_pas_photosite": "systeme_photographique::resolution_native_et_pas_photosite",
+          "resolution_fichier_final": "systeme_photographique::resolution_fichier_final",
+          "grossissement": "systeme_photographique::grossissement",
+          "recadrage_interne_avant_enregistrement": "systeme_photographique::recadrage_interne_avant_enregistrement",
+          "traitements_computationnels_actifs": "systeme_photographique::traitements_computationnels_actifs",
+          "profil_distorsion_et_residuel": "systeme_photographique::profil_distorsion_et_residuel"
+        },
+        "atmosphere": {
+          "temperature_air_par_hauteur": "atmosphere::temperature_air_par_hauteur",
+          "temperature_surface_mer": "atmosphere::temperature_surface_mer",
+          "pression_humidite": "atmosphere::pression_humidite",
+          "profil_vertical_disponible": "atmosphere::profil_vertical_disponible",
+          "classe_de_chaque_donnee": "atmosphere::classe_de_chaque_donnee",
+          "intervalle_k_retenu_et_justification": "atmosphere::intervalle_k_retenu_et_justification"
+        },
+        "images": {
+          "nombre_vues_noms_fichiers_empreintes": "images::nombre_vues_noms_fichiers_empreintes",
+          "preuve_datation_empreintes": "images::preuve_datation_empreintes",
+          "classement_chaque_vue": "images::classement_chaque_vue",
+          "vues_exclues_et_motif": "images::vues_exclues_et_motif",
+          "resolution_effective_mesuree": "images::resolution_effective_mesuree",
+          "transformations_appliquees_copie": "images::transformations_appliquees_copie"
+        },
+        "mesures": {
+          "caracteristique_designee_et_date": "mesures::caracteristique_designee_et_date",
+          "positions_pixels_par_analyste": "mesures::positions_pixels_par_analyste",
+          "echelle_par_focale_et_par_reperes": "mesures::echelle_par_focale_et_par_reperes",
+          "hauteur_visible_et_occultee": "mesures::hauteur_visible_et_occultee",
+          "fraction_visible_observee_et_incertitude": "mesures::fraction_visible_observee_et_incertitude",
+          "rapports_hauteur_mesures_et_attendus": "mesures::rapports_hauteur_mesures_et_attendus"
+        },
+        "resultat": {
+          "fraction_predite_par_modele_avec_enveloppe": "resultat::fraction_predite_par_modele_avec_enveloppe",
+          "ecart_observe_predit_et_incertitude": "resultat::ecart_observe_predit_et_incertitude",
+          "combinaison_plus_defavorable": "resultat::combinaison_plus_defavorable",
+          "resultat_recherche_regimes": "resultat::resultat_recherche_regimes",
+          "verdict_par_modele": "resultat::verdict_par_modele",
+          "motif_indetermination": "resultat::motif_indetermination"
+        }
+      },
+      "champs_indisponibles": []
+    },
+    {
+      "mode": "indisponible",
+      "contenu": {
+        "identification": {
+          "identifiant_dossier": "indisponible",
+          "date_heure_utc_serie": "indisponible",
+          "ecart_horloge_mesure": "indisponible",
+          "operateur": "indisponible",
+          "campagne_et_reference_preenregistrement": "indisponible"
+        },
+        "poste_observation": {
+          "observateur": "indisponible",
+          "coordonnees_et_systeme_reference": "indisponible",
+          "incertitude_recepteur": "indisponible",
+          "hauteur_ellipsoidale_et_geoide": "indisponible",
+          "altitude_sol_ou_niveau_eau": "indisponible",
+          "hauteur_axe_optique": "indisponible",
+          "altitude_h_retenue_et_incertitude": "indisponible"
+        },
+        "cible": {
+          "designation_et_sources": "indisponible",
+          "coordonnees_et_systeme_reference": "indisponible",
+          "altitude_base_zb_et_source": "indisponible",
+          "hauteur_totale_H_et_source": "indisponible",
+          "parties_pertinentes_cote_connue": "indisponible",
+          "extension_longitudinale": "indisponible"
+        },
+        "geometrie": {
+          "distance_D_algorithme_et_incertitude": "indisponible",
+          "azimut_geodesique": "indisponible",
+          "rayon_courbure_euler": "indisponible",
+          "profil_intermediaire_source_et_pas": "indisponible",
+          "altitude_maximale_profil_et_marge": "indisponible"
+        },
+        "systeme_photographique": {
+          "boitier_objectif_numeros_serie": "indisponible",
+          "focale_reelle_et_equivalente": "indisponible",
+          "ouverture_temps_pose_sensibilite": "indisponible",
+          "resolution_native_et_pas_photosite": "indisponible",
+          "resolution_fichier_final": "indisponible",
+          "grossissement": "indisponible",
+          "recadrage_interne_avant_enregistrement": "indisponible",
+          "traitements_computationnels_actifs": "indisponible",
+          "profil_distorsion_et_residuel": "indisponible"
+        },
+        "atmosphere": {
+          "temperature_air_par_hauteur": "indisponible",
+          "temperature_surface_mer": "indisponible",
+          "pression_humidite": "indisponible",
+          "profil_vertical_disponible": "indisponible",
+          "classe_de_chaque_donnee": "indisponible",
+          "intervalle_k_retenu_et_justification": "indisponible"
+        },
+        "images": {
+          "nombre_vues_noms_fichiers_empreintes": "indisponible",
+          "preuve_datation_empreintes": "indisponible",
+          "classement_chaque_vue": "indisponible",
+          "vues_exclues_et_motif": "indisponible",
+          "resolution_effective_mesuree": "indisponible",
+          "transformations_appliquees_copie": "indisponible"
+        },
+        "mesures": {
+          "caracteristique_designee_et_date": "indisponible",
+          "positions_pixels_par_analyste": "indisponible",
+          "echelle_par_focale_et_par_reperes": "indisponible",
+          "hauteur_visible_et_occultee": "indisponible",
+          "fraction_visible_observee_et_incertitude": "indisponible",
+          "rapports_hauteur_mesures_et_attendus": "indisponible"
+        },
+        "resultat": {
+          "fraction_predite_par_modele_avec_enveloppe": "indisponible",
+          "ecart_observe_predit_et_incertitude": "indisponible",
+          "combinaison_plus_defavorable": "indisponible",
+          "resultat_recherche_regimes": "indisponible",
+          "verdict_par_modele": "indisponible",
+          "motif_indetermination": "indisponible"
+        }
+      },
+      "champs_indisponibles": [
+        "identification.identifiant_dossier",
+        "identification.date_heure_utc_serie",
+        "identification.ecart_horloge_mesure",
+        "identification.operateur",
+        "identification.campagne_et_reference_preenregistrement",
+        "poste_observation.observateur",
+        "poste_observation.coordonnees_et_systeme_reference",
+        "poste_observation.incertitude_recepteur",
+        "poste_observation.hauteur_ellipsoidale_et_geoide",
+        "poste_observation.altitude_sol_ou_niveau_eau",
+        "poste_observation.hauteur_axe_optique",
+        "poste_observation.altitude_h_retenue_et_incertitude",
+        "cible.designation_et_sources",
+        "cible.coordonnees_et_systeme_reference",
+        "cible.altitude_base_zb_et_source",
+        "cible.hauteur_totale_H_et_source",
+        "cible.parties_pertinentes_cote_connue",
+        "cible.extension_longitudinale",
+        "geometrie.distance_D_algorithme_et_incertitude",
+        "geometrie.azimut_geodesique",
+        "geometrie.rayon_courbure_euler",
+        "geometrie.profil_intermediaire_source_et_pas",
+        "geometrie.altitude_maximale_profil_et_marge",
+        "systeme_photographique.boitier_objectif_numeros_serie",
+        "systeme_photographique.focale_reelle_et_equivalente",
+        "systeme_photographique.ouverture_temps_pose_sensibilite",
+        "systeme_photographique.resolution_native_et_pas_photosite",
+        "systeme_photographique.resolution_fichier_final",
+        "systeme_photographique.grossissement",
+        "systeme_photographique.recadrage_interne_avant_enregistrement",
+        "systeme_photographique.traitements_computationnels_actifs",
+        "systeme_photographique.profil_distorsion_et_residuel",
+        "atmosphere.temperature_air_par_hauteur",
+        "atmosphere.temperature_surface_mer",
+        "atmosphere.pression_humidite",
+        "atmosphere.profil_vertical_disponible",
+        "atmosphere.classe_de_chaque_donnee",
+        "atmosphere.intervalle_k_retenu_et_justification",
+        "images.nombre_vues_noms_fichiers_empreintes",
+        "images.preuve_datation_empreintes",
+        "images.classement_chaque_vue",
+        "images.vues_exclues_et_motif",
+        "images.resolution_effective_mesuree",
+        "images.transformations_appliquees_copie",
+        "mesures.caracteristique_designee_et_date",
+        "mesures.positions_pixels_par_analyste",
+        "mesures.echelle_par_focale_et_par_reperes",
+        "mesures.hauteur_visible_et_occultee",
+        "mesures.fraction_visible_observee_et_incertitude",
+        "mesures.rapports_hauteur_mesures_et_attendus",
+        "resultat.fraction_predite_par_modele_avec_enveloppe",
+        "resultat.ecart_observe_predit_et_incertitude",
+        "resultat.combinaison_plus_defavorable",
+        "resultat.resultat_recherche_regimes",
+        "resultat.verdict_par_modele",
+        "resultat.motif_indetermination"
+      ]
+    },
+    {
+      "mode": "panachee",
+      "contenu": {
+        "identification": {
+          "identifiant_dossier": "valeur::identifiant_dossier",
+          "date_heure_utc_serie": "valeur::date_heure_utc_serie",
+          "ecart_horloge_mesure": "valeur::ecart_horloge_mesure",
+          "operateur": "valeur::operateur",
+          "campagne_et_reference_preenregistrement": "valeur::campagne_et_reference_preenregistrement"
+        },
+        "poste_observation": {
+          "observateur": "indisponible",
+          "coordonnees_et_systeme_reference": "valeur::coordonnees_et_systeme_reference",
+          "incertitude_recepteur": "valeur::incertitude_recepteur",
+          "hauteur_ellipsoidale_et_geoide": "valeur::hauteur_ellipsoidale_et_geoide",
+          "altitude_sol_ou_niveau_eau": "valeur::altitude_sol_ou_niveau_eau",
+          "hauteur_axe_optique": "valeur::hauteur_axe_optique",
+          "altitude_h_retenue_et_incertitude": "valeur::altitude_h_retenue_et_incertitude"
+        },
+        "cible": {
+          "designation_et_sources": "valeur::designation_et_sources",
+          "coordonnees_et_systeme_reference": "valeur::coordonnees_et_systeme_reference",
+          "altitude_base_zb_et_source": "valeur::altitude_base_zb_et_source",
+          "hauteur_totale_H_et_source": "valeur::hauteur_totale_H_et_source",
+          "parties_pertinentes_cote_connue": "valeur::parties_pertinentes_cote_connue",
+          "extension_longitudinale": "valeur::extension_longitudinale"
+        },
+        "geometrie": {
+          "distance_D_algorithme_et_incertitude": "indisponible",
+          "azimut_geodesique": "valeur::azimut_geodesique",
+          "rayon_courbure_euler": "valeur::rayon_courbure_euler",
+          "profil_intermediaire_source_et_pas": "valeur::profil_intermediaire_source_et_pas",
+          "altitude_maximale_profil_et_marge": "valeur::altitude_maximale_profil_et_marge"
+        },
+        "systeme_photographique": {
+          "boitier_objectif_numeros_serie": "valeur::boitier_objectif_numeros_serie",
+          "focale_reelle_et_equivalente": "valeur::focale_reelle_et_equivalente",
+          "ouverture_temps_pose_sensibilite": "valeur::ouverture_temps_pose_sensibilite",
+          "resolution_native_et_pas_photosite": "valeur::resolution_native_et_pas_photosite",
+          "resolution_fichier_final": "valeur::resolution_fichier_final",
+          "grossissement": "valeur::grossissement",
+          "recadrage_interne_avant_enregistrement": "valeur::recadrage_interne_avant_enregistrement",
+          "traitements_computationnels_actifs": "valeur::traitements_computationnels_actifs",
+          "profil_distorsion_et_residuel": "valeur::profil_distorsion_et_residuel"
+        },
+        "atmosphere": {
+          "temperature_air_par_hauteur": "indisponible",
+          "temperature_surface_mer": "indisponible",
+          "pression_humidite": "valeur::pression_humidite",
+          "profil_vertical_disponible": "indisponible",
+          "classe_de_chaque_donnee": "valeur::classe_de_chaque_donnee",
+          "intervalle_k_retenu_et_justification": "valeur::intervalle_k_retenu_et_justification"
+        },
+        "images": {
+          "nombre_vues_noms_fichiers_empreintes": "valeur::nombre_vues_noms_fichiers_empreintes",
+          "preuve_datation_empreintes": "valeur::preuve_datation_empreintes",
+          "classement_chaque_vue": "valeur::classement_chaque_vue",
+          "vues_exclues_et_motif": "valeur::vues_exclues_et_motif",
+          "resolution_effective_mesuree": "valeur::resolution_effective_mesuree",
+          "transformations_appliquees_copie": "valeur::transformations_appliquees_copie"
+        },
+        "mesures": {
+          "caracteristique_designee_et_date": "indisponible",
+          "positions_pixels_par_analyste": "valeur::positions_pixels_par_analyste",
+          "echelle_par_focale_et_par_reperes": "valeur::echelle_par_focale_et_par_reperes",
+          "hauteur_visible_et_occultee": "valeur::hauteur_visible_et_occultee",
+          "fraction_visible_observee_et_incertitude": "valeur::fraction_visible_observee_et_incertitude",
+          "rapports_hauteur_mesures_et_attendus": "valeur::rapports_hauteur_mesures_et_attendus"
+        },
+        "resultat": {
+          "fraction_predite_par_modele_avec_enveloppe": "valeur::fraction_predite_par_modele_avec_enveloppe",
+          "ecart_observe_predit_et_incertitude": "valeur::ecart_observe_predit_et_incertitude",
+          "combinaison_plus_defavorable": "valeur::combinaison_plus_defavorable",
+          "resultat_recherche_regimes": "valeur::resultat_recherche_regimes",
+          "verdict_par_modele": "valeur::verdict_par_modele",
+          "motif_indetermination": "valeur::motif_indetermination"
+        }
+      },
+      "champs_indisponibles": [
+        "poste_observation.observateur",
+        "geometrie.distance_D_algorithme_et_incertitude",
+        "atmosphere.temperature_air_par_hauteur",
+        "atmosphere.temperature_surface_mer",
+        "atmosphere.profil_vertical_disponible",
+        "mesures.caracteristique_designee_et_date"
+      ]
+    }
+  ],
+  "refus_declarer": [
+    {
+      "valeur": "null",
+      "message_python": "« champ_de_test » doit être renseigné ou explicitement « indisponible », jamais omis (§33)."
+    },
+    {
+      "valeur": "chaine_vide",
+      "message_python": "« champ_de_test » doit être renseigné ou explicitement « indisponible », jamais omis (§33)."
+    }
+  ],
+  "arborescence": [
+    {
+      "nom": "00-preenregistrement",
+      "description": "plan daté, seuil, modèles déposés, preuve de dépôt"
+    },
+    {
+      "nom": "10-originaux",
+      "description": "fichiers tels que sortis de l'appareil, jamais modifiés"
+    },
+    {
+      "nom": "11-empreintes",
+      "description": "SHA256SUMS, date de calcul, preuve de datation par un tiers"
+    },
+    {
+      "nom": "20-fiche",
+      "description": "fiche du §33, en texte structuré et en PDF"
+    },
+    {
+      "nom": "30-donnees-externes",
+      "description": "extraits géodésiques, topographiques, marégraphiques, météorologiques, avec leur date d'édition"
+    },
+    {
+      "nom": "40-controles",
+      "description": "mire, distorsion, stabilité, orientation, cohérence entre focales"
+    },
+    {
+      "nom": "50-mesures",
+      "description": "relevés en pixels de chaque analyste, journal de classement horodaté"
+    },
+    {
+      "nom": "60-calcul",
+      "description": "code, paramètres, germe aléatoire, sorties intermédiaires"
+    },
+    {
+      "nom": "70-rapport",
+      "description": "rapport de chaque analyste, déclarations d'intérêt, rapport de synthèse"
+    },
+    {
+      "nom": "90-journal",
+      "description": "journal horodaté de toutes les opérations, y compris les écarts au plan"
+    }
+  ],
+  "nom_dossier": [
+    {
+      "identifiant": "CAS-DEMO-SANGATTE-001",
+      "nom": "dossier-CAS-DEMO-SANGATTE-001"
+    },
+    {
+      "identifiant": "a",
+      "nom": "dossier-a"
+    },
+    {
+      "identifiant": "  espaces-autour  ",
+      "nom": "dossier-  espaces-autour  "
+    }
+  ],
+  "refus_nom_dossier": [
+    {
+      "identifiant": ""
+    },
+    {
+      "identifiant": "   "
+    },
+    {
+      "identifiant": "\t\n"
+    }
+  ]
+}
