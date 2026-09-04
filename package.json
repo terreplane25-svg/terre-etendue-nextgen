@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "verifier:visee": "node scripts/verifier-port-visee.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.0",

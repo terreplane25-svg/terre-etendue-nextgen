@@ -1,0 +1,161 @@
+"""
+preuve_image — Outil B : audit et traçabilité de métadonnées.
+
+Implémente le protocole « Portion visible d'une cible éloignée au-dessus
+de la mer » v1.0, §17 (conservation des données), §16/§19.1 (métadonnées
+EXIF, GNSS, échelle métrique) et la part de §34 qui concerne l'empreinte
+de l'archive entière. Distinct de `visee_optique` (Outil A, géométrie et
+réfraction) : cet outil établit qu'un fichier n'a pas changé et documente
+ce que l'appareil a réellement enregistré, il ne calcule aucune prédiction.
+
+Modules : `integrity` (SHA-256, horodatage tiers, journal en ajout
+seul, §17), `metadata` (EXIF/MakerNotes, GNSS, échelle métrique — §16,
+§19.1), `sensor_forensics` (bruit de capteur PRNU et niveau d'erreur de
+compression ELA — hors périmètre du protocole, jamais concluants
+seuls), `chain_of_custody` (identification, chaîne de détention,
+acquisition et conformité alignées ISO/IEC 27037:2012 — également hors
+périmètre du protocole). Les quatre modules prévus sont livrés.
+"""
+
+from .integrity import (
+    IntegrityError,
+    empreinte_fichier,
+    verifier_integrite,
+    DeclarationIntegrite,
+    HorodatageTiers,
+    statut_horodatage,
+    OPERATIONS_ADMISES,
+    OPERATIONS_EXCLUES,
+    classer_operation,
+    verifier_chaine_operations,
+    OperationJournal,
+    JournalOperations,
+    CopieDeTravail,
+    calculer_manifeste,
+    empreinte_manifeste,
+    EcartManifeste,
+    comparer_manifestes,
+)
+
+from .metadata import (
+    MetadataError,
+    PositionGPS,
+    DonneesExif,
+    lire_exif_depuis_tiff,
+    lire_exif_depuis_jpeg,
+    INDISPONIBLE,
+    declarer,
+    FicheGrossissement,
+    angle_par_pixel_depuis_focale,
+    angle_par_pixel_depuis_reperes,
+    ResultatEchelle,
+    verifier_coherence_echelle,
+    PositionGNSS,
+    lire_trame_gga,
+    precision_horizontale_estimee,
+)
+
+from .sensor_forensics import (
+    SensorForensicsError,
+    charger_luminance,
+    debruiter_ondelettes,
+    residu_bruit,
+    EmpreinteCapteur,
+    calculer_empreinte,
+    correlation_normalisee,
+    ResultatPic,
+    pic_correlation,
+    SEUIL_PCE_CITE_LITTERATURE,
+    interpreter_pce,
+    FORMATS_ELA_APPLICABLES,
+    AVERTISSEMENT_ELA,
+    verifier_applicable_ela,
+    recompresser_jpeg,
+    ResultatELA,
+    carte_ela,
+    intensite_zone,
+)
+
+from .chain_of_custody import (
+    ChainOfCustodyError,
+    EtatAppareil,
+    ElementPreuve,
+    Transfert,
+    ChaineDeCustody,
+    MethodeAcquisition,
+    description_methode,
+    modifie_la_source,
+    RapportAcquisition,
+    RoleIntervenant,
+    necessite_specialiste,
+    PRINCIPES_ISO27037,
+    RegistreConformite,
+    DossierPreuve,
+)
+
+__all__ = [
+    "IntegrityError",
+    "empreinte_fichier",
+    "verifier_integrite",
+    "DeclarationIntegrite",
+    "HorodatageTiers",
+    "statut_horodatage",
+    "OPERATIONS_ADMISES",
+    "OPERATIONS_EXCLUES",
+    "classer_operation",
+    "verifier_chaine_operations",
+    "OperationJournal",
+    "JournalOperations",
+    "CopieDeTravail",
+    "calculer_manifeste",
+    "empreinte_manifeste",
+    "EcartManifeste",
+    "comparer_manifestes",
+    "MetadataError",
+    "PositionGPS",
+    "DonneesExif",
+    "lire_exif_depuis_tiff",
+    "lire_exif_depuis_jpeg",
+    "INDISPONIBLE",
+    "declarer",
+    "FicheGrossissement",
+    "angle_par_pixel_depuis_focale",
+    "angle_par_pixel_depuis_reperes",
+    "ResultatEchelle",
+    "verifier_coherence_echelle",
+    "PositionGNSS",
+    "lire_trame_gga",
+    "precision_horizontale_estimee",
+    "SensorForensicsError",
+    "charger_luminance",
+    "debruiter_ondelettes",
+    "residu_bruit",
+    "EmpreinteCapteur",
+    "calculer_empreinte",
+    "correlation_normalisee",
+    "ResultatPic",
+    "pic_correlation",
+    "SEUIL_PCE_CITE_LITTERATURE",
+    "interpreter_pce",
+    "FORMATS_ELA_APPLICABLES",
+    "AVERTISSEMENT_ELA",
+    "verifier_applicable_ela",
+    "recompresser_jpeg",
+    "ResultatELA",
+    "carte_ela",
+    "intensite_zone",
+    "ChainOfCustodyError",
+    "EtatAppareil",
+    "ElementPreuve",
+    "Transfert",
+    "ChaineDeCustody",
+    "MethodeAcquisition",
+    "description_methode",
+    "modifie_la_source",
+    "RapportAcquisition",
+    "RoleIntervenant",
+    "necessite_specialiste",
+    "PRINCIPES_ISO27037",
+    "RegistreConformite",
+    "DossierPreuve",
+]

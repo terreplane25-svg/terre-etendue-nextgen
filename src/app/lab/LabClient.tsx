@@ -10,7 +10,7 @@ import ScrollReveal from '@/components/ui/ScrollReveal';
 import PageIntro from '@/components/PageIntro';
 import { TOOLS } from '@/lib/lab-tools';
 
-const CurvatureCalc = dynamic(() => import('@/components/lab/CurvatureCalc'), { ssr: false });
+const ViseeOptiqueCalc = dynamic(() => import('@/components/lab/ViseeOptiqueCalc'), { ssr: false });
 const DensitySim = dynamic(() => import('@/components/lab/DensitySim'), { ssr: false });
 const ClassifierSim = dynamic(() => import('@/components/lab/ClassifierSim'), { ssr: false });
 
@@ -145,7 +145,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
 
   const renderSimulator = () => {
     switch (activeTool) {
-      case 'curvature': return <CurvatureCalc />;
+      case 'visee-optique': return <ViseeOptiqueCalc />;
       case 'density': return <DensitySim />;
       case 'classifier': return <ClassifierSim />;
       default: return null;

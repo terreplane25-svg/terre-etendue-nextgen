@@ -1,0 +1,12 @@
+[project]
+name = "rapport-expertise"
+version = "0.1.0"
+description = "Outil C — générateur de rapports d'expertise (fiche §33, archive §34) du protocole « Portion visible d'une cible éloignée au-dessus de la mer » v1.0"
+requires-python = ">=3.9"
+dependencies = [
+    "visee-optique",
+    "preuve-image",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

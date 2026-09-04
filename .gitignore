@@ -55,3 +55,7 @@ __pycache__/
 # Rendu temporaire des protocoles
 content/protocoles/._rendu_*
 content/protocoles/pdf/
+
+# Environnement Python des outils (recréable : voir outils/README.md)
+outils/.venv/
+outils/**/*.egg-info/

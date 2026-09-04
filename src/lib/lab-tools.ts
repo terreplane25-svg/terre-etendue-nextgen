@@ -12,13 +12,13 @@ export interface LabTool {
 
 export const TOOLS: LabTool[] = [
   {
-    id: 'curvature',
-    label: 'Calculateur de Courbure',
-    desc: "Courbure théorique avec réfraction. Graphique interactif, 6 cas réels, export.",
+    id: 'visee-optique',
+    label: 'Portion visible d’une cible éloignée',
+    desc: "Fraction visible prédite par deux modèles concurrents, sur tout l’intervalle de réfraction déclaré, et condition de discrimination du §28.2. Chaque valeur exige sa source.",
     icon: '📐',
     color: '#3D9E7C',
     num: '01',
-    tags: ['courbure', 'réfraction', 'graphique'],
+    tags: ['protocole', 'géodésie', 'réfraction', 'enveloppe'],
   },
   {
     id: 'density',

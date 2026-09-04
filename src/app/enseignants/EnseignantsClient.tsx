@@ -39,11 +39,11 @@ const SIMULATEURS = [
     color: '#3D9E7C',
   },
   {
-    id: 'curvature',
-    titre: 'Calculateur de courbure théorique',
-    description: 'Entrez une distance et un indice de réfraction. Le calculateur affiche la chute théorique attendue sur une sphère.',
-    usage: 'Comparer la prédiction théorique avec des observations réelles (bâtiments, îles visibles). Question : "Ce résultat correspond-il à ce qu\'on observe ?"',
-    programme: 'Cycle 4 — Mathématiques (géométrie), Physique',
+    id: 'visee-optique',
+    titre: 'Portion visible d\'une cible éloignée',
+    description: 'Entrez les coordonnées d\'un point d\'observation et d\'une cible, avec leurs sources. Le calculateur affiche la fraction de la cible que chaque modèle géométrique prédit visible, sur tout l\'intervalle de réfraction déclaré.',
+    usage: 'Montrer qu\'une prédiction se donne comme un intervalle, pas comme un nombre, et qu\'une donnée sans source n\'est pas un fait. Question : "Sur cette configuration, une mesure pourrait-elle départager les deux modèles ?"',
+    programme: 'Cycle 4 et lycée — Mathématiques (géométrie, trigonométrie), Physique, Enseignement scientifique',
     icon: '📐',
     color: '#3D9E7C',
   },
@@ -83,7 +83,7 @@ const REFERENCES = [
 
 const SIM_LABELS: Record<string, string> = {
   density: 'Simulateur de densité',
-  curvature: 'Calculateur de courbure',
+  'visee-optique': 'Portion visible d\'une cible éloignée',
   geo: 'Système solaire 3D',
   classifier: 'Trieur Fait/Modèle/Hypothèse',
 };

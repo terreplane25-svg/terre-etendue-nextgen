@@ -1,0 +1,661 @@
+{
+  "genere_le": "2026-09-04T01:31:35.624392+00:00",
+  "source": "visee_optique (paquet Python, 321 tests)",
+  "avertissement": "Fichier généré. Ne pas modifier à la main : il est la référence contre laquelle le port TypeScript est vérifié.",
+  "constantes": {
+    "GRS80_A": 6378137.0,
+    "GRS80_F": 0.003352810681182319,
+    "GRS80_E2": 0.006694380022900787,
+    "IUGG_R1": 6371008.8
+  },
+  "vincenty": [
+    {
+      "nom": "sangatte-south-foreland",
+      "lat1": 50.94642,
+      "lon1": 1.75305,
+      "lat2": 51.13152,
+      "lon2": 1.338825,
+      "distance_m": 35610.73613693544,
+      "azimut_depart_deg": 305.48893000564186,
+      "azimut_arrivee_deg": 305.1668385142184,
+      "converge": true
+    },
+    {
+      "nom": "chassiron-cordouan",
+      "lat1": 46.04722,
+      "lon1": -1.40889,
+      "lat2": 45.585,
+      "lon2": -1.1725,
+      "distance_m": 54560.853279976545,
+      "azimut_depart_deg": 160.23760082049793,
+      "azimut_arrivee_deg": 160.40711914960931,
+      "converge": true
+    },
+    {
+      "nom": "garoupe-monte-cinto",
+      "lat1": 43.55389,
+      "lon1": 7.13222,
+      "lat2": 42.38028,
+      "lon2": 8.9225,
+      "distance_m": 195776.35795484652,
+      "azimut_depart_deg": 131.14054628284416,
+      "azimut_arrivee_deg": 132.36087943048415,
+      "converge": true
+    },
+    {
+      "nom": "equateur-est",
+      "lat1": 0.0,
+      "lon1": 0.0,
+      "lat2": 0.0,
+      "lon2": 1.5,
+      "distance_m": 166979.23618983963,
+      "azimut_depart_deg": 90.0,
+      "azimut_arrivee_deg": 90.0,
+      "converge": true
+    },
+    {
+      "nom": "meridien-nord",
+      "lat1": 44.0,
+      "lon1": 3.0,
+      "lat2": 46.0,
+      "lon2": 3.0,
+      "distance_m": 222263.55673517595,
+      "azimut_depart_deg": 0.0,
+      "azimut_arrivee_deg": 0.0,
+      "converge": true
+    },
+    {
+      "nom": "haute-latitude",
+      "lat1": 70.5,
+      "lon1": 20.1,
+      "lat2": 71.2,
+      "lon2": 22.8,
+      "distance_m": 125995.31442691135,
+      "azimut_depart_deg": 50.430077934485,
+      "azimut_arrivee_deg": 52.980766460022885,
+      "converge": true
+    },
+    {
+      "nom": "hemisphere-sud",
+      "lat1": -33.9,
+      "lon1": 18.4,
+      "lat2": -34.4,
+      "lon2": 19.9,
+      "distance_m": 149035.27784969535,
+      "azimut_depart_deg": 112.26740879028101,
+      "azimut_arrivee_deg": 111.42532555863018,
+      "converge": true
+    },
+    {
+      "nom": "antimeridien",
+      "lat1": 40.0,
+      "lon1": 179.4,
+      "lat2": 40.5,
+      "lon2": -179.6,
+      "distance_m": 101592.81711897004,
+      "azimut_depart_deg": 56.55135891511652,
+      "azimut_arrivee_deg": 57.197498653450175,
+      "converge": true
+    }
+  ],
+  "rayons": [
+    {
+      "nom": "sangatte-south-foreland",
+      "latitude_deg": 51.038970000000006,
+      "azimut_deg": 305.48893000564186,
+      "meridien": 6374099.495184073,
+      "grande_normale": 6391084.272679957,
+      "euler": 6385349.734277954
+    },
+    {
+      "nom": "chassiron-cordouan",
+      "latitude_deg": 45.81611,
+      "azimut_deg": 160.23760082049793,
+      "meridien": 6368295.587630465,
+      "grande_normale": 6389143.892637246,
+      "euler": 6370672.1874251235
+    },
+    {
+      "nom": "garoupe-monte-cinto",
+      "latitude_deg": 42.967085,
+      "azimut_deg": 131.14054628284416,
+      "meridien": 6365108.177126544,
+      "grande_normale": 6388077.766301739,
+      "euler": 6378115.214360147
+    },
+    {
+      "nom": "equateur-est",
+      "latitude_deg": 0.0,
+      "azimut_deg": 90.0,
+      "meridien": 6335439.327083875,
+      "grande_normale": 6378137.0,
+      "euler": 6378137.0
+    },
+    {
+      "nom": "meridien-nord",
+      "latitude_deg": 45.0,
+      "azimut_deg": 0.0,
+      "meridien": 6367381.815566519,
+      "grande_normale": 6388838.290173647,
+      "euler": 6367381.815566519
+    },
+    {
+      "nom": "haute-latitude",
+      "latitude_deg": 70.85,
+      "azimut_deg": 50.430077934485,
+      "meridien": 6392637.9790603155,
+      "grande_normale": 6397274.236420227,
+      "euler": 6395392.0617035525
+    },
+    {
+      "nom": "hemisphere-sud",
+      "latitude_deg": -34.15,
+      "azimut_deg": 112.26740879028101,
+      "meridien": 6355539.971629778,
+      "grande_normale": 6384875.249723542,
+      "euler": 6380646.421989237
+    },
+    {
+      "nom": "antimeridien",
+      "latitude_deg": 40.25,
+      "azimut_deg": 56.55135891511652,
+      "meridien": 6362091.311773936,
+      "grande_normale": 6387068.35606486,
+      "euler": 6379459.374145463
+    }
+  ],
+  "geometrie": [
+    {
+      "h": 2.0,
+      "H": 110.0,
+      "z_b": 0.0,
+      "D": 35610.7,
+      "k": 0.0,
+      "R": 6371008.8,
+      "arc_tangence_h": 5048.170810711222,
+      "distance_critique": 5048.170810711222,
+      "distance_limite": 42486.143106624324,
+      "hauteur_occultee": 73.30684795525418,
+      "fraction_visible": 0.33357410949768923
+    },
+    {
+      "h": 2.0,
+      "H": 110.0,
+      "z_b": 0.0,
+      "D": 35610.7,
+      "k": 0.13,
+      "R": 7322998.620689655,
+      "arc_tangence_h": 5412.207296260185,
+      "distance_critique": 5412.207296260185,
+      "distance_limite": 45549.96421099447,
+      "hauteur_occultee": 62.266529780389924,
+      "fraction_visible": 0.4339406383600916
+    },
+    {
+      "h": 2.0,
+      "H": 110.0,
+      "z_b": 0.0,
+      "D": 35610.7,
+      "k": 0.25,
+      "R": 8494678.4,
+      "arc_tangence_h": 5829.12574332342,
+      "distance_critique": 5829.12574332342,
+      "distance_limite": 49058.850257256185,
+      "hauteur_occultee": 52.206020397667615,
+      "fraction_visible": 0.5253998145666581
+    },
+    {
+      "h": 800.0,
+      "H": 100.0,
+      "z_b": 0.0,
+      "D": 120000.0,
+      "k": 0.0,
+      "R": 6371008.8,
+      "arc_tangence_h": 100958.14740580828,
+      "distance_critique": 100958.14740580828,
+      "distance_limite": 136653.8767519908,
+      "hauteur_occultee": 28.456521660536993,
+      "fraction_visible": 0.7154347833946301
+    },
+    {
+      "h": 800.0,
+      "H": 100.0,
+      "z_b": 0.0,
+      "D": 120000.0,
+      "k": 0.13,
+      "R": 7322998.620689655,
+      "arc_tangence_h": 108239.23145451427,
+      "distance_critique": 108239.23145451427,
+      "distance_limite": 146509.10286349355,
+      "hauteur_occultee": 9.443933598031702,
+      "fraction_visible": 0.9055606640196829
+    },
+    {
+      "h": 800.0,
+      "H": 100.0,
+      "z_b": 0.0,
+      "D": 120000.0,
+      "k": 0.25,
+      "R": 8494678.4,
+      "arc_tangence_h": 116577.95185648082,
+      "distance_critique": 116577.95185648082,
+      "distance_limite": 157795.89714137604,
+      "hauteur_occultee": 0.689279436858719,
+      "fraction_visible": 0.9931072056314127
+    },
+    {
+      "h": 800.0,
+      "H": 100.0,
+      "z_b": 20.0,
+      "D": 125000.0,
+      "k": 0.0,
+      "R": 6371008.8,
+      "arc_tangence_h": 100958.14740580828,
+      "distance_critique": 116921.84639229071,
+      "distance_limite": 140060.80859897623,
+      "hauteur_occultee": 25.36284000957886,
+      "fraction_visible": 0.7463715999042114
+    },
+    {
+      "h": 800.0,
+      "H": 100.0,
+      "z_b": 20.0,
+      "D": 125000.0,
+      "k": 0.13,
+      "R": 7322998.620689655,
+      "arc_tangence_h": 108239.23145451427,
+      "distance_critique": 125354.11615052269,
+      "distance_limite": 150161.72743578636,
+      "hauteur_occultee": 0.0,
+      "fraction_visible": 1.0
+    },
+    {
+      "h": 800.0,
+      "H": 100.0,
+      "z_b": 20.0,
+      "D": 125000.0,
+      "k": 0.25,
+      "R": 8494678.4,
+      "arc_tangence_h": 116577.95185648082,
+      "distance_critique": 135011.2496986152,
+      "distance_limite": 161729.9043755182,
+      "hauteur_occultee": 0.0,
+      "fraction_visible": 1.0
+    },
+    {
+      "h": 100.0,
+      "H": 50.0,
+      "z_b": 0.0,
+      "D": 57800.0,
+      "k": 0.0,
+      "R": 6371008.8,
+      "arc_tangence_h": 35695.729346182525,
+      "distance_critique": 35695.729346182525,
+      "distance_limite": 60936.50416307057,
+      "hauteur_occultee": 38.3456723349127,
+      "fraction_visible": 0.23308655330174602
+    },
+    {
+      "h": 100.0,
+      "H": 50.0,
+      "z_b": 0.0,
+      "D": 57800.0,
+      "k": 0.13,
+      "R": 7322998.620689655,
+      "arc_tangence_h": 38269.87140897928,
+      "distance_critique": 38269.87140897928,
+      "distance_limite": 65330.833982903314,
+      "hauteur_occultee": 26.04309197212309,
+      "fraction_visible": 0.4791381605575382
+    },
+    {
+      "h": 100.0,
+      "H": 50.0,
+      "z_b": 0.0,
+      "D": 57800.0,
+      "k": 0.25,
+      "R": 8494678.4,
+      "arc_tangence_h": 41217.945284895235,
+      "distance_critique": 41217.945284895235,
+      "distance_limite": 70363.50538175643,
+      "hauteur_occultee": 16.184542969585348,
+      "fraction_visible": 0.676309140608293
+    },
+    {
+      "h": 2000.0,
+      "H": 1500.0,
+      "z_b": 300.0,
+      "D": 250000.0,
+      "k": 0.0,
+      "R": 6371008.8,
+      "arc_tangence_h": 159616.32221897287,
+      "distance_critique": 221442.33038728882,
+      "distance_limite": 311043.64135781775,
+      "hauteur_occultee": 341.17744832301275,
+      "fraction_visible": 0.7725483677846581
+    },
+    {
+      "h": 2000.0,
+      "H": 1500.0,
+      "z_b": 300.0,
+      "D": 250000.0,
+      "k": 0.13,
+      "R": 7322998.620689655,
+      "arc_tangence_h": 171129.56895121894,
+      "distance_critique": 237414.1763473668,
+      "distance_limite": 333479.1798743437,
+      "hauteur_occultee": 124.7471483153501,
+      "fraction_visible": 0.9168352344564332
+    },
+    {
+      "h": 2000.0,
+      "H": 1500.0,
+      "z_b": 300.0,
+      "D": 250000.0,
+      "k": 0.25,
+      "R": 8494678.4,
+      "arc_tangence_h": 184315.07879839535,
+      "distance_critique": 255705.95387719054,
+      "distance_limite": 359173.4306613911,
+      "hauteur_occultee": 0.0,
+      "fraction_visible": 1.0
+    },
+    {
+      "h": 12.0,
+      "H": 60.0,
+      "z_b": 0.0,
+      "D": 42000.0,
+      "k": 0.0,
+      "R": 6371008.8,
+      "arc_tangence_h": 12365.434533586335,
+      "distance_critique": 12365.434533586335,
+      "distance_limite": 40015.299922860344,
+      "hauteur_occultee": 68.92278877173815,
+      "fraction_visible": 0.0
+    },
+    {
+      "h": 12.0,
+      "H": 60.0,
+      "z_b": 0.0,
+      "D": 42000.0,
+      "k": 0.13,
+      "R": 7322998.620689655,
+      "arc_tangence_h": 13257.13871466271,
+      "distance_critique": 13257.13871466271,
+      "distance_limite": 42900.92110699839,
+      "hauteur_occultee": 56.40840732054901,
+      "fraction_visible": 0.05985987799084983
+    },
+    {
+      "h": 12.0,
+      "H": 60.0,
+      "z_b": 0.0,
+      "D": 42000.0,
+      "k": 0.25,
+      "R": 8494678.4,
+      "arc_tangence_h": 14278.376714515558,
+      "distance_critique": 14278.376714515558,
+      "distance_limite": 46205.72248629433,
+      "hauteur_occultee": 45.23371995590548,
+      "fraction_visible": 0.24610466740157536
+    },
+    {
+      "h": 800.0,
+      "H": 100.0,
+      "z_b": 0.0,
+      "D": 50000.0,
+      "k": 0.0,
+      "R": 6371008.8,
+      "arc_tangence_h": 100958.14740580828,
+      "distance_critique": 100958.14740580828,
+      "distance_limite": 136653.8767519908,
+      "hauteur_occultee": 0.0,
+      "fraction_visible": 1.0
+    },
+    {
+      "h": 800.0,
+      "H": 100.0,
+      "z_b": 0.0,
+      "D": 50000.0,
+      "k": 0.13,
+      "R": 7322998.620689655,
+      "arc_tangence_h": 108239.23145451427,
+      "distance_critique": 108239.23145451427,
+      "distance_limite": 146509.10286349355,
+      "hauteur_occultee": 0.0,
+      "fraction_visible": 1.0
+    },
+    {
+      "h": 800.0,
+      "H": 100.0,
+      "z_b": 0.0,
+      "D": 50000.0,
+      "k": 0.25,
+      "R": 8494678.4,
+      "arc_tangence_h": 116577.95185648082,
+      "distance_critique": 116577.95185648082,
+      "distance_limite": 157795.89714137604,
+      "hauteur_occultee": 0.0,
+      "fraction_visible": 1.0
+    },
+    {
+      "h": 800.0,
+      "H": 100.0,
+      "z_b": 0.0,
+      "D": 140000.0,
+      "k": 0.0,
+      "R": 6371008.8,
+      "arc_tangence_h": 100958.14740580828,
+      "distance_critique": 100958.14740580828,
+      "distance_limite": 136653.8767519908,
+      "hauteur_occultee": 119.62706005559819,
+      "fraction_visible": 0.0
+    },
+    {
+      "h": 800.0,
+      "H": 100.0,
+      "z_b": 0.0,
+      "D": 140000.0,
+      "k": 0.13,
+      "R": 7322998.620689655,
+      "arc_tangence_h": 108239.23145451427,
+      "distance_critique": 108239.23145451427,
+      "distance_limite": 146509.10286349355,
+      "hauteur_occultee": 68.8757691521729,
+      "fraction_visible": 0.31124230847827106
+    },
+    {
+      "h": 800.0,
+      "H": 100.0,
+      "z_b": 0.0,
+      "D": 140000.0,
+      "k": 0.25,
+      "R": 8494678.4,
+      "arc_tangence_h": 116577.95185648082,
+      "distance_critique": 116577.95185648082,
+      "distance_limite": 157795.89714137604,
+      "hauteur_occultee": 32.290455929290914,
+      "fraction_visible": 0.6770954407070908
+    }
+  ],
+  "refraction": [
+    {
+      "P_hPa": 1013.25,
+      "T_K": 288.15,
+      "dT_dh_K_par_km": -34.16,
+      "k": 0.00024567801037026773,
+      "regime": "réfraction standard"
+    },
+    {
+      "P_hPa": 1013.25,
+      "T_K": 288.15,
+      "dT_dh_K_par_km": -13.0,
+      "k": 0.13020934549622465,
+      "regime": "réfraction standard"
+    },
+    {
+      "P_hPa": 1013.25,
+      "T_K": 288.15,
+      "dT_dh_K_par_km": -6.5,
+      "k": 0.17013202218138784,
+      "regime": "réfraction standard"
+    },
+    {
+      "P_hPa": 1013.25,
+      "T_K": 288.15,
+      "dT_dh_K_par_km": 0.0,
+      "k": 0.21005469886655107,
+      "regime": "réfraction forte"
+    },
+    {
+      "P_hPa": 1013.25,
+      "T_K": 288.15,
+      "dT_dh_K_par_km": 25.0,
+      "k": 0.363603455347948,
+      "regime": "réfraction forte"
+    },
+    {
+      "P_hPa": 1013.25,
+      "T_K": 288.15,
+      "dT_dh_K_par_km": 100.0,
+      "k": 0.824249724792139,
+      "regime": "inversion et mirage supérieur"
+    },
+    {
+      "P_hPa": 1013.25,
+      "T_K": 288.15,
+      "dT_dh_K_par_km": 128.65,
+      "k": 1.00021659971982,
+      "regime": "conduit optique"
+    },
+    {
+      "P_hPa": 950.0,
+      "T_K": 275.0,
+      "dT_dh_K_par_km": -6.5,
+      "k": 0.17513176198347108,
+      "regime": "réfraction standard"
+    },
+    {
+      "k_direct": 0.0,
+      "rayon_effectif": 6371008.8,
+      "regime": "aucune réfraction"
+    },
+    {
+      "k_direct": 0.13,
+      "rayon_effectif": 7322998.620689655,
+      "regime": "réfraction standard"
+    },
+    {
+      "k_direct": 0.17,
+      "rayon_effectif": 7675914.21686747,
+      "regime": "réfraction standard"
+    },
+    {
+      "k_direct": 0.25,
+      "rayon_effectif": 8494678.4,
+      "regime": "réfraction forte"
+    },
+    {
+      "k_direct": 0.4,
+      "rayon_effectif": 10618348.0,
+      "regime": "réfraction très forte"
+    },
+    {
+      "k_direct": 0.5,
+      "rayon_effectif": 12742017.6,
+      "regime": "réfraction très forte"
+    },
+    {
+      "k_direct": 0.8,
+      "rayon_effectif": 31855044.000000007,
+      "regime": "inversion et mirage supérieur"
+    },
+    {
+      "k_direct": 0.95,
+      "rayon_effectif": 127420175.99999988,
+      "regime": "inversion et mirage supérieur"
+    }
+  ],
+  "discrimination": [
+    {
+      "h": 2.0,
+      "H": 110.0,
+      "z_b": 0.0,
+      "D": 35610.7,
+      "k_min": 0.1,
+      "k_max": 0.4,
+      "u_f": 0.02,
+      "facteur": 5.0,
+      "delta": 0.3623387935783654,
+      "seuil": 0.1,
+      "satisfaite": true,
+      "combinaison_defavorable": {
+        "k": 0.4
+      }
+    },
+    {
+      "h": 800.0,
+      "H": 100.0,
+      "z_b": 0.0,
+      "D": 120000.0,
+      "k_min": 0.1,
+      "k_max": 0.4,
+      "u_f": 0.02,
+      "facteur": 5.0,
+      "delta": 0.0,
+      "seuil": 0.1,
+      "satisfaite": false,
+      "combinaison_defavorable": {
+        "k": 0.32500000000000007
+      }
+    },
+    {
+      "h": 800.0,
+      "H": 100.0,
+      "z_b": 0.0,
+      "D": 150000.0,
+      "k_min": 0.1,
+      "k_max": 0.4,
+      "u_f": 0.02,
+      "facteur": 5.0,
+      "delta": 0.18201991085533908,
+      "seuil": 0.1,
+      "satisfaite": true,
+      "combinaison_defavorable": {
+        "k": 0.4
+      }
+    },
+    {
+      "h": 100.0,
+      "H": 50.0,
+      "z_b": 0.0,
+      "D": 40000.0,
+      "k_min": 0.13,
+      "k_max": 0.25,
+      "u_f": 0.05,
+      "facteur": 5.0,
+      "delta": 0.0,
+      "seuil": 0.25,
+      "satisfaite": false,
+      "combinaison_defavorable": {
+        "k": 0.20500000000000002
+      }
+    },
+    {
+      "h": 12.0,
+      "H": 60.0,
+      "z_b": 0.0,
+      "D": 42000.0,
+      "k_min": 0.05,
+      "k_max": 0.3,
+      "u_f": 0.03,
+      "facteur": 3.0,
+      "delta": 0.6784246498888816,
+      "seuil": 0.09,
+      "satisfaite": true,
+      "combinaison_defavorable": {
+        "k": 0.3
+      }
+    }
+  ]
+}

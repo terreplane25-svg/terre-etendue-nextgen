@@ -1,0 +1,14 @@
+[project]
+name = "preuve-image"
+version = "0.1.0"
+description = "Outil B — audit et traçabilité de métadonnées du protocole « Portion visible d'une cible éloignée au-dessus de la mer » v1.0"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy",
+    "scipy",
+    "Pillow",
+    "PyWavelets",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
