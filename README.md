@@ -1,220 +1,227 @@
-# 🏛️ TEI Editorial Redesign — Guide d'intégration
+# terre-etendue-nextgen
 
-## Vue d'ensemble
+Un protocole de mesure optique à longue distance, les outils qui l'exécutent,
+et le site qui les publie.
 
-Ce pack contient le redesign complet « Revue de Cosmologie d'Avant-Garde » 
-pour terre-etendue-nextgen. Il remplace le thème HUD/sci-fi par un style 
-éditorial premium inspiré des grandes publications académiques.
-
----
-
-## Fichiers inclus
-
-```
-tei-editorial/
-├── README.md                          ← Ce fichier
-├── tailwind.config.ts                 ← Config Tailwind avec fonts/couleurs
-├── lib/
-│   └── editorial-tokens.ts            ← Design tokens JS (pour inline styles)
-├── app/
-│   ├── globals.css                    ← Thème complet + prose-tei éditorial
-│   ├── layout.tsx                     ← Layout racine avec Nav + Footer
-│   ├── page.tsx                       ← Homepage (Server Component)
-│   ├── HomeClient.tsx                 ← Homepage animations (Client Component)
-│   └── headquarters/
-│       └── page.tsx                   ← Exemple de page pilier
-└── components/editorial/
-    ├── Navigation.tsx                 ← Nav sticky avec blur au scroll
-    ├── Footer.tsx                     ← Footer avec compteur dynamique
-    ├── ScrollReveal.tsx               ← Wrapper d'animation au scroll
-    ├── ArticleReader.tsx              ← Lecteur d'article avec TOC latéral
-    └── EditorialArticleList.tsx       ← Index des articles par pilier
-```
+Ce fichier suit la posture éditoriale fixée dans
+[`docs/posture-editoriale.md`](docs/posture-editoriale.md), qui lui est
+opposable.
 
 ---
 
-## Étapes d'intégration
+## Ce que ce dépôt refuse de faire
 
-### 1. Backup
-```bash
-cp app/globals.css app/globals.css.bak
-cp app/layout.tsx app/layout.tsx.bak
-cp app/page.tsx app/page.tsx.bak
-cp tailwind.config.ts tailwind.config.ts.bak
-```
+C'est ce qui vient en premier, parce que c'est ce qui distingue un instrument
+d'un argument.
 
-### 2. Copier les fichiers
-```bash
-# Depuis la racine du repo
-cp tei-editorial/lib/editorial-tokens.ts lib/
-cp tei-editorial/app/globals.css app/
-cp tei-editorial/app/layout.tsx app/
-cp tei-editorial/app/page.tsx app/
-cp tei-editorial/app/HomeClient.tsx app/
-cp tei-editorial/tailwind.config.ts .
+**Aucun outil ici ne conclut sur la forme de la Terre.** La condition de
+discrimination du §28.2 dit si une configuration d'observation permettrait de
+séparer deux prédictions — c'est un préalable géométrique. Chaque résultat
+affiché le rappelle en toutes lettres.
 
-# Créer le dossier si nécessaire
-mkdir -p components/editorial
-cp tei-editorial/components/editorial/* components/editorial/
-```
+**Aucun champ vide n'est comblé.** Une coordonnée, une altitude, une hauteur
+non renseignée reste `indisponible`. Le code refuse de produire une fiche
+plutôt que d'inventer une valeur plausible. Ce refus est testé — il existe des
+tests dont le succès consiste à obtenir une erreur.
 
-### 3. Adapter les imports
+**Aucune donnée de relief n'est interpolée.** Le pré-écran altimétrique
+interroge l'API IGN ou ne rend rien. Il ne génère jamais un profil crédible à
+la place.
 
-Les fichiers supposent que `lib/articles.ts` exporte :
-- `getAllArticles()` → tous les articles
-- `getArticlesByPillar(slug)` → articles d'un pilier
+**Aucun nombre sans sa source.** Toute coordonnée et toute hauteur saisie dans
+les outils du Lab exige un champ de provenance, affiché avec le résultat.
 
-Et que chaque article a au minimum :
-```ts
-interface Article {
-  slug: string;
-  title: string;
-  content: string;      // HTML natif
-  pillar: string;        // "headquarters" | "observatory" | "library"
-  description?: string;
-  type?: string;
-  tags?: string[];
-  citations?: number;
-  pinned?: boolean;
-  order?: number;
-}
-```
+**Aucune valeur centrale seule.** Les prédictions sortent en enveloppes, avec
+les bornes du coefficient de réfraction qui les produisent.
 
-**Adapte les noms de propriétés** si ton interface est différente.
-
-### 4. Remplacer le composant article
-
-Dans tes pages `[slug]/page.tsx`, remplace l'ancien ArticleReader :
-```tsx
-// AVANT
-import ArticleReader from "@/components/ArticleReader";
-
-// APRÈS
-import ArticleReader from "@/components/editorial/ArticleReader";
-```
-
-Et passe les props :
-```tsx
-<ArticleReader
-  title={article.title}
-  subtitle={article.description}
-  content={article.content}
-  pillar={article.pillar}
-  pillarIndex={article.order}
-  articleType={article.type}
-  tags={article.tags}
-  citations={article.citations}
-  charCount={article.content.length}
-  pinned={article.pinned}
-  prevArticle={prev}
-  nextArticle={next}
-/>
-```
-
-### 5. Dupliquer la page pilier
-
-Copie `app/headquarters/page.tsx` pour les autres piliers :
-```bash
-cp app/headquarters/page.tsx app/observatory/page.tsx
-cp app/headquarters/page.tsx app/library/page.tsx
-```
-Puis adapte le `pillar`, le `title`, le `subtitle` et la `description` dans chaque copie.
-
-### 6. SearchCommand
-
-Le `Navigation.tsx` éditorial a un bouton de recherche prêt à être branché.
-Décommente l'import de ton `SearchCommand` existant et branche-le :
-```tsx
-import SearchCommand from "@/components/SearchCommand";
-// ... dans le JSX :
-<SearchCommand open={searchOpen} setOpen={setSearchOpen} />
-```
-
-### 7. Lab et Nexus
-
-Ces pages gardent leur propre logique (Three.js, graphe).
-Elles héritent automatiquement de la Nav + Footer éditoriaux via le `layout.tsx`.
-Aucun changement nécessaire dans leurs composants internes.
+**Le verdict `indéterminé` est un résultat.** Quand les enveloppes se
+recouvrent, l'observation ne tranche pas, et c'est ce qui est écrit. Ce n'est
+pas un échec de l'outil.
 
 ---
 
-## Citations dans le HTML des articles
+## 1. D'où vient ce travail
 
-Le `prose-tei` CSS reconnaît automatiquement ces classes dans le HTML natif :
+Ces outils sont nés d'un protocole d'observation portant sur une question
+contestée : quelle portion d'une cible éloignée reste visible au-dessus de la
+mer, et quel modèle de la surface terrestre rend compte de la mesure.
 
-### Citation coranique
-```html
-<div class="tei-quran">
-  <small>Coran · Sourate An-Naba' (78:6)</small>
-  <div lang="ar">أَلَمْ نَجْعَلِ الْأَرْضَ مِهَادًا</div>
-  <p class="quran-translation">« N'avons-Nous pas fait de la terre une couche ? »</p>
-</div>
-```
-→ Bordure bronze + fond doré + Amiri 32px + hexagone décoratif
+C'est dit ici, en tête, et non en note. C'est aussi l'argument le plus fort du
+dépôt : **ces outils refusent de remplir un champ vide parce qu'ils ont été
+écrits pour une question où chacun soupçonne l'autre de raisonner à l'envers.**
+Un logiciel de mesure écrit dans ce contexte n'a aucune marge : la première
+valeur silencieusement complétée, le premier seuil ajusté après coup, et tout
+le reste tombe.
 
-### Données expérimentales
-```html
-<div class="tei-data">
-  <small>Données expérimentales — Bedford Level, 1838</small>
-  <p>Distance : 6 milles. Courbure théorique : 7,2 m. Résultat : 0.</p>
-</div>
-```
-→ Bordure verte + fond teinté vert
-
-### Référence bibliographique
-```html
-<div class="tei-ref">
-  <small>Référence bibliographique</small>
-  <p>Blount, Lady E. A. <em>Earth Not a Globe Review</em>, vol. XIV, 1904.</p>
-</div>
-```
-→ Bordure terre cuite + fond rosé
-
-### Pull quote (blockquote standard)
-```html
-<blockquote>
-  <p>Trois expériences, un même résultat.</p>
-</blockquote>
-```
-→ Barre noire latérale + Cormorant italic 22px
+Le protocole lui-même — 35 sections, 38 pages — est publié en PDF :
+[`public/protocoles/Protocole-visibilite-cible-eloignee.pdf`](public/protocoles/Protocole-visibilite-cible-eloignee.pdf).
+Il est régénéré par `scripts/generer-protocole-visibilite.py`, dont la fonction
+`controle()` recalcule chaque valeur imprimée et refuse d'écrire le document en
+cas d'écart.
 
 ---
 
-## Typographie (triple stack)
+## 2. La commande qui vérifie
 
-| Usage | Font | Taille | Poids |
-|-------|------|--------|-------|
-| Titres, hero, h1-h3 | Cormorant Garamond | 22-68px | 300-500 |
-| Corps des articles | Crimson Pro | 18px | 300 |
-| Labels, overlines, ALL-CAPS | Cinzel | 9-11px | 500-600 |
-| Navigation, UI | DM Sans | 12-14px | 400-600 |
-| Données, compteurs, tags | JetBrains Mono | 10-13px | 400-500 |
-| Texte arabe | Amiri | 24-32px | 400-700 |
+Rien de ce qui suit n'a besoin d'être cru.
+
+    # Les trois paquets Python, qui font référence
+    python3 -m venv outils/.venv
+    outils/.venv/bin/pip install pytest numpy scipy Pillow PyWavelets
+    outils/.venv/bin/pip install -e outils/outil-A-visee-optique \
+                                 -e outils/outil-B-preuve-image \
+                                 -e outils/outil-C-rapport-expertise
+
+    cd outils/outil-A-visee-optique     && ../.venv/bin/python -m pytest -q   # 321
+    cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 137
+    cd outils/outil-C-rapport-expertise && ../.venv/bin/python -m pytest -q   #  42
+
+    # Les trois ports TypeScript, épinglés au Python
+    npm run verifier:ports
+
+    # Les quatre cas d'étude, de bout en bout
+    cd outils/exemples-cas-etudes/cas-chassiron && ../../.venv/bin/python run_case.py
+
+    # Le site
+    npx next build
+
+`npm run verifier:ports` recompile les trois `noyau.ts` avec le `tsc` du projet,
+rejoue les vecteurs d'or produits par le Python et compare. Il imprime le nombre
+de contrôles passés et la date de génération des vecteurs.
 
 ---
 
-## Palette
+## 3. Les chiffres, et ce qu'ils signifient
 
-| Token | Hex | Usage |
-|-------|-----|-------|
-| --bg | #FAFAF8 | Fond principal |
-| --bg-warm | #F5F2ED | Sections alternées, footer |
-| --ink | #0C0A09 | Titres, texte principal |
-| --ink-soft | #2C2825 | Corps d'article |
-| --ink-muted | #6B6560 | Descriptions |
-| --ink-ghost | #A09890 | Labels tertiaires |
-| --bronze | #8B6914 | Accent sacré, CTA, citations |
-| --green | #1B6B45 | Données scientifiques |
-| --coral | #8B3A2A | Références bibliographiques |
-| --indigo | #3B3F8C | Lab, simulations |
+| Grandeur | Valeur | Ce que ça veut dire |
+|---|---|---|
+| Tests Python | **500** | 321 + 137 + 42, exécutés par les commandes ci-dessus |
+| Vecteurs d'or | **109** | 61 + 26 + 22 entrées produites par le Python, rejouées par le TypeScript |
+| Contrôles de port | **532** | 263 + 152 + 117 comparaisons Python ↔ TypeScript |
+| Cas d'étude | **4** | Chassiron↔Cordouan (invalidé), La Coubre↔Cordouan, Garoupe↔Monte Cinto, Sangatte↔South Foreland |
+| Sections du protocole | **35** | 38 pages, valeurs recalculées à chaque génération |
+
+Ce que ces chiffres n'établissent pas : qu'une formule soit la bonne. Un test
+prouve qu'une implémentation fait ce qu'on lui a demandé, pas que la demande
+était juste. Les deux contrôles qui échappent à cette limite sont dans
+`outils/outil-A-visee-optique/tests/test_vincenty.py` : ils confrontent Vincenty
+à des résultats obtenus **sans** elle — la distance sur l'équateur, qui vaut
+analytiquement `a·Δλ`, et l'arc méridien, obtenu par quadrature de Simpson.
 
 ---
 
-## Ce qui ne change PAS
+## 4. Les outils
 
-- `content/articles/*.json` → Aucune modification du contenu
-- `lib/articles.ts` → Garde tes fonctions utilitaires
-- Lab (Three.js) → Les simulations gardent leur fond sombre
-- Nexus → Le graphe garde sa propre esthétique
-- SearchCommand → Réutilisé tel quel
-- SEO (sitemap, robots, JSON-LD) → Inchangé
+Les paquets Python sont la référence. Les ports TypeScript existent parce que
+le navigateur ne fait pas tourner de Python ; ils ne font pas autorité et
+chacun le déclare dans son en-tête.
+
+| Outil | Paquet de référence | Port navigateur | Page |
+|---|---|---|---|
+| A — visée optique | `outils/outil-A-visee-optique` | `src/lib/visee-optique/noyau.ts` | Lab, calculateur |
+| B — preuve image | `outils/outil-B-preuve-image` | `src/lib/preuve-image/noyau.ts` | Lab, vérificateur d'intégrité |
+| C — rapport d'expertise | `outils/outil-C-rapport-expertise` | `src/lib/rapport-expertise/noyau.ts` | Lab, générateur de fiche |
+
+**A** — géodésique de Vincenty sur GRS80, rayon d'Euler, hauteur cachée,
+enveloppes de réfraction, condition de discrimination §28.2.
+**B** — empreinte SHA-256, lecture EXIF/GPS, chaîne de détention ISO/IEC 27037.
+**C** — fiche d'observation §33 et arborescence d'archive §34, en ZIP sans
+compression pour qu'une empreinte de fichier soit la même dans l'archive et
+hors d'elle.
+
+Toute correction de formule se fait dans le Python d'abord, se répercute
+ensuite dans le port, et les vecteurs sont régénérés. Jamais l'inverse.
+
+Détail dans [`outils/README.md`](outils/README.md).
+
+---
+
+## 5. Ce qui a été trouvé faux, et corrigé
+
+Ces défauts sont ici parce qu'un harnais de test qui n'a jamais rien attrapé ne
+prouve rien.
+
+**Équations générales du protocole (§9.2, §9.3).** L'altitude de base `z_b` se
+trouvait dans l'argument de la sécante, et `D_crit` valait `s(h)` au lieu de
+`s(h) + s(z_b)`. Pour une base à 20 m : de 55 à 147 m d'erreur. L'exemple
+numérique imprimé (base au niveau de la mer) et le code n'étaient pas touchés —
+seul un tiers reproduisant depuis les équations imprimées aurait été égaré.
+`controle()` vérifie désormais que `c = 0` en `D_crit` et `c = H` en `D_lim`
+pour une base élevée.
+
+**Bornes du rayon de courbure.** Le document imprimait « 6 335 km à 6 378 km ».
+6 378 km est la grande normale à l'équateur, pas le maximum : au pôle elle vaut
+6 399,6 km. L'écart réel est de 64,2 km, soit 1,01 %, et non « plus de 40 km,
+soit 0,6 % ». Les gradients de la table 8 sont maintenant calculés depuis les
+bornes de `k` au lieu d'être recopiés.
+
+**`azimut_2_vers_1`, dans cinq copies.** Le nom annonce le gisement de retour ;
+la formule rend α₂, l'azimut au point d'arrivée. Sur l'équateur, cap à l'est,
+elle donne 90° sous un nom qui promet 270°. Aucun appelant ne s'en servait, ce
+qui explique que personne ne l'ait vu. Renommé `azimut_arrivee_deg`.
+
+**Cinq copies de Vincenty hors couverture.** La géodésique inverse vivait en
+cinq exemplaires hors du paquet, aucun testé, alors qu'elle produit le `D` et
+l'azimut dont dépend toute la géométrie. 475 lignes supprimées ; une seule
+implémentation subsiste, avec 26 tests.
+
+**Écriture EXIF en type TIFF 12.** Pillow encode un flottant nu en DOUBLE, que
+la norme EXIF n'emploie pas pour `FocalLength`, `FNumber` ni `ExposureTime`.
+Notre lecteur rendait alors les octets bruts, ce qui était le comportement
+correct : c'est l'écriture qui était fautive. Le défaut n'est apparu que parce
+que deux implémentations indépendantes se rencontraient.
+
+**Comparaison d'en-tête EXIF dans le port.** Le port comparait une chaîne
+décodée à `Exif` suivi de deux espaces, alors que l'en-tête porte deux octets
+nuls. Remplacé par une comparaison octet par octet.
+
+**Les trois harnais eux-mêmes ont été éprouvés en cassant volontairement le
+port** : un tag EXIF décalé d'un cran, le signe de l'hémisphère sud oublié,
+l'arc de tangence biaisé de 10⁻⁷, un champ retiré d'un bloc de fiche, deux
+répertoires d'archive intervertis. Chacune des cinq cassures est détectée et
+nommée.
+
+**Chemins codés en dur.** Les quatre cas d'étude commençaient par trois
+`sys.path.insert` vers `/home/claude/...`, qui ne pouvaient jamais aider :
+inutiles quand les paquets sont installés, insuffisants sinon. Remplacés par une
+résolution relative au fichier. Les quatre cas tournent maintenant sans
+préparation.
+
+---
+
+## 6. Ce qui reste ouvert
+
+**Le pré-écran altimétrique n'est pas intégré au site.** Il exige un accès
+réseau serveur vers l'API IGN. Tant qu'il n'y en a pas, il reste un script
+autonome : il n'est pas question de lui substituer un profil de relief calculé.
+
+**`README.en.md` n'existe pas.** Le français d'abord, et lui seul jusqu'à ce
+qu'il soit irréprochable ; deux versions maintenues en parallèle divergent, et
+c'est précisément le défaut que ce dépôt combat ailleurs.
+
+**Aucune campagne d'observation réelle n'a encore été menée sous ce protocole.**
+Les quatre cas d'étude s'appuient sur des coordonnées sourcées et une image de
+démonstration qui est un diagramme calculé, jamais une photographie. Le dépôt
+fournit l'instrument ; il ne fournit pas de mesure.
+
+**Pas de licence.** À déterminer.
+
+---
+
+## Structure
+
+    content/articles/       54 articles, un JSON par article — source unique
+    docs/                   posture éditoriale
+    outils/                 les trois paquets Python, le pré-écran, les cas d'étude
+    public/protocoles/      le protocole en PDF
+    scripts/                79 générateurs et vérificateurs
+    src/lib/{visee-optique,preuve-image,rapport-expertise}/   les ports et leurs vecteurs
+    src/components/lab/     les outils du navigateur
+
+Les conventions de rédaction du site — régime de preuve, gradation des sources,
+identité par pilier — sont dans [`CLAUDE.md`](CLAUDE.md).
+
+---
+
+Dépôt et outils métrologiques : **Jetmir**.
+Le protocole reste attaché au projet Terre Étendue.
