@@ -59,3 +59,9 @@ content/protocoles/pdf/
 # Environnement Python des outils (recréable : voir outils/README.md)
 outils/.venv/
 outils/**/*.egg-info/
+
+# Sorties des cas d'étude : reproductibles par « python3 run_case.py », donc
+# jamais commitées. L'archive et son ZIP se régénèrent à chaque exécution.
+outils/exemples-cas-etudes/*/sortie/
+outils/exemples-cas-etudes/*/*.zip
+outils/exemples-cas-etudes/*/DEMO_*.jpg

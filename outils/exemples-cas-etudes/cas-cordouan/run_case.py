@@ -25,9 +25,13 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-sys.path.insert(0, "/home/claude/visee-optique")
-sys.path.insert(0, "/home/claude/preuve-image")
-sys.path.insert(0, "/home/claude/rapport-expertise")
+# Les trois paquets sont rendus importables par le module commun, qui les
+# cherche d'abord parmi les paquets installés puis, à défaut, à côté de ce
+# fichier. Les chemins codés en dur d'origine — /home/claude/... — n'existaient
+# que sur la machine où ces cas ont été écrits.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "commun"))
+from bootstrap import preparer_chemins  # noqa: E402
+preparer_chemins()
 
 from visee_optique.geodesy import rayon_euler, GrandeurGeodesique
 from visee_optique.geometry import Cible as CibleGeom
@@ -65,11 +69,14 @@ MAINTENANT = datetime.now(timezone.utc)
 
 
 def calculer_geometrie():
-    D, az_aller, _az_retour = case_data.vincenty_inverse(
+    geo = case_data.vincenty_inverse(
         case_data.COUBRE_LAT_DEG, case_data.COUBRE_LON_DEG,
         case_data.CORDOUAN_LAT_DEG, case_data.CORDOUAN_LON_DEG,
         a=6_378_137.0, f=1.0 / 298.257222101,
     )
+    # az_arrivee est l'azimut AU POINT D'ARRIVÉE (α₂), pas le gisement de
+    # retour : il n'est pas employé ici, mais son nom ne doit pas mentir.
+    D, az_aller = geo.distance_m, geo.azimut_depart_deg
     lat_moyenne = (case_data.COUBRE_LAT_DEG + case_data.CORDOUAN_LAT_DEG) / 2.0
     R_euler = rayon_euler(lat_moyenne, az_aller)
     return D, az_aller, lat_moyenne, R_euler
@@ -236,7 +243,7 @@ def construire_fiche(D, azimut, R_euler, cible_geom, hyp_k, enveloppe_S, envelop
 
     grandeur_distance = GrandeurGeodesique(
         nom="distance géodésique (La Coubre → Cordouan)", valeur=D, unite="m", referentiel="GRS80 (ellipsoïde)",
-        source="algorithme de Vincenty (1975), formule inverse — case_data.vincenty_inverse, à partir des coordonnées sourcées",
+        source="algorithme de Vincenty (1975), formule inverse — visee_optique.geodesy.vincenty_inverse, à partir des coordonnées sourcées",
         incertitude=10.0,
     )
     grandeur_azimut = GrandeurGeodesique(
@@ -354,7 +361,8 @@ def rendre_fiche_texte(fiche: FicheObservation) -> str:
 
 
 def main():
-    racine_projet = Path("/home/claude/cas-cordouan")
+    # Le cas produit sa sortie à côté de lui-même, où qu'il soit cloné.
+    racine_projet = Path(__file__).resolve().parent
     racine_sortie = racine_projet / "sortie"
     if racine_sortie.exists():
         shutil.rmtree(racine_sortie)
@@ -453,7 +461,7 @@ def main():
         f"- Hauteur de tour (non utilisée dans le calcul, pour information) : {case_data.COUBRE_HAUTEUR_TOUR_M} m\n"
         f"  Divergence de source non résolue : {case_data.COUBRE_HAUTEUR_SOURCE_DIVERGENTE}\n\n"
         "## Algorithme géodésique\n"
-        "Vincenty (1975), formule inverse, ellipsoïde GRS80 — voir case_data.vincenty_inverse "
+        "Vincenty (1975), formule inverse, ellipsoïde GRS80 — voir visee_optique.geodesy.vincenty_inverse "
         "dans 60-calcul/case_data.py.\n",
         encoding="utf-8",
     )
@@ -468,8 +476,15 @@ def main():
         "réelle n'existe pour ce cas de démonstration (§19).\n", encoding="utf-8",
     )
 
-    for nom_fichier in ("case_data.py", "build_demo_image.py", "run_case.py"):
-        shutil.copy2(racine_projet / nom_fichier, racine_archive / "60-calcul" / nom_fichier)
+    # Le §34 veut le code dans 60-calcul/. build_demo_image.py est passé dans
+    # exemples-cas-etudes/commun/ quand les quatre cas ont cessé d'en porter
+    # chacun une copie : on le prend là où il est, pas là où il était.
+    commun = racine_projet.parent / "commun"
+    for source in (racine_projet / "case_data.py",
+                   racine_projet / "run_case.py",
+                   commun / "build_demo_image.py",
+                   commun / "bootstrap.py"):
+        shutil.copy2(source, racine_archive / "60-calcul" / source.name)
     resultats_json = {
         "distance_m": D, "azimut_deg": azimut, "latitude_moyenne_deg": lat_moyenne, "rayon_euler_m": R_euler,
         "k_min": hyp_k.k_min, "k_max": hyp_k.k_max,

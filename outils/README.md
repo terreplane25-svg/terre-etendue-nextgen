@@ -53,6 +53,10 @@ de toute couverture, alors que c'est elle qui produit le D et l'azimut dont
 dépend tout le reste. Les cinq copies étaient numériquement identiques : le
 risque était latent, pas réalisé.
 
+Les cinq copies ont depuis été **supprimées**, soit 475 lignes : chaque
+appelant importe le paquet. Trois des quatre `case_data.py` en portaient une
+qu'aucun code n'appelait jamais.
+
 Deux différences ont été introduites à dessein :
 
 - **La non-convergence n'est plus silencieuse.** Les copies sortaient de la
@@ -102,13 +106,48 @@ Et `originaux_proteges` retourne False, comme attendu : le verrouillage Unix de
 `10-originaux/` est la seule chose que le navigateur ne peut pas faire. Le
 LISEZ-MOI de l'archive donne la commande plutôt que de la simuler.
 
+## Les quatre cas d'étude
+
+Ils tournent depuis leur propre dossier, sans rien installer d'autre que les
+paquets :
+
+    cd outils/exemples-cas-etudes/cas-sangatte && python3 run_case.py
+
+Chacun produit `sortie/dossier-<identifiant>/` — l'arborescence du §34, remplie
+— et son ZIP. Ces sorties ne sont pas commitées : elles se régénèrent.
+
+| Cas | Distance | Conclusion |
+|---|---|---|
+| Chassiron ↔ Cordouan | 54,4 km | **invalidé** — 19,4 km de terre ferme sur la visée |
+| Cordouan | — | validé |
+| Garoupe ↔ Monte Cinto | — | validé |
+| Sangatte ↔ South Foreland | 35,6 km | validé — profil 100 % maritime |
+
+Trois choses les empêchaient de tourner, et sont corrigées :
+
+- **`build_demo_image` était absent de la livraison.** Le module est écrit, dans
+  `exemples-cas-etudes/commun/`. Il produit un diagramme JPEG avec un EXIF
+  lisible — un diagramme calculé, jamais une photographie, et l'EXIF le
+  déclare. Aucune coordonnée GPS n'y est écrite : un diagramme n'a pas été pris
+  quelque part, et en inventer une serait exactement ce que le protocole
+  interdit.
+- **Les chemins étaient codés en dur** (`/home/claude/...`), donc inertes
+  ailleurs. `commun/bootstrap.py` résout les paquets relativement au fichier,
+  après avoir essayé l'import direct.
+- **L'archive copiait le code depuis le mauvais endroit** une fois
+  `build_demo_image` mutualisé. Elle le prend là où il est.
+
+Au passage, l'EXIF écrit par Pillow et relu par `preuve_image` a révélé un
+défaut d'écriture : un flottant Python nu est encodé en DOUBLE (type TIFF 12),
+que la norme EXIF n'emploie pas pour FocalLength, FNumber ni ExposureTime. Notre
+lecteur, qui n'implémente que les types du protocole, rendait alors les octets
+bruts au lieu de les coercer en silence. C'est l'écriture qui était fautive :
+elle passe désormais par `IFDRational`, et les dix champs font l'aller-retour.
+
 ## Ce qui reste à faire
 
-- Le pré-écran et les quatre `case_data.py` portent encore leur copie de
-  Vincenty. Ils devraient importer le paquet.
-- Les cas d'étude ne tournent pas tels que livrés : ils importent un
-  `build_demo_image` absent de l'archive et codent en dur `/home/claude/...`
-  dans `sys.path`. Comme documentation de l'API ils restent excellents.
 - Le pré-écran altimétrique exige un accès réseau serveur vers l'API IGN, non
   disponible côté navigateur (CORS) ni depuis l'environnement de développement
-  actuel. Il n'est pas intégré au site.
+  actuel. Il n'est pas intégré au site. Son auto-test, lui, tourne hors réseau :
+  il rejoue les 77 points d'altimétrie déjà relevés pour Chassiron et retrouve
+  les deux traversées de terre, 19,40 km au total.

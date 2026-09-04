@@ -10,7 +10,7 @@ la mer » (demande de l'utilisateur), après l'écart de deux autres candidats :
   - Cap Gris-Nez ↔ South Foreland (33,9 km) : Gris-Nez est en réalité un cap
     élevé (falaise ~45 m). Avec h reflétant honnêtement cette altitude, la
     condition de discrimination du §28.2 n'est PAS satisfaite (delta quasi
-    nul) — voir /home/claude/outils-verification/rapport_selection_site3.md
+    nul) — voir le rapport de sélection de site (non joint à cette livraison)
     pour le détail complet. Écarté pour cette raison, avant toute
     construction d'archive.
   - Cordouan ↔ Cap Ferret (104,7 km) : le pré-écran altimétrique a montré que
@@ -30,7 +30,6 @@ Chaque grandeur porte sa source telle que trouvée le 2026-09-03 (§12.4 :
 fiches indépendantes de toute photographie).
 """
 
-import math
 
 
 # --- Digue de Sangatte (poste d'observation) ---
@@ -68,7 +67,7 @@ SOUTHFORELAND_HAUTEUR_SOURCE = (
 
 # --- Sites écartés et pourquoi (traçabilité de la décision, §31 esprit) ---
 #
-# Voir /home/claude/outils-verification/rapport_selection_site3.md pour le détail complet
+# Voir le rapport de sélection de site (non joint à cette livraison) pour le détail complet
 # (Cap Gris-Nez ↔ South Foreland, écarté pour discrimination insuffisante à h réaliste ;
 # Cordouan ↔ Cap Ferret, écarté pour traversée de la presqu'île elle-même).
 
@@ -79,105 +78,23 @@ AVERTISSEMENT_PROFIL_INTERMEDIAIRE = (
 )
 
 
-# --- Algorithme géodésique : Vincenty inverse et direct (1975), ellipsoïde GRS80 ---
+# --- Géodésie : importée du paquet, jamais recopiée ---
 #
-# Repris à l'identique des deux premiers cas d'étude (cas-cordouan/, cas-chassiron/) — pour que ce
-# troisième dossier reste autonome et rejouable sans dépendre des précédents.
-
-
-def vincenty_inverse(lat1_deg, lon1_deg, lat2_deg, lon2_deg, a, f, tol=1e-12, max_iter=1000):
-    """Distance et azimuts géodésiques (Vincenty, 1975, formule inverse).
-
-    Retourne (distance_m, azimut_1_vers_2_deg, azimut_2_vers_1_deg).
-    """
-    b = a * (1.0 - f)
-    L = math.radians(lon2_deg - lon1_deg)
-    U1 = math.atan((1.0 - f) * math.tan(math.radians(lat1_deg)))
-    U2 = math.atan((1.0 - f) * math.tan(math.radians(lat2_deg)))
-    sinU1, cosU1 = math.sin(U1), math.cos(U1)
-    sinU2, cosU2 = math.sin(U2), math.cos(U2)
-
-    lam = L
-    for _ in range(max_iter):
-        sinLam, cosLam = math.sin(lam), math.cos(lam)
-        sin_sigma = math.sqrt((cosU2 * sinLam) ** 2 + (cosU1 * sinU2 - sinU1 * cosU2 * cosLam) ** 2)
-        if sin_sigma == 0.0:
-            return 0.0, 0.0, 0.0
-        cos_sigma = sinU1 * sinU2 + cosU1 * cosU2 * cosLam
-        sigma = math.atan2(sin_sigma, cos_sigma)
-        sin_alpha = cosU1 * cosU2 * sinLam / sin_sigma
-        cos2_alpha = 1.0 - sin_alpha ** 2
-        cos2_sigma_m = cos_sigma - 2.0 * sinU1 * sinU2 / cos2_alpha if cos2_alpha != 0.0 else 0.0
-        C = f / 16.0 * cos2_alpha * (4.0 + f * (4.0 - 3.0 * cos2_alpha))
-        lam_prec = lam
-        lam = L + (1.0 - C) * f * sin_alpha * (
-            sigma + C * sin_sigma * (cos2_sigma_m + C * cos_sigma * (-1.0 + 2.0 * cos2_sigma_m ** 2))
-        )
-        if abs(lam - lam_prec) < tol:
-            break
-
-    u2 = cos2_alpha * (a ** 2 - b ** 2) / b ** 2
-    A = 1.0 + u2 / 16384.0 * (4096.0 + u2 * (-768.0 + u2 * (320.0 - 175.0 * u2)))
-    B = u2 / 1024.0 * (256.0 + u2 * (-128.0 + u2 * (74.0 - 47.0 * u2)))
-    delta_sigma = B * sin_sigma * (
-        cos2_sigma_m
-        + B / 4.0 * (
-            cos_sigma * (-1.0 + 2.0 * cos2_sigma_m ** 2)
-            - B / 6.0 * cos2_sigma_m * (-3.0 + 4.0 * sin_sigma ** 2) * (-3.0 + 4.0 * cos2_sigma_m ** 2)
-        )
-    )
-    distance_m = b * A * (sigma - delta_sigma)
-    azimut_1_vers_2 = math.degrees(math.atan2(cosU2 * sinLam, cosU1 * sinU2 - sinU1 * cosU2 * cosLam)) % 360.0
-    azimut_2_vers_1 = math.degrees(math.atan2(cosU1 * sinLam, -sinU1 * cosU2 + cosU1 * sinU2 * cosLam)) % 360.0
-    return distance_m, azimut_1_vers_2, azimut_2_vers_1
-
-
-def vincenty_direct(lat1_deg, lon1_deg, azimut1_deg, distance_m, a, f):
-    """Point géodésique atteint depuis (lat1, lon1) en suivant azimut1 sur distance_m mètres
-    (Vincenty, 1975, formule directe). Utilisé uniquement pour interpoler des points le long de la
-    route Sangatte→South Foreland (vérification du profil intermédiaire, Tableau 10, §12.3) — jamais
-    pour la distance/l'azimut eux-mêmes, qui restent calculés par la formule inverse ci-dessus.
-    """
-    lat1 = math.radians(lat1_deg)
-    az1 = math.radians(azimut1_deg)
-    b = a * (1.0 - f)
-    U1 = math.atan((1.0 - f) * math.tan(lat1))
-    sigma1 = math.atan2(math.tan(U1), math.cos(az1))
-    sinAlpha = math.cos(U1) * math.sin(az1)
-    cos2Alpha = 1.0 - sinAlpha ** 2
-    u2 = cos2Alpha * (a ** 2 - b ** 2) / b ** 2
-    A = 1.0 + u2 / 16384.0 * (4096.0 + u2 * (-768.0 + u2 * (320.0 - 175.0 * u2)))
-    B = u2 / 1024.0 * (256.0 + u2 * (-128.0 + u2 * (74.0 - 47.0 * u2)))
-    sigma = distance_m / (b * A)
-    two_sigma_m = 0.0
-    for _ in range(200):
-        two_sigma_m = 2.0 * sigma1 + sigma
-        delta_sigma = B * math.sin(sigma) * (
-            math.cos(two_sigma_m)
-            + B / 4.0 * (
-                math.cos(sigma) * (-1.0 + 2.0 * math.cos(two_sigma_m) ** 2)
-                - B / 6.0 * math.cos(two_sigma_m) * (-3.0 + 4.0 * math.sin(sigma) ** 2)
-                * (-3.0 + 4.0 * math.cos(two_sigma_m) ** 2)
-            )
-        )
-        sigma_prec = sigma
-        sigma = distance_m / (b * A) + delta_sigma
-        if abs(sigma - sigma_prec) < 1e-12:
-            break
-    lat2 = math.atan2(
-        math.sin(U1) * math.cos(sigma) + math.cos(U1) * math.sin(sigma) * math.cos(az1),
-        (1.0 - f) * math.sqrt(sinAlpha ** 2 + (math.sin(U1) * math.sin(sigma) - math.cos(U1) * math.cos(sigma) * math.cos(az1)) ** 2),
-    )
-    lam = math.atan2(
-        math.sin(sigma) * math.sin(az1),
-        math.cos(U1) * math.cos(sigma) - math.sin(U1) * math.sin(sigma) * math.cos(az1),
-    )
-    C = f / 16.0 * cos2Alpha * (4.0 + f * (4.0 - 3.0 * cos2Alpha))
-    L = lam - (1.0 - C) * f * sinAlpha * (
-        sigma + C * math.sin(sigma) * (math.cos(two_sigma_m) + C * math.cos(sigma) * (-1.0 + 2.0 * math.cos(two_sigma_m) ** 2))
-    )
-    lon2 = math.radians(lon1_deg) + L
-    return math.degrees(lat2), math.degrees(lon2)
+# `vincenty_inverse` et `vincenty_direct` vivaient ici en copie locale, hors de
+# toute couverture de test. Elles sont maintenant dans `visee_optique.geodesy`,
+# où vingt-six tests les éprouvent — dont deux qui les confrontent à des
+# résultats obtenus sans Vincenty : la distance sur l'équateur, qui vaut
+# analytiquement a·Δλ, et l'arc méridien, obtenu par quadrature.
+#
+# `vincenty_inverse` rend un GeodesiqueInverse (distance_m, azimut_depart_deg,
+# azimut_arrivee_deg, iterations, converge) et non plus un triplet, et lève
+# plutôt que de rendre le dernier itéré quand elle ne converge pas.
+from visee_optique.geodesy import (  # noqa: E402
+    GRS80_A,
+    GRS80_F,
+    vincenty_direct,
+    vincenty_inverse,
+)
 
 
 # --- Contrôle géométrique préalable : absence de cap français intermédiaire ---
@@ -249,5 +166,5 @@ PROFIL_CONCLUSION_DEFINITIVE = (
     "quelques dizaines de mètres non répertorié. Ce résultat a été établi AVANT la construction de "
     "cette archive, contrairement aux deux premiers cas d'étude de ce projet, conformément à la "
     "discipline de pré-écran mise en place après la correction du cas Chassiron↔Cordouan (voir "
-    "/home/claude/outils-verification/profil_altimetrique.py et rapport_selection_site3.md)."
+    "outils/outil-bonus-pre-ecran/profil_altimetrique.py et rapport_selection_site3.md)."
 )

@@ -40,106 +40,31 @@ import math
 import urllib.parse
 import urllib.request
 
-# --- Géodésie : Vincenty (1975) sur l'ellipsoïde GRS80 — voir les cas ---
-# cas-cordouan/case_data.py et cas-chassiron/case_data.py pour l'origine ---
-# de ces deux fonctions, reprises ici à l'identique pour que ce module soit
-# autonome et réutilisable indépendamment d'un cas particulier.
+# --- Géodésie : importée du paquet, jamais recopiée ---
+#
+# `vincenty_inverse` et `vincenty_direct` vivaient ici en copie locale, hors de
+# toute couverture de test. Elles sont maintenant dans `visee_optique.geodesy`,
+# où vingt-six tests les éprouvent — dont deux qui les confrontent à des
+# résultats obtenus sans Vincenty : la distance sur l'équateur, qui vaut
+# analytiquement a·Δλ, et l'arc méridien, obtenu par quadrature.
+#
+# `vincenty_inverse` rend un GeodesiqueInverse (distance_m, azimut_depart_deg,
+# azimut_arrivee_deg, iterations, converge) et non plus un triplet, et lève
+# plutôt que de rendre le dernier itéré quand elle ne converge pas.
+from visee_optique.geodesy import (  # noqa: E402
+    GRS80_A,
+    GRS80_F,
+    vincenty_direct,
+    vincenty_inverse,
+)
 
-A_GRS80 = 6_378_137.0
-F_GRS80 = 1.0 / 298.257222101
+A_GRS80 = GRS80_A
+F_GRS80 = GRS80_F
 
-SEUIL_TERRE_M = 0.0  # §consigne utilisateur : toute élévation > 0 m = relief, donc invalidant
-SENTINEL_MER_MAX = -1000.0  # toute valeur en dessous est considérée "hors couverture" = mer
+SEUIL_TERRE_M = 0.0  # toute élévation > 0 m est du relief, donc invalidante
+SENTINEL_MER_MAX = -1000.0  # en dessous : hors couverture, donc mer
 RESOURCE_IGN = "ign_rge_alti_wld"
 URL_BASE_IGN = "https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json"
-
-
-def vincenty_inverse(lat1_deg, lon1_deg, lat2_deg, lon2_deg, a=A_GRS80, f=F_GRS80, tol=1e-12, max_iter=1000):
-    """Distance et azimuts géodésiques directs. Retourne (distance_m, azimut_1_vers_2_deg, azimut_2_vers_1_deg)."""
-    b = a * (1.0 - f)
-    L = math.radians(lon2_deg - lon1_deg)
-    U1 = math.atan((1.0 - f) * math.tan(math.radians(lat1_deg)))
-    U2 = math.atan((1.0 - f) * math.tan(math.radians(lat2_deg)))
-    sinU1, cosU1 = math.sin(U1), math.cos(U1)
-    sinU2, cosU2 = math.sin(U2), math.cos(U2)
-
-    lam = L
-    for _ in range(max_iter):
-        sinLam, cosLam = math.sin(lam), math.cos(lam)
-        sin_sigma = math.sqrt((cosU2 * sinLam) ** 2 + (cosU1 * sinU2 - sinU1 * cosU2 * cosLam) ** 2)
-        if sin_sigma == 0.0:
-            return 0.0, 0.0, 0.0
-        cos_sigma = sinU1 * sinU2 + cosU1 * cosU2 * cosLam
-        sigma = math.atan2(sin_sigma, cos_sigma)
-        sin_alpha = cosU1 * cosU2 * sinLam / sin_sigma
-        cos2_alpha = 1.0 - sin_alpha ** 2
-        cos2_sigma_m = cos_sigma - 2.0 * sinU1 * sinU2 / cos2_alpha if cos2_alpha != 0.0 else 0.0
-        C = f / 16.0 * cos2_alpha * (4.0 + f * (4.0 - 3.0 * cos2_alpha))
-        lam_prec = lam
-        lam = L + (1.0 - C) * f * sin_alpha * (
-            sigma + C * sin_sigma * (cos2_sigma_m + C * cos_sigma * (-1.0 + 2.0 * cos2_sigma_m ** 2))
-        )
-        if abs(lam - lam_prec) < tol:
-            break
-
-    u2 = cos2_alpha * (a ** 2 - b ** 2) / b ** 2
-    A = 1.0 + u2 / 16384.0 * (4096.0 + u2 * (-768.0 + u2 * (320.0 - 175.0 * u2)))
-    B = u2 / 1024.0 * (256.0 + u2 * (-128.0 + u2 * (74.0 - 47.0 * u2)))
-    delta_sigma = B * sin_sigma * (
-        cos2_sigma_m
-        + B / 4.0 * (
-            cos_sigma * (-1.0 + 2.0 * cos2_sigma_m ** 2)
-            - B / 6.0 * cos2_sigma_m * (-3.0 + 4.0 * sin_sigma ** 2) * (-3.0 + 4.0 * cos2_sigma_m ** 2)
-        )
-    )
-    distance_m = b * A * (sigma - delta_sigma)
-    azimut_1_vers_2 = math.degrees(math.atan2(cosU2 * sinLam, cosU1 * sinU2 - sinU1 * cosU2 * cosLam)) % 360.0
-    azimut_2_vers_1 = math.degrees(math.atan2(cosU1 * sinLam, -sinU1 * cosU2 + cosU1 * sinU2 * cosLam)) % 360.0
-    return distance_m, azimut_1_vers_2, azimut_2_vers_1
-
-
-def vincenty_direct(lat1_deg, lon1_deg, azimut1_deg, distance_m, a=A_GRS80, f=F_GRS80):
-    """Point atteint depuis (lat1, lon1) en suivant azimut1 sur distance_m mètres. Retourne (lat_deg, lon_deg)."""
-    lat1 = math.radians(lat1_deg)
-    az1 = math.radians(azimut1_deg)
-    b = a * (1.0 - f)
-    U1 = math.atan((1.0 - f) * math.tan(lat1))
-    sigma1 = math.atan2(math.tan(U1), math.cos(az1))
-    sinAlpha = math.cos(U1) * math.sin(az1)
-    cos2Alpha = 1.0 - sinAlpha ** 2
-    u2 = cos2Alpha * (a ** 2 - b ** 2) / b ** 2
-    A = 1.0 + u2 / 16384.0 * (4096.0 + u2 * (-768.0 + u2 * (320.0 - 175.0 * u2)))
-    B = u2 / 1024.0 * (256.0 + u2 * (-128.0 + u2 * (74.0 - 47.0 * u2)))
-    sigma = distance_m / (b * A)
-    two_sigma_m = 0.0
-    for _ in range(200):
-        two_sigma_m = 2.0 * sigma1 + sigma
-        delta_sigma = B * math.sin(sigma) * (
-            math.cos(two_sigma_m)
-            + B / 4.0 * (
-                math.cos(sigma) * (-1.0 + 2.0 * math.cos(two_sigma_m) ** 2)
-                - B / 6.0 * math.cos(two_sigma_m) * (-3.0 + 4.0 * math.sin(sigma) ** 2)
-                * (-3.0 + 4.0 * math.cos(two_sigma_m) ** 2)
-            )
-        )
-        sigma_prec = sigma
-        sigma = distance_m / (b * A) + delta_sigma
-        if abs(sigma - sigma_prec) < 1e-12:
-            break
-    lat2 = math.atan2(
-        math.sin(U1) * math.cos(sigma) + math.cos(U1) * math.sin(sigma) * math.cos(az1),
-        (1.0 - f) * math.sqrt(sinAlpha ** 2 + (math.sin(U1) * math.sin(sigma) - math.cos(U1) * math.cos(sigma) * math.cos(az1)) ** 2),
-    )
-    lam = math.atan2(
-        math.sin(sigma) * math.sin(az1),
-        math.cos(U1) * math.cos(sigma) - math.sin(U1) * math.sin(sigma) * math.cos(az1),
-    )
-    C = f / 16.0 * cos2Alpha * (4.0 + f * (4.0 - 3.0 * cos2Alpha))
-    L = lam - (1.0 - C) * f * sinAlpha * (
-        sigma + C * math.sin(sigma) * (math.cos(two_sigma_m) + C * math.cos(sigma) * (-1.0 + 2.0 * math.cos(two_sigma_m) ** 2))
-    )
-    lon2 = math.radians(lon1_deg) + L
-    return math.degrees(lat2), math.degrees(lon2)
 
 
 def generer_points_echantillon(lat1, lon1, lat2, lon2, pas_m=1000.0, a=A_GRS80, f=F_GRS80):
@@ -150,7 +75,8 @@ def generer_points_echantillon(lat1, lon1, lat2, lon2, pas_m=1000.0, a=A_GRS80, 
     pré-écran raisonnable, à affiner (voir raffiner_autour) si une transition
     terre/mer est repérée.
     """
-    distance_totale, azimut, _ = vincenty_inverse(lat1, lon1, lat2, lon2, a, f)
+    geo = vincenty_inverse(lat1, lon1, lat2, lon2, a, f)
+    distance_totale, azimut = geo.distance_m, geo.azimut_depart_deg
     points = []
     d = 0.0
     while d < distance_totale:
@@ -290,7 +216,9 @@ if __name__ == "__main__":
     # traversées de terre identifiées à la main (île d'Oléron, presqu'île
     # d'Arvert), pour un total proche de 20,5 km.
     import sys
-    sys.path.insert(0, "/home/claude/cas-chassiron")
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent
+                           / "exemples-cas-etudes" / "cas-chassiron"))
     import case_data as cas_chassiron
 
     points_test = [
