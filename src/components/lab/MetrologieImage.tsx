@@ -37,6 +37,7 @@ import {
   CE_QUE_CA_N_ETABLIT_PAS,
   FACTEUR_ELARGISSEMENT,
   IUGG_R1,
+  LARGEUR_24x36_MM,
   SIGMA_POINTE_PX_DEFAUT,
   anglePortionEmergente,
   cadrage as faireCadrage,
@@ -64,6 +65,29 @@ import {
   type Objectif,
   type ResultatK,
 } from '@/lib/metrologie-image/noyau';
+// La géodésique vient du port de l'outil A, épinglé par ses propres vecteurs :
+// calculer une distance ici en referait une seconde implémentation.
+import { vincentyInverse } from '@/lib/visee-optique/noyau';
+
+/**
+ * Largeurs nominales des formats courants, en millimètres.
+ *
+ * Ce sont des valeurs NOMINALES : un « APS-C » varie de 22,2 à 23,7 mm selon le
+ * constructeur et le millésime. Les employer fait gagner du temps et introduit
+ * une erreur de l'ordre du pour-cent sur le pas pixel — donc du pour-cent sur
+ * l'angle, donc sur k. La source posée avec la valeur le dit, et la fiche
+ * technique du boîtier reste la seule référence.
+ */
+const FORMATS_CAPTEUR: { nom: string; largeurMm: number }[] = [
+  { nom: 'Plein format 24×36', largeurMm: 36.0 },
+  { nom: 'APS-C Canon', largeurMm: 22.3 },
+  { nom: 'APS-C Sony / Nikon / Fuji / Pentax', largeurMm: 23.5 },
+  { nom: 'APS-H', largeurMm: 27.9 },
+  { nom: 'Micro 4/3', largeurMm: 17.3 },
+  { nom: 'Type 1 pouce', largeurMm: 13.2 },
+  { nom: 'Type 1/1,7', largeurMm: 7.6 },
+  { nom: 'Type 1/2,3', largeurMm: 6.17 },
+];
 
 const INDISPONIBLE = 'INDISPONIBLE';
 const ACCENT = dash.cyan;
@@ -158,8 +182,25 @@ function incertitude(c: Champ): number {
   return Number.isFinite(v) && v >= 0 ? v : 0;
 }
 
+/**
+ * Une grandeur est complète dès qu'elle porte un nombre.
+ *
+ * La source ne conditionne plus le calcul. Une première version l'exigeait :
+ * le raisonnement était bon et la conséquence mauvaise, car une chaîne saisie
+ * dans un champ n'est pas une source vérifiée, et l'analyste qui reprend le
+ * dossier refait le travail de toute façon. Le verrou ne garantissait rien ; il
+ * empêchait seulement de calculer.
+ *
+ * L'absence est donc RELEVÉE et non bloquante : `sansSource` la repère, le
+ * tableau de bord en fait la liste, et l'export la porte.
+ */
 function complet(c: Champ): boolean {
-  return nombre(c) !== null && c.source.trim() !== '';
+  return nombre(c) !== null;
+}
+
+/** Une valeur saisie dont la provenance n'est pas déclarée. */
+function sansSource(c: Champ): boolean {
+  return nombre(c) !== null && c.source.trim() === '';
 }
 
 /**
@@ -263,17 +304,19 @@ function ChampNombre({
         )}
       </div>
       <input
-        type="text" value={champ.source} placeholder="Source — obligatoire"
+        type="text" value={champ.source} placeholder="Source — à établir par l’analyste"
         data-champ={`${cle}-source`} aria-label={`${label} — source`}
         onChange={(e) => onChange({ ...champ, source: e.target.value })}
         style={{
           width: '100%', marginTop: 4, padding: '6px 9px', fontSize: 11,
-          border: `1px solid ${manqueSource ? COULEUR_BASE : dash.border}`,
+          border: `1px solid ${manqueSource ? dash.saffron : dash.border}`,
           borderRadius: 4, background: 'var(--card)', color: 'var(--ink-muted)',
         }}
       />
-      <div style={{ fontSize: 10, color: manqueSource ? COULEUR_BASE : 'var(--ink-ghost)', marginTop: 3, lineHeight: 1.45 }}>
-        {manqueSource ? 'Valeur saisie sans source : elle n’entre pas dans le calcul.' : aide}
+      <div style={{ fontSize: 10, color: manqueSource ? dash.saffron : 'var(--ink-ghost)', marginTop: 3, lineHeight: 1.45 }}>
+        {manqueSource
+          ? 'Sans source : la valeur entre dans le calcul, et figure dans la liste de ce qui reste à établir.'
+          : aide}
       </div>
     </div>
   );
@@ -385,8 +428,124 @@ export default function MetrologieImage() {
       }
       if (e.largeurPx !== null) n.largeurNativePx = { ...n.largeurNativePx, valeur: String(e.largeurPx), source: src };
       if (e.hauteurPx !== null) n.hauteurNativePx = { ...n.hauteurNativePx, valeur: String(e.hauteurPx), source: src };
+
+      // Largeur du capteur DÉDUITE du facteur de recadrage, quand l'EXIF porte
+      // les deux focales. C'est un calcul, pas une lecture : 36 ÷ (f₃₅ ÷ f).
+      // La focale équivalente est arrondie à l'entier par la plupart des
+      // boîtiers, ce qui laisse quelques pour-cent d'incertitude sur le
+      // résultat — la source le dit.
+      if (s.modeFocale === 'reelle' && e.focaleMm !== null && e.focaleEquivalente35mm !== null
+          && e.focaleMm > 0 && e.focaleEquivalente35mm > 0) {
+        const facteur = e.focaleEquivalente35mm / e.focaleMm;
+        const largeur = LARGEUR_24x36_MM / facteur;
+        n.largeurCapteurMm = {
+          ...n.largeurCapteurMm,
+          valeur: largeur.toFixed(2),
+          source: `Déduit de l’EXIF : 36 mm ÷ (${e.focaleEquivalente35mm} ÷ ${e.focaleMm}) `
+            + '— la focale équivalente étant arrondie à l’entier, ce résultat porte '
+            + 'quelques pour-cent d’incertitude. À confirmer par la fiche du boîtier.',
+        };
+      }
       return n;
     });
+  };
+
+  /** Pose une largeur de capteur depuis la table des formats courants. */
+  const adopterFormat = (format: { nom: string; largeurMm: number }) => {
+    setEtat((s) => ({
+      ...s,
+      largeurCapteurMm: {
+        ...s.largeurCapteurMm,
+        valeur: String(format.largeurMm),
+        source: `Format « ${format.nom} » — dimension NOMINALE, choisie par l’opérateur. `
+          + 'Un même format varie de plusieurs dixièmes de millimètre selon le '
+          + 'constructeur : à confirmer par la fiche technique du boîtier.',
+      },
+    }));
+  };
+
+  /**
+   * Calcule D depuis deux couples de coordonnées, par la géodésique de Vincenty
+   * du port de l'outil A. C'est le champ le plus pénible à sourcer à la main, et
+   * le seul des quatre qui se DÉDUISE de données que l'opérateur a déjà.
+   */
+  const [coord, setCoord] = useState({ obsLat: '', obsLon: '', cibLat: '', cibLon: '' });
+  const [erreurCoord, setErreurCoord] = useState<string | null>(null);
+
+  const calculerDistance = () => {
+    setErreurCoord(null);
+    const v = Object.values(coord).map((x) => Number(x.replace(',', '.')));
+    if (v.some((x) => !Number.isFinite(x))) {
+      setErreurCoord('Les quatre coordonnées doivent être des nombres, en degrés décimaux.');
+      return;
+    }
+    try {
+      const g = vincentyInverse(v[0], v[1], v[2], v[3]);
+      if (!g.converge) {
+        setErreurCoord('Vincenty n’a pas convergé : couple quasi-antipodal.');
+        return;
+      }
+      setEtat((s) => ({
+        ...s,
+        distanceKm: {
+          ...s.distanceKm,
+          valeur: (g.distanceM / 1000).toFixed(4),
+          source: `Géodésique de Vincenty sur GRS80, calculée depuis (${v[0]} ; ${v[1]}) et `
+            + `(${v[2]} ; ${v[3]}). Azimut de départ ${g.azimutDepartDeg.toFixed(3)}°. `
+            + 'La distance est exacte si les coordonnées le sont : ce sont ELLES qui '
+            + 'restent à établir.',
+        },
+      }));
+    } catch (err) {
+      setErreurCoord(err instanceof Error ? err.message : String(err));
+    }
+  };
+
+  /**
+   * Reprend la synthèse d'ingestion produite par l'outil B. C'est le flux
+   * B → D : ce que le fichier déclare de lui-même remplit l'étalonnage, sans
+   * que l'opérateur retape ce qu'un lecteur a déjà lu.
+   */
+  const importerSynthese = async (fichier: File) => {
+    setErreurFichier(null);
+    try {
+      const doc = JSON.parse(await fichier.text());
+      const src = `Synthèse d’ingestion « ${fichier.name} » (outil B) — déclaratif appareil, non vérifié`;
+      const exif = doc?.exif;
+      const dims = doc?.file_info?.dimensions;
+      if (!exif?.lu) throw new Error('Cette synthèse ne porte pas d’EXIF lu.');
+      setEtat((s) => {
+        const n = { ...s };
+        const f = exif.settings?.focal_length_mm;
+        const f35 = exif.settings?.focal_length_35mm;
+        if (s.modeFocale === 'equivalent35' && typeof f35 === 'number') {
+          n.focaleMm = { ...n.focaleMm, valeur: String(f35), source: src };
+        } else if (typeof f === 'number') {
+          n.focaleMm = { ...n.focaleMm, valeur: String(f), source: src };
+          if (typeof f35 === 'number' && f > 0 && f35 > 0) {
+            n.largeurCapteurMm = {
+              ...n.largeurCapteurMm,
+              valeur: (LARGEUR_24x36_MM / (f35 / f)).toFixed(2),
+              source: `Déduit de la synthèse d’ingestion : 36 mm ÷ (${f35} ÷ ${f}). `
+                + 'À confirmer par la fiche du boîtier.',
+            };
+          }
+        }
+        if (Array.isArray(dims) && dims.length === 2) {
+          n.largeurNativePx = { ...n.largeurNativePx, valeur: String(dims[0]), source: src };
+          n.hauteurNativePx = { ...n.hauteurNativePx, valeur: String(dims[1]), source: src };
+        }
+        return n;
+      });
+      const gps = exif.gps;
+      if (gps && typeof gps.latitude === 'number') {
+        setCoord((c) => ({ ...c, obsLat: String(gps.latitude), obsLon: String(gps.longitude) }));
+      }
+    } catch (err) {
+      setErreurFichier(
+        'Synthèse illisible : ' + (err instanceof Error ? err.message : String(err)),
+      );
+    }
   };
 
   // --- Assemblage des objets du noyau ---
@@ -770,6 +929,14 @@ export default function MetrologieImage() {
             ? 'focale équivalent 35 mm — capteur fictif de 36 mm'
             : etat.largeurCapteurMm.source,
         },
+        // Ce qui reste à établir. Une liste vide n'atteste de rien : une source
+        // déclarée est une déclaration de l'opérateur, pas une vérification.
+        sources_manquantes: grandeursSansSource,
+        avertissement_sources:
+          'Une source saisie dans cet outil est une DÉCLARATION de l’opérateur, jamais une '
+          + 'vérification : rien dans cette chaîne ne contrôle qu’une fiche d’ouvrage dit bien '
+          + 'ce qu’on lui fait dire. Les grandeurs sans source ne sont pas écartées du calcul, '
+          + 'elles sont listées — c’est à l’analyste de les établir.',
       },
       étalonnage: {
         mode_focale: etat.modeFocale,
@@ -850,9 +1017,28 @@ export default function MetrologieImage() {
 
   const manques: string[] = [];
   if (!image) manques.push('une image chargée');
-  if (!appareil) manques.push('l’étalonnage de l’appareil (capteur, focale, cadrage), sources comprises');
-  if (!scene) manques.push('les quatre grandeurs de scène (D, h_obs, H, z_b), sources comprises');
+  if (!appareil) manques.push('l’étalonnage de l’appareil : capteur, focale, définition native');
+  if (!scene) manques.push('les quatre grandeurs de scène : D, h_obs, H, z_b');
   if (!troisClics) manques.push('les trois pointés sur l’image');
+
+  /**
+   * Ce qui reste à établir. Une source déclarée ici est une DÉCLARATION de
+   * l'opérateur, jamais une vérification : rien dans cette chaîne ne contrôle
+   * qu'une fiche d'ouvrage dit bien ce qu'on lui fait dire. La liste sert à
+   * l'analyste qui reprendra le dossier, pas à valider quoi que ce soit.
+   */
+  const grandeursSansSource = ([
+    ['largeur du capteur', etat.largeurCapteurMm],
+    ['focale', etat.focaleMm],
+    ['définition native — largeur', etat.largeurNativePx],
+    ['définition native — hauteur', etat.hauteurNativePx],
+    ['distance D', etat.distanceKm],
+    ['altitude de l’œil h_obs', etat.altitudeObsM],
+    ['hauteur de la cible H', etat.hauteurCibleM],
+    ['altitude de la base z_b', etat.altitudeBaseM],
+  ] as const)
+    .filter(([, champ]) => sansSource(champ))
+    .map(([nom]) => nom);
 
   const r = analyse && !('erreur' in analyse) ? analyse.resultat : null;
 
@@ -920,6 +1106,25 @@ export default function MetrologieImage() {
             {erreurFichier && (
               <div style={{ fontSize: 11, color: COULEUR_BASE, marginTop: 8 }}>{erreurFichier}</div>
             )}
+            <div style={{ marginTop: 12, paddingTop: 10, borderTop: `1px solid ${dash.border}` }}>
+              <label style={{
+                fontSize: 10, fontFamily: dash.fontMono, letterSpacing: '0.06em',
+                color: 'var(--ink-muted)', textTransform: 'uppercase',
+              }}>
+                Reprendre une synthèse d’ingestion (outil B)
+              </label>
+              <input
+                type="file" accept="application/json,.json"
+                aria-label="Synthèse d’ingestion de l’outil B"
+                onChange={(e) => { const f = e.target.files?.[0]; if (f) void importerSynthese(f); }}
+                style={{ display: 'block', marginTop: 6, fontSize: 11, color: 'var(--ink-muted)' }}
+              />
+              <div style={{ fontSize: 10, color: 'var(--ink-ghost)', marginTop: 4, lineHeight: 1.45 }}>
+                Remplit focale, définition native et largeur de capteur depuis ce que le fichier
+                déclare — sans retaper ce qu’un lecteur a déjà lu. Reste déclaratif : l’EXIF
+                s’écrit.
+              </div>
+            </div>
             {rapport && (
               <div style={{ marginTop: 12, fontSize: 11, fontFamily: dash.fontMono, lineHeight: 1.7 }}>
                 <div style={{ color: 'var(--ink-muted)' }}>
@@ -1125,11 +1330,36 @@ export default function MetrologieImage() {
           </div>
 
           {etat.modeFocale === 'reelle' && (
-            <ChampNombre
-              cle="largeurCapteurMm" label="Largeur du capteur" unite="mm" champ={etat.largeurCapteurMm}
-              onChange={(c) => maj('largeurCapteurMm', c)} avecIncertitude={false}
-              aide="Largeur physique de la surface sensible. 36 mm en plein format, ~23,5 mm en APS-C."
-            />
+            <>
+              <ChampNombre
+                cle="largeurCapteurMm" label="Largeur du capteur" unite="mm" champ={etat.largeurCapteurMm}
+                onChange={(c) => maj('largeurCapteurMm', c)} avecIncertitude={false}
+                aide="Largeur physique de la surface sensible. Le bouton du format le pose, l’EXIF permet souvent de le déduire."
+              />
+              <div style={{ marginTop: -6, marginBottom: 14 }}>
+                <div style={{
+                  fontSize: 10, fontFamily: dash.fontMono, letterSpacing: '0.06em',
+                  color: 'var(--ink-ghost)', textTransform: 'uppercase', marginBottom: 5,
+                }}>Poser un format courant</div>
+                <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
+                  {FORMATS_CAPTEUR.map((f) => (
+                    <button
+                      key={f.nom} onClick={() => adopterFormat(f)} title={`${f.largeurMm} mm`}
+                      style={{
+                        padding: '5px 8px', fontSize: 10.5, cursor: 'pointer', borderRadius: 4,
+                        border: `1px solid ${dash.border}`, background: 'var(--card)',
+                        color: 'var(--ink-muted)',
+                      }}
+                    >{f.nom}</button>
+                  ))}
+                </div>
+                <div style={{ fontSize: 10, color: 'var(--ink-ghost)', marginTop: 5, lineHeight: 1.45 }}>
+                  Dimensions <strong>nominales</strong> : un même format varie de plusieurs
+                  dixièmes de millimètre selon le constructeur, soit quelques pour-cent sur
+                  l’angle. La fiche technique du boîtier reste la référence.
+                </div>
+              </div>
+            </>
           )}
           <ChampNombre
             cle="focaleMm" label={etat.modeFocale === 'equivalent35' ? 'Focale équivalent 35 mm' : 'Focale réelle'}
@@ -1199,6 +1429,50 @@ export default function MetrologieImage() {
             onChange={(c) => maj('distanceKm', c)}
             aide="Distance géodésique, établie hors photographie (§12.4). Le second champ est la demi-largeur de l’enveloppe."
           />
+          <div style={{
+            marginTop: -6, marginBottom: 14, padding: '10px 12px', borderRadius: 5,
+            border: `1px solid ${dash.border}`, background: 'var(--bg)',
+          }}>
+            <div style={{
+              fontSize: 10, fontFamily: dash.fontMono, letterSpacing: '0.06em',
+              color: 'var(--ink-ghost)', textTransform: 'uppercase', marginBottom: 6,
+            }}>Calculer D depuis deux coordonnées</div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 5 }}>
+              {([
+                ['obsLat', 'Obs. latitude'], ['obsLon', 'Obs. longitude'],
+                ['cibLat', 'Cible latitude'], ['cibLon', 'Cible longitude'],
+              ] as const).map(([cle, lab]) => (
+                <input
+                  key={cle} type="text" inputMode="decimal" placeholder={lab}
+                  aria-label={lab} data-champ={`coord-${cle}`}
+                  value={coord[cle]}
+                  onChange={(e) => setCoord((c) => ({ ...c, [cle]: e.target.value }))}
+                  style={{
+                    padding: '7px 8px', fontSize: 12, fontFamily: dash.fontMono,
+                    border: `1px solid ${dash.border}`, borderRadius: 4,
+                    background: 'var(--card)', color: 'var(--ink)', minWidth: 0,
+                  }}
+                />
+              ))}
+            </div>
+            <button
+              onClick={calculerDistance}
+              style={{
+                marginTop: 6, padding: '6px 12px', fontSize: 11.5, fontWeight: 600,
+                cursor: 'pointer', borderRadius: 4, border: `1px solid ${ACCENT}`,
+                background: ACCENT + '14', color: ACCENT,
+              }}
+            >Calculer la distance</button>
+            {erreurCoord && (
+              <div style={{ fontSize: 10.5, color: COULEUR_BASE, marginTop: 5 }}>{erreurCoord}</div>
+            )}
+            <div style={{ fontSize: 10, color: 'var(--ink-ghost)', marginTop: 5, lineHeight: 1.45 }}>
+              Degrés décimaux, positif au nord et à l’est. Géodésique de Vincenty sur GRS80,
+              par le port de l’outil A. La distance sera exacte si les coordonnées le sont :
+              ce sont <strong>elles</strong> qui restent à établir.
+            </div>
+          </div>
+
           <ChampNombre
             cle="altitudeObsM" label="Altitude de l’œil h_obs" unite="m" champ={etat.altitudeObsM}
             onChange={(c) => maj('altitudeObsM', c)}
@@ -1369,6 +1643,27 @@ export default function MetrologieImage() {
                 {interpreter(r)}
               </div>
             </div>
+          </div>
+        )}
+
+        {analyse && !('erreur' in analyse) && grandeursSansSource.length > 0 && (
+          <div style={{
+            marginTop: 16, padding: '12px 14px', borderRadius: 6,
+            border: `1px solid ${dash.saffron}55`, background: dash.saffronSoft,
+          }}>
+            <div style={{
+              fontSize: 10, fontFamily: dash.fontMono, fontWeight: 700, letterSpacing: '0.1em',
+              color: dash.saffron, textTransform: 'uppercase', marginBottom: 6,
+            }}>Ce qui reste à établir — {grandeursSansSource.length} grandeur{grandeursSansSource.length > 1 ? 's' : ''}</div>
+            <p style={{ margin: '0 0 6px', fontSize: 12.5, lineHeight: 1.7, color: dash.ink }}>
+              {grandeursSansSource.join(', ')}.
+            </p>
+            <p style={{ margin: 0, fontSize: 11.5, lineHeight: 1.65, color: dash.ink }}>
+              Ces valeurs entrent dans le calcul et la liste part avec l’export. Une source
+              saisie ici est une <strong>déclaration</strong>, jamais une vérification : rien
+              dans cet outil ne contrôle qu’une fiche d’ouvrage dit bien ce qu’on lui fait
+              dire. C’est à l’analyste d’établir chacune de ces grandeurs.
+            </p>
           </div>
         )}
 

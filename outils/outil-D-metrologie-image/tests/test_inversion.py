@@ -253,9 +253,11 @@ def test_une_seule_combinaison_non_bornee_ouvre_l_enveloppe():
     assert not e.determinee
 
 
-def test_plage_exige_une_source():
-    with pytest.raises(MetrologieError, match="source est obligatoire"):
-        Plage("distance", D, D - 1, D + 1, "   ")
+def test_plage_sans_source_est_construite_mais_le_signale():
+    """La source est relevée, plus exigée — voir la docstring de `Plage`."""
+    p = Plage("distance", D, D - 1, D + 1, "   ")
+    assert p.source_declaree is False
+    assert p.valeur == D
 
 
 def test_plage_exige_une_valeur_dans_ses_bornes():

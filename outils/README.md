@@ -32,7 +32,7 @@ Les quatre ports sont épinglés :
 | `src/lib/preuve-image/noyau.ts` | outil B, 263 tests | 26 | 152 |
 | `src/lib/preuve-image/provenance.ts` + `document.ts` | outil B, ingestion | 76 | 388 |
 | `src/lib/rapport-expertise/noyau.ts` | outil C, 42 tests | 22 | 117 |
-| `src/lib/metrologie-image/noyau.ts` | outil D, 99 tests | 79 | 786 |
+| `src/lib/metrologie-image/noyau.ts` | outil D, 102 tests | 79 | 789 |
 
 Les quatre harnais ont été éprouvés en cassant volontairement le port : un tag
 EXIF décalé d'un cran, le signe de l'hémisphère sud oublié, l'arc de tangence
@@ -63,7 +63,7 @@ répercute dans le port, puis les vecteurs sont régénérés. Jamais l'inverse.
     cd outils/outil-A-visee-optique     && ../.venv/bin/python -m pytest -q   # 321
     cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 263
     cd outils/outil-C-rapport-expertise && ../.venv/bin/python -m pytest -q   #  42
-    cd outils/outil-D-metrologie-image  && ../.venv/bin/python -m pytest -q   #  99
+    cd outils/outil-D-metrologie-image  && ../.venv/bin/python -m pytest -q   # 102
 
 Et, pour l'outil D, un essai qui pilote un vrai navigateur — les vecteurs
 épinglent les formules, celui-ci vérifie le câblage :
@@ -334,3 +334,53 @@ absents de l'exemple : l'altitude et l'incertitude GPS — cette dernière rendu
 `null` quand l'appareil ne l'a pas écrite, jamais comblée — et la valeur exacte
 de la vitesse d'obturation à côté de sa forme « 1/200 », car une fraction
 arrondie ne se recalcule pas.
+
+
+## La source : d'un verrou à un relevé
+
+Les outils du Lab exigeaient une source pour chaque grandeur avant de calculer.
+La règle a changé, et il vaut la peine de dire pourquoi : **une chaîne saisie
+dans un champ n'est pas une source vérifiée.** Rien dans ces outils ne contrôle
+qu'une fiche d'ouvrage dit ce qu'on lui fait dire, et l'analyste qui reprend le
+dossier refait ce travail de toute façon. Le verrou ne garantissait donc rien ;
+il empêchait seulement de calculer.
+
+Ce qui remplace le verrou est plus utile qu'une case cochée :
+
+  · `Plage.source_declaree` dit, pour chaque grandeur, si une provenance a été
+    déclarée ;
+  · `synthese.sources_manquantes` en fait la liste ;
+  · cette liste voyage dans la synthèse exportée, sous
+    `traçabilité.sources_manquantes`, accompagnée de l'avertissement qui rappelle
+    qu'une source déclarée reste une déclaration ;
+  · l'interface l'affiche sous le tableau de bord, en clair.
+
+Ce qui reste refusé n'a pas changé : une valeur hors de sa propre enveloppe, une
+grandeur absente, un k que le relevé n'établit pas. Ce sont des incohérences et
+des lacunes, pas des formalités.
+
+## Ce qui remplit les champs à votre place
+
+Quatre voies, dans l'outil D. Aucune ne dispense de vérifier : chacune pose une
+source qui dit exactement d'où vient la valeur, y compris quand c'est un calcul
+ou une valeur nominale.
+
+**L'EXIF adopté d'un geste.** Focale et définition native sont lues du fichier.
+La largeur du capteur est en outre DÉDUITE quand l'EXIF porte les deux focales :
+36 mm ÷ (f₃₅ ÷ f). La focale équivalente étant arrondie à l'entier par la
+plupart des boîtiers, le résultat porte quelques pour-cent d'incertitude — la
+source posée avec la valeur le dit.
+
+**Les formats de capteur courants**, du 24×36 au 1/2,3, en un bouton. Ce sont
+des dimensions NOMINALES : un « APS-C » varie de 22,2 à 23,7 mm selon le
+constructeur, soit quelques pour-cent sur l'angle. La source le dit aussi.
+
+**La distance calculée depuis deux couples de coordonnées**, par la géodésique
+de Vincenty du port de l'outil A — jamais recalculée ici. C'est le champ le plus
+pénible à sourcer à la main, et le seul des quatre qui se déduise de données que
+l'opérateur a déjà. La distance sera exacte si les coordonnées le sont : ce sont
+elles qui restent à établir, et la source posée le rappelle.
+
+**La synthèse d'ingestion de l'outil B, reprise telle quelle.** Le flux B → D :
+ce qu'un lecteur a déjà lu du fichier remplit l'étalonnage, sans le retaper.
+Cela reste déclaratif — l'EXIF s'écrit.

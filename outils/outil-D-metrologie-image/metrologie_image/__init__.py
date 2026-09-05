@@ -73,7 +73,8 @@ from .synthese import (
     hauteur_emergente_mesuree,
     hauteur_emergente_petit_angle,
     interpreter,
-    verifier_sources,
+    sources_manquantes,
+    AVERTISSEMENT_SOURCES,
 )
 
 __all__ = [
@@ -124,5 +125,6 @@ __all__ = [
     "hauteur_emergente_mesuree",
     "hauteur_emergente_petit_angle",
     "interpreter",
-    "verifier_sources",
+    "sources_manquantes",
+    "AVERTISSEMENT_SOURCES",
 ]

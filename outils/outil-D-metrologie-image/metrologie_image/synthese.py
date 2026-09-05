@@ -9,8 +9,13 @@ DEUX RÈGLES QUI TIENNENT TOUT LE MODULE
 ───────────────────────────────────────
 1. Aucun champ n'est comblé. Une grandeur non établie porte la chaîne
    `indisponible`, jamais une valeur plausible, jamais zéro, jamais une
-   moyenne. `verifier_sources` refuse d'assembler une synthèse dont une
-   grandeur d'entrée n'a pas de source déclarée.
+   moyenne.
+
+   La source, elle, n'est plus une condition de calcul mais un relevé : une
+   chaîne saisie dans un champ n'est pas une source vérifiée, et l'analyste qui
+   reprend le dossier refait le travail. Le verrou ne garantissait donc rien et
+   empêchait de calculer. `sources_manquantes` en fait la liste, et cette liste
+   voyage jusque dans l'export — visible plutôt que bloquante.
 
 2. Aucune ligne du tableau de bord ne conclut sur la forme de la surface. Le
    modèle sphérique est une ENTRÉE de cette chaîne : il est posé pour inverser
@@ -23,7 +28,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass, asdict
-from typing import Any, Dict, List, Optional, Sequence
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 from visee_optique.geometry import Cible, fraction_visible
 from visee_optique.refraction import rayon_effectif
@@ -120,19 +125,23 @@ def hauteur_emergente_petit_angle(angle_rad: float, D: float) -> float:
     return D * math.tan(angle_rad)
 
 
-def verifier_sources(plages: Sequence[Plage]) -> None:
-    """Refuse d'aller plus loin si une grandeur d'entrée n'a pas de source.
+def sources_manquantes(plages: Sequence[Plage]) -> Tuple[str, ...]:
+    """Les grandeurs entrées sans source déclarée. Un relevé, pas un refus.
 
-    `Plage` valide déjà sa propre source à la construction ; cette fonction
-    existe pour que le refus soit prononcé à l'assemblage, où l'opérateur le
-    voit, et pas seulement à la saisie de chaque champ.
+    Le calcul n'est plus bloqué par une source absente — voir `Plage` pour le
+    raisonnement. Mais l'absence est relevée ici, portée dans la synthèse, et
+    écrite dans l'export : un analyste qui reprend le dossier doit trouver la
+    liste de ce qui reste à établir, pas la deviner.
     """
-    manquantes = [p.nom for p in plages if not p.source or not p.source.strip()]
-    if manquantes:
-        raise MetrologieError(
-            "Grandeurs sans source déclarée : %s. Aucune ne peut entrer dans le "
-            "calcul." % ", ".join(manquantes)
-        )
+    return tuple(p.nom for p in plages if not p.source_declaree)
+
+
+AVERTISSEMENT_SOURCES = (
+    "Une source saisie ici est une DÉCLARATION de l'opérateur, jamais une "
+    "vérification : rien dans cette chaîne ne contrôle qu'une fiche d'ouvrage "
+    "dit bien ce qu'on lui fait dire. Les grandeurs sans source ne sont pas "
+    "écartées du calcul, elles sont listées — c'est à l'analyste de les établir."
+)
 
 
 def _valeur_ou_indisponible(x: Optional[float], chiffres: int = 6) -> Any:
@@ -167,6 +176,7 @@ class Synthese:
     empreinte_sha256: str
     nom_fichier: str
     sources: Dict[str, str]
+    sources_manquantes: Tuple[str, ...]
 
     def en_dict(self) -> Dict[str, Any]:
         """Représentation JSON, destinée au dossier d'audit et à l'outil C."""
@@ -178,6 +188,10 @@ class Synthese:
                 "fichier": self.nom_fichier or INDISPONIBLE,
                 "sha256": self.empreinte_sha256 or INDISPONIBLE,
                 "sources": dict(self.sources),
+                # Ce qui reste à établir. Une liste vide n'atteste de rien : une
+                # source déclarée est une déclaration, pas une vérification.
+                "sources_manquantes": list(self.sources_manquantes),
+                "avertissement_sources": AVERTISSEMENT_SOURCES,
             },
             "étalonnage": {
                 "pas_angulaire_arcsec": round(self.pas_angulaire_arcsec, 6),
@@ -336,7 +350,6 @@ def assembler(
     exactement le défaut que le dépôt combat.
     """
     plages = [distance, altitude_observateur, hauteur_cible, altitude_base]
-    verifier_sources(plages)
 
     cible = Cible(H=hauteur_cible.valeur, z_b=altitude_base.valeur)
     D, h = distance.valeur, altitude_observateur.valeur
@@ -391,5 +404,6 @@ def assembler(
         fraction_visible_modele=fraction_modele,
         empreinte_sha256=empreinte_sha256,
         nom_fichier=nom_fichier,
-        sources={p.nom: p.source for p in plages},
+        sources={p.nom: p.source for p in plages if p.source_declaree},
+        sources_manquantes=sources_manquantes(plages),
     )

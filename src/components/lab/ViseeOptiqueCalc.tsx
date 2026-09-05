@@ -85,9 +85,25 @@ function nombre(c: Champ): number | null {
   return Number.isFinite(v) ? v : null;
 }
 
-/** Un champ est complet quand il a une valeur numérique ET une source non vide. */
+/**
+ * Un champ est complet dès qu'il porte un nombre.
+ *
+ * La source ne conditionne plus le calcul. Une première version l'exigeait :
+ * le raisonnement était bon, la conséquence mauvaise. Une chaîne saisie dans un
+ * champ n'est pas une source vérifiée — rien ici ne contrôle qu'une fiche
+ * d'ouvrage dit ce qu'on lui fait dire — et l'analyste qui reprend le dossier
+ * refait le travail. Le verrou ne garantissait rien ; il empêchait de calculer.
+ *
+ * L'absence est donc relevée, pas bloquante : `sansSource` la repère, et le
+ * tableau de bord en fait la liste de ce qui reste à établir.
+ */
 function complet(c: Champ): boolean {
-  return nombre(c) !== null && c.source.trim() !== '';
+  return nombre(c) !== null;
+}
+
+/** Une valeur saisie dont la provenance n'est pas déclarée. */
+function sansSource(c: Champ): boolean {
+  return nombre(c) !== null && c.source.trim() === '';
 }
 
 const fmt = (x: number, n = 3) =>
@@ -127,19 +143,24 @@ function ChampSource({
         <input
           type="text" value={champ.source}
           onChange={(e) => onChange({ ...champ, source: e.target.value })}
-          placeholder="Source — obligatoire"
+          placeholder="Source — à établir par l’analyste"
           aria-label={`Source de ${label}`}
           style={{
             flex: 1, minWidth: 0, padding: '9px 10px', fontSize: 13,
             background: 'var(--card)', color: 'var(--ink)',
-            border: `1px solid ${manqueSource ? dash.rose : 'var(--border)'}`,
+            border: `1px solid ${manqueSource ? dash.saffron : 'var(--border)'}`,
             borderRadius: 5, outline: 'none',
           }}
         />
       </div>
       <p style={{ margin: '4px 0 0', fontSize: 11.5, color: 'var(--ink-muted)', lineHeight: 1.45 }}>
         {manqueSource
-          ? <span style={{ color: dash.rose, fontWeight: 600 }}>Valeur sans source : elle ne sera pas traitée comme un fait.</span>
+          ? (
+            <span style={{ color: dash.saffron }}>
+              Sans source : la valeur entre dans le calcul, et figure dans la liste de ce qui
+              reste à établir.
+            </span>
+          )
           : aide}
       </p>
     </div>
@@ -191,6 +212,22 @@ export default function ViseeOptiqueCalc() {
 
   const obligatoires: (keyof Etat)[] = ['obsLat', 'obsLon', 'obsAlt', 'cibLat', 'cibLon', 'cibH', 'cibZb', 'kMin', 'kMax', 'uF', 'facteur'];
   const manquants = obligatoires.filter((k) => !complet(e[k]));
+
+  /**
+   * Ce qui reste à établir : les grandeurs saisies sans provenance déclarée.
+   * Une source déclarée ici est une DÉCLARATION de l'opérateur, jamais une
+   * vérification. La liste sert à l'analyste qui reprendra le dossier.
+   */
+  const LIBELLES: Record<string, string> = {
+    obsLat: 'latitude du poste', obsLon: 'longitude du poste', obsAlt: 'altitude de l’axe optique',
+    cibLat: 'latitude de la cible', cibLon: 'longitude de la cible',
+    cibH: 'hauteur totale H', cibZb: 'altitude de la base z_b',
+    kMin: 'k minimal', kMax: 'k maximal',
+    uF: 'incertitude u(f)', facteur: 'facteur de discrimination',
+  };
+  const grandeursSansSource = obligatoires
+    .filter((k) => sansSource(e[k]))
+    .map((k) => LIBELLES[k as string] ?? String(k));
 
   const resultat = useMemo(() => {
     if (manquants.length > 0) return null;
@@ -329,9 +366,32 @@ export default function ViseeOptiqueCalc() {
           borderLeft: `3px solid ${dash.rose}`, borderRadius: 8, padding: '14px 18px',
         }}>
           <p style={{ margin: 0, fontSize: 13.5, lineHeight: 1.6, color: 'var(--ink)' }}>
-            <strong>{manquants.length} champ{manquants.length > 1 ? 's' : ''} incomplet{manquants.length > 1 ? 's' : ''}.</strong>{' '}
-            Aucun calcul n’est lancé. Une valeur sans source n’est pas un fait, et rien ici
-            n’est complété par une valeur plausible — c’est la première règle du protocole.
+            <strong>{manquants.length} valeur{manquants.length > 1 ? 's' : ''} manquante{manquants.length > 1 ? 's' : ''}.</strong>{' '}
+            Aucun calcul n’est lancé : rien ici n’est complété par une valeur plausible, et
+            c’est la première règle du protocole.
+          </p>
+        </div>
+      )}
+
+      {manquants.length === 0 && grandeursSansSource.length > 0 && (
+        <div style={{
+          background: dash.saffronSoft, border: `1px solid ${dash.saffron}55`,
+          borderLeft: `3px solid ${dash.saffron}`, borderRadius: 8, padding: '14px 18px',
+        }}>
+          <div style={{
+            fontSize: 10, fontFamily: dash.fontMono, fontWeight: 700, letterSpacing: '0.1em',
+            color: dash.saffron, textTransform: 'uppercase', marginBottom: 6,
+          }}>
+            Ce qui reste à établir — {grandeursSansSource.length} grandeur{grandeursSansSource.length > 1 ? 's' : ''}
+          </div>
+          <p style={{ margin: '0 0 6px', fontSize: 13, lineHeight: 1.65, color: dash.ink }}>
+            {grandeursSansSource.join(', ')}.
+          </p>
+          <p style={{ margin: 0, fontSize: 12, lineHeight: 1.65, color: dash.ink }}>
+            Ces valeurs entrent dans le calcul. Une source saisie ici est une{' '}
+            <strong>déclaration</strong>, jamais une vérification : rien dans cet outil ne
+            contrôle qu’une fiche d’ouvrage dit bien ce qu’on lui fait dire. C’est à l’analyste
+            d’établir chacune de ces grandeurs.
           </p>
         </div>
       )}

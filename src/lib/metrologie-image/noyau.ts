@@ -492,25 +492,46 @@ export interface Plage {
   valeur: number;
   borneBasse: number;
   borneHaute: number;
-  /** Obligatoire : aucune grandeur n'entre dans un calcul sans dire d'où elle vient. */
+  /**
+   * La source est RELEVÉE, plus exigée. Une première version refusait de
+   * construire une `Plage` sans elle : le raisonnement était bon et la
+   * conséquence mauvaise, car une chaîne saisie dans un champ n'est pas une
+   * source vérifiée, et l'analyste qui reprend le dossier refait le travail. Le
+   * verrou ne garantissait rien ; il empêchait seulement de calculer.
+   *
+   * L'absence est donc portée plutôt que bloquante : `sourceDeclaree` la dit,
+   * `sourcesManquantes` en fait la liste, et cette liste va jusque dans
+   * l'export.
+   */
   source: string;
 }
 
 export function plage(
-  nom: string, valeur: number, borneBasse: number, borneHaute: number, source: string,
+  nom: string, valeur: number, borneBasse: number, borneHaute: number, source = '',
 ): Plage {
+  // Ce qui reste refusé : une incohérence, pas une lacune.
   if (!(borneBasse <= valeur && valeur <= borneHaute)) {
     throw new MetrologieError(
       `${nom} : la valeur ${valeur} doit être dans son enveloppe [${borneBasse} ; ${borneHaute}].`,
     );
   }
-  if (!source || !source.trim()) {
-    throw new MetrologieError(
-      `${nom} : la source est obligatoire — aucune grandeur n'entre dans un calcul sans dire d'où elle vient.`,
-    );
-  }
   return { nom, valeur, borneBasse, borneHaute, source };
 }
+
+export function sourceDeclaree(p: Plage): boolean {
+  return !!p.source && p.source.trim() !== '';
+}
+
+/** Les grandeurs entrées sans source déclarée. Un relevé, pas un refus. */
+export function sourcesManquantes(plages: Plage[]): string[] {
+  return plages.filter((p) => !sourceDeclaree(p)).map((p) => p.nom);
+}
+
+export const AVERTISSEMENT_SOURCES =
+  "Une source saisie ici est une DÉCLARATION de l'opérateur, jamais une "
+  + 'vérification : rien dans cette chaîne ne contrôle qu\'une fiche d\'ouvrage '
+  + "dit bien ce qu'on lui fait dire. Les grandeurs sans source ne sont pas "
+  + "écartées du calcul, elles sont listées — c'est à l'analyste de les établir.";
 
 export interface EnveloppeK {
   kMin: number | null;

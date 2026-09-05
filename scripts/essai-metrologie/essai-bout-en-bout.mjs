@@ -155,16 +155,30 @@ verifier('aucun verdict sur la forme de la Terre',
 
 
 
-// 6. Le refus : une source effacée doit bloquer le calcul.
+// 6. La source est relevée, plus bloquante.
+//
+// Le contrôle a changé de nature avec la règle : une source effacée ne doit
+// plus empêcher le calcul, mais doit APPARAÎTRE dans la liste de ce qui reste
+// à établir — et le mot « déclaration » doit accompagner cette liste, faute de
+// quoi une source saisie passerait pour une source vérifiée.
 {
   const source = page.locator('[data-champ="distanceKm-source"]');
   await source.fill('');
-  await page.waitForTimeout(300);
+  await page.waitForTimeout(400);
   const t2 = await page.locator('body').innerText();
-  verifier('source effacée → le calcul se bloque et le dit',
-    t2.includes('Le calcul attend encore') && t2.includes('n’entre pas dans le calcul'), '—');
+  verifier('source effacée : le calcul continue',
+    !t2.includes('Le calcul attend encore'), 'le calcul est bloqué');
+  // `text-transform: uppercase` fait remonter le titre en majuscules dans
+  // `innerText` : la comparaison doit ignorer la casse.
+  verifier('source effacée : la grandeur est listée comme restant à établir',
+    /ce qui reste à établir/i.test(t2) && t2.includes('distance D'), '—');
+  verifier('la liste rappelle qu’une source saisie est une déclaration',
+    /déclaration/i.test(t2) && /jamais une vérification/.test(t2), '—');
   await source.fill(SRC);
-  await page.waitForTimeout(300);
+  await page.waitForTimeout(400);
+  const t3 = await page.locator('body').innerText();
+  verifier('source rétablie : la grandeur sort de la liste',
+    !/ce qui reste à établir/i.test(t3), '—');
 }
 
 // 7. Les deux exports

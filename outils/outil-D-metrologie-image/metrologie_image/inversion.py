@@ -361,18 +361,31 @@ def coefficient_refraction_effectif(
 
 @dataclass(frozen=True)
 class Plage:
-    """Un paramètre d'entrée et son enveloppe, avec la source qui l'établit (§6.2).
+    """Un paramètre d'entrée, son enveloppe, et la source qui l'établit (§6.2).
 
-    La source n'est pas décorative : un paramètre sans source déclarée ne
-    passe pas `synthese.verifier_sources`. C'est la règle du dépôt, appliquée
-    au seul endroit où elle peut l'être — à la saisie.
+    LA SOURCE EST RELEVÉE, PLUS EXIGÉE — ET POURQUOI
+    ────────────────────────────────────────────────
+    Une première version refusait de construire une `Plage` sans source. Le
+    raisonnement était bon et la conséquence mauvaise : une chaîne saisie dans
+    un champ n'est pas une source vérifiée, et l'analyste qui reprend le dossier
+    refait le travail de toute façon. Le verrou ne garantissait donc rien ; il
+    empêchait seulement de calculer.
+
+    La source reste donc portée, et son ABSENCE est portée avec elle :
+    `source_declaree` le dit, `synthese.sources_manquantes` en fait la liste, et
+    cette liste voyage jusque dans la synthèse exportée. L'information n'est pas
+    perdue — elle est rendue visible au lieu d'être rendue bloquante, ce qui est
+    précisément ce qu'un analyste doit trouver dans un dossier.
+
+    Ce qui reste refusé, parce que c'est une incohérence et non une lacune : une
+    valeur hors de sa propre enveloppe.
     """
 
     nom: str
     valeur: float
     borne_basse: float
     borne_haute: float
-    source: str
+    source: str = ""
 
     def __post_init__(self):
         if not (self.borne_basse <= self.valeur <= self.borne_haute):
@@ -380,15 +393,14 @@ class Plage:
                 "%s : la valeur %g doit être dans son enveloppe [%g ; %g]."
                 % (self.nom, self.valeur, self.borne_basse, self.borne_haute)
             )
-        if not self.source or not self.source.strip():
-            raise MetrologieError(
-                "%s : la source est obligatoire — aucune grandeur n'entre dans "
-                "un calcul sans dire d'où elle vient." % self.nom
-            )
 
     @property
     def bornes(self) -> Tuple[float, float]:
         return (self.borne_basse, self.borne_haute)
+
+    @property
+    def source_declaree(self) -> bool:
+        return bool(self.source and self.source.strip())
 
 
 @dataclass(frozen=True)

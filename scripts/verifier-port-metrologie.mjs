@@ -277,7 +277,7 @@ try {
     ['incertitude négative',
       () => M.coefficientRefractionEffectif(1e-4, -1e-6, 40000, 30, M.cible(60), 6.371e6)],
     ['plage hors de son enveloppe', () => M.plage('distance', 100, 200, 300, 'SHOM')],
-    ['plage sans source', () => M.plage('distance', 100, 90, 110, '   ')],
+
     ['altitude pour élévation hors domaine',
       () => M.altitudePourElevation(-0.5, 40000, 30, 6.371e6)],
   ];
@@ -286,6 +286,31 @@ try {
     let leve = false;
     try { f(); } catch { leve = true; }
     if (!leve) ecarts.push({ sujet: 'refus attendu', champ: nom, attendu: 'erreur', obtenu: 'aucune', ecart: '—' });
+  }
+
+  // --- La source est relevée, plus exigée ---
+  //
+  // Le contrôle a changé de nature avec la règle : on ne vérifie plus qu'une
+  // source absente est refusée, mais qu'elle est CONSTATÉE. Une chaîne saisie
+  // n'est pas une source vérifiée ; ce qui compte est que l'absence reste
+  // visible jusque dans l'export.
+  {
+    const sansSource = M.plage('distance', 100, 90, 110, '');
+    const avecSource = M.plage('hauteur_cible', 60, 59, 61, 'fiche d\'ouvrage');
+    n += 4;
+    if (M.sourceDeclaree(sansSource) !== false) {
+      ecarts.push({ sujet: 'sources', champ: 'source vide', attendu: 'non déclarée', obtenu: 'déclarée', ecart: '—' });
+    }
+    if (M.sourceDeclaree(avecSource) !== true) {
+      ecarts.push({ sujet: 'sources', champ: 'source remplie', attendu: 'déclarée', obtenu: 'non déclarée', ecart: '—' });
+    }
+    const manquantes = M.sourcesManquantes([sansSource, avecSource]);
+    if (JSON.stringify(manquantes) !== JSON.stringify(['distance'])) {
+      ecarts.push({ sujet: 'sources', champ: 'liste des manquantes', attendu: '["distance"]', obtenu: JSON.stringify(manquantes), ecart: '—' });
+    }
+    if (!M.AVERTISSEMENT_SOURCES.includes('DÉCLARATION')) {
+      ecarts.push({ sujet: 'sources', champ: 'avertissement', attendu: 'porte « DÉCLARATION »', obtenu: 'non', ecart: '—' });
+    }
   }
 
   // --- Enveloppe sur les entrées : seize sommets, et le refus d'une borne ouverte ---

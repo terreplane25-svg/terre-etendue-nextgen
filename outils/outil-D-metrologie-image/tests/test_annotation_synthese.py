@@ -44,7 +44,7 @@ from metrologie_image.synthese import (
     hauteur_emergente_mesuree,
     hauteur_emergente_petit_angle,
     interpreter,
-    verifier_sources,
+    sources_manquantes,
 )
 
 R0 = 6_371_008.8
@@ -260,18 +260,53 @@ def test_identite_tenue_sur_tout_le_domaine(k):
     assert s.fraction_visible_mesuree == pytest.approx(s.fraction_visible_modele, abs=1e-9)
 
 
-def test_source_manquante_refuse_l_assemblage():
-    with pytest.raises(MetrologieError, match="source est obligatoire"):
-        Plage("distance", D, D - 1, D + 1, "")
+def test_source_absente_n_empeche_plus_le_calcul():
+    """La source est relevée, plus exigée.
+
+    Une chaîne saisie dans un champ n'est pas une source vérifiée, et l'analyste
+    qui reprend le dossier refait le travail : le verrou ne garantissait rien et
+    empêchait de calculer. Ce qui compte est que l'absence RESTE VISIBLE.
+    """
+    p = Plage("distance", D, D - 1, D + 1, "")
+    assert p.source_declaree is False
+    assert p.valeur == D
 
 
-def test_verifier_sources_refuse_a_l_assemblage():
-    """Le refus est prononcé aussi à l'assemblage, là où l'opérateur le voit."""
-    class PlageMuette:
-        nom, source = "distance", ""
+def test_source_declaree_reconnue():
+    assert Plage("distance", D, D - 1, D + 1, "SHOM").source_declaree is True
+    assert Plage("distance", D, D - 1, D + 1, "   ").source_declaree is False
 
-    with pytest.raises(MetrologieError, match="sans source déclarée"):
-        verifier_sources([PlageMuette()])
+
+def test_sources_manquantes_les_liste():
+    plages = [
+        Plage("distance", D, D - 1, D + 1, "SHOM"),
+        Plage("altitude_observateur", HOBS, HOBS - 1, HOBS + 1, ""),
+        Plage("hauteur_cible", H, H - 1, H + 1, "   "),
+        Plage("altitude_base", 0.0, 0.0, 0.0, "niveau moyen"),
+    ]
+    assert sources_manquantes(plages) == ("altitude_observateur", "hauteur_cible")
+
+
+def test_valeur_hors_enveloppe_toujours_refusee():
+    """Ce qui reste refusé : une incohérence, pas une lacune."""
+    with pytest.raises(MetrologieError, match="enveloppe"):
+        Plage("distance", D, D + 10, D + 20, "SHOM")
+
+
+def test_synthese_porte_les_sources_manquantes():
+    sans_source = (
+        Plage("distance", D, D - 200.0, D + 200.0, "SHOM"),
+        Plage("altitude_observateur", HOBS, HOBS - 0.5, HOBS + 0.5, ""),
+        Plage("hauteur_cible", H, H - 1.0, H + 1.0, "fiche d'ouvrage"),
+        Plage("altitude_base", 0.0, 0.0, 0.0, ""),
+    )
+    s = assembler(pointes_synthetiques(K_VRAI), CAPTEUR, PLEIN, OBJECTIF, *sans_source, R0=R0)
+    assert s.sources_manquantes == ("altitude_observateur", "altitude_base")
+    d = s.en_dict()
+    assert d["traçabilité"]["sources_manquantes"] == ["altitude_observateur", "altitude_base"]
+    # Les sources déclarées, elles, restent listées.
+    assert set(d["traçabilité"]["sources"]) == {"distance", "hauteur_cible"}
+    assert "DÉCLARATION" in d["traçabilité"]["avertissement_sources"]
 
 
 # --- Export ---

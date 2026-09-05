@@ -28,8 +28,12 @@ tests dont le succès consiste à obtenir une erreur.
 interroge l'API IGN ou ne rend rien. Il ne génère jamais un profil crédible à
 la place.
 
-**Aucun nombre sans sa source.** Toute coordonnée et toute hauteur saisie dans
-les outils du Lab exige un champ de provenance, affiché avec le résultat.
+**Aucune source n'est présentée comme vérifiée.** Les outils du Lab portent un
+champ de provenance à côté de chaque grandeur, et la liste de celles qui n'en
+ont pas part avec l'export. Ce champ ne conditionne plus le calcul : une chaîne
+saisie n'est pas une source vérifiée, et l'analyste qui reprend le dossier refait
+le travail. Le verrou ne garantissait rien ; il empêchait de calculer. Ce qui
+reste, et qui vaut mieux, c'est le relevé de ce qui reste à établir.
 
 **Aucune valeur centrale seule.** Les prédictions sortent en enveloppes, avec
 les bornes du coefficient de réfraction qui les produisent.
@@ -76,7 +80,7 @@ Rien de ce qui suit n'a besoin d'être cru.
     cd outils/outil-A-visee-optique     && ../.venv/bin/python -m pytest -q   # 321
     cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 263
     cd outils/outil-C-rapport-expertise && ../.venv/bin/python -m pytest -q   #  42
-    cd outils/outil-D-metrologie-image  && ../.venv/bin/python -m pytest -q   #  99
+    cd outils/outil-D-metrologie-image  && ../.venv/bin/python -m pytest -q   # 102
 
     # Les quatre ports TypeScript, épinglés au Python
     npm run verifier:ports
@@ -113,9 +117,9 @@ de bord, exports — et fait juger le résultat du navigateur par le paquet Pyth
 
 | Grandeur | Valeur | Ce que ça veut dire |
 |---|---|---|
-| Tests Python | **725** | 321 + 263 + 42 + 99, exécutés par les commandes ci-dessus |
+| Tests Python | **728** | 321 + 263 + 42 + 102, exécutés par les commandes ci-dessus |
 | Vecteurs d'or | **264** | 61 + 26 + 76 + 22 + 79 entrées produites par le Python, rejouées par le TypeScript |
-| Contrôles de port | **1 706** | 263 + 152 + 388 + 117 + 786 comparaisons Python ↔ TypeScript |
+| Contrôles de port | **1 709** | 263 + 152 + 388 + 117 + 789 comparaisons Python ↔ TypeScript |
 | Cas d'étude | **4** | Chassiron↔Cordouan (invalidé), La Coubre↔Cordouan, Garoupe↔Monte Cinto, Sangatte↔South Foreland |
 | Sections du protocole | **35** | 38 pages, valeurs recalculées à chaque génération |
 
