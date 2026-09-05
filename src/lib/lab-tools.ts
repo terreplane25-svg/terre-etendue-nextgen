@@ -39,12 +39,21 @@ export const TOOLS: LabTool[] = [
     tags: ['fiche', 'archive', 'traçabilité', 'SHA-256'],
   },
   {
+    id: 'metrologie-image',
+    label: 'Analyse d’image par métrologie optique',
+    desc: "Trois pointés sur une photo de visée, quatre grandeurs sourcées, et l’angle relevé est inversé en coefficient de réfraction effectif. L’image ne quitte pas votre machine.",
+    icon: '🔭',
+    color: '#3B8FD4',
+    num: '04',
+    tags: ['image', 'angles', 'réfraction', 'enveloppe'],
+  },
+  {
     id: 'density',
     label: 'Simulateur de Densité',
     desc: "Colonne de fluides interactive. Lâchez des objets, observez la flottabilité.",
     icon: '⚗️',
     color: '#3D9E7C',
-    num: '04',
+    num: '05',
     tags: ['densité', 'flottabilité', 'Archimède'],
   },
   {
@@ -53,7 +62,7 @@ export const TOOLS: LabTool[] = [
     desc: "Classez 24 affirmations scientifiques. Feedback immédiat et sources.",
     icon: '🎯',
     color: '#2B7A5F',
-    num: '05',
+    num: '06',
     tags: ['pédagogie', 'épistémologie', 'quiz', 'enseignants'],
   },
 ];

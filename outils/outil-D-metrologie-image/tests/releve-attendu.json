@@ -1,0 +1,35 @@
+{
+ "avertissement": "Produit par scripts/image-test-metrologie.py. Diagramme calculé, pas une photographie.",
+ "image": "public/protocoles/image-test-metrologie.jpg",
+ "appareil": {
+  "largeur_capteur_mm": 36.0,
+  "largeur_native_px": 3000,
+  "hauteur_native_px": 2000,
+  "focale_mm": 600.0
+ },
+ "scene": {
+  "D_km": 40.0,
+  "h_obs_m": 30.0,
+  "H_m": 60.0,
+  "z_b_m": 0.0
+ },
+ "k_de_construction": 0.13,
+ "pointes_a_cliquer": {
+  "y_horizon": 1000.0,
+  "y_base": 1000.0,
+  "y_sommet": 956.0,
+  "sigma_px": 3.0
+ },
+ "attendu": {
+  "pas_angulaire_arcsec": 4.125296124391888,
+  "angle_emergent_arcsec": 181.5129826429032,
+  "k": 0.12914857002336916,
+  "k_min": 0.019223684806693175,
+  "k_max": 0.2474092271965393,
+  "statut": "déterminé",
+  "regime": "réfraction standard",
+  "hauteur_emergente_m": 35.20028826490032,
+  "fraction_visible": 0.5866714710894331,
+  "ecart_horizon_base_predit_px": 1.6625156115109412e-09
+ }
+}

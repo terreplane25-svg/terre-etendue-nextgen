@@ -1,0 +1,11 @@
+[project]
+name = "metrologie-image"
+version = "0.1.0"
+description = "Outil D — métrologie optique sur image : étalonnage angulaire, mesure de la portion émergente, inversion du coefficient de réfraction (protocole « Portion visible d'une cible éloignée au-dessus de la mer » v1.0)"
+requires-python = ">=3.9"
+dependencies = [
+    "visee-optique",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

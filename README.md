@@ -65,29 +65,41 @@ cas d'écart.
 
 Rien de ce qui suit n'a besoin d'être cru.
 
-    # Les trois paquets Python, qui font référence
+    # Les quatre paquets Python, qui font référence
     python3 -m venv outils/.venv
     outils/.venv/bin/pip install pytest numpy scipy Pillow PyWavelets
     outils/.venv/bin/pip install -e outils/outil-A-visee-optique \
                                  -e outils/outil-B-preuve-image \
-                                 -e outils/outil-C-rapport-expertise
+                                 -e outils/outil-C-rapport-expertise \
+                                 -e outils/outil-D-metrologie-image
 
     cd outils/outil-A-visee-optique     && ../.venv/bin/python -m pytest -q   # 321
     cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 137
     cd outils/outil-C-rapport-expertise && ../.venv/bin/python -m pytest -q   #  42
+    cd outils/outil-D-metrologie-image  && ../.venv/bin/python -m pytest -q   #  99
 
-    # Les trois ports TypeScript, épinglés au Python
+    # Les quatre ports TypeScript, épinglés au Python
     npm run verifier:ports
 
     # Les quatre cas d'étude, de bout en bout
     cd outils/exemples-cas-etudes/cas-chassiron && ../../.venv/bin/python run_case.py
 
+    # L'outil d'analyse d'image, piloté dans un vrai navigateur
+    npm run essai:metrologie
+
     # Le site
     npx next build
 
-`npm run verifier:ports` recompile les trois `noyau.ts` avec le `tsc` du projet,
-rejoue les vecteurs d'or produits par le Python et compare. Il imprime le nombre
-de contrôles passés et la date de génération des vecteurs.
+`npm run verifier:ports` recompile les quatre `noyau.ts` avec le `tsc` du
+projet, rejoue les vecteurs d'or produits par le Python et compare. Il imprime
+le nombre de contrôles passés et la date de génération des vecteurs.
+
+`npm run essai:metrologie` fait autre chose, et c'est délibéré : il construit le
+site, le sert, et pilote un vrai navigateur sur une image dont la scène est
+connue d'avance. Les vecteurs épinglent les formules ; cet essai vérifie le
+câblage — chargement du fichier, empreinte, EXIF, clics sur le canevas, tableau
+de bord, exports — et fait juger le résultat du navigateur par le paquet Python,
+à partir des pointés réellement enregistrés.
 
 ---
 
@@ -95,9 +107,9 @@ de contrôles passés et la date de génération des vecteurs.
 
 | Grandeur | Valeur | Ce que ça veut dire |
 |---|---|---|
-| Tests Python | **500** | 321 + 137 + 42, exécutés par les commandes ci-dessus |
-| Vecteurs d'or | **109** | 61 + 26 + 22 entrées produites par le Python, rejouées par le TypeScript |
-| Contrôles de port | **532** | 263 + 152 + 117 comparaisons Python ↔ TypeScript |
+| Tests Python | **599** | 321 + 137 + 42 + 99, exécutés par les commandes ci-dessus |
+| Vecteurs d'or | **188** | 61 + 26 + 22 + 79 entrées produites par le Python, rejouées par le TypeScript |
+| Contrôles de port | **1 318** | 263 + 152 + 117 + 786 comparaisons Python ↔ TypeScript |
 | Cas d'étude | **4** | Chassiron↔Cordouan (invalidé), La Coubre↔Cordouan, Garoupe↔Monte Cinto, Sangatte↔South Foreland |
 | Sections du protocole | **35** | 38 pages, valeurs recalculées à chaque génération |
 
@@ -121,6 +133,7 @@ chacun le déclare dans son en-tête.
 | A — visée optique | `outils/outil-A-visee-optique` | `src/lib/visee-optique/noyau.ts` | Lab, calculateur |
 | B — preuve image | `outils/outil-B-preuve-image` | `src/lib/preuve-image/noyau.ts` | Lab, vérificateur d'intégrité |
 | C — rapport d'expertise | `outils/outil-C-rapport-expertise` | `src/lib/rapport-expertise/noyau.ts` | Lab, générateur de fiche |
+| D — métrologie d'image | `outils/outil-D-metrologie-image` | `src/lib/metrologie-image/noyau.ts` | Lab, analyse d'image |
 
 **A** — géodésique de Vincenty sur GRS80, rayon d'Euler, hauteur cachée,
 enveloppes de réfraction, condition de discrimination §28.2.
@@ -128,6 +141,10 @@ enveloppes de réfraction, condition de discrimination §28.2.
 **C** — fiche d'observation §33 et arborescence d'archive §34, en ZIP sans
 compression pour qu'une empreinte de fichier soit la même dans l'archive et
 hors d'elle.
+**D** — trois pointés sur une photographie, étalonnage angulaire depuis la
+définition native du capteur, inversion de l'angle en coefficient de réfraction
+effectif. Il n'écrit un k que lorsque le relevé en détermine un ; sinon il
+écrit `indisponible` et dit laquelle des trois branches il a rencontrée.
 
 Toute correction de formule se fait dans le Python d'abord, se répercute
 ensuite dans le port, et les vecteurs sont régénérés. Jamais l'inverse.
@@ -175,11 +192,29 @@ que deux implémentations indépendantes se rencontraient.
 décodée à `Exif` suivi de deux espaces, alors que l'en-tête porte deux octets
 nuls. Remplacé par une comparaison octet par octet.
 
-**Les trois harnais eux-mêmes ont été éprouvés en cassant volontairement le
+**Les quatre harnais eux-mêmes ont été éprouvés en cassant volontairement le
 port** : un tag EXIF décalé d'un cran, le signe de l'hémisphère sud oublié,
 l'arc de tangence biaisé de 10⁻⁷, un champ retiré d'un bloc de fiche, deux
-répertoires d'archive intervertis. Chacune des cinq cassures est détectée et
-nommée.
+répertoires d'archive intervertis, le pas pixel pris sur la largeur du fichier
+livré au lieu du capteur, le point principal supposé au centre du recadrage, un
+relevé nul inversé au lieu d'être majoré. Chacune des huit cassures est
+détectée et nommée. Une neuvième ne l'est pas et ne doit pas l'être — `atan2`
+remplacé par `atan` du quotient ne change rien sur le domaine admissible : le
+commentaire qui affirmait le contraire a été corrigé, pas le code.
+
+**Export d'audit arrondi au centième de pixel.** La synthèse JSON de l'outil D
+arrondissait les ordonnées des pointés ; sur la visée d'essai, cet arrondi
+déplace k de 8·10⁻⁵. Un fichier d'audit dont on ne peut pas refaire le calcul
+ne remplit pas son office. Défaut trouvé par l'essai de bout en bout, en
+confrontant l'export au paquet Python.
+
+**Six défauts du cahier des charges de l'outil D**, dont trois qui changent un
+résultat : l'écart horizon / bas visible tenu pour une « hauteur masquée par la
+courbure » alors qu'il est nul par construction ; le pas pixel calculé sur la
+largeur du fichier livré, ce qui donne un angle quatre fois trop grand sur une
+image recadrée de 6000 à 1500 px ; et une inversion de k supposée toujours
+avoir une solution, alors qu'une cible entière ou entièrement occultée n'en
+détermine aucune. Détail dans [`outils/README.md`](outils/README.md).
 
 **Chemins codés en dur.** Les quatre cas d'étude commençaient par trois
 `sys.path.insert` vers `/home/claude/...`, qui ne pouvaient jamais aider :
@@ -212,10 +247,10 @@ fournit l'instrument ; il ne fournit pas de mesure.
 
     content/articles/       54 articles, un JSON par article — source unique
     docs/                   posture éditoriale
-    outils/                 les trois paquets Python, le pré-écran, les cas d'étude
+    outils/                 les quatre paquets Python, le pré-écran, les cas d'étude
     public/protocoles/      le protocole en PDF
-    scripts/                79 générateurs et vérificateurs
-    src/lib/{visee-optique,preuve-image,rapport-expertise}/   les ports et leurs vecteurs
+    scripts/                85 générateurs, vérificateurs et essais
+    src/lib/{visee-optique,preuve-image,rapport-expertise,metrologie-image}/  les ports et leurs vecteurs
     src/components/lab/     les outils du navigateur
 
 Les conventions de rédaction du site — régime de preuve, gradation des sources,

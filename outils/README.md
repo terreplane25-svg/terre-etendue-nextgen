@@ -1,32 +1,48 @@
 # Outils de visée optique — paquets Python de référence
 
-Trois paquets qui implémentent le protocole « Portion visible d'une cible
+Quatre paquets qui implémentent le protocole « Portion visible d'une cible
 éloignée au-dessus de la mer » v1.0, plus un pré-écran altimétrique et quatre
 cas d'étude.
 
+- **A — `visee_optique`** : géométrie géodésique et réfraction (§8-12, §28).
+- **B — `preuve_image`** : empreinte, EXIF/GPS, chaîne de détention (§16).
+- **C — `rapport_expertise`** : fiche d'observation §33 et archive §34.
+- **D — `metrologie_image`** : du pointé sur l'image à l'angle, puis de
+  l'angle au coefficient de réfraction effectif (§14-15, §19). Il ne recopie
+  aucune géométrie : il importe l'outil A.
+
 ## Ce que ces paquets sont pour le site
 
-**La référence.** Le calculateur du Lab tourne dans le navigateur, donc en
-TypeScript (`src/lib/visee-optique/noyau.ts`), mais ce port n'est pas
-autoritaire : il est épinglé à ce Python par 61 vecteurs d'or et 263 contrôles.
+**La référence.** Les outils du Lab tournent dans le navigateur, donc en
+TypeScript, mais ces ports ne font pas autorité : chacun est épinglé à son
+paquet Python par des vecteurs d'or.
 
-    python3 scripts/generer-vecteurs-or-visee.py    # outil A — regénère les vecteurs
-    python3 scripts/generer-vecteurs-or-preuve.py  # outil B — idem
-    python3 scripts/generer-vecteurs-or-rapport.py # outil C — idem
-    npm run verifier:ports                         # vérifie que les trois ports n'ont pas dérivé
+    python3 scripts/generer-vecteurs-or-visee.py      # outil A — regénère les vecteurs
+    python3 scripts/generer-vecteurs-or-preuve.py     # outil B — idem
+    python3 scripts/generer-vecteurs-or-rapport.py    # outil C — idem
+    python3 scripts/generer-vecteurs-or-metrologie.py # outil D — idem
+    npm run verifier:ports                            # vérifie que les quatre ports n'ont pas dérivé
 
-Les trois ports sont épinglés :
+Les quatre ports sont épinglés :
 
 | Port | Référence | Vecteurs | Contrôles |
 |---|---|---|---|
 | `src/lib/visee-optique/noyau.ts` | outil A, 321 tests | 61 | 263 |
 | `src/lib/preuve-image/noyau.ts` | outil B, 137 tests | 26 | 152 |
 | `src/lib/rapport-expertise/noyau.ts` | outil C, 42 tests | 22 | 117 |
+| `src/lib/metrologie-image/noyau.ts` | outil D, 99 tests | 79 | 786 |
 
-Les trois harnais ont été éprouvés en cassant volontairement le port : un tag
+Les quatre harnais ont été éprouvés en cassant volontairement le port : un tag
 EXIF décalé d'un cran, le signe de l'hémisphère sud oublié, l'arc de tangence
 biaisé de 10⁻⁷, un champ retiré d'un bloc de la fiche, deux répertoires de
-l'arborescence intervertis — chacun est détecté et nommé.
+l'arborescence intervertis, le pas pixel pris sur la largeur du fichier livré
+au lieu du capteur, le point principal supposé au centre du recadrage, un
+relevé nul inversé au lieu d'être majoré — chacun est détecté et nommé.
+
+Une huitième cassure ne l'est pas, et c'est le contrôle qui a raison :
+remplacer `atan2` par `atan` du quotient dans le calcul d'élévation ne change
+rien, le dénominateur restant positif sur tout le domaine admissible. C'est le
+commentaire qui prétendait le contraire qui a été corrigé, pas le code.
 
 Toute correction de formule se fait **dans le Python d'abord**, puis se
 répercute dans le port, puis les vecteurs sont régénérés. Jamais l'inverse.
@@ -37,13 +53,20 @@ répercute dans le port, puis les vecteurs sont régénérés. Jamais l'inverse.
     outils/.venv/bin/pip install pytest numpy scipy Pillow PyWavelets
     outils/.venv/bin/pip install -e outils/outil-A-visee-optique \
                                  -e outils/outil-B-preuve-image \
-                                 -e outils/outil-C-rapport-expertise
+                                 -e outils/outil-C-rapport-expertise \
+                                 -e outils/outil-D-metrologie-image
 
 ## Tests
 
-    cd outils/outil-A-visee-optique   && ../.venv/bin/python -m pytest -q   # 321
-    cd outils/outil-B-preuve-image    && ../.venv/bin/python -m pytest -q   # 137
-    cd outils/outil-C-rapport-expertise && ../.venv/bin/python -m pytest -q #  42
+    cd outils/outil-A-visee-optique     && ../.venv/bin/python -m pytest -q   # 321
+    cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 137
+    cd outils/outil-C-rapport-expertise && ../.venv/bin/python -m pytest -q   #  42
+    cd outils/outil-D-metrologie-image  && ../.venv/bin/python -m pytest -q   #  99
+
+Et, pour l'outil D, un essai qui pilote un vrai navigateur — les vecteurs
+épinglent les formules, celui-ci vérifie le câblage :
+
+    npm run essai:metrologie
 
 ## Ce qui a changé depuis la livraison
 
@@ -151,3 +174,41 @@ elle passe désormais par `IFDRational`, et les dix champs font l'aller-retour.
   actuel. Il n'est pas intégré au site. Son auto-test, lui, tourne hors réseau :
   il rejoue les 77 points d'altimétrie déjà relevés pour Chassiron et retrouve
   les deux traversées de terre, 19,40 km au total.
+
+
+## Ce que l'outil D corrige au cahier des charges
+
+Il a été spécifié à partir d'un cahier des charges qui portait six défauts. Ils
+sont énoncés en tête des modules concernés, avec leur correction ; les trois
+qui changent un résultat :
+
+**« Px_masqué = |y_bas − y_horizon| » ne mesure pas une hauteur masquée par la
+courbure.** Le rayon rasant qui définit l'horizon est le même qui définit le
+point le plus bas visible de la cible : les deux tombent exactement à la même
+élévation. On l'établit analytiquement — tan E(z_v, D) = −tan(s(h)/R) — et
+`test_horizon_et_base_confondus` le vérifie sur six configurations. La portion
+cachée est *derrière* l'horizon, pas au-dessous : elle n'a aucune extension
+verticale dans l'image. Le premier clic n'est donc pas une mesure mais un
+CONTRÔLE, et c'est ce qui en fait la partie la plus utile du relevé.
+
+**Le pas pixel se calcule sur la définition native du capteur, jamais sur celle
+du fichier livré.** Un recadrage ne change pas le pas : il enlève des pixels, il
+ne les agrandit pas. Une image recadrée de 6000 à 1500 px traitée avec sa
+largeur finale donne un angle quatre fois trop grand — silencieusement. Le
+recadrage déplace en outre le point principal, que la forme paraxiale du cahier
+des charges ignore.
+
+**« Ajuster k jusqu'à ce que H_théorique(k) == H_obs » suppose une solution
+unique.** Il n'y en a pas toujours : au-delà d'un seuil la cible est entière et
+l'angle cesse de dépendre de k ; en deçà d'un autre elle est occultée jusqu'au
+sommet et l'angle prédit vaut exactement zéro pour toute valeur de k. Une
+bissection prise au mot rend alors le bord du domaine d'exploration comme s'il
+s'agissait d'une mesure — un chiffre parfaitement précis et parfaitement vide.
+L'outil rend un statut à quatre valeurs et n'écrit jamais un k qu'il n'a pas
+établi.
+
+Les trois autres : les seuils d'interprétation proposés (k > 0,25) ne sont pas
+ceux du Tableau 8 du protocole (0,20) ; « cible surélevée » est une conclusion
+sur la scène quand seule une valeur de k est établie ; et la conversion
+D·tan(θ) suppose la scène plane et perpendiculaire à la visée, si bien qu'elle
+est rendue à côté de la forme exacte plutôt qu'à sa place.

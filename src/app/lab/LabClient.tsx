@@ -13,6 +13,7 @@ import { TOOLS } from '@/lib/lab-tools';
 const ViseeOptiqueCalc = dynamic(() => import('@/components/lab/ViseeOptiqueCalc'), { ssr: false });
 const VerificateurIntegrite = dynamic(() => import('@/components/lab/VerificateurIntegrite'), { ssr: false });
 const GenerateurFiche = dynamic(() => import('@/components/lab/GenerateurFiche'), { ssr: false });
+const MetrologieImage = dynamic(() => import('@/components/lab/MetrologieImage'), { ssr: false });
 const DensitySim = dynamic(() => import('@/components/lab/DensitySim'), { ssr: false });
 const ClassifierSim = dynamic(() => import('@/components/lab/ClassifierSim'), { ssr: false });
 
@@ -150,6 +151,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
       case 'visee-optique': return <ViseeOptiqueCalc />;
       case 'integrite-image': return <VerificateurIntegrite />;
       case 'fiche-archive': return <GenerateurFiche />;
+      case 'metrologie-image': return <MetrologieImage />;
       case 'density': return <DensitySim />;
       case 'classifier': return <ClassifierSim />;
       default: return null;
