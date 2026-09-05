@@ -29,8 +29,8 @@ Les quatre ports sont épinglés :
 | Port | Référence | Vecteurs | Contrôles |
 |---|---|---|---|
 | `src/lib/visee-optique/noyau.ts` | outil A, 321 tests | 61 | 263 |
-| `src/lib/preuve-image/noyau.ts` | outil B, 227 tests | 26 | 152 |
-| `src/lib/preuve-image/provenance.ts` | outil B, module d'ingestion | 70 | 363 |
+| `src/lib/preuve-image/noyau.ts` | outil B, 263 tests | 26 | 152 |
+| `src/lib/preuve-image/provenance.ts` + `document.ts` | outil B, ingestion | 76 | 388 |
 | `src/lib/rapport-expertise/noyau.ts` | outil C, 42 tests | 22 | 117 |
 | `src/lib/metrologie-image/noyau.ts` | outil D, 99 tests | 79 | 786 |
 
@@ -61,7 +61,7 @@ répercute dans le port, puis les vecteurs sont régénérés. Jamais l'inverse.
 ## Tests
 
     cd outils/outil-A-visee-optique     && ../.venv/bin/python -m pytest -q   # 321
-    cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 227
+    cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 263
     cd outils/outil-C-rapport-expertise && ../.venv/bin/python -m pytest -q   #  42
     cd outils/outil-D-metrologie-image  && ../.venv/bin/python -m pytest -q   #  99
 
@@ -292,3 +292,45 @@ Ils établissent que le lecteur suit la structure décrite ; ils n'établissent 
 qu'il lit ce qu'un outil C2PA réel écrit. Confronter le lecteur à un fichier
 signé par une implémentation de référence reste ouvert — c'est la contre-épreuve
 qui manque, et rien ici ne prétend le contraire.
+
+
+## Le document d'ingestion, et quatre écarts assumés au schéma
+
+`preuve_image.document.document_ingestion(octets)` rend d'un seul appel tout ce
+qu'un fichier déclare, dans la forme convenue : `file_info`, `exif`, `c2pa`,
+`thumbnail`, plus XMP, IPTC et les marqueurs de chaînes. Le port TypeScript
+(`src/lib/preuve-image/document.ts`) en fait autant dans le navigateur, et la
+comparaison d'épinglage porte sur le **document entier sérialisé** : une clé
+oubliée, renommée ou ajoutée d'un seul côté fait tomber le contrôle.
+
+Quatre points du schéma reçu ne pouvaient pas être suivis tels quels sans
+écrire quelque chose de faux. Dans les quatre cas la clé demandée existe, et une
+clé voisine porte ce qui manquait.
+
+**1. L'horodatage ne porte pas de fuseau que le fichier ne déclare pas.** Le
+schéma d'exemple donnait `"2014-07-31T18:05:43+02:00"`. Or `DateTimeOriginal`
+est une heure locale SANS fuseau : l'offset n'existe que si l'appareil a écrit
+`OffsetTimeOriginal` (tag 0x9011), ce que peu de boîtiers font. Offset présent →
+ISO 8601 complet ; offset absent → heure locale nue et `offset_declare: false`.
+Sur une observation horodatée, supposer « +02:00 » est le genre d'invention qui
+décide d'un résultat.
+
+**2. `dpi` est un scalaire, la réalité en a deux.** XResolution et YResolution
+peuvent différer, et aucune densité n'est définie quand ResolutionUnit vaut 1
+(« sans unité » : le nombre est un rapport d'aspect). `dpi` n'est rempli que si
+les deux axes coïncident ; `dpi_x` et `dpi_y` sont toujours là.
+
+**3. `camera` concatène Make et Model, ce qui ne se défait pas.** « SONY
+ILCE-6000 » ne redonne pas à coup sûr le couple d'origine : `make` et `model`
+restent disponibles séparément.
+
+**4. `c2pa.signature` ne peut pas se lire comme un verdict.** La clé porte
+l'identité DÉCLARÉE du signataire, et `verified: false` l'accompagne toujours
+avec son motif. Une clé nommée « signature » ne doit pas pouvoir passer pour
+« signature valide ».
+
+Deux ajouts au passage, demandés par la section 1 du cahier des charges mais
+absents de l'exemple : l'altitude et l'incertitude GPS — cette dernière rendue
+`null` quand l'appareil ne l'a pas écrite, jamais comblée — et la valeur exacte
+de la vitesse d'obturation à côté de sa forme « 1/200 », car une fraction
+arrondie ne se recalcule pas.

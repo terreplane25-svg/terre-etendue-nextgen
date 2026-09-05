@@ -77,6 +77,14 @@ from .provenance import (
     MARQUEURS_LOGICIELS,
 )
 
+from .document import (
+    MOTIF_SIGNATURE_NON_VERIFIEE,
+    dimensions_jpeg,
+    document_ingestion,
+    horodatage_iso,
+    vitesse_obturation,
+)
+
 from .sensor_forensics import (
     SensorForensicsError,
     charger_luminance,
@@ -116,6 +124,12 @@ from .chain_of_custody import (
 )
 
 __all__ = [
+    # --- Ingestion : document unifié ---
+    "MOTIF_SIGNATURE_NON_VERIFIEE",
+    "dimensions_jpeg",
+    "document_ingestion",
+    "horodatage_iso",
+    "vitesse_obturation",
     # --- Ingestion : provenance déclarée et champs EXIF étendus ---
     "ProvenanceError",
     "decoder_cbor",

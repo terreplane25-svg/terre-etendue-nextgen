@@ -74,7 +74,7 @@ Rien de ce qui suit n'a besoin d'être cru.
                                  -e outils/outil-D-metrologie-image
 
     cd outils/outil-A-visee-optique     && ../.venv/bin/python -m pytest -q   # 321
-    cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 227
+    cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 263
     cd outils/outil-C-rapport-expertise && ../.venv/bin/python -m pytest -q   #  42
     cd outils/outil-D-metrologie-image  && ../.venv/bin/python -m pytest -q   #  99
 
@@ -113,9 +113,9 @@ de bord, exports — et fait juger le résultat du navigateur par le paquet Pyth
 
 | Grandeur | Valeur | Ce que ça veut dire |
 |---|---|---|
-| Tests Python | **689** | 321 + 227 + 42 + 99, exécutés par les commandes ci-dessus |
-| Vecteurs d'or | **258** | 61 + 26 + 70 + 22 + 79 entrées produites par le Python, rejouées par le TypeScript |
-| Contrôles de port | **1 681** | 263 + 152 + 363 + 117 + 786 comparaisons Python ↔ TypeScript |
+| Tests Python | **725** | 321 + 263 + 42 + 99, exécutés par les commandes ci-dessus |
+| Vecteurs d'or | **264** | 61 + 26 + 76 + 22 + 79 entrées produites par le Python, rejouées par le TypeScript |
+| Contrôles de port | **1 706** | 263 + 152 + 388 + 117 + 786 comparaisons Python ↔ TypeScript |
 | Cas d'étude | **4** | Chassiron↔Cordouan (invalidé), La Coubre↔Cordouan, Garoupe↔Monte Cinto, Sangatte↔South Foreland |
 | Sections du protocole | **35** | 38 pages, valeurs recalculées à chaque génération |
 
@@ -252,6 +252,12 @@ fournit l'instrument ; il ne fournit pas de mesure.
 31 px de haut, dimensionnés pour une souris. L'outil D a été corrigé ; les
 autres suivent une convention du site qu'il faudrait reprendre d'un bloc plutôt
 qu'outil par outil. `npm run audit:mobile` compte les cibles concernées.
+
+**Le document d'ingestion s'écarte de son schéma sur quatre points, et le dit.**
+L'horodatage ne porte un fuseau que si le fichier en déclare un ; `dpi` n'est un
+scalaire que si les deux axes coïncident ; `camera` concatène mais `make` et
+`model` restent ; `c2pa.signature` porte une identité déclarée, jamais vérifiée.
+Détail dans [`outils/README.md`](outils/README.md).
 
 **Le lecteur C2PA n'a jamais vu de fichier signé pour de vrai.** Ses tests et
 ses vecteurs emploient des conteneurs construits depuis la spécification. Ils

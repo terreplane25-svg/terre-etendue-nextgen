@@ -80,6 +80,13 @@ _TAG_DATETIME = 0x0132          # date de dernière modification du fichier par 
 _TAG_ARTIST = 0x013B
 _TAG_COPYRIGHT = 0x8298
 
+# Décalages horaires (EXIF 2.31 et suivantes). Sans eux, DateTimeOriginal est une
+# heure locale SANS fuseau : la convertir en horodatage ISO 8601 avec un offset
+# reviendrait à inventer une information que le fichier ne porte pas.
+_TAG_OFFSET_TIME = 0x9010
+_TAG_OFFSET_TIME_ORIGINAL = 0x9011
+_TAG_OFFSET_TIME_DIGITIZED = 0x9012
+
 _TAG_EXPOSURE_PROGRAM = 0x8822
 _TAG_DATETIME_DIGITIZED = 0x9004
 _TAG_FLASH = 0x9209
@@ -374,6 +381,9 @@ class DonneesExif:
     type_scene: Optional[int] = None
     flash: Optional[int] = None
     miniature: Optional[Miniature] = None
+    decalage_horaire: Optional[str] = None
+    decalage_horaire_original: Optional[str] = None
+    decalage_horaire_numerisation: Optional[str] = None
 
     # Libellés : l'interprétation des codes, jamais à leur place.
     @property
@@ -486,6 +496,9 @@ def lire_exif_depuis_tiff(donnees: bytes) -> DonneesExif:
         type_scene=ifd_exif.get(_TAG_SCENE_CAPTURE_TYPE),
         flash=ifd_exif.get(_TAG_FLASH),
         miniature=_extraire_miniature(donnees, ifd1) if ifd1 else None,
+        decalage_horaire=ifd_exif.get(_TAG_OFFSET_TIME),
+        decalage_horaire_original=ifd_exif.get(_TAG_OFFSET_TIME_ORIGINAL),
+        decalage_horaire_numerisation=ifd_exif.get(_TAG_OFFSET_TIME_DIGITIZED),
     )
 
 

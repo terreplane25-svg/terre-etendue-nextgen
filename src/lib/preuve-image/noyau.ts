@@ -116,6 +116,13 @@ const TAG_DATETIME = 0x0132;
 const TAG_ARTIST = 0x013b;
 const TAG_COPYRIGHT = 0x8298;
 
+// Décalages horaires (EXIF 2.31 et suivantes). Sans eux, DateTimeOriginal est une
+// heure locale SANS fuseau : lui accoler un offset inventerait une information
+// que le fichier ne porte pas.
+const TAG_OFFSET_TIME = 0x9010;
+const TAG_OFFSET_TIME_ORIGINAL = 0x9011;
+const TAG_OFFSET_TIME_DIGITIZED = 0x9012;
+
 const TAG_EXPOSURE_PROGRAM = 0x8822;
 const TAG_DATETIME_DIGITIZED = 0x9004;
 const TAG_FLASH = 0x9209;
@@ -368,6 +375,9 @@ export interface DonneesExif {
   typeScene: number | null;
   flash: number | null;
   miniature: Miniature | null;
+  decalageHoraire: string | null;
+  decalageHoraireOriginal: string | null;
+  decalageHoraireNumerisation: string | null;
 }
 
 /** Les libellés des codes d'un relevé. Jamais à la place des codes. */
@@ -510,6 +520,9 @@ export function lireExifDepuisTiff(donnees: Uint8Array): DonneesExif {
     typeScene: ouNull<number>(ifdExif, TAG_SCENE_CAPTURE_TYPE),
     flash: ouNull<number>(ifdExif, TAG_FLASH),
     miniature: ifd1.size > 0 ? extraireMiniature(donnees, ifd1) : null,
+    decalageHoraire: ouNull<string>(ifdExif, TAG_OFFSET_TIME),
+    decalageHoraireOriginal: ouNull<string>(ifdExif, TAG_OFFSET_TIME_ORIGINAL),
+    decalageHoraireNumerisation: ouNull<string>(ifdExif, TAG_OFFSET_TIME_DIGITIZED),
   };
 }
 

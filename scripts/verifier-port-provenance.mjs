@@ -21,6 +21,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const RACINE = dirname(dirname(fileURLToPath(import.meta.url)));
 const SRC_PROV = join(RACINE, 'src', 'lib', 'preuve-image', 'provenance.ts');
 const SRC_NOYAU = join(RACINE, 'src', 'lib', 'preuve-image', 'noyau.ts');
+const SRC_DOC = join(RACINE, 'src', 'lib', 'preuve-image', 'document.ts');
 const VECTEURS = join(RACINE, 'src', 'lib', 'preuve-image', 'vecteurs-or-provenance.json');
 
 const TOL_REL = 1e-12;
@@ -30,10 +31,27 @@ function compiler() {
   const dossier = mkdtempSync(join(tmpdir(), 'provenance-port-'));
   execFileSync(
     'npx',
-    ['--no-install', 'tsc', SRC_PROV, SRC_NOYAU, '--target', 'ES2022', '--module', 'ES2022',
+    ['--no-install', 'tsc', SRC_PROV, SRC_NOYAU, SRC_DOC, '--target', 'ES2022', '--module', 'ES2022',
      '--moduleResolution', 'bundler', '--outDir', dossier, '--strict', '--lib', 'ES2022,DOM'],
     { cwd: RACINE, stdio: 'pipe' },
   );
+  // tsc ne réécrit pas les extensions ; l'ESM de Node les exige. On les
+  // complète, en comptant les occurrences : un remplacement silencieusement
+  // partiel laisserait un import que Node refuserait plus loin sans dire
+  // pourquoi.
+  const emis = join(dossier, 'document.js');
+  const code = readFileSync(emis, 'utf8');
+  let corrige = code;
+  let total = 0;
+  for (const specificateur of ["'./noyau'", "'./provenance'"]) {
+    const n = corrige.split(specificateur).length - 1;
+    total += n;
+    corrige = corrige.replaceAll(specificateur, specificateur.replace("'", "'").slice(0, -1) + ".js'");
+  }
+  if (total === 0) {
+    throw new Error("document.js n'importe plus ni noyau ni provenance : le port a cessé de les réutiliser.");
+  }
+  writeFileSync(emis, corrige);
   return dossier;
 }
 
@@ -92,6 +110,7 @@ try {
   // fichiers émis sont à plat, sans le niveau `preuve-image/`.
   const P = await import(pathToFileURL(join(dossier, 'provenance.js')).href);
   const N = await import(pathToFileURL(join(dossier, 'noyau.js')).href);
+  const D = await import(pathToFileURL(join(dossier, 'document.js')).href);
   const v = JSON.parse(readFileSync(VECTEURS, 'utf8'));
 
   // --- CBOR : les vecteurs de la RFC 8949 ---
@@ -230,6 +249,28 @@ try {
   for (const cas of v.exif.tiff) comparerExif(cas.nom, cas.exif, N.lireExifDepuisTiff(octets(cas.hex)));
   for (const f of v.exif.flash) comparer(`flash 0x${f.code.toString(16)}`, 'libellé', f.libelle, N.decrireFlash(f.code));
   for (const d of v.exif.dpi) comparer(`DPI ${d.resolution}/${d.unite}`, 'valeur', d.dpi, N.versDpi(d.resolution, d.unite));
+
+  // --- Document d'ingestion ---
+  //
+  // La comparaison porte sur le document ENTIER, sérialisé : une clé oubliée,
+  // renommée ou ajoutée d'un seul côté fait tomber le contrôle. C'est plus
+  // sévère qu'une liste de champs choisis, et c'est ce qu'on veut d'un document
+  // dont la forme est le contrat.
+  for (const cas of v.document.cas) {
+    const obtenu = normaliser(await D.documentIngestion(octets(cas.hex), 'essai.jpg'));
+    comparer(cas.nom, 'document complet', cas.document, obtenu);
+  }
+  for (const cas of v.document.dimensions_jpeg) {
+    comparer(cas.nom, 'dimensions JPEG', cas.dimensions, D.dimensionsJpeg(octets(cas.hex)));
+  }
+  for (const cas of v.document.vitesse_obturation) {
+    comparer(`obturation ${cas.secondes}`, 'texte', cas.texte, D.vitesseObturation(cas.secondes || null));
+  }
+  for (const cas of v.document.horodatage) {
+    comparer(`horodatage ${cas.exif} / ${cas.decalage}`, 'résultat',
+      cas.resultat, D.horodatageIso(cas.exif || null, cas.decalage));
+  }
+  comparer('constantes', 'motif de non-vérification', v.document.motif_signature, D.MOTIF_SIGNATURE_NON_VERIFIEE);
 
   // --- Refus attendus ---
   const refus = [

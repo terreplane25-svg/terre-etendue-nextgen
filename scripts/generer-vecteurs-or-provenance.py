@@ -59,6 +59,13 @@ from preuve_image.metadata import (  # noqa: E402
     lire_exif_depuis_jpeg,
     lire_exif_depuis_tiff,
 )
+from preuve_image.document import (  # noqa: E402
+    MOTIF_SIGNATURE_NON_VERIFIEE,
+    dimensions_jpeg,
+    document_ingestion,
+    horodatage_iso,
+    vitesse_obturation,
+)
 from preuve_image.provenance import (  # noqa: E402
     AVERTISSEMENT_C2PA,
     MARQUEURS_LOGICIELS,
@@ -367,6 +374,52 @@ def vecteurs_exif():
     }
 
 
+def vecteurs_document():
+    """Le document d'ingestion, sur des fichiers qui exercent les quatre écarts."""
+    from test_document import jpeg, jpeg_avec_c2pa  # noqa: E402
+
+    cas = [
+        ("JPEG complet, sans décalage horaire déclaré", jpeg()),
+        ("JPEG avec OffsetTimeOriginal", jpeg(avec_offset=True)),
+        ("JPEG à résolutions anisotropes", jpeg(resolution=(300, 150))),
+        ("JPEG à unité de résolution « sans dimension »", jpeg(unite=1)),
+        ("JPEG avec manifeste C2PA", jpeg_avec_c2pa()),
+        ("fichier sans EXIF", b"\xff\xd8\xff\xda\x00\x02\xff\xd9"),
+    ]
+    return {
+        "cas": [
+            {"nom": nom, "hex": hexa(d),
+             "document": jsonable(document_ingestion(d, nom_fichier="essai.jpg"))}
+            for nom, d in cas
+        ],
+        "dimensions_jpeg": [
+            {"nom": "1024×576", "hex": hexa(jpeg(1024, 576)),
+             "dimensions": list(dimensions_jpeg(jpeg(1024, 576)))},
+            {"nom": "320×240", "hex": hexa(jpeg(320, 240)),
+             "dimensions": list(dimensions_jpeg(jpeg(320, 240)))},
+            {"nom": "pas un JPEG", "hex": hexa(b"pas un jpeg"), "dimensions": None},
+        ],
+        "vitesse_obturation": [
+            {"secondes": s, "texte": vitesse_obturation(s)}
+            # 0,0049 s et 1/3 s : des inverses NON entiers. Un vrai boîtier écrit
+            # des valeurs dérivées de l'échelle APEX, qui ne tombent pas rond.
+            # Sans elles, une erreur d'arrondi passait inaperçue.
+            for s in (1 / 200, 1 / 60, 0.5, 1.0, 2.5, 30.0, 0.0, 0.0049, 1 / 3, 1.7)
+        ],
+        "horodatage": [
+            {"exif": e, "decalage": d, "resultat": horodatage_iso(e, d)}
+            for e, d in (
+                ("2014:07:31 18:05:43", None),
+                ("2014:07:31 18:05:43", "+02:00"),
+                ("2014:07:31 18:05:43", "-05:00"),
+                (None, None),
+                ("", "+02:00"),
+            )
+        ],
+        "motif_signature": MOTIF_SIGNATURE_NON_VERIFIEE,
+    }
+
+
 def controle(doc):
     """Recalcule ce qui vient d'être écrit, par des identités que le code ne peut
     pas satisfaire par accident."""
@@ -422,7 +475,32 @@ def controle(doc):
     for champ in ("logiciel", "flash", "espace_colorimetrique", "dpi_x", "miniature"):
         assert nu["exif"][champ] is None, champ
 
-    return 9
+    # 10. L'horodatage ne porte un fuseau que si le fichier en déclare un.
+    for h in doc["document"]["horodatage"]:
+        r = h["resultat"]
+        if h["decalage"] and h["exif"]:
+            assert r["offset_declare"] is True and r["valeur"].endswith(h["decalage"])
+        else:
+            assert r["offset_declare"] is False
+            assert r["valeur"] is None or ("+" not in r["valeur"] and not r["valeur"].endswith("Z"))
+
+    # 11. Aucune tournure affirmative d'authenticité dans le document entier.
+    texte = json.dumps(doc["document"], ensure_ascii=False).lower()
+    for affirmation in ("est authentique", "signature valide", "provenance vérifiée",
+                        "authenticité confirmée", "certifié conforme"):
+        assert affirmation not in texte, affirmation
+
+    # 12. `dpi` scalaire seulement quand les deux axes coïncident.
+    for c in doc["document"]["cas"]:
+        fi = c["document"]["file_info"]
+        if fi["dpi"] is not None:
+            assert fi["dpi_x"] == fi["dpi_y"] == fi["dpi"], c["nom"]
+
+    # 13. `verified` est faux partout, sans exception.
+    for c in doc["document"]["cas"]:
+        assert c["document"]["c2pa"]["verified"] is False, c["nom"]
+
+    return 13
 
 
 def main():
@@ -443,6 +521,7 @@ def main():
         "iptc": vecteurs_iptc(),
         "chaines": vecteurs_chaines(),
         "exif": vecteurs_exif(),
+        "document": vecteurs_document(),
     }
     n = controle(doc)
     os.makedirs(os.path.dirname(CIBLE), exist_ok=True)
@@ -450,7 +529,7 @@ def main():
         json.dump(doc, f, ensure_ascii=False, indent=1)
         f.write("\n")
     total = (len(doc["cbor"]) + len(doc["jumbf"]) + len(doc["c2pa"]) + len(doc["xmp"])
-             + len(doc["iptc"]) + len(doc["chaines"])
+             + len(doc["iptc"]) + len(doc["chaines"]) + len(doc["document"]["cas"])
              + len(doc["exif"]["jpeg"]) + len(doc["exif"]["tiff"])
              + len(doc["exif"]["flash"]) + len(doc["exif"]["dpi"]))
     print("Vecteurs écrits : %s" % os.path.relpath(CIBLE, RACINE))

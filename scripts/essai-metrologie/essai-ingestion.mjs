@@ -14,7 +14,7 @@
  *     npm run essai:ingestion
  */
 import { execFileSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -120,6 +120,49 @@ for (const affirmation of [
   'authenticité confirmée', 'certifié conforme',
 ]) {
   verifier(`aucune affirmation « ${affirmation} »`, !t.toLowerCase().includes(affirmation));
+}
+
+// --- Le document JSON ---
+{
+  const attente = page.waitForEvent('download', { timeout: 15000 });
+  await page.getByRole('button', { name: /Télécharger la synthèse/ }).click();
+  const dl = await attente;
+  const chemin = join(RACINE, 'public', 'audit', 'ingestion-export.json');
+  await dl.saveAs(chemin);
+  const doc = JSON.parse(readFileSync(chemin, 'utf8'));
+  verifier('synthèse JSON téléchargée', true);
+  for (const cle of ['file_info', 'exif', 'c2pa', 'thumbnail']) {
+    verifier(`document : clé « ${cle} »`, cle in doc);
+  }
+  verifier('document : dimensions', JSON.stringify(doc.file_info.dimensions) === '[800,600]',
+    JSON.stringify(doc.file_info.dimensions));
+  verifier('document : espace colorimétrique', doc.file_info.color_space === 'sRGB');
+  verifier('document : dpi scalaire', doc.file_info.dpi === 300);
+  verifier('document : camera concaténée', doc.exif.camera === 'EssaiCorp Modele X');
+  verifier('document : make et model séparés',
+    doc.exif.make === 'EssaiCorp' && doc.exif.model === 'Modele X');
+  verifier('document : vitesse d’obturation', doc.exif.settings.shutter_speed === '1/250');
+  verifier('document : valeur exacte conservée',
+    Math.abs(doc.exif.settings.shutter_speed_s - 1 / 250) < 1e-12);
+  verifier('document : GPS avec altitude', doc.exif.gps.altitude_m === 23);
+  verifier('document : incertitude GPS non comblée', doc.exif.gps.incertitude_m === null);
+  verifier('document : miniature avec ses dimensions',
+    doc.thumbnail.present === true && Array.isArray(doc.thumbnail.dimensions),
+    JSON.stringify(doc.thumbnail.dimensions));
+  verifier('document : C2PA actions', JSON.stringify(doc.c2pa.actions).includes('c2pa.cropped'));
+  verifier('document : signature déclarée, non vérifiée',
+    doc.c2pa.signature === 'essai-c2pa/0.1' && doc.c2pa.verified === false);
+
+  // L'écart qui compte : aucun fuseau n'est inventé.
+  const o = doc.exif.dates.original;
+  verifier('document : horodatage sans fuseau inventé',
+    o.offset_declare === false && !o.valeur.includes('+') && !o.valeur.endsWith('Z'),
+    JSON.stringify(o));
+
+  const texte = JSON.stringify(doc).toLowerCase();
+  for (const affirmation of ['est authentique', 'signature valide', 'provenance vérifiée']) {
+    verifier(`document : aucune affirmation « ${affirmation} »`, !texte.includes(affirmation));
+  }
 }
 
 // --- Un fichier sans rien ne doit rien inventer ---

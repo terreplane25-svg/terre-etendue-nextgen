@@ -36,6 +36,7 @@ import {
   type Provenance,
   analyserProvenance,
 } from '@/lib/preuve-image/provenance';
+import { documentIngestion } from '@/lib/preuve-image/document';
 
 const ACCENT = dash.cyan;
 const NON_ECRIT = 'non écrit par l’appareil';
@@ -171,6 +172,7 @@ export default function VerificateurIntegrite() {
   const [rapport, setRapport] = useState<RapportFichier | null>(null);
   const [provenance, setProvenance] = useState<Provenance | null>(null);
   const [urlMiniature, setUrlMiniature] = useState<string | null>(null);
+  const [document_, setDocument] = useState<Record<string, unknown> | null>(null);
   const [empreinteMiniature, setEmpreinteMiniature] = useState<string | null>(null);
   const [enCours, setEnCours] = useState(false);
   const [erreur, setErreur] = useState<string | null>(null);
@@ -182,6 +184,7 @@ export default function VerificateurIntegrite() {
     setErreur(null);
     setRapport(null);
     setProvenance(null);
+    setDocument(null);
     setEmpreinteMiniature(null);
     setUrlMiniature((precedente) => {
       if (precedente) URL.revokeObjectURL(precedente);
@@ -202,6 +205,7 @@ export default function VerificateurIntegrite() {
       const r = await analyserFichier(fichier.name, fichier.type, octets);
       setRapport(r);
       setProvenance(analyserProvenance(octets));
+      setDocument(await documentIngestion(octets, fichier.name));
       // La miniature est affichée depuis ses propres octets, jamais depuis
       // l'image principale redimensionnée : c'est justement leur écart qui a
       // valeur, et le montrer supposerait de les confondre.
@@ -648,6 +652,60 @@ export default function VerificateurIntegrite() {
                 est un artefact de compression, pas un texte. Un marqueur reconnu n’établit{' '}
                 <strong>pas</strong> qu’il y a eu retouche — un convertisseur de format écrit son
                 nom sans toucher au contenu visible — et son absence n’établit pas le contraire.
+              </p>
+            </Bloc>
+          )}
+
+          {document_ && (
+            <Bloc num="09" titre="Synthèse d’ingestion">
+              <p style={{ margin: '0 0 12px', fontSize: 13.5, lineHeight: 1.6, color: 'var(--ink)' }}>
+                Tout ce que le fichier déclare, en un document JSON destiné au dossier
+                d’audit : <code style={{ fontSize: 12 }}>file_info</code>,{' '}
+                <code style={{ fontSize: 12 }}>exif</code>,{' '}
+                <code style={{ fontSize: 12 }}>c2pa</code>,{' '}
+                <code style={{ fontSize: 12 }}>thumbnail</code>, plus XMP, IPTC et les
+                marqueurs de chaînes.
+              </p>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
+                <button
+                  onClick={() => {
+                    const blob = new Blob([JSON.stringify(document_, null, 2)],
+                      { type: 'application/json' });
+                    const a = window.document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = `${rapport.nom.replace(/\.[^.]+$/, '')}-ingestion.json`;
+                    a.click();
+                    URL.revokeObjectURL(a.href);
+                  }}
+                  style={{
+                    padding: '8px 14px', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                    borderRadius: 4, border: `1px solid ${ACCENT}`,
+                    background: ACCENT + '14', color: ACCENT,
+                  }}
+                >Télécharger la synthèse (JSON)</button>
+              </div>
+              <details>
+                <summary style={{ cursor: 'pointer', fontSize: 12.5, color: 'var(--ink-soft)' }}>
+                  Voir le document
+                </summary>
+                <pre style={{
+                  marginTop: 10, maxHeight: 380, overflow: 'auto', borderRadius: 6,
+                  border: '1px solid var(--border)', background: 'var(--bg)',
+                  padding: '10px 12px', fontSize: 11.5, lineHeight: 1.55,
+                  fontFamily: dash.fontMono, color: 'var(--ink)',
+                }}>{JSON.stringify(document_, null, 2)}</pre>
+              </details>
+              <p style={{ margin: '12px 0 0', fontSize: 12, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
+                Quatre points du schéma d’origine sont rendus autrement, et le document le
+                montre : l’horodatage ne porte un fuseau que si l’appareil a écrit{' '}
+                <code style={{ fontSize: 11.5 }}>OffsetTimeOriginal</code> — sinon{' '}
+                <code style={{ fontSize: 11.5 }}>offset_declare</code> vaut faux et l’heure
+                reste locale ; <code style={{ fontSize: 11.5 }}>dpi</code> n’est un scalaire
+                que si les deux axes coïncident ; <code style={{ fontSize: 11.5 }}>camera</code>{' '}
+                concatène, mais <code style={{ fontSize: 11.5 }}>make</code> et{' '}
+                <code style={{ fontSize: 11.5 }}>model</code> restent séparés ; et{' '}
+                <code style={{ fontSize: 11.5 }}>c2pa.signature</code> porte l’identité{' '}
+                <strong>déclarée</strong>, jamais vérifiée.
               </p>
             </Bloc>
           )}
