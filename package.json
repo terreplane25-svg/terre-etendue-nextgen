@@ -13,7 +13,8 @@
     "verifier:preuve": "node scripts/verifier-port-preuve.mjs",
     "verifier:rapport": "node scripts/verifier-port-rapport.mjs",
     "verifier:metrologie": "node scripts/verifier-port-metrologie.mjs",
-    "essai:metrologie": "node scripts/essai-metrologie/lancer.mjs"
+    "essai:metrologie": "node scripts/essai-metrologie/lancer.mjs",
+    "audit:mobile": "node scripts/essai-metrologie/audit-mobile.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.0",

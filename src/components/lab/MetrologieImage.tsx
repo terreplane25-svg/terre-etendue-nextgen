@@ -175,6 +175,50 @@ const fmt = (x: number, n = 3) => {
 
 const arcsec = (rad: number) => (rad * 180.0 * 3600.0) / Math.PI;
 
+/**
+ * Grossissement de la loupe. C'est lui qui rend le pointé possible : sans elle,
+ * la résolution de pointé est celle de l'affichage réduit — sur un téléphone,
+ * plus de dix pixels d'image par pixel d'écran.
+ */
+const GROSSISSEMENT = 8;
+
+/** Seuil de bascule en colonne unique. 768 px : la limite usuelle tablette / téléphone. */
+const SEUIL_PETIT_ECRAN_PX = 768;
+
+interface Ecran {
+  petit: boolean;
+  /** `pointer: coarse` — le doigt, ou un stylet imprécis. */
+  grossier: boolean;
+  /** Vrai tant que le navigateur n'a pas répondu : on ne suppose rien avant. */
+  inconnu: boolean;
+}
+
+/**
+ * Ce que l'écran est, mesuré et non supposé.
+ *
+ * Le composant est chargé sans rendu serveur (`ssr: false` dans LabClient), donc
+ * `matchMedia` est disponible dès le premier rendu et il n'y a pas de
+ * divergence d'hydratation à craindre. `inconnu` couvre le seul cas restant :
+ * un environnement sans `matchMedia`, où l'on préfère ne rien affirmer.
+ */
+function useEcran(): Ecran {
+  const [e, setE] = useState<Ecran>({ petit: false, grossier: false, inconnu: true });
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mqTaille = window.matchMedia(`(max-width: ${SEUIL_PETIT_ECRAN_PX - 1}px)`);
+    const mqPointeur = window.matchMedia('(pointer: coarse)');
+    const relire = () => setE({ petit: mqTaille.matches, grossier: mqPointeur.matches, inconnu: false });
+    relire();
+    mqTaille.addEventListener('change', relire);
+    mqPointeur.addEventListener('change', relire);
+    return () => {
+      mqTaille.removeEventListener('change', relire);
+      mqPointeur.removeEventListener('change', relire);
+    };
+  }, []);
+  return e;
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 
 function ChampNombre({
@@ -281,6 +325,17 @@ export default function MetrologieImage() {
   const [clics, setClics] = useState<Partial<Record<Repere, number>>>({});
   const [repereActif, setRepereActif] = useState<Repere>('horizon');
   const [loupe, setLoupe] = useState<{ x: number; y: number } | null>(null);
+  /**
+   * Pointé en cours, pas encore validé. Sur souris il est validé au relâchement
+   * — le geste habituel. Sur tactile il ne l'est jamais tout seul : le doigt
+   * masque ce qu'il désigne, et lever le doigt déplace souvent le contact de
+   * quelques pixels. Il faut donc un geste séparé pour valider, et des boutons
+   * de retouche au pixel.
+   */
+  const [provisoire, setProvisoire] = useState<number | null>(null);
+  /** Largeur CSS du canevas au dernier tracé — sert à recalculer la résolution atteignable. */
+  const [largeurRendue, setLargeurRendue] = useState(0);
+  const ecran = useEcran();
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const loupeRef = useRef<HTMLCanvasElement | null>(null);
@@ -390,6 +445,34 @@ export default function MetrologieImage() {
 
   const troisClics = clics.horizon !== undefined && clics.base !== undefined && clics.sommet !== undefined;
 
+  /**
+   * Ce que l'écran permet vraiment, en pixels d'image.
+   *
+   * Le canevas affiche l'image réduite : un pixel d'écran vaut `f` pixels
+   * d'image. La loupe divise cela par son grossissement. En dessous de cette
+   * résolution, déclarer un σ plus fin revient à annoncer une précision que le
+   * geste ne peut pas produire — exactement ce que le reste de la chaîne
+   * s'interdit. La valeur est mesurée sur le canevas rendu, pas déduite d'une
+   * hypothèse d'appareil.
+   */
+  const resolution = useMemo(() => {
+    const cv = canvasRef.current;
+    if (!cv || !image) return null;
+    const largeurCss = cv.getBoundingClientRect().width;
+    if (largeurCss <= 0) return null;
+    const pxImageParPxEcran = image.naturalWidth / largeurCss;
+    return {
+      pxImageParPxEcran,
+      sansLoupe: pxImageParPxEcran,
+      avecLoupe: pxImageParPxEcran / GROSSISSEMENT,
+    };
+  }, [image, largeurRendue]);
+
+  const sigmaDeclare = Number(etat.sigmaPx.replace(',', '.'));
+  const sigmaSousLaResolution = resolution !== null
+    && Number.isFinite(sigmaDeclare)
+    && sigmaDeclare < resolution.avecLoupe;
+
   const analyse = useMemo(() => {
     if (!appareil || !scene || !troisClics || !image) return null;
     const sigma = Number(etat.sigmaPx.replace(',', '.'));
@@ -446,6 +529,21 @@ export default function MetrologieImage() {
     // l'horizon et le bas visible tombent au même endroit quand la cible est
     // occultée — c'est justement ce que le modèle prédit — et deux libellés
     // superposés y devenaient illisibles.
+    // Le pointé provisoire, tracé en pointillé serré : il n'est pas encore un
+    // relevé, et rien dans le tableau de bord ne l'utilise.
+    if (provisoire !== null) {
+      const rA = REPERES.find((x) => x.cle === repereActif);
+      const yc = provisoire * echelle;
+      ctx.strokeStyle = rA ? rA.couleur : '#fff';
+      ctx.lineWidth = 1.2;
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      ctx.moveTo(0, yc);
+      ctx.lineTo(cv.width, yc);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
     REPERES.forEach((r, i) => {
       const y = clics[r.cle];
       if (y === undefined) return;
@@ -468,19 +566,32 @@ export default function MetrologieImage() {
       ctx.fillStyle = r.couleur;
       ctx.fillText(texte, x, yTexte);
     });
-  }, [image, clics, repereActif]);
+  }, [image, clics, repereActif, provisoire]);
 
   useEffect(() => { dessiner(); }, [dessiner]);
+
+  /**
+   * La largeur rendue est observée, pas relevée pendant le tracé.
+   *
+   * Un premier jet la lisait dans `dessiner` et la rangeait dans un état : la
+   * barre de validation qui apparaît sous le canevas décale la mise en page,
+   * ce qui change la largeur, ce qui relance le tracé, qui réécrit l'état —
+   * React coupait la boucle avec l'erreur 185. L'observateur ne réagit qu'à un
+   * changement réel, et l'arrondi au pixel entier empêche une oscillation sur
+   * une fraction de pixel.
+   */
   useEffect(() => {
-    const f = () => dessiner();
-    window.addEventListener('resize', f);
-    return () => window.removeEventListener('resize', f);
+    const conteneur = conteneurRef.current;
+    if (!conteneur || typeof ResizeObserver === 'undefined') return;
+    const obs = new ResizeObserver(() => {
+      const l = Math.round(conteneur.clientWidth);
+      setLargeurRendue((precedente) => (precedente === l ? precedente : l));
+      dessiner();
+    });
+    obs.observe(conteneur);
+    return () => obs.disconnect();
   }, [dessiner]);
 
-  // La loupe : un facteur 8, pour que le pointé se fasse au pixel de l'image
-  // et non au pixel de l'écran. Sans elle, l'incertitude de pointé serait
-  // celle de l'affichage réduit, souvent quatre fois pire.
-  const GROSSISSEMENT = 8;
   useEffect(() => {
     const lc = loupeRef.current;
     if (!lc || !image || !loupe || !canvasRef.current) return;
@@ -506,25 +617,77 @@ export default function MetrologieImage() {
     ctx.stroke();
   }, [loupe, image, repereActif]);
 
-  const surClic = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  /** Ordonnée d'image correspondant à un point de l'écran. */
+  const yImageDepuisEcran = (clientY: number): number | null => {
     const cv = canvasRef.current;
-    if (!cv || !image) return;
+    if (!cv || !image) return null;
     const rect = cv.getBoundingClientRect();
-    const y = ((e.clientY - rect.top) * cv.height) / rect.height;
-    const echelle = cv.width / image.naturalWidth;
-    setClics((c) => ({ ...c, [repereActif]: y / echelle }));
+    if (rect.height === 0) return null;
+    const yCanevas = ((clientY - rect.top) * cv.height) / rect.height;
+    return yCanevas / (cv.width / image.naturalWidth);
+  };
+
+  const majLoupe = (clientX: number, clientY: number) => {
+    const cv = canvasRef.current;
+    if (!cv) return;
+    const rect = cv.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
+    setLoupe({
+      x: ((clientX - rect.left) * cv.width) / rect.width,
+      y: ((clientY - rect.top) * cv.height) / rect.height,
+    });
+  };
+
+  const valider = (y: number) => {
+    setClics((c) => ({ ...c, [repereActif]: y }));
+    setProvisoire(null);
+    setLoupe(null);
     const i = REPERES.findIndex((r) => r.cle === repereActif);
     if (i >= 0 && i < REPERES.length - 1) setRepereActif(REPERES[i + 1].cle);
   };
 
-  const surMouvement = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  // Événements POINTEUR et non souris : `onMouseMove` n'existe pas sous un
+  // doigt, et la loupe — qui est ce qui rend le pointé précis — n'apparaissait
+  // donc jamais sur téléphone.
+  const surPointeurBas = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    (e.target as HTMLCanvasElement).setPointerCapture?.(e.pointerId);
+    const y = yImageDepuisEcran(e.clientY);
+    if (y === null) return;
+    setProvisoire(y);
+    majLoupe(e.clientX, e.clientY);
+  };
+
+  const surPointeurDeplace = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    // Au survol souris, la loupe suit sans rien poser. Doigt appuyé, elle suit
+    // ET déplace le pointé provisoire.
+    majLoupe(e.clientX, e.clientY);
+    if (provisoire === null) return;
+    const y = yImageDepuisEcran(e.clientY);
+    if (y !== null) setProvisoire(y);
+  };
+
+  const surPointeurHaut = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    const y = yImageDepuisEcran(e.clientY);
+    if (y === null) return;
+    // À la souris, relâcher vaut validation : c'est le geste attendu, et le
+    // curseur ne bouge pas au relâchement. Au doigt, non : lever le doigt
+    // déplace le contact, et le doigt masquait le repère. On garde le pointé
+    // provisoire, que l'opérateur ajuste puis valide.
+    if (e.pointerType === 'mouse') valider(y);
+    else setProvisoire(y);
+  };
+
+  /** Retouche au pixel d'image — le seul moyen d'atteindre le pixel au doigt. */
+  const decaler = (dy: number) => {
+    // Les deux états sont calculés puis posés côte à côte. Poser `setLoupe`
+    // DANS l'updater de `setProvisoire` marchait à l'essai mais reste un appel
+    // d'effet depuis une fonction que React peut rejouer : la boucle de rendu
+    // corrigée juste au-dessus a suffi à rappeler pourquoi on ne le fait pas.
+    if (provisoire === null || !image) return;
+    const v = Math.min(Math.max(provisoire + dy, 0), image.naturalHeight);
+    setProvisoire(v);
     const cv = canvasRef.current;
-    if (!cv) return;
-    const rect = cv.getBoundingClientRect();
-    setLoupe({
-      x: ((e.clientX - rect.left) * cv.width) / rect.width,
-      y: ((e.clientY - rect.top) * cv.height) / rect.height,
-    });
+    if (cv) setLoupe({ x: cv.width * 0.5, y: v * (cv.width / image.naturalWidth) });
   };
 
   // --- Exports ---
@@ -696,6 +859,22 @@ export default function MetrologieImage() {
   return (
     <div style={{ maxWidth: 1180, margin: '0 auto', padding: '4px 2px 24px' }}>
 
+      {/*
+        Deux corrections que seul un média query peut porter, les styles étant
+        écrits en ligne ailleurs dans ce fichier.
+
+        1. `font-size: 16px` sur les champs. En dessous de 16 px, Safari iOS
+           zoome la page à chaque prise de focus : le cadrage saute, et sur un
+           outil où l'on saisit une quinzaine de champs c'est intenable.
+        2. `min-height: 44px` : la cible tactile recommandée. Les champs faisaient
+           31 px de haut, dimensionnés pour une souris.
+      */}
+      <style>{`
+        @media (max-width: ${SEUIL_PETIT_ECRAN_PX - 1}px) {
+          [data-champ] { font-size: 16px !important; min-height: 44px; }
+        }
+      `}</style>
+
       <div style={{
         background: dash.cyanSoft, border: `1px solid ${ACCENT}40`,
         borderRadius: 10, padding: '16px 20px', marginBottom: 18,
@@ -718,7 +897,15 @@ export default function MetrologieImage() {
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 350px)', gap: 18, alignItems: 'start' }}>
+      <div style={{
+        display: 'grid',
+        // En dessous du seuil, une seule colonne. Deux colonnes à 390 px
+        // écrasaient celle de l'image à ZÉRO pixel de large : le canevas
+        // existait, mais sa boîte était vide et aucun pointé n'était possible.
+        gridTemplateColumns: ecran.petit ? 'minmax(0, 1fr)' : 'minmax(0, 1fr) minmax(0, 350px)',
+        gap: 18,
+        alignItems: 'start',
+      }}>
         {/* ── Colonne gauche : image et annotation ── */}
         <div>
           <Carte>
@@ -806,10 +993,16 @@ export default function MetrologieImage() {
               <div ref={conteneurRef} style={{ position: 'relative', border: `1px solid ${dash.border}`, borderRadius: 6, overflow: 'hidden' }}>
                 <canvas
                   ref={canvasRef}
-                  onClick={surClic}
-                  onMouseMove={surMouvement}
-                  onMouseLeave={() => setLoupe(null)}
-                  style={{ display: 'block', width: '100%', cursor: 'crosshair' }}
+                  onPointerDown={surPointeurBas}
+                  onPointerMove={surPointeurDeplace}
+                  onPointerUp={surPointeurHaut}
+                  onPointerLeave={() => { if (provisoire === null) setLoupe(null); }}
+                  style={{
+                    display: 'block', width: '100%', cursor: 'crosshair',
+                    // Sans cela, faire glisser le doigt sur le canevas fait
+                    // défiler la page au lieu de déplacer le pointé.
+                    touchAction: 'none',
+                  }}
                 />
                 {loupe && (
                   <canvas
@@ -826,11 +1019,86 @@ export default function MetrologieImage() {
                   />
                 )}
               </div>
+              {/* Barre de validation. Sur souris elle sert de retouche ; sur
+                  tactile elle est la seule voie vers le pixel, le doigt
+                  masquant ce qu'il désigne. */}
+              {provisoire !== null && (
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap',
+                  marginTop: 8, padding: '8px 10px', borderRadius: 5,
+                  border: `1px solid ${REPERES.find((x) => x.cle === repereActif)?.couleur}55`,
+                  background: `${REPERES.find((x) => x.cle === repereActif)?.couleur}10`,
+                }}>
+                  <span style={{ fontSize: 11, fontFamily: dash.fontMono, color: 'var(--ink)' }}>
+                    y = {provisoire.toFixed(1)} px
+                  </span>
+                  {[[-10, '−10'], [-1, '−1'], [1, '+1'], [10, '+10']].map(([d, lab]) => (
+                    <button
+                      key={String(d)} onClick={() => decaler(d as number)}
+                      aria-label={`Décaler le pointé de ${d} pixel${Math.abs(d as number) > 1 ? 's' : ''}`}
+                      style={{
+                        minWidth: 44, minHeight: 34, fontSize: 12, cursor: 'pointer',
+                        fontFamily: dash.fontMono, borderRadius: 4,
+                        border: `1px solid ${dash.border}`, background: 'var(--card)', color: 'var(--ink)',
+                      }}
+                    >{lab}</button>
+                  ))}
+                  <button
+                    onClick={() => valider(provisoire)}
+                    style={{
+                      minHeight: 34, padding: '0 14px', fontSize: 12, fontWeight: 700, cursor: 'pointer',
+                      borderRadius: 4, border: `1px solid ${ACCENT}`, background: ACCENT + '1A', color: ACCENT,
+                    }}
+                  >Valider ce pointé</button>
+                  <button
+                    onClick={() => { setProvisoire(null); setLoupe(null); }}
+                    style={{
+                      minHeight: 34, padding: '0 10px', fontSize: 12, cursor: 'pointer',
+                      borderRadius: 4, border: `1px solid ${dash.border}`, background: 'transparent', color: 'var(--ink-ghost)',
+                    }}
+                  >Annuler</button>
+                </div>
+              )}
+
               <div style={{ fontSize: 10, color: 'var(--ink-ghost)', marginTop: 6, lineHeight: 1.6 }}>
-                Loupe ×{GROSSISSEMENT} au survol : le pointé se fait au pixel de l’image, pas au
-                pixel de l’affichage réduit. Les ordonnées sont enregistrées dans le repère du
-                fichier livré.
+                Loupe ×{GROSSISSEMENT} : le pointé se fait au pixel de l’image, pas au pixel de
+                l’affichage réduit. Les ordonnées sont enregistrées dans le repère du fichier
+                livré.{' '}
+                {ecran.grossier
+                  ? 'Au doigt : posez, faites glisser pour ajuster sous la loupe, retouchez au pixel, puis validez.'
+                  : 'À la souris, relâcher valide le pointé.'}
               </div>
+
+              {/* Ce que l'écran permet, mesuré sur le canevas rendu. */}
+              {resolution && (
+                <div style={{
+                  marginTop: 8, padding: '10px 12px', borderRadius: 5,
+                  border: `1px solid ${sigmaSousLaResolution ? COULEUR_BASE : dash.border}`,
+                  background: sigmaSousLaResolution ? COULEUR_BASE + '10' : 'transparent',
+                  fontSize: 11, lineHeight: 1.65, color: 'var(--ink-muted)',
+                }}>
+                  <strong style={{ color: 'var(--ink)' }}>Résolution de pointé sur cet écran.</strong>{' '}
+                  Le canevas affiche l’image réduite : un pixel d’écran vaut{' '}
+                  <strong style={{ color: 'var(--ink)' }}>{fmt(resolution.pxImageParPxEcran, 1)} px d’image</strong>,
+                  soit {fmt(resolution.avecLoupe, 2)} px sous la loupe ×{GROSSISSEMENT}.
+                  {sigmaSousLaResolution && (
+                    <>
+                      {' '}
+                      <span style={{ color: COULEUR_BASE }}>
+                        Le σ déclaré ({fmt(sigmaDeclare, 1)} px) est plus fin que ce que ce geste peut
+                        produire. L’enveloppe rendue sera plus étroite que la mesure ne le permet —
+                        relevez σ à {fmt(resolution.avecLoupe, 1)} px au moins, ou reprenez le pointé
+                        sur un écran plus grand.
+                      </span>
+                    </>
+                  )}
+                  {ecran.petit && !sigmaSousLaResolution && (
+                    <> Sur un écran de cette taille, un pointé fin passe par la loupe et les
+                    boutons de retouche : le doigt seul ne vaut pas mieux qu’une dizaine de pixels
+                    d’image.</>
+                  )}
+                </div>
+              )}
             </Carte>
           )}
         </div>

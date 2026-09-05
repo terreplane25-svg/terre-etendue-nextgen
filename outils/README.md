@@ -212,3 +212,37 @@ ceux du Tableau 8 du protocole (0,20) ; « cible surélevée » est une conclusi
 sur la scène quand seule une valeur de k est établie ; et la conversion
 D·tan(θ) suppose la scène plane et perpendiculaire à la visée, si bien qu'elle
 est rendue à côté de la forme exacte plutôt qu'à sa place.
+
+
+## Ce qui tourne sur un téléphone, et ce qui n'y tourne pas
+
+`npm run audit:mobile` mesure, sur un iPhone 13 émulé (390×844, tactile) avec
+le processeur bridé ×4, ce que chaque outil du Lab fait réellement : débordement
+horizontal, cibles tactiles, erreurs, et durée des calculs sur une photo de
+4032 × 3024 (12,2 Mpx, 3,4 Mo).
+
+**Rien de lourd ne tourne dans le navigateur.** Les traitements coûteux du
+protocole — carte ELA, résidu de bruit par ondelettes, empreinte de capteur et
+pic de corrélation (§16) — vivent dans `preuve_image.sensor_forensics`, en
+Python, et ne sont pas portés en TypeScript. Ils s'exécutent sur un poste de
+travail, avec numpy, scipy et PyWavelets. Il n'y a donc rien à désactiver sur
+téléphone : ces modules n'y sont pas.
+
+Ce qui tourne dans le navigateur, mesuré :
+
+| Opération | Durée (processeur bridé ×4) |
+|---|---|
+| Empreinte SHA-256 + lecture EXIF + affichage | 310 à 760 ms |
+| Décodage et rendu du canevas 12 Mpx | ~200 ms |
+| Pointé au doigt → barre de validation | ~390 ms |
+
+Toutes sous le seuil de 3 s, et d'un ordre de grandeur. `crypto.subtle.digest`
+est natif ; l'analyse EXIF ne lit que quelques centaines d'octets d'en-tête.
+
+**La contrainte réelle sur téléphone n'est pas le calcul, c'est le pointé.** Le
+canevas affiche l'image réduite : sur un écran de 390 px, un pixel d'écran vaut
+13,4 pixels d'image. C'est la loupe ×8 qui rend le pointé possible — elle ramène
+la résolution à 1,7 pixel d'image — et les boutons de retouche ±1 px qui
+permettent d'atteindre le pixel. L'outil affiche cette résolution, mesurée sur
+le canevas rendu, et signale un σ déclaré plus fin que ce que le geste peut
+produire.

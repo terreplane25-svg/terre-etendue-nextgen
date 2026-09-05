@@ -65,3 +65,7 @@ outils/**/*.egg-info/
 outils/exemples-cas-etudes/*/sortie/
 outils/exemples-cas-etudes/*/*.zip
 outils/exemples-cas-etudes/*/DEMO_*.jpg
+
+# Photo de charge de l'audit mobile : 3,4 Mo, reconstruite à l'identique
+# par scripts/photo-charge-mobile.py. Le dépôt n'a pas à la porter.
+public/audit/

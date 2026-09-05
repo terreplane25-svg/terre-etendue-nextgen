@@ -87,6 +87,9 @@ Rien de ce qui suit n'a besoin d'être cru.
     # L'outil d'analyse d'image, piloté dans un vrai navigateur
     npm run essai:metrologie
 
+    # Ce que les outils font sur un téléphone : mise en page, tactile, durées
+    npm run audit:mobile
+
     # Le site
     npx next build
 
@@ -238,6 +241,11 @@ c'est précisément le défaut que ce dépôt combat ailleurs.
 Les quatre cas d'étude s'appuient sur des coordonnées sourcées et une image de
 démonstration qui est un diagramme calculé, jamais une photographie. Le dépôt
 fournit l'instrument ; il ne fournit pas de mesure.
+
+**Cibles tactiles sous 44 px.** Les champs de saisie des outils A, B et C font
+31 px de haut, dimensionnés pour une souris. L'outil D a été corrigé ; les
+autres suivent une convention du site qu'il faudrait reprendre d'un bloc plutôt
+qu'outil par outil. `npm run audit:mobile` compte les cibles concernées.
 
 **Pas de licence.** À déterminer.
 
