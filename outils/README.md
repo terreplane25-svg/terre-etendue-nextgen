@@ -19,6 +19,7 @@ paquet Python par des vecteurs d'or.
 
     python3 scripts/generer-vecteurs-or-visee.py      # outil A — regénère les vecteurs
     python3 scripts/generer-vecteurs-or-preuve.py     # outil B — idem
+    python3 scripts/generer-vecteurs-or-provenance.py # outil B, ingestion — idem
     python3 scripts/generer-vecteurs-or-rapport.py    # outil C — idem
     python3 scripts/generer-vecteurs-or-metrologie.py # outil D — idem
     npm run verifier:ports                            # vérifie que les quatre ports n'ont pas dérivé
@@ -28,7 +29,8 @@ Les quatre ports sont épinglés :
 | Port | Référence | Vecteurs | Contrôles |
 |---|---|---|---|
 | `src/lib/visee-optique/noyau.ts` | outil A, 321 tests | 61 | 263 |
-| `src/lib/preuve-image/noyau.ts` | outil B, 137 tests | 26 | 152 |
+| `src/lib/preuve-image/noyau.ts` | outil B, 227 tests | 26 | 152 |
+| `src/lib/preuve-image/provenance.ts` | outil B, module d'ingestion | 70 | 363 |
 | `src/lib/rapport-expertise/noyau.ts` | outil C, 42 tests | 22 | 117 |
 | `src/lib/metrologie-image/noyau.ts` | outil D, 99 tests | 79 | 786 |
 
@@ -59,7 +61,7 @@ répercute dans le port, puis les vecteurs sont régénérés. Jamais l'inverse.
 ## Tests
 
     cd outils/outil-A-visee-optique     && ../.venv/bin/python -m pytest -q   # 321
-    cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 137
+    cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 227
     cd outils/outil-C-rapport-expertise && ../.venv/bin/python -m pytest -q   #  42
     cd outils/outil-D-metrologie-image  && ../.venv/bin/python -m pytest -q   #  99
 
@@ -246,3 +248,47 @@ la résolution à 1,7 pixel d'image — et les boutons de retouche ±1 px qui
 permettent d'atteindre le pixel. L'outil affiche cette résolution, mesurée sur
 le canevas rendu, et signale un σ déclaré plus fin que ce que le geste peut
 produire.
+
+
+## Le module d'ingestion, et la limite qu'il ne franchit pas
+
+`preuve_image.provenance` lit ce qu'un fichier DÉCLARE de son histoire : le
+conteneur C2PA (JUMBF, en JPEG APP11 comme en PNG `caBX`), les paquets XMP, les
+enregistrements IPTC-IIM, et les chaînes lisibles des en-têtes. `metadata.py`
+lit en outre les champs d'ingestion de l'EXIF — logiciel, horodatages, densité,
+espace colorimétrique, mode et programme d'exposition, flash, rapport de zoom
+numérique — et la miniature de l'IFD1.
+
+Les lecteurs sont écrits ici plutôt qu'empruntés, pour la raison déjà donnée en
+tête de `metadata.py` : pour un usage probatoire, savoir exactement ce qui est
+extrait — et ce qui ne l'est pas — compte autant que l'extraction. Cela inclut
+un décodeur CBOR de deux cents lignes, éprouvé par les vecteurs de l'annexe A
+de la RFC 8949 : une table écrite par d'autres.
+
+**Aucune signature n'est vérifiée, et c'est dit partout où un manifeste
+s'affiche.** La validation d'un manifeste C2PA exige la vérification COSE, le
+contrôle de la chaîne X.509 contre une liste de confiance, et le recalcul des
+empreintes de liaison au contenu. Rien de cela n'est implémenté. Un manifeste
+lisible peut donc être authentique, désolidarisé de l'image, ou entièrement
+fabriqué — cette lecture ne les distingue pas. Symétriquement, son absence n'est
+pas un indice : presque aucun appareil n'en écrit, et la plupart des retouches
+effacent ceux qui existaient.
+
+Ce que les autres lectures n'établissent pas, dans le même esprit :
+
+  · un **logiciel déclaré** ou un **marqueur de chaîne** n'établit pas qu'il y a
+    eu retouche — un convertisseur de format écrit son nom sans toucher au
+    contenu visible — et son absence n'établit pas le contraire ;
+  · **XMP et IPTC** sont des champs rédactionnels : n'importe qui les écrit,
+    les modifie ou les efface avec un éditeur de texte ;
+  · une **miniature** qui concorde avec l'image n'établit rien, car tout éditeur
+    qui la régénère efface la trace. Seul un ÉCART est un fait.
+
+### Ce qui reste à faire
+
+Les conteneurs C2PA employés par les tests et les vecteurs sont **construits à
+partir de la spécification**, pas produits par une implémentation du marché.
+Ils établissent que le lecteur suit la structure décrite ; ils n'établissent pas
+qu'il lit ce qu'un outil C2PA réel écrit. Confronter le lecteur à un fichier
+signé par une implémentation de référence reste ouvert — c'est la contre-épreuve
+qui manque, et rien ici ne prétend le contraire.

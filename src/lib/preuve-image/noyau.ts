@@ -105,6 +105,31 @@ const TAG_PIXEL_Y_DIMENSION = 0xa003;
 const TAG_FOCAL_LENGTH_35MM = 0xa405;
 const TAG_LENS_MODEL = 0xa434;
 
+// Ajoutés pour l'ingestion : tout ce que le §16 demande de LIRE sans rien conclure.
+const TAG_IMAGE_WIDTH = 0x0100;
+const TAG_IMAGE_LENGTH = 0x0101;
+const TAG_X_RESOLUTION = 0x011a;
+const TAG_Y_RESOLUTION = 0x011b;
+const TAG_RESOLUTION_UNIT = 0x0128;
+const TAG_SOFTWARE = 0x0131;
+const TAG_DATETIME = 0x0132;
+const TAG_ARTIST = 0x013b;
+const TAG_COPYRIGHT = 0x8298;
+
+const TAG_EXPOSURE_PROGRAM = 0x8822;
+const TAG_DATETIME_DIGITIZED = 0x9004;
+const TAG_FLASH = 0x9209;
+const TAG_COLOR_SPACE = 0xa001;
+const TAG_EXPOSURE_MODE = 0xa402;
+const TAG_WHITE_BALANCE = 0xa403;
+const TAG_DIGITAL_ZOOM_RATIO = 0xa404;
+const TAG_SCENE_CAPTURE_TYPE = 0xa406;
+
+// IFD1 : la miniature.
+const TAG_JPEG_INTERCHANGE_FORMAT = 0x0201;
+const TAG_JPEG_INTERCHANGE_FORMAT_LENGTH = 0x0202;
+const TAG_COMPRESSION = 0x0103;
+
 const TAG_GPS_LAT_REF = 1;
 const TAG_GPS_LAT = 2;
 const TAG_GPS_LON_REF = 3;
@@ -174,7 +199,14 @@ function decoderEntree(
   return new Uint8Array(vue.buffer, vue.byteOffset + debut, tailleTotale);
 }
 
-function lireIfd(vue: DataView, offset: number, petitBoutien: boolean): Map<number, ValeurTiff> {
+/**
+  * Lit un IFD et rend aussi l'offset de l'IFD suivant (0 s'il n'y en a pas).
+  * Les quatre octets qui suivent la dernière entrée pointent vers l'IFD suivant :
+  * c'est par là que se trouve l'IFD1, celui de la miniature.
+  */
+function lireIfdEtSuivant(
+  vue: DataView, offset: number, petitBoutien: boolean,
+): { entrees: Map<number, ValeurTiff>; suivant: number } {
   if (offset + 2 > vue.byteLength) {
     throw new PreuveError("Offset d'IFD hors des limites du flux.");
   }
@@ -191,7 +223,12 @@ function lireIfd(vue: DataView, offset: number, petitBoutien: boolean): Map<numb
     entrees.set(tag, decoderEntree(vue, petitBoutien, type, count, pos + 8));
     pos += 12;
   }
-  return entrees;
+  const suivant = pos + 4 <= vue.byteLength ? vue.getUint32(pos, petitBoutien) : 0;
+  return { entrees, suivant };
+}
+
+function lireIfd(vue: DataView, offset: number, petitBoutien: boolean): Map<number, ValeurTiff> {
+  return lireIfdEtSuivant(vue, offset, petitBoutien).entrees;
 }
 
 function dmsVersDegres(dms: ValeurTiff, ref: ValeurTiff | undefined): number {
@@ -218,6 +255,84 @@ export interface PositionGPS {
  * l'appareil — ce n'est pas la même chose qu'une déclaration « indisponible »
  * au sens du §15.4 : ici, personne n'a encore regardé.
  */
+/**
+ * Champs codés : on rend le code ET son libellé, jamais le libellé seul.
+ * Un libellé est une interprétation ; le code est ce que l'appareil a écrit.
+ * Les tables suivent CIPA DC-008 (EXIF 2.32).
+ */
+export const LIBELLE_EXPOSURE_MODE: Record<number, string> = {
+  0: 'automatique', 1: 'manuel', 2: 'bracketing automatique',
+};
+export const LIBELLE_EXPOSURE_PROGRAM: Record<number, string> = {
+  0: 'non défini', 1: 'manuel', 2: 'programme normal', 3: 'priorité ouverture',
+  4: 'priorité vitesse', 5: 'création (profondeur de champ)', 6: 'action (vitesse)',
+  7: 'portrait', 8: 'paysage',
+};
+export const LIBELLE_WHITE_BALANCE: Record<number, string> = { 0: 'automatique', 1: 'manuel' };
+export const LIBELLE_COLOR_SPACE: Record<number, string> = {
+  1: 'sRGB', 2: 'Adobe RGB', 0xffff: 'non calibré',
+};
+export const LIBELLE_SCENE_CAPTURE: Record<number, string> = {
+  0: 'standard', 1: 'paysage', 2: 'portrait', 3: 'scène de nuit',
+};
+export const LIBELLE_RESOLUTION_UNIT: Record<number, string> = {
+  1: 'sans unité', 2: 'pouce', 3: 'centimètre',
+};
+
+/**
+ * Décode le champ Flash (0x9209), qui est un champ de bits et non un code.
+ * bit 0 : déclenché ; bits 1-2 : lumière de retour ; bits 3-4 : mode ;
+ * bit 5 : pas de flash sur l'appareil ; bit 6 : anti-yeux rouges.
+ */
+export function decrireFlash(code: number | null): string | null {
+  if (code === null) return null;
+  if (code & 0x20) return "l'appareil n'a pas de flash";
+  const parties = [code & 0x01 ? 'déclenché' : 'non déclenché'];
+  const mode = (code >> 3) & 0x03;
+  if (mode === 1) parties.push('mode obligatoire');
+  else if (mode === 2) parties.push('mode supprimé');
+  else if (mode === 3) parties.push('mode automatique');
+  const retour = (code >> 1) & 0x03;
+  if (retour === 2) parties.push('lumière de retour non détectée');
+  else if (retour === 3) parties.push('lumière de retour détectée');
+  if (code & 0x40) parties.push('anti-yeux rouges');
+  return parties.join(', ');
+}
+
+/**
+ * Résolution ramenée en points par pouce, ou null si l'unité ne le permet pas.
+ * L'unité 1 (« sans unité ») ne donne PAS de DPI : le nombre est alors un
+ * rapport d'aspect, pas une densité. Le convertir inventerait une grandeur.
+ */
+export function versDpi(resolution: number | null, unite: number | null): number | null {
+  if (resolution === null || unite === null || resolution <= 0) return null;
+  if (unite === 2) return resolution;
+  if (unite === 3) return resolution * 2.54;
+  return null;
+}
+
+/**
+ * La miniature de l'IFD1, telle qu'elle est stockée — ni décodée, ni recompressée.
+ *
+ * Ce que sa présence établit : un logiciel a écrit une vignette. Ce qu'elle
+ * n'établit pas : que l'image principale n'a pas été modifiée. Un éditeur qui
+ * régénère la miniature efface la trace ; seul un ÉCART entre elle et l'image
+ * est un fait.
+ */
+export interface Miniature {
+  offset: number;
+  longueur: number;
+  /**
+   * Tampon propre, et non une vue sur le fichier : la miniature est affichée et
+   * hachée séparément, et retenir tout le fichier pour quelques kilo-octets
+   * n'aurait pas de sens. Le type est explicite pour que `new Blob([octets])`
+   * l'accepte sous `--strict`.
+   */
+  octets: Uint8Array<ArrayBuffer>;
+  compression: number | null;
+  estJpeg: boolean;
+}
+
 export interface DonneesExif {
   fabricant: string | null;
   modele: string | null;
@@ -232,6 +347,49 @@ export interface DonneesExif {
   dateHeureOriginal: string | null;
   orientation: number | null;
   gps: PositionGPS | null;
+  // --- Ajouts d'ingestion (§16) ---
+  logiciel: string | null;
+  dateHeureModification: string | null;
+  dateHeureNumerisation: string | null;
+  artiste: string | null;
+  droits: string | null;
+  largeurIfd0Px: number | null;
+  hauteurIfd0Px: number | null;
+  resolutionX: number | null;
+  resolutionY: number | null;
+  uniteResolution: number | null;
+  dpiX: number | null;
+  dpiY: number | null;
+  espaceColorimetrique: number | null;
+  modeExposition: number | null;
+  programmeExposition: number | null;
+  balanceBlancs: number | null;
+  rapportZoomNumerique: number | null;
+  typeScene: number | null;
+  flash: number | null;
+  miniature: Miniature | null;
+}
+
+/** Les libellés des codes d'un relevé. Jamais à la place des codes. */
+export function libellesExif(e: DonneesExif): Record<string, string | null> {
+  return {
+    flash: decrireFlash(e.flash),
+    modeExposition: e.modeExposition === null ? null : LIBELLE_EXPOSURE_MODE[e.modeExposition] ?? null,
+    programmeExposition: e.programmeExposition === null ? null : LIBELLE_EXPOSURE_PROGRAM[e.programmeExposition] ?? null,
+    balanceBlancs: e.balanceBlancs === null ? null : LIBELLE_WHITE_BALANCE[e.balanceBlancs] ?? null,
+    espaceColorimetrique: e.espaceColorimetrique === null ? null : LIBELLE_COLOR_SPACE[e.espaceColorimetrique] ?? null,
+    typeScene: e.typeScene === null ? null : LIBELLE_SCENE_CAPTURE[e.typeScene] ?? null,
+    uniteResolution: e.uniteResolution === null ? null : LIBELLE_RESOLUTION_UNIT[e.uniteResolution] ?? null,
+  };
+}
+
+/**
+ * Le §15 en dépend : un zoom numérique agrandit sans ajouter d'information.
+ * 0 est le code « non employé » de la norme, pas un rapport nul.
+ */
+export function zoomNumeriqueApplique(e: DonneesExif): boolean | null {
+  if (e.rapportZoomNumerique === null) return null;
+  return e.rapportZoomNumerique > 1.0;
 }
 
 function ouNull<T>(m: Map<number, ValeurTiff>, tag: number): T | null {
@@ -260,6 +418,22 @@ function construirePositionGps(ifd: Map<number, ValeurTiff>): PositionGPS | null
   };
 }
 
+function extraireMiniature(donnees: Uint8Array, ifd1: Map<number, ValeurTiff>): Miniature | null {
+  const offset = ifd1.get(TAG_JPEG_INTERCHANGE_FORMAT);
+  const longueur = ifd1.get(TAG_JPEG_INTERCHANGE_FORMAT_LENGTH);
+  if (typeof offset !== 'number' || typeof longueur !== 'number') return null;
+  // Offsets incohérents : on ne rend pas une miniature tronquée qui passerait
+  // pour entière.
+  if (longueur <= 0 || offset < 0 || offset + longueur > donnees.length) return null;
+  const octets = new Uint8Array(donnees.slice(offset, offset + longueur));
+  const compression = ifd1.get(TAG_COMPRESSION);
+  return {
+    offset, longueur, octets,
+    compression: typeof compression === 'number' ? compression : null,
+    estJpeg: octets[0] === 0xff && octets[1] === 0xd8,
+  };
+}
+
 /**
  * Lit un bloc TIFF/EXIF brut (en-tête « II » ou « MM »).
  * N'implémente pas la norme entière : IFD0, le sous-IFD Exif et le sous-IFD
@@ -283,13 +457,24 @@ export function lireExifDepuisTiff(donnees: Uint8Array): DonneesExif {
   if (magique !== 42) {
     throw new PreuveError(`En-tête TIFF invalide : nombre magique ${magique} ≠ 42.`);
   }
-  const ifd0 = lireIfd(vue, vue.getUint32(4, petitBoutien), petitBoutien);
+  const premier = lireIfdEtSuivant(vue, vue.getUint32(4, petitBoutien), petitBoutien);
+  const ifd0 = premier.entrees;
+  // L'IFD1 est facultatif et souvent malformé chez les éditeurs : son échec ne
+  // doit pas emporter la lecture des champs principaux.
+  let ifd1 = new Map<number, ValeurTiff>();
+  if (premier.suivant > 0 && premier.suivant < donnees.length) {
+    try { ifd1 = lireIfd(vue, premier.suivant, petitBoutien); } catch { ifd1 = new Map(); }
+  }
   const ifdExif = ifd0.has(TAG_EXIF_IFD_POINTER)
     ? lireIfd(vue, ifd0.get(TAG_EXIF_IFD_POINTER) as number, petitBoutien)
     : new Map<number, ValeurTiff>();
   const ifdGps = ifd0.has(TAG_GPS_IFD_POINTER)
     ? lireIfd(vue, ifd0.get(TAG_GPS_IFD_POINTER) as number, petitBoutien)
     : new Map<number, ValeurTiff>();
+
+  const resolutionX = ouNull<number>(ifd0, TAG_X_RESOLUTION);
+  const resolutionY = ouNull<number>(ifd0, TAG_Y_RESOLUTION);
+  const unite = ouNull<number>(ifd0, TAG_RESOLUTION_UNIT);
 
   return {
     fabricant: ouNull<string>(ifd0, TAG_MAKE),
@@ -305,6 +490,26 @@ export function lireExifDepuisTiff(donnees: Uint8Array): DonneesExif {
     dateHeureOriginal: ouNull<string>(ifdExif, TAG_DATETIME_ORIGINAL),
     orientation: ouNull<number>(ifd0, TAG_ORIENTATION),
     gps: ifdGps.size > 0 ? construirePositionGps(ifdGps) : null,
+    logiciel: ouNull<string>(ifd0, TAG_SOFTWARE),
+    dateHeureModification: ouNull<string>(ifd0, TAG_DATETIME),
+    dateHeureNumerisation: ouNull<string>(ifdExif, TAG_DATETIME_DIGITIZED),
+    artiste: ouNull<string>(ifd0, TAG_ARTIST),
+    droits: ouNull<string>(ifd0, TAG_COPYRIGHT),
+    largeurIfd0Px: ouNull<number>(ifd0, TAG_IMAGE_WIDTH),
+    hauteurIfd0Px: ouNull<number>(ifd0, TAG_IMAGE_LENGTH),
+    resolutionX,
+    resolutionY,
+    uniteResolution: unite,
+    dpiX: versDpi(resolutionX, unite),
+    dpiY: versDpi(resolutionY, unite),
+    espaceColorimetrique: ouNull<number>(ifdExif, TAG_COLOR_SPACE),
+    modeExposition: ouNull<number>(ifdExif, TAG_EXPOSURE_MODE),
+    programmeExposition: ouNull<number>(ifdExif, TAG_EXPOSURE_PROGRAM),
+    balanceBlancs: ouNull<number>(ifdExif, TAG_WHITE_BALANCE),
+    rapportZoomNumerique: ouNull<number>(ifdExif, TAG_DIGITAL_ZOOM_RATIO),
+    typeScene: ouNull<number>(ifdExif, TAG_SCENE_CAPTURE_TYPE),
+    flash: ouNull<number>(ifdExif, TAG_FLASH),
+    miniature: ifd1.size > 0 ? extraireMiniature(donnees, ifd1) : null,
   };
 }
 

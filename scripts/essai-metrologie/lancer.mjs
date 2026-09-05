@@ -38,11 +38,14 @@ if (!playwright) {
   process.exit(2);
 }
 
-const image = join(RACINE, 'public', 'protocoles', 'image-test-metrologie.jpg');
-if (!existsSync(image)) {
-  console.log('Image de test absente — je la fabrique.');
-  execFileSync('python3', [join(RACINE, 'scripts', 'image-test-metrologie.py')],
-    { cwd: RACINE, stdio: 'inherit' });
+for (const [chemin, generateur] of [
+  [join(RACINE, 'public', 'protocoles', 'image-test-metrologie.jpg'), 'image-test-metrologie.py'],
+  [join(RACINE, 'public', 'audit', 'image-test-ingestion.jpg'), 'image-test-ingestion.py'],
+]) {
+  if (!existsSync(chemin)) {
+    console.log(`Image de test absente — je la fabrique (${generateur}).`);
+    execFileSync('python3', [join(RACINE, 'scripts', generateur)], { cwd: RACINE, stdio: 'inherit' });
+  }
 }
 
 if (!existsSync(join(RACINE, '.next', 'BUILD_ID'))) {
@@ -72,9 +75,12 @@ if (!(await attendre())) {
   process.exit(1);
 }
 
+// Quel essai jouer : `npm run essai:metrologie` ou `npm run essai:ingestion`.
+const ESSAI = process.argv[2] ?? 'essai-bout-en-bout.mjs';
+
 let code = 0;
 try {
-  execFileSync(process.execPath, [join(ICI, 'essai-bout-en-bout.mjs')], {
+  execFileSync(process.execPath, [join(ICI, ESSAI)], {
     cwd: RACINE,
     stdio: 'inherit',
     env: { ...process.env, PORT_ESSAI: PORT, NODE_PATH: dirname(playwright) },

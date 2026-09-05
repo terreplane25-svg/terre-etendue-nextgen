@@ -74,7 +74,7 @@ Rien de ce qui suit n'a besoin d'être cru.
                                  -e outils/outil-D-metrologie-image
 
     cd outils/outil-A-visee-optique     && ../.venv/bin/python -m pytest -q   # 321
-    cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 137
+    cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 227
     cd outils/outil-C-rapport-expertise && ../.venv/bin/python -m pytest -q   #  42
     cd outils/outil-D-metrologie-image  && ../.venv/bin/python -m pytest -q   #  99
 
@@ -86,6 +86,9 @@ Rien de ce qui suit n'a besoin d'être cru.
 
     # L'outil d'analyse d'image, piloté dans un vrai navigateur
     npm run essai:metrologie
+
+    # L'ingestion des métadonnées, pilotée dans un vrai navigateur
+    npm run essai:ingestion
 
     # Ce que les outils font sur un téléphone : mise en page, tactile, durées
     npm run audit:mobile
@@ -110,9 +113,9 @@ de bord, exports — et fait juger le résultat du navigateur par le paquet Pyth
 
 | Grandeur | Valeur | Ce que ça veut dire |
 |---|---|---|
-| Tests Python | **599** | 321 + 137 + 42 + 99, exécutés par les commandes ci-dessus |
-| Vecteurs d'or | **188** | 61 + 26 + 22 + 79 entrées produites par le Python, rejouées par le TypeScript |
-| Contrôles de port | **1 318** | 263 + 152 + 117 + 786 comparaisons Python ↔ TypeScript |
+| Tests Python | **689** | 321 + 227 + 42 + 99, exécutés par les commandes ci-dessus |
+| Vecteurs d'or | **258** | 61 + 26 + 70 + 22 + 79 entrées produites par le Python, rejouées par le TypeScript |
+| Contrôles de port | **1 681** | 263 + 152 + 363 + 117 + 786 comparaisons Python ↔ TypeScript |
 | Cas d'étude | **4** | Chassiron↔Cordouan (invalidé), La Coubre↔Cordouan, Garoupe↔Monte Cinto, Sangatte↔South Foreland |
 | Sections du protocole | **35** | 38 pages, valeurs recalculées à chaque génération |
 
@@ -140,7 +143,10 @@ chacun le déclare dans son en-tête.
 
 **A** — géodésique de Vincenty sur GRS80, rayon d'Euler, hauteur cachée,
 enveloppes de réfraction, condition de discrimination §28.2.
-**B** — empreinte SHA-256, lecture EXIF/GPS, chaîne de détention ISO/IEC 27037.
+**B** — empreinte SHA-256, lecture EXIF/GPS, chaîne de détention ISO/IEC 27037,
+et l'ingestion des déclarations de provenance : C2PA/JUMBF, XMP, IPTC, miniature
+de l'IFD1, chaînes des en-têtes. Aucune signature n'y est vérifiée, et le module
+le dit à chaque affichage.
 **C** — fiche d'observation §33 et arborescence d'archive §34, en ZIP sans
 compression pour qu'une empreinte de fichier soit la même dans l'archive et
 hors d'elle.
@@ -246,6 +252,13 @@ fournit l'instrument ; il ne fournit pas de mesure.
 31 px de haut, dimensionnés pour une souris. L'outil D a été corrigé ; les
 autres suivent une convention du site qu'il faudrait reprendre d'un bloc plutôt
 qu'outil par outil. `npm run audit:mobile` compte les cibles concernées.
+
+**Le lecteur C2PA n'a jamais vu de fichier signé pour de vrai.** Ses tests et
+ses vecteurs emploient des conteneurs construits depuis la spécification. Ils
+établissent que le lecteur suit la structure décrite, pas qu'il lit ce qu'une
+implémentation du marché produit. Et il ne vérifie aucune signature — ce qui est
+un choix, pas un oubli : la validation COSE et la chaîne X.509 sont un chantier
+à part entière, et prétendre l'avoir fait serait pire que de ne pas le faire.
 
 **Pas de licence.** À déterminer.
 

@@ -29,6 +29,8 @@ __all__ = [
     "MetadataError",
     "PositionGPS",
     "DonneesExif",
+    "Miniature",
+    "decrire_flash",
     "lire_exif_depuis_tiff",
     "lire_exif_depuis_jpeg",
     "INDISPONIBLE",
@@ -66,6 +68,33 @@ _TAG_PIXEL_X_DIMENSION = 0xA002
 _TAG_PIXEL_Y_DIMENSION = 0xA003
 _TAG_FOCAL_LENGTH_35MM = 0xA405
 _TAG_LENS_MODEL = 0xA434
+
+# Ajoutés pour l'ingestion : tout ce que le §16 demande de LIRE sans rien conclure.
+_TAG_IMAGE_WIDTH = 0x0100
+_TAG_IMAGE_LENGTH = 0x0101
+_TAG_X_RESOLUTION = 0x011A
+_TAG_Y_RESOLUTION = 0x011B
+_TAG_RESOLUTION_UNIT = 0x0128
+_TAG_SOFTWARE = 0x0131
+_TAG_DATETIME = 0x0132          # date de dernière modification du fichier par l'appareil ou l'éditeur
+_TAG_ARTIST = 0x013B
+_TAG_COPYRIGHT = 0x8298
+
+_TAG_EXPOSURE_PROGRAM = 0x8822
+_TAG_DATETIME_DIGITIZED = 0x9004
+_TAG_FLASH = 0x9209
+_TAG_COLOR_SPACE = 0xA001
+_TAG_EXPOSURE_MODE = 0xA402
+_TAG_WHITE_BALANCE = 0xA403
+_TAG_DIGITAL_ZOOM_RATIO = 0xA404
+_TAG_SCENE_CAPTURE_TYPE = 0xA406
+
+# IFD1 : la miniature. Le §16 la veut pour la confronter à l'image principale —
+# une miniature qui ne correspond plus au contenu est la trace la plus simple
+# d'une retouche postérieure à la prise de vue.
+_TAG_JPEG_INTERCHANGE_FORMAT = 0x0201
+_TAG_JPEG_INTERCHANGE_FORMAT_LENGTH = 0x0202
+_TAG_COMPRESSION = 0x0103
 
 _TAG_GPS_LAT_REF = 1
 _TAG_GPS_LAT = 2
@@ -114,7 +143,15 @@ def _decoder_entree(donnees: bytes, endian: str, type_: int, count: int, champ_v
     return bloc  # type non géré : rendre les octets bruts plutôt qu'échouer
 
 
-def _lire_ifd(donnees: bytes, offset: int, endian: str) -> Dict[int, object]:
+def _lire_ifd_et_suivant(
+    donnees: bytes, offset: int, endian: str
+) -> Tuple[Dict[int, object], int]:
+    """Lit un IFD et rend aussi l'offset de l'IFD suivant (0 s'il n'y en a pas).
+
+    Les quatre octets qui suivent la dernière entrée pointent vers l'IFD suivant.
+    C'est par là que se trouve l'IFD1, celui de la miniature : sans lui, elle
+    est invisible.
+    """
     if offset + 2 > len(donnees):
         raise MetadataError("Offset d'IFD hors des limites du flux.")
     nb_entrees = struct.unpack_from(endian + "H", donnees, offset)[0]
@@ -127,7 +164,14 @@ def _lire_ifd(donnees: bytes, offset: int, endian: str) -> Dict[int, object]:
         champ_valeur = donnees[pos + 8 : pos + 12]
         entrees[tag] = _decoder_entree(donnees, endian, type_, count, champ_valeur)
         pos += 12
-    return entrees
+    suivant = 0
+    if pos + 4 <= len(donnees):
+        suivant = struct.unpack_from(endian + "I", donnees, pos)[0]
+    return entrees, suivant
+
+
+def _lire_ifd(donnees: bytes, offset: int, endian: str) -> Dict[int, object]:
+    return _lire_ifd_et_suivant(donnees, offset, endian)[0]
 
 
 def _dms_vers_degres(dms, ref: Optional[str]) -> float:
@@ -178,6 +222,117 @@ class PositionGPS:
             raise MetadataError("Longitude GPS hors bornes [-180 ; 180].")
 
 
+# --- Champs codés : on rend le code ET son libellé, jamais le libellé seul ---
+#
+# Un libellé est une interprétation ; le code est ce que l'appareil a écrit. Les
+# deux sont conservés pour qu'un lecteur puisse contester la table sans perdre
+# la donnée. Les tables suivent CIPA DC-008 (EXIF 2.32).
+
+_LIBELLE_EXPOSURE_MODE = {0: "automatique", 1: "manuel", 2: "bracketing automatique"}
+
+_LIBELLE_EXPOSURE_PROGRAM = {
+    0: "non défini", 1: "manuel", 2: "programme normal", 3: "priorité ouverture",
+    4: "priorité vitesse", 5: "création (profondeur de champ)", 6: "action (vitesse)",
+    7: "portrait", 8: "paysage",
+}
+
+_LIBELLE_WHITE_BALANCE = {0: "automatique", 1: "manuel"}
+
+_LIBELLE_COLOR_SPACE = {1: "sRGB", 2: "Adobe RGB", 0xFFFF: "non calibré"}
+
+_LIBELLE_SCENE_CAPTURE = {0: "standard", 1: "paysage", 2: "portrait", 3: "scène de nuit"}
+
+_LIBELLE_RESOLUTION_UNIT = {1: "sans unité", 2: "pouce", 3: "centimètre"}
+
+
+def decrire_flash(code: Optional[int]) -> Optional[str]:
+    """Décode le champ Flash (0x9209), qui est un champ de bits et non un code.
+
+    bit 0 : l'éclair s'est déclenché ; bits 1-2 : lumière de retour détectée ;
+    bits 3-4 : mode ; bit 5 : l'appareil n'a pas de flash ; bit 6 : anti-yeux rouges.
+
+    Rendre « 16 » à un opérateur ne lui apprend rien ; rendre « flash présent,
+    non déclenché » si. Le code brut reste disponible à côté.
+    """
+    if code is None:
+        return None
+    if code & 0x20:
+        return "l'appareil n'a pas de flash"
+    parties = ["déclenché" if code & 0x01 else "non déclenché"]
+    mode = (code >> 3) & 0x03
+    if mode == 1:
+        parties.append("mode obligatoire")
+    elif mode == 2:
+        parties.append("mode supprimé")
+    elif mode == 3:
+        parties.append("mode automatique")
+    retour = (code >> 1) & 0x03
+    if retour == 2:
+        parties.append("lumière de retour non détectée")
+    elif retour == 3:
+        parties.append("lumière de retour détectée")
+    if code & 0x40:
+        parties.append("anti-yeux rouges")
+    return ", ".join(parties)
+
+
+def _dpi(resolution: Optional[float], unite: Optional[int]) -> Optional[float]:
+    """Résolution ramenée en points par pouce, ou None si l'unité ne le permet pas.
+
+    Unité 1 (« sans unité ») ne donne PAS de DPI : le nombre est alors un rapport
+    d'aspect, pas une densité. Le convertir serait inventer une grandeur.
+    """
+    if resolution is None or unite is None or resolution <= 0:
+        return None
+    if unite == 2:
+        return float(resolution)
+    if unite == 3:
+        return float(resolution) * 2.54
+    return None
+
+
+@dataclass(frozen=True)
+class Miniature:
+    """La miniature de l'IFD1, telle qu'elle est stockée.
+
+    `octets` est le flux JPEG intégral, extrait sans être décodé ni recompressé :
+    c'est lui qu'on confronte à l'image principale. `empreinte` permet de le citer
+    dans une fiche sans le joindre.
+
+    Ce que sa présence établit : l'appareil ou le logiciel a écrit une vignette.
+    Ce qu'elle n'établit pas : que l'image principale n'a pas été modifiée. Un
+    éditeur qui régénère la miniature efface la trace ; un éditeur qui ne la
+    régénère pas la laisse. L'absence de divergence ne prouve donc rien, seule
+    une divergence est un fait.
+    """
+
+    offset: int
+    longueur: int
+    octets: bytes
+    compression: Optional[int]
+
+    @property
+    def est_jpeg(self) -> bool:
+        return self.octets[:2] == b"\xff\xd8"
+
+
+def _extraire_miniature(donnees: bytes, ifd1: Dict[int, object]) -> Optional[Miniature]:
+    offset = ifd1.get(_TAG_JPEG_INTERCHANGE_FORMAT)
+    longueur = ifd1.get(_TAG_JPEG_INTERCHANGE_FORMAT_LENGTH)
+    if not isinstance(offset, int) or not isinstance(longueur, int):
+        return None
+    if longueur <= 0 or offset < 0 or offset + longueur > len(donnees):
+        # Offsets incohérents : on ne rend pas une miniature tronquée qui
+        # passerait pour entière.
+        return None
+    return Miniature(
+        offset=offset,
+        longueur=longueur,
+        octets=donnees[offset : offset + longueur],
+        compression=ifd1.get(_TAG_COMPRESSION),
+    )
+
+
 @dataclass(frozen=True)
 class DonneesExif:
     """Les champs EXIF que le protocole utilise. Un champ à None n'a pas été écrit par
@@ -198,6 +353,66 @@ class DonneesExif:
     date_heure_original: Optional[str]
     orientation: Optional[int]
     gps: Optional[PositionGPS]
+    # --- Ajouts d'ingestion (§16) ---
+    logiciel: Optional[str] = None
+    date_heure_modification: Optional[str] = None
+    date_heure_numerisation: Optional[str] = None
+    artiste: Optional[str] = None
+    droits: Optional[str] = None
+    largeur_ifd0_px: Optional[int] = None
+    hauteur_ifd0_px: Optional[int] = None
+    resolution_x: Optional[float] = None
+    resolution_y: Optional[float] = None
+    unite_resolution: Optional[int] = None
+    dpi_x: Optional[float] = None
+    dpi_y: Optional[float] = None
+    espace_colorimetrique: Optional[int] = None
+    mode_exposition: Optional[int] = None
+    programme_exposition: Optional[int] = None
+    balance_blancs: Optional[int] = None
+    rapport_zoom_numerique: Optional[float] = None
+    type_scene: Optional[int] = None
+    flash: Optional[int] = None
+    miniature: Optional[Miniature] = None
+
+    # Libellés : l'interprétation des codes, jamais à leur place.
+    @property
+    def flash_libelle(self) -> Optional[str]:
+        return decrire_flash(self.flash)
+
+    @property
+    def mode_exposition_libelle(self) -> Optional[str]:
+        return _LIBELLE_EXPOSURE_MODE.get(self.mode_exposition) if self.mode_exposition is not None else None
+
+    @property
+    def programme_exposition_libelle(self) -> Optional[str]:
+        return _LIBELLE_EXPOSURE_PROGRAM.get(self.programme_exposition) if self.programme_exposition is not None else None
+
+    @property
+    def balance_blancs_libelle(self) -> Optional[str]:
+        return _LIBELLE_WHITE_BALANCE.get(self.balance_blancs) if self.balance_blancs is not None else None
+
+    @property
+    def espace_colorimetrique_libelle(self) -> Optional[str]:
+        return _LIBELLE_COLOR_SPACE.get(self.espace_colorimetrique) if self.espace_colorimetrique is not None else None
+
+    @property
+    def type_scene_libelle(self) -> Optional[str]:
+        return _LIBELLE_SCENE_CAPTURE.get(self.type_scene) if self.type_scene is not None else None
+
+    @property
+    def unite_resolution_libelle(self) -> Optional[str]:
+        return _LIBELLE_RESOLUTION_UNIT.get(self.unite_resolution) if self.unite_resolution is not None else None
+
+    @property
+    def zoom_numerique_applique(self) -> Optional[bool]:
+        """Le §15 en dépend directement : un zoom numérique agrandit sans ajouter
+        d'information, et le rapport écrit ici est ce qui permet de retrouver la
+        définition réellement enregistrée. 0 signifie « non utilisé » dans la norme,
+        et non « rapport nul »."""
+        if self.rapport_zoom_numerique is None:
+            return None
+        return self.rapport_zoom_numerique > 1.0
 
 
 def lire_exif_depuis_tiff(donnees: bytes) -> DonneesExif:
@@ -221,9 +436,21 @@ def lire_exif_depuis_tiff(donnees: bytes) -> DonneesExif:
         raise MetadataError(f"En-tête TIFF invalide : nombre magique {magique} != 42.")
     offset_ifd0 = struct.unpack_from(endian + "I", donnees, 4)[0]
 
-    ifd0 = _lire_ifd(donnees, offset_ifd0, endian)
+    ifd0, offset_ifd1 = _lire_ifd_et_suivant(donnees, offset_ifd0, endian)
     ifd_exif = _lire_ifd(donnees, ifd0[_TAG_EXIF_IFD_POINTER], endian) if _TAG_EXIF_IFD_POINTER in ifd0 else {}
     ifd_gps = _lire_ifd(donnees, ifd0[_TAG_GPS_IFD_POINTER], endian) if _TAG_GPS_IFD_POINTER in ifd0 else {}
+    # L'IFD1 est facultatif et souvent malformé chez les éditeurs : son échec
+    # ne doit pas emporter la lecture des champs principaux.
+    ifd1: Dict[int, object] = {}
+    if 0 < offset_ifd1 < len(donnees):
+        try:
+            ifd1 = _lire_ifd(donnees, offset_ifd1, endian)
+        except MetadataError:
+            ifd1 = {}
+
+    resolution_x = ifd0.get(_TAG_X_RESOLUTION)
+    resolution_y = ifd0.get(_TAG_Y_RESOLUTION)
+    unite = ifd0.get(_TAG_RESOLUTION_UNIT)
 
     return DonneesExif(
         fabricant=ifd0.get(_TAG_MAKE),
@@ -239,6 +466,26 @@ def lire_exif_depuis_tiff(donnees: bytes) -> DonneesExif:
         date_heure_original=ifd_exif.get(_TAG_DATETIME_ORIGINAL),
         orientation=ifd0.get(_TAG_ORIENTATION),
         gps=_construire_position_gps(ifd_gps) if ifd_gps else None,
+        logiciel=ifd0.get(_TAG_SOFTWARE),
+        date_heure_modification=ifd0.get(_TAG_DATETIME),
+        date_heure_numerisation=ifd_exif.get(_TAG_DATETIME_DIGITIZED),
+        artiste=ifd0.get(_TAG_ARTIST),
+        droits=ifd0.get(_TAG_COPYRIGHT),
+        largeur_ifd0_px=ifd0.get(_TAG_IMAGE_WIDTH),
+        hauteur_ifd0_px=ifd0.get(_TAG_IMAGE_LENGTH),
+        resolution_x=resolution_x,
+        resolution_y=resolution_y,
+        unite_resolution=unite,
+        dpi_x=_dpi(resolution_x, unite),
+        dpi_y=_dpi(resolution_y, unite),
+        espace_colorimetrique=ifd_exif.get(_TAG_COLOR_SPACE),
+        mode_exposition=ifd_exif.get(_TAG_EXPOSURE_MODE),
+        programme_exposition=ifd_exif.get(_TAG_EXPOSURE_PROGRAM),
+        balance_blancs=ifd_exif.get(_TAG_WHITE_BALANCE),
+        rapport_zoom_numerique=ifd_exif.get(_TAG_DIGITAL_ZOOM_RATIO),
+        type_scene=ifd_exif.get(_TAG_SCENE_CAPTURE_TYPE),
+        flash=ifd_exif.get(_TAG_FLASH),
+        miniature=_extraire_miniature(donnees, ifd1) if ifd1 else None,
     )
 
 

@@ -8,13 +8,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "verifier:ports": "npm run verifier:visee && npm run verifier:preuve && npm run verifier:rapport && npm run verifier:metrologie",
+    "verifier:ports": "npm run verifier:visee && npm run verifier:preuve && npm run verifier:rapport && npm run verifier:metrologie && npm run verifier:provenance",
     "verifier:visee": "node scripts/verifier-port-visee.mjs",
     "verifier:preuve": "node scripts/verifier-port-preuve.mjs",
+    "verifier:provenance": "node scripts/verifier-port-provenance.mjs",
     "verifier:rapport": "node scripts/verifier-port-rapport.mjs",
     "verifier:metrologie": "node scripts/verifier-port-metrologie.mjs",
     "essai:metrologie": "node scripts/essai-metrologie/lancer.mjs",
-    "audit:mobile": "node scripts/essai-metrologie/audit-mobile.mjs"
+    "audit:mobile": "node scripts/essai-metrologie/audit-mobile.mjs",
+    "essai:ingestion": "node scripts/essai-metrologie/lancer.mjs essai-ingestion.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.0",

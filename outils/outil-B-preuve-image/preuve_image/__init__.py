@@ -41,6 +41,8 @@ from .metadata import (
     MetadataError,
     PositionGPS,
     DonneesExif,
+    Miniature,
+    decrire_flash,
     lire_exif_depuis_tiff,
     lire_exif_depuis_jpeg,
     INDISPONIBLE,
@@ -53,6 +55,26 @@ from .metadata import (
     PositionGNSS,
     lire_trame_gga,
     precision_horizontale_estimee,
+)
+
+from .provenance import (
+    ProvenanceError,
+    decoder_cbor,
+    BoiteJumbf,
+    analyser_boites_jumbf,
+    ManifesteC2PA,
+    ResultatC2PA,
+    extraire_c2pa,
+    BlocXmp,
+    extraire_xmp,
+    EnregistrementIptc,
+    extraire_iptc,
+    ChaineTrouvee,
+    extraire_chaines,
+    Provenance,
+    analyser_provenance,
+    AVERTISSEMENT_C2PA,
+    MARQUEURS_LOGICIELS,
 )
 
 from .sensor_forensics import (
@@ -94,6 +116,26 @@ from .chain_of_custody import (
 )
 
 __all__ = [
+    # --- Ingestion : provenance déclarée et champs EXIF étendus ---
+    "ProvenanceError",
+    "decoder_cbor",
+    "BoiteJumbf",
+    "analyser_boites_jumbf",
+    "ManifesteC2PA",
+    "ResultatC2PA",
+    "extraire_c2pa",
+    "BlocXmp",
+    "extraire_xmp",
+    "EnregistrementIptc",
+    "extraire_iptc",
+    "ChaineTrouvee",
+    "extraire_chaines",
+    "Provenance",
+    "analyser_provenance",
+    "AVERTISSEMENT_C2PA",
+    "MARQUEURS_LOGICIELS",
+    "Miniature",
+    "decrire_flash",
     "IntegrityError",
     "empreinte_fichier",
     "verifier_integrite",

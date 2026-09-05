@@ -1,0 +1,933 @@
+{
+ "genere_le": "2026-09-05T03:37:32.522504+00:00",
+ "source": "outils/outil-B-preuve-image (paquet Python preuve_image)",
+ "avertissement": "Fichier produit par scripts/generer-vecteurs-or-provenance.py. Ne pas éditer à la main : il n'aurait plus de valeur d'épinglage. Corriger le Python, puis régénérer.",
+ "avertissement_c2pa": "Aucune signature n'est vérifiée. Ce qui suit est ce que le fichier déclare, pas ce qui est établi : un manifeste C2PA peut être authentique, désolidarisé du contenu, ou entièrement fabriqué — cette lecture ne les distingue pas. L'absence de manifeste n'est pas davantage un indice : presque aucun appareil n'en écrit, et la plupart des retouches effacent ceux qui existaient.",
+ "marqueurs_logiciels": [
+  "Adobe",
+  "Photoshop",
+  "Lightroom",
+  "GIMP",
+  "Paint.NET",
+  "Affinity",
+  "Capture One",
+  "darktable",
+  "RawTherapee",
+  "Luminar",
+  "Snapseed",
+  "PicsArt",
+  "Canva",
+  "Pixelmator",
+  "ImageMagick",
+  "libvips",
+  "GraphicsMagick",
+  "Google",
+  "Picasa",
+  "Instagram",
+  "Facebook",
+  "WhatsApp",
+  "Signal",
+  "Midjourney",
+  "DALL",
+  "Stable Diffusion",
+  "Firefly",
+  "Imagen"
+ ],
+ "cbor": [
+  {
+   "hex": "00",
+   "valeur": 0
+  },
+  {
+   "hex": "01",
+   "valeur": 1
+  },
+  {
+   "hex": "0a",
+   "valeur": 10
+  },
+  {
+   "hex": "17",
+   "valeur": 23
+  },
+  {
+   "hex": "1818",
+   "valeur": 24
+  },
+  {
+   "hex": "1903e8",
+   "valeur": 1000
+  },
+  {
+   "hex": "1a000f4240",
+   "valeur": 1000000
+  },
+  {
+   "hex": "20",
+   "valeur": -1
+  },
+  {
+   "hex": "29",
+   "valeur": -10
+  },
+  {
+   "hex": "3863",
+   "valeur": -100
+  },
+  {
+   "hex": "3903e7",
+   "valeur": -1000
+  },
+  {
+   "hex": "40",
+   "valeur": {
+    "_octets_hex": ""
+   }
+  },
+  {
+   "hex": "4401020304",
+   "valeur": {
+    "_octets_hex": "01020304"
+   }
+  },
+  {
+   "hex": "60",
+   "valeur": ""
+  },
+  {
+   "hex": "6161",
+   "valeur": "a"
+  },
+  {
+   "hex": "6449455446",
+   "valeur": "IETF"
+  },
+  {
+   "hex": "62225c",
+   "valeur": "\"\\"
+  },
+  {
+   "hex": "80",
+   "valeur": []
+  },
+  {
+   "hex": "83010203",
+   "valeur": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "hex": "8301820203820405",
+   "valeur": [
+    1,
+    [
+     2,
+     3
+    ],
+    [
+     4,
+     5
+    ]
+   ]
+  },
+  {
+   "hex": "a0",
+   "valeur": {}
+  },
+  {
+   "hex": "a201020304",
+   "valeur": {
+    "1": 2,
+    "3": 4
+   }
+  },
+  {
+   "hex": "a26161016162820203",
+   "valeur": {
+    "a": 1,
+    "b": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "hex": "826161a161626163",
+   "valeur": [
+    "a",
+    {
+     "b": "c"
+    }
+   ]
+  },
+  {
+   "hex": "f4",
+   "valeur": false
+  },
+  {
+   "hex": "f5",
+   "valeur": true
+  },
+  {
+   "hex": "f6",
+   "valeur": null
+  },
+  {
+   "hex": "5f42010243030405ff",
+   "valeur": {
+    "_octets_hex": "0102030405"
+   }
+  },
+  {
+   "hex": "7f657374726561646d696e67ff",
+   "valeur": "streaming"
+  },
+  {
+   "hex": "9fff",
+   "valeur": []
+  },
+  {
+   "hex": "9f018202039f0405ffff",
+   "valeur": [
+    1,
+    [
+     2,
+     3
+    ],
+    [
+     4,
+     5
+    ]
+   ]
+  },
+  {
+   "hex": "bf61610161629f0203ffff",
+   "valeur": {
+    "a": 1,
+    "b": [
+     2,
+     3
+    ]
+   }
+  }
+ ],
+ "jumbf": [
+  {
+   "nom": "boîte simple",
+   "hex": "0000000a63626f720102",
+   "boites": [
+    {
+     "type": "cbor",
+     "taille": 10,
+     "offset": 0,
+     "label": null,
+     "uuid_type": null,
+     "charge_hex": "0102",
+     "nb_filles": 0
+    }
+   ]
+  },
+  {
+   "nom": "superboîte étiquetée",
+   "hex": "000000376a756d62000000266a756d6463626f7200110010800000aa00389b7103633270612e616374696f6e73000000000963626f7200",
+   "boites": [
+    {
+     "type": "jumb",
+     "taille": 55,
+     "offset": 0,
+     "label": "c2pa.actions",
+     "uuid_type": "63626f7200110010800000aa00389b71",
+     "charge_hex": "",
+     "nb_filles": 2
+    }
+   ]
+  },
+  {
+   "nom": "taille étendue (LBox = 1)",
+   "hex": "0000000163626f7200000000000000127879",
+   "boites": [
+    {
+     "type": "cbor",
+     "taille": 18,
+     "offset": 0,
+     "label": null,
+     "uuid_type": null,
+     "charge_hex": "7879",
+     "nb_filles": 0
+    }
+   ]
+  },
+  {
+   "nom": "taille nulle (LBox = 0, court jusqu'à la fin)",
+   "hex": "0000000063626f72616263646566",
+   "boites": [
+    {
+     "type": "cbor",
+     "taille": 14,
+     "offset": 0,
+     "label": null,
+     "uuid_type": null,
+     "charge_hex": "616263646566",
+     "nb_filles": 0
+    }
+   ]
+  },
+  {
+   "nom": "boîte tronquée après une bonne",
+   "hex": "0000000963626f72010000270f63626f7202",
+   "boites": [
+    {
+     "type": "cbor",
+     "taille": 9,
+     "offset": 0,
+     "label": null,
+     "uuid_type": null,
+     "charge_hex": "01",
+     "nb_filles": 0
+    }
+   ]
+  }
+ ],
+ "c2pa": [
+  {
+   "nom": "manifeste complet, un seul segment",
+   "hex": "ffd8ffeb02934a50000100000001000002896a756d620000001e6a756d6463626f7200110010800000aa00389b71036332706100000002636a756d620000002d6a756d6463626f7200110010800000aa00389b710375726e3a757569643a303030302d6573736169000000017f6a756d62000000296a756d6463626f7200110010800000aa00389b7103633270612e617373657274696f6e7300000000c96a756d62000000266a756d6463626f7200110010800000aa00389b7103633270612e616374696f6e73000000009b63626f72a167616374696f6e7383a266616374696f6e6c633270612e637265617465646d736f6674776172654167656e7474417070617265696c206427657373616920312e30a266616374696f6e76633270612e636f6c6f725f61646a7573746d656e74736d736f6674776172654167656e746e5265746f75636865757220322e34a166616374696f6e6c633270612e63726f70706564000000856a756d62000000366a756d6463626f7200110010800000aa00389b7103737464732e736368656d612d6f72672e4372656174697665576f726b00000000476a736f6e7b2240636f6e74657874223a2268747470733a2f2f736368656d612e6f7267222c22617574686f72223a5b7b226e616d65223a22416e6f6e796d65227d5d7d000000736a756d62000000246a756d6463626f7200110010800000aa00389b7103633270612e636c61696d000000004763626f72a36f636c61696d5f67656e657261746f726e65737361692d633270612f302e3163616c676570733235366964633a666f726d61746a696d6167652f6a7065670000003c6a756d62000000286a756d6463626f7200110010800000aa00389b7103633270612e7369676e6174757265000000000c63626f7243000102ffda0002ffd9",
+   "resultat": {
+    "present": true,
+    "conteneur": "JPEG APP11 / JUMBF",
+    "octets": 649,
+    "signature_verifiee": false,
+    "avertissement": "Aucune signature n'est vérifiée. Ce qui suit est ce que le fichier déclare, pas ce qui est établi : un manifeste C2PA peut être authentique, désolidarisé du contenu, ou entièrement fabriqué — cette lecture ne les distingue pas. L'absence de manifeste n'est pas davantage un indice : presque aucun appareil n'en écrit, et la plupart des retouches effacent ceux qui existaient.",
+    "motif_non_verifiee": "La vérification exige la validation COSE, la chaîne X.509 et une liste de confiance : rien de cela n'est implémenté ici.",
+    "boites": [
+     "c2pa",
+     "urn:uuid:0000-essai",
+     "c2pa.assertions",
+     "c2pa.actions",
+     "stds.schema-org.CreativeWork",
+     "c2pa.claim",
+     "c2pa.signature"
+    ],
+    "manifestes": [
+     {
+      "label": "urn:uuid:0000-essai",
+      "generateur": "essai-c2pa/0.1",
+      "algorithme_signature": "ps256",
+      "signature_presente": true,
+      "assertions": [
+       "c2pa.actions",
+       "stds.schema-org.CreativeWork"
+      ],
+      "actions": [
+       {
+        "action": "c2pa.created",
+        "softwareAgent": "Appareil d'essai 1.0"
+       },
+       {
+        "action": "c2pa.color_adjustments",
+        "softwareAgent": "Retoucheur 2.4"
+       },
+       {
+        "action": "c2pa.cropped"
+       }
+      ],
+      "revendication": {
+       "claim_generator": "essai-c2pa/0.1",
+       "alg": "ps256",
+       "dc:format": "image/jpeg"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "nom": "fragments de 40 octets, recollés",
+   "hex": "ffd8ffeb00324a50000100000001000002896a756d620000001e6a756d6463626f7200110010800000aa00389b710363327061000000ffeb00324a5000010000000202636a756d620000002d6a756d6463626f7200110010800000aa00389b710375726e3a757569643affeb00324a50000100000003303030302d6573736169000000017f6a756d62000000296a756d6463626f7200110010800000aa00ffeb00324a50000100000004389b7103633270612e617373657274696f6e7300000000c96a756d62000000266a756d6463626f72ffeb00324a5000010000000500110010800000aa00389b7103633270612e616374696f6e73000000009b63626f72a16761637469ffeb00324a500001000000066f6e7383a266616374696f6e6c633270612e637265617465646d736f6674776172654167656e7474ffeb00324a50000100000007417070617265696c206427657373616920312e30a266616374696f6e76633270612e636f6c6f725fffeb00324a5000010000000861646a7573746d656e74736d736f6674776172654167656e746e5265746f75636865757220322e34ffeb00324a50000100000009a166616374696f6e6c633270612e63726f70706564000000856a756d62000000366a756d6463626fffeb00324a5000010000000a7200110010800000aa00389b7103737464732e736368656d612d6f72672e4372656174697665576fffeb00324a5000010000000b726b00000000476a736f6e7b2240636f6e74657874223a2268747470733a2f2f736368656d612e6fffeb00324a5000010000000c7267222c22617574686f72223a5b7b226e616d65223a22416e6f6e796d65227d5d7d000000736a75ffeb00324a5000010000000d6d62000000246a756d6463626f7200110010800000aa00389b7103633270612e636c61696d000000ffeb00324a5000010000000e004763626f72a36f636c61696d5f67656e657261746f726e65737361692d633270612f302e316361ffeb00324a5000010000000f6c676570733235366964633a666f726d61746a696d6167652f6a7065670000003c6a756d62000000ffeb00324a50000100000010286a756d6463626f7200110010800000aa00389b7103633270612e7369676e617475726500000000ffeb00134a500001000000110c63626f7243000102ffda0002ffd9",
+   "resultat": {
+    "present": true,
+    "conteneur": "JPEG APP11 / JUMBF",
+    "octets": 649,
+    "signature_verifiee": false,
+    "avertissement": "Aucune signature n'est vérifiée. Ce qui suit est ce que le fichier déclare, pas ce qui est établi : un manifeste C2PA peut être authentique, désolidarisé du contenu, ou entièrement fabriqué — cette lecture ne les distingue pas. L'absence de manifeste n'est pas davantage un indice : presque aucun appareil n'en écrit, et la plupart des retouches effacent ceux qui existaient.",
+    "motif_non_verifiee": "La vérification exige la validation COSE, la chaîne X.509 et une liste de confiance : rien de cela n'est implémenté ici.",
+    "boites": [
+     "c2pa",
+     "urn:uuid:0000-essai",
+     "c2pa.assertions",
+     "c2pa.actions",
+     "stds.schema-org.CreativeWork",
+     "c2pa.claim",
+     "c2pa.signature"
+    ],
+    "manifestes": [
+     {
+      "label": "urn:uuid:0000-essai",
+      "generateur": "essai-c2pa/0.1",
+      "algorithme_signature": "ps256",
+      "signature_presente": true,
+      "assertions": [
+       "c2pa.actions",
+       "stds.schema-org.CreativeWork"
+      ],
+      "actions": [
+       {
+        "action": "c2pa.created",
+        "softwareAgent": "Appareil d'essai 1.0"
+       },
+       {
+        "action": "c2pa.color_adjustments",
+        "softwareAgent": "Retoucheur 2.4"
+       },
+       {
+        "action": "c2pa.cropped"
+       }
+      ],
+      "revendication": {
+       "claim_generator": "essai-c2pa/0.1",
+       "alg": "ps256",
+       "dc:format": "image/jpeg"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "nom": "fragments en désordre",
+   "hex": "ffd8ffeb003b4a5000010000000d286a756d6463626f7200110010800000aa00389b7103633270612e7369676e6174757265000000000c63626f7243000102ffeb003c4a5000010000000c633270612f302e3163616c676570733235366964633a666f726d61746a696d6167652f6a7065670000003c6a756d62000000ffeb003c4a5000010000000b00aa00389b7103633270612e636c61696d000000004763626f72a36f636c61696d5f67656e657261746f726e65737361692dffeb003c4a5000010000000a72223a5b7b226e616d65223a22416e6f6e796d65227d5d7d000000736a756d62000000246a756d6463626f72001100108000ffeb003c4a50000100000009726b00000000476a736f6e7b2240636f6e74657874223a2268747470733a2f2f736368656d612e6f7267222c22617574686fffeb003c4a500001000000080000366a756d6463626f7200110010800000aa00389b7103737464732e736368656d612d6f72672e4372656174697665576fffeb003c4a500001000000074167656e746e5265746f75636865757220322e34a166616374696f6e6c633270612e63726f70706564000000856a756d6200ffeb003c4a5000010000000627657373616920312e30a266616374696f6e76633270612e636f6c6f725f61646a7573746d656e74736d736f667477617265ffeb003c4a500001000000056f6e7383a266616374696f6e6c633270612e637265617465646d736f6674776172654167656e7474417070617265696c2064ffeb003c4a5000010000000400266a756d6463626f7200110010800000aa00389b7103633270612e616374696f6e73000000009b63626f72a16761637469ffeb003c4a500001000000030000296a756d6463626f7200110010800000aa00389b7103633270612e617373657274696f6e7300000000c96a756d620000ffeb003c4a500001000000026a756d6463626f7200110010800000aa00389b710375726e3a757569643a303030302d6573736169000000017f6a756d6200ffeb003c4a50000100000001000002896a756d620000001e6a756d6463626f7200110010800000aa00389b71036332706100000002636a756d620000002dffda0002ffd9",
+   "resultat": {
+    "present": true,
+    "conteneur": "JPEG APP11 / JUMBF",
+    "octets": 649,
+    "signature_verifiee": false,
+    "avertissement": "Aucune signature n'est vérifiée. Ce qui suit est ce que le fichier déclare, pas ce qui est établi : un manifeste C2PA peut être authentique, désolidarisé du contenu, ou entièrement fabriqué — cette lecture ne les distingue pas. L'absence de manifeste n'est pas davantage un indice : presque aucun appareil n'en écrit, et la plupart des retouches effacent ceux qui existaient.",
+    "motif_non_verifiee": "La vérification exige la validation COSE, la chaîne X.509 et une liste de confiance : rien de cela n'est implémenté ici.",
+    "boites": [
+     "c2pa",
+     "urn:uuid:0000-essai",
+     "c2pa.assertions",
+     "c2pa.actions",
+     "stds.schema-org.CreativeWork",
+     "c2pa.claim",
+     "c2pa.signature"
+    ],
+    "manifestes": [
+     {
+      "label": "urn:uuid:0000-essai",
+      "generateur": "essai-c2pa/0.1",
+      "algorithme_signature": "ps256",
+      "signature_presente": true,
+      "assertions": [
+       "c2pa.actions",
+       "stds.schema-org.CreativeWork"
+      ],
+      "actions": [
+       {
+        "action": "c2pa.created",
+        "softwareAgent": "Appareil d'essai 1.0"
+       },
+       {
+        "action": "c2pa.color_adjustments",
+        "softwareAgent": "Retoucheur 2.4"
+       },
+       {
+        "action": "c2pa.cropped"
+       }
+      ],
+      "revendication": {
+       "claim_generator": "essai-c2pa/0.1",
+       "alg": "ps256",
+       "dc:format": "image/jpeg"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "nom": "conteneur PNG caBX",
+   "hex": "89504e470d0a1a0a0000028963614258000002896a756d620000001e6a756d6463626f7200110010800000aa00389b71036332706100000002636a756d620000002d6a756d6463626f7200110010800000aa00389b710375726e3a757569643a303030302d6573736169000000017f6a756d62000000296a756d6463626f7200110010800000aa00389b7103633270612e617373657274696f6e7300000000c96a756d62000000266a756d6463626f7200110010800000aa00389b7103633270612e616374696f6e73000000009b63626f72a167616374696f6e7383a266616374696f6e6c633270612e637265617465646d736f6674776172654167656e7474417070617265696c206427657373616920312e30a266616374696f6e76633270612e636f6c6f725f61646a7573746d656e74736d736f6674776172654167656e746e5265746f75636865757220322e34a166616374696f6e6c633270612e63726f70706564000000856a756d62000000366a756d6463626f7200110010800000aa00389b7103737464732e736368656d612d6f72672e4372656174697665576f726b00000000476a736f6e7b2240636f6e74657874223a2268747470733a2f2f736368656d612e6f7267222c22617574686f72223a5b7b226e616d65223a22416e6f6e796d65227d5d7d000000736a756d62000000246a756d6463626f7200110010800000aa00389b7103633270612e636c61696d000000004763626f72a36f636c61696d5f67656e657261746f726e65737361692d633270612f302e3163616c676570733235366964633a666f726d61746a696d6167652f6a7065670000003c6a756d62000000286a756d6463626f7200110010800000aa00389b7103633270612e7369676e6174757265000000000c63626f7243000102000000000000000049454e4400000000",
+   "resultat": {
+    "present": true,
+    "conteneur": "PNG caBX / JUMBF",
+    "octets": 649,
+    "signature_verifiee": false,
+    "avertissement": "Aucune signature n'est vérifiée. Ce qui suit est ce que le fichier déclare, pas ce qui est établi : un manifeste C2PA peut être authentique, désolidarisé du contenu, ou entièrement fabriqué — cette lecture ne les distingue pas. L'absence de manifeste n'est pas davantage un indice : presque aucun appareil n'en écrit, et la plupart des retouches effacent ceux qui existaient.",
+    "motif_non_verifiee": "La vérification exige la validation COSE, la chaîne X.509 et une liste de confiance : rien de cela n'est implémenté ici.",
+    "boites": [
+     "c2pa",
+     "urn:uuid:0000-essai",
+     "c2pa.assertions",
+     "c2pa.actions",
+     "stds.schema-org.CreativeWork",
+     "c2pa.claim",
+     "c2pa.signature"
+    ],
+    "manifestes": [
+     {
+      "label": "urn:uuid:0000-essai",
+      "generateur": "essai-c2pa/0.1",
+      "algorithme_signature": "ps256",
+      "signature_presente": true,
+      "assertions": [
+       "c2pa.actions",
+       "stds.schema-org.CreativeWork"
+      ],
+      "actions": [
+       {
+        "action": "c2pa.created",
+        "softwareAgent": "Appareil d'essai 1.0"
+       },
+       {
+        "action": "c2pa.color_adjustments",
+        "softwareAgent": "Retoucheur 2.4"
+       },
+       {
+        "action": "c2pa.cropped"
+       }
+      ],
+      "revendication": {
+       "claim_generator": "essai-c2pa/0.1",
+       "alg": "ps256",
+       "dc:format": "image/jpeg"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "nom": "aucun manifeste",
+   "hex": "ffd8ffda0002ffd9",
+   "resultat": {
+    "present": false,
+    "conteneur": null,
+    "octets": 0,
+    "signature_verifiee": false,
+    "avertissement": "Aucune signature n'est vérifiée. Ce qui suit est ce que le fichier déclare, pas ce qui est établi : un manifeste C2PA peut être authentique, désolidarisé du contenu, ou entièrement fabriqué — cette lecture ne les distingue pas. L'absence de manifeste n'est pas davantage un indice : presque aucun appareil n'en écrit, et la plupart des retouches effacent ceux qui existaient.",
+    "motif_non_verifiee": "La vérification exige la validation COSE, la chaîne X.509 et une liste de confiance : rien de cela n'est implémenté ici.",
+    "boites": [],
+    "manifestes": []
+   }
+  },
+  {
+   "nom": "conteneur tronqué",
+   "hex": "ffd8ffeb014e4a50000100000001000002896a756d620000001e6a756d6463626f7200110010800000aa00389b71036332706100000002636a756d620000002d6a756d6463626f7200110010800000aa00389b710375726e3a757569643a303030302d6573736169000000017f6a756d62000000296a756d6463626f7200110010800000aa00389b7103633270612e617373657274696f6e7300000000c96a756d62000000266a756d6463626f7200110010800000aa00389b7103633270612e616374696f6e73000000009b63626f72a167616374696f6e7383a266616374696f6e6c633270612e637265617465646d736f6674776172654167656e7474417070617265696c206427657373616920312e30a266616374696f6e76633270612e636f6c6f725f61646a7573746d656e74736d736f6674776172654167656e746e5265746f75636865757220322e34a1666163ffda0002ffd9",
+   "resultat": {
+    "present": true,
+    "conteneur": "JPEG APP11 / JUMBF",
+    "octets": 324,
+    "signature_verifiee": false,
+    "avertissement": "Aucune signature n'est vérifiée. Ce qui suit est ce que le fichier déclare, pas ce qui est établi : un manifeste C2PA peut être authentique, désolidarisé du contenu, ou entièrement fabriqué — cette lecture ne les distingue pas. L'absence de manifeste n'est pas davantage un indice : presque aucun appareil n'en écrit, et la plupart des retouches effacent ceux qui existaient.",
+    "motif_non_verifiee": "La vérification exige la validation COSE, la chaîne X.509 et une liste de confiance : rien de cela n'est implémenté ici.",
+    "boites": [],
+    "manifestes": []
+   }
+  }
+ ],
+ "xmp": [
+  {
+   "nom": "XMP dans un JPEG",
+   "hex": "ffd8ffe101d5687474703a2f2f6e732e61646f62652e636f6d2f7861702f312e302f003c3f787061636b657420626567696e3d22222069643d2257354d304d7043656869487a7265537a4e54637a6b633964223f3e3c783a786d706d65746120786d6c6e733a783d2261646f62653a6e733a6d6574612f223e3c7264663a52444620786d6c6e733a7264663d22687474703a2f2f7777772e77332e6f72672f313939392f30322f32322d7264662d73796e7461782d6e7323223e3c7264663a4465736372697074696f6e207264663a61626f75743d222220786d6c6e733a786d703d22687474703a2f2f6e732e61646f62652e636f6d2f7861702f312e302f2220786d6c6e733a746966663d22687474703a2f2f6e732e61646f62652e636f6d2f746966662f312e302f2220786d703a43726561746f72546f6f6c3d2241646f62652050686f746f73686f702032352e30202857696e646f7773292220786d703a4d6f64696679446174653d22323032362d30392d30355431303a31343a32322b30323a30302220746966663a4d616b653d224573736169436f7270223e3c2f7264663a4465736372697074696f6e3e3c2f7264663a5244463e3c2f783a786d706d6574613e3c3f787061636b657420656e643d2277223f3effda0002ffd9",
+   "blocs": [
+    {
+     "conteneur": "JPEG APP1 / XMP",
+     "octets": 438,
+     "etendu": false,
+     "champs": {
+      "xmp:CreatorTool": "Adobe Photoshop 25.0 (Windows)",
+      "xmp:ModifyDate": "2026-09-05T10:14:22+02:00",
+      "tiff:Make": "EssaiCorp"
+     },
+     "debut": "<?xpacket begin=\"\" id=\"W"
+    }
+   ]
+  },
+  {
+   "nom": "XMP étendu, en-tête de 40 octets",
+   "hex": "ffd8ffe10203687474703a2f2f6e732e61646f62652e636f6d2f786d702f657874656e73696f6e2f004141414141414141414141414141414141414141414141414141414141414141000001b6000000003c3f787061636b657420626567696e3d22222069643d2257354d304d7043656869487a7265537a4e54637a6b633964223f3e3c783a786d706d65746120786d6c6e733a783d2261646f62653a6e733a6d6574612f223e3c7264663a52444620786d6c6e733a7264663d22687474703a2f2f7777772e77332e6f72672f313939392f30322f32322d7264662d73796e7461782d6e7323223e3c7264663a4465736372697074696f6e207264663a61626f75743d222220786d6c6e733a786d703d22687474703a2f2f6e732e61646f62652e636f6d2f7861702f312e302f2220786d6c6e733a746966663d22687474703a2f2f6e732e61646f62652e636f6d2f746966662f312e302f2220786d703a43726561746f72546f6f6c3d2241646f62652050686f746f73686f702032352e30202857696e646f7773292220786d703a4d6f64696679446174653d22323032362d30392d30355431303a31343a32322b30323a30302220746966663a4d616b653d224573736169436f7270223e3c2f7264663a4465736372697074696f6e3e3c2f7264663a5244463e3c2f783a786d706d6574613e3c3f787061636b657420656e643d2277223f3effda0002ffd9",
+   "blocs": [
+    {
+     "conteneur": "JPEG APP1 / XMP étendu",
+     "octets": 438,
+     "etendu": true,
+     "champs": {
+      "xmp:CreatorTool": "Adobe Photoshop 25.0 (Windows)",
+      "xmp:ModifyDate": "2026-09-05T10:14:22+02:00",
+      "tiff:Make": "EssaiCorp"
+     },
+     "debut": "<?xpacket begin=\"\" id=\"W"
+    }
+   ]
+  },
+  {
+   "nom": "XMP dans un PNG",
+   "hex": "89504e470d0a1a0a000001cc69545874584d4c3a636f6d2e61646f62652e786d7000000000003c3f787061636b657420626567696e3d22222069643d2257354d304d7043656869487a7265537a4e54637a6b633964223f3e3c783a786d706d65746120786d6c6e733a783d2261646f62653a6e733a6d6574612f223e3c7264663a52444620786d6c6e733a7264663d22687474703a2f2f7777772e77332e6f72672f313939392f30322f32322d7264662d73796e7461782d6e7323223e3c7264663a4465736372697074696f6e207264663a61626f75743d222220786d6c6e733a786d703d22687474703a2f2f6e732e61646f62652e636f6d2f7861702f312e302f2220786d6c6e733a746966663d22687474703a2f2f6e732e61646f62652e636f6d2f746966662f312e302f2220786d703a43726561746f72546f6f6c3d2241646f62652050686f746f73686f702032352e30202857696e646f7773292220786d703a4d6f64696679446174653d22323032362d30392d30355431303a31343a32322b30323a30302220746966663a4d616b653d224573736169436f7270223e3c2f7264663a4465736372697074696f6e3e3c2f7264663a5244463e3c2f783a786d706d6574613e3c3f787061636b657420656e643d2277223f3e000000000000000049454e4400000000",
+   "blocs": [
+    {
+     "conteneur": "PNG iTXt / XMP",
+     "octets": 388,
+     "etendu": false,
+     "champs": {
+      "xmp:CreatorTool": "Adobe Photoshop 25.0 (Windows)",
+      "xmp:ModifyDate": "2026-09-05T10:14:22+02:00",
+      "tiff:Make": "EssaiCorp"
+     },
+     "debut": "<x:xmpmeta xmlns:x=\"adob"
+    }
+   ]
+  },
+  {
+   "nom": "aucun XMP",
+   "hex": "ffd8ffda0002ffd9",
+   "blocs": []
+  }
+ ],
+ "iptc": [
+  {
+   "nom": "trois champs connus et un inconnu",
+   "hex": "ffd8ffed007a50686f746f73686f7020332e30003842494d040400000000005d1c0250000e412e2050686f746f6772617068651c02780020567565206465206c61206469677565206175206c65766572206475206a6f75721c0273000e4167656e636520642765737361691c02c7000d6368616d7020696e636f6e6e7500ffda0002ffd9",
+   "enregistrements": [
+    {
+     "jeu": 2,
+     "numero": 80,
+     "libelle": "Auteur",
+     "valeur": "A. Photographe"
+    },
+    {
+     "jeu": 2,
+     "numero": 120,
+     "libelle": "Légende",
+     "valeur": "Vue de la digue au lever du jour"
+    },
+    {
+     "jeu": 2,
+     "numero": 115,
+     "libelle": "Source",
+     "valeur": "Agence d'essai"
+    },
+    {
+     "jeu": 2,
+     "numero": 199,
+     "libelle": "jeu 2, champ 199",
+     "valeur": "champ inconnu"
+    }
+   ]
+  },
+  {
+   "nom": "aucun IPTC",
+   "hex": "ffd8ffda0002ffd9",
+   "enregistrements": []
+  }
+ ],
+ "chaines": [
+  {
+   "nom": "JPEG avec XMP Photoshop",
+   "hex": "ffd8ffe101d5687474703a2f2f6e732e61646f62652e636f6d2f7861702f312e302f003c3f787061636b657420626567696e3d22222069643d2257354d304d7043656869487a7265537a4e54637a6b633964223f3e3c783a786d706d65746120786d6c6e733a783d2261646f62653a6e733a6d6574612f223e3c7264663a52444620786d6c6e733a7264663d22687474703a2f2f7777772e77332e6f72672f313939392f30322f32322d7264662d73796e7461782d6e7323223e3c7264663a4465736372697074696f6e207264663a61626f75743d222220786d6c6e733a786d703d22687474703a2f2f6e732e61646f62652e636f6d2f7861702f312e302f2220786d6c6e733a746966663d22687474703a2f2f6e732e61646f62652e636f6d2f746966662f312e302f2220786d703a43726561746f72546f6f6c3d2241646f62652050686f746f73686f702032352e30202857696e646f7773292220786d703a4d6f64696679446174653d22323032362d30392d30355431303a31343a32322b30323a30302220746966663a4d616b653d224573736169436f7270223e3c2f7264663a4465736372697074696f6e3e3c2f7264663a5244463e3c2f783a786d706d6574613e3c3f787061636b657420656e643d2277223f3effda0002ffd9",
+   "chaines": [
+    {
+     "offset": 6,
+     "encodage": "ASCII",
+     "texte": "http://ns.adobe.com/xap/1.0/",
+     "marqueur": "Adobe"
+    },
+    {
+     "offset": 35,
+     "encodage": "ASCII",
+     "texte": "<?xpacket begin=\"\" id=\"W5M0MpCehiHzreSzNTczkc9d\"?><x:xmpmeta xmlns:x=\"adobe:ns:meta/\"><rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><rdf:Description rdf:about=\"\" xmlns:xmp=\"http://ns.adobe.com/xap/1.0/\" xmlns:tiff=\"http://ns.adobe.com/tiff/1.0/\" xmp:CreatorTool=\"Adobe Photoshop 25.0 (Windows)\" xmp:ModifyDate=\"2026-09-05T10:14:22+02:00\" tiff:Make=\"EssaiCorp\"></rdf:Description></rdf:RDF></x:xmpmeta><?xpacket end=\"w\"?>",
+     "marqueur": "Adobe"
+    }
+   ],
+   "marqueurs_logiciels": [
+    "Adobe"
+   ]
+  },
+  {
+   "nom": "UTF-16LE dans l'en-tête",
+   "hex": "ffd84d006100720071007500650075007200200063006100630068006500ffda0002ffd9",
+   "chaines": [
+    {
+     "offset": 2,
+     "encodage": "UTF-16LE",
+     "texte": "Marqueur cache",
+     "marqueur": null
+    }
+   ],
+   "marqueurs_logiciels": []
+  },
+  {
+   "nom": "texte après le SOS, à ne pas relever",
+   "hex": "ffd8ffda0002434841494e455f41505245535f4c455f534f535f415f4e455f5041535f52454c45564552ffd9",
+   "chaines": [],
+   "marqueurs_logiciels": []
+  },
+  {
+   "nom": "doublons",
+   "hex": "ffd85265706574655265706574652052657065746552657065746520526570657465526570657465205265706574655265706574652052657065746552657065746520ffda0002ffd9",
+   "chaines": [
+    {
+     "offset": 2,
+     "encodage": "ASCII",
+     "texte": "RepeteRepete RepeteRepete RepeteRepete RepeteRepete RepeteRepete",
+     "marqueur": null
+    }
+   ],
+   "marqueurs_logiciels": []
+  }
+ ],
+ "exif": {
+  "jpeg": [
+   {
+    "nom": "JPEG complet",
+    "hex": "ffd8ffe000104a46494600010100000100010000ffe102224578696600004d4d002a00000008000c010000040000000100000040010100040000000100000030010f00020000000a0000009e0110000200000009000000a8011a000500000001000000b2011b000500000001000000ba012800030000000100020000013100020000000f000000c20132000200000014000000d2013b00020000000f000000e68298000200000015000000f687690004000000010000010c000000004573736169436f7270004d6f64656c65205800000000012c000000010000012c000000015265746f75636865757220322e340000323032363a30393a30352031313a30323a333300412e2050686f746f6772617068650000546f75732064726f69747320726573657276657300000010829a000500000001000001d2829d000500000001000001da882200030000000100020000882700030000000100c800009003000200000014000001e29004000200000014000001f6920900030000000100190000920a0005000000010000020aa00100030000000100010000a00200030000000100400000a00300030000000100300000a40200030000000100010000a40300030000000100000000a40400050000000100000212a40500030000000100240000a406000300000001000100000000000000000001000000fa0000000e00000005323032363a30393a30352031303a31343a323200323032363a30393a30352031303a31343a32350000000018000000010000000200000001ffdb004300080606070605080707070909080a0c140d0c0b0b0c1912130f141d1a1f1e1d1a1c1c20242e2720222c231c1c2837292c30313434341f27393d38323c2e333432ffdb0043010909090c0b0c180d0d1832211c213232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232ffc00011080030004003012200021101031101ffc4001f0000010501010101010100000000000000000102030405060708090a0bffc400b5100002010303020403050504040000017d01020300041105122131410613516107227114328191a1082342b1c11552d1f02433627282090a161718191a25262728292a3435363738393a434445464748494a535455565758595a636465666768696a737475767778797a838485868788898a92939495969798999aa2a3a4a5a6a7a8a9aab2b3b4b5b6b7b8b9bac2c3c4c5c6c7c8c9cad2d3d4d5d6d7d8d9dae1e2e3e4e5e6e7e8e9eaf1f2f3f4f5f6f7f8f9faffc4001f0100030101010101010101010000000000000102030405060708090a0bffc400b51100020102040403040705040400010277000102031104052131061241510761711322328108144291a1b1c109233352f0156272d10a162434e125f11718191a262728292a35363738393a434445464748494a535455565758595a636465666768696a737475767778797a82838485868788898a92939495969798999aa2a3a4a5a6a7a8a9aab2b3b4b5b6b7b8b9bac2c3c4c5c6c7c8c9cad2d3d4d5d6d7d8d9dae2e3e4e5e6e7e8e9eaf2f3f4f5f6f7f8f9faffda000c03010002110311003f00f1ba28a2b6320a28a2800a28a2800a28a2800a28a2800a28a2800a28a2800a28a2800a28a2800a28a2800a28a2800a28a2803fffd9",
+    "exif": {
+     "fabricant": "EssaiCorp",
+     "modele": "Modele X",
+     "logiciel": "Retoucheur 2.4",
+     "artiste": "A. Photographe",
+     "droits": "Tous droits reserves",
+     "date_heure_original": "2026:09:05 10:14:22",
+     "date_heure_modification": "2026:09:05 11:02:33",
+     "date_heure_numerisation": "2026:09:05 10:14:25",
+     "sensibilite_iso": 200,
+     "ouverture": 2.8,
+     "temps_pose_s": 0.004,
+     "focale_mm": 24.0,
+     "focale_equivalente_35mm": 36,
+     "largeur_px": 64,
+     "hauteur_px": 48,
+     "largeur_ifd0_px": 64,
+     "hauteur_ifd0_px": 48,
+     "resolution_x": 300.0,
+     "resolution_y": 300.0,
+     "unite_resolution": 2,
+     "dpi_x": 300.0,
+     "dpi_y": 300.0,
+     "espace_colorimetrique": 1,
+     "mode_exposition": 1,
+     "programme_exposition": 2,
+     "balance_blancs": 0,
+     "rapport_zoom_numerique": 2.0,
+     "type_scene": 1,
+     "flash": 25,
+     "libelles": {
+      "flash": "déclenché, mode automatique",
+      "mode_exposition": "manuel",
+      "programme_exposition": "programme normal",
+      "balance_blancs": "automatique",
+      "espace_colorimetrique": "sRGB",
+      "type_scene": "paysage",
+      "unite_resolution": "pouce"
+     },
+     "zoom_numerique_applique": true,
+     "miniature": null
+    }
+   },
+   {
+    "nom": "JPEG sans champs étendus",
+    "hex": "ffd8ffe000104a46494600010100000100010000ffe100224578696600004d4d002a000000080001010f0002000000034e75000000000000ffdb004300080606070605080707070909080a0c140d0c0b0b0c1912130f141d1a1f1e1d1a1c1c20242e2720222c231c1c2837292c30313434341f27393d38323c2e333432ffdb0043010909090c0b0c180d0d1832211c213232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232ffc00011080008000803012200021101031101ffc4001f0000010501010101010100000000000000000102030405060708090a0bffc400b5100002010303020403050504040000017d01020300041105122131410613516107227114328191a1082342b1c11552d1f02433627282090a161718191a25262728292a3435363738393a434445464748494a535455565758595a636465666768696a737475767778797a838485868788898a92939495969798999aa2a3a4a5a6a7a8a9aab2b3b4b5b6b7b8b9bac2c3c4c5c6c7c8c9cad2d3d4d5d6d7d8d9dae1e2e3e4e5e6e7e8e9eaf1f2f3f4f5f6f7f8f9faffc4001f0100030101010101010101010000000000000102030405060708090a0bffc400b51100020102040403040705040400010277000102031104052131061241510761711322328108144291a1b1c109233352f0156272d10a162434e125f11718191a262728292a35363738393a434445464748494a535455565758595a636465666768696a737475767778797a82838485868788898a92939495969798999aa2a3a4a5a6a7a8a9aab2b3b4b5b6b7b8b9bac2c3c4c5c6c7c8c9cad2d3d4d5d6d7d8d9dae2e3e4e5e6e7e8e9eaf2f3f4f5f6f7f8f9faffda000c03010002110311003f00f9fe8a28a00fffd9",
+    "exif": {
+     "fabricant": "Nu",
+     "modele": null,
+     "logiciel": null,
+     "artiste": null,
+     "droits": null,
+     "date_heure_original": null,
+     "date_heure_modification": null,
+     "date_heure_numerisation": null,
+     "sensibilite_iso": null,
+     "ouverture": null,
+     "temps_pose_s": null,
+     "focale_mm": null,
+     "focale_equivalente_35mm": null,
+     "largeur_px": null,
+     "hauteur_px": null,
+     "largeur_ifd0_px": null,
+     "hauteur_ifd0_px": null,
+     "resolution_x": null,
+     "resolution_y": null,
+     "unite_resolution": null,
+     "dpi_x": null,
+     "dpi_y": null,
+     "espace_colorimetrique": null,
+     "mode_exposition": null,
+     "programme_exposition": null,
+     "balance_blancs": null,
+     "rapport_zoom_numerique": null,
+     "type_scene": null,
+     "flash": null,
+     "libelles": {
+      "flash": null,
+      "mode_exposition": null,
+      "programme_exposition": null,
+      "balance_blancs": null,
+      "espace_colorimetrique": null,
+      "type_scene": null,
+      "unite_resolution": null
+     },
+     "zoom_numerique_applique": null,
+     "miniature": null
+    }
+   }
+  ],
+  "tiff": [
+   {
+    "nom": "TIFF avec miniature IFD1",
+    "hex": "49492a000800000002000f010200060000005000000031010200080000005600000026000000030003010300010000000600000001020400010000005e0000000202040001000000340000000000000045737361690042616e6320312e30ffd8ffe000104a46494600000000000000000000000000000000000000000000000000000000000000000000000000000000ffd9",
+    "exif": {
+     "fabricant": "Essai",
+     "modele": null,
+     "logiciel": "Banc 1.0",
+     "artiste": null,
+     "droits": null,
+     "date_heure_original": null,
+     "date_heure_modification": null,
+     "date_heure_numerisation": null,
+     "sensibilite_iso": null,
+     "ouverture": null,
+     "temps_pose_s": null,
+     "focale_mm": null,
+     "focale_equivalente_35mm": null,
+     "largeur_px": null,
+     "hauteur_px": null,
+     "largeur_ifd0_px": null,
+     "hauteur_ifd0_px": null,
+     "resolution_x": null,
+     "resolution_y": null,
+     "unite_resolution": null,
+     "dpi_x": null,
+     "dpi_y": null,
+     "espace_colorimetrique": null,
+     "mode_exposition": null,
+     "programme_exposition": null,
+     "balance_blancs": null,
+     "rapport_zoom_numerique": null,
+     "type_scene": null,
+     "flash": null,
+     "libelles": {
+      "flash": null,
+      "mode_exposition": null,
+      "programme_exposition": null,
+      "balance_blancs": null,
+      "espace_colorimetrique": null,
+      "type_scene": null,
+      "unite_resolution": null
+     },
+     "zoom_numerique_applique": null,
+     "miniature": {
+      "offset": 94,
+      "longueur": 52,
+      "compression": 6,
+      "est_jpeg": true,
+      "octets_hex": "ffd8ffe000104a46494600000000000000000000000000000000000000000000000000000000000000000000000000000000ffd9"
+     }
+    }
+   },
+   {
+    "nom": "TIFF, offset de miniature incohérent",
+    "hex": "49492a000800000002000f010200060000005000000031010200080000005600000026000000030003010300010000000600000001020400010000003f420f000202040001000000340000000000000045737361690042616e6320312e30ffd8ffe000104a46494600000000000000000000000000000000000000000000000000000000000000000000000000000000ffd9",
+    "exif": {
+     "fabricant": "Essai",
+     "modele": null,
+     "logiciel": "Banc 1.0",
+     "artiste": null,
+     "droits": null,
+     "date_heure_original": null,
+     "date_heure_modification": null,
+     "date_heure_numerisation": null,
+     "sensibilite_iso": null,
+     "ouverture": null,
+     "temps_pose_s": null,
+     "focale_mm": null,
+     "focale_equivalente_35mm": null,
+     "largeur_px": null,
+     "hauteur_px": null,
+     "largeur_ifd0_px": null,
+     "hauteur_ifd0_px": null,
+     "resolution_x": null,
+     "resolution_y": null,
+     "unite_resolution": null,
+     "dpi_x": null,
+     "dpi_y": null,
+     "espace_colorimetrique": null,
+     "mode_exposition": null,
+     "programme_exposition": null,
+     "balance_blancs": null,
+     "rapport_zoom_numerique": null,
+     "type_scene": null,
+     "flash": null,
+     "libelles": {
+      "flash": null,
+      "mode_exposition": null,
+      "programme_exposition": null,
+      "balance_blancs": null,
+      "espace_colorimetrique": null,
+      "type_scene": null,
+      "unite_resolution": null
+     },
+     "zoom_numerique_applique": null,
+     "miniature": null
+    }
+   }
+  ],
+  "flash": [
+   {
+    "code": 0,
+    "libelle": "non déclenché"
+   },
+   {
+    "code": 1,
+    "libelle": "déclenché"
+   },
+   {
+    "code": 5,
+    "libelle": "déclenché, lumière de retour non détectée"
+   },
+   {
+    "code": 7,
+    "libelle": "déclenché, lumière de retour détectée"
+   },
+   {
+    "code": 9,
+    "libelle": "déclenché, mode obligatoire"
+   },
+   {
+    "code": 16,
+    "libelle": "non déclenché, mode supprimé"
+   },
+   {
+    "code": 25,
+    "libelle": "déclenché, mode automatique"
+   },
+   {
+    "code": 32,
+    "libelle": "l'appareil n'a pas de flash"
+   },
+   {
+    "code": 65,
+    "libelle": "déclenché, anti-yeux rouges"
+   }
+  ],
+  "dpi": [
+   {
+    "resolution": 300.0,
+    "unite": 2,
+    "dpi": 300.0
+   },
+   {
+    "resolution": 300.0,
+    "unite": 3,
+    "dpi": 762.0
+   },
+   {
+    "resolution": 72.0,
+    "unite": 1,
+    "dpi": null
+   },
+   {
+    "resolution": 0.0,
+    "unite": 2,
+    "dpi": null
+   }
+  ]
+ }
+}
