@@ -22,6 +22,7 @@
  */
 import { useMemo, useState } from 'react';
 import { dash } from '@/lib/design-tokens';
+import SimulationRelief, { type EntreesSimulation } from './SimulationRelief';
 import { AVERTISSEMENT_RACCOURCIS, RACCOURCIS_SOURCE } from '@/lib/lab-sources';
 import {
   IUGG_R1,
@@ -290,6 +291,20 @@ export default function ViseeOptiqueCalc() {
 
   const erreur = resultat && 'erreur' in resultat && resultat.erreur ? resultat.erreur : null;
   const ok = resultat && !erreur ? resultat : null;
+
+  /**
+   * Les entrées que la simulation de relief demande.
+   *
+   * Nulles tant que le calcul principal n'aboutit pas : simuler une coupe sur
+   * des coordonnées incomplètes produirait un dessin qui a l'air d'un résultat.
+   */
+  const entreesSimulation: EntreesSimulation | null = ok ? {
+    obsLat: nombre(e.obsLat)!, obsLon: nombre(e.obsLon)!, obsAlt: nombre(e.obsAlt)!,
+    cibLat: nombre(e.cibLat)!, cibLon: nombre(e.cibLon)!,
+    cibH: nombre(e.cibH)!, cibZb: nombre(e.cibZb)!,
+    kMin: nombre(e.kMin)!, kMax: nombre(e.kMax)!,
+    rayonEuler: ok.REuler,
+  } : null;
 
   /**
    * La synthèse de la visée, telle que l'outil C sait la relire.
@@ -657,17 +672,27 @@ export default function ViseeOptiqueCalc() {
             </div>
           </Bloc>
 
-          <div style={{
-            background: 'var(--card)', border: '1px solid var(--border)',
-            borderLeft: `3px solid ${dash.saffron}`, borderRadius: 8,
-            padding: '14px 18px', marginBottom: 16,
-          }}>
-            <p style={{ margin: 0, fontSize: 12.5, lineHeight: 1.6, color: 'var(--ink-soft)' }}>
-              Ce calculateur ne vérifie pas que la ligne de visée reste au-dessus de l’eau. Un
-              relief intermédiaire occulte la cible pour une raison qui n’est pas celle qu’on
-              mesure, et le §3.5 écarte alors le cliché. Le pré-écran altimétrique, qui interroge
-              les données officielles pour le vérifier, n’est pas encore intégré ici.
+          <Bloc num="05" titre="Simulation d’observation — coupe du terrain">
+            <p style={{ margin: '0 0 14px', fontSize: 13, lineHeight: 1.6, color: 'var(--ink-soft)' }}>
+              Tout ce qui précède suppose une surface <strong>lisse</strong> entre les deux
+              points. Le terrain ne l’est pas : une colline à mi-chemin masque une cible que la
+              courbure laisserait entièrement visible, et le §9.1.3 écarte alors le cliché — le
+              masquage y est topographique, pas géométrique. Confondre les deux, c’est attribuer
+              à la forme de la Terre ce qui revient à un talus, et l’erreur va dans les deux
+              sens.
             </p>
+            <SimulationRelief entrees={entreesSimulation} />
+          </Bloc>
+
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 18 }}>
+            <button
+              onClick={exporterJson}
+              style={{
+                padding: '11px 18px', fontSize: 13.5, fontWeight: 600, minHeight: 44,
+                cursor: 'pointer', background: 'var(--card)', color: ACCENT,
+                border: `1px solid ${ACCENT}`, borderRadius: 6,
+              }}
+            >Exporter la synthèse (JSON)</button>
           </div>
         </>
       )}

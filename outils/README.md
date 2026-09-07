@@ -70,6 +70,50 @@ Et, pour l'outil D, un essai qui pilote un vrai navigateur — les vecteurs
 
     npm run essai:metrologie
 
+## Simulateur d'observation : le relief (outil A)
+
+L'outil A intègre la coupe du terrain entre le poste et la cible. Le moteur
+vit dans `visee_optique/relief.py` ; le port navigateur est épinglé par
+`scripts/verifier-port-relief.mjs` (804 contrôles).
+
+Deux points de conception commandent le reste :
+
+- **Un profil absent donne « relief non évalué », jamais « aucun obstacle ».**
+  Le champ vaut `None`, pas `False`. Les confondre transformerait une lacune de
+  donnée en preuve.
+- **Un point ne devient obstacle que s'il coupe la visée ET s'élève au-dessus
+  de la surface de référence.** Sans cette seconde condition, dès que la
+  courbure occulte quoi que ce soit, la mer coupe la visée dirigée vers le
+  sommet et serait rapportée comme obstacle de relief : la distinction
+  s'effondrerait dans les cas mêmes où elle sert. Conséquence assumée : une
+  plaine à l'altitude zéro est traitée comme la surface elle-même, et son
+  masquage est imputé à la courbure.
+
+La ligne de visée est construite exactement (segment droit dans l'espace),
+pas par l'approximation `d(D−d)/2R`. Les tests la confrontent à une forme
+fermée indépendante — la corde d'un triangle isocèle, exacte à l'epsilon
+machine — et à l'approximation classique dans son domaine de validité.
+
+### Le profil altimétrique, et ce qu'il change à la posture
+
+Les autres outils du Lab ne transmettent rien. Celui-ci est différent :
+demander un profil de terrain à l'IGN suppose de lui envoyer les coordonnées
+du poste et de la cible. L'appel n'est **jamais automatique**, l'interface le
+dit avant, et l'outil reste entièrement utilisable sans réseau — par saisie
+manuelle du profil, ou sans relief du tout.
+
+🔴 **Le service de l'IGN n'a jamais été interrogé.** L'environnement de
+développement n'a pas d'accès sortant vers `data.geopf.fr`. `altimetrie-ign.ts`
+est écrit d'après le contrat publié, et `scripts/verifier-altimetrie-ign.mjs`
+(37 contrôles) éprouve la mise en forme des requêtes, l'appariement des
+réponses conformes et le refus des réponses non conformes — **pas** que le
+service réponde ce qu'on croit. La confrontation au service réel reste à
+faire, et l'interface affiche cette réserve.
+
+Le RGE ALTI couvre la France et les DOM. Ailleurs le service rend `-99999`,
+qui veut dire « pas de donnée » et surtout pas « altitude zéro » : traité comme
+une lacune, jamais comblé.
+
 ## Formats bruts d'appareil photo (outil B)
 
 L'outil B lit l'EXIF, le GPS et les aperçus embarqués des fichiers RAW, en
