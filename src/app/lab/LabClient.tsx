@@ -8,7 +8,7 @@ import { dash } from '@/lib/design-tokens';
 import { getArticleImage } from '@/lib/article-images';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import PageIntro from '@/components/PageIntro';
-import { TOOLS } from '@/lib/lab-tools';
+import { OUTILS_DISCRETS, OUTILS_GRILLE, TOOLS } from '@/lib/lab-tools';
 
 const ViseeOptiqueCalc = dynamic(() => import('@/components/lab/ViseeOptiqueCalc'), { ssr: false });
 const VerificateurIntegrite = dynamic(() => import('@/components/lab/VerificateurIntegrite'), { ssr: false });
@@ -189,7 +189,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
           </h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
             <p style={{ fontSize: 14, color: '#607890', lineHeight: 1.5 }}>
-              {TOOLS.length} simulateurs interactifs — modélisation 3D, calcul et visualisation
+              {OUTILS_GRILLE.length} simulateurs interactifs — modélisation 3D, calcul et visualisation
             </p>
             <div style={{
               display: 'flex', gap: 8, marginLeft: 'auto',
@@ -215,7 +215,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
             gap: 10,
             marginBottom: 20,
           }}>
-            {TOOLS.slice(0, 4).map((tool, i) => (
+            {OUTILS_GRILLE.slice(0, 3).map((tool) => (
               <ToolCard
                 key={tool.id}
                 tool={tool}
@@ -232,7 +232,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
             gap: 10,
             marginBottom: 28,
           }}>
-            {TOOLS.slice(4).map((tool, i) => (
+            {OUTILS_GRILLE.slice(3).map((tool) => (
               <ToolCard
                 key={tool.id}
                 tool={tool}
@@ -242,6 +242,39 @@ export default function LabClient({ articles }: { articles: A[] }) {
             ))}
           </div>
         </ScrollReveal>
+
+        {/* ── OUTILS D'ANALYSTE, hors grille ──
+            Un lien, pas une carte : ces outils ne servent qu'une fois les
+            mesures faites, et les mettre au même rang que les simulateurs
+            enverrait remplir cinquante-six champs avant d'avoir rien observé. */}
+        {OUTILS_DISCRETS.length > 0 && (
+          <ScrollReveal delay={200}>
+            <div style={{
+              marginBottom: 28, paddingTop: 4,
+              borderTop: '1px solid var(--border)',
+            }}>
+              <p style={{
+                margin: '14px 0 0', fontSize: 12.5, lineHeight: 1.6,
+                color: 'var(--ink-muted)',
+              }}>
+                Réservé à l’analyste, une fois les mesures faites :{' '}
+                {OUTILS_DISCRETS.map((tool, i) => (
+                  <span key={tool.id}>
+                    {i > 0 && ' · '}
+                    <button
+                      onClick={() => setActiveTool(activeTool === tool.id ? null : tool.id)}
+                      style={{
+                        background: 'none', border: 'none', padding: 0,
+                        font: 'inherit', cursor: 'pointer', color: tool.color,
+                        textDecoration: 'underline', textUnderlineOffset: 3,
+                      }}
+                    >Accéder au générateur de fiche d’audit</button>
+                  </span>
+                ))}
+              </p>
+            </div>
+          </ScrollReveal>
+        )}
 
         {/* ── ACTIVE SIMULATOR (fullscreen overlay) ── */}
         <AnimatePresence mode="wait">

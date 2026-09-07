@@ -145,6 +145,85 @@ export function vincentyInverse(
   };
 }
 
+/**
+ * Point atteint depuis (lat1, lon1) en suivant `azimut1Deg` sur `distanceM` (§12.3).
+ *
+ * Formule DIRECTE de Vincenty. Elle sert à échantillonner le profil
+ * intermédiaire le long de la géodésique — pas à calculer la distance ni
+ * l'azimut, qui viennent de la formule inverse.
+ *
+ * Interpoler linéairement les latitudes et longitudes entre les deux
+ * extrémités serait plus simple et faux : sur 35 km à cette latitude, la
+ * géodésique s'écarte de la corde en coordonnées de plusieurs dizaines de
+ * mètres, et le profil de terrain serait échantillonné à côté du trajet réel —
+ * silencieusement, puisque rien dans le résultat ne le signalerait.
+ */
+export function vincentyDirect(
+  lat1Deg: number,
+  lon1Deg: number,
+  azimut1Deg: number,
+  distanceM: number,
+  a: number = GRS80_A,
+  f: number = GRS80_F,
+  tol = 1e-12,
+  maxIter = 200,
+): { latitudeDeg: number; longitudeDeg: number } {
+  if (distanceM < 0.0) throw new ViseeError('La distance ne peut pas être négative.');
+  const lat1 = rad(lat1Deg);
+  const az1 = rad(((azimut1Deg % 360.0) + 360.0) % 360.0);
+  const b = a * (1.0 - f);
+  const U1 = Math.atan((1.0 - f) * Math.tan(lat1));
+  const sinU1 = Math.sin(U1);
+  const cosU1 = Math.cos(U1);
+  const sigma1 = Math.atan2(Math.tan(U1), Math.cos(az1));
+  const sinAlpha = cosU1 * Math.sin(az1);
+  const cos2Alpha = 1.0 - sinAlpha ** 2;
+  const u2 = (cos2Alpha * (a ** 2 - b ** 2)) / b ** 2;
+  const A = 1.0 + (u2 / 16384.0) * (4096.0 + u2 * (-768.0 + u2 * (320.0 - 175.0 * u2)));
+  const B = (u2 / 1024.0) * (256.0 + u2 * (-128.0 + u2 * (74.0 - 47.0 * u2)));
+
+  let sigma = distanceM / (b * A);
+  let twoSigmaM = 0.0;
+  for (let i = 0; i < maxIter; i++) {
+    twoSigmaM = 2.0 * sigma1 + sigma;
+    const deltaSigma =
+      B *
+      Math.sin(sigma) *
+      (Math.cos(twoSigmaM) +
+        (B / 4.0) *
+          (Math.cos(sigma) * (-1.0 + 2.0 * Math.cos(twoSigmaM) ** 2) -
+            (B / 6.0) *
+              Math.cos(twoSigmaM) *
+              (-3.0 + 4.0 * Math.sin(sigma) ** 2) *
+              (-3.0 + 4.0 * Math.cos(twoSigmaM) ** 2)));
+    const precedent = sigma;
+    sigma = distanceM / (b * A) + deltaSigma;
+    if (Math.abs(sigma - precedent) < tol) break;
+  }
+
+  const lat2 = Math.atan2(
+    sinU1 * Math.cos(sigma) + cosU1 * Math.sin(sigma) * Math.cos(az1),
+    (1.0 - f) *
+      Math.sqrt(
+        sinAlpha ** 2 +
+          (sinU1 * Math.sin(sigma) - cosU1 * Math.cos(sigma) * Math.cos(az1)) ** 2,
+      ),
+  );
+  const lam = Math.atan2(
+    Math.sin(sigma) * Math.sin(az1),
+    cosU1 * Math.cos(sigma) - sinU1 * Math.sin(sigma) * Math.cos(az1),
+  );
+  const C = (f / 16.0) * cos2Alpha * (4.0 + f * (4.0 - 3.0 * cos2Alpha));
+  const L =
+    lam -
+    (1.0 - C) *
+      f *
+      sinAlpha *
+      (sigma +
+        C * Math.sin(sigma) * (Math.cos(twoSigmaM) + C * Math.cos(sigma) * (-1.0 + 2.0 * Math.cos(twoSigmaM) ** 2)));
+  return { latitudeDeg: deg(lat2), longitudeDeg: deg(rad(lon1Deg) + L) };
+}
+
 // --- §12.2 : rayons de courbure de l'ellipsoïde ---
 
 function validerLatitude(latDeg: number): number {

@@ -131,6 +131,19 @@ from .decision import (
     evaluer_dossier,
 )
 
+from .relief import (
+    RELIEF_NON_EVALUE,
+    AnalyseRelief,
+    Obstacle,
+    PointProfil,
+    ProfilTerrain,
+    ReliefError,
+    altitude_ligne_de_visee,
+    altitude_ligne_de_visee_plane,
+    analyser_relief,
+    profil_depuis_couples,
+)
+
 __all__ = [
     "Cible",
     "GeometryError",
@@ -227,4 +240,15 @@ __all__ = [
     "classer_verdict",
     "DossierVerdict",
     "evaluer_dossier",
+    # --- Relief (§9.1.3) ---
+    "ReliefError",
+    "PointProfil",
+    "ProfilTerrain",
+    "Obstacle",
+    "AnalyseRelief",
+    "altitude_ligne_de_visee",
+    "altitude_ligne_de_visee_plane",
+    "analyser_relief",
+    "profil_depuis_couples",
+    "RELIEF_NON_EVALUE",
 ]

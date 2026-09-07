@@ -291,6 +291,93 @@ export default function ViseeOptiqueCalc() {
   const erreur = resultat && 'erreur' in resultat && resultat.erreur ? resultat.erreur : null;
   const ok = resultat && !erreur ? resultat : null;
 
+  /**
+   * La synthèse de la visée, telle que l'outil C sait la relire.
+   *
+   * Les ENTRÉES y figurent avec leur source à côté de chaque valeur, et pas
+   * seulement les résultats : c'est ce qui permet à l'outil C de préremplir la
+   * fiche sans que quiconque ait à retaper une coordonnée. Une valeur recopiée
+   * à la main est une occasion de se tromper de plus, et sur une latitude ça
+   * ne se voit pas.
+   *
+   * Aucun arrondi sur les grandeurs qui entrent dans un calcul : un fichier
+   * qu'on ne peut pas rejouer ne remplit pas son office.
+   */
+  const syntheseJson = () => {
+    if (!ok) return null;
+    const val = (c: Champ) => ({ valeur: c.valeur.replace(',', '.'), source: c.source || 'indisponible' });
+    return {
+      outil: 'visee-optique (outil A) — port navigateur',
+      protocole: "Portion visible d'une cible éloignée au-dessus de la mer v1.0",
+      genere_le: new Date().toISOString(),
+      entrees: {
+        poste_latitude_deg: val(e.obsLat),
+        poste_longitude_deg: val(e.obsLon),
+        poste_altitude_axe_optique_m: val(e.obsAlt),
+        cible_latitude_deg: val(e.cibLat),
+        cible_longitude_deg: val(e.cibLon),
+        cible_hauteur_totale_H_m: val(e.cibH),
+        cible_altitude_base_zb_m: val(e.cibZb),
+        k_min: val(e.kMin),
+        k_max: val(e.kMax),
+        incertitude_fraction_u: val(e.uF),
+        facteur_discrimination: val(e.facteur),
+      },
+      // Ce qui reste à établir. Une liste vide n'atteste de rien : une source
+      // déclarée est une déclaration de l'opérateur, pas une vérification.
+      sources_manquantes: grandeursSansSource,
+      geodesie: {
+        algorithme: 'Vincenty inverse sur ellipsoïde WGS-84',
+        distance_m: ok.geo.distanceM,
+        azimut_depart_deg: ok.geo.azimutDepartDeg,
+        azimut_arrivee_deg: ok.geo.azimutArriveeDeg,
+        iterations: ok.geo.iterations,
+        latitude_moyenne_deg: ok.latMoy,
+        rayon_euler_m: ok.REuler,
+        ecart_au_rayon_moyen_pourcent: ok.ecartR1,
+      },
+      enveloppe: {
+        fraction_visible_min: ok.fMin,
+        fraction_visible_max: ok.fMax,
+        lignes: ok.lignesK.map((l) => ({
+          k: l.k,
+          rayon_effectif_m: l.R,
+          hauteur_occultee_m: l.c,
+          fraction_visible: l.f,
+          distance_critique_m: l.dCrit,
+          distance_limite_m: l.dLim,
+          regime: l.regime,
+        })),
+      },
+      condition_discrimination: {
+        delta: ok.cd.delta,
+        combinaison_defavorable: ok.cd.combinaisonDefavorable,
+        incertitude_fraction: ok.cd.uF,
+        facteur: ok.cd.facteur,
+        seuil: ok.cd.seuil,
+        satisfaite: ok.cd.satisfaite,
+      },
+      ce_que_ca_n_etablit_pas: [
+        "Aucun verdict. Ce calculateur prédit ce que chaque modèle géométrique "
+        + "implique ; comparer une observation à ces prédictions demande une "
+        + "photographie mesurée selon le protocole.",
+        "L'intervalle de k est DÉCLARÉ, pas mesuré. Il ne se resserre jamais "
+        + "après avoir vu un résultat (§11.7).",
+      ],
+    };
+  };
+
+  const exporterJson = () => {
+    const doc = syntheseJson();
+    if (!doc) return;
+    const blob = new Blob([JSON.stringify(doc, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'visee-optique.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+
   return (
     <div style={{ maxWidth: 940, margin: '0 auto' }}>
 
