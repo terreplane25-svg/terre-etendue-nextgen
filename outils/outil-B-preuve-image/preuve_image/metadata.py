@@ -84,6 +84,12 @@ _TAG_LENS_SPECIFICATION = 0xA432
 _TAG_LENS_MAKE = 0xA433
 _TAG_LENS_SERIAL_NUMBER = 0xA435
 
+# La note propriétaire. C'est le seul champ de la norme dont le contenu n'est
+# pas normalisé : chaque constructeur y écrit ce qu'il veut. On en garde les
+# OCTETS BRUTS et leur POSITION — sans la position, la base des offsets qu'elle
+# contient ne peut pas être résolue, et la lire donnerait des octets quelconques.
+_TAG_MAKER_NOTE = 0x927C
+
 # Ajoutés pour l'ingestion : tout ce que le §16 demande de LIRE sans rien conclure.
 _TAG_IMAGE_WIDTH = 0x0100
 _TAG_IMAGE_LENGTH = 0x0101
@@ -452,6 +458,17 @@ class DonneesExif:
     orientation: Optional[int]
     gps: Optional[PositionGPS]
     # --- Ajouts d'ingestion (§16) ---
+    #: Les octets bruts de la note propriétaire, et sa position depuis l'en-tête
+    #: TIFF. Non décodés ici : voir `makernotes.py`, qui n'en lit que la
+    #: STRUCTURE — leur sens change d'un millésime à l'autre chez un même
+    #: constructeur, et l'inventer serait une attribution, pas une lecture.
+    makernote: Optional[bytes] = None
+    makernote_offset: Optional[int] = None
+    #: Le boutisme du bloc TIFF, « < » ou « > ». Il n'intéresse pas la lecture
+    #: ordinaire — elle a déjà décodé les valeurs — mais une note propriétaire
+    #: sans boutisme imposé suit celui du fichier, et le lire au lieu de le
+    #: supposer évite de retenir un déchiffrement cohérent mais faux.
+    boutisme: Optional[str] = None
     #: Identité du matériel, lue dans les tags EXIF standard. Un numéro de série
     #: rattache le cliché à un APPAREIL, pas seulement à un modèle — c'est ce qui
     #: permet de confronter deux clichés entre eux. Il ne prouve pas l'origine :
@@ -553,6 +570,39 @@ _MAGIQUE_TIFF_STANDARD = 42
 _MAGIQUES_TIFF = (_MAGIQUE_TIFF_STANDARD, 85, 0x4F52, 0x5352)
 
 
+def _etendue_de_tag(
+    donnees: bytes, offset_ifd: int, endian: str, tag_cherche: int
+) -> Optional[Tuple[int, int]]:
+    """La POSITION et la LONGUEUR brutes d'un tag, sans décoder sa valeur.
+
+    Le lecteur ordinaire décode les valeurs ; une note propriétaire, elle, ne
+    se décode pas — elle se relit telle quelle, et sa position dans le fichier
+    fait partie de ce qu'il faut savoir pour l'interpréter. D'où cette seconde
+    passe sur l'IFD, qui ne coûte que le parcours des entrées.
+    """
+    if offset_ifd + 2 > len(donnees):
+        return None
+    try:
+        nb = struct.unpack_from(endian + "H", donnees, offset_ifd)[0]
+    except struct.error:
+        return None
+    for i in range(nb):
+        pos = offset_ifd + 2 + 12 * i
+        if pos + 12 > len(donnees):
+            return None
+        tag, type_, count = struct.unpack_from(endian + "HHI", donnees, pos)
+        if tag != tag_cherche:
+            continue
+        total = _TAILLE_TYPE.get(type_, 1) * count
+        if total <= 4:
+            return (pos + 8, total)
+        offset = struct.unpack_from(endian + "I", donnees, pos + 8)[0]
+        if offset + total > len(donnees):
+            return None
+        return (offset, total)
+    return None
+
+
 def _specification_objectif(brut) -> Optional[Tuple[float, ...]]:
     """LensSpecification : quatre rationnels, ou rien.
 
@@ -610,6 +660,16 @@ def lire_exif_depuis_tiff(
         except MetadataError:
             ifd1 = {}
 
+    # La note propriétaire, en octets bruts, avec sa position.
+    makernote = None
+    makernote_offset = None
+    if _TAG_EXIF_IFD_POINTER in ifd0:
+        etendue = _etendue_de_tag(
+            donnees, ifd0[_TAG_EXIF_IFD_POINTER], endian, _TAG_MAKER_NOTE)
+        if etendue is not None:
+            makernote_offset, longueur = etendue
+            makernote = donnees[makernote_offset:makernote_offset + longueur]
+
     resolution_x = ifd0.get(_TAG_X_RESOLUTION)
     resolution_y = ifd0.get(_TAG_Y_RESOLUTION)
     unite = ifd0.get(_TAG_RESOLUTION_UNIT)
@@ -623,6 +683,8 @@ def lire_exif_depuis_tiff(
         fabricant_objectif=ifd_exif.get(_TAG_LENS_MAKE),
         proprietaire_declare=ifd_exif.get(_TAG_CAMERA_OWNER_NAME),
         specification_objectif=_specification_objectif(ifd_exif.get(_TAG_LENS_SPECIFICATION)),
+        makernote=makernote,
+        makernote_offset=makernote_offset,
         focale_mm=ifd_exif.get(_TAG_FOCAL_LENGTH),
         focale_equivalente_35mm=ifd_exif.get(_TAG_FOCAL_LENGTH_35MM),
         ouverture=ifd_exif.get(_TAG_FNUMBER),
@@ -657,6 +719,7 @@ def lire_exif_depuis_tiff(
         decalage_horaire_original=ifd_exif.get(_TAG_OFFSET_TIME_ORIGINAL),
         decalage_horaire_numerisation=ifd_exif.get(_TAG_OFFSET_TIME_DIGITIZED),
         previsualisations=_collecter_previsualisations(donnees, ifd0, ifd1, endian),
+        boutisme=endian,
     )
 
 

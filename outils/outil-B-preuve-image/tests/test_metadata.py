@@ -264,6 +264,10 @@ def test_lire_exif_depuis_tiff_endian_big_endian_mm():
     d = lire_exif_depuis_tiff(flux)
     assert d.fabricant == "Pentax"
     assert d.focale_mm == pytest.approx(50.0)
+    # Le boutisme est RENDU, pas seulement utilisé : une note propriétaire qui
+    # n'impose pas le sien suit celui du fichier, et le supposer petit-boutien
+    # ferait retenir un déchiffrement cohérent mais faux.
+    assert d.boutisme == ">"
 
 
 def test_lire_exif_depuis_tiff_rejette_entete_invalide():

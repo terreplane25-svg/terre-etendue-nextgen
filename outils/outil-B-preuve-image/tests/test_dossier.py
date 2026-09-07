@@ -366,3 +366,135 @@ def test_le_dossier_se_serialise_entierement():
     import json
     for fabrique in (lambda: jpeg(), png, heic, cr3, lambda: SVG):
         json.dumps(constituer_dossier(fabrique(), "x").en_dict(), ensure_ascii=False)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Les notes propriétaires : leur structure arrive au relevé, leur sens jamais
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+def jpeg_avec_makernote() -> bytes:
+    """Un JPEG portant une note propriétaire Apple, dans le tag 0x927C."""
+    from tests.test_makernotes import note_apple
+    from tests.test_metadata import (
+        _envelopper_en_jpeg, campo_ascii, construire_tiff,
+    )
+    note = note_apple()
+    return _envelopper_en_jpeg(construire_tiff(
+        {0x010F: campo_ascii("Apple"), 0x0110: campo_ascii("iPhone 15 Pro")},
+        {0x927C: (7, len(note), note)}))
+
+
+def _jpeg_portant(note_pour_position) -> bytes:
+    """Un JPEG dont la note connaît sa propre position dans le bloc TIFF.
+
+    Une note dont les offsets sont comptés depuis l'en-tête TIFF du FICHIER ne
+    peut pas être fabriquée d'un seul coup : il faut d'abord savoir où elle
+    atterrira. Le TIFF est donc construit deux fois. La note ayant la même
+    LONGUEUR aux deux passes, la disposition ne bouge pas — ce qui est vérifié
+    plutôt que supposé.
+    """
+    from tests.test_metadata import (
+        _envelopper_en_jpeg, campo_ascii, construire_tiff,
+    )
+
+    def tiff(base):
+        note = note_pour_position(base)
+        return note, construire_tiff(
+            {0x010F: campo_ascii("Panasonic")},
+            {0x927C: (7, len(note), note)})
+
+    sonde, flux = tiff(0)
+    position = flux.index(sonde[:12])
+    note, flux = tiff(position)
+    assert len(note) == len(sonde), "la longueur a changé, la position aussi"
+    assert flux.index(note[:12]) == position
+    return _envelopper_en_jpeg(flux)
+
+
+def jpeg_note_en_base_tiff() -> bytes:
+    """Panasonic annonce des offsets comptés depuis l'en-tête TIFF du fichier."""
+    from tests.test_makernotes import ENTREES, ifd
+    return _jpeg_portant(
+        lambda base: ifd(ENTREES, "<", base, 12, b"Panasonic\x00\x00\x00"))
+
+
+def jpeg_note_en_base_dementie() -> bytes:
+    """La même famille, mais des offsets comptés depuis la note.
+
+    Ce n'est pas un cas d'école : un constructeur change de convention d'un
+    millésime à l'autre sans changer sa signature. Appliquer la base annoncée
+    lirait ici des octets quelconques, sans lever la moindre erreur.
+    """
+    from tests.test_makernotes import ENTREES, ifd
+    return _jpeg_portant(
+        lambda _base: ifd(ENTREES, "<", 0, 12, b"Panasonic\x00\x00\x00"))
+
+
+def test_la_position_de_la_note_permet_de_resoudre_ses_offsets():
+    """Sans la position, la base « tiff » ne peut pas être résolue du tout."""
+    d = constituer_dossier(jpeg_note_en_base_tiff(), "P1000001.jpg")
+    mn = d.device_identification["maker_notes"]
+    assert mn["base_offsets_retenue"] == "tiff"
+    assert mn["nombre_de_tags"] == 5
+    # Les valeurs hors ligne ont bien été atteintes : une base fausse aurait
+    # rendu des empreintes d'octets quelconques, jamais du texte lisible.
+    apercus = [t["apercu_texte"] for t in mn["tags"] if t["apercu_texte"]]
+    assert "EssaiCorp Firmware 2.1" in apercus
+
+
+def test_une_base_qui_dement_la_documentation_est_signalee():
+    d = constituer_dossier(jpeg_note_en_base_dementie(), "P1000002.jpg")
+    mn = d.device_identification["maker_notes"]
+    assert mn["base_offsets_attendue"] == "tiff"
+    assert mn["base_offsets_retenue"] == "note"
+    assert mn["base_conforme"] is False
+    # L'écart est signalé, pas fatal : l'inventaire reste lisible.
+    assert mn["nombre_de_tags"] == 5
+
+
+def test_structure_de_la_note_proprietaire_remonte_au_releve():
+    d = constituer_dossier(jpeg_avec_makernote(), "IMG_0001.jpg")
+    mn = d.device_identification["maker_notes"]
+    assert mn is not None
+    assert mn["constructeur_reconnu"] == "Apple"
+    assert mn["nombre_de_tags"] == 3
+    assert len(mn["empreinte"]) == 64
+    assert mn["boutisme"] == "gros-boutien"
+
+
+def test_la_base_des_offsets_est_rendue_avec_sa_conformite():
+    """Se tromper de base ne lève aucune erreur : le relevé doit dire laquelle.
+
+    C'est le mode de défaillance silencieuse le plus dangereux du module, et
+    l'analyste doit pouvoir voir quelle origine a été retenue.
+    """
+    d = constituer_dossier(jpeg_avec_makernote(), "x.jpg")
+    mn = d.device_identification["maker_notes"]
+    assert mn["base_offsets_retenue"] == "note"
+    assert mn["base_offsets_attendue"] == "note"
+    assert mn["base_conforme"] is True
+
+
+def test_aucun_sens_de_tag_n_est_affirme_dans_le_releve():
+    """Le relevé porte des formes et des empreintes, jamais des significations."""
+    d = constituer_dossier(jpeg_avec_makernote(), "x.jpg")
+    mn = d.device_identification["maker_notes"]
+    assert all(t["sens"] is None for t in mn["tags"])
+    assert "change d'un millésime à l'autre" in mn["motif_aucun_sens"]
+    # Les formes, elles, sont bien là : elles orientent sans conclure.
+    formes = {t["forme"] for t in mn["tags"]}
+    assert "liste de propriétés binaire (bplist)" in formes
+
+
+def test_note_proprietaire_du_cr3_remonte_aussi():
+    """Canon range la sienne dans une boîte CMT3, pas dans l'EXIF."""
+    d = constituer_dossier(cr3(), "x.cr3")
+    mn = d.device_identification["maker_notes"]
+    assert mn is not None
+    assert mn["octets"] > 0
+    assert len(mn["empreinte"]) == 64
+
+
+def test_absence_de_note_proprietaire():
+    assert constituer_dossier(png(), "x.png").device_identification["maker_notes"] is None

@@ -37,6 +37,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from .conteneurs import ConteneurError, InventaireConteneur, inventorier
 from .isobmff import IsobmffError, StructureIsobmff, analyser_isobmff
+from .makernotes import AnalyseMakerNote, analyser_makernote
 from .metadata import (
     ConteneurNonSupporte,
     DonneesExif,
@@ -307,6 +308,21 @@ def constituer_dossier(donnees: bytes, nom_fichier: Optional[str] = None) -> Dos
     for p in paquets_xmp:
         historique += extraire_historique_xmp(p.decode("utf-8", errors="replace"))
 
+    # ── La note propriétaire, en structure seulement ───────────────────────
+    #
+    # Les octets viennent de l'EXIF quand il y en a, de la boîte CMT3 pour un
+    # CR3. Sa POSITION est indispensable : sans elle, la base des offsets
+    # qu'elle contient ne peut pas être résolue.
+    makernote = None
+    if exif is not None and exif.makernote:
+        makernote = analyser_makernote(
+            exif.makernote,
+            offset_dans_le_tiff=exif.makernote_offset or 0,
+            boutisme_fichier=exif.boutisme or "<",
+        )
+    elif structure is not None and structure.makernotes:
+        makernote = analyser_makernote(structure.makernotes)
+
     # ── Le matériel ────────────────────────────────────────────────────────
     deduction = deduire_type_materiel(exif, telemetrie, conteneur)
     numeros = [x for x in (
@@ -325,6 +341,30 @@ def constituer_dossier(donnees: bytes, nom_fichier: Optional[str] = None) -> Dos
         "lens_make": exif.fabricant_objectif if exif else None,
         "owner_declared": exif.proprietaire_declare if exif else None,
         "detection_method": _methode_detection(exif, structure, conteneur),
+        # La note propriétaire : sa STRUCTURE, jamais son sens.
+        "maker_notes": None if makernote is None or not makernote.present else {
+            "constructeur_reconnu": makernote.constructeur,
+            "signature_hex": makernote.signature_hex,
+            "octets": makernote.octets,
+            "empreinte": makernote.empreinte,
+            "nombre_de_tags": makernote.nombre_de_tags,
+            # La base des offsets est ESSAYÉE puis retenue, jamais présumée :
+            # s'en remettre à ce que la documentation dit d'un constructeur
+            # ferait lire des octets quelconques sans lever d'erreur.
+            "base_offsets_retenue": makernote.base_retenue,
+            "base_offsets_attendue": makernote.base_attendue,
+            "base_conforme": makernote.base_conforme,
+            "boutisme": makernote.boutisme,
+            "tags": [
+                {"identifiant": "0x%04X" % t.identifiant, "type": t.type_nom,
+                 "cardinalite": t.cardinalite, "octets": t.octets,
+                 "forme": t.forme, "apercu_texte": t.apercu_texte,
+                 "empreinte": t.empreinte, "sens": t.sens}
+                for t in makernote.tags
+            ],
+            "motif_structure_illisible": makernote.motif_structure_illisible,
+            "motif_aucun_sens": makernote.motif_aucun_sens,
+        },
         "motif_serial_number": None if numeros else MOTIF_NUMERO_SERIE_ABSENT,
         "ce_que_ca_n_etablit_pas": (
             "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à "
