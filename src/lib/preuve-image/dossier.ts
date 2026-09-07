@@ -29,6 +29,7 @@
  */
 
 import { inventorier, type InventaireConteneur } from './conteneurs';
+import { AnalyseMakerNote, analyserMakerNote } from './makernotes';
 import { analyserIsobmff, type StructureIsobmff } from './isobmff';
 import {
   type DonneesExif,
@@ -361,6 +362,19 @@ export async function constituerDossier(
   const historique: EvenementXmp[] = [];
   for (const p of paquetsXmp) historique.push(...extraireHistoriqueXmp(decodeur.decode(p)));
 
+  // ── La note propriétaire, en structure seulement ─────────────────────────
+  //
+  // Les octets viennent de l'EXIF quand il y en a, de la boîte CMT3 pour un
+  // CR3. Sa POSITION est indispensable : sans elle, la base des offsets qu'elle
+  // contient ne peut pas être résolue.
+  let makernote: AnalyseMakerNote | null = null;
+  if (exif !== null && exif.makernote && exif.makernote.length > 0) {
+    makernote = await analyserMakerNote(
+      exif.makernote, exif.makernoteOffset ?? 0, exif.boutisme ?? '<');
+  } else if (structure !== null && structure.makernotes) {
+    makernote = await analyserMakerNote(structure.makernotes);
+  }
+
   const deduction = deduireTypeMateriel(exif, telemetrie, conteneur);
   const aUnNumero = Boolean(exif && (exif.numeroSerieBoitier || exif.numeroSerieObjectif));
   d.device_identification = {
@@ -375,6 +389,33 @@ export async function constituerDossier(
     lens_make: exif?.fabricantObjectif ?? null,
     owner_declared: exif?.proprietaireDeclare ?? null,
     detection_method: methodeDetection(exif, structure, conteneur),
+    // La note propriétaire : sa STRUCTURE, jamais son sens.
+    maker_notes: makernote === null || !makernote.present ? null : {
+      constructeur_reconnu: makernote.constructeur,
+      signature_hex: makernote.signatureHex,
+      octets: makernote.octets,
+      empreinte: makernote.empreinte,
+      nombre_de_tags: makernote.nombreDeTags,
+      // La base des offsets est ESSAYÉE puis retenue, jamais présumée : s'en
+      // remettre à ce que la documentation dit d'un constructeur ferait lire
+      // des octets quelconques sans lever d'erreur.
+      base_offsets_retenue: makernote.baseRetenue,
+      base_offsets_attendue: makernote.baseAttendue,
+      base_conforme: makernote.baseConforme,
+      boutisme: makernote.boutisme,
+      tags: makernote.tags.map((t) => ({
+        identifiant: `0x${t.identifiant.toString(16).toUpperCase().padStart(4, '0')}`,
+        type: t.typeNom,
+        cardinalite: t.cardinalite,
+        octets: t.octets,
+        forme: t.forme,
+        apercu_texte: t.apercuTexte,
+        empreinte: t.empreinte,
+        sens: t.sens,
+      })),
+      motif_structure_illisible: makernote.motifStructureIllisible,
+      motif_aucun_sens: makernote.motifAucunSens,
+    },
     motif_serial_number: aUnNumero ? null : MOTIF_NUMERO_SERIE_ABSENT,
     ce_que_ca_n_etablit_pas:
       'Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un '

@@ -809,6 +809,86 @@ export default function VerificateurIntegrite() {
                 </p>
               )}
 
+              {(() => {
+                // La note propriétaire : sa structure, jamais son sens. L'écran
+                // affiche l'inventaire ET la base d'offsets retenue, parce que
+                // se tromper de base ne lève aucune erreur — elle rend
+                // simplement d'autres octets, qui ressemblent à des données.
+                const mn = dossier.device_identification.maker_notes as {
+                  constructeur_reconnu: string | null; octets: number;
+                  empreinte: string; nombre_de_tags: number;
+                  base_offsets_retenue: string | null;
+                  base_offsets_attendue: string | null;
+                  base_conforme: boolean | null; boutisme: string | null;
+                  motif_structure_illisible: string | null;
+                  motif_aucun_sens: string;
+                  tags: { identifiant: string; type: string; cardinalite: number;
+                    octets: number; forme: string | null; apercu_texte: string | null }[];
+                } | null;
+                if (!mn) return null;
+                return (
+                  <details style={{ marginBottom: 12 }}>
+                    <summary style={{ cursor: 'pointer', fontSize: 12.5, color: 'var(--ink-soft)' }}>
+                      Note propriétaire (MakerNote) — {mn.octets} octets,{' '}
+                      {mn.nombre_de_tags} tag(s)
+                      {mn.constructeur_reconnu ? `, ${mn.constructeur_reconnu}` : ', constructeur non signé'}
+                    </summary>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 8 }}>
+                      <tbody>
+                        <Ligne cle="Constructeur (à la signature)" val={mn.constructeur_reconnu ?? NON_ECRIT} mono={false} />
+                        <Ligne cle="Empreinte de la note" val={mn.empreinte} />
+                        <Ligne
+                          cle="Base des offsets"
+                          val={mn.base_offsets_retenue
+                            ? `${mn.base_offsets_retenue} (essayée et retenue)`
+                            + (mn.base_offsets_attendue && !mn.base_conforme
+                              ? ` — la documentation annonçait « ${mn.base_offsets_attendue} »`
+                              : '')
+                            : INDISPONIBLE}
+                          mono={false}
+                        />
+                        <Ligne cle="Boutisme" val={mn.boutisme ?? INDISPONIBLE} mono={false} />
+                      </tbody>
+                    </table>
+                    {mn.base_conforme === false && (
+                      <p style={{
+                        margin: '8px 0 0', fontSize: 12, lineHeight: 1.55, padding: '9px 12px',
+                        borderRadius: 6, background: 'var(--card)',
+                        borderLeft: `3px solid ${dash.rose}`, color: 'var(--ink)',
+                      }}>
+                        La base retenue n’est pas celle qu’annonce la documentation de ce
+                        constructeur. Ce n’est pas une erreur : c’est la lecture qui a
+                        tranché, et l’écart est dit plutôt que tu.
+                      </p>
+                    )}
+                    {mn.motif_structure_illisible && (
+                      <p style={{ margin: '8px 0 0', fontSize: 12, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
+                        {mn.motif_structure_illisible}
+                      </p>
+                    )}
+                    {mn.tags.length > 0 && (
+                      <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 8 }}>
+                        <tbody>
+                          {mn.tags.map((t) => (
+                            <Ligne
+                              key={t.identifiant}
+                              cle={t.identifiant}
+                              val={`${t.type} ×${t.cardinalite}, ${t.octets} o`
+                                + (t.forme ? ` — ${t.forme}` : '')
+                                + (t.apercu_texte ? ` : ${t.apercu_texte}` : '')}
+                              mono={false}
+                            />
+                          ))}
+                        </tbody>
+                      </table>
+                    )}
+                    <p style={{ margin: '8px 0 0', fontSize: 12, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
+                      {mn.motif_aucun_sens}
+                    </p>
+                  </details>
+                );
+              })()}
+
               {dossier.avertissements.length > 0 && dossier.avertissements.map((a, i) => (
                 <p key={i} style={{
                   margin: '0 0 10px', fontSize: 12.5, lineHeight: 1.55, padding: '10px 12px',
@@ -826,7 +906,7 @@ export default function VerificateurIntegrite() {
                   color: 'var(--ink-muted)', textTransform: 'uppercase', marginBottom: 6,
                 }}>Ce que ce relevé ne peut pas renseigner</div>
                 <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12, lineHeight: 1.6, color: 'var(--ink-muted)' }}>
-                  <li><strong>Décompte des déclenchements</strong> — n’existe dans aucun tag EXIF standard, seulement dans les MakerNotes propriétaires.</li>
+                  <li><strong>Décompte des déclenchements</strong> — n’existe dans aucun tag EXIF standard. La note propriétaire est bien lue, mais en STRUCTURE seulement : on sait qu’un tag existe, son type et sa taille, pas ce qu’il signifie.</li>
                   <li><strong>Correspondance d’écran</strong> — aucun référentiel vérifié ici ; et le signal serait faible même vérifié, une résolution identifiant une capture d’écran autant que n’importe quelle image recadrée.</li>
                   <li><strong>Signature de quantification</strong> — le registre est vide faute de corpus dont la provenance soit établie. L’empreinte sert à comparer deux fichiers qu’on a tous les deux.</li>
                   <li><strong>C2PA vérifié</strong> — faux par construction : aucune signature n’est validée.</li>

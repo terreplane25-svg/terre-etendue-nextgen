@@ -61,8 +61,8 @@ function comparerProfond(sujet, chemin, attendu, obtenu) {
 
 const dossier = mkdtempSync(join(tmpdir(), 'dossier-'));
 try {
-  const sources = ['dossier.ts', 'conteneurs.ts', 'isobmff.ts', 'noyau.ts',
-    'provenance.ts', 'quantification.ts', 'telemetrie.ts'].map((f) => join(DIR, f));
+  const sources = ['dossier.ts', 'conteneurs.ts', 'isobmff.ts', 'makernotes.ts',
+    'noyau.ts', 'provenance.ts', 'quantification.ts', 'telemetrie.ts'].map((f) => join(DIR, f));
   execFileSync('npx', ['--no-install', 'tsc', ...sources,
     '--target', 'ES2022', '--module', 'ES2022', '--moduleResolution', 'bundler',
     '--outDir', dossier, '--strict', '--lib', 'ES2022,DOM'], { cwd: RACINE, stdio: 'pipe' });
@@ -70,7 +70,7 @@ try {
   // tsc ne réécrit pas les extensions ; l'ESM de Node les exige. On compte les
   // remplacements : un remplacement silencieusement nul laisserait un import
   // que Node refuserait plus loin sans dire pourquoi.
-  const modules = ['conteneurs', 'isobmff', 'noyau', 'provenance', 'quantification', 'telemetrie', 'dossier'];
+  const modules = ['conteneurs', 'isobmff', 'makernotes', 'noyau', 'provenance', 'quantification', 'telemetrie', 'dossier'];
   let total = 0;
   for (const f of readdirSync(dossier).filter((x) => x.endsWith('.js'))) {
     const p = join(dossier, f);

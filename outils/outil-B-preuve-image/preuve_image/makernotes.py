@@ -238,7 +238,7 @@ def reconnaitre_constructeur(note: bytes) -> Optional[SignatureConstructeur]:
 
 
 def _lire_ifd(
-    note: bytes, offset_ifd: int, endian: str, base: int, taille_reference: int,
+    note: bytes, offset_ifd: int, endian: str, base: int,
 ) -> Optional[List[Tuple[int, int, int, int, bool]]]:
     """Parcourt un IFD et rend ses entrées, ou None si la structure est incohérente.
 
@@ -247,6 +247,13 @@ def _lire_ifd(
 
     Une entrée est (identifiant, type, cardinalité, position de la valeur,
     valeur en ligne). La position est exprimée dans le repère de `note`.
+
+    UNE CARDINALITÉ ABERRANTE est bien le signal le plus fiable d'une mauvaise
+    base — mais elle n'a pas besoin d'un contrôle à elle. Un balayage l'a
+    établi : toute taille supérieure à la note fait déborder le contrôle
+    d'offset qui suit, puisqu'un offset négatif est écarté à part. Un second
+    contrôle n'écarterait rien de plus, et se lirait comme une protection
+    qu'il n'apporte pas.
     """
     if offset_ifd + 2 > len(note):
         return None
@@ -268,10 +275,6 @@ def _lire_ifd(
             # l'IFD — un constructeur peut employer un type non normalisé.
             continue
         total = taille_elem * cardinalite
-        # Une cardinalité aberrante trahit une mauvaise base bien mieux qu'un
-        # offset : elle est lue AVANT toute indirection.
-        if total > taille_reference:
-            return None
         if total <= 4:
             entrees.append((tag, type_, cardinalite, p + 8, True))
         else:
@@ -392,7 +395,7 @@ def analyser_makernote(
                 ajouter("note", d, 0, endian)
 
     for nom_base, offset_ifd, base, endian in candidats:
-        entrees = _lire_ifd(note, offset_ifd, endian, base, len(note))
+        entrees = _lire_ifd(note, offset_ifd, endian, base)
         if entrees is None:
             continue
         a.base_retenue = nom_base
@@ -401,7 +404,7 @@ def analyser_makernote(
         tags: List[TagPropriétaire] = []
         for tag, type_, cardinalite, pos, en_ligne in entrees:
             total = _TAILLE_TYPE.get(type_, 0) * cardinalite
-            valeur = note[pos:pos + min(total, 4 if en_ligne else total)]
+            valeur = note[pos:pos + total]
             forme, apercu = _forme(valeur)
             tags.append(TagPropriétaire(
                 identifiant=tag, type_=type_,

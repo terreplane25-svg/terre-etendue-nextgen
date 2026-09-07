@@ -181,6 +181,7 @@ qui laisserait croire que le fichier ne déclare rien.
 | `provenance.py` | C2PA/JUMBF, XMP, IPTC, chaînes lisibles |
 | `quantification.py` | tables DQT d'un JPEG |
 | `telemetrie.py` | télémétrie de vol dans le XMP (DJI, Parrot, Autel) |
+| `makernotes.py` | la **structure** des notes propriétaires (tag 0x927C) |
 
 ### Ce que le profil ICC donne
 
@@ -212,6 +213,43 @@ L'empreinte reste utilisable pour **comparer deux fichiers qu'on a tous les
 deux** : des tables identiques sortent de la même chaîne d'encodage aux mêmes
 réglages.
 
+### La note propriétaire, et pourquoi son sens n'est pas rendu
+
+Le tag EXIF 0x927C est le seul champ de la norme dont le contenu n'est **pas**
+normalisé : chaque constructeur y écrit ce qu'il veut, dans la forme qu'il
+veut, et le change d'un millésime à l'autre. C'est là que vivent le décompte
+des déclenchements et le type d'objectif — d'où l'envie de le lire.
+
+`makernotes.py` en lit la STRUCTURE : le constructeur reconnu à sa signature,
+qui est dans les octets ; l'inventaire des tags avec leur identifiant, leur
+type, leur cardinalité, leur taille, leur forme et l'empreinte de leur valeur.
+
+🔴 **Le registre `SENS_CONNUS` est VIDE, délibérément.** « Tag 0x0095 = type
+d'objectif » écrit de mémoire est une attribution, pas une lecture, et le sens
+d'un même identifiant change d'un millésime à l'autre chez un même
+constructeur. L'inventaire reste utilisable pour **confronter deux fichiers
+qu'on a tous les deux** : deux notes de même empreinte sortent du même appareil
+aux mêmes réglages.
+
+#### La base des offsets : le piège du format
+
+Un IFD range ses valeurs longues à un offset, mais l'ORIGINE de cet offset
+change selon le constructeur — l'en-tête TIFF du fichier pour les uns, le début
+de la note pour les autres, un en-tête TIFF interne chez Nikon. Se tromper
+d'origine **ne lève aucune erreur** : on lit des octets quelconques, qui
+ressemblent à des données.
+
+Les bases candidates sont donc ESSAYÉES, celle qui donne un IFD cohérent est
+retenue, et le relevé dit laquelle — ainsi que le fait qu'elle corresponde ou
+non à celle qu'annonce la documentation. Un écart est signalé plutôt que tu :
+c'est le genre de chose qui apprend quelque chose sur le fichier.
+
+Deux garde-fous qui se lisaient bien ont été retirés après vérification : un
+contrôle de cardinalité et une borne à quatre octets, dont un balayage a établi
+qu'ils n'écartaient rien que les contrôles voisins n'écartaient déjà. Un
+garde-fou qui ne garde rien coûte plus qu'il ne rapporte : il fait croire à une
+protection.
+
 ### La télémétrie de vol
 
 DJI écrit `GpsLongtitude`, avec un t de trop, depuis des années : ne traiter
@@ -227,7 +265,7 @@ ni le niveau de la mer, et l'avertissement l'accompagne partout.
 ### Un garde-fou sur les sources
 
 `scripts/verifier-sources-texte.mjs` refuse tout octet de contrôle en clair
-dans un fichier source. Trois fois dans ce dépôt, un octet nul réel s'est
+dans un fichier source. Quatre fois dans ce dépôt, un octet nul réel s'est
 glissé dans un littéral en écrivant du code qui compare des octets : le
 fichier devient binaire, et la comparaison qu'on croit lire dans le source
 n'est pas celle qui est écrite. Ni le compilateur ni les tests ne le voient.
@@ -237,9 +275,9 @@ n'est pas celle qui est écrite. Ni le compilateur ni les tests ne le voient.
 Les fichiers d'essai sont **fabriqués** à partir des structures publiées, pas
 prélevés sur des appareils réels. Ce qui est vérifié, c'est que les lecteurs
 suivent ces structures — pas qu'ils lisent ce qu'un iPhone, un Canon ou un DJI
-écrivent vraiment. Les **MakerNotes** propriétaires ne sont pas décodés : ils
-sont rendus bruts, comptés et hachés. Confronter l'ensemble à des fichiers
-d'appareils réels reste à faire.
+écrivent vraiment. Les **notes propriétaires** sont lues en structure, jamais en
+sens : on sait qu'un tag existe, son type et sa taille, pas ce qu'il signifie.
+Confronter l'ensemble à des fichiers d'appareils réels reste à faire.
 
 ## Formats bruts d'appareil photo (outil B)
 

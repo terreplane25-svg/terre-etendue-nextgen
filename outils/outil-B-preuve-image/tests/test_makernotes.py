@@ -81,11 +81,35 @@ def note_apple():
     return ifd(entrees, ">", 0, 14, b"Apple iOS\x00\x00\x01MM")
 
 
-def note_fujifilm():
-    """Fujifilm : l'offset de l'IFD est écrit en clair aux octets 8 à 11."""
-    debut = 12
-    corps = ifd(ENTREES, "<", 0, debut, b"")
+def note_fujifilm(debut=12):
+    """Fujifilm : l'offset de l'IFD est écrit en clair aux octets 8 à 11.
+
+    `debut` par défaut vaut 12, c'est-à-dire juste après l'offset — le cas
+    ordinaire, où le décalage publié suffirait. Un autre `debut` éprouve que
+    c'est bien l'offset ÉCRIT qui fait autorité.
+    """
+    corps = ifd(ENTREES, "<", 0, debut, b"\x00" * (debut - 12))
     return b"FUJIFILM" + struct.pack("<I", debut) + corps
+
+
+def note_ifd_leurre():
+    """Un IFD-leurre à l'offset 0, dont aucune entrée n'est lisible.
+
+    Son unique entrée porte un type hors norme, donc écartée : l'IFD se
+    retrouve vide. Le vrai IFD est douze octets plus loin, et c'est lui qui
+    doit être retenu. Les deux derniers octets de l'en-tête du leurre sont le
+    compteur du vrai IFD — ils ne sont jamais lus comme une valeur, puisque le
+    type du leurre est inconnu.
+
+    Les champs libres du leurre sont mis à zéro pour que les décalages
+    intermédiaires essayés — 2, 4, 6, 8, 10 — y lisent un compteur nul ou
+    délirant et soient écartés. Sans cette précaution, le leurre serait bien
+    rejeté mais un décalage voisin serait retenu par accident, et le test
+    n'éprouverait pas ce qu'il annonce.
+    """
+    entete = struct.pack("<H", 1) + struct.pack("<HHI", 0, 99, 0) + b"\x00\x00"
+    assert len(entete) == 12
+    return ifd(ENTREES, "<", 0, 12, entete)
 
 
 def note_nikon():
@@ -228,14 +252,35 @@ def test_structure_illisible_dit_ce_qui_a_ete_essaye():
 
 
 def test_une_cardinalite_aberrante_ecarte_la_base():
-    """C'est le signal le plus fiable d'une mauvaise base.
+    """Une cardinalité délirante ne doit produire aucun tag.
 
-    La cardinalité est lue AVANT toute indirection : sous une mauvaise base,
-    elle prend des valeurs délirantes bien avant qu'un offset ne déborde.
+    Le module n'a PAS de contrôle dédié à la cardinalité, et c'est délibéré :
+    un balayage a établi que toute taille supérieure à la note fait déjà
+    déborder le contrôle d'offset, un offset négatif étant écarté à part. Un
+    second contrôle se lirait comme une protection qu'il n'apporte pas. Ce
+    test éprouve donc le RÉSULTAT, pas le mécanisme.
     """
     mauvaise = ifd([(0x0001, 4, 4_000_000_000, b"\x00" * 8)], "<")
     a = analyser_makernote(mauvaise)
     assert a.tags == () or all(t.cardinalite < 1000 for t in a.tags)
+
+
+def test_un_ifd_sans_aucune_entree_lisible_n_est_pas_un_ifd():
+    """Sinon une mauvaise base serait retenue avec un inventaire vide.
+
+    C'est un échec plus insidieux qu'une erreur : le relevé annoncerait une
+    base déterminée, zéro tag, et rien ne dirait que le vrai IFD est ailleurs.
+    """
+    a = analyser_makernote(note_ifd_leurre())
+    assert a.base_retenue is not None
+    assert a.nombre_de_tags == 5, "le leurre a été retenu à la place du vrai IFD"
+
+
+def test_fujifilm_dont_l_ifd_n_est_pas_au_decalage_habituel():
+    """L'offset en clair est ce qui fait autorité, pas le décalage publié."""
+    a = analyser_makernote(note_fujifilm(debut=24))
+    assert a.constructeur == "Fujifilm"
+    assert a.nombre_de_tags == 5
 
 
 # ─────────────────────────────────────────────────────────────────────────────

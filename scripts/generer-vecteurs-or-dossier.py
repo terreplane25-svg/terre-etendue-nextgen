@@ -45,7 +45,10 @@ from preuve_image.dossier import (  # noqa: E402
 )
 from tests.test_conteneurs import SVG, bmp, gif, png, webp  # noqa: E402
 from tests.test_document import jpeg_avec_c2pa  # noqa: E402
-from tests.test_dossier import jpeg_avec_serie, jpeg_telephone  # noqa: E402
+from tests.test_dossier import (  # noqa: E402
+    jpeg_avec_makernote, jpeg_avec_serie, jpeg_note_en_base_dementie,
+    jpeg_note_en_base_tiff, jpeg_telephone,
+)
 from tests.test_isobmff import cr3, heic  # noqa: E402
 from tests.test_quantification import jpeg  # noqa: E402
 from tests.test_raw import raw_tiff  # noqa: E402
@@ -72,6 +75,13 @@ CAS = [
     # déclarer vérifié ce qui n'est que déclaré — la confusion même que ce
     # champ existe pour empêcher.
     ("jpeg avec manifeste C2PA", jpeg_avec_c2pa(), "signe.jpg"),
+    # Les notes propriétaires. Il en faut TROIS : une en base « note », une en
+    # base « tiff » — qui n'est lisible que si la position de la note est
+    # connue —, et une dont la base réelle dément la base annoncée. Sans les
+    # trois, un port qui applique la base publiée au lieu de l'essayer passe.
+    ("jpeg avec note propriétaire", jpeg_avec_makernote(), "IMG_0001.jpg"),
+    ("jpeg note en base tiff", jpeg_note_en_base_tiff(), "P1000001.jpg"),
+    ("jpeg note en base démentie", jpeg_note_en_base_dementie(), "P1000002.jpg"),
     ("png complet", png(), "capture.png"),
     ("png à CRC faux", png(crc_faux=True), "abime.png"),
     ("webp", webp(), "image.webp"),
@@ -178,7 +188,25 @@ def controle(v):
     assert par_nom["png renommé en jpg"]["file_analysis"]["mime_type"] == "image/png"
     assert par_nom["png renommé en jpg"]["file_analysis"]["extension_declaree"] == ".jpg"
 
-    print("  7 contrôles passés avant écriture.")
+    # 8. Les notes propriétaires : les deux bases, une non-conformité, et
+    #    aucun sens de tag affirmé nulle part.
+    notes = {k: d["device_identification"]["maker_notes"] for k, d in par_nom.items()}
+    assert notes["png complet"] is None, "un cas sans note est nécessaire"
+    bases = {n["base_offsets_retenue"] for n in notes.values() if n}
+    assert {"note", "tiff"} <= bases, "les deux bases ne sont pas couvertes : %s" % bases
+    assert notes["jpeg note en base démentie"]["base_conforme"] is False, (
+        "aucune non-conformité : `base_conforme` peut être câblé à vrai des "
+        "deux côtés sans qu'on le voie"
+    )
+    assert notes["jpeg note en base tiff"]["base_conforme"] is True
+    for nom, n in notes.items():
+        if not n:
+            continue
+        for t in n["tags"]:
+            assert t["sens"] is None, "un sens de tag est affirmé dans « %s »" % nom
+        assert t["identifiant"].startswith("0x"), nom
+
+    print("  8 contrôles passés avant écriture.")
 
 
 if __name__ == "__main__":

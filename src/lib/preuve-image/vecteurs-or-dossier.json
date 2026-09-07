@@ -1,5 +1,5 @@
 {
-  "genere_le": "2026-09-07T18:11:43.050675+00:00",
+  "genere_le": "2026-09-07T23:38:58.778202+00:00",
   "source": "preuve_image.dossier (paquet Python)",
   "avertissement": "Fichier généré. Ne pas modifier à la main : il est la référence contre laquelle le port TypeScript est vérifié.",
   "motif_numero_serie": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
@@ -33,6 +33,7 @@
           "lens_make": null,
           "owner_declared": null,
           "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "maker_notes": null,
           "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
           "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
         },
@@ -129,6 +130,7 @@
           "lens_make": "Canon",
           "owner_declared": "J. Dupont",
           "detection_method": "tags EXIF standard (Make, Model) ; numéros de série EXIF (BodySerialNumber, LensSerialNumber) — conteneur JPEG",
+          "maker_notes": null,
           "motif_serial_number": null,
           "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
         },
@@ -217,6 +219,7 @@
           "lens_make": null,
           "owner_declared": null,
           "detection_method": "tags EXIF standard (Make, Model) — conteneur JPEG",
+          "maker_notes": null,
           "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
           "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
         },
@@ -305,6 +308,7 @@
           "lens_make": null,
           "owner_declared": null,
           "detection_method": "tags EXIF standard (Make, Model) — conteneur JPEG",
+          "maker_notes": null,
           "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
           "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
         },
@@ -410,6 +414,7 @@
           "lens_make": null,
           "owner_declared": null,
           "detection_method": "tags EXIF standard (Make, Model) — conteneur JPEG",
+          "maker_notes": null,
           "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
           "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
         },
@@ -484,6 +489,445 @@
       }
     },
     {
+      "nom": "jpeg avec note propriétaire",
+      "nom_fichier": "IMG_0001.jpg",
+      "octets_b64": "/9j/4QDARXhpZgAASUkqAAgAAAADAA8BAgAGAAAAMgAAABABAgAOAAAAOAAAAGmHBAABAAAARgAAAAAAAABBcHBsZQBpUGhvbmUgMTUgUHJvAAEAfJIHAGAAAABYAAAAAAAAAEFwcGxlIGlPUwAAAU1NAAMAAQADAAAAAQAHAAAAAwAHAAAAGAAAADgACgACAAAAEAAAAFAAAAAAYnBsaXN0MDAAAAAAAAAAAAAAAAAAAAAAaVBob25lIDE1IFBybwAAAP/Z",
+      "dossier": {
+        "file_analysis": {
+          "filename": "IMG_0001.jpg",
+          "mime_type": "image/jpeg",
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".jpg",
+          "file_size_bytes": 198,
+          "format_family": "JFIF/EXIF (segments APP)",
+          "conteneur": "JPEG",
+          "sha256": "23591a86eeea4a90946a6482c1c3ff0386b681e2f97a51e5f06e55c48ead16ea"
+        },
+        "device_identification": {
+          "make": "Apple",
+          "model": "iPhone 15 Pro",
+          "hardware_type": null,
+          "hardware_type_regle": null,
+          "hardware_type_statut": "indéterminé",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "tags EXIF standard (Make, Model) — conteneur JPEG",
+          "maker_notes": {
+            "constructeur_reconnu": "Apple",
+            "signature_hex": "4170706c6520694f530000014d4d0003",
+            "octets": 96,
+            "empreinte": "5539406277174e46a96e8fa483c20caef46b7a79137a1d2364d68726fe11c0c6",
+            "nombre_de_tags": 3,
+            "base_offsets_retenue": "note",
+            "base_offsets_attendue": "note",
+            "base_conforme": true,
+            "boutisme": "gros-boutien",
+            "tags": [
+              {
+                "identifiant": "0x0001",
+                "type": "SHORT",
+                "cardinalite": 1,
+                "octets": 2,
+                "forme": null,
+                "apercu_texte": null,
+                "empreinte": "2ecd8a6b7d2845546659ad4cf443533cf921b19dc81fa83934e83821b4dfdcb7",
+                "sens": null
+              },
+              {
+                "identifiant": "0x0003",
+                "type": "UNDEFINED",
+                "cardinalite": 24,
+                "octets": 24,
+                "forme": "liste de propriétés binaire (bplist)",
+                "apercu_texte": null,
+                "empreinte": "7f8b56eaf3aa0f597f05a69aa39b697661fb5ed072fabab576e8f6f713aca8f1",
+                "sens": null
+              },
+              {
+                "identifiant": "0x000A",
+                "type": "ASCII",
+                "cardinalite": 16,
+                "octets": 16,
+                "forme": "texte",
+                "apercu_texte": "iPhone 15 Pro",
+                "empreinte": "25197b0daff79adfdf081be30291e80efa5ebca1d7be33028dd0485c0b7c4365",
+                "sens": null
+              }
+            ],
+            "motif_structure_illisible": null,
+            "motif_aucun_sens": "Les tags sont inventoriés par leur STRUCTURE — identifiant, type, cardinalité, taille, empreinte — jamais par leur sens. Le registre des significations est vide : le remplir demande la documentation d'un constructeur ou un corpus de fichiers dont on connaît les réglages, et le sens d'un même identifiant change d'un millésime à l'autre chez un même constructeur. L'inventaire reste utilisable pour CONFRONTER deux fichiers qu'on a tous les deux : deux notes de même empreinte sortent du même appareil aux mêmes réglages."
+          },
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": null,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": null
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 0,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [
+          {
+            "lecteur": "quantification",
+            "motif": "Aucune table de quantification (DQT) trouvée avant le début du balayage. Un JPEG en porte toujours : le fichier est tronqué, ou ce n'en est pas un."
+          }
+        ],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "jpeg note en base tiff",
+      "nom_fichier": "P1000001.jpg",
+      "octets_b64": "/9j/4QDgRXhpZgAASUkqAAgAAAACAA8BAgAKAAAAJgAAAGmHBAABAAAAMAAAAAAAAABQYW5hc29uaWMAAQB8kgcAlgAAAEIAAAAAAAAAUGFuYXNvbmljAAAABQABAAMAAQAAACoAAAAEAAQAAQAAAEDiAQAQAAIAGAAAAJAAAACVAAcAKAAAAKgAAACnAAUAAQAAANAAAAAAAAAARXNzYWlDb3JwIEZpcm13YXJlIDIuMQAA3q2+796tvu/erb7v3q2+796tvu/erb7v3q2+796tvu/erb7v3q2+7wcAAAACAAAA/9k=",
+      "dossier": {
+        "file_analysis": {
+          "filename": "P1000001.jpg",
+          "mime_type": "image/jpeg",
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".jpg",
+          "file_size_bytes": 230,
+          "format_family": "JFIF/EXIF (segments APP)",
+          "conteneur": "JPEG",
+          "sha256": "ace6cb2f391b75dcd6c1e87b9acd1d986709812dc1bc4b3d102e6c9c08f5751c"
+        },
+        "device_identification": {
+          "make": "Panasonic",
+          "model": null,
+          "hardware_type": null,
+          "hardware_type_regle": null,
+          "hardware_type_statut": "indéterminé",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "tags EXIF standard (Make, Model) — conteneur JPEG",
+          "maker_notes": {
+            "constructeur_reconnu": "Panasonic",
+            "signature_hex": "50616e61736f6e696300000005000100",
+            "octets": 150,
+            "empreinte": "1674258d3426a04847ae3c9ea1e96af5047c25a6002fe6cd9a81a7f7de6a1a0b",
+            "nombre_de_tags": 5,
+            "base_offsets_retenue": "tiff",
+            "base_offsets_attendue": "tiff",
+            "base_conforme": true,
+            "boutisme": "petit-boutien",
+            "tags": [
+              {
+                "identifiant": "0x0001",
+                "type": "SHORT",
+                "cardinalite": 1,
+                "octets": 2,
+                "forme": null,
+                "apercu_texte": null,
+                "empreinte": "17d5f5a33ab5f6aed0395d2bc0a4e5df61d92441ea8d77b0952c01bc8aa8bde0",
+                "sens": null
+              },
+              {
+                "identifiant": "0x0004",
+                "type": "LONG",
+                "cardinalite": 1,
+                "octets": 4,
+                "forme": null,
+                "apercu_texte": null,
+                "empreinte": "8e8937b1fd76b812ba95d4b2473b433cf1ce081aa682654740cdd573a2432b3c",
+                "sens": null
+              },
+              {
+                "identifiant": "0x0010",
+                "type": "ASCII",
+                "cardinalite": 24,
+                "octets": 24,
+                "forme": "texte",
+                "apercu_texte": "EssaiCorp Firmware 2.1",
+                "empreinte": "0d7f6c909118d7c38aec760738e2344b195625cb817fabcaef09b2b58bdfe4f5",
+                "sens": null
+              },
+              {
+                "identifiant": "0x0095",
+                "type": "UNDEFINED",
+                "cardinalite": 40,
+                "octets": 40,
+                "forme": null,
+                "apercu_texte": null,
+                "empreinte": "0516ff917a11fa8a3a4687622f6c25a06ea2072f466df2135aaa03b89927f6e1",
+                "sens": null
+              },
+              {
+                "identifiant": "0x00A7",
+                "type": "RATIONAL",
+                "cardinalite": 1,
+                "octets": 8,
+                "forme": null,
+                "apercu_texte": null,
+                "empreinte": "28bade6573ebdf9afa6b1c4fd22315b11a0fb31c604729dc77eb43135544a530",
+                "sens": null
+              }
+            ],
+            "motif_structure_illisible": null,
+            "motif_aucun_sens": "Les tags sont inventoriés par leur STRUCTURE — identifiant, type, cardinalité, taille, empreinte — jamais par leur sens. Le registre des significations est vide : le remplir demande la documentation d'un constructeur ou un corpus de fichiers dont on connaît les réglages, et le sens d'un même identifiant change d'un millésime à l'autre chez un même constructeur. L'inventaire reste utilisable pour CONFRONTER deux fichiers qu'on a tous les deux : deux notes de même empreinte sortent du même appareil aux mêmes réglages."
+          },
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": null,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": null
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 0,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [
+          {
+            "lecteur": "quantification",
+            "motif": "Aucune table de quantification (DQT) trouvée avant le début du balayage. Un JPEG en porte toujours : le fichier est tronqué, ou ce n'en est pas un."
+          }
+        ],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "jpeg note en base démentie",
+      "nom_fichier": "P1000002.jpg",
+      "octets_b64": "/9j/4QDgRXhpZgAASUkqAAgAAAACAA8BAgAKAAAAJgAAAGmHBAABAAAAMAAAAAAAAABQYW5hc29uaWMAAQB8kgcAlgAAAEIAAAAAAAAAUGFuYXNvbmljAAAABQABAAMAAQAAACoAAAAEAAQAAQAAAEDiAQAQAAIAGAAAAE4AAACVAAcAKAAAAGYAAACnAAUAAQAAAI4AAAAAAAAARXNzYWlDb3JwIEZpcm13YXJlIDIuMQAA3q2+796tvu/erb7v3q2+796tvu/erb7v3q2+796tvu/erb7v3q2+7wcAAAACAAAA/9k=",
+      "dossier": {
+        "file_analysis": {
+          "filename": "P1000002.jpg",
+          "mime_type": "image/jpeg",
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".jpg",
+          "file_size_bytes": 230,
+          "format_family": "JFIF/EXIF (segments APP)",
+          "conteneur": "JPEG",
+          "sha256": "92775b52945a8263867a406fc88bd362d93528c5303acb97504752962d7b4bda"
+        },
+        "device_identification": {
+          "make": "Panasonic",
+          "model": null,
+          "hardware_type": null,
+          "hardware_type_regle": null,
+          "hardware_type_statut": "indéterminé",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "tags EXIF standard (Make, Model) — conteneur JPEG",
+          "maker_notes": {
+            "constructeur_reconnu": "Panasonic",
+            "signature_hex": "50616e61736f6e696300000005000100",
+            "octets": 150,
+            "empreinte": "21b5c4118db3c4ba9a2d78bb80f713d2b27706f8b705b7489d31fdfae2c703b0",
+            "nombre_de_tags": 5,
+            "base_offsets_retenue": "note",
+            "base_offsets_attendue": "tiff",
+            "base_conforme": false,
+            "boutisme": "petit-boutien",
+            "tags": [
+              {
+                "identifiant": "0x0001",
+                "type": "SHORT",
+                "cardinalite": 1,
+                "octets": 2,
+                "forme": null,
+                "apercu_texte": null,
+                "empreinte": "17d5f5a33ab5f6aed0395d2bc0a4e5df61d92441ea8d77b0952c01bc8aa8bde0",
+                "sens": null
+              },
+              {
+                "identifiant": "0x0004",
+                "type": "LONG",
+                "cardinalite": 1,
+                "octets": 4,
+                "forme": null,
+                "apercu_texte": null,
+                "empreinte": "8e8937b1fd76b812ba95d4b2473b433cf1ce081aa682654740cdd573a2432b3c",
+                "sens": null
+              },
+              {
+                "identifiant": "0x0010",
+                "type": "ASCII",
+                "cardinalite": 24,
+                "octets": 24,
+                "forme": "texte",
+                "apercu_texte": "EssaiCorp Firmware 2.1",
+                "empreinte": "0d7f6c909118d7c38aec760738e2344b195625cb817fabcaef09b2b58bdfe4f5",
+                "sens": null
+              },
+              {
+                "identifiant": "0x0095",
+                "type": "UNDEFINED",
+                "cardinalite": 40,
+                "octets": 40,
+                "forme": null,
+                "apercu_texte": null,
+                "empreinte": "0516ff917a11fa8a3a4687622f6c25a06ea2072f466df2135aaa03b89927f6e1",
+                "sens": null
+              },
+              {
+                "identifiant": "0x00A7",
+                "type": "RATIONAL",
+                "cardinalite": 1,
+                "octets": 8,
+                "forme": null,
+                "apercu_texte": null,
+                "empreinte": "28bade6573ebdf9afa6b1c4fd22315b11a0fb31c604729dc77eb43135544a530",
+                "sens": null
+              }
+            ],
+            "motif_structure_illisible": null,
+            "motif_aucun_sens": "Les tags sont inventoriés par leur STRUCTURE — identifiant, type, cardinalité, taille, empreinte — jamais par leur sens. Le registre des significations est vide : le remplir demande la documentation d'un constructeur ou un corpus de fichiers dont on connaît les réglages, et le sens d'un même identifiant change d'un millésime à l'autre chez un même constructeur. L'inventaire reste utilisable pour CONFRONTER deux fichiers qu'on a tous les deux : deux notes de même empreinte sortent du même appareil aux mêmes réglages."
+          },
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": null,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": null
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 0,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [
+          {
+            "lecteur": "quantification",
+            "motif": "Aucune table de quantification (DQT) trouvée avant le début du balayage. Un JPEG en porte toujours : le fichier est tronqué, ou ce n'en est pas un."
+          }
+        ],
+        "avertissements": []
+      }
+    },
+    {
       "nom": "png complet",
       "nom_fichier": "capture.png",
       "octets_b64": "iVBORw0KGgoAAAANSUhEUgAAAEAAAAAwCAIAAAAuKetIAAAAHnRFWHRTb2Z0d2FyZQBFc3NhaUNvcnAgRWRpdGV1ciAzLjGBuplRAAAARnpUWHRDb21tZW50AAB4nAtJrShJVUjOzy0oSi0ufqlgpZCZV5ZZnJmUk6rwQKE0L1WhKDU5I7UIiBVSgAozEt/lpRbrAQBcehWH4KB20AAAAEJpVFh0RGVzY3JpcHRpb24AAQBmcgBEZXNjcmlwdGlvbgB4nAvNU0jOz81NzStJzCxKVcjMK0ktykssyczPS8zRAwCnTAs+hHgT+AAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+oFDA4WCg/u008AAABkaUNDUERpc3BsYXkgUDMAAHicY2BgWMEABEwODAy5eSVFQe5OChGRUQrsrxhYGXgY+BjEGLgSk4sLHAMCfBiIAK7BwY7EqEMCjCmpxclAegIQS0DZIMDtkllckJNYqRBgzMAAAOluEW0yjYM1AAAAU0lEQVR4nO3PQQ3AIADAQEAD6tCE6IngcVnSU9DOfe74s6UDXjWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaB9RBoBWkuSYTsAAAAASUVORK5CYII=",
@@ -510,6 +954,7 @@
           "lens_make": null,
           "owner_declared": null,
           "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "maker_notes": null,
           "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
           "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
         },
@@ -601,6 +1046,7 @@
           "lens_make": null,
           "owner_declared": null,
           "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "maker_notes": null,
           "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
           "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
         },
@@ -694,6 +1140,7 @@
           "lens_make": null,
           "owner_declared": null,
           "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "maker_notes": null,
           "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
           "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
         },
@@ -785,6 +1232,7 @@
           "lens_make": null,
           "owner_declared": null,
           "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "maker_notes": null,
           "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
           "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
         },
@@ -876,6 +1324,7 @@
           "lens_make": null,
           "owner_declared": null,
           "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "maker_notes": null,
           "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
           "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
         },
@@ -967,6 +1416,7 @@
           "lens_make": null,
           "owner_declared": null,
           "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "maker_notes": null,
           "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
           "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
         },
@@ -1058,6 +1508,7 @@
           "lens_make": null,
           "owner_declared": null,
           "detection_method": "tags EXIF standard (Make, Model) — conteneur HEIC",
+          "maker_notes": null,
           "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
           "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
         },
@@ -1148,6 +1599,20 @@
           "lens_make": null,
           "owner_declared": null,
           "detection_method": "tags EXIF standard (Make, Model) ; MakerNotes présents (34 octets) mais NON DÉCODÉS — conteneur CR3",
+          "maker_notes": {
+            "constructeur_reconnu": null,
+            "signature_hex": "001c4d414b45524e4f54452d43414e4f",
+            "octets": 34,
+            "empreinte": "8b85c32eba424182bd24f98f26167a4431e1a8b14e87cf8e2908266cfc4ee618",
+            "nombre_de_tags": 0,
+            "base_offsets_retenue": null,
+            "base_offsets_attendue": null,
+            "base_conforme": null,
+            "boutisme": null,
+            "tags": [],
+            "motif_structure_illisible": "Aucune base d'offset ne donne un IFD cohérent (16 essayées). La note est présente et son empreinte reste valide, mais sa structure n'est pas celle d'un IFD TIFF — plusieurs constructeurs emploient des formats binaires propres, et certains chiffrent une partie de leurs notes.",
+            "motif_aucun_sens": "Les tags sont inventoriés par leur STRUCTURE — identifiant, type, cardinalité, taille, empreinte — jamais par leur sens. Le registre des significations est vide : le remplir demande la documentation d'un constructeur ou un corpus de fichiers dont on connaît les réglages, et le sens d'un même identifiant change d'un millésime à l'autre chez un même constructeur. L'inventaire reste utilisable pour CONFRONTER deux fichiers qu'on a tous les deux : deux notes de même empreinte sortent du même appareil aux mêmes réglages."
+          },
           "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
           "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
         },
@@ -1238,6 +1703,7 @@
           "lens_make": null,
           "owner_declared": null,
           "detection_method": "tags EXIF standard (Make, Model) — conteneur TIFF/RAW",
+          "maker_notes": null,
           "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
           "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
         },
@@ -1349,6 +1815,7 @@
           "lens_make": null,
           "owner_declared": null,
           "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "maker_notes": null,
           "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
           "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
         },
@@ -1442,6 +1909,7 @@
           "lens_make": null,
           "owner_declared": null,
           "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "maker_notes": null,
           "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
           "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
         },
@@ -1530,6 +1998,7 @@
           "lens_make": null,
           "owner_declared": null,
           "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "maker_notes": null,
           "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
           "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
         },

@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "verifier:ports": "npm run verifier:visee && npm run verifier:preuve && npm run verifier:rapport && npm run verifier:metrologie && npm run verifier:provenance",
+    "verifier:ports": "npm run verifier:sources && npm run verifier:visee && npm run verifier:preuve && npm run verifier:provenance && npm run verifier:rapport && npm run verifier:metrologie && npm run verifier:extraction && npm run verifier:conteneurs && npm run verifier:isobmff && npm run verifier:makernotes && npm run verifier:dossier && npm run verifier:relief",
+    "verifier:sources": "node scripts/verifier-sources-texte.mjs",
     "verifier:visee": "node scripts/verifier-port-visee.mjs",
     "verifier:preuve": "node scripts/verifier-port-preuve.mjs",
     "verifier:provenance": "node scripts/verifier-port-provenance.mjs",
@@ -16,7 +17,13 @@
     "verifier:metrologie": "node scripts/verifier-port-metrologie.mjs",
     "essai:metrologie": "node scripts/essai-metrologie/lancer.mjs",
     "audit:mobile": "node scripts/essai-metrologie/audit-mobile.mjs",
-    "essai:ingestion": "node scripts/essai-metrologie/lancer.mjs essai-ingestion.mjs"
+    "essai:ingestion": "node scripts/essai-metrologie/lancer.mjs essai-ingestion.mjs",
+    "verifier:extraction": "node scripts/verifier-port-extraction.mjs",
+    "verifier:conteneurs": "node scripts/verifier-port-conteneurs.mjs",
+    "verifier:isobmff": "node scripts/verifier-port-isobmff.mjs",
+    "verifier:makernotes": "node scripts/verifier-port-makernotes.mjs",
+    "verifier:dossier": "node scripts/verifier-port-dossier.mjs",
+    "verifier:relief": "node scripts/verifier-port-relief.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.0",

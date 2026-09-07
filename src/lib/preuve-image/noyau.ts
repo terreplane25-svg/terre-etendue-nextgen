@@ -117,6 +117,10 @@ const TAG_LENS_SPECIFICATION = 0xa432;
 const TAG_LENS_MAKE = 0xa433;
 const TAG_LENS_SERIAL_NUMBER = 0xa435;
 
+// Le seul champ de la norme dont le contenu n'est pas normalisé. Il n'est pas
+// décodé ici : voir `makernotes.ts`, qui n'en lit que la STRUCTURE.
+const TAG_MAKER_NOTE = 0x927c;
+
 // Ajoutés pour l'ingestion : tout ce que le §16 demande de LIRE sans rien conclure.
 const TAG_IMAGE_WIDTH = 0x0100;
 const TAG_IMAGE_LENGTH = 0x0101;
@@ -424,6 +428,49 @@ export interface DonneesExif {
   conteneur: string | null;
   /** Toutes les images embarquées, de la plus grande à la plus petite. */
   previsualisations: Miniature[];
+  /**
+   * Les octets bruts de la note propriétaire, et sa POSITION depuis l'en-tête
+   * TIFF. Sans la position, la base des offsets que la note contient ne peut
+   * pas être résolue.
+   */
+  makernote: Uint8Array | null;
+  makernoteOffset: number | null;
+  /**
+   * Le boutisme du bloc TIFF, « < » ou « > ». Il n'intéresse pas la lecture
+   * ordinaire — elle a déjà décodé les valeurs — mais une note propriétaire
+   * sans boutisme imposé suit celui du fichier, et le lire au lieu de le
+   * supposer évite de retenir un déchiffrement cohérent mais faux.
+   */
+  boutisme: '<' | '>' | null;
+}
+
+/**
+ * La POSITION et la LONGUEUR brutes d'un tag, sans décoder sa valeur.
+ *
+ * Le lecteur ordinaire décode les valeurs ; une note propriétaire, elle, ne se
+ * décode pas — elle se relit telle quelle, et sa position dans le fichier fait
+ * partie de ce qu'il faut savoir pour l'interpréter. D'où cette seconde passe
+ * sur l'IFD, qui ne coûte que le parcours des entrées.
+ */
+function etendueDeTag(
+  vue: DataView, offsetIfd: number, petitBoutien: boolean, tagCherche: number,
+): [number, number] | null {
+  if (offsetIfd + 2 > vue.byteLength) return null;
+  const nb = vue.getUint16(offsetIfd, petitBoutien);
+  for (let i = 0; i < nb; i += 1) {
+    const pos = offsetIfd + 2 + 12 * i;
+    if (pos + 12 > vue.byteLength) return null;
+    const tag = vue.getUint16(pos, petitBoutien);
+    if (tag !== tagCherche) continue;
+    const type = vue.getUint16(pos + 2, petitBoutien);
+    const count = vue.getUint32(pos + 4, petitBoutien);
+    const total = (TAILLE_TYPE[type] ?? 1) * count;
+    if (total <= 4) return [pos + 8, total];
+    const offset = vue.getUint32(pos + 8, petitBoutien);
+    if (offset + total > vue.byteLength) return null;
+    return [offset, total];
+  }
+  return null;
 }
 
 /** Les libellés des codes d'un relevé. Jamais à la place des codes. */
@@ -621,6 +668,17 @@ export function lireExifDepuisTiff(
     ? lireIfd(vue, ifd0.get(TAG_GPS_IFD_POINTER) as number, petitBoutien)
     : new Map<number, ValeurTiff>();
 
+  let makernote: Uint8Array | null = null;
+  let makernoteOffset: number | null = null;
+  if (ifd0.has(TAG_EXIF_IFD_POINTER)) {
+    const etendue = etendueDeTag(
+      vue, ifd0.get(TAG_EXIF_IFD_POINTER) as number, petitBoutien, TAG_MAKER_NOTE);
+    if (etendue !== null) {
+      [makernoteOffset] = etendue;
+      makernote = donnees.subarray(makernoteOffset, makernoteOffset + etendue[1]);
+    }
+  }
+
   const resolutionX = ouNull<number>(ifd0, TAG_X_RESOLUTION);
   const resolutionY = ouNull<number>(ifd0, TAG_Y_RESOLUTION);
   const unite = ouNull<number>(ifd0, TAG_RESOLUTION_UNIT);
@@ -669,6 +727,9 @@ export function lireExifDepuisTiff(
     decalageHoraireNumerisation: ouNull<string>(ifdExif, TAG_OFFSET_TIME_DIGITIZED),
     conteneur: null,
     previsualisations: collecterPrevisualisations(donnees, vue, ifd0, ifd1, petitBoutien),
+    makernote,
+    makernoteOffset,
+    boutisme: petitBoutien ? '<' : '>',
   };
 }
 
