@@ -133,6 +133,22 @@ from .conteneurs import (
     lire_profil_icc,
 )
 
+from .quantification import (
+    SIGNATURES_CONNUES,
+    AnalyseQuantification,
+    QuantificationError,
+    TableQuantification,
+    analyser_quantification,
+    qualite_ijg_estimee,
+    table_ijg,
+)
+from .telemetrie import (
+    ChampTelemetrie,
+    TelemetrieError,
+    TelemetrieVol,
+    extraire_telemetrie,
+)
+
 __all__ = [
     # --- Ingestion : document unifié ---
     "MOTIF_SIGNATURE_NON_VERIFIEE",
@@ -232,4 +248,17 @@ __all__ = [
     "InventaireConteneur",
     "inventorier",
     "lire_profil_icc",
+    # --- Quantification JPEG (§16, §20) ---
+    "QuantificationError",
+    "TableQuantification",
+    "AnalyseQuantification",
+    "analyser_quantification",
+    "table_ijg",
+    "qualite_ijg_estimee",
+    "SIGNATURES_CONNUES",
+    # --- Télémétrie de vol (§16, §12) ---
+    "TelemetrieError",
+    "ChampTelemetrie",
+    "TelemetrieVol",
+    "extraire_telemetrie",
 ]
