@@ -668,12 +668,25 @@ def detecter_conteneur(donnees: bytes) -> str:
         return "RAF"
     if len(donnees) < 12:
         return "inconnu"
-    # ISO BMFF : taille de boîte sur 4 octets, puis « ftyp ».
+    # ISO BMFF : taille de boîte sur 4 octets, puis « ftyp ». La marque et les
+    # marques compatibles nomment la variante — un HEIC et un CR3 sont le même
+    # conteneur, et les confondre sous « ISO BMFF » perdrait ce qui les sépare.
     if donnees[4:8] == b"ftyp":
-        marque = donnees[8:12]
-        if marque in (b"crx ", b"crx\x00"):
+        marque = donnees[8:12].decode("ascii", errors="replace").strip("\x00 ")
+        toutes = {marque}
+        try:
+            taille_ftyp = struct.unpack_from(">I", donnees, 0)[0]
+            for i in range(16, min(taille_ftyp, len(donnees)), 4):
+                toutes.add(donnees[i : i + 4].decode("ascii", errors="replace").strip("\x00 "))
+        except struct.error:
+            pass
+        if marque == "crx":
             return "CR3"
-        return "ISO BMFF (%s)" % marque.decode("ascii", errors="replace").strip()
+        if toutes & {"avif", "avis"}:
+            return "AVIF"
+        if toutes & {"heic", "heix", "heim", "heis", "hevc", "mif1", "msf1"}:
+            return "HEIC"
+        return "ISO BMFF (%s)" % marque
     if donnees[0:2] in (b"II", b"MM"):
         endian = "<" if donnees[0:2] == b"II" else ">"
         try:
@@ -699,6 +712,29 @@ def _jpeg_embarque_raf(donnees: bytes) -> Optional[bytes]:
         return None
     bloc = donnees[offset : offset + longueur]
     return bloc if bloc[:2] == b"\xff\xd8" else None
+
+
+def _fusionner_apercus(
+    depuis_exif: Tuple[Miniature, ...], depuis_conteneur: Tuple[Tuple[str, bytes], ...]
+) -> Tuple[Miniature, ...]:
+    """Réunit les aperçus des deux origines, sans doublon, du plus grand au plus petit.
+
+    Les offsets des aperçus du conteneur ne sont pas comparables à ceux du bloc
+    TIFF — ils ne sont pas dans le même repère. On dédoublonne donc sur les
+    OCTETS eux-mêmes : deux aperçus identiques le sont quels que soient les
+    repères, et c'est le seul critère qui ne dépend d'aucune convention.
+    """
+    out = list(depuis_exif)
+    vus = {m.octets for m in out}
+    for origine, octets in depuis_conteneur:
+        if octets in vus:
+            continue
+        vus.add(octets)
+        out.append(Miniature(
+            offset=-1, longueur=len(octets), octets=octets,
+            compression=None, origine=origine,
+        ))
+    return tuple(sorted(out, key=lambda m: m.longueur, reverse=True))
 
 
 def lire_exif(chemin_ou_donnees: Union[str, Path, bytes]) -> DonneesExif:
@@ -732,11 +768,35 @@ def lire_exif(chemin_ou_donnees: Union[str, Path, bytes]) -> DonneesExif:
         if jpeg is None:
             raise MetadataError("RAF Fujifilm : le JPEG embarqué est introuvable ou tronqué.")
         return replace(lire_exif_depuis_jpeg(jpeg), conteneur=conteneur)
-    if conteneur == "CR3" or conteneur.startswith("ISO BMFF"):
-        raise ConteneurNonSupporte(
-            "Conteneur %s : les métadonnées y sont rangées dans des boîtes ISO BMFF, "
-            "que ce lecteur n'implémente pas. L'empreinte du fichier, elle, reste "
-            "valide — les deux sont indépendantes." % conteneur
+    if conteneur in ("CR3", "HEIC", "AVIF") or conteneur.startswith("ISO BMFF"):
+        # Les conteneurs à boîtes. Le bloc EXIF qu'ils portent est un TIFF
+        # ordinaire : il n'y a pas de second lecteur EXIF à écrire, seulement
+        # le bon bloc à trouver.
+        from .isobmff import IsobmffError, analyser_isobmff
+
+        try:
+            structure = analyser_isobmff(donnees)
+        except IsobmffError as exc:
+            raise ConteneurNonSupporte(
+                "Conteneur %s : sa structure de boîtes est illisible (%s). L'empreinte "
+                "du fichier, elle, reste valide — les deux sont indépendantes."
+                % (conteneur, exc)
+            ) from exc
+        if structure.bloc_exif is None:
+            raise ConteneurNonSupporte(
+                "Conteneur %s : la structure est lue, mais elle ne porte aucun bloc EXIF "
+                "localisable. Ce n'est pas la même chose qu'un fichier sans métadonnées — "
+                "les items peuvent être rangés hors du fichier, ou dans une variante que "
+                "ce lecteur ne couvre pas. L'empreinte, elle, reste valide." % conteneur
+            )
+        releve = lire_exif_depuis_tiff(structure.bloc_exif, _MAGIQUES_TIFF)
+        return replace(
+            releve,
+            conteneur=conteneur,
+            # Les aperçus du conteneur s'ajoutent à ceux de l'EXIF, en gardant
+            # l'ordre du plus grand au plus petit : un HEIC porte souvent une
+            # vignette JPEG que le bloc TIFF ne mentionne pas.
+            previsualisations=_fusionner_apercus(releve.previsualisations, structure.apercus),
         )
     raise MetadataError(
         "Conteneur non reconnu (%s) : ni JPEG, ni TIFF/RAW, ni RAF." % conteneur

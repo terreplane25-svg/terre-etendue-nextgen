@@ -270,18 +270,27 @@ def test_raf_tronque_refuse_plutot_que_de_deviner():
         lire_exif(bytes(entete))
 
 
-def test_cr3_refuse_en_se_nommant():
-    """Un conteneur non implémenté est REFUSÉ en le disant.
+def test_cr3_sans_exif_refuse_en_disant_ce_qui_manque():
+    """Le CR3 est maintenant LU (voir test_isobmff). Reste le cas sans EXIF.
 
-    Rendre des champs vides laisserait croire que le fichier n'en porte pas —
-    ce serait pire qu'un refus, parce qu'un refus se voit.
+    Ce test disait autrefois que le CR3 était refusé par principe, faute de
+    lecteur ISOBMFF. Il y en a un désormais, et l'assertion a été réécrite
+    plutôt que conservée : un test qui décrit un comportement disparu ne
+    protège plus rien, il fige seulement le passé.
+
+    Ce qui reste vrai, et qui compte : un tronçon de CR3 sans bloc EXIF est
+    refusé en DISANT ce qui manque, et en distinguant « aucun EXIF trouvé » de
+    « fichier sans métadonnées ». Les deux ne s'établissent pas de la même
+    façon, et l'empreinte reste valide dans les deux cas.
     """
     donnees = struct.pack(">I", 24) + b"ftyp" + b"crx " + b"\x00" * 40
     with pytest.raises(ConteneurNonSupporte) as exc:
         lire_exif(donnees)
-    assert "CR3" in str(exc.value)
-    assert "ISO BMFF" in str(exc.value)
-    assert "empreinte du fichier, elle, reste valide" in str(exc.value)
+    message = str(exc.value)
+    assert "CR3" in message
+    assert "aucun bloc EXIF localisable" in message
+    assert "n'est pas la même chose" in message
+    assert "empreinte" in message
 
 
 def test_conteneur_inconnu_refuse():
