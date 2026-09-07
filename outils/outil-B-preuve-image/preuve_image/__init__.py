@@ -149,6 +149,12 @@ from .telemetrie import (
     extraire_telemetrie,
 )
 
+from .dossier import (
+    DossierFichier,
+    constituer_dossier,
+    deduire_type_materiel,
+)
+
 __all__ = [
     # --- Ingestion : document unifié ---
     "MOTIF_SIGNATURE_NON_VERIFIEE",
@@ -261,4 +267,8 @@ __all__ = [
     "ChampTelemetrie",
     "TelemetrieVol",
     "extraire_telemetrie",
+    # --- Relevé unifié (§16) ---
+    "DossierFichier",
+    "constituer_dossier",
+    "deduire_type_materiel",
 ]

@@ -47,6 +47,8 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 __all__ = [
+    "EvenementXmp",
+    "extraire_historique_xmp",
     "ProvenanceError",
     "decoder_cbor",
     "BoiteJumbf",
@@ -560,6 +562,66 @@ def _relever_champs_xmp(texte: str) -> Dict[str, str]:
         if m:
             champs[nom] = m.group(1).strip()
     return champs
+
+
+@dataclass(frozen=True)
+class EvenementXmp:
+    """Un événement de `xmpMM:History`, tel qu'il est écrit.
+
+    L'historique XMP est la seule trace de chaîne de traitement qu'un fichier
+    ordinaire porte : chaque logiciel qui respecte la convention y ajoute une
+    ligne. Ce que cela établit : qu'un logiciel a ÉCRIT avoir fait cela. Ce que
+    cela n'établit pas : qu'il l'a fait, ni qu'il n'a rien fait d'autre — un
+    historique se retire, se tronque et se réécrit comme n'importe quel texte,
+    et un logiciel qui ne respecte pas la convention n'y laisse rien.
+    """
+
+    action: Optional[str]
+    logiciel: Optional[str]
+    quand: Optional[str]
+    change: Optional[str]
+    identifiant_instance: Optional[str]
+    parametres: Optional[str]
+
+
+#: Les attributs d'un événement, dans l'espace de noms `stEvt` de XMP Media
+#: Management. Un attribut hors de cette liste est ignoré : les logiciels en
+#: inventent, et leur prêter un sens serait deviner.
+_ATTRS_EVENEMENT = {
+    "action": "action", "softwareAgent": "logiciel", "when": "quand",
+    "changed": "change", "instanceID": "identifiant_instance",
+    "parameters": "parametres",
+}
+
+
+def extraire_historique_xmp(texte: str) -> List[EvenementXmp]:
+    """Relève les événements de `xmpMM:History`, dans les deux formes d'écriture.
+
+    Un événement s'écrit soit comme un `rdf:li` porteur d'attributs `stEvt:`,
+    soit comme un `rdf:li` contenant des éléments `stEvt:`. Les deux existent,
+    parfois dans le même fichier, et ne traiter que la première perdrait tout
+    ce qu'écrit Photoshop en forme longue.
+    """
+    bloc = re.search(r"xmpMM:History[^>]*>(.*?)</\s*xmpMM:History\s*>", texte, re.DOTALL)
+    if bloc is None:
+        # Forme abrégée : la séquence est parfois fermée sans balise nommée.
+        bloc = re.search(r"xmpMM:History[^>]*>(.*?)</rdf:Seq>", texte, re.DOTALL)
+    if bloc is None:
+        return []
+    corps = bloc.group(1)
+
+    evenements: List[EvenementXmp] = []
+    for li in re.findall(r"<rdf:li\b(.*?)(?:/>|</rdf:li>)", corps, re.DOTALL):
+        champs = {v: None for v in _ATTRS_EVENEMENT.values()}
+        for attr, cle in _ATTRS_EVENEMENT.items():
+            m = re.search(r"stEvt:" + attr + r'\s*=\s*"([^"]*)"', li)
+            if m is None:
+                m = re.search(r"<stEvt:" + attr + r"[^>]*>([^<]{0,400})<", li, re.DOTALL)
+            if m:
+                champs[cle] = m.group(1).strip()
+        if any(v is not None for v in champs.values()):
+            evenements.append(EvenementXmp(**champs))
+    return evenements
 
 
 def extraire_xmp(donnees: bytes) -> List[BlocXmp]:

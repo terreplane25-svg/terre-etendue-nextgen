@@ -73,6 +73,17 @@ _TAG_PIXEL_Y_DIMENSION = 0xA003
 _TAG_FOCAL_LENGTH_35MM = 0xA405
 _TAG_LENS_MODEL = 0xA434
 
+# Identité du matériel (EXIF 2.3 et suivantes). Ce sont des tags STANDARD, pas
+# des MakerNotes : un numéro de série de boîtier y est écrit en clair par la
+# plupart des reflex et des hybrides. Le §16 les demande, et ils n'étaient pas
+# lus — c'est pourtant ce qui rattache un cliché à un appareil précis plutôt
+# qu'à un modèle.
+_TAG_CAMERA_OWNER_NAME = 0xA430
+_TAG_BODY_SERIAL_NUMBER = 0xA431
+_TAG_LENS_SPECIFICATION = 0xA432
+_TAG_LENS_MAKE = 0xA433
+_TAG_LENS_SERIAL_NUMBER = 0xA435
+
 # Ajoutés pour l'ingestion : tout ce que le §16 demande de LIRE sans rien conclure.
 _TAG_IMAGE_WIDTH = 0x0100
 _TAG_IMAGE_LENGTH = 0x0101
@@ -441,6 +452,16 @@ class DonneesExif:
     orientation: Optional[int]
     gps: Optional[PositionGPS]
     # --- Ajouts d'ingestion (§16) ---
+    #: Identité du matériel, lue dans les tags EXIF standard. Un numéro de série
+    #: rattache le cliché à un APPAREIL, pas seulement à un modèle — c'est ce qui
+    #: permet de confronter deux clichés entre eux. Il ne prouve pas l'origine :
+    #: une métadonnée s'écrit (§17.1).
+    numero_serie_boitier: Optional[str] = None
+    numero_serie_objectif: Optional[str] = None
+    fabricant_objectif: Optional[str] = None
+    proprietaire_declare: Optional[str] = None
+    #: (focale mini, focale maxi, ouverture mini à focale mini, à focale maxi)
+    specification_objectif: Optional[Tuple[float, ...]] = None
     logiciel: Optional[str] = None
     date_heure_modification: Optional[str] = None
     date_heure_numerisation: Optional[str] = None
@@ -532,6 +553,21 @@ _MAGIQUE_TIFF_STANDARD = 42
 _MAGIQUES_TIFF = (_MAGIQUE_TIFF_STANDARD, 85, 0x4F52, 0x5352)
 
 
+def _specification_objectif(brut) -> Optional[Tuple[float, ...]]:
+    """LensSpecification : quatre rationnels, ou rien.
+
+    Un quintuplet incomplet n'est pas rendu partiellement : les quatre valeurs
+    se lisent ensemble (focale mini, focale maxi, ouverture mini à chacune), et
+    en rendre deux laisserait deviner les autres.
+    """
+    if isinstance(brut, (tuple, list)) and len(brut) == 4:
+        try:
+            return tuple(float(x) for x in brut)
+        except (TypeError, ValueError):
+            return None
+    return None
+
+
 def lire_exif_depuis_tiff(
     donnees: bytes, magiques_admis: Tuple[int, ...] = (_MAGIQUE_TIFF_STANDARD,)
 ) -> DonneesExif:
@@ -582,6 +618,11 @@ def lire_exif_depuis_tiff(
         fabricant=ifd0.get(_TAG_MAKE),
         modele=ifd0.get(_TAG_MODEL),
         objectif=ifd_exif.get(_TAG_LENS_MODEL),
+        numero_serie_boitier=ifd_exif.get(_TAG_BODY_SERIAL_NUMBER),
+        numero_serie_objectif=ifd_exif.get(_TAG_LENS_SERIAL_NUMBER),
+        fabricant_objectif=ifd_exif.get(_TAG_LENS_MAKE),
+        proprietaire_declare=ifd_exif.get(_TAG_CAMERA_OWNER_NAME),
+        specification_objectif=_specification_objectif(ifd_exif.get(_TAG_LENS_SPECIFICATION)),
         focale_mm=ifd_exif.get(_TAG_FOCAL_LENGTH),
         focale_equivalente_35mm=ifd_exif.get(_TAG_FOCAL_LENGTH_35MM),
         ouverture=ifd_exif.get(_TAG_FNUMBER),
