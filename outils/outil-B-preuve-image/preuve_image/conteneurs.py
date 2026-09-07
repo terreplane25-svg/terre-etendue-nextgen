@@ -226,8 +226,13 @@ def lire_profil_icc(donnees: bytes) -> ProfilIcc:
     description = None
     copyright_ = None
     nb_tags = struct.unpack_from(">I", donnees, 128)[0] if len(donnees) >= 132 else 0
-    # Borne de sûreté : un profil réel dépasse rarement la centaine de tags, et
-    # un nombre aberrant ferait boucler sur des octets quelconques.
+    # Le parcours est borné par la LONGUEUR du profil : `off + lon >
+    # len(donnees)` écarte tout tag hors limites, et la sortie ci-dessous
+    # arrête la boucle dès que la table de tags dépasse les données. Le
+    # `min(nb_tags, 256)` est une ceinture par-dessus la bretelle, et non ce
+    # qui protège — une rupture délibérée l'a montré : le retirer ne change
+    # rien, parce que la longueur suffit. Il est gardé parce qu'il ne coûte
+    # rien, mais le commentaire ne doit pas lui prêter un rôle qu'il n'a pas.
     for i in range(min(nb_tags, 256)):
         p = 132 + i * 12
         if p + 12 > len(donnees):

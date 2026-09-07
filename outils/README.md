@@ -114,6 +114,80 @@ Le RGE ALTI couvre la France et les DOM. Ailleurs le service rend `-99999`,
 qui veut dire « pas de donnée » et surtout pas « altitude zéro » : traité comme
 une lacune, jamais comblé.
 
+## Extraction universelle (outil B)
+
+Quatre familles de lecteurs se partagent le travail. Un format non couvert par
+l'un d'eux est **refusé en le disant**, jamais rendu comme un inventaire vide —
+qui laisserait croire que le fichier ne déclare rien.
+
+| Lecteur | Ce qu'il couvre |
+|---|---|
+| `metadata.py` | EXIF/TIFF : JPEG, TIFF et tous les RAW à structure TIFF, RAF |
+| `isobmff.py` | conteneurs à boîtes : HEIC, HEIF, AVIF, **CR3** |
+| `conteneurs.py` | PNG, WebP, GIF, BMP, SVG, et le profil ICC |
+| `provenance.py` | C2PA/JUMBF, XMP, IPTC, chaînes lisibles |
+| `quantification.py` | tables DQT d'un JPEG |
+| `telemetrie.py` | télémétrie de vol dans le XMP (DJI, Parrot, Autel) |
+
+### Ce que le profil ICC donne
+
+La description (`desc` en v2, `mluc` UTF-16 en v4) porte le nom qu'on attend :
+« Display P3 », « sRGB IEC61966-2.1 ». L'en-tête dit ce que le profil PRÉTEND
+être ; rien ne vérifie qu'il décrit les couleurs du fichier.
+
+### Le CRC des chunks PNG, et son asymétrie
+
+Un CRC faux **établit** que les octets ont changé depuis l'écriture du chunk.
+Un CRC juste **n'établit rien de plus** que « celui qui a modifié le chunk a
+recalculé le CRC », ce que fait tout éditeur. Les deux sont rendus, et
+l'asymétrie est affichée avec.
+
+### Les tables de quantification
+
+Elles survivent à la purge de l'EXIF : un fichier dont toutes les métadonnées
+ont été retirées porte encore ses tables. Le facteur de qualité IJG est
+toujours rendu **avec son écart** — zéro veut dire « c'est exactement cette
+table », tout le reste veut dire « elle n'en vient pas », ce qui est le cas de
+tout appareil photo.
+
+🔴 **Le registre `SIGNATURES_CONNUES` est VIDE, délibérément.** Associer une
+empreinte de tables à « Canon DIGIC » ou « algorithme WhatsApp » demande un
+corpus de fichiers réels dont la provenance est établie, appareil par appareil
+et version par version. Ce dépôt n'en a pas. Y écrire des correspondances de
+mémoire produirait des identifications fausses présentées comme des faits.
+L'empreinte reste utilisable pour **comparer deux fichiers qu'on a tous les
+deux** : des tables identiques sortent de la même chaîne d'encodage aux mêmes
+réglages.
+
+### La télémétrie de vol
+
+DJI écrit `GpsLongtitude`, avec un t de trop, depuis des années : ne traiter
+que l'orthographe correcte ferait perdre la longitude sur la majorité des
+images de drone en circulation. Les deux formes d'écriture XMP sont lues,
+attribut et élément.
+
+La **station sol** n'est presque jamais écrite : ce que le fichier porte, c'est
+la position du drone. Le champ reste nul avec son motif. L'**altitude
+relative** est comptée depuis le point de décollage, pas depuis le sol survolé
+ni le niveau de la mer, et l'avertissement l'accompagne partout.
+
+### Un garde-fou sur les sources
+
+`scripts/verifier-sources-texte.mjs` refuse tout octet de contrôle en clair
+dans un fichier source. Trois fois dans ce dépôt, un octet nul réel s'est
+glissé dans un littéral en écrivant du code qui compare des octets : le
+fichier devient binaire, et la comparaison qu'on croit lire dans le source
+n'est pas celle qui est écrite. Ni le compilateur ni les tests ne le voient.
+
+### Ce que rien de tout cela n'établit
+
+Les fichiers d'essai sont **fabriqués** à partir des structures publiées, pas
+prélevés sur des appareils réels. Ce qui est vérifié, c'est que les lecteurs
+suivent ces structures — pas qu'ils lisent ce qu'un iPhone, un Canon ou un DJI
+écrivent vraiment. Les **MakerNotes** propriétaires ne sont pas décodés : ils
+sont rendus bruts, comptés et hachés. Confronter l'ensemble à des fichiers
+d'appareils réels reste à faire.
+
 ## Formats bruts d'appareil photo (outil B)
 
 L'outil B lit l'EXIF, le GPS et les aperçus embarqués des fichiers RAW, en

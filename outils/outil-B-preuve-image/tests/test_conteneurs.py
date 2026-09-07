@@ -68,6 +68,32 @@ def profil_icc(description="Display P3", classe=b"mntr", espace=b"RGB ") -> byte
             + tag_desc)
 
 
+def profil_icc_v4(description="sRGB IEC61966-2.1") -> bytes:
+    """Un profil v4 : la description est en UTF-16BE dans un tag `mluc`.
+
+    La lire en latin-1 donnerait une chaîne truffée d'octets nuls, sans erreur.
+    """
+    corps = description.encode("utf-16-be")
+    # mluc : type(4) réservé(4) nb(4) taille_enr(4) langue(2) pays(2) longueur(4) offset(4)
+    tag = (b"mluc" + b"\x00" * 4 + struct.pack(">II", 1, 12)
+           + b"frFR" + struct.pack(">II", len(corps), 28) + corps)
+    offset_tag = 144
+    entete = bytearray(128)
+    entete[0:4] = struct.pack(">I", offset_tag + len(tag))
+    entete[8:10] = bytes([4, 0x30])
+    entete[12:16] = b"mntr"
+    entete[16:20] = b"RGB "
+    return (bytes(entete) + struct.pack(">I", 1)
+            + b"desc" + struct.pack(">II", offset_tag, len(tag)) + tag)
+
+
+def profil_icc_tags_aberrants() -> bytes:
+    """Un profil qui annonce quatre milliards de tags. Le parcours doit être borné."""
+    entete = bytearray(128)
+    entete[0:4] = struct.pack(">I", 132)
+    return bytes(entete) + struct.pack(">I", 0xFFFFFFFF)
+
+
 def png(avec_textes=True, avec_icc=True, crc_faux=False, animation=False) -> bytes:
     """Un PNG réel de Pillow, auquel on ajoute les chunks qu'on veut tester."""
     t = BytesIO()
@@ -189,22 +215,12 @@ def test_profil_icc_lu():
 
 
 def test_profil_icc_v4_en_utf16():
-    """Les profils v4 écrivent la description en UTF-16BE dans un tag `mluc`."""
-    desc = "sRGB IEC61966-2.1"
-    corps = desc.encode("utf-16-be")
-    # mluc : type(4) réservé(4) nb(4) taille_enr(4) langue(2) pays(2) longueur(4) offset(4)
-    tag = (b"mluc" + b"\x00" * 4 + struct.pack(">II", 1, 12)
-           + b"frFR" + struct.pack(">II", len(corps), 28) + corps)
-    offset_tag = 144
-    entete = bytearray(128)
-    entete[0:4] = struct.pack(">I", offset_tag + len(tag))
-    entete[8:10] = bytes([4, 0x30])
-    entete[12:16] = b"mntr"
-    entete[16:20] = b"RGB "
-    donnees = (bytes(entete) + struct.pack(">I", 1)
-               + b"desc" + struct.pack(">II", offset_tag, len(tag)) + tag)
-    p = lire_profil_icc(donnees)
-    assert p.description == desc
+    """Les profils v4 écrivent la description en UTF-16BE dans un tag `mluc`.
+
+    La lire en latin-1 donnerait une chaîne truffée d'octets nuls, sans erreur.
+    """
+    p = lire_profil_icc(profil_icc_v4())
+    assert p.description == "sRGB IEC61966-2.1"
     assert p.version == "4.3"
 
 
@@ -213,13 +229,18 @@ def test_profil_icc_trop_court_refuse():
         lire_profil_icc(b"\x00" * 40)
 
 
-def test_nombre_de_tags_aberrant_borne():
-    """Un profil fabriqué peut annoncer quatre milliards de tags."""
-    entete = bytearray(128)
-    entete[0:4] = struct.pack(">I", 132)
-    donnees = bytes(entete) + struct.pack(">I", 0xFFFFFFFF)
-    p = lire_profil_icc(donnees)  # ne doit pas boucler
+def test_nombre_de_tags_aberrant_ne_fait_pas_boucler():
+    """Un profil fabriqué peut annoncer quatre milliards de tags.
+
+    Ce test s'appelait « borné » et laissait croire qu'il éprouvait la borne
+    `min(nb_tags, 256)`. Il ne l'éprouve pas : c'est la VÉRIFICATION DE
+    LONGUEUR qui arrête la boucle, et retirer la borne ne change rien ici —
+    une rupture délibérée du port l'a montré. Le nom a été corrigé plutôt que
+    le test conservé sous une étiquette fausse.
+    """
+    p = lire_profil_icc(profil_icc_tags_aberrants())
     assert p.description is None
+    assert p.version == "0.0"
 
 
 # ─────────────────────────────────────────────────────────────────────────────

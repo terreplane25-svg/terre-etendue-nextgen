@@ -1,0 +1,1233 @@
+{
+  "genere_le": "2026-09-07T17:55:39.464678+00:00",
+  "source": "preuve_image.conteneurs (paquet Python)",
+  "avertissement": "Fichier généré. Ne pas modifier à la main : il est la référence contre laquelle le port TypeScript est vérifié.",
+  "cas": [
+    {
+      "nom": "png complet",
+      "octets_b64": "iVBORw0KGgoAAAANSUhEUgAAAEAAAAAwCAIAAAAuKetIAAAAHnRFWHRTb2Z0d2FyZQBFc3NhaUNvcnAgRWRpdGV1ciAzLjGBuplRAAAARnpUWHRDb21tZW50AAB4nAtJrShJVUjOzy0oSi0ufqlgpZCZV5ZZnJmUk6rwQKE0L1WhKDU5I7UIiBVSgAozEt/lpRbrAQBcehWH4KB20AAAAEJpVFh0RGVzY3JpcHRpb24AAQBmcgBEZXNjcmlwdGlvbgB4nAvNU0jOz81NzStJzCxKVcjMK0ktykssyczPS8zRAwCnTAs+hHgT+AAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+oFDA4WCg/u008AAABkaUNDUERpc3BsYXkgUDMAAHicY2BgWMEABEwODAy5eSVFQe5OChGRUQrsrxhYGXgY+BjEGLgSk4sLHAMCfBiIAK7BwY7EqEMCjCmpxclAegIQS0DZIMDtkllckJNYqRBgzMAAAOluEW0yjYM1AAAAU0lEQVR4nO3PQQ3AIADAQEAD6tCE6IngcVnSU9DOfe74s6UDXjWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaB9RBoBWkuSYTsAAAAASUVORK5CYII=",
+      "inventaire": {
+        "format": "PNG",
+        "octets": 494,
+        "largeur": 64,
+        "hauteur": 48,
+        "profondeur_bits": 8,
+        "dpi_x": 299.9994,
+        "dpi_y": 299.9994,
+        "chunks": [
+          {
+            "type": "IHDR",
+            "offset": 8,
+            "longueur": 13,
+            "crc_valide": true,
+            "role": "en-tête : dimensions, profondeur, type de couleur"
+          },
+          {
+            "type": "tEXt",
+            "offset": 33,
+            "longueur": 30,
+            "crc_valide": true,
+            "role": "texte non compressé (Latin-1)"
+          },
+          {
+            "type": "zTXt",
+            "offset": 75,
+            "longueur": 70,
+            "crc_valide": true,
+            "role": "texte compressé"
+          },
+          {
+            "type": "iTXt",
+            "offset": 157,
+            "longueur": 66,
+            "crc_valide": true,
+            "role": "texte international (UTF-8), avec langue"
+          },
+          {
+            "type": "pHYs",
+            "offset": 235,
+            "longueur": 9,
+            "crc_valide": true,
+            "role": "résolution physique"
+          },
+          {
+            "type": "tIME",
+            "offset": 256,
+            "longueur": 7,
+            "crc_valide": true,
+            "role": "date de dernière modification"
+          },
+          {
+            "type": "iCCP",
+            "offset": 275,
+            "longueur": 100,
+            "crc_valide": true,
+            "role": "profil ICC intégré"
+          },
+          {
+            "type": "IDAT",
+            "offset": 387,
+            "longueur": 83,
+            "crc_valide": true,
+            "role": "données d'image compressées"
+          },
+          {
+            "type": "IEND",
+            "offset": 482,
+            "longueur": 0,
+            "crc_valide": true,
+            "role": "fin du flux"
+          }
+        ],
+        "textes": [
+          {
+            "origine": "PNG tEXt",
+            "cle": "Software",
+            "valeur": "EssaiCorp Editeur 3.1",
+            "compresse": false,
+            "langue": null
+          },
+          {
+            "origine": "PNG zTXt",
+            "cle": "Comment",
+            "valeur": "Texte compressé : invisible à une recherche de chaînes.",
+            "compresse": true,
+            "langue": null
+          },
+          {
+            "origine": "PNG iTXt",
+            "cle": "Description",
+            "valeur": "Un commentaire international.",
+            "compresse": true,
+            "langue": "fr"
+          }
+        ],
+        "profil_icc": {
+          "octets": 168,
+          "version": "2.4",
+          "classe": "mntr",
+          "classe_libelle": "périphérique d'affichage (écran)",
+          "espace": "RGB ",
+          "espace_libelle": "RVB",
+          "espace_connexion": "XYZ ",
+          "plateforme": "APPL",
+          "createur": "ESSA",
+          "date": "2026-05-12T14:22:10",
+          "description": "Display P3",
+          "copyright": null
+        },
+        "bloc_exif_sha256": null,
+        "bloc_exif_octets": null,
+        "paquets_xmp": [],
+        "proprietes": {
+          "type_couleur": 2,
+          "type_couleur_libelle": "RVB",
+          "entrelacement": false,
+          "pixels_par_unite": [
+            11811,
+            11811
+          ],
+          "unite_physique": "mètre",
+          "derniere_modification": "2026-05-12T14:22:10",
+          "nom_profil_icc": "Display P3"
+        },
+        "chunks_corrompus": []
+      }
+    },
+    {
+      "nom": "png sans textes ni icc",
+      "octets_b64": "iVBORw0KGgoAAAANSUhEUgAAAEAAAAAwCAIAAAAuKetIAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAB3RJTUUH6gUMDhYKD+7TTwAAAFNJREFUeJztz0ENwCAAwEBAA+rQhOiJ4HFZ0lPQzn3u+LOlA141oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgfUQaAVpLkmE7AAAAAElFTkSuQmCC",
+      "inventaire": {
+        "format": "PNG",
+        "octets": 180,
+        "largeur": 64,
+        "hauteur": 48,
+        "profondeur_bits": 8,
+        "dpi_x": 299.9994,
+        "dpi_y": 299.9994,
+        "chunks": [
+          {
+            "type": "IHDR",
+            "offset": 8,
+            "longueur": 13,
+            "crc_valide": true,
+            "role": "en-tête : dimensions, profondeur, type de couleur"
+          },
+          {
+            "type": "pHYs",
+            "offset": 33,
+            "longueur": 9,
+            "crc_valide": true,
+            "role": "résolution physique"
+          },
+          {
+            "type": "tIME",
+            "offset": 54,
+            "longueur": 7,
+            "crc_valide": true,
+            "role": "date de dernière modification"
+          },
+          {
+            "type": "IDAT",
+            "offset": 73,
+            "longueur": 83,
+            "crc_valide": true,
+            "role": "données d'image compressées"
+          },
+          {
+            "type": "IEND",
+            "offset": 168,
+            "longueur": 0,
+            "crc_valide": true,
+            "role": "fin du flux"
+          }
+        ],
+        "textes": [],
+        "profil_icc": null,
+        "bloc_exif_sha256": null,
+        "bloc_exif_octets": null,
+        "paquets_xmp": [],
+        "proprietes": {
+          "type_couleur": 2,
+          "type_couleur_libelle": "RVB",
+          "entrelacement": false,
+          "pixels_par_unite": [
+            11811,
+            11811
+          ],
+          "unite_physique": "mètre",
+          "derniere_modification": "2026-05-12T14:22:10"
+        },
+        "chunks_corrompus": []
+      }
+    },
+    {
+      "nom": "png à CRC faux",
+      "octets_b64": "iVBORw0KGgoAAAANSUhEUgAAAEAAAAAwCAIAAAAuKetIAAAAHnRFWHRTb2Z0d2FyZQBFc3NhaUNvcnAgRWRpdGV1ciAzLjGBuplRAAAARnpUWHRDb21tZW50AAB4nAtJrShJVUjOzy0oSi0ufqlgpZCZV5ZZnJmUk6rwQKE0L1WhKDU5I7UIiBVSgAozEt/lpRbrAQBcehWH4KB20AAAAEJpVFh0RGVzY3JpcHRpb24AAQBmcgBEZXNjcmlwdGlvbgB4nAvNU0jOz81NzStJzCxKVcjMK0ktykssyczPS8zRAwCnTAs+hHgT+AAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+oFDA4WCg/u008AAABkaUNDUERpc3BsYXkgUDMAAHicY2BgWMEABEwODAy5eSVFQe5OChGRUQrsrxhYGXgY+BjEGLgSk4sLHAMCfBiIAK7BwY7EqEMCjCmpxclAegIQS0DZIMDtkllckJNYqRBgzMAAAOluEW3NcnzKAAAAU0lEQVR4nO3PQQ3AIADAQEAD6tCE6IngcVnSU9DOfe74s6UDXjWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaB9RBoBWkuSYTsAAAAASUVORK5CYII=",
+      "inventaire": {
+        "format": "PNG",
+        "octets": 494,
+        "largeur": 64,
+        "hauteur": 48,
+        "profondeur_bits": 8,
+        "dpi_x": 299.9994,
+        "dpi_y": 299.9994,
+        "chunks": [
+          {
+            "type": "IHDR",
+            "offset": 8,
+            "longueur": 13,
+            "crc_valide": true,
+            "role": "en-tête : dimensions, profondeur, type de couleur"
+          },
+          {
+            "type": "tEXt",
+            "offset": 33,
+            "longueur": 30,
+            "crc_valide": true,
+            "role": "texte non compressé (Latin-1)"
+          },
+          {
+            "type": "zTXt",
+            "offset": 75,
+            "longueur": 70,
+            "crc_valide": true,
+            "role": "texte compressé"
+          },
+          {
+            "type": "iTXt",
+            "offset": 157,
+            "longueur": 66,
+            "crc_valide": true,
+            "role": "texte international (UTF-8), avec langue"
+          },
+          {
+            "type": "pHYs",
+            "offset": 235,
+            "longueur": 9,
+            "crc_valide": true,
+            "role": "résolution physique"
+          },
+          {
+            "type": "tIME",
+            "offset": 256,
+            "longueur": 7,
+            "crc_valide": true,
+            "role": "date de dernière modification"
+          },
+          {
+            "type": "iCCP",
+            "offset": 275,
+            "longueur": 100,
+            "crc_valide": false,
+            "role": "profil ICC intégré"
+          },
+          {
+            "type": "IDAT",
+            "offset": 387,
+            "longueur": 83,
+            "crc_valide": true,
+            "role": "données d'image compressées"
+          },
+          {
+            "type": "IEND",
+            "offset": 482,
+            "longueur": 0,
+            "crc_valide": true,
+            "role": "fin du flux"
+          }
+        ],
+        "textes": [
+          {
+            "origine": "PNG tEXt",
+            "cle": "Software",
+            "valeur": "EssaiCorp Editeur 3.1",
+            "compresse": false,
+            "langue": null
+          },
+          {
+            "origine": "PNG zTXt",
+            "cle": "Comment",
+            "valeur": "Texte compressé : invisible à une recherche de chaînes.",
+            "compresse": true,
+            "langue": null
+          },
+          {
+            "origine": "PNG iTXt",
+            "cle": "Description",
+            "valeur": "Un commentaire international.",
+            "compresse": true,
+            "langue": "fr"
+          }
+        ],
+        "profil_icc": {
+          "octets": 168,
+          "version": "2.4",
+          "classe": "mntr",
+          "classe_libelle": "périphérique d'affichage (écran)",
+          "espace": "RGB ",
+          "espace_libelle": "RVB",
+          "espace_connexion": "XYZ ",
+          "plateforme": "APPL",
+          "createur": "ESSA",
+          "date": "2026-05-12T14:22:10",
+          "description": "Display P3",
+          "copyright": null
+        },
+        "bloc_exif_sha256": null,
+        "bloc_exif_octets": null,
+        "paquets_xmp": [],
+        "proprietes": {
+          "type_couleur": 2,
+          "type_couleur_libelle": "RVB",
+          "entrelacement": false,
+          "pixels_par_unite": [
+            11811,
+            11811
+          ],
+          "unite_physique": "mètre",
+          "derniere_modification": "2026-05-12T14:22:10",
+          "nom_profil_icc": "Display P3"
+        },
+        "chunks_corrompus": [
+          "iCCP à l'octet 275"
+        ]
+      }
+    },
+    {
+      "nom": "png animé (APNG)",
+      "octets_b64": "iVBORw0KGgoAAAANSUhEUgAAAEAAAAAwCAIAAAAuKetIAAAAHnRFWHRTb2Z0d2FyZQBFc3NhaUNvcnAgRWRpdGV1ciAzLjGBuplRAAAARnpUWHRDb21tZW50AAB4nAtJrShJVUjOzy0oSi0ufqlgpZCZV5ZZnJmUk6rwQKE0L1WhKDU5I7UIiBVSgAozEt/lpRbrAQBcehWH4KB20AAAAEJpVFh0RGVzY3JpcHRpb24AAQBmcgBEZXNjcmlwdGlvbgB4nAvNU0jOz81NzStJzCxKVcjMK0ktykssyczPS8zRAwCnTAs+hHgT+AAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+oFDA4WCg/u008AAABkaUNDUERpc3BsYXkgUDMAAHicY2BgWMEABEwODAy5eSVFQe5OChGRUQrsrxhYGXgY+BjEGLgSk4sLHAMCfBiIAK7BwY7EqEMCjCmpxclAegIQS0DZIMDtkllckJNYqRBgzMAAAOluEW0yjYM1AAAACGFjVEwAAAAHAAAAA6JkTboAAABTSURBVHic7c9BDcAgAMBAQAPq0IToieBxWdJT0M597vizpQNeNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oH1EGgFaS5JhOwAAAABJRU5ErkJggg==",
+      "inventaire": {
+        "format": "PNG",
+        "octets": 514,
+        "largeur": 64,
+        "hauteur": 48,
+        "profondeur_bits": 8,
+        "dpi_x": 299.9994,
+        "dpi_y": 299.9994,
+        "chunks": [
+          {
+            "type": "IHDR",
+            "offset": 8,
+            "longueur": 13,
+            "crc_valide": true,
+            "role": "en-tête : dimensions, profondeur, type de couleur"
+          },
+          {
+            "type": "tEXt",
+            "offset": 33,
+            "longueur": 30,
+            "crc_valide": true,
+            "role": "texte non compressé (Latin-1)"
+          },
+          {
+            "type": "zTXt",
+            "offset": 75,
+            "longueur": 70,
+            "crc_valide": true,
+            "role": "texte compressé"
+          },
+          {
+            "type": "iTXt",
+            "offset": 157,
+            "longueur": 66,
+            "crc_valide": true,
+            "role": "texte international (UTF-8), avec langue"
+          },
+          {
+            "type": "pHYs",
+            "offset": 235,
+            "longueur": 9,
+            "crc_valide": true,
+            "role": "résolution physique"
+          },
+          {
+            "type": "tIME",
+            "offset": 256,
+            "longueur": 7,
+            "crc_valide": true,
+            "role": "date de dernière modification"
+          },
+          {
+            "type": "iCCP",
+            "offset": 275,
+            "longueur": 100,
+            "crc_valide": true,
+            "role": "profil ICC intégré"
+          },
+          {
+            "type": "acTL",
+            "offset": 387,
+            "longueur": 8,
+            "crc_valide": true,
+            "role": "animation APNG : table de contrôle"
+          },
+          {
+            "type": "IDAT",
+            "offset": 407,
+            "longueur": 83,
+            "crc_valide": true,
+            "role": "données d'image compressées"
+          },
+          {
+            "type": "IEND",
+            "offset": 502,
+            "longueur": 0,
+            "crc_valide": true,
+            "role": "fin du flux"
+          }
+        ],
+        "textes": [
+          {
+            "origine": "PNG tEXt",
+            "cle": "Software",
+            "valeur": "EssaiCorp Editeur 3.1",
+            "compresse": false,
+            "langue": null
+          },
+          {
+            "origine": "PNG zTXt",
+            "cle": "Comment",
+            "valeur": "Texte compressé : invisible à une recherche de chaînes.",
+            "compresse": true,
+            "langue": null
+          },
+          {
+            "origine": "PNG iTXt",
+            "cle": "Description",
+            "valeur": "Un commentaire international.",
+            "compresse": true,
+            "langue": "fr"
+          }
+        ],
+        "profil_icc": {
+          "octets": 168,
+          "version": "2.4",
+          "classe": "mntr",
+          "classe_libelle": "périphérique d'affichage (écran)",
+          "espace": "RGB ",
+          "espace_libelle": "RVB",
+          "espace_connexion": "XYZ ",
+          "plateforme": "APPL",
+          "createur": "ESSA",
+          "date": "2026-05-12T14:22:10",
+          "description": "Display P3",
+          "copyright": null
+        },
+        "bloc_exif_sha256": null,
+        "bloc_exif_octets": null,
+        "paquets_xmp": [],
+        "proprietes": {
+          "type_couleur": 2,
+          "type_couleur_libelle": "RVB",
+          "entrelacement": false,
+          "pixels_par_unite": [
+            11811,
+            11811
+          ],
+          "unite_physique": "mètre",
+          "derniere_modification": "2026-05-12T14:22:10",
+          "nom_profil_icc": "Display P3",
+          "animation": true,
+          "trames_declarees": 7,
+          "boucles": 3
+        },
+        "chunks_corrompus": []
+      }
+    },
+    {
+      "nom": "png à chunk qui déborde",
+      "octets_b64": "iVBORw0KGgoAAAANSUhEUgAAAEAAAAAwCAIAAAAuKetIAJiWgHBIWXMAAC4jAAAuIwF4pT92AAAAB3RJTUUH6gUMDhYKD+7TTwAAAFNJREFUeJztz0ENwCAAwEBAA+rQhOiJ4HFZ0lPQzn3u+LOlA141oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgfUQaAVpLkmE7AAAAAElFTkSuQmCC",
+      "inventaire": {
+        "format": "PNG",
+        "octets": 180,
+        "largeur": 64,
+        "hauteur": 48,
+        "profondeur_bits": 8,
+        "dpi_x": null,
+        "dpi_y": null,
+        "chunks": [
+          {
+            "type": "IHDR",
+            "offset": 8,
+            "longueur": 13,
+            "crc_valide": true,
+            "role": "en-tête : dimensions, profondeur, type de couleur"
+          }
+        ],
+        "textes": [],
+        "profil_icc": null,
+        "bloc_exif_sha256": null,
+        "bloc_exif_octets": null,
+        "paquets_xmp": [],
+        "proprietes": {
+          "type_couleur": 2,
+          "type_couleur_libelle": "RVB",
+          "entrelacement": false
+        },
+        "chunks_corrompus": []
+      }
+    },
+    {
+      "nom": "webp complet",
+      "octets_b64": "UklGRjYBAABXRUJQVlA4WAoAAAAsAAAA/wQAvwMASUNDUKgAAAAAAACoAAAAAAJAAABtbnRyUkdCIFhZWiAH6gAFAAwADgAWAAphY3NwQVBQTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEVTU0EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFkZXNjAAAAkAAAABhkZXNjAAAAAAAAAAtEaXNwbGF5IFAzAABWUDggFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARVhJRhQAAABFeGlmAABJSSoACAAAAAAAAAAAAFhNUCAwAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyI+PC94OnhtcG1ldGE+",
+      "inventaire": {
+        "format": "WebP",
+        "octets": 318,
+        "largeur": 1280,
+        "hauteur": 960,
+        "profondeur_bits": null,
+        "dpi_x": null,
+        "dpi_y": null,
+        "chunks": [
+          {
+            "type": "VP8X",
+            "offset": 12,
+            "longueur": 10,
+            "crc_valide": null,
+            "role": "en-tête étendu : dimensions et drapeaux"
+          },
+          {
+            "type": "ICCP",
+            "offset": 30,
+            "longueur": 168,
+            "crc_valide": null,
+            "role": "profil ICC"
+          },
+          {
+            "type": "VP8 ",
+            "offset": 206,
+            "longueur": 20,
+            "crc_valide": null,
+            "role": "image avec perte"
+          },
+          {
+            "type": "EXIF",
+            "offset": 234,
+            "longueur": 20,
+            "crc_valide": null,
+            "role": "bloc EXIF"
+          },
+          {
+            "type": "XMP ",
+            "offset": 262,
+            "longueur": 48,
+            "crc_valide": null,
+            "role": "paquet XMP"
+          }
+        ],
+        "textes": [],
+        "profil_icc": {
+          "octets": 168,
+          "version": "2.4",
+          "classe": "mntr",
+          "classe_libelle": "périphérique d'affichage (écran)",
+          "espace": "RGB ",
+          "espace_libelle": "RVB",
+          "espace_connexion": "XYZ ",
+          "plateforme": "APPL",
+          "createur": "ESSA",
+          "date": "2026-05-12T14:22:10",
+          "description": "Display P3",
+          "copyright": null
+        },
+        "bloc_exif_sha256": "5b8de6f08055194ef790df081c2b76fa7920469750fd5ff47e6a209a7b3c716a",
+        "bloc_exif_octets": 14,
+        "paquets_xmp": [
+          "c5735841ee977047e1b1df2145bfe6cf3a84932a7b9cc28697080041b0b2dd91"
+        ],
+        "proprietes": {
+          "icc": true,
+          "alpha": false,
+          "exif": true,
+          "xmp": true,
+          "animation": false
+        },
+        "chunks_corrompus": []
+      }
+    },
+    {
+      "nom": "webp nu",
+      "octets_b64": "UklGRjIAAABXRUJQVlA4WAoAAAAAAAAA/wQAvwMAVlA4IBQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+      "inventaire": {
+        "format": "WebP",
+        "octets": 58,
+        "largeur": 1280,
+        "hauteur": 960,
+        "profondeur_bits": null,
+        "dpi_x": null,
+        "dpi_y": null,
+        "chunks": [
+          {
+            "type": "VP8X",
+            "offset": 12,
+            "longueur": 10,
+            "crc_valide": null,
+            "role": "en-tête étendu : dimensions et drapeaux"
+          },
+          {
+            "type": "VP8 ",
+            "offset": 30,
+            "longueur": 20,
+            "crc_valide": null,
+            "role": "image avec perte"
+          }
+        ],
+        "textes": [],
+        "profil_icc": null,
+        "bloc_exif_sha256": null,
+        "bloc_exif_octets": null,
+        "paquets_xmp": [],
+        "proprietes": {
+          "icc": false,
+          "alpha": false,
+          "exif": false,
+          "xmp": false,
+          "animation": false
+        },
+        "chunks_corrompus": []
+      }
+    },
+    {
+      "nom": "webp animé",
+      "octets_b64": "UklGRngBAABXRUJQVlA4WAoAAAAuAAAA/wQAvwMASUNDUKgAAAAAAACoAAAAAAJAAABtbnRyUkdCIFhZWiAH6gAFAAwADgAWAAphY3NwQVBQTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEVTU0EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFkZXNjAAAAkAAAABhkZXNjAAAAAAAAAAtEaXNwbGF5IFAzAABBTklNBgAAAAAAAAAFAEFOTUYRAAAAAAAAAAAAAAAAAAAAAAAAAAAAQU5NRhEAAAAAAAAAAAAAAAAAAAAAAAAAAABWUDggFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARVhJRhQAAABFeGlmAABJSSoACAAAAAAAAAAAAFhNUCAwAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyI+PC94OnhtcG1ldGE+",
+      "inventaire": {
+        "format": "WebP",
+        "octets": 384,
+        "largeur": 1280,
+        "hauteur": 960,
+        "profondeur_bits": null,
+        "dpi_x": null,
+        "dpi_y": null,
+        "chunks": [
+          {
+            "type": "VP8X",
+            "offset": 12,
+            "longueur": 10,
+            "crc_valide": null,
+            "role": "en-tête étendu : dimensions et drapeaux"
+          },
+          {
+            "type": "ICCP",
+            "offset": 30,
+            "longueur": 168,
+            "crc_valide": null,
+            "role": "profil ICC"
+          },
+          {
+            "type": "ANIM",
+            "offset": 206,
+            "longueur": 6,
+            "crc_valide": null,
+            "role": "paramètres d'animation"
+          },
+          {
+            "type": "ANMF",
+            "offset": 220,
+            "longueur": 17,
+            "crc_valide": null,
+            "role": "trame d'animation"
+          },
+          {
+            "type": "ANMF",
+            "offset": 246,
+            "longueur": 17,
+            "crc_valide": null,
+            "role": "trame d'animation"
+          },
+          {
+            "type": "VP8 ",
+            "offset": 272,
+            "longueur": 20,
+            "crc_valide": null,
+            "role": "image avec perte"
+          },
+          {
+            "type": "EXIF",
+            "offset": 300,
+            "longueur": 20,
+            "crc_valide": null,
+            "role": "bloc EXIF"
+          },
+          {
+            "type": "XMP ",
+            "offset": 328,
+            "longueur": 48,
+            "crc_valide": null,
+            "role": "paquet XMP"
+          }
+        ],
+        "textes": [],
+        "profil_icc": {
+          "octets": 168,
+          "version": "2.4",
+          "classe": "mntr",
+          "classe_libelle": "périphérique d'affichage (écran)",
+          "espace": "RGB ",
+          "espace_libelle": "RVB",
+          "espace_connexion": "XYZ ",
+          "plateforme": "APPL",
+          "createur": "ESSA",
+          "date": "2026-05-12T14:22:10",
+          "description": "Display P3",
+          "copyright": null
+        },
+        "bloc_exif_sha256": "5b8de6f08055194ef790df081c2b76fa7920469750fd5ff47e6a209a7b3c716a",
+        "bloc_exif_octets": 14,
+        "paquets_xmp": [
+          "c5735841ee977047e1b1df2145bfe6cf3a84932a7b9cc28697080041b0b2dd91"
+        ],
+        "proprietes": {
+          "icc": true,
+          "alpha": false,
+          "exif": true,
+          "xmp": true,
+          "animation": true,
+          "boucles": 5,
+          "trames": 2
+        },
+        "chunks_corrompus": []
+      }
+    },
+    {
+      "nom": "webp à morceau impair",
+      "octets_b64": "UklGRiwAAABXRUJQWE1QIAMAAABhYmMAVlA4IBQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+      "inventaire": {
+        "format": "WebP",
+        "octets": 52,
+        "largeur": null,
+        "hauteur": null,
+        "profondeur_bits": null,
+        "dpi_x": null,
+        "dpi_y": null,
+        "chunks": [
+          {
+            "type": "XMP ",
+            "offset": 12,
+            "longueur": 3,
+            "crc_valide": null,
+            "role": "paquet XMP"
+          },
+          {
+            "type": "VP8 ",
+            "offset": 24,
+            "longueur": 20,
+            "crc_valide": null,
+            "role": "image avec perte"
+          }
+        ],
+        "textes": [],
+        "profil_icc": null,
+        "bloc_exif_sha256": null,
+        "bloc_exif_octets": null,
+        "paquets_xmp": [
+          "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        ],
+        "proprietes": {},
+        "chunks_corrompus": []
+      }
+    },
+    {
+      "nom": "gif fixe",
+      "octets_b64": "R0lGODlhIAAYAIAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEEAAAsAAAAACAAGABACDIAAQgcSLCgwYMIEypcyLChw4cQI0qcSDGigIoYM2rcyLGjR44BPoocSbKkyZMoU1IMCAAh/hVQcm9kdWl0IHBhciBFc3NhaUNvcnAAOw==",
+      "inventaire": {
+        "format": "GIF",
+        "octets": 127,
+        "largeur": 32,
+        "hauteur": 24,
+        "profondeur_bits": 1,
+        "dpi_x": null,
+        "dpi_y": null,
+        "chunks": [
+          {
+            "type": "Application/NETSCAPE",
+            "offset": 19,
+            "longueur": 19,
+            "crc_valide": null,
+            "role": "extension d'application"
+          },
+          {
+            "type": "Image",
+            "offset": 38,
+            "longueur": 63,
+            "crc_valide": null,
+            "role": "descripteur et données d'image"
+          },
+          {
+            "type": "Comment",
+            "offset": 101,
+            "longueur": 25,
+            "crc_valide": null,
+            "role": "commentaire"
+          },
+          {
+            "type": "Trailer",
+            "offset": 126,
+            "longueur": 1,
+            "crc_valide": null,
+            "role": "fin du flux"
+          }
+        ],
+        "textes": [
+          {
+            "origine": "GIF Comment Extension",
+            "cle": "commentaire",
+            "valeur": "Produit par EssaiCorp",
+            "compresse": false,
+            "langue": null
+          }
+        ],
+        "profil_icc": null,
+        "bloc_exif_sha256": null,
+        "bloc_exif_octets": null,
+        "paquets_xmp": [],
+        "proprietes": {
+          "version": "89a",
+          "table_couleurs_globale": true,
+          "boucles": 4,
+          "extensions_application": [
+            "NETSCAPE2.0"
+          ],
+          "trames": 1,
+          "animation": false
+        },
+        "chunks_corrompus": []
+      }
+    },
+    {
+      "nom": "gif animé",
+      "octets_b64": "R0lGODlhIAAYAIAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEEAAAsAAAAACAAGAAACDMAAQgcSLCgwYMIEypcyLChw4cQIyYMINGhgIoYM2rcyLGjx48gQ4ocSbKkyZMoU6oUGBAAIfkEAQAAAAAsAgAFAAoABQAACBEAAQgcSLCgwYMIBQZICEBAQAAh+QQBAAAAACwKAAgACgAFAAAIEQABCBxIsKDBgwgFBkgIQEBAACH+FVByb2R1aXQgcGFyIEVzc2FpQ29ycAA7",
+      "inventaire": {
+        "format": "GIF",
+        "octets": 204,
+        "largeur": 32,
+        "hauteur": 24,
+        "profondeur_bits": 1,
+        "dpi_x": null,
+        "dpi_y": null,
+        "chunks": [
+          {
+            "type": "Application/NETSCAPE",
+            "offset": 19,
+            "longueur": 19,
+            "crc_valide": null,
+            "role": "extension d'application"
+          },
+          {
+            "type": "Image",
+            "offset": 38,
+            "longueur": 64,
+            "crc_valide": null,
+            "role": "descripteur et données d'image"
+          },
+          {
+            "type": "GraphicControl",
+            "offset": 102,
+            "longueur": 8,
+            "crc_valide": null,
+            "role": "contrôle de trame"
+          },
+          {
+            "type": "Image",
+            "offset": 110,
+            "longueur": 30,
+            "crc_valide": null,
+            "role": "descripteur et données d'image"
+          },
+          {
+            "type": "GraphicControl",
+            "offset": 140,
+            "longueur": 8,
+            "crc_valide": null,
+            "role": "contrôle de trame"
+          },
+          {
+            "type": "Image",
+            "offset": 148,
+            "longueur": 30,
+            "crc_valide": null,
+            "role": "descripteur et données d'image"
+          },
+          {
+            "type": "Comment",
+            "offset": 178,
+            "longueur": 25,
+            "crc_valide": null,
+            "role": "commentaire"
+          },
+          {
+            "type": "Trailer",
+            "offset": 203,
+            "longueur": 1,
+            "crc_valide": null,
+            "role": "fin du flux"
+          }
+        ],
+        "textes": [
+          {
+            "origine": "GIF Comment Extension",
+            "cle": "commentaire",
+            "valeur": "Produit par EssaiCorp",
+            "compresse": false,
+            "langue": null
+          }
+        ],
+        "profil_icc": null,
+        "bloc_exif_sha256": null,
+        "bloc_exif_octets": null,
+        "paquets_xmp": [],
+        "proprietes": {
+          "version": "89a",
+          "table_couleurs_globale": true,
+          "boucles": 4,
+          "extensions_application": [
+            "NETSCAPE2.0"
+          ],
+          "trames": 3,
+          "animation": true
+        },
+        "chunks_corrompus": []
+      }
+    },
+    {
+      "nom": "bmp",
+      "octets_b64": "Qk1GDgAAAAAAADYAAAAoAAAAKAAAAB4AAAABABgAAAAAABAOAADEDgAAxA4AAAAAAAAAAAAAPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjI",
+      "inventaire": {
+        "format": "BMP",
+        "octets": 3654,
+        "largeur": 40,
+        "hauteur": 30,
+        "profondeur_bits": 24,
+        "dpi_x": 96.012,
+        "dpi_y": 96.012,
+        "chunks": [
+          {
+            "type": "BITMAPFILEHEADER",
+            "offset": 0,
+            "longueur": 14,
+            "crc_valide": null,
+            "role": "en-tête de fichier"
+          },
+          {
+            "type": "DIB (40 octets)",
+            "offset": 14,
+            "longueur": 40,
+            "crc_valide": null,
+            "role": "en-tête d'image"
+          }
+        ],
+        "textes": [],
+        "profil_icc": null,
+        "bloc_exif_sha256": null,
+        "bloc_exif_octets": null,
+        "paquets_xmp": [],
+        "proprietes": {
+          "lignes_de_haut_en_bas": false,
+          "compression": 0,
+          "compression_libelle": "aucune (BI_RGB)"
+        },
+        "chunks_corrompus": []
+      }
+    },
+    {
+      "nom": "bmp à hauteur négative",
+      "octets_b64": "Qk1GDgAAAAAAADYAAAAoAAAAKAAAAOL///8BABgAAAAAABAOAADEDgAAxA4AAAAAAAAAAAAAPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjI",
+      "inventaire": {
+        "format": "BMP",
+        "octets": 3654,
+        "largeur": 40,
+        "hauteur": 30,
+        "profondeur_bits": 24,
+        "dpi_x": 96.012,
+        "dpi_y": 96.012,
+        "chunks": [
+          {
+            "type": "BITMAPFILEHEADER",
+            "offset": 0,
+            "longueur": 14,
+            "crc_valide": null,
+            "role": "en-tête de fichier"
+          },
+          {
+            "type": "DIB (40 octets)",
+            "offset": 14,
+            "longueur": 40,
+            "crc_valide": null,
+            "role": "en-tête d'image"
+          }
+        ],
+        "textes": [],
+        "profil_icc": null,
+        "bloc_exif_sha256": null,
+        "bloc_exif_octets": null,
+        "paquets_xmp": [],
+        "proprietes": {
+          "lignes_de_haut_en_bas": true,
+          "compression": 0,
+          "compression_libelle": "aucune (BI_RGB)"
+        },
+        "chunks_corrompus": []
+      }
+    },
+    {
+      "nom": "svg",
+      "octets_b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEVzc2FpQ29ycCBEZXNzaW4gMTIuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC0tPgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6aW5rc2NhcGU9Imh0dHA6Ly93d3cuaW5rc2NhcGUub3JnL25hbWVzcGFjZXMvaW5rc2NhcGUiCiAgICAgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIHZpZXdCb3g9IjAgMCA4MDAgNjAwIj4KICA8dGl0bGU+U2NoZW1hIGQnZXNzYWk8L3RpdGxlPgogIDxkZXNjPlVuZSBkZXNjcmlwdGlvbiBsaXNpYmxlIGVuIGNsYWlyLjwvZGVzYz4KICA8bWV0YWRhdGE+PHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj48L3JkZjpSREY+PC9tZXRhZGF0YT4KICA8cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzEyMzQ1NiIvPgo8L3N2Zz4K",
+      "inventaire": {
+        "format": "SVG",
+        "octets": 492,
+        "largeur": 800,
+        "hauteur": 600,
+        "profondeur_bits": null,
+        "dpi_x": null,
+        "dpi_y": null,
+        "chunks": [
+          {
+            "type": "metadata",
+            "offset": 338,
+            "longueur": 96,
+            "crc_valide": null,
+            "role": "bloc de métadonnées RDF"
+          }
+        ],
+        "textes": [
+          {
+            "origine": "SVG commentaire",
+            "cle": "commentaire 1",
+            "valeur": "Generator: EssaiCorp Dessin 12.0, SVG Export Plug-In",
+            "compresse": false,
+            "langue": null
+          },
+          {
+            "origine": "SVG <title>",
+            "cle": "title",
+            "valeur": "Schema d'essai",
+            "compresse": false,
+            "langue": null
+          },
+          {
+            "origine": "SVG <desc>",
+            "cle": "desc",
+            "valeur": "Une description lisible en clair.",
+            "compresse": false,
+            "langue": null
+          }
+        ],
+        "profil_icc": null,
+        "bloc_exif_sha256": null,
+        "bloc_exif_octets": null,
+        "paquets_xmp": [
+          "f75fe06e4228d436b2166ca5fb538558dc78a4d4bfcbf27dfcaf9e3f91634541"
+        ],
+        "proprietes": {
+          "width": "800",
+          "height": "600",
+          "viewBox": "0 0 800 600",
+          "xmlns:inkscape": "http://www.inkscape.org/namespaces/inkscape"
+        },
+        "chunks_corrompus": []
+      }
+    },
+    {
+      "nom": "svg à largeur en millimètres",
+      "octets_b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEVzc2FpQ29ycCBEZXNzaW4gMTIuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC0tPgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6aW5rc2NhcGU9Imh0dHA6Ly93d3cuaW5rc2NhcGUub3JnL25hbWVzcGFjZXMvaW5rc2NhcGUiCiAgICAgd2lkdGg9IjIxMG1tIiBoZWlnaHQ9IjYwMCIgdmlld0JveD0iMCAwIDgwMCA2MDAiPgogIDx0aXRsZT5TY2hlbWEgZCdlc3NhaTwvdGl0bGU+CiAgPGRlc2M+VW5lIGRlc2NyaXB0aW9uIGxpc2libGUgZW4gY2xhaXIuPC9kZXNjPgogIDxtZXRhZGF0YT48cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPjwvcmRmOlJERj48L21ldGFkYXRhPgogIDxyZWN0IHdpZHRoPSIyMTBtbSIgaGVpZ2h0PSI2MDAiIGZpbGw9IiMxMjM0NTYiLz4KPC9zdmc+Cg==",
+      "inventaire": {
+        "format": "SVG",
+        "octets": 496,
+        "largeur": null,
+        "hauteur": 600,
+        "profondeur_bits": null,
+        "dpi_x": null,
+        "dpi_y": null,
+        "chunks": [
+          {
+            "type": "metadata",
+            "offset": 340,
+            "longueur": 96,
+            "crc_valide": null,
+            "role": "bloc de métadonnées RDF"
+          }
+        ],
+        "textes": [
+          {
+            "origine": "SVG commentaire",
+            "cle": "commentaire 1",
+            "valeur": "Generator: EssaiCorp Dessin 12.0, SVG Export Plug-In",
+            "compresse": false,
+            "langue": null
+          },
+          {
+            "origine": "SVG <title>",
+            "cle": "title",
+            "valeur": "Schema d'essai",
+            "compresse": false,
+            "langue": null
+          },
+          {
+            "origine": "SVG <desc>",
+            "cle": "desc",
+            "valeur": "Une description lisible en clair.",
+            "compresse": false,
+            "langue": null
+          }
+        ],
+        "profil_icc": null,
+        "bloc_exif_sha256": null,
+        "bloc_exif_octets": null,
+        "paquets_xmp": [
+          "f75fe06e4228d436b2166ca5fb538558dc78a4d4bfcbf27dfcaf9e3f91634541"
+        ],
+        "proprietes": {
+          "width": "210mm",
+          "height": "600",
+          "viewBox": "0 0 800 600",
+          "xmlns:inkscape": "http://www.inkscape.org/namespaces/inkscape"
+        },
+        "chunks_corrompus": []
+      }
+    }
+  ],
+  "icc": [
+    {
+      "nom": "profil v2, tag desc",
+      "octets_b64": "AAAAqAAAAAACQAAAbW50clJHQiBYWVogB+oABQAMAA4AFgAKYWNzcEFQUEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABFU1NBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABZGVzYwAAAJAAAAAYZGVzYwAAAAAAAAALRGlzcGxheSBQMwAA",
+      "profil": {
+        "octets": 168,
+        "version": "2.4",
+        "classe": "mntr",
+        "classe_libelle": "périphérique d'affichage (écran)",
+        "espace": "RGB ",
+        "espace_libelle": "RVB",
+        "espace_connexion": "XYZ ",
+        "plateforme": "APPL",
+        "createur": "ESSA",
+        "date": "2026-05-12T14:22:10",
+        "description": "Display P3",
+        "copyright": null
+      }
+    },
+    {
+      "nom": "profil v2, autre description",
+      "octets_b64": "AAAAsAAAAAACQAAAbW50clJHQiBYWVogB+oABQAMAA4AFgAKYWNzcEFQUEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABFU1NBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABZGVzYwAAAJAAAAAgZGVzYwAAAAAAAAASc1JHQiBJRUM2MTk2Ni0yLjEAAAA=",
+      "profil": {
+        "octets": 176,
+        "version": "2.4",
+        "classe": "mntr",
+        "classe_libelle": "périphérique d'affichage (écran)",
+        "espace": "RGB ",
+        "espace_libelle": "RVB",
+        "espace_connexion": "XYZ ",
+        "plateforme": "APPL",
+        "createur": "ESSA",
+        "date": "2026-05-12T14:22:10",
+        "description": "sRGB IEC61966-2.1",
+        "copyright": null
+      }
+    },
+    {
+      "nom": "profil de scanner",
+      "octets_b64": "AAAAqAAAAAACQAAAc2NuckdSQVlYWVogB+oABQAMAA4AFgAKYWNzcEFQUEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABFU1NBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABZGVzYwAAAJAAAAAYZGVzYwAAAAAAAAALRGlzcGxheSBQMwAA",
+      "profil": {
+        "octets": 168,
+        "version": "2.4",
+        "classe": "scnr",
+        "classe_libelle": "périphérique d'entrée (scanner, capteur)",
+        "espace": "GRAY",
+        "espace_libelle": "niveaux de gris",
+        "espace_connexion": "XYZ ",
+        "plateforme": "APPL",
+        "createur": "ESSA",
+        "date": "2026-05-12T14:22:10",
+        "description": "Display P3",
+        "copyright": null
+      }
+    },
+    {
+      "nom": "profil v4, description en UTF-16 (mluc)",
+      "octets_b64": "AAAAzgAAAAAEMAAAbW50clJHQiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABZGVzYwAAAJAAAAA+bWx1YwAAAAAAAAABAAAADGZyRlIAAAAiAAAAHABzAFIARwBCACAASQBFAEMANgAxADkANgA2AC0AMgAuADE=",
+      "profil": {
+        "octets": 206,
+        "version": "4.3",
+        "classe": "mntr",
+        "classe_libelle": "périphérique d'affichage (écran)",
+        "espace": "RGB ",
+        "espace_libelle": "RVB",
+        "espace_connexion": "\u0000\u0000\u0000\u0000",
+        "plateforme": null,
+        "createur": null,
+        "date": null,
+        "description": "sRGB IEC61966-2.1",
+        "copyright": null
+      }
+    },
+    {
+      "nom": "profil annonçant un nombre de tags aberrant",
+      "octets_b64": "AAAAhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////",
+      "profil": {
+        "octets": 132,
+        "version": "0.0",
+        "classe": "\u0000\u0000\u0000\u0000",
+        "classe_libelle": null,
+        "espace": "\u0000\u0000\u0000\u0000",
+        "espace_libelle": null,
+        "espace_connexion": "\u0000\u0000\u0000\u0000",
+        "plateforme": null,
+        "createur": null,
+        "date": null,
+        "description": null,
+        "copyright": null
+      }
+    }
+  ],
+  "refus": [
+    {
+      "nom": "format non couvert (JPEG)",
+      "octets_b64": "/9j/4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+      "message_python": "Format non couvert par ce module : ni PNG, ni WebP, ni GIF, ni BMP, ni SVG. Les JPEG et TIFF se lisent par metadata.py, les conteneurs à boîtes par isobmff.py."
+    },
+    {
+      "nom": "fichier trop court",
+      "octets_b64": "iVBORw==",
+      "message_python": "Fichier trop court pour porter un en-tête de conteneur."
+    }
+  ]
+}
