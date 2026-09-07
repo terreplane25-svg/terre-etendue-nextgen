@@ -61,7 +61,7 @@ répercute dans le port, puis les vecteurs sont régénérés. Jamais l'inverse.
 ## Tests
 
     cd outils/outil-A-visee-optique     && ../.venv/bin/python -m pytest -q   # 321
-    cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 263
+    cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 289
     cd outils/outil-C-rapport-expertise && ../.venv/bin/python -m pytest -q   #  42
     cd outils/outil-D-metrologie-image  && ../.venv/bin/python -m pytest -q   # 102
 
@@ -69,6 +69,37 @@ Et, pour l'outil D, un essai qui pilote un vrai navigateur — les vecteurs
 épinglent les formules, celui-ci vérifie le câblage :
 
     npm run essai:metrologie
+
+## Formats bruts d'appareil photo (outil B)
+
+L'outil B lit l'EXIF, le GPS et les aperçus embarqués des fichiers RAW, en
+plus des JPEG. La quasi-totalité des formats bruts sont en fait des TIFF —
+CR2, NEF, ARW, DNG, ORF, PEF, SRW, RW2, IIQ, 3FR — et leur EXIF est à la
+racine du fichier, dans l'IFD0 et le sous-IFD Exif, sans segment APP1 à
+chercher. Le RAF de Fujifilm n'est pas un TIFF, mais embarque un JPEG complet
+dont l'en-tête donne l'offset en clair.
+
+**Le CR3 des Canon récents n'est pas lu.** C'est un conteneur ISO BMFF, comme
+un MP4 : les métadonnées y sont dans des boîtes que ce lecteur n'implémente
+pas. Il est détecté et **refusé en se nommant**, plutôt que lu de travers —
+rendre des champs vides laisserait croire que le fichier n'en porte pas. Son
+empreinte SHA-256 reste valide : sceller un fichier et savoir le lire sont
+deux propriétés indépendantes.
+
+Un RAW porte **plusieurs** images embarquées — un aperçu pleine résolution,
+un aperçu moyen, une vignette — écrites à des moments potentiellement
+différents du traitement. Elles sont toutes rendues, de la plus grande à la
+plus petite, avec leur provenance (IFD0, IFD1, sous-IFD n). N'en montrer
+qu'une masquerait les autres, or c'est leur comparaison qui a valeur d'indice.
+
+**Ce que cela n'établit pas.** Les fichiers d'essai sont fabriqués ici à
+partir des structures publiées, pas prélevés sur des boîtiers réels. Ce qui
+est vérifié, c'est que le lecteur suit ces structures — pas qu'il lit ce
+qu'un Canon ou un Nikon écrit vraiment. Un vrai CR2 fait 25 Mo et porte des
+MakerNotes propriétaires que rien ici ne décode. **Confronter le lecteur à des
+fichiers de boîtiers réels reste à faire.** L'extension `.REF` mentionnée dans
+la demande n'est pas un format brut identifiable : c'est vraisemblablement
+`.RAF` (Fujifilm), qui, lui, est couvert.
 
 ## Ce qui a changé depuis la livraison
 

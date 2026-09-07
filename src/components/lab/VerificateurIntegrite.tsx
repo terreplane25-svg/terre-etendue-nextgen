@@ -22,6 +22,7 @@
 import { useCallback, useRef, useState } from 'react';
 import { dash } from '@/lib/design-tokens';
 import {
+  FORMATS_RAW_TIFF,
   INDISPONIBLE,
   type DonneesExif,
   type RapportFichier,
@@ -29,6 +30,7 @@ import {
   empreinteSha256,
   empreinteValide,
   libellesExif,
+  previsualisationPrincipale,
   zoomNumeriqueApplique,
 } from '@/lib/preuve-image/noyau';
 import {
@@ -209,7 +211,10 @@ export default function VerificateurIntegrite() {
       // La miniature est affichée depuis ses propres octets, jamais depuis
       // l'image principale redimensionnée : c'est justement leur écart qui a
       // valeur, et le montrer supposerait de les confondre.
-      const m = r.exif?.miniature ?? null;
+      // Sur un RAW il y a plusieurs images embarquées : on affiche la plus
+      // grande, et les autres restent listées. En choisir une silencieusement
+      // masquerait les autres, or c'est leur comparaison qui a valeur d'indice.
+      const m = r.exif ? previsualisationPrincipale(r.exif) : null;
       if (m && m.estJpeg) {
         setUrlMiniature(URL.createObjectURL(new Blob([m.octets], { type: 'image/jpeg' })));
         setEmpreinteMiniature(await empreinteSha256(m.octets));
@@ -237,6 +242,8 @@ export default function VerificateurIntegrite() {
   }, [rapport]);
 
   const gps = rapport?.exif?.gps ?? null;
+  const apercus = rapport?.exif?.previsualisations ?? [];
+  const apercuPrincipal = rapport?.exif ? previsualisationPrincipale(rapport.exif) : null;
 
   return (
     <div style={{ maxWidth: 940, margin: '0 auto' }}>
@@ -283,7 +290,8 @@ export default function VerificateurIntegrite() {
           {enCours ? 'Calcul en cours…' : 'Déposez un fichier, ou cliquez pour le choisir'}
         </p>
         <p style={{ margin: 0, fontSize: 12.5, color: 'var(--ink-muted)' }}>
-          JPEG pour la lecture EXIF. N’importe quel fichier pour l’empreinte seule.
+          JPEG et formats bruts d’appareil photo (CR2, NEF, ARW, DNG, ORF, RAF…) pour la
+          lecture EXIF. N’importe quel fichier pour l’empreinte seule.
           Jusqu’à {fmtTaille(TAILLE_MAX)}.
         </p>
         <input
@@ -312,6 +320,7 @@ export default function VerificateurIntegrite() {
                 <Ligne cle="Nom du fichier" val={rapport.nom} mono={false} />
                 <Ligne cle="Taille" val={`${fmtTaille(rapport.tailleOctets)} — ${rapport.tailleOctets.toLocaleString('fr-FR')} octets`} />
                 <Ligne cle="Type déclaré par le navigateur" val={rapport.typeDeclare} />
+                <Ligne cle="Conteneur reconnu aux octets" val={rapport.conteneur} />
               </tbody>
             </table>
             <div style={{
@@ -344,6 +353,13 @@ export default function VerificateurIntegrite() {
                 </p>
               )}
             </div>
+            <p style={{ margin: '12px 0 0', fontSize: 12, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
+              Le conteneur est reconnu <strong>aux octets du fichier</strong>, sans faire
+              confiance à son extension ni au type que le navigateur annonce : un fichier
+              renommé se voit ici. L’empreinte, elle, ne dépend d’aucun format compris —
+              un conteneur que ce lecteur ne sait pas ouvrir garde une empreinte
+              parfaitement valide, et les deux sont indépendantes.
+            </p>
             <p style={{ margin: '12px 0 0', fontSize: 12, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
               Pour que cette empreinte serve à quelque chose, elle doit être{' '}
               <strong>déposée le jour même auprès d’un tiers qui la date</strong> — horodatage
@@ -432,21 +448,28 @@ export default function VerificateurIntegrite() {
                 </code>
               </div>
               <p style={{ margin: '10px 0 0', fontSize: 12, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
-                Les causes courantes : le fichier n’est pas un JPEG, l’EXIF a été retiré par un
-                service de messagerie ou de partage, ou le fichier est un format brut que ce
-                lecteur ne couvre pas. Le motif exact est affiché ci-dessus plutôt que résumé.
+                Les causes courantes : l’EXIF a été retiré par un service de messagerie ou de
+                partage, ou le fichier est un conteneur que ce lecteur ne couvre pas. Le motif
+                exact est affiché ci-dessus plutôt que résumé.
+              </p>
+              <p style={{ margin: '10px 0 0', fontSize: 12, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
+                Les formats bruts d’appareil photo sont lus : {FORMATS_RAW_TIFF.join(', ')},
+                ainsi que le RAF de Fujifilm. Le <strong>CR3</strong> des Canon récents ne
+                l’est pas — c’est un conteneur ISO BMFF, comme un MP4, et il est refusé en se
+                nommant plutôt que lu de travers. Son empreinte reste valide : sceller un
+                fichier et savoir le lire sont deux choses indépendantes.
               </p>
             </Bloc>
           )}
 
-          {rapport.exif?.miniature && (
-            <Bloc num="05" titre="Miniature intégrée">
+          {apercuPrincipal && (
+            <Bloc num="05" titre={apercus.length > 1 ? 'Images embarquées' : 'Miniature intégrée'}>
               <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', alignItems: 'flex-start' }}>
                 {urlMiniature && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={urlMiniature}
-                    alt="Miniature extraite de l’IFD1 du fichier"
+                    alt={`Aperçu extrait de ${apercuPrincipal.origine} du fichier`}
                     style={{
                       maxWidth: 220, height: 'auto', borderRadius: 6,
                       border: '1px solid var(--border)',
@@ -456,10 +479,11 @@ export default function VerificateurIntegrite() {
                 <div style={{ flex: '1 1 260px', minWidth: 0 }}>
                   <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <tbody>
-                      <Ligne cle="Position dans le flux" val={`octet ${rapport.exif.miniature.offset}`} />
-                      <Ligne cle="Taille" val={fmtTaille(rapport.exif.miniature.longueur)} />
-                      <Ligne cle="Format" val={rapport.exif.miniature.estJpeg ? 'JPEG' : 'non reconnu'} />
-                      <Ligne cle="Code de compression" val={fmtNb(rapport.exif.miniature.compression, 0)} />
+                      <Ligne cle="Provenance dans le fichier" val={apercuPrincipal.origine} />
+                      <Ligne cle="Position dans le flux" val={`octet ${apercuPrincipal.offset}`} />
+                      <Ligne cle="Taille" val={fmtTaille(apercuPrincipal.longueur)} />
+                      <Ligne cle="Format" val={apercuPrincipal.estJpeg ? 'JPEG' : 'non reconnu'} />
+                      <Ligne cle="Code de compression" val={fmtNb(apercuPrincipal.compression, 0)} />
                     </tbody>
                   </table>
                   {empreinteMiniature && (
@@ -479,8 +503,35 @@ export default function VerificateurIntegrite() {
                   )}
                 </div>
               </div>
+              {apercus.length > 1 && (
+                <div style={{ marginTop: 16 }}>
+                  <div style={{
+                    fontSize: 10, fontFamily: dash.fontMono, letterSpacing: '0.08em',
+                    color: 'var(--ink-muted)', textTransform: 'uppercase', marginBottom: 6,
+                  }}>{apercus.length} images embarquées, de la plus grande à la plus petite</div>
+                  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <tbody>
+                      {apercus.map((a) => (
+                        <Ligne
+                          key={`${a.offset}:${a.longueur}`}
+                          cle={a.origine}
+                          val={`octet ${a.offset} — ${fmtTaille(a.longueur)}${a.estJpeg ? '' : ' — format non reconnu'}`}
+                        />
+                      ))}
+                    </tbody>
+                  </table>
+                  <p style={{ margin: '10px 0 0', fontSize: 12, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
+                    Un fichier brut en porte plusieurs : un aperçu pleine résolution, un
+                    aperçu moyen, une vignette. Elles <strong>ne montrent pas la même
+                    chose</strong> — elles peuvent avoir été écrites à des moments différents
+                    du traitement — et c’est leur comparaison qui a valeur d’indice. La plus
+                    grande est affichée ci-dessus ; les autres sont listées plutôt que
+                    masquées.
+                  </p>
+                </div>
+              )}
               <p style={{ margin: '12px 0 0', fontSize: 12, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
-                La miniature est affichée depuis <strong>ses propres octets</strong>, jamais
+                L’aperçu est affiché depuis <strong>ses propres octets</strong>, jamais
                 depuis l’image principale réduite : c’est leur écart qui aurait valeur.
                 Comparez-la à l’original. Un <strong>écart</strong> est un fait — la vignette
                 n’a pas été régénérée après une retouche. Une <strong>concordance</strong>

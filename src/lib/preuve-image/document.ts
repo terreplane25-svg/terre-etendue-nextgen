@@ -33,8 +33,10 @@ import {
   LIBELLE_SCENE_CAPTURE,
   LIBELLE_WHITE_BALANCE,
   decrireFlash,
+  detecterConteneur,
   empreinteSha256,
-  lireExifDepuisJpeg,
+  lireExif,
+  previsualisationPrincipale,
   zoomNumeriqueApplique,
   type DonneesExif,
 } from './noyau';
@@ -150,7 +152,10 @@ function blocC2pa(prov: Provenance) {
 }
 
 async function blocThumbnail(e: DonneesExif | null) {
-  const m = e?.miniature ?? null;
+  // La plus grande image embarquée, et non la seule vignette de l'IFD1 : sur
+  // un RAW il y en a plusieurs, et n'en déclarer qu'une laisserait croire que
+  // le fichier n'en porte qu'une.
+  const m = e ? previsualisationPrincipale(e) : null;
   if (m === null) return { present: false, dimensions: null };
   const dims = m.estJpeg ? dimensionsJpeg(m.octets) : null;
   return {
@@ -158,8 +163,22 @@ async function blocThumbnail(e: DonneesExif | null) {
     dimensions: dims,
     octets: m.longueur,
     offset: m.offset,
+    origine: m.origine,
     format: m.estJpeg ? 'JPEG' : 'non reconnu',
     sha256: await empreinteSha256(m.octets),
+    // Les autres aperçus sont déclarés eux aussi : ils n'ont pas
+    // nécessairement été écrits au même moment du traitement, et c'est leur
+    // comparaison qui a valeur d'indice.
+    autres: await Promise.all(
+      (e?.previsualisations ?? []).slice(1).map(async (a) => ({
+        origine: a.origine,
+        offset: a.offset,
+        octets: a.longueur,
+        format: a.estJpeg ? 'JPEG' : 'non reconnu',
+        dimensions: a.estJpeg ? dimensionsJpeg(a.octets) : null,
+        sha256: await empreinteSha256(a.octets),
+      })),
+    ),
     ce_que_ca_n_etablit_pas:
       "Une miniature qui concorde avec l'image n'établit rien : tout éditeur "
       + "qui la régénère efface la trace. Seul un ÉCART entre elle et l'image "
@@ -174,7 +193,10 @@ export async function documentIngestion(
   let exif: DonneesExif | null = null;
   let motifExif: string | null = null;
   try {
-    exif = lireExifDepuisJpeg(donnees);
+    // `lireExif` et non `lireExifDepuisJpeg` : un RAW n'a pas d'APP1 à
+    // chercher, et lui en chercher un rendait un document d'ingestion vide
+    // sur un fichier qui portait tout ce qu'il fallait, à la racine.
+    exif = lireExif(donnees);
   } catch (err) {
     motifExif = err instanceof Error ? err.message : String(err);
   }
@@ -200,6 +222,8 @@ export async function documentIngestion(
     sha256: await empreinteSha256(donnees),
     octets: donnees.length,
     file_info: {
+      // Reconnu aux octets, sans faire confiance à l'extension.
+      conteneur: detecterConteneur(donnees),
       dimensions: largeur && hauteur ? [largeur, hauteur] : null,
       color_space: exif && exif.espaceColorimetrique !== null
         ? LIBELLE_COLOR_SPACE[exif.espaceColorimetrique] ?? null : null,

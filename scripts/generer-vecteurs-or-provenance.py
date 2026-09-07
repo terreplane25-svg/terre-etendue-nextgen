@@ -377,8 +377,13 @@ def vecteurs_exif():
 def vecteurs_document():
     """Le document d'ingestion, sur des fichiers qui exercent les quatre écarts."""
     from test_document import jpeg, jpeg_avec_c2pa  # noqa: E402
+    from test_raw import raw_tiff  # noqa: E402
 
     cas = [
+        # Un RAW : trois images embarquées, donc le seul cas où le bloc
+        # `thumbnail` porte une liste `autres` non vide. Sans lui, la déclaration
+        # des aperçus secondaires ne serait épinglée nulle part.
+        ("RAW TIFF à trois aperçus", raw_tiff()),
         ("JPEG complet, sans décalage horaire déclaré", jpeg()),
         ("JPEG avec OffsetTimeOriginal", jpeg(avec_offset=True)),
         ("JPEG à résolutions anisotropes", jpeg(resolution=(300, 150))),

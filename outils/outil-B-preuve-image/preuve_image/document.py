@@ -45,7 +45,9 @@ import hashlib
 import struct
 from typing import Any, Dict, Optional, Tuple
 
-from .metadata import DonneesExif, MetadataError, decrire_flash, lire_exif_depuis_jpeg
+from .metadata import (
+    DonneesExif, MetadataError, decrire_flash, detecter_conteneur, lire_exif,
+)
 from .metadata import (
     _LIBELLE_COLOR_SPACE,
     _LIBELLE_EXPOSURE_MODE,
@@ -183,8 +185,23 @@ def _bloc_c2pa(prov: Provenance) -> Dict[str, Any]:
     }
 
 
+def _apercu_declare(m) -> Dict[str, Any]:
+    dims = dimensions_jpeg(m.octets) if m.est_jpeg else None
+    return {
+        "origine": m.origine,
+        "offset": m.offset,
+        "octets": m.longueur,
+        "format": "JPEG" if m.est_jpeg else "non reconnu",
+        "dimensions": list(dims) if dims else None,
+        "sha256": hashlib.sha256(m.octets).hexdigest(),
+    }
+
+
 def _bloc_thumbnail(e: Optional[DonneesExif]) -> Dict[str, Any]:
-    m = e.miniature if e else None
+    # La plus grande image embarquée, et non la seule vignette de l'IFD1 : un
+    # RAW en porte plusieurs, et n'en déclarer qu'une laisserait croire que le
+    # fichier n'en porte qu'une.
+    m = e.previsualisation_principale if e else None
     if m is None:
         return {"present": False, "dimensions": None}
     dims = dimensions_jpeg(m.octets) if m.est_jpeg else None
@@ -193,8 +210,13 @@ def _bloc_thumbnail(e: Optional[DonneesExif]) -> Dict[str, Any]:
         "dimensions": list(dims) if dims else None,
         "octets": m.longueur,
         "offset": m.offset,
+        "origine": m.origine,
         "format": "JPEG" if m.est_jpeg else "non reconnu",
         "sha256": hashlib.sha256(m.octets).hexdigest(),
+        # Les autres aperçus sont déclarés eux aussi : ils n'ont pas
+        # nécessairement été écrits au même moment du traitement, et c'est
+        # leur comparaison qui a valeur d'indice.
+        "autres": [_apercu_declare(a) for a in e.previsualisations[1:]],
         # Ce que la miniature établit, et ce qu'elle n'établit pas : à joindre
         # au chiffre, sans quoi le chiffre se lit comme une garantie.
         "ce_que_ca_n_etablit_pas": (
@@ -208,7 +230,10 @@ def _bloc_thumbnail(e: Optional[DonneesExif]) -> Dict[str, Any]:
 def document_ingestion(donnees: bytes, nom_fichier: Optional[str] = None) -> Dict[str, Any]:
     """Tout ce que le fichier déclare, dans la forme convenue. Rien n'est vérifié."""
     try:
-        exif: Optional[DonneesExif] = lire_exif_depuis_jpeg(donnees)
+        # `lire_exif` et non `lire_exif_depuis_jpeg` : un RAW n'a pas d'APP1
+        # à chercher, et lui en chercher un rendait un document d'ingestion
+        # vide sur un fichier qui portait tout ce qu'il fallait, à la racine.
+        exif: Optional[DonneesExif] = lire_exif(donnees)
         motif_exif = None
     except MetadataError as err:
         exif = None
@@ -237,6 +262,8 @@ def document_ingestion(donnees: bytes, nom_fichier: Optional[str] = None) -> Dic
         "sha256": hashlib.sha256(donnees).hexdigest(),
         "octets": len(donnees),
         "file_info": {
+            # Reconnu aux octets, sans faire confiance à l'extension.
+            "conteneur": detecter_conteneur(donnees),
             "dimensions": [largeur, hauteur] if largeur and hauteur else None,
             "color_space": (
                 _LIBELLE_COLOR_SPACE.get(exif.espace_colorimetrique)

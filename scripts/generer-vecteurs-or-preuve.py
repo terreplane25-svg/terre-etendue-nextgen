@@ -4,7 +4,7 @@
 
 Même principe que pour l'outil A : le vérificateur du site tourne dans le
 navigateur, donc en TypeScript, mais la référence reste le paquet Python et
-ses 137 tests. Ce script fabrique des JPEG déterministes, les fait lire au
+ses 289 tests. Ce script fabrique des JPEG déterministes, les fait lire au
 Python, et écrit octets et résultat attendu dans un fichier de vecteurs que
 `scripts/verifier-port-preuve.mjs` rejoue en TypeScript.
 
@@ -58,8 +58,10 @@ from tests.test_metadata import (  # noqa: E402
 from preuve_image.integrity import (  # noqa: E402
     OPERATIONS_ADMISES, OPERATIONS_EXCLUES, classer_operation,
 )
+from tests.test_raw import raw_tiff  # noqa: E402
 from preuve_image.metadata import (  # noqa: E402
-    INDISPONIBLE, MetadataError, lire_exif_depuis_jpeg,
+    INDISPONIBLE, MetadataError, detecter_conteneur, lire_exif,
+    lire_exif_depuis_jpeg,
 )
 from preuve_image.metadata import (  # noqa: E402
     _TAG_DATETIME_ORIGINAL, _TAG_EXPOSURE_TIME, _TAG_FNUMBER,
@@ -173,19 +175,71 @@ def exif_en_dict(d):
     brut = dataclasses.asdict(d)
     if brut.get("gps") is not None:
         brut["gps"] = dict(brut["gps"])
+    # Les octets d'un aperçu ne passent pas en JSON, et les recopier en base64
+    # gonflerait le fichier de vecteurs sans rien vérifier de plus : c'est
+    # l'EMPREINTE qui atteste que les deux implémentations ont extrait
+    # exactement les mêmes octets, au bit près.
+    brut.pop("miniature", None)
+    brut["previsualisations"] = [
+        {
+            "origine": m.origine,
+            "offset": m.offset,
+            "longueur": m.longueur,
+            "est_jpeg": m.est_jpeg,
+            "empreinte": hashlib.sha256(m.octets).hexdigest(),
+        }
+        for m in d.previsualisations
+    ]
     return brut
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Conteneurs bruts : ce que `lire_exif` fait d'un RAW, d'un RAF, d'un CR3
+# ─────────────────────────────────────────────────────────────────────────────
+
+def raf_fujifilm():
+    """Un RAF minimal : l'en-tête Fujifilm, puis le JPEG qu'il annonce.
+
+    L'offset et la longueur sont écrits aux octets 84 et 88 en GRAND-boutien,
+    quel que soit le contenu — c'est la structure du conteneur, pas celle du
+    TIFF qu'il porte.
+    """
+    jpeg = jpeg_complet()
+    entete = b"FUJIFILMCCD-RAW".ljust(84, b"\x00")
+    entete += struct.pack(">II", 92, len(jpeg))
+    return entete + jpeg
+
+
+def cr3_canon():
+    """Un CR3 réduit à sa boîte `ftyp`. Doit être REFUSÉ en se nommant."""
+    return struct.pack(">I", 24) + b"ftyp" + b"crx " + b"\x00" * 40
+
+
+CONTENEURS = [
+    ("raw_tiff", raw_tiff(), "TIFF/RAW", True),
+    ("raw_tiff_magique_85", raw_tiff(magique=85), "TIFF/RAW", True),
+    ("raw_tiff_magique_orf", raw_tiff(magique=0x4F52), "TIFF/RAW", True),
+    ("raf_fujifilm", raf_fujifilm(), "RAF", True),
+    ("jpeg_ordinaire", jpeg_complet(), "JPEG", True),
+    ("cr3_canon", cr3_canon(), "CR3", False),
+    ("inconnu", b"ceci n'est aucun format d'image connu, du tout", "inconnu", False),
+    # Huit octets, et c'est bien un JPEG : le plancher de longueur ne doit
+    # pas le faire passer pour un format inconnu.
+    ("jpeg_minuscule", b"\xff\xd8\xff\xda\x00\x02\xff\xd9", "JPEG", False),
+]
 
 
 def main():
     v = {
         "genere_le": datetime.now(timezone.utc).isoformat(),
-        "source": "preuve_image (paquet Python, 137 tests)",
+        "source": "preuve_image (paquet Python, 289 tests)",
         "avertissement": (
             "Fichier généré. Ne pas modifier à la main : il est la référence "
             "contre laquelle le port TypeScript est vérifié."
         ),
         "sentinel_indisponible": INDISPONIBLE,
         "sha256": [], "exif": [], "refus": [], "operations": [],
+        "conteneurs": [],
     }
 
     for nom, octets in OCTETS_SHA:
@@ -221,6 +275,37 @@ def main():
                 "message_python": str(exc),
             })
 
+    for nom, octets, conteneur_attendu, lisible in CONTENEURS:
+        obtenu = detecter_conteneur(octets)
+        if obtenu != conteneur_attendu:
+            sys.exit("« %s » : le Python détecte « %s », pas « %s »"
+                     % (nom, obtenu, conteneur_attendu))
+        cas = {
+            "nom": nom,
+            "octets_b64": base64.b64encode(octets).decode("ascii"),
+            "conteneur": obtenu,
+            "empreinte": hashlib.sha256(octets).hexdigest(),
+            "lisible": lisible,
+        }
+        if lisible:
+            releve = lire_exif(octets)
+            if releve.conteneur != obtenu:
+                sys.exit("« %s » : lire_exif n'inscrit pas le conteneur sur le relevé" % nom)
+            cas["attendu"] = exif_en_dict(releve)
+        else:
+            # Un conteneur refusé doit l'être en se NOMMANT. On épingle le fait
+            # de lever, pas le libellé exact — les deux langages n'ont pas à
+            # écrire la même phrase — mais on vérifie que le nom du conteneur
+            # y figure, faute de quoi le message n'apprend rien à l'analyste.
+            try:
+                lire_exif(octets)
+                sys.exit("« %s » : le Python n'a pas refusé" % nom)
+            except MetadataError as exc:
+                if obtenu not in str(exc):
+                    sys.exit("« %s » : le refus ne nomme pas le conteneur" % nom)
+                cas["message_python"] = str(exc)
+        v["conteneurs"].append(cas)
+
     for nom in sorted(OPERATIONS_ADMISES | OPERATIONS_EXCLUES):
         v["operations"].append({"nom": nom, "admise": classer_operation(nom)})
     v["operations_inconnues"] = ["retouche_locale", "", "sur-resolution"]
@@ -231,8 +316,9 @@ def main():
         f.write("\n")
 
     print("Écrit : %s" % os.path.relpath(CIBLE, RACINE))
-    print("  %d empreintes, %d lectures EXIF, %d refus, %d opérations"
-          % (len(v["sha256"]), len(v["exif"]), len(v["refus"]), len(v["operations"])))
+    print("  %d empreintes, %d lectures EXIF, %d refus, %d opérations, %d conteneurs"
+          % (len(v["sha256"]), len(v["exif"]), len(v["refus"]),
+             len(v["operations"]), len(v["conteneurs"])))
     return 0
 
 

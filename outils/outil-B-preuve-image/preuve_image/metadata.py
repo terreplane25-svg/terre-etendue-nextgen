@@ -21,9 +21,9 @@ la provenance (§17.1, encadré) — ce module l'affiche, rien de plus.
 """
 
 import struct
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
-from typing import Dict, Optional, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union
 
 __all__ = [
     "MetadataError",
@@ -33,6 +33,10 @@ __all__ = [
     "decrire_flash",
     "lire_exif_depuis_tiff",
     "lire_exif_depuis_jpeg",
+    "lire_exif",
+    "detecter_conteneur",
+    "ConteneurNonSupporte",
+    "FORMATS_RAW_TIFF",
     "INDISPONIBLE",
     "declarer",
     "FicheGrossissement",
@@ -102,6 +106,13 @@ _TAG_SCENE_CAPTURE_TYPE = 0xA406
 _TAG_JPEG_INTERCHANGE_FORMAT = 0x0201
 _TAG_JPEG_INTERCHANGE_FORMAT_LENGTH = 0x0202
 _TAG_COMPRESSION = 0x0103
+# Les sous-IFD, où les RAW rangent leurs prévisualisations. Un CR2 en met une
+# pleine résolution dans l'IFD0 lui-même, un NEF dans un sous-IFD : les deux
+# doivent être parcourus, sinon la vignette d'un RAW reste invisible.
+_TAG_SUB_IFDS = 0x014A
+_TAG_STRIP_OFFSETS = 0x0111
+_TAG_STRIP_BYTE_COUNTS = 0x0117
+_TAG_NEW_SUBFILE_TYPE = 0x00FE
 
 _TAG_GPS_LAT_REF = 1
 _TAG_GPS_LAT = 2
@@ -317,17 +328,36 @@ class Miniature:
     longueur: int
     octets: bytes
     compression: Optional[int]
+    #  D'où elle vient : « IFD1 » pour la vignette EXIF classique, « IFD0 » ou
+    #  « sous-IFD n » pour les prévisualisations d'un RAW. Un fichier brut en
+    #  porte plusieurs, de tailles très différentes, et laquelle on regarde
+    #  change ce qu'on voit.
+    origine: str = "IFD1"
 
     @property
     def est_jpeg(self) -> bool:
         return self.octets[:2] == b"\xff\xd8"
 
 
-def _extraire_miniature(donnees: bytes, ifd1: Dict[int, object]) -> Optional[Miniature]:
-    offset = ifd1.get(_TAG_JPEG_INTERCHANGE_FORMAT)
-    longueur = ifd1.get(_TAG_JPEG_INTERCHANGE_FORMAT_LENGTH)
+def _miniature_depuis_ifd(
+    donnees: bytes, ifd: Dict[int, object], origine: str
+) -> Optional[Miniature]:
+    """Extrait la prévisualisation d'un IFD, par l'une des deux conventions.
+
+    JpegIFOffset / JpegIFByteCount est la voie normale. Les bandes
+    (StripOffsets / StripByteCounts) en sont l'autre : plusieurs RAW y rangent
+    leur aperçu, et l'ignorer laisserait la vignette invisible sur ces
+    fichiers-là. Une bande unique suffit ici : un aperçu découpé en plusieurs
+    bandes n'est pas un JPEG contigu, et le recoller demanderait de décoder.
+    """
+    offset = ifd.get(_TAG_JPEG_INTERCHANGE_FORMAT)
+    longueur = ifd.get(_TAG_JPEG_INTERCHANGE_FORMAT_LENGTH)
     if not isinstance(offset, int) or not isinstance(longueur, int):
-        return None
+        o, l = ifd.get(_TAG_STRIP_OFFSETS), ifd.get(_TAG_STRIP_BYTE_COUNTS)
+        if isinstance(o, int) and isinstance(l, int):
+            offset, longueur = o, l
+        else:
+            return None
     if longueur <= 0 or offset < 0 or offset + longueur > len(donnees):
         # Offsets incohérents : on ne rend pas une miniature tronquée qui
         # passerait pour entière.
@@ -336,8 +366,58 @@ def _extraire_miniature(donnees: bytes, ifd1: Dict[int, object]) -> Optional[Min
         offset=offset,
         longueur=longueur,
         octets=donnees[offset : offset + longueur],
-        compression=ifd1.get(_TAG_COMPRESSION),
+        compression=ifd.get(_TAG_COMPRESSION),
+        origine=origine,
     )
+
+
+def _extraire_miniature(donnees: bytes, ifd1: Dict[int, object]) -> Optional[Miniature]:
+    return _miniature_depuis_ifd(donnees, ifd1, "IFD1")
+
+
+def _sous_ifds(donnees: bytes, ifd0: Dict[int, object], endian: str) -> List[Dict[int, object]]:
+    """Les sous-IFD listés au tag 0x014A. Un pointeur illisible est ignoré, pas fatal."""
+    pointeurs = ifd0.get(_TAG_SUB_IFDS)
+    if isinstance(pointeurs, int):
+        pointeurs = (pointeurs,)
+    if not isinstance(pointeurs, (tuple, list)):
+        return []
+    out: List[Dict[int, object]] = []
+    for p in pointeurs[:8]:  # borne de sûreté : aucun format n'en aligne davantage
+        if not isinstance(p, int) or not (0 < p < len(donnees)):
+            continue
+        try:
+            out.append(_lire_ifd(donnees, p, endian))
+        except MetadataError:
+            continue
+    return out
+
+
+def _collecter_previsualisations(
+    donnees: bytes, ifd0: Dict[int, object], ifd1: Dict[int, object], endian: str
+) -> Tuple[Miniature, ...]:
+    """Toutes les images embarquées trouvées, de la plus grande à la plus petite.
+
+    Un fichier brut en porte plusieurs : un aperçu pleine résolution, un aperçu
+    moyen, une vignette. En choisir une silencieusement masquerait les autres —
+    or elles ne montrent pas la même chose, et c'est précisément leur
+    comparaison qui a une valeur d'indice.
+    """
+    trouvees: List[Miniature] = []
+    vus = set()
+    sources = [(ifd0, "IFD0"), (ifd1, "IFD1")]
+    sources += [(sub, "sous-IFD %d" % i) for i, sub in enumerate(_sous_ifds(donnees, ifd0, endian))]
+    for ifd, origine in sources:
+        if not ifd:
+            continue
+        m = _miniature_depuis_ifd(donnees, ifd, origine)
+        if m is None or not m.est_jpeg:
+            continue
+        if (m.offset, m.longueur) in vus:
+            continue
+        vus.add((m.offset, m.longueur))
+        trouvees.append(m)
+    return tuple(sorted(trouvees, key=lambda x: x.longueur, reverse=True))
 
 
 @dataclass(frozen=True)
@@ -384,6 +464,18 @@ class DonneesExif:
     decalage_horaire: Optional[str] = None
     decalage_horaire_original: Optional[str] = None
     decalage_horaire_numerisation: Optional[str] = None
+    conteneur: Optional[str] = None
+    previsualisations: Tuple["Miniature", ...] = ()
+
+    @property
+    def previsualisation_principale(self) -> Optional["Miniature"]:
+        """La plus grande image embarquée, ou None. C'est celle qu'on affiche.
+
+        Sur un JPEG ordinaire il n'y en a qu'une, la vignette de l'IFD1. Sur un
+        RAW il y en a plusieurs : la plus grande est celle qui montre le plus,
+        et les autres restent listées dans `previsualisations`.
+        """
+        return self.previsualisations[0] if self.previsualisations else None
 
     # Libellés : l'interprétation des codes, jamais à leur place.
     @property
@@ -425,12 +517,33 @@ class DonneesExif:
         return self.rapport_zoom_numerique > 1.0
 
 
-def lire_exif_depuis_tiff(donnees: bytes) -> DonneesExif:
+# Nombres magiques TIFF admis, à l'octet 2 de l'en-tête.
+#
+# 42 est celui de la norme TIFF 6.0, et celui que porte tout bloc EXIF d'un
+# JPEG. Les fabricants de RAW s'en écartent pour signaler leur variante tout en
+# gardant la même structure d'IFD derrière : Panasonic RW2 vaut 85, et Olympus
+# emploie 0x4F52 (« RO ») ou 0x5352 (« RS ») selon le millésime.
+#
+# La distinction compte : un bloc EXIF de JPEG qui ne vaudrait pas 42 est un
+# bloc corrompu, et l'accepter masquerait la corruption. C'est pourquoi le
+# lecteur exige 42 PAR DÉFAUT, et n'admet les variantes que lorsque l'appelant
+# a lui-même reconnu un conteneur RAW.
+_MAGIQUE_TIFF_STANDARD = 42
+_MAGIQUES_TIFF = (_MAGIQUE_TIFF_STANDARD, 85, 0x4F52, 0x5352)
+
+
+def lire_exif_depuis_tiff(
+    donnees: bytes, magiques_admis: Tuple[int, ...] = (_MAGIQUE_TIFF_STANDARD,)
+) -> DonneesExif:
     """Lit un bloc TIFF/EXIF brut (en-tête « II » ou « MM ») et en extrait les champs utiles.
 
     N'implémente pas la norme TIFF/EXIF entière : seulement IFD0, le sous-IFD Exif et
     le sous-IFD GPS, et seulement les tags listés en tête de module. Un tag absent
     donne un champ à None, jamais une exception.
+
+    `magiques_admis` borne les en-têtes acceptés. Par défaut le seul 42 de la
+    norme ; `lire_exif` élargit à `_MAGIQUES_TIFF` quand il a reconnu un RAW,
+    de sorte qu'un bloc EXIF de JPEG corrompu échoue toujours.
     """
     if len(donnees) < 8:
         raise MetadataError("Bloc TIFF/EXIF trop court pour contenir un en-tête.")
@@ -442,8 +555,11 @@ def lire_exif_depuis_tiff(donnees: bytes) -> DonneesExif:
     else:
         raise MetadataError(f"En-tête TIFF invalide : {marqueur!r} n'est ni « II » ni « MM ».")
     magique = struct.unpack_from(endian + "H", donnees, 2)[0]
-    if magique != 42:
-        raise MetadataError(f"En-tête TIFF invalide : nombre magique {magique} != 42.")
+    if magique not in magiques_admis:
+        attendus = ", ".join(str(m) for m in magiques_admis)
+        raise MetadataError(
+            f"En-tête TIFF invalide : nombre magique {magique} hors des valeurs admises ({attendus})."
+        )
     offset_ifd0 = struct.unpack_from(endian + "I", donnees, 4)[0]
 
     ifd0, offset_ifd1 = _lire_ifd_et_suivant(donnees, offset_ifd0, endian)
@@ -499,6 +615,131 @@ def lire_exif_depuis_tiff(donnees: bytes) -> DonneesExif:
         decalage_horaire=ifd_exif.get(_TAG_OFFSET_TIME),
         decalage_horaire_original=ifd_exif.get(_TAG_OFFSET_TIME_ORIGINAL),
         decalage_horaire_numerisation=ifd_exif.get(_TAG_OFFSET_TIME_DIGITIZED),
+        previsualisations=_collecter_previsualisations(donnees, ifd0, ifd1, endian),
+    )
+
+
+# --- Conteneurs bruts (RAW) ---
+#
+# Un fichier RAW d'appareil photo n'est pas un JPEG : il n'y a pas de segment
+# APP1 à chercher. La quasi-totalité des formats sont en réalité des TIFF —
+# CR2, NEF, ARW, DNG, ORF, PEF, SRW, RW2 — et leur EXIF est directement dans
+# l'IFD0 et le sous-IFD Exif du fichier lui-même. Le lecteur TIFF déjà écrit
+# ici les couvre donc, à condition de le lui donner à lire plutôt que de
+# chercher un APP1 qui n'existe pas.
+#
+# Deux exceptions notables :
+#   · RAF (Fujifilm) n'est pas un TIFF : il commence par « FUJIFILMCCD-RAW » et
+#     embarque un JPEG complet, dont l'EXIF se lit normalement ;
+#   · CR3 (Canon récent) est un conteneur ISO BMFF, comme un MP4. Il est
+#     DÉTECTÉ et refusé explicitement plutôt que lu de travers — un lecteur qui
+#     rendrait des champs vides laisserait croire que le fichier n'en porte pas.
+
+FORMATS_RAW_TIFF = (
+    "CR2 (Canon)", "NEF / NRW (Nikon)", "ARW / SR2 (Sony)", "DNG (Adobe)",
+    "ORF (Olympus)", "PEF (Pentax)", "SRW (Samsung)", "RW2 (Panasonic)",
+    "IIQ (Phase One)", "3FR (Hasselblad)",
+)
+
+
+class ConteneurNonSupporte(MetadataError):
+    """Format reconnu, mais que ce lecteur n'implémente pas. Dit lequel, et pourquoi."""
+
+
+def detecter_conteneur(donnees: bytes) -> str:
+    """Nomme le conteneur : « JPEG », « TIFF/RAW », « RAF », « CR3 », « PNG », ou « inconnu ».
+
+    Le nom est rendu même quand la lecture échouera ensuite : savoir qu'un
+    fichier EST un CR3 et que le lecteur ne le couvre pas vaut mieux que de ne
+    rien savoir.
+    """
+    # Chaque signature a sa propre longueur minimale, et le test se fait dans
+    # l'ordre croissant de celle-ci. Un plancher unique de 12 octets écartait
+    # les tout petits fichiers : un JPEG de 8 octets EST un JPEG, et le
+    # déclarer « inconnu » envoyait ensuite un motif d'échec qui parlait de
+    # conteneur non reconnu là où il fallait dire « aucun segment EXIF ».
+    if len(donnees) < 2:
+        return "inconnu"
+    if donnees[0:2] == b"\xff\xd8":
+        return "JPEG"
+    if donnees[0:8] == b"\x89PNG\r\n\x1a\n":
+        return "PNG"
+    if donnees[0:15] == b"FUJIFILMCCD-RAW":
+        return "RAF"
+    if len(donnees) < 12:
+        return "inconnu"
+    # ISO BMFF : taille de boîte sur 4 octets, puis « ftyp ».
+    if donnees[4:8] == b"ftyp":
+        marque = donnees[8:12]
+        if marque in (b"crx ", b"crx\x00"):
+            return "CR3"
+        return "ISO BMFF (%s)" % marque.decode("ascii", errors="replace").strip()
+    if donnees[0:2] in (b"II", b"MM"):
+        endian = "<" if donnees[0:2] == b"II" else ">"
+        try:
+            magique = struct.unpack_from(endian + "H", donnees, 2)[0]
+        except struct.error:
+            return "inconnu"
+        if magique in _MAGIQUES_TIFF:
+            return "TIFF/RAW"
+    return "inconnu"
+
+
+def _jpeg_embarque_raf(donnees: bytes) -> Optional[bytes]:
+    """Extrait le JPEG que porte un RAF Fujifilm.
+
+    L'en-tête RAF donne l'offset et la longueur du JPEG en clair, aux octets
+    84 et 88. On les préfère à une recherche du marqueur SOI : celle-ci
+    trouverait aussi les vignettes internes, et rien ne garantirait laquelle.
+    """
+    if len(donnees) < 92:
+        return None
+    offset, longueur = struct.unpack_from(">II", donnees, 84)
+    if longueur <= 0 or offset + longueur > len(donnees):
+        return None
+    bloc = donnees[offset : offset + longueur]
+    return bloc if bloc[:2] == b"\xff\xd8" else None
+
+
+def lire_exif(chemin_ou_donnees: Union[str, Path, bytes]) -> DonneesExif:
+    """Lit l'EXIF quel que soit le conteneur : JPEG, TIFF/RAW, ou RAF.
+
+    C'est le point d'entrée à employer. `lire_exif_depuis_jpeg` reste disponible
+    pour un JPEG dont on sait qu'il en est un ; ici, le conteneur est reconnu et
+    la lecture routée. Un conteneur reconnu mais non implémenté lève
+    `ConteneurNonSupporte` en le NOMMANT — rendre des champs vides laisserait
+    croire que le fichier n'en porte pas.
+    """
+    if isinstance(chemin_ou_donnees, (bytes, bytearray)):
+        donnees = bytes(chemin_ou_donnees)
+    else:
+        donnees = Path(chemin_ou_donnees).read_bytes()
+
+    conteneur = detecter_conteneur(donnees)
+    if conteneur == "JPEG":
+        # Le conteneur est inscrit ici, et nulle part ailleurs : c'est ce
+        # routage qui le connaît. Une lecture directe par
+        # `lire_exif_depuis_tiff` laisse donc le champ à None — elle ne sait
+        # pas, et ne doit pas prétendre savoir, d'où vient le bloc.
+        return replace(lire_exif_depuis_jpeg(donnees), conteneur=conteneur)
+    if conteneur == "TIFF/RAW":
+        # Le conteneur est reconnu comme RAW : les variantes de nombre magique
+        # (RW2, ORF) sont ici légitimes, alors qu'elles ne le seraient pas dans
+        # le bloc EXIF d'un JPEG.
+        return replace(lire_exif_depuis_tiff(donnees, _MAGIQUES_TIFF), conteneur=conteneur)
+    if conteneur == "RAF":
+        jpeg = _jpeg_embarque_raf(donnees)
+        if jpeg is None:
+            raise MetadataError("RAF Fujifilm : le JPEG embarqué est introuvable ou tronqué.")
+        return replace(lire_exif_depuis_jpeg(jpeg), conteneur=conteneur)
+    if conteneur == "CR3" or conteneur.startswith("ISO BMFF"):
+        raise ConteneurNonSupporte(
+            "Conteneur %s : les métadonnées y sont rangées dans des boîtes ISO BMFF, "
+            "que ce lecteur n'implémente pas. L'empreinte du fichier, elle, reste "
+            "valide — les deux sont indépendantes." % conteneur
+        )
+    raise MetadataError(
+        "Conteneur non reconnu (%s) : ni JPEG, ni TIFF/RAW, ni RAF." % conteneur
     )
 
 

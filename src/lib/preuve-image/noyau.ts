@@ -2,7 +2,7 @@
  * noyau.ts — Port TypeScript du paquet Python `preuve_image` (outil B).
  *
  * CE FICHIER N'EST PAS LA RÉFÉRENCE.
- * La référence est `outils/outil-B-preuve-image/`, qui porte 137 tests. Ce port
+ * La référence est `outils/outil-B-preuve-image/`, qui porte 289 tests. Ce port
  * existe parce que le vérificateur du site tourne dans le navigateur — et ce
  * n'est pas seulement une commodité : le fichier de l'utilisateur ne quitte
  * jamais sa machine, ce qu'un tiers de confiance doit pouvoir dire. Aucun
@@ -136,6 +136,13 @@ const TAG_SCENE_CAPTURE_TYPE = 0xa406;
 const TAG_JPEG_INTERCHANGE_FORMAT = 0x0201;
 const TAG_JPEG_INTERCHANGE_FORMAT_LENGTH = 0x0202;
 const TAG_COMPRESSION = 0x0103;
+
+// Tags des conteneurs bruts : les sous-IFD où les RAW rangent leurs aperçus,
+// et la convention par bandes que plusieurs d'entre eux emploient à la place
+// de JpegIFOffset.
+const TAG_SUB_IFDS = 0x014a;
+const TAG_STRIP_OFFSETS = 0x0111;
+const TAG_STRIP_BYTE_COUNTS = 0x0117;
 
 const TAG_GPS_LAT_REF = 1;
 const TAG_GPS_LAT = 2;
@@ -338,6 +345,13 @@ export interface Miniature {
   octets: Uint8Array<ArrayBuffer>;
   compression: number | null;
   estJpeg: boolean;
+  /**
+   * D'où elle vient : « IFD1 » pour la vignette EXIF classique, « IFD0 » ou
+   * « sous-IFD n » pour les aperçus d'un RAW. Un fichier brut en porte
+   * plusieurs, de tailles très différentes, et laquelle on regarde change ce
+   * qu'on voit.
+   */
+  origine: string;
 }
 
 export interface DonneesExif {
@@ -378,6 +392,15 @@ export interface DonneesExif {
   decalageHoraire: string | null;
   decalageHoraireOriginal: string | null;
   decalageHoraireNumerisation: string | null;
+  /**
+   * Le conteneur d'où vient ce relevé — « JPEG », « TIFF/RAW », « RAF ».
+   * Renseigné par `lireExif`, qui est ce qui le sait ; nul si le bloc a été
+   * lu directement par `lireExifDepuisTiff`, qui ne sait pas d'où il vient et
+   * ne doit pas prétendre le savoir.
+   */
+  conteneur: string | null;
+  /** Toutes les images embarquées, de la plus grande à la plus petite. */
+  previsualisations: Miniature[];
 }
 
 /** Les libellés des codes d'un relevé. Jamais à la place des codes. */
@@ -428,20 +451,95 @@ function construirePositionGps(ifd: Map<number, ValeurTiff>): PositionGPS | null
   };
 }
 
-function extraireMiniature(donnees: Uint8Array, ifd1: Map<number, ValeurTiff>): Miniature | null {
-  const offset = ifd1.get(TAG_JPEG_INTERCHANGE_FORMAT);
-  const longueur = ifd1.get(TAG_JPEG_INTERCHANGE_FORMAT_LENGTH);
-  if (typeof offset !== 'number' || typeof longueur !== 'number') return null;
+/**
+ * Extrait l'aperçu d'un IFD, par l'une des deux conventions.
+ *
+ * JpegIFOffset / JpegIFByteCount est la voie normale. Les bandes
+ * (StripOffsets / StripByteCounts) en sont l'autre : plusieurs RAW y rangent
+ * leur aperçu, et l'ignorer laisserait la vignette invisible sur ces
+ * fichiers-là. Une bande unique suffit ici : un aperçu découpé en plusieurs
+ * bandes n'est pas un JPEG contigu, et le recoller demanderait de décoder.
+ */
+function miniatureDepuisIfd(
+  donnees: Uint8Array, ifd: Map<number, ValeurTiff>, origine: string,
+): Miniature | null {
+  let offset = ifd.get(TAG_JPEG_INTERCHANGE_FORMAT);
+  let longueur = ifd.get(TAG_JPEG_INTERCHANGE_FORMAT_LENGTH);
+  if (typeof offset !== 'number' || typeof longueur !== 'number') {
+    const o = ifd.get(TAG_STRIP_OFFSETS);
+    const l = ifd.get(TAG_STRIP_BYTE_COUNTS);
+    if (typeof o !== 'number' || typeof l !== 'number') return null;
+    offset = o;
+    longueur = l;
+  }
   // Offsets incohérents : on ne rend pas une miniature tronquée qui passerait
   // pour entière.
   if (longueur <= 0 || offset < 0 || offset + longueur > donnees.length) return null;
   const octets = new Uint8Array(donnees.slice(offset, offset + longueur));
-  const compression = ifd1.get(TAG_COMPRESSION);
+  const compression = ifd.get(TAG_COMPRESSION);
   return {
     offset, longueur, octets,
     compression: typeof compression === 'number' ? compression : null,
     estJpeg: octets[0] === 0xff && octets[1] === 0xd8,
+    origine,
   };
+}
+
+/** Les sous-IFD listés au tag 0x014A. Un pointeur illisible est ignoré, pas fatal. */
+function sousIfds(
+  vue: DataView, ifd0: Map<number, ValeurTiff>, petitBoutien: boolean, taille: number,
+): Map<number, ValeurTiff>[] {
+  const brut = ifd0.get(TAG_SUB_IFDS);
+  const pointeurs = typeof brut === 'number' ? [brut] : Array.isArray(brut) ? brut : [];
+  const out: Map<number, ValeurTiff>[] = [];
+  // Borne de sûreté : aucun format n'en aligne davantage.
+  for (const p of pointeurs.slice(0, 8)) {
+    if (typeof p !== 'number' || !(p > 0 && p < taille)) continue;
+    try { out.push(lireIfd(vue, p, petitBoutien)); } catch { /* pointeur illisible */ }
+  }
+  return out;
+}
+
+/**
+ * Toutes les images embarquées trouvées, de la plus grande à la plus petite.
+ *
+ * Un fichier brut en porte plusieurs : un aperçu pleine résolution, un aperçu
+ * moyen, une vignette. En choisir une silencieusement masquerait les autres —
+ * or elles ne montrent pas la même chose, et c'est précisément leur
+ * comparaison qui a une valeur d'indice.
+ */
+function collecterPrevisualisations(
+  donnees: Uint8Array,
+  vue: DataView,
+  ifd0: Map<number, ValeurTiff>,
+  ifd1: Map<number, ValeurTiff>,
+  petitBoutien: boolean,
+): Miniature[] {
+  const sources: [Map<number, ValeurTiff>, string][] = [[ifd0, 'IFD0'], [ifd1, 'IFD1']];
+  sousIfds(vue, ifd0, petitBoutien, donnees.length).forEach((sub, i) => {
+    sources.push([sub, `sous-IFD ${i}`]);
+  });
+  const trouvees: Miniature[] = [];
+  const vus = new Set<string>();
+  for (const [ifd, origine] of sources) {
+    if (ifd.size === 0) continue;
+    const m = miniatureDepuisIfd(donnees, ifd, origine);
+    if (m === null || !m.estJpeg) continue;
+    const cle = `${m.offset}:${m.longueur}`;
+    if (vus.has(cle)) continue;
+    vus.add(cle);
+    trouvees.push(m);
+  }
+  return trouvees.sort((a, b) => b.longueur - a.longueur);
+}
+
+/**
+ * La plus grande image embarquée, ou null. C'est celle qu'on affiche.
+ * Sur un JPEG ordinaire il n'y en a qu'une, la vignette de l'IFD1 ; sur un RAW
+ * il y en a plusieurs, et les autres restent listées dans `previsualisations`.
+ */
+export function previsualisationPrincipale(e: DonneesExif): Miniature | null {
+  return e.previsualisations.length > 0 ? e.previsualisations[0] : null;
 }
 
 /**
@@ -450,7 +548,10 @@ function extraireMiniature(donnees: Uint8Array, ifd1: Map<number, ValeurTiff>): 
  * GPS, et seulement les tags listés plus haut. Un tag absent donne un champ
  * nul, jamais une exception.
  */
-export function lireExifDepuisTiff(donnees: Uint8Array): DonneesExif {
+export function lireExifDepuisTiff(
+  donnees: Uint8Array,
+  magiquesAdmis: readonly number[] = [MAGIQUE_TIFF_STANDARD],
+): DonneesExif {
   if (donnees.length < 8) {
     throw new PreuveError('Bloc TIFF/EXIF trop court pour contenir un en-tête.');
   }
@@ -464,8 +565,11 @@ export function lireExifDepuisTiff(donnees: Uint8Array): DonneesExif {
   }
   const vue = new DataView(donnees.buffer, donnees.byteOffset, donnees.byteLength);
   const magique = vue.getUint16(2, petitBoutien);
-  if (magique !== 42) {
-    throw new PreuveError(`En-tête TIFF invalide : nombre magique ${magique} ≠ 42.`);
+  if (!magiquesAdmis.includes(magique)) {
+    throw new PreuveError(
+      `En-tête TIFF invalide : nombre magique ${magique} hors des valeurs admises `
+      + `(${magiquesAdmis.join(', ')}).`,
+    );
   }
   const premier = lireIfdEtSuivant(vue, vue.getUint32(4, petitBoutien), petitBoutien);
   const ifd0 = premier.entrees;
@@ -519,10 +623,12 @@ export function lireExifDepuisTiff(donnees: Uint8Array): DonneesExif {
     rapportZoomNumerique: ouNull<number>(ifdExif, TAG_DIGITAL_ZOOM_RATIO),
     typeScene: ouNull<number>(ifdExif, TAG_SCENE_CAPTURE_TYPE),
     flash: ouNull<number>(ifdExif, TAG_FLASH),
-    miniature: ifd1.size > 0 ? extraireMiniature(donnees, ifd1) : null,
+    miniature: ifd1.size > 0 ? miniatureDepuisIfd(donnees, ifd1, 'IFD1') : null,
     decalageHoraire: ouNull<string>(ifdExif, TAG_OFFSET_TIME),
     decalageHoraireOriginal: ouNull<string>(ifdExif, TAG_OFFSET_TIME_ORIGINAL),
     decalageHoraireNumerisation: ouNull<string>(ifdExif, TAG_OFFSET_TIME_DIGITIZED),
+    conteneur: null,
+    previsualisations: collecterPrevisualisations(donnees, vue, ifd0, ifd1, petitBoutien),
   };
 }
 
@@ -532,6 +638,155 @@ export function lireExifDepuisTiff(donnees: Uint8Array): DonneesExif {
  * « Exif\0\0 », ou jusqu'au SOS, au-delà duquel aucune métadonnée ne peut
  * plus apparaître.
  */
+// --- Conteneurs bruts (RAW) ---
+//
+// Un fichier RAW d'appareil photo n'est pas un JPEG : il n'y a pas de segment
+// APP1 à chercher. La quasi-totalité des formats sont en réalité des TIFF —
+// CR2, NEF, ARW, DNG, ORF, PEF, SRW, RW2 — et leur EXIF est directement dans
+// l'IFD0 et le sous-IFD Exif du fichier lui-même. Le lecteur TIFF déjà écrit
+// ici les couvre donc, à condition de le lui donner à lire plutôt que de
+// chercher un APP1 qui n'existe pas.
+//
+// Deux exceptions notables :
+//   · RAF (Fujifilm) n'est pas un TIFF : il commence par « FUJIFILMCCD-RAW » et
+//     embarque un JPEG complet, dont l'EXIF se lit normalement ;
+//   · CR3 (Canon récent) est un conteneur ISO BMFF, comme un MP4. Il est
+//     DÉTECTÉ et refusé explicitement plutôt que lu de travers — un lecteur qui
+//     rendrait des champs vides laisserait croire que le fichier n'en porte pas.
+
+/**
+ * Nombres magiques TIFF admis, à l'octet 2 de l'en-tête.
+ *
+ * 42 est celui de la norme TIFF 6.0, et celui que porte tout bloc EXIF d'un
+ * JPEG. Les fabricants de RAW s'en écartent pour signaler leur variante tout
+ * en gardant la même structure d'IFD derrière : Panasonic RW2 vaut 85, et
+ * Olympus emploie 0x4F52 (« RO ») ou 0x5352 (« RS ») selon le millésime.
+ *
+ * La distinction compte : un bloc EXIF de JPEG qui ne vaudrait pas 42 est un
+ * bloc corrompu, et l'accepter masquerait la corruption. Le lecteur exige donc
+ * 42 par défaut, et n'admet les variantes que lorsque l'appelant a lui-même
+ * reconnu un conteneur RAW.
+ */
+const MAGIQUE_TIFF_STANDARD = 42;
+const MAGIQUES_TIFF: readonly number[] = [MAGIQUE_TIFF_STANDARD, 85, 0x4f52, 0x5352];
+
+/** Les formats bruts que le lecteur TIFF couvre. Informatif, pour l'interface. */
+export const FORMATS_RAW_TIFF = [
+  'CR2 (Canon)', 'NEF / NRW (Nikon)', 'ARW / SR2 (Sony)', 'DNG (Adobe)',
+  'ORF (Olympus)', 'PEF (Pentax)', 'SRW (Samsung)', 'RW2 (Panasonic)',
+  'IIQ (Phase One)', '3FR (Hasselblad)',
+] as const;
+
+/** Format reconnu, mais que ce lecteur n'implémente pas. Dit lequel, et pourquoi. */
+export class ConteneurNonSupporte extends PreuveError {
+  constructor(message: string) {
+    super(message);
+    this.name = 'ConteneurNonSupporte';
+  }
+}
+
+function octetsEgaux(donnees: Uint8Array, offset: number, attendus: readonly number[]): boolean {
+  return attendus.every((o, i) => donnees[offset + i] === o);
+}
+
+const MAGIE_PNG = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a];
+const MAGIE_RAF = Array.from('FUJIFILMCCD-RAW', (c) => c.charCodeAt(0));
+const MAGIE_FTYP = Array.from('ftyp', (c) => c.charCodeAt(0));
+
+/**
+ * Nomme le conteneur : « JPEG », « TIFF/RAW », « RAF », « CR3 », « PNG », ou
+ * « inconnu ». Le nom est rendu même quand la lecture échouera ensuite : savoir
+ * qu'un fichier EST un CR3 et que le lecteur ne le couvre pas vaut mieux que de
+ * ne rien savoir.
+ */
+export function detecterConteneur(donnees: Uint8Array): string {
+  // Chaque signature a sa propre longueur minimale, et le test se fait dans
+  // l'ordre croissant de celle-ci. Un plancher unique de 12 octets écartait
+  // les tout petits fichiers : un JPEG de 8 octets EST un JPEG, et le déclarer
+  // « inconnu » donnait ensuite un motif d'échec qui parlait de conteneur non
+  // reconnu là où il fallait dire « aucun segment EXIF ».
+  if (donnees.length < 2) return 'inconnu';
+  if (donnees[0] === 0xff && donnees[1] === 0xd8) return 'JPEG';
+  if (octetsEgaux(donnees, 0, MAGIE_PNG)) return 'PNG';
+  if (octetsEgaux(donnees, 0, MAGIE_RAF)) return 'RAF';
+  if (donnees.length < 12) return 'inconnu';
+  // ISO BMFF : taille de boîte sur 4 octets, puis « ftyp ».
+  if (octetsEgaux(donnees, 4, MAGIE_FTYP)) {
+    const marque = String.fromCharCode(...donnees.subarray(8, 12));
+    // Canon ecrit CRX suivi d'un espace ou d'un octet nul selon le boitier.
+    // L'octet nul est ecrit en ECHAPPEMENT, jamais en clair : un vrai NUL dans
+    // un litteral rendrait ce fichier source binaire, et la comparaison
+    // invisible a la relecture.
+    if (marque.slice(0, 3) === 'crx' && (marque[3] === ' ' || marque[3] === '\u0000')) {
+      return 'CR3';
+    }
+    return `ISO BMFF (${marque.replace(/\u0000/g, '').trim()})`;
+  }
+  const petitBoutien = donnees[0] === 0x49 && donnees[1] === 0x49;
+  const grosBoutien = donnees[0] === 0x4d && donnees[1] === 0x4d;
+  if (petitBoutien || grosBoutien) {
+    const vue = new DataView(donnees.buffer, donnees.byteOffset, donnees.byteLength);
+    if (MAGIQUES_TIFF.includes(vue.getUint16(2, petitBoutien))) return 'TIFF/RAW';
+  }
+  return 'inconnu';
+}
+
+/**
+ * Extrait le JPEG que porte un RAF Fujifilm.
+ *
+ * L'en-tête RAF donne l'offset et la longueur du JPEG en clair, aux octets 84
+ * et 88. On les préfère à une recherche du marqueur SOI : celle-ci trouverait
+ * aussi les vignettes internes, et rien ne garantirait laquelle.
+ */
+function jpegEmbarqueRaf(donnees: Uint8Array): Uint8Array | null {
+  if (donnees.length < 92) return null;
+  const vue = new DataView(donnees.buffer, donnees.byteOffset, donnees.byteLength);
+  const offset = vue.getUint32(84, false);
+  const longueur = vue.getUint32(88, false);
+  if (longueur <= 0 || offset + longueur > donnees.length) return null;
+  const bloc = donnees.subarray(offset, offset + longueur);
+  return bloc[0] === 0xff && bloc[1] === 0xd8 ? bloc : null;
+}
+
+/**
+ * Lit l'EXIF quel que soit le conteneur : JPEG, TIFF/RAW, ou RAF.
+ *
+ * C'est le point d'entrée à employer. `lireExifDepuisJpeg` reste disponible
+ * pour un JPEG dont on sait qu'il en est un ; ici, le conteneur est reconnu et
+ * la lecture routée. Un conteneur reconnu mais non implémenté lève
+ * `ConteneurNonSupporte` en le NOMMANT — rendre des champs vides laisserait
+ * croire que le fichier n'en porte pas.
+ */
+export function lireExif(donnees: Uint8Array): DonneesExif {
+  const conteneur = detecterConteneur(donnees);
+  if (conteneur === 'JPEG') {
+    return { ...lireExifDepuisJpeg(donnees), conteneur };
+  }
+  if (conteneur === 'TIFF/RAW') {
+    // Le conteneur est reconnu comme RAW : les variantes de nombre magique
+    // (RW2, ORF) sont ici légitimes, alors qu'elles ne le seraient pas dans le
+    // bloc EXIF d'un JPEG.
+    return { ...lireExifDepuisTiff(donnees, MAGIQUES_TIFF), conteneur };
+  }
+  if (conteneur === 'RAF') {
+    const jpeg = jpegEmbarqueRaf(donnees);
+    if (jpeg === null) {
+      throw new PreuveError('RAF Fujifilm : le JPEG embarqué est introuvable ou tronqué.');
+    }
+    return { ...lireExifDepuisJpeg(jpeg), conteneur };
+  }
+  if (conteneur === 'CR3' || conteneur.startsWith('ISO BMFF')) {
+    throw new ConteneurNonSupporte(
+      `Conteneur ${conteneur} : les métadonnées y sont rangées dans des boîtes ISO BMFF, `
+      + "que ce lecteur n'implémente pas. L'empreinte du fichier, elle, reste valide — "
+      + 'les deux sont indépendantes.',
+    );
+  }
+  throw new PreuveError(
+    `Conteneur non reconnu (${conteneur}) : ni JPEG, ni TIFF/RAW, ni RAF.`,
+  );
+}
+
 /** « Exif » puis deux octets nuls — l'en-tête du segment APP1 porteur d'EXIF. */
 const ENTETE_EXIF = [0x45, 0x78, 0x69, 0x66, 0x00, 0x00];
 
@@ -576,6 +831,12 @@ export interface RapportFichier {
   tailleOctets: number;
   typeDeclare: string;
   empreinte: string;
+  /**
+   * Le conteneur reconnu aux octets, indépendamment de l'extension et du type
+   * MIME déclarés par le navigateur. Rendu même quand la lecture EXIF échoue :
+   * savoir qu'un fichier EST un CR3 vaut mieux que de ne rien savoir.
+   */
+  conteneur: string;
   exif: DonneesExif | null;
   /** Pourquoi l'EXIF n'a pas pu être lu, le cas échéant. Jamais masqué. */
   motifExifAbsent: string | null;
@@ -597,7 +858,10 @@ export async function analyserFichier(
   let exif: DonneesExif | null = null;
   let motif: string | null = null;
   try {
-    exif = lireExifDepuisJpeg(octets);
+    // `lireExif` et non `lireExifDepuisJpeg` : un RAW n'a pas d'APP1 à
+    // chercher, et lui en chercher un rendait « aucun segment EXIF trouvé »
+    // sur un fichier qui en portait un, à la racine.
+    exif = lireExif(octets);
   } catch (err) {
     motif = err instanceof Error ? err.message : String(err);
   }
@@ -605,7 +869,10 @@ export async function analyserFichier(
     nom,
     tailleOctets: octets.length,
     typeDeclare: typeDeclare || INDISPONIBLE,
+    // L'empreinte est calculée AVANT toute tentative de lecture, et ne dépend
+    // d'aucun format compris : un CR3 illisible garde une empreinte valide.
     empreinte,
+    conteneur: detecterConteneur(octets),
     exif,
     motifExifAbsent: motif,
   };

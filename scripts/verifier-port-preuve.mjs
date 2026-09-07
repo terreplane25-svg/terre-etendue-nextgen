@@ -3,7 +3,7 @@
  *
  * Le vérificateur d'intégrité du site tourne dans le navigateur : le fichier
  * de l'utilisateur ne quitte jamais sa machine. La référence testée reste le
- * paquet Python `preuve_image` et ses 137 tests.
+ * paquet Python `preuve_image` et ses 289 tests.
  *
  * Ce script rejoue en TypeScript les vecteurs de
  * `src/lib/preuve-image/vecteurs-or.json` — empreintes SHA-256, lectures EXIF
@@ -155,6 +155,83 @@ try {
       faux(`refus ${r.nom}`, 'empreinte malgré EXIF illisible', 'valide', rap.empreinte);
     }
     n += 5;
+  }
+
+  // Les conteneurs bruts : le port doit reconnaître les mêmes formats que le
+  // Python, en extraire les mêmes aperçus AUX MÊMES OCTETS (c'est l'empreinte
+  // qui l'atteste), et refuser les mêmes en les nommant.
+  for (const c of v.conteneurs ?? []) {
+    const octets = new Uint8Array(Buffer.from(c.octets_b64, 'base64'));
+    const sujet = `conteneur ${c.nom}`;
+    const detecte = M.detecterConteneur(octets);
+    if (detecte !== c.conteneur) faux(sujet, 'detecterConteneur', c.conteneur, detecte);
+    n += 1;
+
+    // L'empreinte ne dépend d'aucun format compris : elle doit tomber juste
+    // même sur un conteneur que le lecteur refuse.
+    const rap = await M.analyserFichier(`${c.nom}.bin`, '', octets);
+    if (rap.empreinte !== c.empreinte) faux(sujet, 'empreinte', c.empreinte, rap.empreinte);
+    if (rap.conteneur !== c.conteneur) faux(sujet, 'analyserFichier.conteneur', c.conteneur, rap.conteneur);
+    n += 2;
+
+    if (!c.lisible) {
+      let message = null;
+      try { M.lireExif(octets); } catch (err) { message = err.message; }
+      if (message === null) faux(sujet, 'lireExif', 'erreur levée', 'aucune erreur');
+      // Le refus doit NOMMER le conteneur : un message qui ne le dit pas
+      // n'apprend rien à l'analyste sur ce qu'il tient entre les mains.
+      else if (!message.includes(c.conteneur)) faux(sujet, 'refus nommant le conteneur', c.conteneur, message);
+      if (rap.exif !== null) faux(sujet, 'analyserFichier.exif', 'null', 'objet');
+      if (!rap.motifExifAbsent) faux(sujet, 'analyserFichier.motifExifAbsent', 'un motif', rap.motifExifAbsent);
+      n += 3;
+      continue;
+    }
+
+    let d;
+    try { d = M.lireExif(octets); } catch (err) { faux(sujet, 'lireExif', 'succès', err.message); continue; }
+    if (d.conteneur !== c.conteneur) faux(sujet, 'relevé.conteneur', c.conteneur, d.conteneur);
+    n += 1;
+    for (const [cle, cleTs] of Object.entries(CORRESPONDANCE)) {
+      comparerNombre(sujet, cle, c.attendu[cle], d[cleTs]);
+      n += 1;
+    }
+    if (c.attendu.gps === null) {
+      if (d.gps !== null) faux(sujet, 'gps', 'null', JSON.stringify(d.gps));
+      n += 1;
+    } else if (d.gps === null) {
+      faux(sujet, 'gps', 'objet', 'null');
+      n += 1;
+    } else {
+      for (const [cle, cleTs] of Object.entries(CORRESPONDANCE_GPS)) {
+        comparerNombre(`${sujet} gps`, cle, c.attendu.gps[cle], d.gps[cleTs]);
+        n += 1;
+      }
+    }
+
+    const attendus = c.attendu.previsualisations;
+    if (d.previsualisations.length !== attendus.length) {
+      faux(sujet, "nombre d'aperçus", attendus.length, d.previsualisations.length);
+    } else {
+      for (let i = 0; i < attendus.length; i += 1) {
+        const a = attendus[i];
+        const o = d.previsualisations[i];
+        // L'ordre compte : le plus grand d'abord, c'est celui qu'on affiche.
+        if (o.origine !== a.origine) faux(`${sujet} aperçu ${i}`, 'origine', a.origine, o.origine);
+        if (o.offset !== a.offset) faux(`${sujet} aperçu ${i}`, 'offset', a.offset, o.offset);
+        if (o.longueur !== a.longueur) faux(`${sujet} aperçu ${i}`, 'longueur', a.longueur, o.longueur);
+        if (o.estJpeg !== a.est_jpeg) faux(`${sujet} aperçu ${i}`, 'estJpeg', a.est_jpeg, o.estJpeg);
+        const emp = await M.empreinteSha256(o.octets);
+        if (emp !== a.empreinte) faux(`${sujet} aperçu ${i}`, 'octets extraits', a.empreinte, emp);
+        n += 5;
+      }
+      const principal = M.previsualisationPrincipale(d);
+      if (attendus.length === 0) {
+        if (principal !== null) faux(sujet, 'previsualisationPrincipale', 'null', 'objet');
+      } else if (principal === null || principal.offset !== attendus[0].offset) {
+        faux(sujet, 'previsualisationPrincipale', attendus[0].offset, principal && principal.offset);
+      }
+      n += 1;
+    }
   }
 
   for (const o of v.operations) {
