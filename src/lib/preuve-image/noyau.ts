@@ -107,6 +107,16 @@ const TAG_PIXEL_Y_DIMENSION = 0xa003;
 const TAG_FOCAL_LENGTH_35MM = 0xa405;
 const TAG_LENS_MODEL = 0xa434;
 
+// Identité du matériel (EXIF 2.3 et suivantes). Ce sont des tags STANDARD, pas
+// des MakerNotes : un numéro de série de boîtier y est écrit en clair par la
+// plupart des reflex et des hybrides. C'est ce qui rattache un cliché à un
+// appareil précis plutôt qu'à un modèle.
+const TAG_CAMERA_OWNER_NAME = 0xa430;
+const TAG_BODY_SERIAL_NUMBER = 0xa431;
+const TAG_LENS_SPECIFICATION = 0xa432;
+const TAG_LENS_MAKE = 0xa433;
+const TAG_LENS_SERIAL_NUMBER = 0xa435;
+
 // Ajoutés pour l'ingestion : tout ce que le §16 demande de LIRE sans rien conclure.
 const TAG_IMAGE_WIDTH = 0x0100;
 const TAG_IMAGE_LENGTH = 0x0101;
@@ -360,6 +370,17 @@ export interface DonneesExif {
   fabricant: string | null;
   modele: string | null;
   objectif: string | null;
+  /**
+   * Identité du matériel, lue dans les tags EXIF standard. Un numéro de série
+   * rattache le cliché à un APPAREIL, pas seulement à un modèle. Il ne prouve
+   * pas l'origine : une métadonnée s'écrit (§17.1).
+   */
+  numeroSerieBoitier: string | null;
+  numeroSerieObjectif: string | null;
+  fabricantObjectif: string | null;
+  proprietaireDeclare: string | null;
+  /** (focale mini, focale maxi, ouverture mini à chacune) — les quatre, ou rien. */
+  specificationObjectif: number[] | null;
   focaleMm: number | null;
   focaleEquivalente35mm: number | null;
   ouverture: number | null;
@@ -550,6 +571,18 @@ export function previsualisationPrincipale(e: DonneesExif): Miniature | null {
  * GPS, et seulement les tags listés plus haut. Un tag absent donne un champ
  * nul, jamais une exception.
  */
+/**
+ * LensSpecification : quatre rationnels, ou rien.
+ *
+ * Un quadruplet incomplet n'est pas rendu partiellement : les quatre valeurs se
+ * lisent ensemble, et en rendre deux laisserait deviner les autres.
+ */
+function specificationObjectif(brut: ValeurTiff | undefined): number[] | null {
+  if (!Array.isArray(brut) || brut.length !== 4) return null;
+  const out = brut.map((x) => Number(x));
+  return out.every((x) => Number.isFinite(x)) ? out : null;
+}
+
 export function lireExifDepuisTiff(
   donnees: Uint8Array,
   magiquesAdmis: readonly number[] = [MAGIQUE_TIFF_STANDARD],
@@ -596,6 +629,11 @@ export function lireExifDepuisTiff(
     fabricant: ouNull<string>(ifd0, TAG_MAKE),
     modele: ouNull<string>(ifd0, TAG_MODEL),
     objectif: ouNull<string>(ifdExif, TAG_LENS_MODEL),
+    numeroSerieBoitier: ouNull<string>(ifdExif, TAG_BODY_SERIAL_NUMBER),
+    numeroSerieObjectif: ouNull<string>(ifdExif, TAG_LENS_SERIAL_NUMBER),
+    fabricantObjectif: ouNull<string>(ifdExif, TAG_LENS_MAKE),
+    proprietaireDeclare: ouNull<string>(ifdExif, TAG_CAMERA_OWNER_NAME),
+    specificationObjectif: specificationObjectif(ifdExif.get(TAG_LENS_SPECIFICATION)),
     focaleMm: ouNull<number>(ifdExif, TAG_FOCAL_LENGTH),
     focaleEquivalente35mm: ouNull<number>(ifdExif, TAG_FOCAL_LENGTH_35MM),
     ouverture: ouNull<number>(ifdExif, TAG_FNUMBER),

@@ -114,6 +114,59 @@ Le RGE ALTI couvre la France et les DOM. Ailleurs le service rend `-99999`,
 qui veut dire « pas de donnée » et surtout pas « altitude zéro » : traité comme
 une lacune, jamais comblé.
 
+## Le relevé unifié (outil B)
+
+`dossier.py` n'extrait rien : il ORCHESTRE les six lecteurs et range ce qu'ils
+rendent dans une structure identique quel que soit le format d'entrée —
+`file_analysis`, `device_identification`, `capture_settings`,
+`telemetry_and_location`, `provenance_and_software`, `deep_fingerprint`.
+
+### Le défaut propre à un relevé unifié
+
+Il présente côte à côte des champs qui ne s'établissent pas de la même façon :
+une marque **lue**, un numéro de série **lu**, un type de matériel **déduit**,
+une correspondance d'écran qui **n'existe pas**. Dans un JSON, les quatre ont
+exactement la même apparence, et un lecteur pressé les prendrait pour des
+faits de même nature.
+
+Trois dispositions l'en empêchent :
+
+- chaque bloc porte un `detection_method` qui dit d'où vient l'information ;
+- un champ qu'on ne peut pas renseigner vaut `null` **et** porte son motif ;
+- les déductions portent la **règle** qui les a produites, pour qu'on puisse
+  les contester sans relire le code.
+
+### Les quatre champs définitivement nuls
+
+| Champ | Ce qui manque |
+|---|---|
+| `shutter_count` | n'existe dans aucun tag EXIF standard, seulement dans les MakerNotes |
+| `screen_resolution_match` | pas de référentiel vérifié — et le signal serait faible même vérifié |
+| `jpeg_quantization_match` | pas de corpus de fichiers réels dont la provenance soit établie |
+| `c2pa_verified` | faux par construction : aucune signature n'est validée |
+
+### Le type MIME vient des octets
+
+Jamais de l'extension. L'écart entre les deux est signalé quand il est franc.
+Un fichier se renomme par mégarde : ce n'est pas une preuve de manipulation,
+mais c'est un écart, et il est relevé.
+
+### Le type de matériel est déduit par quatre règles
+
+Télémétrie de vol présente ; nom d'objectif déclarant une caméra avant ou
+arrière ; double numéro de série boîtier + objectif ; format brut de
+constructeur. Chacune s'appuie sur une trace non ambiguë. **Aucune règle
+applicable rend `null`** — un « appareil photo » deviné d'après un fabricant
+vaudrait moins que rien.
+
+### Aucun lecteur en échec n'interrompt les autres
+
+Un JPEG dont l'EXIF a été purgé garde ses tables de quantification. Chaque
+échec est consigné avec son motif : l'absence d'un bloc et l'échec de sa
+lecture ne s'établissent pas de la même façon. Un partage de responsabilité
+entre lecteurs — un JPEG chez le lecteur de PNG — n'est pas consigné comme
+une panne.
+
 ## Extraction universelle (outil B)
 
 Quatre familles de lecteurs se partagent le travail. Un format non couvert par

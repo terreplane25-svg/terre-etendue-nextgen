@@ -1,0 +1,1603 @@
+{
+  "genere_le": "2026-09-07T18:11:43.050675+00:00",
+  "source": "preuve_image.dossier (paquet Python)",
+  "avertissement": "Fichier généré. Ne pas modifier à la main : il est la référence contre laquelle le port TypeScript est vérifié.",
+  "motif_numero_serie": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+  "motif_declenchements": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+  "motif_ecran": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+  "cas": [
+    {
+      "nom": "jpeg ordinaire",
+      "nom_fichier": "photo.jpg",
+      "octets_b64": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAwAEADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDzdExs+RVwuOO3TgcdP8BQiY2fIq4XHHbpwOOn+AoRMbPkVcLjjt04HHT/AAFCJjZ8irhccdunA46f4Cv6HjHbTt0/w/3f6/L8LnO/N73fr/j/AL77+e/W/viJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8AAUImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wFEY7adun+H+7/AF+ROd+b3u/X/H/fffz36398RMbPkVcLjjt04HHT/AUImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wFCJjZ8irhccdunA46f4CiMdtO3T/AA/3f6/InO/N73fr/j/vvv579b++ImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wFCJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8AAURjtp26f4f7v9fkTnfm97v1/wAf999/Pfrf3xExs+RVwuOO3TgcdP8AAUImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wFCJjZ8irhccdunA46f4CiMdtO3T/D/d/r8ic783vd+v8Aj/vvv579b++ImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wFCJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8BRGO2nbp/h/u/1+ROd+b3u/X/H/fffz36398RMbPkVcLjjt04HHT/AUImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wABQiY2fIq4XHHbpwOOn+AojHbTt0/w/wB3+vyJzvze936/4/777+e/W/viJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8BQiY2fIq4XHHbpwOOn+AoRMbPkVcLjjt04HHT/AURjtp26f4f7v9fkTnfm97v1/x/wB99/Pfrf3xExs+RVwuOO3TgcdP8BQiY2fIq4XHHbpwOOn+AoRMbPkVcLjjt04HHT/AUImNnyKuFxx26cDjp/gKIx207dP8P93+vyJzvze936/4/wC++/nv1v74iY2fIq4XHHbpwOOn+AoRMbPkVcLjjt04HHT/AAFCJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8BRGO2nbp/h/u/wBfkTnfm97v1/x/33389+t/fETGz5FXC447dOBx0/wFCJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8BQiY2fIq4XHHbpwOOn+AojHbTt0/wAP93+vyJzvze936/4/777+e/W/viJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8BQiY2fIq4XHHbpwOOn+AoRMbPkVcLjjt04HHT/AAFEY7adun+H+7/X5E535ve79f8AH/fffz3639//2Q==",
+      "dossier": {
+        "file_analysis": {
+          "filename": "photo.jpg",
+          "mime_type": "image/jpeg",
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".jpg",
+          "file_size_bytes": 1645,
+          "format_family": "JFIF/EXIF (segments APP)",
+          "conteneur": "JPEG",
+          "sha256": "e2e4cfb41543e578fc22e0c08a5938edc301e5896e63b5a972a13b8878ced432"
+        },
+        "device_identification": {
+          "make": null,
+          "model": null,
+          "hardware_type": null,
+          "hardware_type_regle": null,
+          "hardware_type_statut": "indéterminé",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": null,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": null
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 0,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": {
+            "empreinte_tables": "9e79a5446d1defe88a99c30bf51869f245b59fc138363e554ade37bfbd921a23",
+            "qualite_ijg": 90,
+            "ecart_a_ijg": 0,
+            "conforme_ijg": true,
+            "sous_echantillonnage": "4:2:0",
+            "progressif": false,
+            "nombre_de_tables": 2
+          },
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [
+          {
+            "lecteur": "EXIF",
+            "motif": "Aucun segment EXIF (APP1) trouvé dans ce JPEG."
+          }
+        ],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "jpeg avec numéros de série",
+      "nom_fichier": "reflex.jpg",
+      "octets_b64": "/9j/4QDoRXhpZgAASUkqAAgAAAADAA8BAgAGAAAAMgAAABABAgAHAAAAOAAAAGmHBAABAAAAPwAAAAAAAABDYW5vbgBFT1MgUjUABwCdggUAAQAAAJkAAAAniAMAAQAAAJABAAAwpAIACgAAAKEAAAAxpAIADQAAAKsAAAAzpAIABgAAALgAAAA0pAIAFwAAAL4AAAA1pAIACwAAANUAAAAAAAAAkAEAAGQAAABKLiBEdXBvbnQAMDEyMzQ1MDA2Nzg5AENhbm9uAFJGMjQtMTA1bW0gRjQgTCBJUyBVU00AMDAwMGMxZTJmMwD/2Q==",
+      "dossier": {
+        "file_analysis": {
+          "filename": "reflex.jpg",
+          "mime_type": "image/jpeg",
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".jpg",
+          "file_size_bytes": 238,
+          "format_family": "JFIF/EXIF (segments APP)",
+          "conteneur": "JPEG",
+          "sha256": "a0d70baf440e9146c4a96d0a77c6445766cbc4858ea10029390ab6e0fc93d769"
+        },
+        "device_identification": {
+          "make": "Canon",
+          "model": "EOS R5",
+          "hardware_type": "appareil à objectifs interchangeables",
+          "hardware_type_regle": "numéros de série de boîtier ET d’objectif tous deux présents",
+          "hardware_type_statut": "déduit, non lu",
+          "serial_number": "012345006789",
+          "lens_serial_number": "0000c1e2f3",
+          "lens_model": "RF24-105mm F4 L IS USM",
+          "lens_make": "Canon",
+          "owner_declared": "J. Dupont",
+          "detection_method": "tags EXIF standard (Make, Model) ; numéros de série EXIF (BodySerialNumber, LensSerialNumber) — conteneur JPEG",
+          "motif_serial_number": null,
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": 400,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": 4.0,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": null
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 0,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [
+          {
+            "lecteur": "quantification",
+            "motif": "Aucune table de quantification (DQT) trouvée avant le début du balayage. Un JPEG en porte toujours : le fichier est tronqué, ou ce n'en est pas un."
+          }
+        ],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "jpeg de téléphone",
+      "nom_fichier": "IMG_0001.jpg",
+      "octets_b64": "/9j/4QCPRXhpZgAASUkqAAgAAAADAA8BAgAGAAAAMgAAABABAgAOAAAAOAAAAGmHBAABAAAARgAAAAAAAABBcHBsZQBpUGhvbmUgMTUgUHJvAAEANKQCAC8AAABYAAAAAAAAAGlQaG9uZSAxNSBQcm8gYmFjayB0cmlwbGUgY2FtZXJhIDYuODZtbSBmLzEuNzgA/9k=",
+      "dossier": {
+        "file_analysis": {
+          "filename": "IMG_0001.jpg",
+          "mime_type": "image/jpeg",
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".jpg",
+          "file_size_bytes": 149,
+          "format_family": "JFIF/EXIF (segments APP)",
+          "conteneur": "JPEG",
+          "sha256": "1969366cc148079c3fca072855a09ec4f52dc32328f6e67134a757cc4a83d1f3"
+        },
+        "device_identification": {
+          "make": "Apple",
+          "model": "iPhone 15 Pro",
+          "hardware_type": "téléphone",
+          "hardware_type_regle": "le nom d’objectif déclare une caméra avant ou arrière",
+          "hardware_type_statut": "déduit, non lu",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": "iPhone 15 Pro back triple camera 6.86mm f/1.78",
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "tags EXIF standard (Make, Model) — conteneur JPEG",
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": null,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": null
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 0,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [
+          {
+            "lecteur": "quantification",
+            "motif": "Aucune table de quantification (DQT) trouvée avant le début du balayage. Un JPEG en porte toujours : le fichier est tronqué, ou ce n'en est pas un."
+          }
+        ],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "jpeg de drone",
+      "nom_fichier": "DJI_0042.jpg",
+      "octets_b64": "/9j/4QM8aHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyI/Pgo8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIj4KIDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+CiAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgIHhtbG5zOmRyb25lLWRqaT0iaHR0cDovL3d3dy5kamkuY29tL2Ryb25lLWRqaS8xLjAvIgogICAgZHJvbmUtZGppOkFic29sdXRlQWx0aXR1ZGU9IisxNTIuMzAiCiAgICBkcm9uZS1kamk6UmVsYXRpdmVBbHRpdHVkZT0iKzg3LjUwIgogICAgZHJvbmUtZGppOkdwc0xhdGl0dWRlPSI0Ni42MTg2MzIwIgogICAgZHJvbmUtZGppOkdwc0xvbmd0aXR1ZGU9IjcuMDU4MzExMCIKICAgIGRyb25lLWRqaTpHaW1iYWxSb2xsRGVncmVlPSIrMC4wMCIKICAgIGRyb25lLWRqaTpHaW1iYWxZYXdEZWdyZWU9Ii0xMTQuMjAiCiAgICBkcm9uZS1kamk6R2ltYmFsUGl0Y2hEZWdyZWU9Ii0wLjQwIgogICAgZHJvbmUtZGppOkZsaWdodFJvbGxEZWdyZWU9IisxLjEwIgogICAgZHJvbmUtZGppOkZsaWdodFlhd0RlZ3JlZT0iLTExMy44MCIKICAgIGRyb25lLWRqaTpGbGlnaHRQaXRjaERlZ3JlZT0iKzIuMzAiCiAgICBkcm9uZS1kamk6UnRrRmxhZz0iNTAiCiAgICBkcm9uZS1kamk6UnRrU3RkTGF0PSIwLjAxIgogICAgZHJvbmUtZGppOkNhbGlicmF0ZWRGb2NhbExlbmd0aD0iMzY2Ni42NjY1MDQiCiAgICBkcm9uZS1kamk6RGV3YXJwRmxhZz0iMSIvPgogPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KPD94cGFja2V0IGVuZD0idyI/Pv/hACJFeGlmAABJSSoACAAAAAEADwECAAQAAABESkkAAAAAAP/Z",
+      "dossier": {
+        "file_analysis": {
+          "filename": "DJI_0042.jpg",
+          "mime_type": "image/jpeg",
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".jpg",
+          "file_size_bytes": 870,
+          "format_family": "JFIF/EXIF (segments APP)",
+          "conteneur": "JPEG",
+          "sha256": "89706f9258f6d3f3887ef7d831a3bffbc470ffbc693093ec4e989964b00d2a03"
+        },
+        "device_identification": {
+          "make": "DJI",
+          "model": null,
+          "hardware_type": "aéronef sans équipage",
+          "hardware_type_regle": "le fichier porte de la télémétrie de vol (drone-dji)",
+          "hardware_type_statut": "déduit, non lu",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "tags EXIF standard (Make, Model) — conteneur JPEG",
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": null,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": null
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": {
+            "origine": "DJI",
+            "prefixes": [
+              "drone-dji"
+            ],
+            "latitude": 46.618632,
+            "longitude": 7.058311,
+            "absolute_altitude_m": 152.3,
+            "relative_altitude_m": 87.5,
+            "above_ground_altitude_m": null,
+            "gimbal_pitch_deg": -0.4,
+            "gimbal_yaw_deg": -114.2,
+            "gimbal_roll_deg": 0.0,
+            "visee_horizontale": true,
+            "ground_station": null,
+            "motif_ground_station": "La position de la station sol n’est pas écrite dans le fichier. Ce que l’aéronef enregistre est SA position ; le point de décollage ne l’est qu’exceptionnellement, et jamais par les modèles courants. La renseigner avec la position du drone sous une autre étiquette donnerait un champ rempli et faux.",
+            "avertissement_altitude": "L’altitude relative est comptée depuis le POINT DE DÉCOLLAGE, pas depuis le sol survolé ni depuis le niveau de la mer. Un décollage depuis une colline la décale d’autant, et le fichier ne dit pas d’où l’appareil est parti. Pour servir de hauteur h au sens du §12, elle demande l’altitude du point de décollage, qui est une donnée EXTÉRIEURE au fichier."
+          },
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 1,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [
+          {
+            "lecteur": "quantification",
+            "motif": "Aucune table de quantification (DQT) trouvée avant le début du balayage. Un JPEG en porte toujours : le fichier est tronqué, ou ce n'en est pas un."
+          }
+        ],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "jpeg avec manifeste C2PA",
+      "nom_fichier": "signe.jpg",
+      "octets_b64": "/9j/6wDSSlAAAQAAAAEAAAKJanVtYgAAAB5qdW1kY2JvcgARABCAAACqADibcQNjMnBhAAAAAmNqdW1iAAAALWp1bWRjYm9yABEAEIAAAKoAOJtxA3Vybjp1dWlkOjAwMDAtZXNzYWkAAAABf2p1bWIAAAApanVtZGNib3IAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAAMlqdW1iAAAAJmp1bWRjYm9yABEAEIAAAKoAOJtxA2MycGEuYWN0aW9ucwAAAACbY2JvcqFnYWN0af/rANJKUAABAAAAAm9uc4OiZmFjdGlvbmxjMnBhLmNyZWF0ZWRtc29mdHdhcmVBZ2VudHRBcHBhcmVpbCBkJ2Vzc2FpIDEuMKJmYWN0aW9udmMycGEuY29sb3JfYWRqdXN0bWVudHNtc29mdHdhcmVBZ2VudG5SZXRvdWNoZXVyIDIuNKFmYWN0aW9ubGMycGEuY3JvcHBlZAAAAIVqdW1iAAAANmp1bWRjYm9yABEAEIAAAKoAOJtxA3N0ZHMuc2NoZW1hLW9yZy5DcmVhdGl2ZVdv/+sA0kpQAAEAAAADcmsAAAAAR2pzb257IkBjb250ZXh0IjoiaHR0cHM6Ly9zY2hlbWEub3JnIiwiYXV0aG9yIjpbeyJuYW1lIjoiQW5vbnltZSJ9XX0AAABzanVtYgAAACRqdW1kY2JvcgARABCAAACqADibcQNjMnBhLmNsYWltAAAAAEdjYm9yo29jbGFpbV9nZW5lcmF0b3JuZXNzYWktYzJwYS8wLjFjYWxnZXBzMjU2aWRjOmZvcm1hdGppbWFnZS9qcGVnAAAAPGp1bWIAAAD/6wA7SlAAAQAAAAQoanVtZGNib3IAEQAQgAAAqgA4m3EDYzJwYS5zaWduYXR1cmUAAAAADGNib3JDAAEC/+AAEEpGSUYAAQEAAAEAAQAA/+EB3EV4aWYAAE1NACoAAAAIAAkBDwACAAAABQAAAHoBEAACAAAACgAAAIABGgAFAAAAAQAAAIoBGwAFAAAAAQAAAJIBKAADAAAAAQACAAABMQACAAAAEAAAAJoBMgACAAAAFAAAAKqHaQAEAAAAAQAAAL6IJQAEAAAAAQAAAW4AAAAAU09OWQAASUxDRS02MDAwAAAAASwAAAABAAABLAAAAAFkYXJrdGFibGUgMS42LjYAMjAxNTowODoxNCAxNTozMjozOQAACYKaAAUAAAABAAABMIKdAAUAAAABAAABOIgnAAMAAAABAGQAAJADAAIAAAAUAAABQJIKAAUAAAABAAABVKABAAMAAAABAAEAAKACAAMAAAABBAAAAKADAAMAAAABAkAAAKQ0AAIAAAARAAABXAAAAAAAAAABAAAAyAAAAAsAAAABMjAxNDowNzozMSAxODowNTo0MwAAAAAKAAAAAUUgMTAtMThtbSBGNCBPU1MAAAAEAAEAAgAAAAJOAAAAAAIABQAAAAMAAAGkAAMAAgAAAAJFAAAAAAQABQAAAAMAAAG8AAAAAAAAAC8AAAABAAAAFQAAAAEAAAAAAAAAAQAAAAgAAAABAAAAHQAAAAEAAAEIAAAABf/bAEMACAYGBwYFCAcHBwkJCAoMFA0MCwsMGRITDxQdGh8eHRocHCAkLicgIiwjHBwoNyksMDE0NDQfJzk9ODI8LjM0Mv/bAEMBCQkJDAsMGA0NGDIhHCEyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMv/AABEIAkAEAAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/APIKKKK6DIKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z",
+      "dossier": {
+        "file_analysis": {
+          "filename": "signe.jpg",
+          "mime_type": "image/jpeg",
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".jpg",
+          "file_size_bytes": 11019,
+          "format_family": "JFIF/EXIF (segments APP)",
+          "conteneur": "JPEG",
+          "sha256": "a59a0d4147568f2779f697ea521839d1c0c266cdf606112336e3a3f9d3331c70"
+        },
+        "device_identification": {
+          "make": "SONY",
+          "model": "ILCE-6000",
+          "hardware_type": null,
+          "hardware_type_regle": null,
+          "hardware_type_statut": "indéterminé",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": "E 10-18mm F4 OSS",
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "tags EXIF standard (Make, Model) — conteneur JPEG",
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": 100,
+          "focal_length_mm": 10.0,
+          "focal_length_35mm": null,
+          "exposure_time": "1/200",
+          "exposure_time_s": 0.005,
+          "f_number": 11.0,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": [
+            1024,
+            576
+          ]
+        },
+        "telemetry_and_location": {
+          "gps": {
+            "latitude": 47.35,
+            "longitude": 8.498,
+            "altitude_meters": null,
+            "uncertainty_meters": null,
+            "source": "EXIF GPS IFD"
+          },
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": "darktable 1.6.6",
+          "creation_date": "2014:07:31 18:05:43",
+          "creation_date_offset": null,
+          "modification_date": "2015:08:14 15:32:39",
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": true,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 0,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": {
+            "empreinte_tables": "1ef7b437c9ffd0000793d0ee114ef9af07224f720bfe4d3b6c314f36032efc0f",
+            "qualite_ijg": 75,
+            "ecart_a_ijg": 0,
+            "conforme_ijg": true,
+            "sous_echantillonnage": "4:2:0",
+            "progressif": false,
+            "nombre_de_tables": 2
+          },
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "png complet",
+      "nom_fichier": "capture.png",
+      "octets_b64": "iVBORw0KGgoAAAANSUhEUgAAAEAAAAAwCAIAAAAuKetIAAAAHnRFWHRTb2Z0d2FyZQBFc3NhaUNvcnAgRWRpdGV1ciAzLjGBuplRAAAARnpUWHRDb21tZW50AAB4nAtJrShJVUjOzy0oSi0ufqlgpZCZV5ZZnJmUk6rwQKE0L1WhKDU5I7UIiBVSgAozEt/lpRbrAQBcehWH4KB20AAAAEJpVFh0RGVzY3JpcHRpb24AAQBmcgBEZXNjcmlwdGlvbgB4nAvNU0jOz81NzStJzCxKVcjMK0ktykssyczPS8zRAwCnTAs+hHgT+AAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+oFDA4WCg/u008AAABkaUNDUERpc3BsYXkgUDMAAHicY2BgWMEABEwODAy5eSVFQe5OChGRUQrsrxhYGXgY+BjEGLgSk4sLHAMCfBiIAK7BwY7EqEMCjCmpxclAegIQS0DZIMDtkllckJNYqRBgzMAAAOluEW0yjYM1AAAAU0lEQVR4nO3PQQ3AIADAQEAD6tCE6IngcVnSU9DOfe74s6UDXjWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaB9RBoBWkuSYTsAAAAASUVORK5CYII=",
+      "dossier": {
+        "file_analysis": {
+          "filename": "capture.png",
+          "mime_type": "image/png",
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".png",
+          "file_size_bytes": 494,
+          "format_family": "PNG (chunks)",
+          "conteneur": "PNG",
+          "sha256": "790a80514227dfdcb8ed1f1e5803a42b83ad6f2d53a59328133a71f7020fb34a"
+        },
+        "device_identification": {
+          "make": null,
+          "model": null,
+          "hardware_type": null,
+          "hardware_type_regle": null,
+          "hardware_type_statut": "indéterminé",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": null,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": [
+            64,
+            48
+          ]
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 0,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": "Display P3",
+          "icc_class": "périphérique d'affichage (écran)",
+          "icc_version": "2.4",
+          "motif_icc": null,
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": "Un CRC faux ÉTABLIT que les octets ont changé depuis l’écriture du chunk. Un CRC juste n’établit rien de plus que « celui qui a modifié le chunk a recalculé le CRC », ce que fait tout éditeur.",
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [
+          {
+            "lecteur": "EXIF",
+            "motif": "Conteneur non reconnu (PNG) : ni JPEG, ni TIFF/RAW, ni RAF."
+          }
+        ],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "png à CRC faux",
+      "nom_fichier": "abime.png",
+      "octets_b64": "iVBORw0KGgoAAAANSUhEUgAAAEAAAAAwCAIAAAAuKetIAAAAHnRFWHRTb2Z0d2FyZQBFc3NhaUNvcnAgRWRpdGV1ciAzLjGBuplRAAAARnpUWHRDb21tZW50AAB4nAtJrShJVUjOzy0oSi0ufqlgpZCZV5ZZnJmUk6rwQKE0L1WhKDU5I7UIiBVSgAozEt/lpRbrAQBcehWH4KB20AAAAEJpVFh0RGVzY3JpcHRpb24AAQBmcgBEZXNjcmlwdGlvbgB4nAvNU0jOz81NzStJzCxKVcjMK0ktykssyczPS8zRAwCnTAs+hHgT+AAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+oFDA4WCg/u008AAABkaUNDUERpc3BsYXkgUDMAAHicY2BgWMEABEwODAy5eSVFQe5OChGRUQrsrxhYGXgY+BjEGLgSk4sLHAMCfBiIAK7BwY7EqEMCjCmpxclAegIQS0DZIMDtkllckJNYqRBgzMAAAOluEW3NcnzKAAAAU0lEQVR4nO3PQQ3AIADAQEAD6tCE6IngcVnSU9DOfe74s6UDXjWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaB9RBoBWkuSYTsAAAAASUVORK5CYII=",
+      "dossier": {
+        "file_analysis": {
+          "filename": "abime.png",
+          "mime_type": "image/png",
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".png",
+          "file_size_bytes": 494,
+          "format_family": "PNG (chunks)",
+          "conteneur": "PNG",
+          "sha256": "aa43f37c0730002bc4e6eba2f6acc54e67a0d8aee1c08d26dfb9e3ddc3142f37"
+        },
+        "device_identification": {
+          "make": null,
+          "model": null,
+          "hardware_type": null,
+          "hardware_type_regle": null,
+          "hardware_type_statut": "indéterminé",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": null,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": [
+            64,
+            48
+          ]
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 0,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": "Display P3",
+          "icc_class": "périphérique d'affichage (écran)",
+          "icc_version": "2.4",
+          "motif_icc": null,
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [
+            "iCCP à l'octet 275"
+          ],
+          "motif_crc": "Un CRC faux ÉTABLIT que les octets ont changé depuis l’écriture du chunk. Un CRC juste n’établit rien de plus que « celui qui a modifié le chunk a recalculé le CRC », ce que fait tout éditeur.",
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [
+          {
+            "lecteur": "EXIF",
+            "motif": "Conteneur non reconnu (PNG) : ni JPEG, ni TIFF/RAW, ni RAF."
+          }
+        ],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "webp",
+      "nom_fichier": "image.webp",
+      "octets_b64": "UklGRjYBAABXRUJQVlA4WAoAAAAsAAAA/wQAvwMASUNDUKgAAAAAAACoAAAAAAJAAABtbnRyUkdCIFhZWiAH6gAFAAwADgAWAAphY3NwQVBQTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEVTU0EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFkZXNjAAAAkAAAABhkZXNjAAAAAAAAAAtEaXNwbGF5IFAzAABWUDggFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARVhJRhQAAABFeGlmAABJSSoACAAAAAAAAAAAAFhNUCAwAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyI+PC94OnhtcG1ldGE+",
+      "dossier": {
+        "file_analysis": {
+          "filename": "image.webp",
+          "mime_type": null,
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".webp",
+          "file_size_bytes": 318,
+          "format_family": "inconnu",
+          "conteneur": "inconnu",
+          "sha256": "731d12a063a20bb669a1d8445557eae71ab5dbf5ed80164b5c6a81760c902a93"
+        },
+        "device_identification": {
+          "make": null,
+          "model": null,
+          "hardware_type": null,
+          "hardware_type_regle": null,
+          "hardware_type_statut": "indéterminé",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": null,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": [
+            1280,
+            960
+          ]
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 1,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": "Display P3",
+          "icc_class": "périphérique d'affichage (écran)",
+          "icc_version": "2.4",
+          "motif_icc": null,
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [
+          {
+            "lecteur": "EXIF",
+            "motif": "Conteneur non reconnu (inconnu) : ni JPEG, ni TIFF/RAW, ni RAF."
+          }
+        ],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "gif animé",
+      "nom_fichier": "anim.gif",
+      "octets_b64": "R0lGODlhIAAYAIAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEEAAAsAAAAACAAGAAACDMAAQgcSLCgwYMIEypcyLChw4cQIyYMINGhgIoYM2rcyLGjx48gQ4ocSbKkyZMoU6oUGBAAIfkEAQAAAAAsAgAFAAoABQAACBEAAQgcSLCgwYMIBQZICEBAQAAh+QQBAAAAACwKAAgACgAFAAAIEQABCBxIsKDBgwgFBkgIQEBAACH+FVByb2R1aXQgcGFyIEVzc2FpQ29ycAA7",
+      "dossier": {
+        "file_analysis": {
+          "filename": "anim.gif",
+          "mime_type": null,
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".gif",
+          "file_size_bytes": 204,
+          "format_family": "inconnu",
+          "conteneur": "inconnu",
+          "sha256": "15d0896634d432fa856ff176faf23f8e8a5e0ad3e0f9a4f13c57adb40f77b619"
+        },
+        "device_identification": {
+          "make": null,
+          "model": null,
+          "hardware_type": null,
+          "hardware_type_regle": null,
+          "hardware_type_statut": "indéterminé",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": null,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": [
+            32,
+            24
+          ]
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 0,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [
+          {
+            "lecteur": "EXIF",
+            "motif": "Conteneur non reconnu (inconnu) : ni JPEG, ni TIFF/RAW, ni RAF."
+          }
+        ],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "bmp",
+      "nom_fichier": "image.bmp",
+      "octets_b64": "Qk1GDgAAAAAAADYAAAAoAAAAKAAAAB4AAAABABgAAAAAABAOAADEDgAAxA4AAAAAAAAAAAAAPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjIPCjI",
+      "dossier": {
+        "file_analysis": {
+          "filename": "image.bmp",
+          "mime_type": null,
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".bmp",
+          "file_size_bytes": 3654,
+          "format_family": "inconnu",
+          "conteneur": "inconnu",
+          "sha256": "01cfa5b7e33bcefda554ba3e58ae6fc6f3db3bc2f969789a4ea0357741a33510"
+        },
+        "device_identification": {
+          "make": null,
+          "model": null,
+          "hardware_type": null,
+          "hardware_type_regle": null,
+          "hardware_type_statut": "indéterminé",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": null,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": [
+            40,
+            30
+          ]
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 0,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [
+          {
+            "lecteur": "EXIF",
+            "motif": "Conteneur non reconnu (inconnu) : ni JPEG, ni TIFF/RAW, ni RAF."
+          }
+        ],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "svg",
+      "nom_fichier": "schema.svg",
+      "octets_b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEVzc2FpQ29ycCBEZXNzaW4gMTIuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC0tPgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6aW5rc2NhcGU9Imh0dHA6Ly93d3cuaW5rc2NhcGUub3JnL25hbWVzcGFjZXMvaW5rc2NhcGUiCiAgICAgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIHZpZXdCb3g9IjAgMCA4MDAgNjAwIj4KICA8dGl0bGU+U2NoZW1hIGQnZXNzYWk8L3RpdGxlPgogIDxkZXNjPlVuZSBkZXNjcmlwdGlvbiBsaXNpYmxlIGVuIGNsYWlyLjwvZGVzYz4KICA8bWV0YWRhdGE+PHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj48L3JkZjpSREY+PC9tZXRhZGF0YT4KICA8cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzEyMzQ1NiIvPgo8L3N2Zz4K",
+      "dossier": {
+        "file_analysis": {
+          "filename": "schema.svg",
+          "mime_type": null,
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".svg",
+          "file_size_bytes": 492,
+          "format_family": "inconnu",
+          "conteneur": "inconnu",
+          "sha256": "35f29d0264f0c2245e4743819f98cbc4954ab33902e185c428875d6c9c29464b"
+        },
+        "device_identification": {
+          "make": null,
+          "model": null,
+          "hardware_type": null,
+          "hardware_type_regle": null,
+          "hardware_type_statut": "indéterminé",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": null,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": [
+            800,
+            600
+          ]
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 1,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [
+          {
+            "lecteur": "EXIF",
+            "motif": "Conteneur non reconnu (inconnu) : ni JPEG, ni TIFF/RAW, ni RAF."
+          }
+        ],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "heic",
+      "nom_fichier": "IMG_4092.HEIC",
+      "octets_b64": "AAAAGGZ0eXBoZWljAAAAAG1pZjFoZWljAAABQW1ldGEAAAAAAAAAIWhkbHIAAAAAAAAAAHBpY3QAAAAAAAAAAAAAAAAAAAAADnBpdG0AAAAAAAEAAACcaWluZgAAAAAABAAAABVpbmZlAgAAAAABAABodmMxAAAAABVpbmZlAgAAAAACAABFeGlmAAAAAChpbmZlAgAAAAADAABtaW1lYXBwbGljYXRpb24vcmRmK3htbAAAAAA8aW5mZQIAAAAABAAAaHZjMXVybjpjb206YXBwbGU6cGhvdG86MjAyMDphdXg6aGRyZ2Fpbm1hcAAAAABQaWxvYwEAAABEAAAEAAEAAAAAAAEAAAFhAAAVNAACAAAAAAABAAAWlQAAAG4AAwAAAAAAAQAAFwMAAABHAAQAAAAAAAEAABdKAAAAoAAAABppcmVmAAAAAAAAAA5hdXhsAAQAAQABAAAWkW1kYXT/2P/gABBKRklGAAEBAAABAAEAAP/bAEMACQYHCAcGCQgHCAoKCQsNFg8NDAwNGxQVEBYgHSIiIB0fHyQoNCwkJjEnHx8tPS0xNTc6OjojKz9EPzhDNDk6N//bAEMBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAeACgAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AOFooor1jzQooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/ZAAAABkV4aWYAAElJKgAIAAAAAwAPAQIABgAAADIAAAAQAQIADgAAADgAAABphwQAAQAAAEYAAAAAAAAAQXBwbGUAaVBob25lIDE1IFBybwACACeIAwABAAAAUAAAAAKgBAABAAAAgB8AAAAAAAA8P3hwYWNrZXQgYmVnaW49Iu+7vyI/Pjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iPjwveDp4bXBtZXRhPgARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjM=",
+      "dossier": {
+        "file_analysis": {
+          "filename": "IMG_4092.HEIC",
+          "mime_type": "image/heic",
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".heic",
+          "file_size_bytes": 6122,
+          "format_family": "HEIF/ISOBMFF (boîtes)",
+          "conteneur": "HEIC",
+          "sha256": "dac704a4e3561b1514b0a9a57f088ed5de1ec06191a1c2904134c32b33db4ec8"
+        },
+        "device_identification": {
+          "make": "Apple",
+          "model": "iPhone 15 Pro",
+          "hardware_type": null,
+          "hardware_type_regle": null,
+          "hardware_type_statut": "indéterminé",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "tags EXIF standard (Make, Model) — conteneur HEIC",
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": 80,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": null
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 1,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": [
+            {
+              "origine": "item 1 (hvc1)",
+              "octets": 5428,
+              "format": "JPEG",
+              "sha256": "74b6307949d467bb3a8536c373d50e1d310e95a266397f3f59bf2b7c2ff5b5c7"
+            }
+          ]
+        },
+        "lectures_en_echec": [],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "cr3",
+      "nom_fichier": "IMG_0001.CR3",
+      "octets_b64": "AAAAGGZ0eXBjcnggAAAAAGNyeCBpc29tAAAIEW1vb3YAAAgJdXVpZIXAtoeCDxHggRH0zkYrakgAAABlQ01UMUlJKgAIAAAAAwAPAQIABgAAADIAAAAQAQIABwAAADgAAABphwQAAQAAAD8AAAAAAAAAQ2Fub24ARU9TIFI1AAIAJ4gDAAEAAACQAQAAAqAEAAEAAACAHwAAAAAAAAAAACpDTVQzABxNQUtFUk5PVEUtQ0FOT04tT1BBUVVFAAAAAAAAAAAAAAAAACZDTkNWQ2Fub25DUjNfMDAxLzAwLjA5LjAwLzAwLjAwLjAwAAAHPFBSVlcAAAAAAAAAAAAAAAAAAAAA/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5Ojf/2wBDAQoKCg0MDRoPDxo3JR8lNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzf/wAARCADwAUADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDhaKKK9Y80KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2QAAAEhtZGF0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+      "dossier": {
+        "file_analysis": {
+          "filename": "IMG_0001.CR3",
+          "mime_type": "image/x-canon-cr3",
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".cr3",
+          "file_size_bytes": 2161,
+          "format_family": "CR3/ISOBMFF (boîtes)",
+          "conteneur": "CR3",
+          "sha256": "cd639d520ecd821e4d5600c29a57f0133bd0a8824d51bbfdde2bf80bec8032d2"
+        },
+        "device_identification": {
+          "make": "Canon",
+          "model": "EOS R5",
+          "hardware_type": "appareil photo dédié",
+          "hardware_type_regle": "le fichier est un format brut de constructeur (CR3)",
+          "hardware_type_statut": "déduit, non lu",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "tags EXIF standard (Make, Model) ; MakerNotes présents (34 octets) mais NON DÉCODÉS — conteneur CR3",
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": 400,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": null
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 0,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": [
+            {
+              "origine": "boîte PRVW",
+              "octets": 1828,
+              "format": "JPEG",
+              "sha256": "c08e283f8853e5087216cd3db4395fcea77e42ad70b7484c6bb9cf4de9406929"
+            }
+          ]
+        },
+        "lectures_en_echec": [],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "raw tiff",
+      "nom_fichier": "IMG_0001.CR2",
+      "octets_b64": "SUkqAAgAAAAHAA8BAgAKAAAAtgAAABABAgAGAAAAwAAAAEoBBAABAAAAjAAAAAECBAABAAAAVgEAAAICBAABAAAANBUAAGmHBAABAAAAxgAAACWIBAABAAAA8AAAAGIAAAADAAMBAwABAAAABgAAAAECBAABAAAArh0AAAICBAABAAAAtAMAAAAAAAADAP4ABAABAAAAAQAAABEBBAABAAAAihYAABcBBAABAAAAJAcAAAAAAABFc3NhaUNvcnAAUkFXLTEAAwAniAMAAQAAAJABAAACoAQAAQAAAHAXAAADoAQAAQAAAKAPAAAAAAAABAABAAIAAgAAAE4AAAACAAUAAwAAACYBAAADAAIAAgAAAEUAAAAEAAUAAwAAAD4BAAAAAAAAKwAAAAEAAAAVAAAAAQAAAAAAAAABAAAABQAAAAEAAAAhAAAAAQAAAAAAAAABAAAA/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAHgAoADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDhaKKK6jlCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//2f/Y/+AAEEpGSUYAAQEAAAEAAQAA/9sAQwAKBwcIBwYKCAgICwoKCw4YEA4NDQ4dFRYRGCMfJSQiHyIhJis3LyYpNCkhIjBBMTQ5Oz4+PiUuRElDPEg3PT47/9sAQwEKCwsODQ4cEBAcOygiKDs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7/8AAEQgA8AFAAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A4Wiiiuo5QooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/9n/2P/gABBKRklGAAEBAAABAAEAAP/bAEMACgcHCAcGCggICAsKCgsOGBAODQ0OHRUWERgjHyUkIh8iISYrNy8mKTQpISIwQTE0OTs+Pj4lLkRJQzxINz0+O//bAEMBCgsLDg0OHBAQHDsoIig7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O//AABEIAHgAoAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AOFooorqOUKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/9k=",
+      "dossier": {
+        "file_analysis": {
+          "filename": "IMG_0001.CR2",
+          "mime_type": "image/tiff",
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".cr2",
+          "file_size_bytes": 8546,
+          "format_family": "TIFF (IFD)",
+          "conteneur": "TIFF/RAW",
+          "sha256": "2ee287dcac570d9f5e40e69d114df65b9f10fe784eeaa41052e5d1d8dfb21b3a"
+        },
+        "device_identification": {
+          "make": "EssaiCorp",
+          "model": "RAW-1",
+          "hardware_type": "appareil photo dédié",
+          "hardware_type_regle": "le fichier est un format brut de constructeur (TIFF/RAW)",
+          "hardware_type_statut": "déduit, non lu",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "tags EXIF standard (Make, Model) — conteneur TIFF/RAW",
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": 400,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": [
+            6000,
+            4000
+          ]
+        },
+        "telemetry_and_location": {
+          "gps": {
+            "latitude": 43.35,
+            "longitude": 5.55,
+            "altitude_meters": null,
+            "uncertainty_meters": null,
+            "source": "EXIF GPS IFD"
+          },
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 0,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": [
+            {
+              "origine": "IFD0",
+              "octets": 5428,
+              "format": "JPEG",
+              "sha256": "26657bd062da276f85004539bea7a6774717aedfbdfd1a1a3a6b196325faa9d2"
+            },
+            {
+              "origine": "sous-IFD 0",
+              "octets": 1828,
+              "format": "JPEG",
+              "sha256": "8d87ffc43d2d15e7ebeee3377a2e291cfbe617ce43742a4b201e0be425ae3ef4"
+            },
+            {
+              "origine": "IFD1",
+              "octets": 948,
+              "format": "JPEG",
+              "sha256": "2836e5353f524723477b565d588a8ceeaf0ca1b66686bb3dcb8e4982ee6f883a"
+            }
+          ]
+        },
+        "lectures_en_echec": [],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "png renommé en jpg",
+      "nom_fichier": "photo.jpg",
+      "octets_b64": "iVBORw0KGgoAAAANSUhEUgAAAEAAAAAwCAIAAAAuKetIAAAAHnRFWHRTb2Z0d2FyZQBFc3NhaUNvcnAgRWRpdGV1ciAzLjGBuplRAAAARnpUWHRDb21tZW50AAB4nAtJrShJVUjOzy0oSi0ufqlgpZCZV5ZZnJmUk6rwQKE0L1WhKDU5I7UIiBVSgAozEt/lpRbrAQBcehWH4KB20AAAAEJpVFh0RGVzY3JpcHRpb24AAQBmcgBEZXNjcmlwdGlvbgB4nAvNU0jOz81NzStJzCxKVcjMK0ktykssyczPS8zRAwCnTAs+hHgT+AAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+oFDA4WCg/u008AAABkaUNDUERpc3BsYXkgUDMAAHicY2BgWMEABEwODAy5eSVFQe5OChGRUQrsrxhYGXgY+BjEGLgSk4sLHAMCfBiIAK7BwY7EqEMCjCmpxclAegIQS0DZIMDtkllckJNYqRBgzMAAAOluEW0yjYM1AAAAU0lEQVR4nO3PQQ3AIADAQEAD6tCE6IngcVnSU9DOfe74s6UDXjWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaA1oDWgNaB9RBoBWkuSYTsAAAAASUVORK5CYII=",
+      "dossier": {
+        "file_analysis": {
+          "filename": "photo.jpg",
+          "mime_type": "image/png",
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".jpg",
+          "file_size_bytes": 494,
+          "format_family": "PNG (chunks)",
+          "conteneur": "PNG",
+          "sha256": "790a80514227dfdcb8ed1f1e5803a42b83ad6f2d53a59328133a71f7020fb34a"
+        },
+        "device_identification": {
+          "make": null,
+          "model": null,
+          "hardware_type": null,
+          "hardware_type_regle": null,
+          "hardware_type_statut": "indéterminé",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": null,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": [
+            64,
+            48
+          ]
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 0,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": "Display P3",
+          "icc_class": "périphérique d'affichage (écran)",
+          "icc_version": "2.4",
+          "motif_icc": null,
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": "Un CRC faux ÉTABLIT que les octets ont changé depuis l’écriture du chunk. Un CRC juste n’établit rien de plus que « celui qui a modifié le chunk a recalculé le CRC », ce que fait tout éditeur.",
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [
+          {
+            "lecteur": "EXIF",
+            "motif": "Conteneur non reconnu (PNG) : ni JPEG, ni TIFF/RAW, ni RAF."
+          }
+        ],
+        "avertissements": [
+          "L’extension « .jpg » annonce un JPEG, les octets disent PNG. Ce n’est pas une preuve de manipulation — un fichier se renomme par mégarde — mais c’est un écart, et il est relevé."
+        ]
+      }
+    },
+    {
+      "nom": "fichier inconnu",
+      "nom_fichier": "x.bin",
+      "octets_b64": "Y2VjaSBuJ2VzdCBwYXMgdW5lIGltYWdlLCB2cmFpbWVudCBwYXMgZHUgdG91dA==",
+      "dossier": {
+        "file_analysis": {
+          "filename": "x.bin",
+          "mime_type": null,
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".bin",
+          "file_size_bytes": 46,
+          "format_family": "inconnu",
+          "conteneur": "inconnu",
+          "sha256": "45c48717affdd3c3131bf8a6d3b4264f206ca13c10574b2c6c1d297f7a400d92"
+        },
+        "device_identification": {
+          "make": null,
+          "model": null,
+          "hardware_type": null,
+          "hardware_type_regle": null,
+          "hardware_type_statut": "indéterminé",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": null,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": null
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 0,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [
+          {
+            "lecteur": "EXIF",
+            "motif": "Conteneur non reconnu (inconnu) : ni JPEG, ni TIFF/RAW, ni RAF."
+          }
+        ],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "sans nom de fichier",
+      "nom_fichier": null,
+      "octets_b64": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAwAEADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDzdExs+RVwuOO3TgcdP8BQiY2fIq4XHHbpwOOn+AoRMbPkVcLjjt04HHT/AAFCJjZ8irhccdunA46f4Cv6HjHbTt0/w/3f6/L8LnO/N73fr/j/AL77+e/W/viJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8AAUImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wFEY7adun+H+7/AF+ROd+b3u/X/H/fffz36398RMbPkVcLjjt04HHT/AUImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wFCJjZ8irhccdunA46f4CiMdtO3T/AA/3f6/InO/N73fr/j/vvv579b++ImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wFCJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8AAURjtp26f4f7v9fkTnfm97v1/wAf999/Pfrf3xExs+RVwuOO3TgcdP8AAUImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wFCJjZ8irhccdunA46f4CiMdtO3T/D/d/r8ic783vd+v8Aj/vvv579b++ImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wFCJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8BRGO2nbp/h/u/1+ROd+b3u/X/H/fffz36398RMbPkVcLjjt04HHT/AUImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wABQiY2fIq4XHHbpwOOn+AojHbTt0/w/wB3+vyJzvze936/4/777+e/W/viJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8BQiY2fIq4XHHbpwOOn+AoRMbPkVcLjjt04HHT/AURjtp26f4f7v9fkTnfm97v1/x/wB99/Pfrf3xExs+RVwuOO3TgcdP8BQiY2fIq4XHHbpwOOn+AoRMbPkVcLjjt04HHT/AUImNnyKuFxx26cDjp/gKIx207dP8P93+vyJzvze936/4/wC++/nv1v74iY2fIq4XHHbpwOOn+AoRMbPkVcLjjt04HHT/AAFCJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8BRGO2nbp/h/u/wBfkTnfm97v1/x/33389+t/fETGz5FXC447dOBx0/wFCJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8BQiY2fIq4XHHbpwOOn+AojHbTt0/wAP93+vyJzvze936/4/777+e/W/viJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8BQiY2fIq4XHHbpwOOn+AoRMbPkVcLjjt04HHT/AAFEY7adun+H+7/X5E535ve79f8AH/fffz3639//2Q==",
+      "dossier": {
+        "file_analysis": {
+          "filename": null,
+          "mime_type": "image/jpeg",
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": null,
+          "file_size_bytes": 1645,
+          "format_family": "JFIF/EXIF (segments APP)",
+          "conteneur": "JPEG",
+          "sha256": "e2e4cfb41543e578fc22e0c08a5938edc301e5896e63b5a972a13b8878ced432"
+        },
+        "device_identification": {
+          "make": null,
+          "model": null,
+          "hardware_type": null,
+          "hardware_type_regle": null,
+          "hardware_type_statut": "indéterminé",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "aucune : rien dans ce fichier ne nomme d’appareil",
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": null,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": null
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 0,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": {
+            "empreinte_tables": "9e79a5446d1defe88a99c30bf51869f245b59fc138363e554ade37bfbd921a23",
+            "qualite_ijg": 90,
+            "ecart_a_ijg": 0,
+            "conforme_ijg": true,
+            "sous_echantillonnage": "4:2:0",
+            "progressif": false,
+            "nombre_de_tables": 2
+          },
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [
+          {
+            "lecteur": "EXIF",
+            "motif": "Aucun segment EXIF (APP1) trouvé dans ce JPEG."
+          }
+        ],
+        "avertissements": []
+      }
+    }
+  ]
+}

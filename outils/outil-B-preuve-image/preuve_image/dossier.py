@@ -1,33 +1,33 @@
 """
-dossier.py — Le relevé unifié d'un fichier, quel que soit son format (§16).
+dossier.py — Le relevé unifié d’un fichier, quel que soit son format (§16).
 
 CE QUE CE MODULE FAIT
 ─────────────────────
-Il n'extrait rien lui-même. Il ORCHESTRE les six lecteurs du paquet — EXIF,
+Il n’extrait rien lui-même. Il ORCHESTRE les six lecteurs du paquet — EXIF,
 conteneurs à boîtes, conteneurs hors EXIF, provenance, quantification,
-télémétrie — et range ce qu'ils rendent dans une structure unique, la même quel
-que soit le format d'entrée.
+télémétrie — et range ce qu’ils rendent dans une structure unique, la même quel
+que soit le format d’entrée.
 
-C'est le seul endroit du paquet qui a le droit de dire « ce fichier vient d'un
-iPhone » : les lecteurs, eux, ne rendent que ce qu'ils lisent.
+C’est le seul endroit du paquet qui a le droit de dire « ce fichier vient d’un
+iPhone » : les lecteurs, eux, ne rendent que ce qu’ils lisent.
 
-CE QU'IL NE FAIT PAS, ET POURQUOI CHAQUE CHAMP VIDE PORTE SON MOTIF
+CE QU’IL NE FAIT PAS, ET POURQUOI CHAQUE CHAMP VIDE PORTE SON MOTIF
 ──────────────────────────────────────────────────────────────────
 Un relevé unifié a un défaut propre : il présente côte à côte des champs qui ne
-s'établissent pas de la même façon. La marque lue dans l'EXIF, le numéro de
-série lu dans l'EXIF, le type de matériel DÉDUIT, et la correspondance d'écran
-qui n'existe pas — tous les quatre auraient la même apparence dans un JSON, et
+s’établissent pas de la même façon. La marque lue dans l’EXIF, le numéro de
+série lu dans l’EXIF, le type de matériel DÉDUIT, et la correspondance d’écran
+qui n’existe pas — tous les quatre auraient la même apparence dans un JSON, et
 un lecteur pressé les prendrait pour des faits de même nature.
 
-Trois dispositions l'en empêchent :
+Trois dispositions l’en empêchent :
 
-  · chaque bloc porte un champ `etabli_par` qui dit d'où vient l'information ;
-  · un champ qu'on ne peut pas renseigner vaut None ET porte son motif, jamais
+  · chaque bloc porte un champ `etabli_par` qui dit d’où vient l’information ;
+  · un champ qu’on ne peut pas renseigner vaut None ET porte son motif, jamais
     une valeur plausible ;
   · les déductions sont marquées comme telles, avec la règle qui les a
-    produites, pour qu'on puisse les contester sans relire le code.
+    produites, pour qu’on puisse les contester sans relire le code.
 
-Rien ici n'est vérifié. Une métadonnée s'écrit ; ce module l'affiche.
+Rien ici n’est vérifié. Une métadonnée s’écrit ; ce module l’affiche.
 """
 
 import hashlib
@@ -104,36 +104,36 @@ FAMILLES = {
 
 MOTIF_NUMERO_SERIE_ABSENT = (
     "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, "
-    "LensSerialNumber). Beaucoup d'appareils n'en écrivent pas, et les "
-    "téléphones n'en écrivent jamais dans ces champs-là. Certains boîtiers le "
+    "LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les "
+    "téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le "
     "rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas."
 )
 
 MOTIF_DECLENCHEMENTS_ABSENT = (
-    "Le décompte des déclenchements n'existe dans AUCUN tag EXIF standard. Il "
-    "n'est écrit que dans les MakerNotes propriétaires, différemment par chaque "
+    "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il "
+    "n’est écrit que dans les MakerNotes propriétaires, différemment par chaque "
     "constructeur et souvent par chaque millésime. Ce paquet rend les "
     "MakerNotes bruts sans les décoder : les interpréter demanderait un "
-    "dictionnaire par appareil, qu'on ne peut pas écrire de mémoire sans se "
+    "dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se "
     "tromper."
 )
 
 MOTIF_ECRAN_NON_EVALUE = (
-    "Aucun rapprochement par la résolution : il n'existe pas de référentiel "
-    "vérifié des définitions d'écrans dans ce dépôt. En écrire un de mémoire "
+    "Aucun rapprochement par la résolution : il n’existe pas de référentiel "
+    "vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire "
     "produirait des correspondances fausses présentées comme des faits. Et le "
     "signal serait faible même vérifié : une résolution de 1179 × 2556 "
-    "identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle "
+    "identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle "
     "image recadrée à ces dimensions."
 )
 
 
 @dataclass(frozen=True)
 class Deduction:
-    """Une conclusion tirée, avec la règle qui l'a produite.
+    """Une conclusion tirée, avec la règle qui l’a produite.
 
-    Une déduction n'a pas le même statut qu'une lecture, et les présenter de la
-    même façon serait le défaut principal d'un relevé unifié. `regle` permet de
+    Une déduction n’a pas le même statut qu’une lecture, et les présenter de la
+    même façon serait le défaut principal d’un relevé unifié. `regle` permet de
     la contester sans relire le code.
     """
 
@@ -146,11 +146,11 @@ def deduire_type_materiel(
     telemetrie: Optional[TelemetrieVol],
     conteneur: str,
 ) -> Optional[Deduction]:
-    """Le type de matériel, DÉDUIT — jamais lu, parce qu'aucun format ne l'écrit.
+    """Le type de matériel, DÉDUIT — jamais lu, parce qu’aucun format ne l’écrit.
 
     Les règles sont peu nombreuses et volontairement conservatrices : chacune
-    s'appuie sur une trace non ambiguë, et l'absence de règle applicable rend
-    None plutôt qu'une supposition. Un « appareil photo » deviné à partir d'un
+    s’appuie sur une trace non ambiguë, et l’absence de règle applicable rend
+    None plutôt qu’une supposition. Un « appareil photo » deviné à partir d’un
     fabricant vaudrait moins que rien.
     """
     if telemetrie is not None and telemetrie.present:
@@ -167,13 +167,13 @@ def deduire_type_materiel(
     # non par l'utilisateur.
     objectif = (exif.objectif or "").lower()
     if "back camera" in objectif or "front camera" in objectif or "back triple camera" in objectif:
-        return Deduction("téléphone", "le nom d'objectif déclare une caméra avant ou arrière")
+        return Deduction("téléphone", "le nom d’objectif déclare une caméra avant ou arrière")
     # Un numéro de série de boîtier ET un objectif interchangeable nommé : c'est
     # la signature d'un reflex ou d'un hybride. Aucun téléphone n'écrit les deux.
     if exif.numero_serie_boitier and exif.numero_serie_objectif:
         return Deduction(
             "appareil à objectifs interchangeables",
-            "numéros de série de boîtier ET d'objectif tous deux présents",
+            "numéros de série de boîtier ET d’objectif tous deux présents",
         )
     if conteneur in ("CR3", "TIFF/RAW", "RAF"):
         return Deduction(
@@ -206,7 +206,7 @@ class DossierFichier:
 
 
 def _vitesse(secondes: Optional[float]) -> Optional[str]:
-    """« 1/200 » sous la seconde, « 2,5 s » au-delà. Forme d'affichage seulement."""
+    """« 1/200 » sous la seconde, « 2,5 s » au-delà. Forme d’affichage seulement."""
     if secondes is None or secondes <= 0:
         return None
     if secondes >= 1:
@@ -215,9 +215,9 @@ def _vitesse(secondes: Optional[float]) -> Optional[str]:
 
 
 def constituer_dossier(donnees: bytes, nom_fichier: Optional[str] = None) -> DossierFichier:
-    """Assemble le relevé unifié d'un fichier, quel que soit son format.
+    """Assemble le relevé unifié d’un fichier, quel que soit son format.
 
-    Aucun lecteur en échec n'interrompt les autres : un JPEG dont l'EXIF a été
+    Aucun lecteur en échec n’interrompt les autres : un JPEG dont l’EXIF a été
     purgé garde ses tables de quantification, et un PNG sans texte garde son
     profil ICC. Chaque échec est consigné avec son motif.
     """
@@ -232,7 +232,7 @@ def constituer_dossier(donnees: bytes, nom_fichier: Optional[str] = None) -> Dos
         # pour une autre. L'extension déclarée est rendue à côté, pour que
         # l'écart se voie.
         "mime_type": TYPES_MIME.get(conteneur),
-        "mime_source": "octets du fichier, jamais l'extension",
+        "mime_source": "octets du fichier, jamais l’extension",
         "extension_declaree": (
             os.path.splitext(nom_fichier)[1].lower() or None) if nom_fichier else None,
         "file_size_bytes": len(donnees),
@@ -254,9 +254,9 @@ def constituer_dossier(donnees: bytes, nom_fichier: Optional[str] = None) -> Dos
         annonce = familles_ext.get(ext)
         if annonce is not None and annonce != conteneur:
             d.avertissements.append(
-                "L'extension « %s » annonce un %s, les octets disent %s. "
-                "Ce n'est pas une preuve de manipulation — un fichier se renomme "
-                "par mégarde — mais c'est un écart, et il est relevé."
+                "L’extension « %s » annonce un %s, les octets disent %s. "
+                "Ce n’est pas une preuve de manipulation — un fichier se renomme "
+                "par mégarde — mais c’est un écart, et il est relevé."
                 % (ext, annonce, conteneur)
             )
 
@@ -328,7 +328,7 @@ def constituer_dossier(donnees: bytes, nom_fichier: Optional[str] = None) -> Dos
         "motif_serial_number": None if numeros else MOTIF_NUMERO_SERIE_ABSENT,
         "ce_que_ca_n_etablit_pas": (
             "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à "
-            "un appareil établi : une métadonnée s'écrit et se modifie (§17.1). "
+            "un appareil établi : une métadonnée s’écrit et se modifie (§17.1). "
             "Il sert à confronter deux fichiers entre eux, pas à prouver une "
             "origine."
         ),
@@ -385,8 +385,8 @@ def constituer_dossier(donnees: bytes, nom_fichier: Optional[str] = None) -> Dos
         },
         "ce_que_ca_n_etablit_pas": (
             "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de "
-            "l'écriture. Elle ne prouve pas où le cliché a été pris : le champ "
-            "s'écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+            "l’écriture. Elle ne prouve pas où le cliché a été pris : le champ "
+            "s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
         ),
     }
 
@@ -403,16 +403,16 @@ def constituer_dossier(donnees: bytes, nom_fichier: Optional[str] = None) -> Dos
         "c2pa_credentials": c2pa_present,
         "c2pa_verified": False,
         "motif_c2pa_non_verifie": (
-            "Aucune signature n'est vérifiée : ni la validation COSE, ni la "
+            "Aucune signature n’est vérifiée : ni la validation COSE, ni la "
             "chaîne X.509, ni les empreintes de liaison au contenu. Un "
             "manifeste présent est un manifeste DÉCLARÉ."
         ),
         "xmp_history": [asdict(e) for e in historique],
         "xmp_packets": len(paquets_xmp),
         "motif_xmp_history": None if historique else (
-            "Aucun historique XMP. Cela ne veut pas dire que le fichier n'a pas "
+            "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas "
             "été retouché : un historique se retire, se tronque et se réécrit, "
-            "et un logiciel qui ne respecte pas la convention n'y laisse rien."
+            "et un logiciel qui ne respecte pas la convention n’y laisse rien."
         ),
         "iptc_records": (
             len(provenance.iptc) if provenance else 0
@@ -456,8 +456,8 @@ def constituer_dossier(donnees: bytes, nom_fichier: Optional[str] = None) -> Dos
             list(inventaire.chunks_corrompus) if inventaire else []
         ),
         "motif_crc": (
-            "Un CRC faux ÉTABLIT que les octets ont changé depuis l'écriture du "
-            "chunk. Un CRC juste n'établit rien de plus que « celui qui a "
+            "Un CRC faux ÉTABLIT que les octets ont changé depuis l’écriture du "
+            "chunk. Un CRC juste n’établit rien de plus que « celui qui a "
             "modifié le chunk a recalculé le CRC », ce que fait tout éditeur."
         ) if inventaire is not None and inventaire.format == "PNG" else None,
         "apercus_embarques": _apercus(exif, structure),
@@ -471,11 +471,11 @@ def _methode_detection(
     structure: Optional[StructureIsobmff],
     conteneur: str,
 ) -> str:
-    """D'où vient l'identification du matériel, en toutes lettres.
+    """D’où vient l’identification du matériel, en toutes lettres.
 
     Sans ce champ, un relevé rendrait « Apple / iPhone 15 Pro » sans dire si
-    l'information vient d'un tag EXIF, d'un nom de fichier ou d'une déduction —
-    et les trois n'ont pas le même poids.
+    l’information vient d’un tag EXIF, d’un nom de fichier ou d’une déduction —
+    et les trois n’ont pas le même poids.
     """
     voies: List[str] = []
     if exif is not None and (exif.fabricant or exif.modele):
@@ -486,7 +486,7 @@ def _methode_detection(
         voies.append(
             "MakerNotes présents (%d octets) mais NON DÉCODÉS" % len(structure.makernotes))
     if not voies:
-        return "aucune : rien dans ce fichier ne nomme d'appareil"
+        return "aucune : rien dans ce fichier ne nomme d’appareil"
     return " ; ".join(voies) + " — conteneur %s" % conteneur
 
 
@@ -495,9 +495,9 @@ def _apercus(
 ) -> List[Dict[str, Any]]:
     """Les images embarquées, de la plus grande à la plus petite.
 
-    Elles n'ont pas nécessairement été écrites au même moment du traitement, et
-    c'est leur comparaison qui a valeur d'indice — d'où le fait de toutes les
-    lister plutôt que de n'en montrer qu'une.
+    Elles n’ont pas nécessairement été écrites au même moment du traitement, et
+    c’est leur comparaison qui a valeur d’indice — d’où le fait de toutes les
+    lister plutôt que de n’en montrer qu’une.
     """
     out: List[Dict[str, Any]] = []
     vus = set()

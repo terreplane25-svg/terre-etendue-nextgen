@@ -531,6 +531,71 @@ function commencePar(d: Uint8Array, prefixe: string): boolean {
 }
 
 /** Relève les paquets XMP d'un JPEG (APP1) ou d'un PNG (iTXt/tEXt). */
+/**
+ * Un événement de `xmpMM:History`, tel qu'il est écrit.
+ *
+ * L'historique XMP est la seule trace de chaîne de traitement qu'un fichier
+ * ordinaire porte : chaque logiciel qui respecte la convention y ajoute une
+ * ligne. Ce que cela établit : qu'un logiciel a ÉCRIT avoir fait cela. Ce que
+ * cela n'établit pas : qu'il l'a fait, ni qu'il n'a rien fait d'autre — un
+ * historique se retire, se tronque et se réécrit comme n'importe quel texte.
+ */
+export interface EvenementXmp {
+  action: string | null;
+  logiciel: string | null;
+  quand: string | null;
+  change: string | null;
+  identifiantInstance: string | null;
+  parametres: string | null;
+}
+
+/**
+ * Les attributs d'un événement, dans l'espace `stEvt` de XMP Media Management.
+ * Un attribut hors de cette liste est ignoré : les logiciels en inventent, et
+ * leur prêter un sens serait deviner.
+ */
+const ATTRS_EVENEMENT: [string, keyof EvenementXmp][] = [
+  ['action', 'action'], ['softwareAgent', 'logiciel'], ['when', 'quand'],
+  ['changed', 'change'], ['instanceID', 'identifiantInstance'],
+  ['parameters', 'parametres'],
+];
+
+/**
+ * Relève les événements de `xmpMM:History`, dans les deux formes d'écriture.
+ *
+ * Un événement s'écrit soit comme un `rdf:li` porteur d'attributs `stEvt:`,
+ * soit comme un `rdf:li` contenant des éléments `stEvt:`. Les deux existent,
+ * parfois dans le même fichier, et ne traiter que la première perdrait tout ce
+ * qu'écrit Photoshop en forme longue.
+ */
+export function extraireHistoriqueXmp(texte: string): EvenementXmp[] {
+  // Pas de drapeau `s` (ES2018) : `[\s\S]` fait le même office et le projet
+  // vise ES2017.
+  let bloc = /xmpMM:History[^>]*>([\s\S]*?)<\s*\/\s*xmpMM:History\s*>/.exec(texte);
+  if (bloc === null) {
+    // Forme abrégée : la séquence est parfois fermée sans balise nommée.
+    bloc = /xmpMM:History[^>]*>([\s\S]*?)<\/rdf:Seq>/.exec(texte);
+  }
+  if (bloc === null) return [];
+  const corps = bloc[1];
+
+  const evenements: EvenementXmp[] = [];
+  for (const li of corps.matchAll(/<rdf:li\b([\s\S]*?)(?:\/>|<\/rdf:li>)/g)) {
+    const e: EvenementXmp = {
+      action: null, logiciel: null, quand: null,
+      change: null, identifiantInstance: null, parametres: null,
+    };
+    let trouve = false;
+    for (const [attr, cle] of ATTRS_EVENEMENT) {
+      let m = new RegExp(`stEvt:${attr}\\s*=\\s*"([^"]*)"`).exec(li[1]);
+      if (m === null) m = new RegExp(`<stEvt:${attr}[^>]*>([^<]{0,400})<`).exec(li[1]);
+      if (m) { e[cle] = m[1].trim(); trouve = true; }
+    }
+    if (trouve) evenements.push(e);
+  }
+  return evenements;
+}
+
 export function extraireXmp(donnees: Uint8Array): BlocXmp[] {
   const blocs: BlocXmp[] = [];
   const estJpeg = donnees[0] === 0xff && donnees[1] === 0xd8;

@@ -283,7 +283,7 @@ def test_tables_de_quantification_seulement_pour_les_jpeg():
 def test_crc_png_remontes_avec_leur_asymetrie():
     sain = constituer_dossier(png(), "x.png")
     assert sain.deep_fingerprint["png_crc_corrompus"] == []
-    assert "n'établit rien de plus" in sain.deep_fingerprint["motif_crc"]
+    assert "établit rien de plus" in sain.deep_fingerprint["motif_crc"]
     abime = constituer_dossier(png(crc_faux=True), "x.png")
     assert abime.deep_fingerprint["png_crc_corrompus"]
 
