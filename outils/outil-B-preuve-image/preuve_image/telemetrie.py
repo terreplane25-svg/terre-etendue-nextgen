@@ -66,18 +66,18 @@ ESPACES_CONNUS = {
 }
 
 MOTIF_STATION_SOL_ABSENTE = (
-    "La position de la station sol n'est pas écrite dans le fichier. Ce que "
-    "l'aéronef enregistre est SA position ; le point de décollage ne l'est "
-    "qu'exceptionnellement, et jamais par les modèles courants. La renseigner "
+    "La position de la station sol n’est pas écrite dans le fichier. Ce que "
+    "l’aéronef enregistre est SA position ; le point de décollage ne l’est "
+    "qu’exceptionnellement, et jamais par les modèles courants. La renseigner "
     "avec la position du drone sous une autre étiquette donnerait un champ "
     "rempli et faux."
 )
 
 AVERTISSEMENT_ALTITUDE_RELATIVE = (
-    "L'altitude relative est comptée depuis le POINT DE DÉCOLLAGE, pas depuis "
+    "L’altitude relative est comptée depuis le POINT DE DÉCOLLAGE, pas depuis "
     "le sol survolé ni depuis le niveau de la mer. Un décollage depuis une "
-    "colline la décale d'autant, et le fichier ne dit pas d'où l'appareil est "
-    "parti. Pour servir de hauteur h au sens du §12, elle demande l'altitude "
+    "colline la décale d’autant, et le fichier ne dit pas d’où l’appareil est "
+    "parti. Pour servir de hauteur h au sens du §12, elle demande l’altitude "
     "du point de décollage, qui est une donnée EXTÉRIEURE au fichier."
 )
 

@@ -87,10 +87,10 @@ SIGNATURES_CONNUES: Dict[str, Tuple[str, str]] = {}
 MOTIF_AUCUNE_SIGNATURE = (
     "Aucun rapprochement : le registre des signatures est vide. Le remplir "
     "demande un corpus de fichiers réels dont la provenance est établie, "
-    "appareil par appareil et version par version. L'empreinte ci-dessus reste "
+    "appareil par appareil et version par version. L’empreinte ci-dessus reste "
     "utilisable pour COMPARER deux fichiers que vous avez tous les deux — "
-    "des tables identiques sortent de la même chaîne d'encodage aux mêmes "
-    "réglages — mais elle n'identifie rien contre une base qu'on n'a pas."
+    "des tables identiques sortent de la même chaîne d’encodage aux mêmes "
+    "réglages — mais elle n’identifie rien contre une base qu’on n’a pas."
 )
 
 
