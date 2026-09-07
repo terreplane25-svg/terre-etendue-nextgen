@@ -39,6 +39,7 @@ import {
   analyserProvenance,
 } from '@/lib/preuve-image/provenance';
 import { documentIngestion } from '@/lib/preuve-image/document';
+import { type DossierFichier, constituerDossier } from '@/lib/preuve-image/dossier';
 
 const ACCENT = dash.cyan;
 const NON_ECRIT = 'non écrit par l’appareil';
@@ -175,6 +176,7 @@ export default function VerificateurIntegrite() {
   const [provenance, setProvenance] = useState<Provenance | null>(null);
   const [urlMiniature, setUrlMiniature] = useState<string | null>(null);
   const [document_, setDocument] = useState<Record<string, unknown> | null>(null);
+  const [dossier, setDossier] = useState<DossierFichier | null>(null);
   const [empreinteMiniature, setEmpreinteMiniature] = useState<string | null>(null);
   const [enCours, setEnCours] = useState(false);
   const [erreur, setErreur] = useState<string | null>(null);
@@ -208,6 +210,7 @@ export default function VerificateurIntegrite() {
       setRapport(r);
       setProvenance(analyserProvenance(octets));
       setDocument(await documentIngestion(octets, fichier.name));
+      setDossier(await constituerDossier(octets, fichier.name));
       // La miniature est affichée depuis ses propres octets, jamais depuis
       // l'image principale redimensionnée : c'est justement leur écart qui a
       // valeur, et le montrer supposerait de les confondre.
@@ -765,6 +768,122 @@ export default function VerificateurIntegrite() {
                 <code style={{ fontSize: 11.5 }}>c2pa.signature</code> porte l’identité{' '}
                 <strong>déclarée</strong>, jamais vérifiée.
               </p>
+            </Bloc>
+          )}
+
+          {dossier && (
+            <Bloc num="10" titre="Relevé unifié">
+              <p style={{ margin: '0 0 12px', fontSize: 13.5, lineHeight: 1.6, color: 'var(--ink)' }}>
+                Le même relevé quel que soit le format : six blocs, produits par six
+                lecteurs. <strong>Chaque champ qu’on ne peut pas renseigner reste nul et
+                porte son motif</strong> — c’est ce qui empêche de confondre une lecture,
+                une déduction et une lacune, qui ont toutes la même apparence dans un JSON.
+              </p>
+
+              <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 12 }}>
+                <tbody>
+                  <Ligne cle="Type MIME (aux octets)" val={String(dossier.file_analysis.mime_type ?? INDISPONIBLE)} />
+                  <Ligne cle="Famille de format" val={String(dossier.file_analysis.format_family ?? INDISPONIBLE)} />
+                  <Ligne cle="Matériel" val={[dossier.device_identification.make, dossier.device_identification.model].filter(Boolean).join(' ') || NON_ECRIT} mono={false} />
+                  <Ligne
+                    cle="Type de matériel"
+                    val={dossier.device_identification.hardware_type
+                      ? `${dossier.device_identification.hardware_type} — ${dossier.device_identification.hardware_type_statut}`
+                      : 'indéterminé — aucune règle applicable'}
+                    mono={false}
+                  />
+                  <Ligne cle="Numéro de série du boîtier" val={String(dossier.device_identification.serial_number ?? NON_ECRIT)} />
+                  <Ligne cle="Établi par" val={String(dossier.device_identification.detection_method)} mono={false} />
+                </tbody>
+              </table>
+
+              {typeof dossier.device_identification.hardware_type_regle === 'string' && (
+                <p style={{
+                  margin: '0 0 12px', fontSize: 12, lineHeight: 1.55, padding: '9px 12px',
+                  borderRadius: 6, background: 'var(--bg)',
+                  borderLeft: `3px solid ${dash.saffron}`, color: 'var(--ink-soft)',
+                }}>
+                  <strong>Déduction, pas lecture.</strong> La règle appliquée :{' '}
+                  {dossier.device_identification.hardware_type_regle}. Elle est écrite pour
+                  que vous puissiez la contester sans relire le code.
+                </p>
+              )}
+
+              {dossier.avertissements.length > 0 && dossier.avertissements.map((a, i) => (
+                <p key={i} style={{
+                  margin: '0 0 10px', fontSize: 12.5, lineHeight: 1.55, padding: '10px 12px',
+                  borderRadius: 6, background: 'var(--card)',
+                  borderLeft: `3px solid ${dash.rose}`, color: 'var(--ink)',
+                }}>{a}</p>
+              ))}
+
+              <div style={{
+                marginBottom: 12, padding: '10px 12px', borderRadius: 6,
+                background: 'var(--bg)', border: '1px solid var(--border)',
+              }}>
+                <div style={{
+                  fontSize: 10, fontFamily: dash.fontMono, letterSpacing: '0.08em',
+                  color: 'var(--ink-muted)', textTransform: 'uppercase', marginBottom: 6,
+                }}>Ce que ce relevé ne peut pas renseigner</div>
+                <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12, lineHeight: 1.6, color: 'var(--ink-muted)' }}>
+                  <li><strong>Décompte des déclenchements</strong> — n’existe dans aucun tag EXIF standard, seulement dans les MakerNotes propriétaires.</li>
+                  <li><strong>Correspondance d’écran</strong> — aucun référentiel vérifié ici ; et le signal serait faible même vérifié, une résolution identifiant une capture d’écran autant que n’importe quelle image recadrée.</li>
+                  <li><strong>Signature de quantification</strong> — le registre est vide faute de corpus dont la provenance soit établie. L’empreinte sert à comparer deux fichiers qu’on a tous les deux.</li>
+                  <li><strong>C2PA vérifié</strong> — faux par construction : aucune signature n’est validée.</li>
+                </ul>
+              </div>
+
+              {dossier.lectures_en_echec.length > 0 && (
+                <details style={{ marginBottom: 12 }}>
+                  <summary style={{ cursor: 'pointer', fontSize: 12.5, color: 'var(--ink-soft)' }}>
+                    {dossier.lectures_en_echec.length} lecteur(s) en échec — le motif est conservé
+                  </summary>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 8 }}>
+                    <tbody>
+                      {dossier.lectures_en_echec.map((e) => (
+                        <Ligne key={e.lecteur} cle={e.lecteur} val={e.motif} mono={false} />
+                      ))}
+                    </tbody>
+                  </table>
+                  <p style={{ margin: '8px 0 0', fontSize: 12, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
+                    Un lecteur en échec n’en fait pas tomber d’autres : un JPEG dont l’EXIF a
+                    été purgé garde ses tables de quantification. L’absence d’un bloc et
+                    l’échec de sa lecture ne s’établissent pas de la même façon, et les
+                    confondre ferait passer une panne pour un constat.
+                  </p>
+                </details>
+              )}
+
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
+                <button
+                  onClick={() => {
+                    const blob = new Blob([JSON.stringify(dossier, null, 2)],
+                      { type: 'application/json' });
+                    const a = window.document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = `${rapport.nom.replace(/\.[^.]+$/, '')}-releve.json`;
+                    a.click();
+                    URL.revokeObjectURL(a.href);
+                  }}
+                  style={{
+                    padding: '8px 14px', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                    borderRadius: 4, border: `1px solid ${ACCENT}`,
+                    background: ACCENT + '14', color: ACCENT,
+                  }}
+                >Télécharger le relevé unifié (JSON)</button>
+              </div>
+
+              <details>
+                <summary style={{ cursor: 'pointer', fontSize: 12.5, color: 'var(--ink-soft)' }}>
+                  Voir le relevé complet
+                </summary>
+                <pre style={{
+                  marginTop: 10, maxHeight: 420, overflow: 'auto', borderRadius: 6,
+                  border: '1px solid var(--border)', background: 'var(--bg)',
+                  padding: '10px 12px', fontSize: 11.5, lineHeight: 1.55,
+                  fontFamily: dash.fontMono, color: 'var(--ink)',
+                }}>{JSON.stringify(dossier, null, 2)}</pre>
+              </details>
             </Bloc>
           )}
 
