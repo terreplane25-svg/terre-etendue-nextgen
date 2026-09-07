@@ -22,6 +22,7 @@
  */
 import { useMemo, useState } from 'react';
 import { dash } from '@/lib/design-tokens';
+import { AVERTISSEMENT_RACCOURCIS, RACCOURCIS_SOURCE } from '@/lib/lab-sources';
 import {
   IUGG_R1,
   cible as faireCible,
@@ -152,6 +153,20 @@ function ChampSource({
             borderRadius: 5, outline: 'none',
           }}
         />
+      </div>
+      {/* Raccourcis : ils écrivent la NATURE de la provenance, jamais sa fiabilité. */}
+      <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginTop: 5 }}>
+        {RACCOURCIS_SOURCE.map((rc) => (
+          <button
+            key={rc.cle} type="button" title={rc.aide}
+            onClick={() => onChange({ ...champ, source: rc.texte })}
+            style={{
+              padding: '3px 7px', fontSize: 10, cursor: 'pointer', borderRadius: 3,
+              border: '1px solid var(--border)', background: 'transparent',
+              color: 'var(--ink-ghost)', lineHeight: 1.5,
+            }}
+          >{rc.cle}</button>
+        ))}
       </div>
       <p style={{ margin: '4px 0 0', fontSize: 11.5, color: 'var(--ink-muted)', lineHeight: 1.45 }}>
         {manqueSource
@@ -318,6 +333,15 @@ export default function ViseeOptiqueCalc() {
             border: '1px solid var(--border)', borderRadius: 6,
           }}
         >Tout vider</button>
+      </div>
+
+      <div style={{
+        fontSize: 11.5, lineHeight: 1.6, color: 'var(--ink-muted)',
+        padding: '9px 12px', borderRadius: 6, marginBottom: 16,
+        border: '1px solid var(--border)', background: 'var(--card)',
+      }}>
+        <strong style={{ color: 'var(--ink)' }}>Les boutons sous chaque champ de source</strong>{' '}
+        posent une provenance en un clic. {AVERTISSEMENT_RACCOURCIS}
       </div>
 
       <Bloc num="01" titre="Point d’observation">

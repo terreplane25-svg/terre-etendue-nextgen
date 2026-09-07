@@ -32,6 +32,7 @@
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { dash } from '@/lib/design-tokens';
+import { AVERTISSEMENT_RACCOURCIS, RACCOURCIS_SOURCE } from '@/lib/lab-sources';
 import { analyserFichier, type RapportFichier } from '@/lib/preuve-image/noyau';
 import {
   CE_QUE_CA_N_ETABLIT_PAS,
@@ -313,6 +314,21 @@ function ChampNombre({
           borderRadius: 4, background: 'var(--card)', color: 'var(--ink-muted)',
         }}
       />
+      {/* Raccourcis : ils écrivent la NATURE de la provenance, jamais sa fiabilité. */}
+      <div style={{ display: 'flex', gap: 3, flexWrap: 'wrap', marginTop: 3 }}>
+        {RACCOURCIS_SOURCE.map((rc) => (
+          <button
+            key={rc.cle} type="button" title={rc.aide}
+            data-raccourci={`${cle}-${rc.cle}`}
+            onClick={() => onChange({ ...champ, source: rc.texte })}
+            style={{
+              padding: '2px 6px', fontSize: 9.5, cursor: 'pointer', borderRadius: 3,
+              border: `1px solid ${dash.border}`, background: 'transparent',
+              color: 'var(--ink-ghost)', lineHeight: 1.5,
+            }}
+          >{rc.cle}</button>
+        ))}
+      </div>
       <div style={{ fontSize: 10, color: manqueSource ? dash.saffron : 'var(--ink-ghost)', marginTop: 3, lineHeight: 1.45 }}>
         {manqueSource
           ? 'Sans source : la valeur entre dans le calcul, et figure dans la liste de ce qui reste à établir.'
@@ -1081,6 +1097,15 @@ export default function MetrologieImage() {
           <strong>L’image ne quitte pas votre machine</strong> — empreinte, EXIF et calculs se
           font dans le navigateur.
         </p>
+      </div>
+
+      <div style={{
+        fontSize: 11, lineHeight: 1.6, color: 'var(--ink-muted)',
+        padding: '9px 12px', borderRadius: 5, marginBottom: 14,
+        border: `1px solid ${dash.border}`, background: 'var(--card)',
+      }}>
+        <strong style={{ color: 'var(--ink)' }}>Les boutons sous chaque champ de source</strong>{' '}
+        posent une provenance en un clic. {AVERTISSEMENT_RACCOURCIS}
       </div>
 
       <div style={{

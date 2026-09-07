@@ -58,6 +58,7 @@ content/protocoles/pdf/
 
 # Environnement Python des outils (recréable : voir outils/README.md)
 outils/.venv/
+.venv-tests/
 outils/**/*.egg-info/
 
 # Sorties des cas d'étude : reproductibles par « python3 run_case.py », donc
