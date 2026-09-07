@@ -290,9 +290,9 @@ export default function VerificateurIntegrite() {
           {enCours ? 'Calcul en cours…' : 'Déposez un fichier, ou cliquez pour le choisir'}
         </p>
         <p style={{ margin: 0, fontSize: 12.5, color: 'var(--ink-muted)' }}>
-          JPEG et formats bruts d’appareil photo (CR2, NEF, ARW, DNG, ORF, RAF…) pour la
-          lecture EXIF. N’importe quel fichier pour l’empreinte seule.
-          Jusqu’à {fmtTaille(TAILLE_MAX)}.
+          JPEG, HEIC/AVIF (iPhone, Samsung), et formats bruts d’appareil photo
+          (CR2, CR3, NEF, ARW, DNG, ORF, RAF…) pour la lecture EXIF.
+          N’importe quel fichier pour l’empreinte seule. Jusqu’à {fmtTaille(TAILLE_MAX)}.
         </p>
         <input
           ref={inputRef} type="file" style={{ display: 'none' }}
@@ -454,10 +454,17 @@ export default function VerificateurIntegrite() {
               </p>
               <p style={{ margin: '10px 0 0', fontSize: 12, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
                 Les formats bruts d’appareil photo sont lus : {FORMATS_RAW_TIFF.join(', ')},
-                ainsi que le RAF de Fujifilm. Le <strong>CR3</strong> des Canon récents ne
-                l’est pas — c’est un conteneur ISO BMFF, comme un MP4, et il est refusé en se
-                nommant plutôt que lu de travers. Son empreinte reste valide : sceller un
-                fichier et savoir le lire sont deux choses indépendantes.
+                ainsi que le RAF de Fujifilm. Les conteneurs à boîtes le sont aussi —
+                <strong> HEIC</strong> et <strong>AVIF</strong> des téléphones, et le{' '}
+                <strong>CR3</strong> des Canon récents : leur bloc EXIF est un TIFF ordinaire,
+                il fallait seulement aller le chercher dans la bonne boîte.
+              </p>
+              <p style={{ margin: '10px 0 0', fontSize: 12, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
+                Un conteneur dont la structure est lue mais qui ne porte aucun bloc EXIF
+                <strong> localisable</strong> le dit ainsi, et pas « aucune métadonnée » : les
+                items d’un HEIF peuvent être rangés hors du fichier. Les deux ne s’établissent
+                pas de la même façon. L’empreinte, elle, reste valide dans tous les cas —
+                sceller un fichier et savoir le lire sont indépendants.
               </p>
             </Bloc>
           )}

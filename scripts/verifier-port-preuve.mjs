@@ -16,7 +16,7 @@
  *     python3 scripts/generer-vecteurs-or-preuve.py
  */
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -72,10 +72,21 @@ const dossier = mkdtempSync(join(tmpdir(), 'preuve-port-'));
 try {
   execFileSync(
     'npx',
-    ['--no-install', 'tsc', SRC, '--target', 'ES2022', '--module', 'ES2022',
+    ['--no-install', 'tsc', join(RACINE, 'src', 'lib', 'preuve-image', 'isobmff.ts'), SRC, '--target', 'ES2022', '--module', 'ES2022',
      '--moduleResolution', 'bundler', '--outDir', dossier, '--strict', '--lib', 'ES2022,DOM'],
     { cwd: RACINE, stdio: 'pipe' },
   );
+  // tsc ne réécrit pas les extensions ; l'ESM de Node les exige. noyau.js
+  // importe désormais './isobmff' : sans cette réécriture, Node refuse le
+  // module sans dire lequel.
+  {
+    const f = join(dossier, 'noyau.js');
+    const code = readFileSync(f, 'utf8');
+    if (!code.includes("'./isobmff'")) {
+      throw new Error("noyau.js n'importe pas './isobmff' : la compilation a changé de forme.");
+    }
+    writeFileSync(f, code.replaceAll("'./isobmff'", "'./isobmff.js'"));
+  }
   const M = await import(pathToFileURL(join(dossier, 'noyau.js')).href);
   const v = JSON.parse(readFileSync(VECTEURS, 'utf8'));
   let n = 0;

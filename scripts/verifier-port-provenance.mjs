@@ -31,7 +31,7 @@ function compiler() {
   const dossier = mkdtempSync(join(tmpdir(), 'provenance-port-'));
   execFileSync(
     'npx',
-    ['--no-install', 'tsc', SRC_PROV, SRC_NOYAU, SRC_DOC, '--target', 'ES2022', '--module', 'ES2022',
+    ['--no-install', 'tsc', join(RACINE, 'src', 'lib', 'preuve-image', 'isobmff.ts'), SRC_PROV, SRC_NOYAU, SRC_DOC, '--target', 'ES2022', '--module', 'ES2022',
      '--moduleResolution', 'bundler', '--outDir', dossier, '--strict', '--lib', 'ES2022,DOM'],
     { cwd: RACINE, stdio: 'pipe' },
   );
@@ -108,6 +108,14 @@ const dossier = compiler();
 try {
   // Les deux sources vivent dans le même dossier : tsc en fait la racine, et les
   // fichiers émis sont à plat, sans le niveau `preuve-image/`.
+  {
+    const f = join(dossier, 'noyau.js');
+    const code = readFileSync(f, 'utf8');
+    if (!code.includes("'./isobmff'")) {
+      throw new Error("noyau.js n'importe pas './isobmff' : la compilation a changé de forme.");
+    }
+    writeFileSync(f, code.replaceAll("'./isobmff'", "'./isobmff.js'"));
+  }
   const P = await import(pathToFileURL(join(dossier, 'provenance.js')).href);
   const N = await import(pathToFileURL(join(dossier, 'noyau.js')).href);
   const D = await import(pathToFileURL(join(dossier, 'document.js')).href);

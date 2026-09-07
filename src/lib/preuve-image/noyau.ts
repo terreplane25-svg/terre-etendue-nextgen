@@ -16,6 +16,8 @@
  * éloignée au-dessus de la mer » v1.0.
  */
 
+import { analyserIsobmff } from './isobmff';
+
 export class PreuveError extends Error {
   constructor(message: string) {
     super(message);
@@ -711,16 +713,25 @@ export function detecterConteneur(donnees: Uint8Array): string {
   if (octetsEgaux(donnees, 0, MAGIE_RAF)) return 'RAF';
   if (donnees.length < 12) return 'inconnu';
   // ISO BMFF : taille de boîte sur 4 octets, puis « ftyp ».
+  const vueTete = new DataView(donnees.buffer, donnees.byteOffset, donnees.byteLength);
   if (octetsEgaux(donnees, 4, MAGIE_FTYP)) {
-    const marque = String.fromCharCode(...donnees.subarray(8, 12));
-    // Canon ecrit CRX suivi d'un espace ou d'un octet nul selon le boitier.
-    // L'octet nul est ecrit en ECHAPPEMENT, jamais en clair : un vrai NUL dans
-    // un litteral rendrait ce fichier source binaire, et la comparaison
-    // invisible a la relecture.
-    if (marque.slice(0, 3) === 'crx' && (marque[3] === ' ' || marque[3] === '\u0000')) {
-      return 'CR3';
+    // La marque ET les marques compatibles nomment la variante : un HEIC et un
+    // CR3 sont le même conteneur, et les confondre sous « ISO BMFF » perdrait
+    // ce qui les sépare. L'octet nul est écrit en ÉCHAPPEMENT, jamais en clair.
+    const propre = (x: string) => x.replace(/\u0000/g, '').trim();
+    const marque = propre(String.fromCharCode(...donnees.subarray(8, 12)));
+    const toutes = new Set([marque]);
+    const tailleFtyp = vueTete.getUint32(0, false);
+    for (let i = 16; i + 4 <= Math.min(tailleFtyp, donnees.length); i += 4) {
+      const m = propre(String.fromCharCode(...donnees.subarray(i, i + 4)));
+      if (m) toutes.add(m);
     }
-    return `ISO BMFF (${marque.replace(/\u0000/g, '').trim()})`;
+    if (marque === 'crx') return 'CR3';
+    if (toutes.has('avif') || toutes.has('avis')) return 'AVIF';
+    for (const m of ['heic', 'heix', 'heim', 'heis', 'hevc', 'mif1', 'msf1']) {
+      if (toutes.has(m)) return 'HEIC';
+    }
+    return `ISO BMFF (${marque})`;
   }
   const petitBoutien = donnees[0] === 0x49 && donnees[1] === 0x49;
   const grosBoutien = donnees[0] === 0x4d && donnees[1] === 0x4d;
@@ -757,6 +768,36 @@ function jpegEmbarqueRaf(donnees: Uint8Array): Uint8Array | null {
  * `ConteneurNonSupporte` en le NOMMANT — rendre des champs vides laisserait
  * croire que le fichier n'en porte pas.
  */
+/**
+ * Réunit les aperçus des deux origines, sans doublon, du plus grand au plus petit.
+ *
+ * Les offsets des aperçus du conteneur ne sont pas comparables à ceux du bloc
+ * TIFF : ils ne sont pas dans le même repère. On dédoublonne donc sur les
+ * OCTETS eux-mêmes — deux aperçus identiques le sont quels que soient les
+ * repères, et c'est le seul critère qui ne dépende d'aucune convention.
+ */
+function fusionnerApercus(
+  depuisExif: Miniature[],
+  depuisConteneur: { origine: string; octets: Uint8Array }[],
+): Miniature[] {
+  const cle = (o: Uint8Array) => `${o.length}:${Array.from(o.subarray(0, 64)).join(',')}`;
+  const out = [...depuisExif];
+  const vus = new Set(out.map((m) => cle(m.octets)));
+  for (const { origine, octets } of depuisConteneur) {
+    const k = cle(octets);
+    if (vus.has(k)) continue;
+    vus.add(k);
+    out.push({
+      offset: -1, longueur: octets.length,
+      octets: new Uint8Array(octets.slice()),
+      compression: null,
+      estJpeg: octets[0] === 0xff && octets[1] === 0xd8,
+      origine,
+    });
+  }
+  return out.sort((a, b) => b.longueur - a.longueur);
+}
+
 export function lireExif(donnees: Uint8Array): DonneesExif {
   const conteneur = detecterConteneur(donnees);
   if (conteneur === 'JPEG') {
@@ -775,12 +816,35 @@ export function lireExif(donnees: Uint8Array): DonneesExif {
     }
     return { ...lireExifDepuisJpeg(jpeg), conteneur };
   }
-  if (conteneur === 'CR3' || conteneur.startsWith('ISO BMFF')) {
-    throw new ConteneurNonSupporte(
-      `Conteneur ${conteneur} : les métadonnées y sont rangées dans des boîtes ISO BMFF, `
-      + "que ce lecteur n'implémente pas. L'empreinte du fichier, elle, reste valide — "
-      + 'les deux sont indépendantes.',
-    );
+  if (conteneur === 'CR3' || conteneur === 'HEIC' || conteneur === 'AVIF'
+      || conteneur.startsWith('ISO BMFF')) {
+    // Les conteneurs à boîtes. Le bloc EXIF qu'ils portent est un TIFF
+    // ordinaire : il n'y a pas de second lecteur EXIF à écrire, seulement le
+    // bon bloc à trouver.
+    let structure;
+    try {
+      structure = analyserIsobmff(donnees);
+    } catch (err) {
+      throw new ConteneurNonSupporte(
+        `Conteneur ${conteneur} : sa structure de boîtes est illisible `
+        + `(${err instanceof Error ? err.message : String(err)}). L'empreinte du fichier, `
+        + 'elle, reste valide — les deux sont indépendantes.',
+      );
+    }
+    if (structure.blocExif === null) {
+      throw new ConteneurNonSupporte(
+        `Conteneur ${conteneur} : la structure est lue, mais elle ne porte aucun bloc EXIF `
+        + "localisable. Ce n'est pas la même chose qu'un fichier sans métadonnées — les "
+        + 'items peuvent être rangés hors du fichier, ou dans une variante que ce lecteur '
+        + "ne couvre pas. L'empreinte, elle, reste valide.",
+      );
+    }
+    const releve = lireExifDepuisTiff(structure.blocExif, MAGIQUES_TIFF);
+    return {
+      ...releve,
+      conteneur,
+      previsualisations: fusionnerApercus(releve.previsualisations, structure.apercus),
+    };
   }
   throw new PreuveError(
     `Conteneur non reconnu (${conteneur}) : ni JPEG, ni TIFF/RAW, ni RAF.`,
