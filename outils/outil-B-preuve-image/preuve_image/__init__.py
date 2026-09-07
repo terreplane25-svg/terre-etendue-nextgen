@@ -123,6 +123,16 @@ from .chain_of_custody import (
     DossierPreuve,
 )
 
+from .conteneurs import (
+    Chunk,
+    ConteneurError,
+    InventaireConteneur,
+    ProfilIcc,
+    TexteEmbarque,
+    inventorier,
+    lire_profil_icc,
+)
+
 __all__ = [
     # --- Ingestion : document unifié ---
     "MOTIF_SIGNATURE_NON_VERIFIEE",
@@ -214,4 +224,12 @@ __all__ = [
     "PRINCIPES_ISO27037",
     "RegistreConformite",
     "DossierPreuve",
+    # --- Conteneurs hors EXIF (§16) ---
+    "ConteneurError",
+    "Chunk",
+    "TexteEmbarque",
+    "ProfilIcc",
+    "InventaireConteneur",
+    "inventorier",
+    "lire_profil_icc",
 ]
