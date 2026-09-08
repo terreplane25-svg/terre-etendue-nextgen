@@ -51,45 +51,38 @@ import {
 const ACCENT = dash.opal;
 
 /**
- * L'ALTITUDE DU SOL ET LA HAUTEUR DE L'OUVRAGE SONT DEUX CHAMPS DISTINCTS
- * ───────────────────────────────────────────────────────────────────────
- * Google Earth affiche l'altitude du TERRAIN sous le curseur. Ce n'est ni la
- * hauteur de l'œil de l'observateur, ni la hauteur d'un phare : il faut
- * ajouter la seconde à la première. Un seul champ « hauteur » invitait à
- * saisir l'une pour l'autre, et l'erreur ne se voit pas dans le résultat —
- * elle le décale simplement.
+ * DEUX DONNÉES PAR POINT, PAS QUATRE
+ * ──────────────────────────────────
+ * Une version antérieure séparait l'altitude du sol et la hauteur de
+ * l'ouvrage, pour coller à ce que donne Google Earth. Le gain de précision ne
+ * payait pas la surcharge : sur une visée d'observation, ce qui compte est la
+ * hauteur de l'objet observé au-dessus de sa base.
  *
- * La séparation change aussi la GÉOMÉTRIE, pas seulement l'ergonomie : la
- * base de la cible n'est plus au niveau de la mer mais à l'altitude de son
- * terrain, ce qui recule la distance critique et réduit l'occultation. Une
- * cible posée sur une falaise de 200 m émerge bien plus longtemps qu'une
- * cible posée sur l'eau.
+ * Conséquence assumée, et c'est la seule : la base de la cible est prise à la
+ * surface de référence. Une cible posée sur une falaise n'est donc pas
+ * modélisée comme telle — il faut alors saisir la hauteur totale depuis le
+ * niveau de la mer dans le champ de hauteur.
  */
 interface Saisie {
   obsPosition: string;
-  obsAltitudeSol: string;
-  obsHauteurOeil: string;
+  obsHauteur: string;
   cibPosition: string;
-  cibAltitudeSol: string;
-  cibHauteurOuvrage: string;
+  cibHauteur: string;
   kPersonnalise: boolean;
   k: string;
 }
 
 const VIDE: Saisie = {
-  obsPosition: '', obsAltitudeSol: '', obsHauteurOeil: '',
-  cibPosition: '', cibAltitudeSol: '', cibHauteurOuvrage: '',
+  obsPosition: '', obsHauteur: '', cibPosition: '', cibHauteur: '',
   kPersonnalise: false, k: String(K_STANDARD),
 };
 
 /** Un exemple réel, chargeable d'un clic : Sangatte vers les falaises de Douvres. */
 const EXEMPLE: Saisie = {
   obsPosition: '50.94642, 1.75305',
-  obsAltitudeSol: '2',
-  obsHauteurOeil: '1.7',
+  obsHauteur: '2',
   cibPosition: '51.13152, 1.338825',
-  cibAltitudeSol: '0',
-  cibHauteurOuvrage: '110',
+  cibHauteur: '110',
   kPersonnalise: false,
   k: String(K_STANDARD),
 };
@@ -146,31 +139,17 @@ export default function ViseeOptiqueCalc() {
     setErreur(null);
     setSim(null);
     try {
-      const solObs = nombre(s.obsAltitudeSol);
-      const oeil = nombre(s.obsHauteurOeil);
-      const solCib = nombre(s.cibAltitudeSol);
-      const ouvrage = nombre(s.cibHauteurOuvrage);
-      if (solObs === null) throw new Error('L’altitude du sol au point d’observation manque.');
-      if (oeil === null) throw new Error('La hauteur de l’œil de l’observateur manque.');
-      if (solCib === null) throw new Error('L’altitude du sol au pied de la cible manque.');
-      if (ouvrage === null) throw new Error('La hauteur de l’ouvrage visé manque.');
-      if (ouvrage <= 0) throw new Error('La hauteur de l’ouvrage doit être supérieure à zéro.');
-      if (oeil < 0) throw new Error('La hauteur de l’œil ne peut pas être négative.');
-      if (solObs < 0 || solCib < 0) {
+      const hObs = nombre(s.obsHauteur);
+      const hCib = nombre(s.cibHauteur);
+      if (hObs === null) throw new Error('La hauteur de l’observateur manque.');
+      if (hCib === null) throw new Error('La hauteur de la cible manque.');
+      if (hCib <= 0) throw new Error('La hauteur de la cible doit être supérieure à zéro.');
+      if (hObs < 0) {
         throw new Error(
-          'Les altitudes doivent être comptées au-dessus du niveau moyen de la mer, '
-          + 'donc positives. Un point sous le niveau de la mer sort de la construction '
-          + 'géométrique employée ici.',
+          'La hauteur de l’observateur ne peut pas être négative : elle est comptée '
+          + 'au-dessus de la surface de référence.',
         );
       }
-
-      // L'altitude de l'axe optique : le sol PLUS la hauteur de l'œil. C'est
-      // cette somme qui entre dans la géométrie, et la séparer à la saisie est
-      // ce qui empêche de prendre l'une pour l'autre.
-      const hObs = solObs + oeil;
-      // La base de la cible est à l'altitude de SON terrain, pas au niveau de
-      // la mer. C'est ce qui recule la distance critique.
-      const hCib = ouvrage;
 
       // Le coefficient de réfraction : la moyenne standard, ou celui que
       // l'analyste déclare. Le refus vient du module de référence, pas d'ici.
@@ -190,7 +169,10 @@ export default function ViseeOptiqueCalc() {
         throw new Error('Les deux points sont confondus : il n’y a pas de visée.');
       }
       const REuler = rayonEuler((a.latitude + b.latitude) / 2, geo.azimutDepartDeg);
-      const ci = faireCible(hCib, solCib);
+      // La base de la cible est prise à la surface de référence : le
+      // formulaire ne demande qu'une hauteur, et l'inventer autrement
+      // reviendrait à combler un champ qu'on n'a pas.
+      const ci = faireCible(hCib, 0);
 
       // ── L'occultation à la base, sur la seule géométrie ───────────────────
       //
@@ -219,8 +201,6 @@ export default function ViseeOptiqueCalc() {
         masqueeEnveloppeMaxM: bornes[1],
         kEmploye: k,
         kPersonnalise: s.kPersonnalise,
-        altitudeSolObsM: solObs,
-        hauteurOeilM: oeil,
         verdict: juger(masqueeStandard, hCib),
         cible: ci,
         h: hObs,
@@ -234,8 +214,7 @@ export default function ViseeOptiqueCalc() {
   }, [s]);
 
   const pret = s.obsPosition.trim() !== '' && s.cibPosition.trim() !== ''
-    && nombre(s.obsAltitudeSol) !== null && nombre(s.obsHauteurOeil) !== null
-    && nombre(s.cibAltitudeSol) !== null && nombre(s.cibHauteurOuvrage) !== null
+    && nombre(s.obsHauteur) !== null && nombre(s.cibHauteur) !== null
     && (!s.kPersonnalise || nombre(s.k) !== null);
 
   return (
@@ -272,16 +251,10 @@ export default function ViseeOptiqueCalc() {
             aide="Degrés décimaux, degrés-minutes-secondes (50°52'47.56&quot;N 1°38'46.91&quot;E), ou une adresse."
           />
           <Champ
-            label="Altitude du sol"
-            valeur={s.obsAltitudeSol} onChange={maj('obsAltitudeSol')}
+            label="Hauteur"
+            valeur={s.obsHauteur} onChange={maj('obsHauteur')}
             placeholder="2"
-            aide="En mètres au-dessus du niveau de la mer, au point où vous vous tenez."
-          />
-          <Champ
-            label="Hauteur de l’œil"
-            valeur={s.obsHauteurOeil} onChange={maj('obsHauteurOeil')}
-            placeholder="1,7"
-            aide="Au-dessus du sol : votre taille, ou la hauteur du trépied."
+            aide="En mètres au-dessus du niveau de la mer, appareil compris."
           />
         </div>
       </div>
@@ -303,63 +276,13 @@ export default function ViseeOptiqueCalc() {
             aide="Degrés décimaux, degrés-minutes-secondes, ou une adresse."
           />
           <Champ
-            label="Altitude du sol"
-            valeur={s.cibAltitudeSol} onChange={maj('cibAltitudeSol')}
-            placeholder="0"
-            aide="En mètres au-dessus du niveau de la mer, au PIED de la cible."
-          />
-          <Champ
-            label="Hauteur de l’ouvrage"
-            valeur={s.cibHauteurOuvrage} onChange={maj('cibHauteurOuvrage')}
+            label="Hauteur"
+            valeur={s.cibHauteur} onChange={maj('cibHauteur')}
             placeholder="110"
-            aide="Au-dessus de son sol : la falaise, le phare, le bâtiment lui-même."
+            aide="Sa taille totale en mètres, de sa base à son sommet."
           />
         </div>
       </div>
-
-      {/* ── Comment remplir depuis Google Earth ── */}
-      <details style={{
-        background: 'var(--card)', border: '1px solid var(--border)',
-        borderRadius: 10, padding: '13px 18px', marginBottom: 14,
-      }}>
-        <summary style={{
-          cursor: 'pointer', fontSize: 13, fontWeight: 600, color: ACCENT,
-          minHeight: 30, display: 'flex', alignItems: 'center',
-        }}>Remplir ces champs depuis Google Earth</summary>
-        {/* `listStyle` explicite : un reset global mange les marqueurs, et une
-            procédure en trois étapes sans ses numéros n'est plus une procédure. */}
-        <ol style={{
-          margin: '12px 0 0', paddingLeft: 22, fontSize: 13, lineHeight: 1.7,
-          color: 'var(--ink)', listStyle: 'decimal outside',
-        }}>
-          <li>
-            Posez un repère et <strong>copiez ses coordonnées</strong> — les deux formats
-            sont acceptés, <code>50°52&apos;47&quot;N 1°38&apos;46&quot;E</code> comme{' '}
-            <code>50.8798, 1.6464</code>.
-          </li>
-          <li>
-            Lisez l’<strong>altitude du terrain</strong> affichée en bas de la fenêtre, et
-            mettez-la dans « Altitude du sol ».
-          </li>
-          <li>
-            Ajoutez <strong>à part</strong> la hauteur de l’œil (votre taille, ou le
-            trépied) et la hauteur propre de l’ouvrage visé — 30 m pour un phare, 8 m pour
-            une maison. Google Earth ne les connaît pas.
-          </li>
-        </ol>
-        <p style={{
-          margin: '12px 0 0', fontSize: 12.5, lineHeight: 1.65, color: 'var(--ink-soft)',
-          padding: '10px 12px', borderRadius: 6, background: 'var(--bg)',
-          borderLeft: `3px solid ${dash.saffron}`,
-        }}>
-          <strong>Deux pièges.</strong> Mettre l’altitude du sol dans le champ de hauteur —
-          ou l’inverse — décale le résultat sans que rien ne le signale : c’est pour cela que
-          les champs sont séparés. Et les altitudes doivent être comptées{' '}
-          <strong>au-dessus du niveau moyen de la mer</strong>, comme les donnent Google Earth
-          et l’IGN. Une hauteur ellipsoïdale brute de récepteur GNSS diffère de près de 50 m
-          en France, et l’écart passerait entier dans le calcul.
-        </p>
-      </details>
 
       {/* ── L'option avancée : le coefficient de réfraction ── */}
       <div style={{

@@ -63,9 +63,6 @@ export interface Simulation {
   /** Le coefficient de réfraction RÉELLEMENT employé, standard ou déclaré. */
   kEmploye: number;
   kPersonnalise: boolean;
-  /** Les deux composantes de la hauteur de l'observateur, rendues séparément. */
-  altitudeSolObsM: number;
-  hauteurOeilM: number;
   verdict: Verdict;
   cible: Cible;
   h: number;
@@ -485,13 +482,11 @@ export default function ResultatVisee({ sim }: { sim: Simulation }) {
           </p>
 
           <p style={{ margin: '0 0 12px' }}>
-            <strong>Les hauteurs employées.</strong> Observateur : l’axe optique est à{' '}
-            {fmt(sim.altitudeSolObsM + sim.hauteurOeilM)} m au-dessus du niveau de la mer —{' '}
-            {fmt(sim.altitudeSolObsM)} m d’altitude de sol plus {fmt(sim.hauteurOeilM)} m de
-            hauteur d’œil. Cible : sa base est à {fmt(sim.cible.zB)} m et son sommet à{' '}
-            {fmt(sim.cible.zB + sim.cible.H)} m, pour un ouvrage de {fmt(sim.cible.H)} m. Une
-            base surélevée recule la distance à laquelle la courbure commence à mordre :
-            c’est pourquoi l’altitude du sol et la hauteur de l’ouvrage sont demandées à part.
+            <strong>Les hauteurs employées.</strong> Observateur : {fmt(sim.h)} m au-dessus
+            de la surface de référence. Cible : {fmt(sim.cible.H)} m de hauteur, sa base
+            étant prise à cette même surface. Le formulaire ne demande qu’une hauteur par
+            point, et la base de la cible n’est donc pas surélevée : si votre cible se
+            dresse sur une falaise, comptez la hauteur totale depuis le niveau de la mer.
           </p>
 
           <p style={{ margin: '0 0 12px' }}>
