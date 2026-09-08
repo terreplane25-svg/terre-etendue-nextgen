@@ -40,9 +40,9 @@ const SIMULATEURS = [
   },
   {
     id: 'visee-optique',
-    titre: 'Portion visible d\'une cible éloignée',
-    description: 'Entrez les coordonnées d\'un point d\'observation et d\'une cible, avec leurs sources. Le calculateur affiche la fraction de la cible que chaque modèle géométrique prédit visible, sur tout l\'intervalle de réfraction déclaré.',
-    usage: 'Montrer qu\'une prédiction se donne comme un intervalle, pas comme un nombre, et qu\'une donnée sans source n\'est pas un fait. Question : "Sur cette configuration, une mesure pourrait-elle départager les deux modèles ?"',
+    titre: 'Simulateur de Visée',
+    description: 'Deux points, deux hauteurs. Le simulateur affiche la portion de la cible que chaque modèle de Terre prédit visible, la coupe du terrain entre les deux points, et si l\'écart entre les deux modèles est assez grand pour être photographié.',
+    usage: 'Montrer qu\'une prédiction se donne comme une fourchette, pas comme un nombre, et qu\'une colline peut cacher ce que la courbure laisserait voir. Question : "Depuis ce point, une photographie pourrait-elle départager les deux modèles ?"',
     programme: 'Cycle 4 et lycée — Mathématiques (géométrie, trigonométrie), Physique, Enseignement scientifique',
     icon: '📐',
     color: '#3D9E7C',
@@ -83,7 +83,7 @@ const REFERENCES = [
 
 const SIM_LABELS: Record<string, string> = {
   density: 'Simulateur de densité',
-  'visee-optique': 'Portion visible d\'une cible éloignée',
+  'visee-optique': 'Simulateur de Visée',
   geo: 'Système solaire 3D',
   classifier: 'Trieur Fait/Modèle/Hypothèse',
 };

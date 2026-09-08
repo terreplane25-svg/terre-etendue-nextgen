@@ -70,7 +70,57 @@ Et, pour l'outil D, un essai qui pilote un vrai navigateur — les vecteurs
 
     npm run essai:metrologie
 
-## Simulateur d'observation : le relief (outil A)
+## Simulateur de Visée (outil A) — quatre champs, un bouton
+
+L'interface publique demande **quatre valeurs** : où vous êtes et la hauteur de
+votre œil, ce que vous regardez et sa hauteur totale. Un seul bouton. Une
+version antérieure en demandait onze, dont l'intervalle de réfraction, une
+incertitude de mesure et un facteur d'admission, et renvoyait le visiteur à des
+paragraphes d'un document qu'il n'a pas lu. Elle était juste et inutilisable :
+un outil qu'il faut avoir compris avant de s'en servir ne sert qu'à ceux qui
+n'en ont pas besoin.
+
+**Ce qui a quitté l'écran n'a pas quitté le calcul.** La réfraction reste
+traitée en enveloppe, la géodésique reste celle de Vincenty sur l'ellipsoïde,
+le relief reste distingué de la courbure. Ces choix sont pris par le moteur et
+énoncés en prose dans un bloc rétractable — donc toujours contestables, ce qui
+était le point.
+
+### La règle de lecture, et son seuil
+
+`visee_optique/simulation.py` porte la seule chose que cette refonte ajoute :
+une **convention** disant à partir de quel écart une visée permet de départager
+les deux modèles. Ce n'est pas de la physique, et c'est pour cela qu'elle est
+une constante nommée — `SEUIL_DISCRIMINATION_FRACTION = 0.01` — affichée à
+l'écran plutôt que cachée dans une condition d'interface.
+
+Une visée est dite **discriminante** quand, même à la réfraction la plus
+défavorable, le modèle sphérique cache au moins **1 % de la hauteur de la
+cible** : 1,1 m sur une cible de 110 m, ce qu'une photographie ordinaire
+montre. Sans plancher, une visée où la courbure cache trois centimètres serait
+déclarée discriminante ; avec un plancher en mètres absolus, la règle serait
+sévère sur un phare de 10 m et laxiste sur une falaise de 300 m.
+
+**Le relief prime sur la courbure.** Quand une colline coupe la visée, les deux
+modèles prédisent la même chose — rien de visible — pour une raison qui n'est
+pas la forme de la Terre. La visée est alors non discriminante quel que soit
+l'écart de courbure. Confondre ce cas avec une visée discriminante
+attribuerait à la forme de la Terre ce qui revient à un talus.
+
+### Adresse ou coordonnées, et pourquoi rien ne bloque
+
+`geocodage-ign.ts` lit d'abord la saisie comme des **coordonnées** :
+« 50.94642, 1.75305 » est compris sans qu'aucune requête ne parte. Le service
+n'est interrogé que si la saisie est du texte. Un contrôle dédié compte les
+requêtes pour l'établir, parce que c'est la propriété qui garantit que la
+simulation tourne toujours sur ce qui a été saisi, service en panne ou non.
+
+Quand le géocodage échoue, l'outil dit quoi faire — saisir les coordonnées
+exactes — au lieu de laisser le visiteur devant un mur. Quand l'altimétrie
+échoue, la simulation tourne quand même sur la surface de référence, et le
+résultat porte « relief non évalué », jamais « aucun obstacle ».
+
+## Le relief (outil A)
 
 L'outil A intègre la coupe du terrain entre le poste et la cible. Le moteur
 vit dans `visee_optique/relief.py` ; le port navigateur est épinglé par

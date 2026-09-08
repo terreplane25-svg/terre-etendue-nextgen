@@ -1,0 +1,213 @@
+{
+  "genere_le": "2026-09-08T00:01:51.924322+00:00",
+  "source": "visee_optique.simulation (paquet Python)",
+  "avertissement": "Fichier généré. Ne pas modifier à la main : il est la référence contre laquelle le port TypeScript est vérifié.",
+  "constantes": {
+    "seuil_discrimination_fraction": 0.01,
+    "k_standard": 0.13,
+    "k_enveloppe_min": 0.1,
+    "k_enveloppe_max": 0.4,
+    "motif_seuil": "Une visée est dite discriminante quand, même à la réfraction la plus défavorable, le modèle sphérique cache au moins 1 % de la hauteur de la cible. Ce plancher est une convention de lecture, pas une norme : sous 1 %, l'écart entre les deux modèles devient trop petit pour qu'une photographie ordinaire le montre, et annoncer « discriminante » promettrait une mesure que personne ne pourrait faire.",
+    "motif_refraction": "La réfraction atmosphérique courbe les rayons lumineux et fait voir un peu plus loin que la géométrie pure. Faute de profil vertical de température mesuré sur le trajet, le calcul est conduit sur toute l'enveloppe plausible au-dessus de l'eau — de 0,10 à 0,40, valeur moyenne 0,13 — et les résultats sont rendus comme un intervalle. Un chiffre unique laisserait croire cette grandeur mieux connue qu'elle ne l'est."
+  },
+  "cas": [
+    {
+      "nom": "entièrement visible aux deux bornes",
+      "fraction_visible_borne_1": 1.0,
+      "fraction_visible_borne_2": 1.0,
+      "obstacle": false,
+      "relief_evalue": true,
+      "hauteur_cible_m": 100.0,
+      "verdict": {
+        "discriminante": false,
+        "motif": "À la réfraction la plus favorable, le modèle sphérique ne cache presque rien : les deux modèles prédisent la même chose, à trop peu près pour qu'une photographie les sépare. Il faut viser plus loin, ou plus bas, ou une cible plus courte.",
+        "fraction_cachee_min": 0.0,
+        "fraction_cachee_max": 0.0,
+        "hauteur_cachee_min_m": 0.0,
+        "hauteur_cachee_max_m": 0.0,
+        "masque_par_le_relief": false,
+        "seuil_applique": 0.01
+      }
+    },
+    {
+      "nom": "entièrement sous l'horizon",
+      "fraction_visible_borne_1": 0.0,
+      "fraction_visible_borne_2": 0.0,
+      "obstacle": false,
+      "relief_evalue": true,
+      "hauteur_cible_m": 100.0,
+      "verdict": {
+        "discriminante": true,
+        "motif": "Les deux modèles prédisent des choses différentes, et l'écart reste visible sur toute l'enveloppe de réfraction. Une photographie de cette cible depuis ce point peut les départager.",
+        "fraction_cachee_min": 1.0,
+        "fraction_cachee_max": 1.0,
+        "hauteur_cachee_min_m": 100.0,
+        "hauteur_cachee_max_m": 100.0,
+        "masque_par_le_relief": false,
+        "seuil_applique": 0.01
+      }
+    },
+    {
+      "nom": "nettement discriminante",
+      "fraction_visible_borne_1": 0.65,
+      "fraction_visible_borne_2": 0.38,
+      "obstacle": false,
+      "relief_evalue": true,
+      "hauteur_cible_m": 110.0,
+      "verdict": {
+        "discriminante": true,
+        "motif": "Les deux modèles prédisent des choses différentes, et l'écart reste visible sur toute l'enveloppe de réfraction. Une photographie de cette cible depuis ce point peut les départager.",
+        "fraction_cachee_min": 0.35,
+        "fraction_cachee_max": 0.62,
+        "hauteur_cachee_min_m": 38.5,
+        "hauteur_cachee_max_m": 68.2,
+        "masque_par_le_relief": false,
+        "seuil_applique": 0.01
+      }
+    },
+    {
+      "nom": "au plus près du seuil, au-dessus",
+      "fraction_visible_borne_1": 0.99,
+      "fraction_visible_borne_2": 0.7,
+      "obstacle": false,
+      "relief_evalue": true,
+      "hauteur_cible_m": 100.0,
+      "verdict": {
+        "discriminante": true,
+        "motif": "Les deux modèles prédisent des choses différentes, et l'écart reste visible sur toute l'enveloppe de réfraction. Une photographie de cette cible depuis ce point peut les départager.",
+        "fraction_cachee_min": 0.010000000000000009,
+        "fraction_cachee_max": 0.30000000000000004,
+        "hauteur_cachee_min_m": 1.0000000000000009,
+        "hauteur_cachee_max_m": 30.000000000000004,
+        "masque_par_le_relief": false,
+        "seuil_applique": 0.01
+      }
+    },
+    {
+      "nom": "au plus près du seuil, en dessous",
+      "fraction_visible_borne_1": 0.9900000000000001,
+      "fraction_visible_borne_2": 0.7,
+      "obstacle": false,
+      "relief_evalue": true,
+      "hauteur_cible_m": 100.0,
+      "verdict": {
+        "discriminante": false,
+        "motif": "À la réfraction la plus favorable, le modèle sphérique ne cache presque rien : les deux modèles prédisent la même chose, à trop peu près pour qu'une photographie les sépare. Il faut viser plus loin, ou plus bas, ou une cible plus courte.",
+        "fraction_cachee_min": 0.009999999999999898,
+        "fraction_cachee_max": 0.30000000000000004,
+        "hauteur_cachee_min_m": 0.9999999999999898,
+        "hauteur_cachee_max_m": 30.000000000000004,
+        "masque_par_le_relief": false,
+        "seuil_applique": 0.01
+      }
+    },
+    {
+      "nom": "une seule borne discriminante",
+      "fraction_visible_borne_1": 0.5,
+      "fraction_visible_borne_2": 0.999,
+      "obstacle": false,
+      "relief_evalue": true,
+      "hauteur_cible_m": 100.0,
+      "verdict": {
+        "discriminante": false,
+        "motif": "À la réfraction la plus favorable, le modèle sphérique ne cache presque rien : les deux modèles prédisent la même chose, à trop peu près pour qu'une photographie les sépare. Il faut viser plus loin, ou plus bas, ou une cible plus courte.",
+        "fraction_cachee_min": 0.0010000000000000009,
+        "fraction_cachee_max": 0.5,
+        "hauteur_cachee_min_m": 0.10000000000000009,
+        "hauteur_cachee_max_m": 50.0,
+        "masque_par_le_relief": false,
+        "seuil_applique": 0.01
+      }
+    },
+    {
+      "nom": "bornes dans l'ordre inverse",
+      "fraction_visible_borne_1": 0.999,
+      "fraction_visible_borne_2": 0.5,
+      "obstacle": false,
+      "relief_evalue": true,
+      "hauteur_cible_m": 100.0,
+      "verdict": {
+        "discriminante": false,
+        "motif": "À la réfraction la plus favorable, le modèle sphérique ne cache presque rien : les deux modèles prédisent la même chose, à trop peu près pour qu'une photographie les sépare. Il faut viser plus loin, ou plus bas, ou une cible plus courte.",
+        "fraction_cachee_min": 0.0010000000000000009,
+        "fraction_cachee_max": 0.5,
+        "hauteur_cachee_min_m": 0.10000000000000009,
+        "hauteur_cachee_max_m": 50.0,
+        "masque_par_le_relief": false,
+        "seuil_applique": 0.01
+      }
+    },
+    {
+      "nom": "occultation minuscule à une borne",
+      "fraction_visible_borne_1": 0.9999999,
+      "fraction_visible_borne_2": 0.5,
+      "obstacle": false,
+      "relief_evalue": true,
+      "hauteur_cible_m": 100.0,
+      "verdict": {
+        "discriminante": false,
+        "motif": "À la réfraction la plus favorable, le modèle sphérique ne cache presque rien : les deux modèles prédisent la même chose, à trop peu près pour qu'une photographie les sépare. Il faut viser plus loin, ou plus bas, ou une cible plus courte.",
+        "fraction_cachee_min": 9.999999994736442e-08,
+        "fraction_cachee_max": 0.5,
+        "hauteur_cachee_min_m": 9.999999994736442e-06,
+        "hauteur_cachee_max_m": 50.0,
+        "masque_par_le_relief": false,
+        "seuil_applique": 0.01
+      }
+    },
+    {
+      "nom": "relief masquant",
+      "fraction_visible_borne_1": 0.0,
+      "fraction_visible_borne_2": 0.0,
+      "obstacle": true,
+      "relief_evalue": true,
+      "hauteur_cible_m": 100.0,
+      "verdict": {
+        "discriminante": false,
+        "motif": "Le relief coupe la visée : les deux modèles prédisent une cible cachée, pour la même raison, qui n'est pas la courbure. Cette visée ne permet de départager ni l'un ni l'autre.",
+        "fraction_cachee_min": 1.0,
+        "fraction_cachee_max": 1.0,
+        "hauteur_cachee_min_m": 100.0,
+        "hauteur_cachee_max_m": 100.0,
+        "masque_par_le_relief": true,
+        "seuil_applique": 0.01
+      }
+    },
+    {
+      "nom": "relief non évalué",
+      "fraction_visible_borne_1": 0.5,
+      "fraction_visible_borne_2": 0.6,
+      "obstacle": false,
+      "relief_evalue": false,
+      "hauteur_cible_m": 100.0,
+      "verdict": {
+        "discriminante": true,
+        "motif": "Les deux modèles prédisent des choses différentes, et l'écart reste visible sur toute l'enveloppe de réfraction. Une photographie de cette cible depuis ce point peut les départager.",
+        "fraction_cachee_min": 0.4,
+        "fraction_cachee_max": 0.5,
+        "hauteur_cachee_min_m": 40.0,
+        "hauteur_cachee_max_m": 50.0,
+        "masque_par_le_relief": null,
+        "seuil_applique": 0.01
+      }
+    },
+    {
+      "nom": "grande cible",
+      "fraction_visible_borne_1": 0.8,
+      "fraction_visible_borne_2": 0.5,
+      "obstacle": false,
+      "relief_evalue": true,
+      "hauteur_cible_m": 250.0,
+      "verdict": {
+        "discriminante": true,
+        "motif": "Les deux modèles prédisent des choses différentes, et l'écart reste visible sur toute l'enveloppe de réfraction. Une photographie de cette cible depuis ce point peut les départager.",
+        "fraction_cachee_min": 0.19999999999999996,
+        "fraction_cachee_max": 0.5,
+        "hauteur_cachee_min_m": 49.999999999999986,
+        "hauteur_cachee_max_m": 125.0,
+        "masque_par_le_relief": false,
+        "seuil_applique": 0.01
+      }
+    }
+  ]
+}

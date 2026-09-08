@@ -23,12 +23,12 @@ export interface LabTool {
 export const TOOLS: LabTool[] = [
   {
     id: 'visee-optique',
-    label: 'Portion visible d’une cible éloignée',
-    desc: "Fraction visible prédite par deux modèles concurrents, sur tout l’intervalle de réfraction déclaré, et condition de discrimination du §28.2. Chaque valeur exige sa source.",
+    label: 'Simulateur de Visée',
+    desc: "Deux points, deux hauteurs. Ce que les modèles sphérique et plat prédisent que vous devriez voir, et si l’écart entre les deux est assez grand pour être photographié.",
     icon: '📐',
     color: '#3D9E7C',
     num: '01',
-    tags: ['protocole', 'géodésie', 'réfraction', 'enveloppe'],
+    tags: ['simulateur', 'géodésie', 'relief', 'réfraction'],
   },
   {
     id: 'integrite-image',
