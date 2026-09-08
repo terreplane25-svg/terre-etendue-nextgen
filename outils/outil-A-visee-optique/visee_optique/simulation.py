@@ -48,15 +48,21 @@ directe et le seuil facile à énoncer.
 
 from dataclasses import dataclass
 
+from .refraction import rayon_effectif
+
 __all__ = [
     "SEUIL_DISCRIMINATION_FRACTION",
     "K_STANDARD",
     "K_ENVELOPPE_MIN",
     "K_ENVELOPPE_MAX",
     "MASQUE_MODELE_PLAT_M",
+    "K_PLANCHER_ADMIS",
+    "MOTIF_CONDUIT_OPTIQUE",
     "MOTIF_SEUIL",
-    "MOTIF_REFRACTION",
+    "MOTIF_REFRACTION_STANDARD",
     "MOTIF_SANS_RELIEF",
+    "motif_refraction",
+    "verifier_k",
     "Verdict",
     "juger",
 ]
@@ -84,6 +90,30 @@ K_STANDARD = 0.13
 K_ENVELOPPE_MIN = 0.10
 K_ENVELOPPE_MAX = 0.40
 
+#: Le plancher admis dans le formulaire pour un k saisi à la main.
+#:
+#: Le plafond, lui, n'est pas une convention : `rayon_effectif` refuse déjà
+#: k >= 1, où le rayon épouse la surface et la construction ne s'applique plus.
+#: Le plancher est une commodité de saisie — sous -1, le rayon effectif tombe
+#: sous la moitié du rayon terrestre, ce qui ne décrit aucune atmosphère
+#: rencontrée. Il est nommé pour qu'on puisse le contester.
+K_PLANCHER_ADMIS = -1.0
+
+#: Ce qui est dit au visiteur quand k >= 1.
+#:
+#: La RÈGLE reste celle de `rayon_effectif`, qui décide seul : on l'appelle et
+#: on rhabille son refus. Le message du paquet de référence parle de « §8 » et
+#: de « Tableau 8 » — juste dans un protocole, illisible dans un simulateur
+#: dont on a retiré tous les renvois. Deux messages pour une seule règle ne
+#: divergeront pas, puisque le second ne décide de rien.
+MOTIF_CONDUIT_OPTIQUE = (
+    "Un coefficient de réfraction supérieur ou égal à 1 décrit un conduit "
+    "optique : le rayon lumineux se courbe autant que la surface et ne s'en "
+    "détache plus. La construction géométrique employée ici ne s'applique "
+    "plus du tout dans ce régime, et aucun résultat ne serait interprétable. "
+    "Les valeurs rencontrées au-dessus de l'eau vont de 0 à 0,4 environ."
+)
+
 #: Ce que le modèle plat masque à la base : rien, à toute distance. Nommé
 #: plutôt qu'écrit en dur, pour que la comparaison se lise comme une
 #: soustraction entre deux prédictions et non comme un cas particulier.
@@ -97,13 +127,59 @@ MOTIF_SEUIL = (
     "ne pourrait faire. Ce seuil est une convention de lecture, pas une norme."
 )
 
-MOTIF_REFRACTION = (
+MOTIF_REFRACTION_STANDARD = (
     "La réfraction atmosphérique courbe les rayons lumineux et fait voir "
-    "un peu plus loin que la géométrie pure. Le calcul principal emploie le "
-    "gradient moyen k = 0,13, celui d'une atmosphère bien mélangée. Faute de "
-    "profil vertical de température mesuré sur le trajet, l'écart que cette "
+    "un peu plus loin que la géométrie pure. Le calcul emploie le gradient "
+    "moyen k = 0,13, celui d'une atmosphère bien mélangée. Faute de profil "
+    "vertical de température mesuré sur le trajet, l'écart que cette "
     "ignorance laisse est affiché à part, entre k = 0,10 et k = 0,40."
 )
+
+
+def verifier_k(k: float) -> None:
+    """Refuse un coefficient de réfraction hors du domaine de la construction.
+
+    Le plafond vient de la physique et non d'ici : `rayon_effectif` lève pour
+    k >= 1. On le rejoue avec le même message plutôt que d'en inventer un
+    second, qui divergerait le jour où l'un des deux changerait.
+    """
+    if k != k or k in (float("inf"), float("-inf")):
+        raise ValueError("Le coefficient de réfraction doit être un nombre.")
+    if k < K_PLANCHER_ADMIS:
+        raise ValueError(
+            "Coefficient de réfraction sous le plancher admis (%.2f) : le "
+            "rayon effectif tomberait sous la moitié du rayon terrestre, ce "
+            "qui ne décrit aucune atmosphère rencontrée." % K_PLANCHER_ADMIS
+        )
+    # C'est `rayon_effectif` qui DÉCIDE ; on ne fait que rhabiller son refus
+    # dans la langue de l'interface. Réécrire la condition ici créerait deux
+    # règles pour un seul phénomène.
+    try:
+        rayon_effectif(1.0, k)
+    except Exception as exc:
+        raise ValueError(MOTIF_CONDUIT_OPTIQUE) from exc
+
+
+def motif_refraction(k: float) -> str:
+    """La phrase affichée, avec le coefficient RÉELLEMENT employé.
+
+    Une phrase figée qui nommerait 0,13 alors que le calcul a tourné sur 0,18
+    serait un mensonge d'affichage — le genre qui survit longtemps parce que
+    personne ne relit la prose. Le motif est donc produit à partir de la valeur
+    employée, et le port est épinglé sur ce texte caractère par caractère.
+    """
+    verifier_k(k)
+    if k == K_STANDARD:
+        return MOTIF_REFRACTION_STANDARD
+    return (
+        "La réfraction atmosphérique courbe les rayons lumineux et fait voir "
+        "un peu plus loin que la géométrie pure. Le calcul a été mené avec le "
+        "coefficient PERSONNALISÉ k = %s, saisi par vous, et non avec la "
+        "moyenne standard de 0,13. Cette valeur est déclarée, pas mesurée par "
+        "cet outil : c'est à vous de la justifier par un relevé du profil "
+        "vertical de température sur le trajet. Aucune enveloppe n'est "
+        "affichée, puisque vous affirmez connaître la valeur." % _k(k)
+    )
 
 MOTIF_SANS_RELIEF = (
     "Ce simulateur ne consulte aucun modèle de terrain : il calcule la ligne "
@@ -197,3 +273,8 @@ def _m(x: float) -> str:
 
 def _pc(fraction: float) -> str:
     return ("%.1f" % (100.0 * fraction)).replace(".", ",")
+
+
+def _k(x: float) -> str:
+    """Un coefficient de réfraction, à deux décimales, virgule française."""
+    return ("%.2f" % x).replace(".", ",")

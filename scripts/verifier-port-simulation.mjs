@@ -10,7 +10,7 @@
  *     node scripts/verifier-port-simulation.mjs
  */
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -31,7 +31,7 @@ function comparer(sujet, champ, attendu, obtenu) {
 const dossier = mkdtempSync(join(tmpdir(), 'simulation-'));
 try {
   // Le simulateur ne dépend plus du relief : un seul module à compiler.
-  const modules = ['simulation'];
+  const modules = ['simulation', 'noyau'];
   execFileSync('npx', ['--no-install', 'tsc', ...modules.map((f) => join(DIR, `${f}.ts`)),
     '--target', 'ES2022', '--module', 'ES2022', '--moduleResolution', 'bundler',
     '--outDir', dossier, '--strict', '--lib', 'ES2022,DOM'], { cwd: RACINE, stdio: 'pipe' });
@@ -42,9 +42,18 @@ try {
   // ferait aussi échouer le chargement, tsc ne réécrivant pas les extensions
   // que l'ESM de Node exige.
   const compile = readFileSync(join(dossier, 'simulation.js'), 'utf8');
-  const imports = compile.match(/from ['"]\.[^'"]*['"]/g) ?? [];
-  if (imports.length > 0) {
-    throw new Error(`simulation.ts a repris des dépendances : ${imports.join(', ')}`);
+  const imports = (compile.match(/from ['"]\.[^'"]*['"]/g) ?? [])
+    .map((x) => x.replace(/from ['"]|['"]/g, ''));
+  // Le noyau est la SEULE dépendance admise : il porte `rayonEffectif`, dont le
+  // refus de k >= 1 est rejoué plutôt que réécrit. Toute autre dépendance —
+  // le relief au premier chef — ramènerait le terrain par la porte de service.
+  const enTrop = imports.filter((x) => x !== './noyau');
+  for (const f of ['simulation.js', 'noyau.js']) {
+    const chemin = join(dossier, f);
+    writeFileSync(chemin, readFileSync(chemin, 'utf8').replaceAll("'./noyau'", "'./noyau.js'"));
+  }
+  if (enTrop.length > 0) {
+    throw new Error(`simulation.ts a repris des dépendances : ${enTrop.join(', ')}`);
   }
 
   const S = await import(pathToFileURL(join(dossier, 'simulation.js')).href);
@@ -58,9 +67,43 @@ try {
   comparer('constantes', 'k max', c.k_enveloppe_max, S.K_ENVELOPPE_MAX);
   comparer('constantes', 'masque du modèle plat', c.masque_modele_plat_m, S.MASQUE_MODELE_PLAT_M);
   comparer('constantes', 'motif du seuil', c.motif_seuil, S.MOTIF_SEUIL);
-  comparer('constantes', 'motif de la réfraction', c.motif_refraction, S.MOTIF_REFRACTION);
   comparer('constantes', 'motif sans relief', c.motif_sans_relief, S.MOTIF_SANS_RELIEF);
-  n += 8;
+  comparer('constantes', 'motif de réfraction standard', c.motif_refraction_standard, S.MOTIF_REFRACTION_STANDARD);
+  comparer('constantes', 'plancher admis pour k', c.k_plancher_admis, S.K_PLANCHER_ADMIS);
+  comparer('constantes', 'motif du conduit optique', c.motif_conduit_optique, S.MOTIF_CONDUIT_OPTIQUE);
+  n += 11;
+
+  // Le motif de réfraction nomme le k RÉELLEMENT employé. Une phrase figée
+  // qui dirait 0,13 sur un calcul mené à 0,18 serait un mensonge d'affichage,
+  // et il survivrait longtemps parce que personne ne relit la prose.
+  for (const r of v.refraction) {
+    comparer(`réfraction k=${r.k}`, 'motif', r.motif, S.motifRefraction(r.k));
+    n += 1;
+  }
+
+  // Les k hors domaine sont refusés des deux côtés, avec le même motif.
+  for (const [nom, k, marque] of [
+    ['conduit optique', 1.0, 'conduit optique'],
+    ['conduit optique franc', 2.0, 'conduit optique'],
+    ['sous le plancher', -1.01, 'plancher'],
+    ['pas un nombre', Number.NaN, 'nombre'],
+    ['infini', Number.POSITIVE_INFINITY, 'nombre'],
+  ]) {
+    let message = null;
+    try { S.verifierK(k); } catch (err) { message = String(err.message); }
+    if (message === null) {
+      ecarts.push({ sujet: `k ${nom}`, champ: 'refus', attendu: 'erreur levée', obtenu: 'aucune' });
+    } else if (!message.includes(marque)) {
+      ecarts.push({ sujet: `k ${nom}`, champ: 'motif du refus', attendu: marque, obtenu: message });
+    }
+    n += 1;
+    // Et le motif doit refuser aussi : sinon une belle phrase serait produite
+    // pour un calcul impossible.
+    let leve = false;
+    try { S.motifRefraction(k); } catch { leve = true; }
+    if (!leve) ecarts.push({ sujet: `k ${nom}`, champ: 'motif', attendu: 'erreur levée', obtenu: 'aucune' });
+    n += 1;
+  }
 
   // Le module ne doit RIEN exporter du relief : un reliquat finirait par être
   // réutilisé, et le terrain reviendrait par la porte de service.

@@ -189,6 +189,58 @@ de combien la visée passe sous le sol : zéro pixel sur trois configurations,
 dont une cible enfouie à 2 548 km. Rétablir l'ancien tracé fait remonter le
 contrôle à 38 pixels — il discrimine.
 
+### L'altitude du sol et la hauteur de l'ouvrage sont deux champs distincts
+
+Google Earth affiche l'altitude du **terrain** sous le curseur. Ce n'est ni la
+hauteur de l'œil de l'observateur, ni la hauteur d'un phare : il faut ajouter
+la seconde à la première. Un seul champ « hauteur » invitait à saisir l'une
+pour l'autre, et l'erreur ne se voit pas dans le résultat — elle le décale.
+
+Le formulaire demande donc, pour chaque point : la position, l'**altitude du
+sol**, et la **hauteur propre** de l'équipement ou de l'ouvrage.
+
+**La séparation change la géométrie, pas seulement l'ergonomie.** La base de la
+cible n'est plus au niveau de la mer mais à l'altitude de son terrain, ce qui
+recule la distance critique `D_crit = s(h) + s(z_b)` et réduit l'occultation.
+Mesuré : la même cible de 110 m à 35,6 km voit 54,3 m de sa base masqués si
+elle est posée sur l'eau, et **rien du tout** si elle est posée sur une falaise
+de 200 m — la visée devient non discriminante.
+
+Un mot sur les référentiels verticaux, parce que le piège est réel : les
+altitudes doivent être comptées **au-dessus du niveau moyen de la mer**, comme
+les donnent Google Earth (géoïde EGM96) et l'IGN. La géodésie de Vincenty
+n'intervient que sur la distance HORIZONTALE, sur l'ellipsoïde WGS-84 ; les
+altitudes, elles, sont des hauteurs au-dessus de la surface de référence et ne
+se mélangent pas à l'ellipsoïde. Il n'y a donc aucun décalage d'origine — sauf
+si l'on y verse une hauteur ellipsoïdale brute de récepteur GNSS, qui diffère
+de près de 50 m en France. L'interface le dit.
+
+### Le coefficient de réfraction, par défaut et à la main
+
+Par défaut, `k = 0,13` et l'enveloppe 0,10–0,40 affichée à part. Une case à
+cocher discrète — « Spécifier le coefficient k de réfraction » — révèle un
+champ prérempli à 0,13 ; la valeur saisie sert alors au calcul, au verdict et
+au tracé.
+
+Quand k est déclaré, **l'enveloppe disparaît** : l'afficher quand même
+contredirait ce que l'analyste affirme connaître. La carte dit « k = 0,25,
+valeur unique — aucune enveloppe », et le bloc du bas nomme le coefficient
+employé.
+
+`motif_refraction(k)` produit la phrase affichée **à partir de la valeur
+employée**, et le port est épinglé sur ce texte pour onze valeurs de k. Une
+phrase figée qui nommerait 0,13 alors que le calcul a tourné sur 0,18 serait un
+mensonge d'affichage — le genre qui survit longtemps parce que personne ne
+relit la prose.
+
+Le refus de `k ≥ 1` illustre un partage utile : la **règle** reste celle de
+`rayon_effectif`, qui décide seul, et `verifier_k` ne fait que rhabiller son
+refus. Le message du paquet de référence parle de « §8 » et de « Tableau 8 » —
+juste dans un protocole, illisible dans un simulateur dont on a retiré tous les
+renvois. Un contrôle vérifie qu'aucun « § » ni « Tableau » ne remonte au
+visiteur : sans lui, le nettoyage se défaisait par la porte des messages
+d'erreur.
+
 ### La saisie des coordonnées : décimales ou DMS
 
 `geocodage-ign.ts` lit la saisie comme des coordonnées **avant** de songer à

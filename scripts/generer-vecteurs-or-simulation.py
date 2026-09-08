@@ -42,10 +42,17 @@ except ImportError:
     os.execv(VENV, [VENV, os.path.abspath(__file__)] + sys.argv[1:])
 
 from visee_optique.simulation import (  # noqa: E402
-    K_ENVELOPPE_MAX, K_ENVELOPPE_MIN, K_STANDARD, MASQUE_MODELE_PLAT_M,
-    MOTIF_REFRACTION, MOTIF_SANS_RELIEF, MOTIF_SEUIL,
-    SEUIL_DISCRIMINATION_FRACTION, juger,
+    K_ENVELOPPE_MAX, K_ENVELOPPE_MIN, K_PLANCHER_ADMIS, K_STANDARD,
+    MASQUE_MODELE_PLAT_M, MOTIF_CONDUIT_OPTIQUE, MOTIF_REFRACTION_STANDARD,
+    MOTIF_SANS_RELIEF,
+    MOTIF_SEUIL, SEUIL_DISCRIMINATION_FRACTION, juger, motif_refraction,
 )
+
+#: Les coefficients de réfraction dont le motif est épinglé. La plage est
+#: balayée : un port qui rendrait toujours le texte standard passerait un jeu
+#: qui ne comparerait qu'une valeur.
+CAS_K = [0.0, 0.05, 0.08, 0.10, K_STANDARD, 0.14, 0.18, 0.20, 0.40, 0.90,
+         K_PLANCHER_ADMIS]
 
 S = SEUIL_DISCRIMINATION_FRACTION
 
@@ -100,9 +107,14 @@ def main():
             "k_enveloppe_max": K_ENVELOPPE_MAX,
             "masque_modele_plat_m": MASQUE_MODELE_PLAT_M,
             "motif_seuil": MOTIF_SEUIL,
-            "motif_refraction": MOTIF_REFRACTION,
             "motif_sans_relief": MOTIF_SANS_RELIEF,
+            "motif_refraction_standard": MOTIF_REFRACTION_STANDARD,
+            "k_plancher_admis": K_PLANCHER_ADMIS,
+            "motif_conduit_optique": MOTIF_CONDUIT_OPTIQUE,
         },
+        "refraction": [
+            {"k": k, "motif": motif_refraction(k)} for k in CAS_K
+        ],
         "cas": [],
     }
     for nom, masquee, H in CAS:
@@ -161,7 +173,24 @@ def controle(v):
         assert x["hauteur_masquee_plat_m"] == 0.0, nom
         assert x["ecart_entre_modeles_m"] == x["hauteur_masquee_base_m"], nom
 
-    print("  6 contrôles passés avant écriture.")
+    # 7. Le motif de réfraction nomme le k employé, et ne se confond avec le
+    #    texte standard QUE pour la valeur standard.
+    par_k = {r["k"]: r["motif"] for r in v["refraction"]}
+    assert par_k[K_STANDARD] == MOTIF_REFRACTION_STANDARD
+    for k, m in par_k.items():
+        if k == K_STANDARD:
+            continue
+        assert m != MOTIF_REFRACTION_STANDARD, k
+        assert ("%.2f" % k).replace(".", ",") in m, (k, m[:80])
+        assert "PERSONNALISÉ" in m, k
+
+    # 8. Le message du conduit optique ne porte AUCUN renvoi de paragraphe :
+    #    le simulateur n'en a plus, et en réintroduire un par un message
+    #    d'erreur défairait le nettoyage par la petite porte.
+    for jargon in ("§", "Tableau"):
+        assert jargon not in MOTIF_CONDUIT_OPTIQUE, jargon
+
+    print("  8 contrôles passés avant écriture.")
 
 
 if __name__ == "__main__":

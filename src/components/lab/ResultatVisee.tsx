@@ -36,7 +36,8 @@ import {
   K_ENVELOPPE_MAX,
   K_ENVELOPPE_MIN,
   K_STANDARD,
-  MOTIF_REFRACTION,
+  MOTIF_REFRACTION_STANDARD,
+  motifRefraction,
   MOTIF_SANS_RELIEF,
   MOTIF_SEUIL,
   SEUIL_DISCRIMINATION_FRACTION,
@@ -52,9 +53,19 @@ export interface Simulation {
   positionCible: Position;
   /** L'occultation à la base au gradient moyen : c'est elle qui est jugée. */
   masqueeStandardM: number;
-  /** Ce que l'ignorance du profil de température laisse comme écart. */
+  /**
+   * Ce que l'ignorance du profil de température laisse comme écart. Les deux
+   * bornes valent la même chose quand l'analyste déclare son coefficient :
+   * afficher une enveloppe contredirait ce qu'il affirme connaître.
+   */
   masqueeEnveloppeMinM: number;
   masqueeEnveloppeMaxM: number;
+  /** Le coefficient de réfraction RÉELLEMENT employé, standard ou déclaré. */
+  kEmploye: number;
+  kPersonnalise: boolean;
+  /** Les deux composantes de la hauteur de l'observateur, rendues séparément. */
+  altitudeSolObsM: number;
+  hauteurOeilM: number;
   verdict: Verdict;
   cible: Cible;
   h: number;
@@ -345,8 +356,10 @@ export default function ResultatVisee({ sim }: { sim: Simulation }) {
             ['Ce qui reste visible',
               enfouie ? 'rien — le sommet est passé sous l’horizon'
                 : `${fmt(H - masquee)} m, en partant du sommet`],
-            ['Selon la réfraction',
-              `de ${fmt(sim.masqueeEnveloppeMinM)} à ${fmt(sim.masqueeEnveloppeMaxM)} m masqués`],
+            [sim.kPersonnalise ? 'Réfraction déclarée' : 'Selon la réfraction',
+              sim.kPersonnalise
+                ? `k = ${fmt(sim.kEmploye, 2)}, valeur unique — aucune enveloppe`
+                : `de ${fmt(sim.masqueeEnveloppeMinM)} à ${fmt(sim.masqueeEnveloppeMaxM)} m masqués`],
           ]}
         />
         <Carte
@@ -357,7 +370,7 @@ export default function ResultatVisee({ sim }: { sim: Simulation }) {
           lignes={[
             ['Part de la cible masquée', '0,0 %'],
             ['Ce qui reste visible', `${fmt(H)} m — la cible entière`],
-            ['Selon la réfraction', '0,0 m à toute distance'],
+            ['Selon la réfraction', '0,0 m à toute distance, quel que soit k'],
           ]}
         />
       </div>
@@ -458,15 +471,27 @@ export default function ResultatVisee({ sim }: { sim: Simulation }) {
           </p>
 
           <p style={{ margin: '0 0 12px' }}>
-            <strong>La réfraction.</strong> {MOTIF_REFRACTION} Ici : {fmt(K_STANDARD, 2)} pour
-            le calcul et le verdict, et de {fmt(K_ENVELOPPE_MIN, 2)} à{' '}
-            {fmt(K_ENVELOPPE_MAX, 2)} pour la fourchette affichée dans la carte.
+            <strong>La réfraction.</strong> {motifRefraction(sim.kEmploye)}
+            {!sim.kPersonnalise && (
+              <> La fourchette affichée dans la carte va donc de {fmt(K_ENVELOPPE_MIN, 2)} à{' '}
+              {fmt(K_ENVELOPPE_MAX, 2)}.</>
+            )}
           </p>
 
           <p style={{ margin: '0 0 12px' }}>
             <strong>Le seuil du verdict.</strong> {MOTIF_SEUIL} Sur votre cible de{' '}
             {fmt(H)} m, ce seuil de {fmt(100 * SEUIL_DISCRIMINATION_FRACTION, 0)} % vaut{' '}
             {fmt(H * SEUIL_DISCRIMINATION_FRACTION, 2)} m.
+          </p>
+
+          <p style={{ margin: '0 0 12px' }}>
+            <strong>Les hauteurs employées.</strong> Observateur : l’axe optique est à{' '}
+            {fmt(sim.altitudeSolObsM + sim.hauteurOeilM)} m au-dessus du niveau de la mer —{' '}
+            {fmt(sim.altitudeSolObsM)} m d’altitude de sol plus {fmt(sim.hauteurOeilM)} m de
+            hauteur d’œil. Cible : sa base est à {fmt(sim.cible.zB)} m et son sommet à{' '}
+            {fmt(sim.cible.zB + sim.cible.H)} m, pour un ouvrage de {fmt(sim.cible.H)} m. Une
+            base surélevée recule la distance à laquelle la courbure commence à mordre :
+            c’est pourquoi l’altitude du sol et la hauteur de l’ouvrage sont demandées à part.
           </p>
 
           <p style={{ margin: '0 0 12px' }}>

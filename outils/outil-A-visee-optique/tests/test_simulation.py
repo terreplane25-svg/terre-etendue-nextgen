@@ -22,10 +22,15 @@ import pytest
 from visee_optique.simulation import (
     K_ENVELOPPE_MAX,
     K_ENVELOPPE_MIN,
+    K_PLANCHER_ADMIS,
     K_STANDARD,
     MASQUE_MODELE_PLAT_M,
+    MOTIF_CONDUIT_OPTIQUE,
+    MOTIF_REFRACTION_STANDARD,
     SEUIL_DISCRIMINATION_FRACTION,
     juger,
+    motif_refraction,
+    verifier_k,
 )
 
 H = 100.0
@@ -139,6 +144,95 @@ def test_occultation_negative_refusee():
         juger(-1.0, H)
 
 
+# ── Le coefficient de réfraction, standard ou personnalisé ──────────────────
+
+
+def test_le_motif_nomme_le_k_reellement_employe():
+    """Une phrase figée qui dirait 0,13 sur un calcul mené à 0,18 serait un
+    mensonge d'affichage — le genre qui survit parce que personne ne relit la
+    prose."""
+    assert motif_refraction(K_STANDARD) == MOTIF_REFRACTION_STANDARD
+    m = motif_refraction(0.18)
+    assert "0,18" in m
+    assert "PERSONNALISÉ" in m
+    assert m != MOTIF_REFRACTION_STANDARD
+
+
+def test_le_motif_personnalise_dit_que_la_valeur_est_declaree():
+    """L'outil ne mesure pas la réfraction : il applique ce qu'on lui donne.
+
+    Le dire est la seule façon d'éviter qu'un k saisi passe pour un k mesuré.
+    """
+    m = motif_refraction(0.08)
+    assert "déclarée, pas mesurée" in m
+    assert "Aucune enveloppe" in m
+
+
+def test_le_motif_standard_annonce_l_enveloppe():
+    assert "0,10" in MOTIF_REFRACTION_STANDARD
+    assert "0,40" in MOTIF_REFRACTION_STANDARD
+
+
+@pytest.mark.parametrize("k", [0.0, 0.08, 0.13, 0.20, 0.40, 0.99, K_PLANCHER_ADMIS])
+def test_les_k_admis_passent(k):
+    verifier_k(k)
+    assert isinstance(motif_refraction(k), str)
+
+
+@pytest.mark.parametrize("k", [1.0, 1.5, 42.0])
+def test_le_regime_de_conduit_optique_est_refuse(k):
+    """k >= 1 : le rayon épouse la surface, la construction ne s'applique plus.
+
+    Le refus vient de `rayon_effectif`, pas d'un second contrôle écrit ici :
+    deux messages pour la même règle divergeraient le jour où l'un change.
+    """
+    with pytest.raises(ValueError) as e:
+        verifier_k(k)
+    assert str(e.value) == MOTIF_CONDUIT_OPTIQUE
+    # Le message du protocole ne doit PAS remonter au visiteur : le simulateur
+    # n'a plus aucun renvoi de paragraphe, et en réintroduire un par un
+    # message d'erreur reviendrait à défaire le nettoyage par la petite porte.
+    for jargon in ("§", "Tableau"):
+        assert jargon not in str(e.value), jargon
+
+
+@pytest.mark.parametrize("k", [-1.01, -2.0, -100.0])
+def test_sous_le_plancher_est_refuse(k):
+    with pytest.raises(ValueError, match="plancher"):
+        verifier_k(k)
+
+
+@pytest.mark.parametrize("k", [float("nan"), float("inf"), float("-inf")])
+def test_un_k_qui_n_est_pas_un_nombre_est_refuse(k):
+    with pytest.raises(ValueError, match="nombre"):
+        verifier_k(k)
+
+
+@pytest.mark.parametrize("k", [1.0, 2.0, -5.0, float("nan")])
+def test_le_motif_refuse_aussi_un_k_impossible(k):
+    """Sinon l'outil produirait une belle phrase sur un calcul impossible.
+
+    `motif_refraction` est appelé par l'interface juste avant l'affichage :
+    s'il ne contrôlait pas, un k hors domaine donnerait un texte plausible
+    pendant que le calcul, lui, aurait levé ailleurs — ou pire, pas levé.
+    """
+    with pytest.raises(Exception):
+        motif_refraction(k)
+
+
+def test_les_deux_motifs_ne_se_confondent_pas():
+    """Deux textes distincts, et distincts sur toute la plage utile.
+
+    Un port qui rendrait toujours le texte standard passerait un test qui ne
+    compare qu'une seule valeur : on balaie donc la plage.
+    """
+    for k in (0.0, 0.05, 0.08, 0.10, 0.12, 0.14, 0.18, 0.20, 0.40, 0.90):
+        m = motif_refraction(k)
+        assert m != MOTIF_REFRACTION_STANDARD, k
+        assert ("%.2f" % k).replace(".", ",") in m, k
+    assert motif_refraction(K_STANDARD) == MOTIF_REFRACTION_STANDARD
+
+
 # ── Les constantes ──────────────────────────────────────────────────────────
 
 
@@ -146,6 +240,7 @@ def test_les_constantes_sont_nommees_et_coherentes():
     """Seuil et réfraction sont des conventions : elles doivent être lisibles."""
     assert SEUIL_DISCRIMINATION_FRACTION == 0.10
     assert K_ENVELOPPE_MIN < K_STANDARD < K_ENVELOPPE_MAX
+    assert K_PLANCHER_ADMIS < K_ENVELOPPE_MIN
 
 
 def test_le_module_ne_depend_plus_du_relief():

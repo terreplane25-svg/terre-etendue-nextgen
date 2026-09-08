@@ -26,6 +26,8 @@
  * combien la cible est passée sous l'horizon.
  */
 
+import { rayonEffectif } from './noyau';
+
 /**
  * Le seuil critique. La courbure doit masquer au moins cette FRACTION de la
  * hauteur de la cible, EN PARTANT DE LA BASE, pour que la visée départage.
@@ -46,6 +48,33 @@ export const K_ENVELOPPE_MIN = 0.10;
 export const K_ENVELOPPE_MAX = 0.40;
 
 /**
+ * Le plancher admis dans le formulaire pour un k saisi à la main.
+ *
+ * Le plafond, lui, n'est pas une convention : `rayonEffectif` refuse déjà
+ * k ≥ 1, où le rayon épouse la surface et la construction ne s'applique plus.
+ * Le plancher est une commodité de saisie — sous −1, le rayon effectif tombe
+ * sous la moitié du rayon terrestre, ce qui ne décrit aucune atmosphère
+ * rencontrée. Il est nommé pour qu'on puisse le contester.
+ */
+export const K_PLANCHER_ADMIS = -1.0;
+
+/**
+ * Ce qui est dit au visiteur quand k ≥ 1.
+ *
+ * La RÈGLE reste celle de `rayonEffectif`, qui décide seul : on l'appelle et on
+ * rhabille son refus. Le message du paquet de référence parle de « §8 » et de
+ * « Tableau 8 » — juste dans un protocole, illisible dans un simulateur dont on
+ * a retiré tous les renvois. Deux messages pour une seule règle ne divergeront
+ * pas, puisque le second ne décide de rien.
+ */
+export const MOTIF_CONDUIT_OPTIQUE =
+  'Un coefficient de réfraction supérieur ou égal à 1 décrit un conduit '
+  + "optique : le rayon lumineux se courbe autant que la surface et ne s'en "
+  + "détache plus. La construction géométrique employée ici ne s'applique "
+  + 'plus du tout dans ce régime, et aucun résultat ne serait interprétable. '
+  + "Les valeurs rencontrées au-dessus de l'eau vont de 0 à 0,4 environ.";
+
+/**
  * Ce que le modèle plat masque à la base : rien, à toute distance. Nommé
  * plutôt qu'écrit en dur, pour que la comparaison se lise comme une
  * soustraction entre deux prédictions et non comme un cas particulier.
@@ -59,12 +88,61 @@ export const MOTIF_SEUIL =
   + 'sépare, et annoncer « discriminante » promettrait une mesure que personne '
   + 'ne pourrait faire. Ce seuil est une convention de lecture, pas une norme.';
 
-export const MOTIF_REFRACTION =
+export const MOTIF_REFRACTION_STANDARD =
   'La réfraction atmosphérique courbe les rayons lumineux et fait voir '
-  + 'un peu plus loin que la géométrie pure. Le calcul principal emploie le '
-  + "gradient moyen k = 0,13, celui d'une atmosphère bien mélangée. Faute de "
-  + "profil vertical de température mesuré sur le trajet, l'écart que cette "
+  + 'un peu plus loin que la géométrie pure. Le calcul emploie le gradient '
+  + "moyen k = 0,13, celui d'une atmosphère bien mélangée. Faute de profil "
+  + "vertical de température mesuré sur le trajet, l'écart que cette "
   + 'ignorance laisse est affiché à part, entre k = 0,10 et k = 0,40.';
+
+/**
+ * Refuse un coefficient de réfraction hors du domaine de la construction.
+ *
+ * Le plafond vient de la physique et non d'ici : `rayonEffectif` lève pour
+ * k ≥ 1. On le rejoue avec le même message plutôt que d'en inventer un second,
+ * qui divergerait le jour où l'un des deux changerait.
+ */
+export function verifierK(k: number): void {
+  if (!Number.isFinite(k)) {
+    throw new Error('Le coefficient de réfraction doit être un nombre.');
+  }
+  if (k < K_PLANCHER_ADMIS) {
+    throw new Error(
+      `Coefficient de réfraction sous le plancher admis (${K_PLANCHER_ADMIS.toFixed(2)}) : le `
+      + 'rayon effectif tomberait sous la moitié du rayon terrestre, ce '
+      + 'qui ne décrit aucune atmosphère rencontrée.',
+    );
+  }
+  // C'est `rayonEffectif` qui DÉCIDE ; on ne fait que rhabiller son refus dans
+  // la langue de l'interface. Réécrire la condition ici créerait deux règles
+  // pour un seul phénomène.
+  try {
+    rayonEffectif(1.0, k);
+  } catch {
+    throw new Error(MOTIF_CONDUIT_OPTIQUE);
+  }
+}
+
+/**
+ * La phrase affichée, avec le coefficient RÉELLEMENT employé.
+ *
+ * Une phrase figée qui nommerait 0,13 alors que le calcul a tourné sur 0,18
+ * serait un mensonge d'affichage — le genre qui survit longtemps parce que
+ * personne ne relit la prose.
+ */
+export function motifRefraction(k: number): string {
+  verifierK(k);
+  if (k === K_STANDARD) return MOTIF_REFRACTION_STANDARD;
+  return (
+    'La réfraction atmosphérique courbe les rayons lumineux et fait voir '
+    + 'un peu plus loin que la géométrie pure. Le calcul a été mené avec le '
+    + `coefficient PERSONNALISÉ k = ${kf(k)}, saisi par vous, et non avec la `
+    + 'moyenne standard de 0,13. Cette valeur est déclarée, pas mesurée par '
+    + "cet outil : c'est à vous de la justifier par un relevé du profil "
+    + "vertical de température sur le trajet. Aucune enveloppe n'est "
+    + 'affichée, puisque vous affirmez connaître la valeur.'
+  );
+}
 
 export const MOTIF_SANS_RELIEF =
   'Ce simulateur ne consulte aucun modèle de terrain : il calcule la ligne '
@@ -98,6 +176,8 @@ export interface Verdict {
 
 const m = (x: number) => x.toFixed(1).replace('.', ',');
 const pc = (f: number) => (100 * f).toFixed(1).replace('.', ',');
+/** Un coefficient de réfraction, à deux décimales, virgule française. */
+const kf = (x: number) => x.toFixed(2).replace('.', ',');
 
 /**
  * Le verdict, sur la seule occultation à la base.

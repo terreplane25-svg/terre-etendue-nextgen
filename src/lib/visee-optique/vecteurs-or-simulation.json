@@ -1,5 +1,5 @@
 {
-  "genere_le": "2026-09-08T10:20:39.383650+00:00",
+  "genere_le": "2026-09-08T14:57:36.994210+00:00",
   "source": "visee_optique.simulation (paquet Python)",
   "avertissement": "Fichier généré. Ne pas modifier à la main : il est la référence contre laquelle le port TypeScript est vérifié.",
   "constantes": {
@@ -9,9 +9,57 @@
     "k_enveloppe_max": 0.4,
     "masque_modele_plat_m": 0.0,
     "motif_seuil": "Une visée est dite discriminante quand la courbure masque au moins 10 % de la hauteur de la cible en partant de sa base. Sous ce seuil, les deux modèles prédisent des choses trop proches pour qu'une photographie les sépare, et annoncer « discriminante » promettrait une mesure que personne ne pourrait faire. Ce seuil est une convention de lecture, pas une norme.",
-    "motif_refraction": "La réfraction atmosphérique courbe les rayons lumineux et fait voir un peu plus loin que la géométrie pure. Le calcul principal emploie le gradient moyen k = 0,13, celui d'une atmosphère bien mélangée. Faute de profil vertical de température mesuré sur le trajet, l'écart que cette ignorance laisse est affiché à part, entre k = 0,10 et k = 0,40.",
-    "motif_sans_relief": "Ce simulateur ne consulte aucun modèle de terrain : il calcule la ligne de visée théorique entre les deux altitudes saisies, et rien d'autre. Ce qui bouche réellement la vue depuis un poste — une haie, un cargo, un bâtiment récent — ne figure dans aucun modèle numérique et se constate sur l'image. C'est le contrôle de l'analyste, pas celui du simulateur."
+    "motif_sans_relief": "Ce simulateur ne consulte aucun modèle de terrain : il calcule la ligne de visée théorique entre les deux altitudes saisies, et rien d'autre. Ce qui bouche réellement la vue depuis un poste — une haie, un cargo, un bâtiment récent — ne figure dans aucun modèle numérique et se constate sur l'image. C'est le contrôle de l'analyste, pas celui du simulateur.",
+    "motif_refraction_standard": "La réfraction atmosphérique courbe les rayons lumineux et fait voir un peu plus loin que la géométrie pure. Le calcul emploie le gradient moyen k = 0,13, celui d'une atmosphère bien mélangée. Faute de profil vertical de température mesuré sur le trajet, l'écart que cette ignorance laisse est affiché à part, entre k = 0,10 et k = 0,40.",
+    "k_plancher_admis": -1.0,
+    "motif_conduit_optique": "Un coefficient de réfraction supérieur ou égal à 1 décrit un conduit optique : le rayon lumineux se courbe autant que la surface et ne s'en détache plus. La construction géométrique employée ici ne s'applique plus du tout dans ce régime, et aucun résultat ne serait interprétable. Les valeurs rencontrées au-dessus de l'eau vont de 0 à 0,4 environ."
   },
+  "refraction": [
+    {
+      "k": 0.0,
+      "motif": "La réfraction atmosphérique courbe les rayons lumineux et fait voir un peu plus loin que la géométrie pure. Le calcul a été mené avec le coefficient PERSONNALISÉ k = 0,00, saisi par vous, et non avec la moyenne standard de 0,13. Cette valeur est déclarée, pas mesurée par cet outil : c'est à vous de la justifier par un relevé du profil vertical de température sur le trajet. Aucune enveloppe n'est affichée, puisque vous affirmez connaître la valeur."
+    },
+    {
+      "k": 0.05,
+      "motif": "La réfraction atmosphérique courbe les rayons lumineux et fait voir un peu plus loin que la géométrie pure. Le calcul a été mené avec le coefficient PERSONNALISÉ k = 0,05, saisi par vous, et non avec la moyenne standard de 0,13. Cette valeur est déclarée, pas mesurée par cet outil : c'est à vous de la justifier par un relevé du profil vertical de température sur le trajet. Aucune enveloppe n'est affichée, puisque vous affirmez connaître la valeur."
+    },
+    {
+      "k": 0.08,
+      "motif": "La réfraction atmosphérique courbe les rayons lumineux et fait voir un peu plus loin que la géométrie pure. Le calcul a été mené avec le coefficient PERSONNALISÉ k = 0,08, saisi par vous, et non avec la moyenne standard de 0,13. Cette valeur est déclarée, pas mesurée par cet outil : c'est à vous de la justifier par un relevé du profil vertical de température sur le trajet. Aucune enveloppe n'est affichée, puisque vous affirmez connaître la valeur."
+    },
+    {
+      "k": 0.1,
+      "motif": "La réfraction atmosphérique courbe les rayons lumineux et fait voir un peu plus loin que la géométrie pure. Le calcul a été mené avec le coefficient PERSONNALISÉ k = 0,10, saisi par vous, et non avec la moyenne standard de 0,13. Cette valeur est déclarée, pas mesurée par cet outil : c'est à vous de la justifier par un relevé du profil vertical de température sur le trajet. Aucune enveloppe n'est affichée, puisque vous affirmez connaître la valeur."
+    },
+    {
+      "k": 0.13,
+      "motif": "La réfraction atmosphérique courbe les rayons lumineux et fait voir un peu plus loin que la géométrie pure. Le calcul emploie le gradient moyen k = 0,13, celui d'une atmosphère bien mélangée. Faute de profil vertical de température mesuré sur le trajet, l'écart que cette ignorance laisse est affiché à part, entre k = 0,10 et k = 0,40."
+    },
+    {
+      "k": 0.14,
+      "motif": "La réfraction atmosphérique courbe les rayons lumineux et fait voir un peu plus loin que la géométrie pure. Le calcul a été mené avec le coefficient PERSONNALISÉ k = 0,14, saisi par vous, et non avec la moyenne standard de 0,13. Cette valeur est déclarée, pas mesurée par cet outil : c'est à vous de la justifier par un relevé du profil vertical de température sur le trajet. Aucune enveloppe n'est affichée, puisque vous affirmez connaître la valeur."
+    },
+    {
+      "k": 0.18,
+      "motif": "La réfraction atmosphérique courbe les rayons lumineux et fait voir un peu plus loin que la géométrie pure. Le calcul a été mené avec le coefficient PERSONNALISÉ k = 0,18, saisi par vous, et non avec la moyenne standard de 0,13. Cette valeur est déclarée, pas mesurée par cet outil : c'est à vous de la justifier par un relevé du profil vertical de température sur le trajet. Aucune enveloppe n'est affichée, puisque vous affirmez connaître la valeur."
+    },
+    {
+      "k": 0.2,
+      "motif": "La réfraction atmosphérique courbe les rayons lumineux et fait voir un peu plus loin que la géométrie pure. Le calcul a été mené avec le coefficient PERSONNALISÉ k = 0,20, saisi par vous, et non avec la moyenne standard de 0,13. Cette valeur est déclarée, pas mesurée par cet outil : c'est à vous de la justifier par un relevé du profil vertical de température sur le trajet. Aucune enveloppe n'est affichée, puisque vous affirmez connaître la valeur."
+    },
+    {
+      "k": 0.4,
+      "motif": "La réfraction atmosphérique courbe les rayons lumineux et fait voir un peu plus loin que la géométrie pure. Le calcul a été mené avec le coefficient PERSONNALISÉ k = 0,40, saisi par vous, et non avec la moyenne standard de 0,13. Cette valeur est déclarée, pas mesurée par cet outil : c'est à vous de la justifier par un relevé du profil vertical de température sur le trajet. Aucune enveloppe n'est affichée, puisque vous affirmez connaître la valeur."
+    },
+    {
+      "k": 0.9,
+      "motif": "La réfraction atmosphérique courbe les rayons lumineux et fait voir un peu plus loin que la géométrie pure. Le calcul a été mené avec le coefficient PERSONNALISÉ k = 0,90, saisi par vous, et non avec la moyenne standard de 0,13. Cette valeur est déclarée, pas mesurée par cet outil : c'est à vous de la justifier par un relevé du profil vertical de température sur le trajet. Aucune enveloppe n'est affichée, puisque vous affirmez connaître la valeur."
+    },
+    {
+      "k": -1.0,
+      "motif": "La réfraction atmosphérique courbe les rayons lumineux et fait voir un peu plus loin que la géométrie pure. Le calcul a été mené avec le coefficient PERSONNALISÉ k = -1,00, saisi par vous, et non avec la moyenne standard de 0,13. Cette valeur est déclarée, pas mesurée par cet outil : c'est à vous de la justifier par un relevé du profil vertical de température sur le trajet. Aucune enveloppe n'est affichée, puisque vous affirmez connaître la valeur."
+    }
+  ],
   "cas": [
     {
       "nom": "rien de masqué",
