@@ -82,6 +82,14 @@ export interface Item {
   longueur: number | null;
   typeAuxiliaire: string | null;
   referenceVers: number[];
+  /**
+   * Les dimensions DÉCLARÉES par la boîte `ispe` associée à cet item. null
+   * quand `ipma` ne lui en associe aucune — jamais empruntées à une autre
+   * `ispe` du fichier : donner à la photographie la taille de la carte de
+   * profondeur serait faux sans que rien ne le signale.
+   */
+  largeur: number | null;
+  hauteur: number | null;
 }
 
 export interface StructureIsobmff {
@@ -96,6 +104,14 @@ export interface StructureIsobmff {
   auxiliaires: Item[];
   versionCodec: string | null;
   makernotes: Uint8Array | null;
+  /**
+   * Les dimensions de l'item PRINCIPAL, lues dans sa boîte `ispe`. C'est la
+   * mesure d'un HEIF ou d'un AVIF, celle qu'on confronte à la déclaration
+   * EXIF. null quand aucune `ispe` n'est associée à l'item principal — un CR3
+   * n'en porte pas du tout.
+   */
+  largeur: number | null;
+  hauteur: number | null;
 }
 
 const MARQUES_HEIF = new Set(['heic', 'heix', 'heim', 'heis', 'hevc', 'mif1', 'msf1']);
@@ -314,6 +330,125 @@ function lireIref(donnees: Uint8Array, b: Boite): Map<number, number[]> {
 }
 
 /**
+ * Les dimensions déclarées par une ImageSpatialExtentsProperty.
+ *
+ * FullBox : quatre octets de version et de drapeaux, puis largeur et hauteur
+ * sur quatre octets chacune. Une dimension nulle est REFUSÉE plutôt que
+ * rendue : elle ne décrit aucune image, et diviserait par zéro au calcul du
+ * rapport d'aspect. Une dimension énorme, en revanche, est rendue telle
+ * quelle — c'est ce que le fichier DÉCLARE, et le rôle de ce module s'arrête là.
+ */
+function lireIspe(donnees: Uint8Array, b: Boite): [number, number] | null {
+  if (b.finCharge - b.debutCharge < 12) return null;
+  const vue = new DataView(donnees.buffer, donnees.byteOffset, donnees.byteLength);
+  const largeur = vue.getUint32(b.debutCharge + 4, false);
+  const hauteur = vue.getUint32(b.debutCharge + 8, false);
+  if (largeur === 0 || hauteur === 0) return null;
+  return [largeur, hauteur];
+}
+
+/**
+ * Les associations item → propriétés : identifiant → indices dans `ipco`.
+ *
+ * Les indices sont ceux des ENFANTS DIRECTS d'`ipco`, numérotés à partir de 1
+ * dans l'ordre du fichier. L'indice 0 signifie « aucune » et n'est pas écarté
+ * ici : c'est l'appelant qui borne, une seule fois.
+ *
+ * Chaque association porte un bit `essential` sur le bit de poids fort du
+ * champ. Il dit qu'un lecteur qui ne comprend pas la propriété doit refuser
+ * l'item — ce n'est pas notre cas. Il est donc MASQUÉ, pas interprété ; ne pas
+ * le masquer ajouterait 128 ou 32 768 à l'indice, qui pointerait hors de la
+ * liste : les dimensions disparaîtraient en silence, sans erreur levée.
+ */
+function lireIpma(donnees: Uint8Array, b: Boite): Map<number, number[]> {
+  const out = new Map<number, number[]>();
+  const vue = new DataView(donnees.buffer, donnees.byteOffset, donnees.byteLength);
+  let pos = b.debutCharge;
+  if (pos + 8 > b.finCharge) return out;
+  const version = donnees[pos];
+  const flags = (donnees[pos + 1] << 16) | (donnees[pos + 2] << 8) | donnees[pos + 3];
+  pos += 4;
+  const nb = vue.getUint32(pos, false);
+  pos += 4;
+  const largeurId = version < 1 ? 2 : 4;
+  const largeurIndex = (flags & 1) ? 2 : 1;
+  const masque = largeurIndex === 2 ? 0x7fff : 0x7f;
+
+  const lireN = (p: number, n: number): number => {
+    let v = 0;
+    for (let i = 0; i < n; i++) v = v * 256 + donnees[p + i];
+    return v;
+  };
+
+  for (let e = 0; e < nb; e++) {
+    if (pos + largeurId + 1 > b.finCharge) break;
+    const ident = lireN(pos, largeurId);
+    pos += largeurId;
+    const nbAssoc = donnees[pos];
+    pos += 1;
+    const indices: number[] = [];
+    for (let a = 0; a < nbAssoc; a++) {
+      if (pos + largeurIndex > b.finCharge) break;
+      indices.push(lireN(pos, largeurIndex) & masque);
+      pos += largeurIndex;
+    }
+    out.set(ident, [...(out.get(ident) ?? []), ...indices]);
+  }
+  return out;
+}
+
+/**
+ * Les boîtes filles immédiates d'un conteneur, DANS L'ORDRE du fichier.
+ *
+ * L'ordre est ce qui donne son sens aux indices d'`ipma` : ils comptent les
+ * enfants d'`ipco` à partir de 1. `parcourirBoites` rend les boîtes dans
+ * l'ordre du fichier ; filtrer sur la profondeur et sur les bornes du parent
+ * conserve cet ordre sans le reconstruire.
+ */
+function enfantsDirects(boites: Boite[], parent: Boite): Boite[] {
+  return boites.filter((b) => b.profondeur === parent.profondeur + 1
+    && b.debut >= parent.debutCharge && b.debut < parent.finCharge);
+}
+
+/**
+ * Les dimensions de chaque item, par le chemin `iprp` → `ipma` + `ipco`.
+ *
+ * L'association est résolue POUR DE BON, jamais approchée par « la plus grande
+ * `ispe` du fichier ». Un HEIF d'iPhone en porte au moins deux : celle de la
+ * photographie et celle de la carte de gain HDR. L'heuristique donnerait la
+ * bonne réponse la plupart du temps, et la mauvaise sans prévenir — la
+ * quasi-justesse qu'un relevé probatoire ne peut pas se permettre.
+ *
+ * Chaque `ipma` est lu contre l'`ipco` de SON `iprp` : les indices sont
+ * relatifs à ce conteneur-là, et les croiser associerait des propriétés au
+ * hasard.
+ */
+function dimensionsParItem(donnees: Uint8Array, boites: Boite[]): Map<number, [number, number]> {
+  const out = new Map<number, [number, number]>();
+  for (const iprp of boites.filter((b) => b.type === 'iprp')) {
+    const enfants = enfantsDirects(boites, iprp);
+    const ipco = enfants.find((b) => b.type === 'ipco');
+    if (!ipco) continue;
+    const proprietes = enfantsDirects(boites, ipco);
+    for (const ipma of enfants.filter((b) => b.type === 'ipma')) {
+      for (const [ident, indices] of lireIpma(donnees, ipma)) {
+        for (const i of indices) {
+          if (i < 1 || i > proprietes.length) continue;
+          const p = proprietes[i - 1];
+          if (p.type !== 'ispe') continue;
+          const dim = lireIspe(donnees, p);
+          // La PREMIÈRE `ispe` associée fait foi : un item qui en porterait
+          // deux est incohérent, et prendre la seconde reviendrait à préférer
+          // arbitrairement la dernière écrite.
+          if (dim !== null && !out.has(ident)) out.set(ident, dim);
+        }
+      }
+    }
+  }
+  return out;
+}
+
+/**
  * Le bloc TIFF d'un item « Exif » de HEIF.
  *
  * L'item commence par un entier de quatre octets donnant le décalage jusqu'à
@@ -360,6 +495,7 @@ export function analyserIsobmff(donnees: Uint8Array): StructureIsobmff {
     marque, marquesCompatibles: compat, boites: parcourirBoites(donnees),
     items: [], itemPrincipal: null, blocExif: null, paquetsXmp: [],
     apercus: [], auxiliaires: [], versionCodec: null, makernotes: null,
+    largeur: null, hauteur: null,
   };
 
   const parType = new Map<string, Boite[]>();
@@ -377,6 +513,11 @@ export function analyserIsobmff(donnees: Uint8Array): StructureIsobmff {
       const p = b.debutCharge + 4;
       s.itemPrincipal = version === 0 ? vue.getUint16(p, false) : vue.getUint32(p, false);
     }
+  }
+
+  const dimensions = dimensionsParItem(donnees, s.boites);
+  if (s.itemPrincipal !== null && dimensions.has(s.itemPrincipal)) {
+    [s.largeur, s.hauteur] = dimensions.get(s.itemPrincipal)!;
   }
 
   const apercus: { origine: string; octets: Uint8Array }[] = [];
@@ -405,9 +546,11 @@ export function analyserIsobmff(donnees: Uint8Array): StructureIsobmff {
       aux = `auxiliaire non répertorié — ${nom}`;
     }
 
+    const dim = dimensions.get(ident) ?? null;
     const item: Item = {
       identifiant: ident, type: typeItem, nom, offset, longueur,
       typeAuxiliaire: aux, referenceVers: references.get(ident) ?? [],
+      largeur: dim ? dim[0] : null, hauteur: dim ? dim[1] : null,
     };
     s.items.push(item);
 

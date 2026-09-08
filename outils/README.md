@@ -60,8 +60,8 @@ répercute dans le port, puis les vecteurs sont régénérés. Jamais l'inverse.
 
 ## Tests
 
-    cd outils/outil-A-visee-optique     && ../.venv/bin/python -m pytest -q   # 321
-    cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 289
+    cd outils/outil-A-visee-optique     && ../.venv/bin/python -m pytest -q   # 397
+    cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 525
     cd outils/outil-C-rapport-expertise && ../.venv/bin/python -m pytest -q   #  42
     cd outils/outil-D-metrologie-image  && ../.venv/bin/python -m pytest -q   # 102
 
@@ -588,7 +588,7 @@ séparément** :
 
 | Grandeur | Nature | Source |
 |---|---|---|
-| dimensions lues dans les octets | une **mesure** | marqueur SOF d'un JPEG, IHDR d'un PNG |
+| dimensions lues dans les octets | une **mesure** | marqueur SOF d'un JPEG, IHDR d'un PNG, boîte `ispe` d'un HEIF |
 | dimensions déclarées dans l'EXIF | une **déclaration** | tags PixelXDimension / PixelYDimension |
 
 Un écart **ÉTABLIT** que le fichier a été redimensionné ou recadré sans que la
@@ -602,12 +602,20 @@ pour un fichier dont le SOF annonçait 1024 × 768. L'écart n'était pas seulem
 ignoré : il était masqué. La mesure passe désormais en premier, la déclaration
 à côté, et leur écart porte son motif.
 
-**Ce qui reste indisponible, et qui n'est pas comblé.** Un HEIF, un AVIF ou un
-CR3 déclarent leurs dimensions dans une boîte `ispe` que ce paquet ne lit pas
-encore, associée à l'image principale par une boîte `ipma` qu'il ne lit pas non
-plus. La cohérence est donc invérifiable pour ces formats — et rendre la
-déclaration EXIF à la place recréerait exactement le défaut que cette
-confrontation existe pour attraper. Le champ porte ce motif.
+**La famille ISOBMFF est mesurée, elle aussi.** Un HEIF et un AVIF déclarent
+leurs dimensions dans une boîte `ispe`, associée à l'image principale par une
+boîte `ipma`. Les deux sont lues, et l'association est **résolue** — jamais
+approchée par « la plus grande `ispe` du fichier ». Un HEIF d'iPhone en porte
+au moins deux, celle de la photographie et celle de la carte de gain HDR :
+l'heuristique donnerait la bonne réponse la plupart du temps et la mauvaise
+sans prévenir. Comme cette famille couvre la majorité des photographies prises
+au téléphone, la confrontation mesure/déclaration ne leur échappe plus.
+
+**Ce qui reste indisponible, et qui n'est pas comblé.** Un CR3 ne porte pas
+d'`ispe` : Canon range les dimensions dans ses MakerNotes, que ce paquet rend
+bruts sans les décoder. La cohérence reste donc invérifiable pour ce format —
+et rendre la déclaration EXIF à la place recréerait exactement le défaut que
+cette confrontation existe pour attraper. Le champ porte ce motif.
 
 ### La télémétrie de vol
 

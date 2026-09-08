@@ -22,6 +22,10 @@ La structure de boîtes, puis, selon ce qu'elle contient :
   · l'item « mime » de type RDF, qui porte le XMP ;
   · les items auxiliaires (carte de profondeur, carte de gain HDR), dont la
     PRÉSENCE est relevée sans que leur contenu soit décodé ;
+  · les DIMENSIONS déclarées par les boîtes `ispe`, associées à chaque item par
+    la boîte `ipma`. C'est la seule mesure de dimensions qu'un HEIF ou un AVIF
+    porte hors de l'EXIF : elle permet de confronter les octets à la
+    déclaration, ce qu'aucune lecture de l'EXIF seul ne peut faire ;
   · pour un CR3, la boîte `uuid` de Canon, qui range l'IFD0, l'IFD Exif, les
     MakerNotes et l'IFD GPS dans quatre boîtes CMT1 à CMT4 ;
   · les aperçus embarqués : `PRVW` et `THMB` d'un CR3, items image d'un HEIF.
@@ -120,6 +124,13 @@ class Item:
     type_auxiliaire: Optional[str] = None
     #: L'item dont celui-ci est une déclinaison (miniature, auxiliaire).
     reference_vers: Tuple[int, ...] = ()
+    #: Les dimensions DÉCLARÉES par la boîte `ispe` associée à cet item, quand
+    #: `ipma` en associe une. None quand aucune ne l'est — jamais devinées
+    #: depuis une autre `ispe` du fichier : chaque item a les siennes, et
+    #: emprunter celles d'un voisin donnerait la taille de la carte de
+    #: profondeur pour celle de la photographie.
+    largeur: Optional[int] = None
+    hauteur: Optional[int] = None
 
 
 @dataclass
@@ -143,6 +154,12 @@ class StructureIsobmff:
     version_codec: Optional[str] = None
     #: Les MakerNotes bruts d'un CR3 (boîte CMT3), non décodés ici.
     makernotes: Optional[bytes] = None
+    #: Les dimensions de l'item PRINCIPAL, lues dans sa boîte `ispe`. C'est la
+    #: mesure d'un HEIF ou d'un AVIF, celle qu'on confronte à la déclaration
+    #: EXIF. None quand le fichier n'associe aucune `ispe` à son item principal
+    #: — un CR3, par exemple, n'en porte pas du tout.
+    largeur: Optional[int] = None
+    hauteur: Optional[int] = None
 
     @property
     def est_heif(self) -> bool:
@@ -368,6 +385,120 @@ def _lire_iref(donnees: bytes, b: Boite) -> Dict[int, Tuple[int, ...]]:
     return out
 
 
+def _lire_ispe(donnees: bytes, b: Boite) -> Optional[Tuple[int, int]]:
+    """Les dimensions déclarées par une ImageSpatialExtentsProperty.
+
+    FullBox : quatre octets de version et de drapeaux, puis largeur et hauteur
+    sur quatre octets chacune. Une dimension nulle est REFUSÉE plutôt que
+    rendue : elle ne décrit aucune image, et la laisser passer ferait diviser
+    par zéro au calcul du rapport d'aspect. Une dimension énorme, en revanche,
+    est rendue telle quelle — c'est ce que le fichier DÉCLARE, et le rôle de ce
+    module s'arrête là.
+    """
+    if b.longueur_charge < 12:
+        return None
+    largeur, hauteur = struct.unpack_from(">II", donnees, b.debut_charge + 4)
+    if largeur == 0 or hauteur == 0:
+        return None
+    return (largeur, hauteur)
+
+
+def _lire_ipma(donnees: bytes, b: Boite) -> Dict[int, Tuple[int, ...]]:
+    """Les associations item → propriétés : identifiant → indices dans `ipco`.
+
+    Les indices sont ceux des ENFANTS DIRECTS d'`ipco`, numérotés à partir de
+    1 dans l'ordre où ils apparaissent. L'indice 0 signifie « aucune » et
+    n'est pas écarté ici : c'est l'appelant qui borne, une seule fois.
+
+    Chaque association porte un bit `essential` en tête, sur le bit de poids
+    fort du champ. Il dit qu'un lecteur qui ne comprend pas la propriété doit
+    refuser l'item — ce n'est pas notre cas, on lit ce qui est là. Il est donc
+    MASQUÉ, pas interprété ; ne pas le masquer ajouterait 128 ou 32 768 à
+    l'indice et ferait pointer l'association hors de la liste, ce qui se
+    traduirait par une absence de dimensions plutôt que par une erreur.
+    """
+    pos = b.debut_charge
+    if pos + 8 > b.fin_charge:
+        return {}
+    version = donnees[pos]
+    flags = int.from_bytes(donnees[pos + 1 : pos + 4], "big")
+    pos += 4
+    nb = struct.unpack_from(">I", donnees, pos)[0]
+    pos += 4
+    largeur_id = 2 if version < 1 else 4
+    largeur_index = 2 if (flags & 1) else 1
+    masque = 0x7FFF if largeur_index == 2 else 0x7F
+
+    out: Dict[int, Tuple[int, ...]] = {}
+    for _ in range(nb):
+        if pos + largeur_id + 1 > b.fin_charge:
+            break
+        ident = int.from_bytes(donnees[pos : pos + largeur_id], "big")
+        pos += largeur_id
+        nb_assoc = donnees[pos]
+        pos += 1
+        indices: List[int] = []
+        for _ in range(nb_assoc):
+            if pos + largeur_index > b.fin_charge:
+                break
+            indices.append(
+                int.from_bytes(donnees[pos : pos + largeur_index], "big") & masque)
+            pos += largeur_index
+        out[ident] = out.get(ident, ()) + tuple(indices)
+    return out
+
+
+def _enfants_directs(boites: List[Boite], parent: Boite) -> List[Boite]:
+    """Les boîtes filles immédiates d'un conteneur, DANS L'ORDRE du fichier.
+
+    L'ordre est ce qui donne son sens aux indices d'`ipma` : ils comptent les
+    enfants d'`ipco` à partir de 1. `parcourir_boites` rend les boîtes dans
+    l'ordre du fichier ; filtrer sur la profondeur et sur les bornes du parent
+    conserve cet ordre sans le reconstruire.
+    """
+    return [b for b in boites
+            if b.profondeur == parent.profondeur + 1
+            and parent.debut_charge <= b.debut < parent.fin_charge]
+
+
+def _dimensions_par_item(donnees: bytes, boites: List[Boite]) -> Dict[int, Tuple[int, int]]:
+    """Les dimensions de chaque item, par le chemin `iprp` → `ipma` + `ipco`.
+
+    L'association est résolue POUR DE BON, jamais approchée par « la plus
+    grande `ispe` du fichier ». Un HEIF d'iPhone porte au moins deux `ispe` :
+    celle de la photographie et celle de la carte de gain HDR. Prendre la plus
+    grande donnerait la bonne réponse la plupart du temps, et la mauvaise sans
+    prévenir — exactement le genre de quasi-justesse qu'un relevé probatoire ne
+    peut pas se permettre.
+
+    Chaque `ipma` est lu contre l'`ipco` de SON `iprp` : les indices sont
+    relatifs à ce conteneur-là, et les croiser entre deux `iprp` associerait
+    des propriétés au hasard.
+    """
+    out: Dict[int, Tuple[int, int]] = {}
+    for iprp in [b for b in boites if b.type == "iprp"]:
+        enfants = _enfants_directs(boites, iprp)
+        ipcos = [b for b in enfants if b.type == "ipco"]
+        if not ipcos:
+            continue
+        proprietes = _enfants_directs(boites, ipcos[0])
+        for ipma in [b for b in enfants if b.type == "ipma"]:
+            for ident, indices in _lire_ipma(donnees, ipma).items():
+                for i in indices:
+                    if not 1 <= i <= len(proprietes):
+                        continue
+                    p = proprietes[i - 1]
+                    if p.type != "ispe":
+                        continue
+                    dim = _lire_ispe(donnees, p)
+                    # La PREMIÈRE `ispe` associée fait foi : un item qui en
+                    # porterait deux est incohérent, et choisir la seconde
+                    # reviendrait à préférer arbitrairement la dernière écrite.
+                    if dim is not None and ident not in out:
+                        out[ident] = dim
+    return out
+
+
 def _bloc_exif_depuis_item(charge: bytes) -> Optional[bytes]:
     """Le bloc TIFF d'un item « Exif » de HEIF.
 
@@ -430,6 +561,10 @@ def analyser_isobmff(donnees: bytes) -> StructureIsobmff:
             s.item_principal = (struct.unpack_from(">H", donnees, p)[0] if version == 0
                                 else struct.unpack_from(">I", donnees, p)[0])
 
+    dimensions = _dimensions_par_item(donnees, s.boites)
+    if s.item_principal is not None and s.item_principal in dimensions:
+        s.largeur, s.hauteur = dimensions[s.item_principal]
+
     apercus: List[Tuple[str, bytes]] = []
     xmp: List[bytes] = []
     auxiliaires: List[Item] = []
@@ -451,10 +586,13 @@ def analyser_isobmff(donnees: bytes) -> StructureIsobmff:
             # information ; la taire n'en est pas une.
             aux = f"auxiliaire non répertorié — {nom}"
 
+        dim = dimensions.get(ident)
         item = Item(
             identifiant=ident, type=type_item, nom=nom,
             offset=offset, longueur=longueur, type_auxiliaire=aux,
             reference_vers=references.get(ident, ()),
+            largeur=dim[0] if dim else None,
+            hauteur=dim[1] if dim else None,
         )
         s.items.append(item)
 

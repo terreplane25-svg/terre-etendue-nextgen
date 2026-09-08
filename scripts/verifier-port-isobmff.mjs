@@ -74,7 +74,12 @@ try {
     comparer(sujet, 'est CR3', attendu.est_cr3, I.estCr3(s));
     comparer(sujet, 'item principal', attendu.item_principal, s.itemPrincipal);
     comparer(sujet, 'version du codec', attendu.version_codec, s.versionCodec);
-    n += 7;
+    // Les dimensions de l'item principal, lues dans `ispe` via `ipma`. C'est
+    // la seule MESURE qu'un HEIF porte hors de l'EXIF : une divergence ici
+    // rendrait la confrontation mesure/déclaration fausse côté navigateur.
+    comparer(sujet, 'largeur (ispe)', attendu.largeur, s.largeur);
+    comparer(sujet, 'hauteur (ispe)', attendu.hauteur, s.hauteur);
+    n += 9;
 
     // Les boîtes : type, position ET profondeur. La profondeur est ce qui
     // trahit un `meta` mal traité — les enfants remontent d'un niveau ou
@@ -93,6 +98,7 @@ try {
         identifiant: i.identifiant, type: i.type, nom: i.nom,
         offset: i.offset, longueur: i.longueur,
         type_auxiliaire: i.typeAuxiliaire, reference_vers: i.referenceVers,
+        largeur: i.largeur, hauteur: i.hauteur,
       })));
     comparer(sujet, 'auxiliaires', attendu.auxiliaires, s.auxiliaires.map((i) => i.identifiant));
     n += 2;

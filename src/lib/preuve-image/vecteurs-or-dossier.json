@@ -1,5 +1,5 @@
 {
-  "genere_le": "2026-09-08T22:24:50.528665+00:00",
+  "genere_le": "2026-09-08T22:53:53.574523+00:00",
   "source": "preuve_image.dossier (paquet Python)",
   "avertissement": "Fichier généré. Ne pas modifier à la main : il est la référence contre laquelle le port TypeScript est vérifié.",
   "motif_numero_serie": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
@@ -216,7 +216,7 @@
             "megapixels": null,
             "denomination": null,
             "motif_denomination": null,
-            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF ou un AVIF les déclare dans une boîte `ispe`, associée à l'image principale par une boîte `ipma` : ce paquet lit les deux, et ce fichier n'en porte pas, ou n'associe aucune `ispe` à son item principal. Un CR3 n'en porte jamais — Canon range les dimensions dans ses MakerNotes, que ce paquet rend bruts sans les décoder. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
             "alignement_jpeg": null,
             "motif_alignement": "Un JPEG code par blocs de 8 × 8 pixels, groupés en unités de 8 ou 16 selon le sous-échantillonnage. Des dimensions non alignées sur cette unité signifient que le bord de l'image est un bloc partiel, ce qui arrive à tout recadrage. Le signal est faible dans les deux sens : la plupart des appareils produisent des dimensions alignées, et un alignement n'établit pas l'absence de recadrage."
           },
@@ -321,7 +321,7 @@
             "megapixels": null,
             "denomination": null,
             "motif_denomination": null,
-            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF ou un AVIF les déclare dans une boîte `ispe`, associée à l'image principale par une boîte `ipma` : ce paquet lit les deux, et ce fichier n'en porte pas, ou n'associe aucune `ispe` à son item principal. Un CR3 n'en porte jamais — Canon range les dimensions dans ses MakerNotes, que ce paquet rend bruts sans les décoder. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
             "alignement_jpeg": null,
             "motif_alignement": "Un JPEG code par blocs de 8 × 8 pixels, groupés en unités de 8 ou 16 selon le sous-échantillonnage. Des dimensions non alignées sur cette unité signifient que le bord de l'image est un bloc partiel, ce qui arrive à tout recadrage. Le signal est faible dans les deux sens : la plupart des appareils produisent des dimensions alignées, et un alignement n'établit pas l'absence de recadrage."
           },
@@ -443,7 +443,7 @@
             "megapixels": null,
             "denomination": null,
             "motif_denomination": null,
-            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF ou un AVIF les déclare dans une boîte `ispe`, associée à l'image principale par une boîte `ipma` : ce paquet lit les deux, et ce fichier n'en porte pas, ou n'associe aucune `ispe` à son item principal. Un CR3 n'en porte jamais — Canon range les dimensions dans ses MakerNotes, que ce paquet rend bruts sans les décoder. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
             "alignement_jpeg": null,
             "motif_alignement": "Un JPEG code par blocs de 8 × 8 pixels, groupés en unités de 8 ou 16 selon le sous-échantillonnage. Des dimensions non alignées sur cette unité signifient que le bord de l'image est un bloc partiel, ce qui arrive à tout recadrage. Le signal est faible dans les deux sens : la plupart des appareils produisent des dimensions alignées, et un alignement n'établit pas l'absence de recadrage."
           },
@@ -721,7 +721,7 @@
             "megapixels": null,
             "denomination": null,
             "motif_denomination": null,
-            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF ou un AVIF les déclare dans une boîte `ispe`, associée à l'image principale par une boîte `ipma` : ce paquet lit les deux, et ce fichier n'en porte pas, ou n'associe aucune `ispe` à son item principal. Un CR3 n'en porte jamais — Canon range les dimensions dans ses MakerNotes, que ce paquet rend bruts sans les décoder. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
             "alignement_jpeg": null,
             "motif_alignement": "Un JPEG code par blocs de 8 × 8 pixels, groupés en unités de 8 ou 16 selon le sous-échantillonnage. Des dimensions non alignées sur cette unité signifient que le bord de l'image est un bloc partiel, ce qui arrive à tout recadrage. Le signal est faible dans les deux sens : la plupart des appareils produisent des dimensions alignées, et un alignement n'établit pas l'absence de recadrage."
           },
@@ -890,7 +890,7 @@
             "megapixels": null,
             "denomination": null,
             "motif_denomination": null,
-            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF ou un AVIF les déclare dans une boîte `ispe`, associée à l'image principale par une boîte `ipma` : ce paquet lit les deux, et ce fichier n'en porte pas, ou n'associe aucune `ispe` à son item principal. Un CR3 n'en porte jamais — Canon range les dimensions dans ses MakerNotes, que ce paquet rend bruts sans les décoder. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
             "alignement_jpeg": null,
             "motif_alignement": "Un JPEG code par blocs de 8 × 8 pixels, groupés en unités de 8 ou 16 selon le sous-échantillonnage. Des dimensions non alignées sur cette unité signifient que le bord de l'image est un bloc partiel, ce qui arrive à tout recadrage. Le signal est faible dans les deux sens : la plupart des appareils produisent des dimensions alignées, et un alignement n'établit pas l'absence de recadrage."
           },
@@ -1059,7 +1059,7 @@
             "megapixels": null,
             "denomination": null,
             "motif_denomination": null,
-            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF ou un AVIF les déclare dans une boîte `ispe`, associée à l'image principale par une boîte `ipma` : ce paquet lit les deux, et ce fichier n'en porte pas, ou n'associe aucune `ispe` à son item principal. Un CR3 n'en porte jamais — Canon range les dimensions dans ses MakerNotes, que ce paquet rend bruts sans les décoder. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
             "alignement_jpeg": null,
             "motif_alignement": "Un JPEG code par blocs de 8 × 8 pixels, groupés en unités de 8 ou 16 selon le sous-échantillonnage. Des dimensions non alignées sur cette unité signifient que le bord de l'image est un bloc partiel, ce qui arrive à tout recadrage. Le signal est faible dans les deux sens : la plupart des appareils produisent des dimensions alignées, et un alignement n'établit pas l'absence de recadrage."
           },
@@ -1888,17 +1888,17 @@
     {
       "nom": "heic",
       "nom_fichier": "IMG_4092.HEIC",
-      "octets_b64": "AAAAGGZ0eXBoZWljAAAAAG1pZjFoZWljAAABQW1ldGEAAAAAAAAAIWhkbHIAAAAAAAAAAHBpY3QAAAAAAAAAAAAAAAAAAAAADnBpdG0AAAAAAAEAAACcaWluZgAAAAAABAAAABVpbmZlAgAAAAABAABodmMxAAAAABVpbmZlAgAAAAACAABFeGlmAAAAAChpbmZlAgAAAAADAABtaW1lYXBwbGljYXRpb24vcmRmK3htbAAAAAA8aW5mZQIAAAAABAAAaHZjMXVybjpjb206YXBwbGU6cGhvdG86MjAyMDphdXg6aGRyZ2Fpbm1hcAAAAABQaWxvYwEAAABEAAAEAAEAAAAAAAEAAAFhAAAVNAACAAAAAAABAAAWlQAAAG4AAwAAAAAAAQAAFwMAAABHAAQAAAAAAAEAABdKAAAAoAAAABppcmVmAAAAAAAAAA5hdXhsAAQAAQABAAAWkW1kYXT/2P/gABBKRklGAAEBAAABAAEAAP/bAEMACQYHCAcGCQgHCAoKCQsNFg8NDAwNGxQVEBYgHSIiIB0fHyQoNCwkJjEnHx8tPS0xNTc6OjojKz9EPzhDNDk6N//bAEMBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAeACgAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AOFooor1jzQooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/ZAAAABkV4aWYAAElJKgAIAAAAAwAPAQIABgAAADIAAAAQAQIADgAAADgAAABphwQAAQAAAEYAAAAAAAAAQXBwbGUAaVBob25lIDE1IFBybwACACeIAwABAAAAUAAAAAKgBAABAAAAgB8AAAAAAAA8P3hwYWNrZXQgYmVnaW49Iu+7vyI/Pjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iPjwveDp4bXBtZXRhPgARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjM=",
+      "octets_b64": "AAAAGGZ0eXBoZWljAAAAAG1pZjFoZWljAAABwm1ldGEAAAAAAAAAIWhkbHIAAAAAAAAAAHBpY3QAAAAAAAAAAAAAAAAAAAAADnBpdG0AAAAAAAEAAACcaWluZgAAAAAABAAAABVpbmZlAgAAAAABAABodmMxAAAAABVpbmZlAgAAAAACAABFeGlmAAAAAChpbmZlAgAAAAADAABtaW1lYXBwbGljYXRpb24vcmRmK3htbAAAAAA8aW5mZQIAAAAABAAAaHZjMXVybjpjb206YXBwbGU6cGhvdG86MjAyMDphdXg6aGRyZ2Fpbm1hcAAAAABQaWxvYwEAAABEAAAEAAEAAAAAAAEAAAHiAAAVNAACAAAAAAABAAAXFgAAAHoAAwAAAAAAAQAAF5AAAABHAAQAAAAAAAEAABfXAAAAoAAAABppcmVmAAAAAAAAAA5hdXhsAAQAAQABAAAAgWlwcnAAAABeaXBjbwAAABBwYXNwAAAAAQAAAAEAAAAUaXNwZQAAAAAAAAfgAAAF6AAAAB5odmNDAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABRpc3BlAAAAAAAAH4AAABegAAAAG2lwbWEAAAAAAAAAAgABAwEEgwAEAoMCAAAWnW1kYXT/2P/gABBKRklGAAEBAAABAAEAAP/bAEMACQYHCAcGCQgHCAoKCQsNFg8NDAwNGxQVEBYgHSIiIB0fHyQoNCwkJjEnHx8tPS0xNTc6OjojKz9EPzhDNDk6N//bAEMBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAeACgAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AOFooor1jzQooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/ZAAAABkV4aWYAAElJKgAIAAAAAwAPAQIABgAAADIAAAAQAQIADgAAADgAAABphwQAAQAAAEYAAAAAAAAAQXBwbGUAaVBob25lIDE1IFBybwADACeIAwABAAAAUAAAAAKgBAABAAAAgB8AAAOgBAABAAAAoBcAAAAAAAA8P3hwYWNrZXQgYmVnaW49Iu+7vyI/Pjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iPjwveDp4bXBtZXRhPgARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjM=",
       "dossier": {
         "file_analysis": {
           "filename": "IMG_4092.HEIC",
           "mime_type": "image/heic",
           "mime_source": "octets du fichier, jamais l’extension",
           "extension_declaree": ".heic",
-          "file_size_bytes": 6122,
+          "file_size_bytes": 6263,
           "format_family": "HEIF/ISOBMFF (boîtes)",
           "conteneur": "HEIC",
-          "sha256": "dac704a4e3561b1514b0a9a57f088ed5de1ec06191a1c2904134c32b33db4ec8"
+          "sha256": "395bc3307faf6f921bdcf8be34fc5de80b8e86204ef1ff9299a1e0c9b77e82eb"
         },
         "device_identification": {
           "make": "Apple",
@@ -1928,8 +1928,14 @@
           "lens_specification": null,
           "shutter_count": null,
           "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
-          "dimensions": null,
-          "dimensions_declarees_exif": null
+          "dimensions": [
+            8064,
+            6048
+          ],
+          "dimensions_declarees_exif": [
+            8064,
+            6048
+          ]
         },
         "telemetry_and_location": {
           "gps": null,
@@ -1963,18 +1969,149 @@
           "screen_resolution_match": null,
           "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
           "resolution": {
-            "mesuree": null,
-            "declaree_exif": null,
-            "dimensions_coherentes": null,
+            "mesuree": [
+              8064,
+              6048
+            ],
+            "declaree_exif": [
+              8064,
+              6048
+            ],
+            "dimensions_coherentes": true,
             "motif_ecart": null,
-            "rapport": null,
-            "rapport_decimal": null,
-            "orientation": null,
-            "megapixels": null,
+            "rapport": [
+              4,
+              3
+            ],
+            "rapport_decimal": 1.3333333333333333,
+            "orientation": "paysage",
+            "megapixels": 48.771072,
             "denomination": null,
             "motif_denomination": null,
-            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
-            "alignement_jpeg": null,
+            "motif_mesure_indisponible": null,
+            "alignement_jpeg": 16,
+            "motif_alignement": null
+          },
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": [
+            {
+              "origine": "item 1 (hvc1)",
+              "octets": 5428,
+              "format": "JPEG",
+              "sha256": "74b6307949d467bb3a8536c373d50e1d310e95a266397f3f59bf2b7c2ff5b5c7"
+            }
+          ]
+        },
+        "lectures_en_echec": [],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "heic redimensionné sans que l'exif suive",
+      "nom_fichier": "IMG_4093.HEIC",
+      "octets_b64": "AAAAGGZ0eXBoZWljAAAAAG1pZjFoZWljAAABwm1ldGEAAAAAAAAAIWhkbHIAAAAAAAAAAHBpY3QAAAAAAAAAAAAAAAAAAAAADnBpdG0AAAAAAAEAAACcaWluZgAAAAAABAAAABVpbmZlAgAAAAABAABodmMxAAAAABVpbmZlAgAAAAACAABFeGlmAAAAAChpbmZlAgAAAAADAABtaW1lYXBwbGljYXRpb24vcmRmK3htbAAAAAA8aW5mZQIAAAAABAAAaHZjMXVybjpjb206YXBwbGU6cGhvdG86MjAyMDphdXg6aGRyZ2Fpbm1hcAAAAABQaWxvYwEAAABEAAAEAAEAAAAAAAEAAAHiAAAVNAACAAAAAAABAAAXFgAAAHoAAwAAAAAAAQAAF5AAAABHAAQAAAAAAAEAABfXAAAAoAAAABppcmVmAAAAAAAAAA5hdXhsAAQAAQABAAAAgWlwcnAAAABeaXBjbwAAABBwYXNwAAAAAQAAAAEAAAAUaXNwZQAAAAAAAAfgAAAF6AAAAB5odmNDAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABRpc3BlAAAAAAAAD8AAAAvQAAAAG2lwbWEAAAAAAAAAAgABAwEEgwAEAoMCAAAWnW1kYXT/2P/gABBKRklGAAEBAAABAAEAAP/bAEMACQYHCAcGCQgHCAoKCQsNFg8NDAwNGxQVEBYgHSIiIB0fHyQoNCwkJjEnHx8tPS0xNTc6OjojKz9EPzhDNDk6N//bAEMBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAeACgAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AOFooor1jzQooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/ZAAAABkV4aWYAAElJKgAIAAAAAwAPAQIABgAAADIAAAAQAQIADgAAADgAAABphwQAAQAAAEYAAAAAAAAAQXBwbGUAaVBob25lIDE1IFBybwADACeIAwABAAAAUAAAAAKgBAABAAAAgB8AAAOgBAABAAAAoBcAAAAAAAA8P3hwYWNrZXQgYmVnaW49Iu+7vyI/Pjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iPjwveDp4bXBtZXRhPgARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjMAESIzABEiMwARIjM=",
+      "dossier": {
+        "file_analysis": {
+          "filename": "IMG_4093.HEIC",
+          "mime_type": "image/heic",
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".heic",
+          "file_size_bytes": 6263,
+          "format_family": "HEIF/ISOBMFF (boîtes)",
+          "conteneur": "HEIC",
+          "sha256": "a232f5cdf2d18f5f32fb4deadbc76aebde089f1aa8e2d5e570ae3d0141cc9bcb"
+        },
+        "device_identification": {
+          "make": "Apple",
+          "model": "iPhone 15 Pro",
+          "hardware_type": null,
+          "hardware_type_regle": null,
+          "hardware_type_statut": "indéterminé",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "tags EXIF standard (Make, Model) — conteneur HEIC",
+          "maker_notes": null,
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": 80,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": [
+            4032,
+            3024
+          ],
+          "dimensions_declarees_exif": [
+            8064,
+            6048
+          ]
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 1,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": null,
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": [
+              4032,
+              3024
+            ],
+            "declaree_exif": [
+              8064,
+              6048
+            ],
+            "dimensions_coherentes": false,
+            "motif_ecart": "Les octets portent 4032 × 3024, l'EXIF déclare 8064 × 6048. L'écart ÉTABLIT que le fichier a été redimensionné ou recadré sans que la métadonnée suive : les deux grandeurs sont écrites à des moments différents, par des outils différents. Ce qu'il n'établit pas, c'est lequel des deux est le bon, ni qui a fait la modification.",
+            "rapport": [
+              4,
+              3
+            ],
+            "rapport_decimal": 1.3333333333333333,
+            "orientation": "paysage",
+            "megapixels": 12.192768,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": null,
+            "alignement_jpeg": 16,
             "motif_alignement": null
           },
           "png_crc_corrompus": [],
@@ -1995,17 +2132,17 @@
     {
       "nom": "cr3",
       "nom_fichier": "IMG_0001.CR3",
-      "octets_b64": "AAAAGGZ0eXBjcnggAAAAAGNyeCBpc29tAAAIEW1vb3YAAAgJdXVpZIXAtoeCDxHggRH0zkYrakgAAABlQ01UMUlJKgAIAAAAAwAPAQIABgAAADIAAAAQAQIABwAAADgAAABphwQAAQAAAD8AAAAAAAAAQ2Fub24ARU9TIFI1AAIAJ4gDAAEAAACQAQAAAqAEAAEAAACAHwAAAAAAAAAAACpDTVQzABxNQUtFUk5PVEUtQ0FOT04tT1BBUVVFAAAAAAAAAAAAAAAAACZDTkNWQ2Fub25DUjNfMDAxLzAwLjA5LjAwLzAwLjAwLjAwAAAHPFBSVlcAAAAAAAAAAAAAAAAAAAAA/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5Ojf/2wBDAQoKCg0MDRoPDxo3JR8lNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzf/wAARCADwAUADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDhaKKK9Y80KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2QAAAEhtZGF0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+      "octets_b64": "AAAAGGZ0eXBjcnggAAAAAGNyeCBpc29tAAAIHW1vb3YAAAgVdXVpZIXAtoeCDxHggRH0zkYrakgAAABxQ01UMUlJKgAIAAAAAwAPAQIABgAAADIAAAAQAQIABwAAADgAAABphwQAAQAAAD8AAAAAAAAAQ2Fub24ARU9TIFI1AAMAJ4gDAAEAAACQAQAAAqAEAAEAAACAHwAAA6AEAAEAAACgFwAAAAAAAAAAACpDTVQzABxNQUtFUk5PVEUtQ0FOT04tT1BBUVVFAAAAAAAAAAAAAAAAACZDTkNWQ2Fub25DUjNfMDAxLzAwLjA5LjAwLzAwLjAwLjAwAAAHPFBSVlcAAAAAAAAAAAAAAAAAAAAA/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5Ojf/2wBDAQoKCg0MDRoPDxo3JR8lNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzf/wAARCADwAUADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDhaKKK9Y80KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2QAAAEhtZGF0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
       "dossier": {
         "file_analysis": {
           "filename": "IMG_0001.CR3",
           "mime_type": "image/x-canon-cr3",
           "mime_source": "octets du fichier, jamais l’extension",
           "extension_declaree": ".cr3",
-          "file_size_bytes": 2161,
+          "file_size_bytes": 2173,
           "format_family": "CR3/ISOBMFF (boîtes)",
           "conteneur": "CR3",
-          "sha256": "cd639d520ecd821e4d5600c29a57f0133bd0a8824d51bbfdde2bf80bec8032d2"
+          "sha256": "3fd9c4935efaa0c5daa68ccf40fbb3ccdbc32fa86c4b3d76969b7a7f71e5247d"
         },
         "device_identification": {
           "make": "Canon",
@@ -2049,7 +2186,10 @@
           "shutter_count": null,
           "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
           "dimensions": null,
-          "dimensions_declarees_exif": null
+          "dimensions_declarees_exif": [
+            8064,
+            6048
+          ]
         },
         "telemetry_and_location": {
           "gps": null,
@@ -2084,7 +2224,10 @@
           "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
           "resolution": {
             "mesuree": null,
-            "declaree_exif": null,
+            "declaree_exif": [
+              8064,
+              6048
+            ],
             "dimensions_coherentes": null,
             "motif_ecart": null,
             "rapport": null,
@@ -2093,7 +2236,7 @@
             "megapixels": null,
             "denomination": null,
             "motif_denomination": null,
-            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF ou un AVIF les déclare dans une boîte `ispe`, associée à l'image principale par une boîte `ipma` : ce paquet lit les deux, et ce fichier n'en porte pas, ou n'associe aucune `ispe` à son item principal. Un CR3 n'en porte jamais — Canon range les dimensions dans ses MakerNotes, que ce paquet rend bruts sans les décoder. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
             "alignement_jpeg": null,
             "motif_alignement": null
           },
@@ -2212,7 +2355,7 @@
             "megapixels": null,
             "denomination": null,
             "motif_denomination": null,
-            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF ou un AVIF les déclare dans une boîte `ispe`, associée à l'image principale par une boîte `ipma` : ce paquet lit les deux, et ce fichier n'en porte pas, ou n'associe aucune `ispe` à son item principal. Un CR3 n'en porte jamais — Canon range les dimensions dans ses MakerNotes, que ce paquet rend bruts sans les décoder. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
             "alignement_jpeg": null,
             "motif_alignement": null
           },
@@ -2447,7 +2590,7 @@
             "megapixels": null,
             "denomination": null,
             "motif_denomination": null,
-            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF ou un AVIF les déclare dans une boîte `ispe`, associée à l'image principale par une boîte `ipma` : ce paquet lit les deux, et ce fichier n'en porte pas, ou n'associe aucune `ispe` à son item principal. Un CR3 n'en porte jamais — Canon range les dimensions dans ses MakerNotes, que ce paquet rend bruts sans les décoder. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
             "alignement_jpeg": null,
             "motif_alignement": null
           },

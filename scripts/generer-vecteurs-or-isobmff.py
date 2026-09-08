@@ -65,6 +65,17 @@ CAS = [
     ("heic à décalage EXIF menteur", heic(decalage_exif=10)),
     ("heic à largeurs iloc dissymétriques", heic(largeur_offset=8)),
     ("heic suivi d'une boîte aberrante", heic(boite_aberrante=True)),
+    # Les quatre suivants isolent la lecture d'`ispe` et son association par
+    # `ipma`. Sans eux, un port qui ignorerait le drapeau d'indices 16 bits,
+    # oublierait de masquer le bit `essential`, ou approcherait l'association
+    # par « la plus grande `ispe` » rendrait les mêmes dimensions partout.
+    ("heic à indices ipma sur seize bits", heic(indices_ipma_16=True)),
+    ("heic à bit essential sur toutes les associations", heic(essentiel_partout=True)),
+    ("heic aux ispe inversées",
+     heic(ispe_principale=(2016, 1512), ispe_auxiliaire=(8064, 6048))),
+    ("heic sans ispe", heic(avec_ispe=False)),
+    ("heic à ispe de dimension nulle", heic(ispe_principale=(0, 6048))),
+    ("heic à propriété imbriquée", heic(propriete_imbriquee=True)),
 ]
 
 
@@ -78,6 +89,9 @@ def structure_en_dict(donnees):
         "est_cr3": s.est_cr3,
         "item_principal": s.item_principal,
         "version_codec": s.version_codec,
+        # Les dimensions de l'item principal, lues dans `ispe` via `ipma`.
+        "largeur": s.largeur,
+        "hauteur": s.hauteur,
         # Les octets ne passent pas en JSON, et les recopier gonflerait le
         # fichier sans rien vérifier de plus : c'est l'EMPREINTE qui atteste
         # que les deux implémentations ont extrait exactement les mêmes octets.
@@ -94,7 +108,8 @@ def structure_en_dict(donnees):
             {"identifiant": i.identifiant, "type": i.type, "nom": i.nom,
              "offset": i.offset, "longueur": i.longueur,
              "type_auxiliaire": i.type_auxiliaire,
-             "reference_vers": list(i.reference_vers)}
+             "reference_vers": list(i.reference_vers),
+             "largeur": i.largeur, "hauteur": i.hauteur}
             for i in s.items
         ],
         "auxiliaires": [i.identifiant for i in s.auxiliaires],
@@ -232,7 +247,46 @@ def controle(v):
         "la boîte aberrante a été suivie, ou a emporté le reste"
     )
 
-    print("  7 contrôles passés avant écriture.")
+    # 8. Les dimensions viennent de l'association `ipma`, pas d'une heuristique.
+    #    L'`ispe` de l'image principale est la DERNIÈRE d'`ipco` et n'est pas
+    #    toujours la plus grande : si l'un de ces deux traits disparaissait du
+    #    fixture, « la première » ou « la plus grande » redeviendraient justes
+    #    et ces vecteurs cesseraient de discriminer sans qu'on le voie.
+    assert sain["largeur"] == 8064 and sain["hauteur"] == 6048
+    aux_dim = [(i["largeur"], i["hauteur"]) for i in sain["items"]
+               if i["identifiant"] == 4][0]
+    assert aux_dim == (2016, 1512), (
+        "l'auxiliaire n'a plus de dimensions propres : emprunter celles de "
+        "l'image principale redeviendrait indétectable"
+    )
+    inversees = par_nom["heic aux ispe inversées"]["structure"]
+    assert (inversees["largeur"], inversees["hauteur"]) == (2016, 1512), (
+        "le cas aux ispe inversées ne prend plus « la plus grande » en défaut"
+    )
+    for nom in ("heic à indices ipma sur seize bits",
+                "heic à bit essential sur toutes les associations"):
+        s16 = par_nom[nom]["structure"]
+        assert (s16["largeur"], s16["hauteur"]) == (8064, 6048), nom
+    sans = par_nom["heic sans ispe"]["structure"]
+    assert sans["largeur"] is None and sans["hauteur"] is None
+    # Sans `ispe`, le reste doit rester lisible : une absence ne fait pas tomber
+    # la lecture, elle la borne.
+    assert sans["bloc_exif_sha256"] == sain["bloc_exif_sha256"]
+    # Une dimension nulle est refusée, et le refus ne contamine pas l'auxiliaire.
+    nulle = par_nom["heic à ispe de dimension nulle"]["structure"]
+    assert nulle["largeur"] is None and nulle["hauteur"] is None
+    assert [i["largeur"] for i in nulle["items"] if i["identifiant"] == 4] == [2016]
+    # La propriété imbriquée cache une `ispe` un niveau plus bas : elle ne doit
+    # décaler aucun indice, et ses dimensions ne doivent atterrir sur aucun item.
+    imbr = par_nom["heic à propriété imbriquée"]["structure"]
+    assert any(b["type"] == "ispe" and b["profondeur"] == 4 for b in imbr["boites"]), (
+        "le leurre n'est plus imbriqué : le cas ne distingue plus les enfants "
+        "directs des descendants"
+    )
+    assert (imbr["largeur"], imbr["hauteur"]) == (8064, 6048)
+    assert all((i["largeur"], i["hauteur"]) != (111, 222) for i in imbr["items"])
+
+    print("  8 contrôles passés avant écriture.")
 
 
 if __name__ == "__main__":

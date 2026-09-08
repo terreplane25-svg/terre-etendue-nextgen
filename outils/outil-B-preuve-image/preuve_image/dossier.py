@@ -134,12 +134,14 @@ MOTIF_ECRAN_NON_EVALUE = MOTIF_AUCUN_ECRAN
 #: Pourquoi certaines familles n'ont pas de dimensions MESURÉES.
 MOTIF_MESURE_INDISPONIBLE = (
     "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. "
-    "Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce "
-    "paquet ne lit pas encore, et l'association de cette boîte à l'image "
-    "principale passe par une boîte `ipma` qu'il ne lit pas non plus. La "
-    "cohérence mesure/déclaration reste donc invérifiable ici — et rendre la "
-    "déclaration EXIF à la place recréerait exactement le défaut que cette "
-    "confrontation existe pour attraper."
+    "Un HEIF ou un AVIF les déclare dans une boîte `ispe`, associée à l'image "
+    "principale par une boîte `ipma` : ce paquet lit les deux, et ce fichier "
+    "n'en porte pas, ou n'associe aucune `ispe` à son item principal. Un CR3 "
+    "n'en porte jamais — Canon range les dimensions dans ses MakerNotes, que "
+    "ce paquet rend bruts sans les décoder. La cohérence mesure/déclaration "
+    "reste donc invérifiable ici — et rendre la déclaration EXIF à la place "
+    "recréerait exactement le défaut que cette confrontation existe pour "
+    "attraper."
 )
 
 
@@ -350,10 +352,14 @@ def constituer_dossier(donnees: bytes, nom_fichier: Optional[str] = None) -> Dos
         sof = dimensions_jpeg(donnees)
         if sof is not None:
             mesurees = sof
+    elif structure is not None and structure.largeur:
+        # La boîte `ispe` de l'item PRINCIPAL, résolue par `ipma`. C'est la
+        # seule mesure qu'un HEIF ou un AVIF porte hors de l'EXIF ; sans elle,
+        # toute cette famille échappait à la confrontation. Un CR3 n'en a pas
+        # et retombe sur le motif d'indisponibilité, ce qui est exact.
+        mesurees = (structure.largeur, structure.hauteur)
     elif inventaire is not None and inventaire.largeur:
         mesurees = (inventaire.largeur, inventaire.hauteur)
-    # Pas de branche ISOBMFF : la boîte `ispe` n'est pas lue, et deviner
-    # depuis l'EXIF recréerait le défaut que cette confrontation attrape.
     resolution = analyser_resolution(
         mesurees[0], mesurees[1],
         exif.largeur_px if exif else None,

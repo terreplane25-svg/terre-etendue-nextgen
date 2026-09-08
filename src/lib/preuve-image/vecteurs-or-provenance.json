@@ -1,5 +1,5 @@
 {
- "genere_le": "2026-09-07T12:29:55.089120+00:00",
+ "genere_le": "2026-09-08T22:53:35.280025+00:00",
  "source": "outils/outil-B-preuve-image (paquet Python preuve_image)",
  "avertissement": "Fichier produit par scripts/generer-vecteurs-or-provenance.py. Ne pas éditer à la main : il n'aurait plus de valeur d'épinglage. Corriger le Python, puis régénérer.",
  "avertissement_c2pa": "Aucune signature n'est vérifiée. Ce qui suit est ce que le fichier déclare, pas ce qui est établi : un manifeste C2PA peut être authentique, désolidarisé du contenu, ou entièrement fabriqué — cette lecture ne les distingue pas. L'absence de manifeste n'est pas davantage un indice : presque aucun appareil n'en écrit, et la plupart des retouches effacent ceux qui existaient.",

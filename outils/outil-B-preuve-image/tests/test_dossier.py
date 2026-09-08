@@ -566,17 +566,48 @@ def test_un_png_donne_ses_dimensions_mesurees_et_son_rapport():
     assert r["dimensions_coherentes"] is None
 
 
-def test_un_heic_dit_pourquoi_la_mesure_manque():
-    """La boîte `ispe` n'est pas lue : le dire, et ne pas combler avec l'EXIF.
+def test_un_heic_est_mesure_par_sa_boite_ispe():
+    """La famille ISOBMFF échappait entière à la confrontation. Plus maintenant.
 
-    Rendre la déclaration à la place recréerait le défaut que cette
-    confrontation existe pour attraper.
+    Un HEIF déclare ses dimensions dans une boîte `ispe`, associée à l'image
+    principale par `ipma`. C'est la seule mesure qu'il porte hors de l'EXIF :
+    sans elle, `mesuree` restait nul et la cohérence inévaluable pour la
+    majorité des photographies prises au téléphone.
     """
     d = constituer_dossier(heic(), "x.heic")
     r = d.deep_fingerprint["resolution"]
+    assert r["mesuree"] == [8064, 6048]
+    assert r["rapport"] == [4, 3]
+    assert r["dimensions_coherentes"] is True
+    assert r["motif_mesure_indisponible"] is None
+
+
+def test_un_heic_redimensionne_sans_que_l_exif_suive_est_attrape():
+    """Le signal que toute cette lecture existe pour produire.
+
+    Les octets d'`ispe` disent 4032 × 3024, l'EXIF déclare encore 8064 × 6048 :
+    le fichier a été redimensionné et la métadonnée est restée. Avant la
+    lecture d'`ispe`, cet écart était invisible sur un HEIF.
+    """
+    d = constituer_dossier(heic(ispe_principale=(4032, 3024)), "x.heic")
+    r = d.deep_fingerprint["resolution"]
+    assert r["mesuree"] == [4032, 3024]
+    assert r["declaree_exif"] == [8064, 6048]
+    assert r["dimensions_coherentes"] is False
+    assert "ÉTABLIT" in r["motif_ecart"]
+
+
+def test_un_cr3_dit_pourquoi_la_mesure_manque():
+    """Canon ne range pas ses dimensions dans une `ispe`. Le dire, et s'arrêter.
+
+    Combler avec la déclaration EXIF recréerait exactement le défaut que cette
+    confrontation existe pour attraper.
+    """
+    d = constituer_dossier(cr3(), "x.cr3")
+    r = d.deep_fingerprint["resolution"]
     assert r["mesuree"] is None
     assert r["dimensions_coherentes"] is None
-    assert "ispe" in r["motif_mesure_indisponible"]
+    assert "MakerNotes" in r["motif_mesure_indisponible"]
     assert "recréerait" in r["motif_mesure_indisponible"]
 
 

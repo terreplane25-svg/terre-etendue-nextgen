@@ -18,6 +18,16 @@ export interface LabTool {
    * champs avant d'avoir rien observé.
    */
   discret?: boolean;
+  /**
+   * Retiré de l'affichage, code conservé.
+   *
+   * Un outil trop exigeant pour le visiteur ne rend pas service en étant
+   * visible : il donne l'impression que le Lab demande une compétence
+   * préalable. Le composant, ses tests et son port restent en place — c'est
+   * un retrait d'affichage, pas une suppression, et le rétablir tient à ce
+   * seul drapeau.
+   */
+  masque?: boolean;
 }
 
 export const TOOLS: LabTool[] = [
@@ -51,6 +61,10 @@ export const TOOLS: LabTool[] = [
   },
   {
     id: 'metrologie-image',
+    // Retiré de l'affichage : trois pointés à placer sur une photo et quatre
+    // grandeurs à sourcer avant d'obtenir quoi que ce soit. C'est un outil
+    // d'analyste, pas de visiteur.
+    masque: true,
     label: 'Analyse d’image par métrologie optique',
     desc: "Trois pointés sur une photo de visée, quatre grandeurs sourcées, et l’angle relevé est inversé en coefficient de réfraction effectif. L’image ne quitte pas votre machine.",
     icon: '🔭',
@@ -83,7 +97,7 @@ export const TOOLS: LabTool[] = [
  * un trou dans la suite ferait chercher un outil qui n'a pas disparu, il est
  * seulement ailleurs.
  */
-export const OUTILS_GRILLE: LabTool[] = TOOLS.filter((t) => !t.discret);
+export const OUTILS_GRILLE: LabTool[] = TOOLS.filter((t) => !t.discret && !t.masque);
 
 /** Ceux qu'on atteint par un lien, pas par une carte. */
-export const OUTILS_DISCRETS: LabTool[] = TOOLS.filter((t) => t.discret);
+export const OUTILS_DISCRETS: LabTool[] = TOOLS.filter((t) => t.discret && !t.masque);

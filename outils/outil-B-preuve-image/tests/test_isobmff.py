@@ -52,8 +52,14 @@ def vignette(largeur: int, hauteur: int) -> bytes:
     return t.getvalue()
 
 
-def tiff_exif(make="Apple", modele="iPhone 15 Pro", iso=80) -> bytes:
-    """Un bloc TIFF minimal mais complet, avec un sous-IFD Exif atteignable."""
+def tiff_exif(make="Apple", modele="iPhone 15 Pro", iso=80,
+              pixel_x=8064, pixel_y=6048) -> bytes:
+    """Un bloc TIFF minimal mais complet, avec un sous-IFD Exif atteignable.
+
+    Les deux dimensions DÉCLARÉES sont écrites, pas seulement la largeur :
+    la confrontation avec la mesure demande les deux, et un fixture qui n'en
+    donnait qu'une la rendait inévaluable — donc jamais éprouvée.
+    """
     def entree(tag, type_, count, valeur):
         return struct.pack("<HHI", tag, type_, count) + valeur.ljust(4, b"\x00")[:4]
 
@@ -71,9 +77,10 @@ def tiff_exif(make="Apple", modele="iPhone 15 Pro", iso=80) -> bytes:
         entree(0x8769, 4, 1, struct.pack("<I", off_exif)),
     ]) + struct.pack("<I", 0)
 
-    exif = struct.pack("<H", 2) + b"".join([
+    exif = struct.pack("<H", 3) + b"".join([
         entree(0x8827, 3, 1, struct.pack("<HH", iso, 0)),
-        entree(0xA002, 4, 1, struct.pack("<I", 8064)),
+        entree(0xA002, 4, 1, struct.pack("<I", pixel_x)),
+        entree(0xA003, 4, 1, struct.pack("<I", pixel_y)),
     ]) + struct.pack("<I", 0)
 
     return b"II" + struct.pack("<HI", 42, 8) + ifd0 + m + mo + exif
@@ -82,8 +89,10 @@ def tiff_exif(make="Apple", modele="iPhone 15 Pro", iso=80) -> bytes:
 def heic(avec_auxiliaire=True, avec_xmp=True, marque=b"heic", methode=0,
          nom_auxiliaire=b"urn:com:apple:photo:2020:aux:hdrgainmap\x00",
          second_apercu=False, decalage_exif=6, largeur_offset=4,
-         boite_aberrante=False) -> bytes:
-    """Un HEIF minimal : ftyp + meta(iinf, iloc, pitm, iref) + mdat.
+         boite_aberrante=False, avec_ispe=True, indices_ipma_16=False,
+         essentiel_partout=False, ispe_principale=(8064, 6048),
+         ispe_auxiliaire=(2016, 1512), propriete_imbriquee=False) -> bytes:
+    """Un HEIF minimal : ftyp + meta(iinf, iloc, pitm, iref, iprp) + mdat.
 
     Les offsets d'`iloc` sont ABSOLUS dans le fichier, donc calculés après coup
     en deux temps : on assemble d'abord pour connaître la taille de `meta`,
@@ -133,6 +142,58 @@ def heic(avec_auxiliaire=True, avec_xmp=True, marque=b"heic", methode=0,
             corps += off.to_bytes(largeur_offset, "big") + struct.pack(">I", len(charge))
         return pleine(b"iloc", 1, 0, corps)
 
+    # ── Les propriétés d'image : `ipco` les range, `ipma` les associe ────────
+    #
+    # L'`ispe` de l'image principale est la DERNIÈRE propriété d'`ipco`, et
+    # celle de l'auxiliaire la précède. Sans cette inversion, « la première
+    # `ispe` du fichier » donnerait la bonne réponse et l'heuristique
+    # passerait tous les contrôles au lieu d'être prise en défaut.
+    def bloc_iprp():
+        ispe_p = pleine(b"ispe", 0, 0, struct.pack(">II", *ispe_principale))
+        ispe_a = pleine(b"ispe", 0, 0, struct.pack(">II", *ispe_auxiliaire))
+        pasp = boite(b"pasp", struct.pack(">II", 1, 1))
+        hvcc = boite(b"hvcC", b"\x01" + b"\x00" * 21)
+        proprietes = [("pasp", pasp), ("ispe_aux", ispe_a),
+                      ("hvcC", hvcc), ("ispe_principale", ispe_p)]
+        if propriete_imbriquee:
+            # Une propriété qui est elle-même un CONTENEUR, et qui cache une
+            # `ispe` un niveau plus bas. Les indices d'`ipma` comptent les
+            # enfants DIRECTS d'`ipco` : un lecteur qui prendrait tous les
+            # descendants verrait cette `ispe` cachée s'intercaler et décalerait
+            # tout le reste. Placée en tête, elle rend ce décalage observable —
+            # en queue, il ne changerait aucun indice.
+            proprietes.insert(0, ("leurre", boite(
+                b"moov", pleine(b"ispe", 0, 0, struct.pack(">II", 111, 222)))))
+        # Les indices sont DÉRIVÉS de l'ordre réel, jamais écrits en dur : un
+        # fixture qui gagne une propriété renuméroterait tout silencieusement.
+        indice = {nom: i + 1 for i, (nom, _) in enumerate(proprietes)}
+        ipco = boite(b"ipco", b"".join(o for _, o in proprietes))
+
+        largeur_index = 2 if indices_ipma_16 else 1
+        # Le bit `essential` occupe le bit de poids fort du champ d'indice. Le
+        # spécifier sur hvcC est conforme ; `essentiel_partout` le met aussi
+        # sur les `ispe` — non conforme, mais c'est la SEULE configuration où
+        # un masque oublié se voit, et un lecteur doit masquer partout.
+        bit = 0x8000 if largeur_index == 2 else 0x80
+
+        def assoc(indice, essentiel):
+            v = indice | (bit if (essentiel or essentiel_partout) else 0)
+            return v.to_bytes(largeur_index, "big")
+
+        entrees = [(1, [(indice["pasp"], False),
+                        (indice["ispe_principale"], False),
+                        (indice["hvcC"], True)])]
+        if avec_auxiliaire:
+            entrees.append((4, [(indice["hvcC"], True), (indice["ispe_aux"], False)]))
+        corps = struct.pack(">I", len(entrees))
+        for ident, liste in entrees:
+            corps += struct.pack(">HB", ident, len(liste))
+            corps += b"".join(assoc(i, e) for i, e in liste)
+        ipma = pleine(b"ipma", 0, 1 if indices_ipma_16 else 0, corps)
+        return boite(b"iprp", ipco + ipma)
+
+    iprp = bloc_iprp() if avec_ispe else b""
+
     pitm = pleine(b"pitm", 0, 0, struct.pack(">H", 1))
     # L'item auxiliaire renvoie vers l'image principale.
     iref = pleine(b"iref", 0, 0, boite(b"auxl", struct.pack(">HHH", 4, 1, 1))) if avec_auxiliaire else b""
@@ -145,7 +206,7 @@ def heic(avec_auxiliaire=True, avec_xmp=True, marque=b"heic", methode=0,
     # suffisent, et l'assertion finale le vérifie plutôt que de le supposer.
     offsets = [0] * len(items)
     for _ in range(4):
-        meta = pleine(b"meta", 0, 0, hdlr + pitm + iinf + bloc_iloc(offsets) + iref)
+        meta = pleine(b"meta", 0, 0, hdlr + pitm + iinf + bloc_iloc(offsets) + iref + iprp)
         debut_mdat = len(ftyp) + len(meta) + 8
         courant = debut_mdat
         nouveaux = []
@@ -155,7 +216,7 @@ def heic(avec_auxiliaire=True, avec_xmp=True, marque=b"heic", methode=0,
         if nouveaux == offsets:
             break
         offsets = nouveaux
-    meta = pleine(b"meta", 0, 0, hdlr + pitm + iinf + bloc_iloc(offsets) + iref)
+    meta = pleine(b"meta", 0, 0, hdlr + pitm + iinf + bloc_iloc(offsets) + iref + iprp)
     mdat = boite(b"mdat", b"".join(c for _, _, _, c in items))
     fichier = ftyp + meta + mdat
 
@@ -280,6 +341,113 @@ def test_l_exif_d_un_heif_arrive_intact_au_lecteur_exif(fichier_heic):
 
 def test_item_principal_designe(fichier_heic):
     assert analyser_isobmff(fichier_heic).item_principal == 1
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Les dimensions : `ispe` associée par `ipma`
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+def test_dimensions_de_l_item_principal_lues_dans_ispe(fichier_heic):
+    """La seule MESURE qu'un HEIF porte hors de l'EXIF.
+
+    Sans elle, la cohérence entre les octets et la déclaration EXIF reste
+    invérifiable pour toute la famille ISOBMFF — et c'est précisément l'écart
+    entre les deux qui établit qu'un fichier a été redimensionné sans que la
+    métadonnée suive.
+    """
+    s = analyser_isobmff(fichier_heic)
+    assert (s.largeur, s.hauteur) == (8064, 6048)
+
+
+def test_les_dimensions_ne_sont_ni_la_premiere_ispe_ni_la_plus_grande():
+    """L'association est RÉSOLUE, pas approchée.
+
+    Deux heuristiques suffiraient sur un fichier ordinaire : « la première
+    `ispe` » et « la plus grande ». Le fixture met la première en défaut par
+    construction — l'`ispe` de l'image principale est la DERNIÈRE d'`ipco`.
+    Ce cas met la seconde en défaut en INVERSANT les tailles : l'auxiliaire
+    devient la plus grande. Seule une résolution réelle de l'association rend
+    2016 × 1512 pour l'image principale.
+    """
+    s = analyser_isobmff(heic(ispe_principale=(2016, 1512), ispe_auxiliaire=(8064, 6048)))
+    assert (s.largeur, s.hauteur) == (2016, 1512)
+    aux = [i for i in s.items if i.identifiant == 4][0]
+    assert (aux.largeur, aux.hauteur) == (8064, 6048)
+
+
+def test_chaque_item_porte_ses_propres_dimensions(fichier_heic):
+    """La carte de gain HDR n'a pas la taille de la photographie.
+
+    Emprunter les dimensions d'un voisin donnerait la taille de la couche
+    auxiliaire pour celle de l'image, sans que rien ne le signale.
+    """
+    s = analyser_isobmff(fichier_heic)
+    par_id = {i.identifiant: (i.largeur, i.hauteur) for i in s.items}
+    assert par_id[1] == (8064, 6048)
+    assert par_id[4] == (2016, 1512)
+    # L'item EXIF n'est pas une image : `ipma` ne lui associe aucune `ispe`,
+    # et rien ne doit lui en inventer une.
+    assert par_id[2] == (None, None)
+
+
+def test_indices_ipma_sur_seize_bits():
+    """Le drapeau 0x1 d'`ipma` fait passer les indices de 8 à 16 bits.
+
+    Lire un octet là où il y en a deux décale tout le reste de la table : les
+    associations suivantes deviennent du bruit, sans qu'aucune erreur ne soit
+    levée.
+    """
+    s = analyser_isobmff(heic(indices_ipma_16=True))
+    assert (s.largeur, s.hauteur) == (8064, 6048)
+
+
+def test_le_bit_essential_est_masque_pas_interprete():
+    """Le bit de poids fort de chaque indice dit `essential`, pas un indice.
+
+    Ne pas le masquer ajoute 128 (ou 32 768) à l'indice, qui pointe alors hors
+    de la liste des propriétés : les dimensions disparaissent en silence, et
+    l'absence passe pour une propriété du fichier.
+    """
+    for large in (False, True):
+        s = analyser_isobmff(heic(essentiel_partout=True, indices_ipma_16=large))
+        assert (s.largeur, s.hauteur) == (8064, 6048), large
+
+
+def test_les_indices_comptent_les_enfants_directs_d_ipco():
+    """Une `ispe` cachée un niveau plus bas ne doit pas décaler la numérotation.
+
+    Les indices d'`ipma` désignent les enfants DIRECTS d'`ipco`. Un lecteur qui
+    compterait tous les descendants verrait la propriété cachée s'intercaler et
+    associerait à l'image principale les dimensions d'une autre — sans lever
+    d'erreur, et avec un résultat plausible.
+    """
+    s = analyser_isobmff(heic(propriete_imbriquee=True))
+    assert (s.largeur, s.hauteur) == (8064, 6048)
+    # Le leurre porte des dimensions qu'aucun item ne doit recevoir.
+    assert all((i.largeur, i.hauteur) != (111, 222) for i in s.items)
+
+
+def test_sans_ispe_les_dimensions_restent_nulles():
+    """Pas de repli, pas de devinette : None, et le reste continue d'être lu."""
+    s = analyser_isobmff(heic(avec_ispe=False))
+    assert s.largeur is None and s.hauteur is None
+    assert all(i.largeur is None for i in s.items)
+    assert s.bloc_exif is not None
+
+
+def test_un_cr3_n_a_pas_d_ispe(fichier_cr3):
+    """Canon ne range pas ses dimensions là. L'absence est rendue telle quelle."""
+    s = analyser_isobmff(fichier_cr3)
+    assert s.largeur is None and s.hauteur is None
+
+
+def test_une_ispe_de_dimension_nulle_est_refusee():
+    """Zéro ne décrit aucune image, et diviserait par zéro au rapport d'aspect."""
+    s = analyser_isobmff(heic(ispe_principale=(0, 6048)))
+    assert s.largeur is None and s.hauteur is None
+    # L'auxiliaire, lui, garde les siennes : un refus ne contamine pas le reste.
+    assert [i for i in s.items if i.identifiant == 4][0].largeur == 2016
 
 
 def test_xmp_releve(fichier_heic):

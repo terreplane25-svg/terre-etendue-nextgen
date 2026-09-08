@@ -93,6 +93,11 @@ CAS = [
     ("bmp", bmp(), "image.bmp"),
     ("svg", SVG, "schema.svg"),
     ("heic", heic(), "IMG_4092.HEIC"),
+    # L'`ispe` dit 4032 × 3024, l'EXIF déclare encore 8064 × 6048 : le fichier
+    # a été redimensionné et la métadonnée est restée. Sans ce cas, rien ne
+    # distinguerait un port qui confronte d'un port qui recopie.
+    ("heic redimensionné sans que l'exif suive",
+     heic(ispe_principale=(4032, 3024)), "IMG_4093.HEIC"),
     ("cr3", cr3(), "IMG_0001.CR3"),
     ("raw tiff", raw_tiff(), "IMG_0001.CR2"),
     # L'extension ment sur le contenu : l'écart doit être signalé.
@@ -221,9 +226,24 @@ def controle(v):
             == menteur["mesuree"]), "le relevé rend la déclaration à la place de la mesure"
     assert res["png complet"]["dimensions_coherentes"] is None, \
         "une absence de déclaration ne vaut pas incohérence"
-    # Et un HEIC dit pourquoi la mesure manque, au lieu de la combler.
-    assert res["heic"]["mesuree"] is None
-    assert "ispe" in res["heic"]["motif_mesure_indisponible"]
+    # Un HEIC est MESURÉ par sa boîte `ispe`, associée à l'item principal par
+    # `ipma`. Sans ce cas, la famille ISOBMFF entière — la majorité des
+    # photographies prises au téléphone — échapperait à la confrontation.
+    assert res["heic"]["mesuree"] == [8064, 6048], res["heic"]
+    assert res["heic"]["dimensions_coherentes"] is True
+    assert res["heic"]["motif_mesure_indisponible"] is None
+    assert (par_nom["heic"]["capture_settings"]["dimensions"]
+            == res["heic"]["mesuree"])
+    # Un HEIC redimensionné sans que l'EXIF suive : l'écart que cette lecture
+    # existe pour produire, et qui était invisible avant elle.
+    recadre = res["heic redimensionné sans que l'exif suive"]
+    assert recadre["mesuree"] == [4032, 3024]
+    assert recadre["declaree_exif"] == [8064, 6048]
+    assert recadre["dimensions_coherentes"] is False
+    assert "ÉTABLIT" in recadre["motif_ecart"]
+    # Un CR3, lui, n'a pas d'`ispe` : il dit pourquoi, au lieu de combler.
+    assert res["cr3"]["mesuree"] is None
+    assert "MakerNotes" in res["cr3"]["motif_mesure_indisponible"]
 
     # 10. Aucun écran n'est jamais rapproché, et le motif dit ce qui est rendu
     #     à la place.
