@@ -20,8 +20,6 @@ const ISLAMIC_SLUGS = [
 ];
 
 
-const PROTOCOLE = 'les-protocoles-ce-que-c-est-et-pourquoi';
-
 function fmtDate(d: string) {
   try { return new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }); }
   catch { return ''; }
@@ -37,9 +35,11 @@ function SectionTitle({ color, children }: { color: string; children: React.Reac
 }
 
 export default function HomeClient({ articles }: { articles: A[] }) {
-  // Le protocole a son propre bloc plus haut : l'afficher aussi dans « À la une »
-  // le montrerait deux fois sur le même écran.
-  const nonIslamic = articles.filter(a => !ISLAMIC_SLUGS.includes(a.slug) && a.slug !== PROTOCOLE);
+  // Le protocole était écarté d'ici parce qu'il avait son propre bandeau plus
+  // haut, et l'afficher deux fois sur le même écran n'aurait rien apporté. Ce
+  // bandeau ouvre maintenant le simulateur : sans cette réintégration,
+  // l'article disparaîtrait de la page d'accueil au lieu d'y descendre.
+  const nonIslamic = articles.filter(a => !ISLAMIC_SLUGS.includes(a.slug));
   const featured = nonIslamic.slice(0, 3);
   const latest = nonIslamic.slice(3, 15);
 
@@ -98,57 +98,64 @@ export default function HomeClient({ articles }: { articles: A[] }) {
         </div>
       </div>
 
-      {/* ═══ LE PROTOCOLE (pleine largeur, tonalité foncée) ═══ */}
-      <div id="protocole" style={{ background: '#0D1528', borderBottom: '1px solid #1a2540' }}>
+      {/* ═══ COMMENCER PAR LE SIMULATEUR (pleine largeur, tonalité foncée) ═══
+          Ce bandeau portait le protocole. Un document de 38 pages est ce qu'on
+          lit APRÈS avoir compris la question, pas ce qu'on rencontre en
+          arrivant : il ouvre maintenant l'outil qui rend la question tangible
+          en trois champs, et le protocole reste à un clic. */}
+      <div id="simulateur" style={{ background: '#0D1528', borderBottom: '1px solid #1a2540' }}>
         <div style={{ maxWidth: 1120, margin: '0 auto', padding: '96px 24px' }}>
           <div style={{
             display: 'inline-block', fontSize: 11.5, fontWeight: 700, letterSpacing: '0.16em',
-            textTransform: 'uppercase', color: '#C45E6A', marginBottom: 20,
+            textTransform: 'uppercase', color: '#4FD1A0', marginBottom: 20,
             fontFamily: "'JetBrains Mono', monospace",
-            border: '1px solid rgba(196,94,106,0.4)', padding: '6px 14px', borderRadius: 100,
+            border: '1px solid rgba(79,209,160,0.4)', padding: '6px 14px', borderRadius: 100,
           }}>
-            Protocole expérimental — version 1.0
+            Par où commencer — Simulateur de visée
           </div>
 
           <h2 style={{
             fontSize: 'clamp(1.75rem, 3.4vw, 2.6rem)', fontWeight: 800, color: '#F4F8FC',
             letterSpacing: '-0.025em', lineHeight: 1.15, margin: '0 0 22px', maxWidth: 860,
           }}>
-            Quelle part de l’objet devrait être visible, et quelle part l’est vraiment
+            Ce que vous devriez voir, avant d’aller le regarder
           </h2>
 
           <p style={{ fontSize: 17, color: '#a8b8cc', lineHeight: 1.7, maxWidth: 760, margin: '0 0 18px' }}>
             «&nbsp;Voit-on encore le bâtiment à cette distance&nbsp;?&nbsp;» appelle une réponse par oui
             ou par non, et une réponse par oui ou par non se laisse expliquer par la brume, l’objectif,
-            le contraste ou l’heure. La question devient mesurable si on la pose autrement&nbsp;:
-            <strong style={{ color: '#F4F8FC' }}> quelle fraction de la hauteur de la cible reste
-            visible</strong>, et que prédit chaque modèle géométrique pour cette même fraction&nbsp;?
+            le contraste ou l’heure. Le simulateur pose la question autrement&nbsp;: deux positions,
+            deux hauteurs, et&nbsp;
+            <strong style={{ color: '#F4F8FC' }}>quelle part de la cible chaque modèle prédit qu’on
+            devrait voir</strong> — le sphérique et le plat, côte à côte.
           </p>
           <p style={{ fontSize: 17, color: '#a8b8cc', lineHeight: 1.7, maxWidth: 760, margin: '0 0 34px' }}>
-            Le seuil à partir duquel un écart compte est déposé et daté avant que les images soient
-            vues. La conclusion doit tenir sur toute l’enveloppe d’incertitude. Et aucun verdict n’est
-            certifié par un seul analyste. La conclusion prend trois valeurs&nbsp;: compatible,
-            incompatible, indéterminé — et l’indéterminé n’est une preuve ni pour ni contre.
+            Ce qui compte n’est pas la valeur, c’est <strong style={{ color: '#F4F8FC' }}>l’écart entre
+            les deux</strong>. S’il est trop faible, aucune photographie ne les départagera, et le
+            simulateur le dit au lieu de laisser croire à une observation décisive. Le seuil est
+            explicite&nbsp;: la part masquée à la base doit dépasser 10&nbsp;% de la hauteur de la
+            cible. Au-delà, la visée est discriminante — et il reste à aller la photographier.
           </p>
           <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', alignItems: 'center' }}>
-            <Link href="/article/les-protocoles-ce-que-c-est-et-pourquoi" style={{
-              fontSize: 15.5, fontWeight: 700, color: '#0D1528', background: '#C45E6A',
-              padding: '15px 30px', borderRadius: 10, boxShadow: '0 6px 24px rgba(196,94,106,0.3)',
+            <Link href="/lab?sim=visee-optique" style={{
+              fontSize: 15.5, fontWeight: 700, color: '#0D1528', background: '#4FD1A0',
+              padding: '15px 30px', borderRadius: 10, boxShadow: '0 6px 24px rgba(79,209,160,0.3)',
             }}>
-              Comprendre le protocole
+              Ouvrir le simulateur
             </Link>
-            <a href="/protocoles/Protocole-visibilite-cible-eloignee.pdf" style={{
+            <Link href="/article/les-protocoles-ce-que-c-est-et-pourquoi" style={{
               fontSize: 15, fontWeight: 700, color: '#F4F8FC', background: 'rgba(255,255,255,0.06)',
               padding: '15px 26px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.22)',
             }}>
-              Télécharger le PDF · 38 pages
-            </a>
+              Comprendre le protocole
+            </Link>
           </div>
 
           <p style={{ fontSize: 13.5, color: '#6f829c', lineHeight: 1.65, marginTop: 26, maxWidth: 760 }}>
-            Version 1.0, 38 pages, français. Trente-cinq rubriques, de la géométrie aux critères de
-            décision, avec l’audit critique du protocole par lui-même et une bibliographie dont le
-            statut de vérification est déclaré entrée par entrée. Licence CC BY 4.0.
+            Géométrie seule&nbsp;: distance géodésique, altitudes, réfraction atmosphérique
+            (k&nbsp;=&nbsp;0,13 par défaut, ajustable). Aucun relief n’est modélisé — un obstacle
+            local relève de l’analyse de l’image réelle. Le simulateur <strong>prédit</strong>&nbsp;;
+            il ne mesure rien, et ne conclut sur aucun modèle.
           </p>
         </div>
       </div>
