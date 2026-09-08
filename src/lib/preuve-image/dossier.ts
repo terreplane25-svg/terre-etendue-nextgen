@@ -30,6 +30,11 @@
 
 import { inventorier, type InventaireConteneur } from './conteneurs';
 import { AnalyseMakerNote, analyserMakerNote } from './makernotes';
+import { dimensionsJpeg } from './document';
+import {
+  MOTIF_ALIGNEMENT, MOTIF_AUCUN_ECRAN, MOTIF_DENOMINATION,
+  analyserResolution,
+} from './resolution';
 import { analyserIsobmff, type StructureIsobmff } from './isobmff';
 import {
   type DonneesExif,
@@ -99,13 +104,20 @@ export const MOTIF_DECLENCHEMENTS_ABSENT =
   + "dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se "
   + 'tromper.';
 
-export const MOTIF_ECRAN_NON_EVALUE =
-  'Aucun rapprochement par la résolution : il n’existe pas de référentiel '
-  + 'vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire '
-  + 'produirait des correspondances fausses présentées comme des faits. Et le '
-  + 'signal serait faible même vérifié : une résolution de 1179 × 2556 '
-  + 'identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle '
-  + 'image recadrée à ces dimensions.';
+export // Le motif du rapprochement impossible vit dans `resolution.ts`, avec la
+// matière qu'il commente. Deux textes pour une seule règle divergeraient le
+// jour où l'un des deux serait retouché.
+const MOTIF_ECRAN_NON_EVALUE = MOTIF_AUCUN_ECRAN;
+
+/** Pourquoi certaines familles n'ont pas de dimensions MESURÉES. */
+const MOTIF_MESURE_INDISPONIBLE =
+  "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. "
+  + 'Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce '
+  + "paquet ne lit pas encore, et l'association de cette boîte à l'image "
+  + 'principale passe par une boîte `ipma` qu\'il ne lit pas non plus. La '
+  + 'cohérence mesure/déclaration reste donc invérifiable ici — et rendre la '
+  + 'déclaration EXIF à la place recréerait exactement le défaut que cette '
+  + "confrontation existe pour attraper.";
 
 /**
  * Une conclusion tirée, avec la règle qui l’a produite.
@@ -375,6 +387,25 @@ export async function constituerDossier(
     makernote = await analyserMakerNote(structure.makernotes);
   }
 
+  // ── Les dimensions : la mesure et la déclaration, confrontées ──────────
+  //
+  // Le relevé PRÉFÉRAIT la déclaration EXIF aux octets, ce qui masquait
+  // l'écart au lieu de le montrer : un fichier redimensionné sans que la
+  // métadonnée suive passait pour cohérent.
+  let mesurees: [number | null, number | null] = [null, null];
+  if (conteneur === 'JPEG') {
+    const sof = dimensionsJpeg(donnees);
+    if (sof !== null) mesurees = sof;
+  } else if (inventaire !== null && inventaire.largeur) {
+    mesurees = [inventaire.largeur, inventaire.hauteur];
+  }
+  // Pas de branche ISOBMFF : la boîte `ispe` n'est pas lue, et deviner depuis
+  // l'EXIF recréerait le défaut que cette confrontation attrape.
+  const resolution = analyserResolution(
+    mesurees[0], mesurees[1],
+    exif?.largeurPx ?? null, exif?.hauteurPx ?? null,
+  );
+
   const deduction = deduireTypeMateriel(exif, telemetrie, conteneur);
   const aUnNumero = Boolean(exif && (exif.numeroSerieBoitier || exif.numeroSerieObjectif));
   d.device_identification = {
@@ -436,9 +467,12 @@ export async function constituerDossier(
     // Le décompte des déclenchements n’est dans AUCUN tag standard.
     shutter_count: null,
     motif_shutter_count: MOTIF_DECLENCHEMENTS_ABSENT,
-    dimensions: exif && exif.largeurPx && exif.hauteurPx
-      ? [exif.largeurPx, exif.hauteurPx]
-      : (inventaire && inventaire.largeur ? [inventaire.largeur, inventaire.hauteur] : null),
+    // La MESURE d'abord, et la déclaration à côté. L'ordre inverse masquait
+    // l'écart entre les deux.
+    dimensions: resolution.largeurMesuree
+      ? [resolution.largeurMesuree, resolution.hauteurMesuree] : null,
+    dimensions_declarees_exif: resolution.largeurDeclaree
+      ? [resolution.largeurDeclaree, resolution.hauteurDeclaree] : null,
   };
 
   const gps = exif?.gps ?? null;
@@ -530,8 +564,28 @@ export async function constituerDossier(
     },
     jpeg_quantization_match: null,
     motif_quantization_match: MOTIF_AUCUNE_SIGNATURE,
-    screen_resolution_match: null,
-    motif_screen_resolution: MOTIF_ECRAN_NON_EVALUE,
+    // Le rapprochement par un référentiel d'écrans reste impossible — il n'y
+    // en a pas de vérifié ici. Ce qui est rendu à la place se vérifie.
+    screen_resolution_match: resolution.ecranRapproche,
+    motif_screen_resolution: resolution.motifAucunEcran,
+    resolution: {
+      mesuree: resolution.largeurMesuree
+        ? [resolution.largeurMesuree, resolution.hauteurMesuree] : null,
+      declaree_exif: resolution.largeurDeclaree
+        ? [resolution.largeurDeclaree, resolution.hauteurDeclaree] : null,
+      dimensions_coherentes: resolution.dimensionsCoherentes,
+      motif_ecart: resolution.motifEcart,
+      rapport: resolution.rapport ? [...resolution.rapport] : null,
+      rapport_decimal: resolution.rapportDecimal,
+      orientation: resolution.orientation,
+      megapixels: resolution.megapixels,
+      denomination: resolution.denomination,
+      motif_denomination: resolution.denomination ? MOTIF_DENOMINATION : null,
+      motif_mesure_indisponible: resolution.largeurMesuree
+        ? null : MOTIF_MESURE_INDISPONIBLE,
+      alignement_jpeg: resolution.alignementJpeg,
+      motif_alignement: conteneur === 'JPEG' ? MOTIF_ALIGNEMENT : null,
+    },
     png_crc_corrompus: inventaire ? inventaire.chunksCorrompus : [],
     motif_crc: inventaire !== null && inventaire.format === 'PNG'
       ? 'Un CRC faux ÉTABLIT que les octets ont changé depuis l’écriture du '

@@ -1,10 +1,10 @@
 {
-  "genere_le": "2026-09-07T23:38:58.778202+00:00",
+  "genere_le": "2026-09-08T22:24:50.528665+00:00",
   "source": "preuve_image.dossier (paquet Python)",
   "avertissement": "Fichier généré. Ne pas modifier à la main : il est la référence contre laquelle le port TypeScript est vérifié.",
   "motif_numero_serie": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
   "motif_declenchements": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
-  "motif_ecran": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+  "motif_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
   "cas": [
     {
       "nom": "jpeg ordinaire",
@@ -49,7 +49,11 @@
           "lens_specification": null,
           "shutter_count": null,
           "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
-          "dimensions": null
+          "dimensions": [
+            64,
+            48
+          ],
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -89,7 +93,28 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": [
+              64,
+              48
+            ],
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": [
+              4,
+              3
+            ],
+            "rapport_decimal": 1.3333333333333333,
+            "orientation": "paysage",
+            "megapixels": 0.003072,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": null,
+            "alignement_jpeg": 16,
+            "motif_alignement": "Un JPEG code par blocs de 8 × 8 pixels, groupés en unités de 8 ou 16 selon le sous-échantillonnage. Des dimensions non alignées sur cette unité signifient que le bord de l'image est un bloc partiel, ce qui arrive à tout recadrage. Le signal est faible dans les deux sens : la plupart des appareils produisent des dimensions alignées, et un alignement n'établit pas l'absence de recadrage."
+          },
           "png_crc_corrompus": [],
           "motif_crc": null,
           "apercus_embarques": []
@@ -146,7 +171,8 @@
           "lens_specification": null,
           "shutter_count": null,
           "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
-          "dimensions": null
+          "dimensions": null,
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -178,7 +204,22 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": null,
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": null,
+            "rapport_decimal": null,
+            "orientation": null,
+            "megapixels": null,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "alignement_jpeg": null,
+            "motif_alignement": "Un JPEG code par blocs de 8 × 8 pixels, groupés en unités de 8 ou 16 selon le sous-échantillonnage. Des dimensions non alignées sur cette unité signifient que le bord de l'image est un bloc partiel, ce qui arrive à tout recadrage. Le signal est faible dans les deux sens : la plupart des appareils produisent des dimensions alignées, et un alignement n'établit pas l'absence de recadrage."
+          },
           "png_crc_corrompus": [],
           "motif_crc": null,
           "apercus_embarques": []
@@ -235,7 +276,8 @@
           "lens_specification": null,
           "shutter_count": null,
           "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
-          "dimensions": null
+          "dimensions": null,
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -267,7 +309,22 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": null,
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": null,
+            "rapport_decimal": null,
+            "orientation": null,
+            "megapixels": null,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "alignement_jpeg": null,
+            "motif_alignement": "Un JPEG code par blocs de 8 × 8 pixels, groupés en unités de 8 ou 16 selon le sous-échantillonnage. Des dimensions non alignées sur cette unité signifient que le bord de l'image est un bloc partiel, ce qui arrive à tout recadrage. Le signal est faible dans les deux sens : la plupart des appareils produisent des dimensions alignées, et un alignement n'établit pas l'absence de recadrage."
+          },
           "png_crc_corrompus": [],
           "motif_crc": null,
           "apercus_embarques": []
@@ -324,7 +381,8 @@
           "lens_specification": null,
           "shutter_count": null,
           "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
-          "dimensions": null
+          "dimensions": null,
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -373,7 +431,22 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": null,
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": null,
+            "rapport_decimal": null,
+            "orientation": null,
+            "megapixels": null,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "alignement_jpeg": null,
+            "motif_alignement": "Un JPEG code par blocs de 8 × 8 pixels, groupés en unités de 8 ou 16 selon le sous-échantillonnage. Des dimensions non alignées sur cette unité signifient que le bord de l'image est un bloc partiel, ce qui arrive à tout recadrage. Le signal est faible dans les deux sens : la plupart des appareils produisent des dimensions alignées, et un alignement n'établit pas l'absence de recadrage."
+          },
           "png_crc_corrompus": [],
           "motif_crc": null,
           "apercus_embarques": []
@@ -433,6 +506,10 @@
           "dimensions": [
             1024,
             576
+          ],
+          "dimensions_declarees_exif": [
+            1024,
+            576
           ]
         },
         "telemetry_and_location": {
@@ -479,7 +556,31 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": [
+              1024,
+              576
+            ],
+            "declaree_exif": [
+              1024,
+              576
+            ],
+            "dimensions_coherentes": true,
+            "motif_ecart": null,
+            "rapport": [
+              16,
+              9
+            ],
+            "rapport_decimal": 1.7777777777777777,
+            "orientation": "paysage",
+            "megapixels": 0.589824,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": null,
+            "alignement_jpeg": 16,
+            "motif_alignement": "Un JPEG code par blocs de 8 × 8 pixels, groupés en unités de 8 ou 16 selon le sous-échantillonnage. Des dimensions non alignées sur cette unité signifient que le bord de l'image est un bloc partiel, ce qui arrive à tout recadrage. Le signal est faible dans les deux sens : la plupart des appareils produisent des dimensions alignées, et un alignement n'établit pas l'absence de recadrage."
+          },
           "png_crc_corrompus": [],
           "motif_crc": null,
           "apercus_embarques": []
@@ -575,7 +676,8 @@
           "lens_specification": null,
           "shutter_count": null,
           "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
-          "dimensions": null
+          "dimensions": null,
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -607,7 +709,22 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": null,
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": null,
+            "rapport_decimal": null,
+            "orientation": null,
+            "megapixels": null,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "alignement_jpeg": null,
+            "motif_alignement": "Un JPEG code par blocs de 8 × 8 pixels, groupés en unités de 8 ou 16 selon le sous-échantillonnage. Des dimensions non alignées sur cette unité signifient que le bord de l'image est un bloc partiel, ce qui arrive à tout recadrage. Le signal est faible dans les deux sens : la plupart des appareils produisent des dimensions alignées, et un alignement n'établit pas l'absence de recadrage."
+          },
           "png_crc_corrompus": [],
           "motif_crc": null,
           "apercus_embarques": []
@@ -728,7 +845,8 @@
           "lens_specification": null,
           "shutter_count": null,
           "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
-          "dimensions": null
+          "dimensions": null,
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -760,7 +878,22 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": null,
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": null,
+            "rapport_decimal": null,
+            "orientation": null,
+            "megapixels": null,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "alignement_jpeg": null,
+            "motif_alignement": "Un JPEG code par blocs de 8 × 8 pixels, groupés en unités de 8 ou 16 selon le sous-échantillonnage. Des dimensions non alignées sur cette unité signifient que le bord de l'image est un bloc partiel, ce qui arrive à tout recadrage. Le signal est faible dans les deux sens : la plupart des appareils produisent des dimensions alignées, et un alignement n'établit pas l'absence de recadrage."
+          },
           "png_crc_corrompus": [],
           "motif_crc": null,
           "apercus_embarques": []
@@ -881,7 +1014,8 @@
           "lens_specification": null,
           "shutter_count": null,
           "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
-          "dimensions": null
+          "dimensions": null,
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -913,7 +1047,22 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": null,
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": null,
+            "rapport_decimal": null,
+            "orientation": null,
+            "megapixels": null,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "alignement_jpeg": null,
+            "motif_alignement": "Un JPEG code par blocs de 8 × 8 pixels, groupés en unités de 8 ou 16 selon le sous-échantillonnage. Des dimensions non alignées sur cette unité signifient que le bord de l'image est un bloc partiel, ce qui arrive à tout recadrage. Le signal est faible dans les deux sens : la plupart des appareils produisent des dimensions alignées, et un alignement n'établit pas l'absence de recadrage."
+          },
           "png_crc_corrompus": [],
           "motif_crc": null,
           "apercus_embarques": []
@@ -924,6 +1073,129 @@
             "motif": "Aucune table de quantification (DQT) trouvée avant le début du balayage. Un JPEG en porte toujours : le fichier est tronqué, ou ce n'en est pas un."
           }
         ],
+        "avertissements": []
+      }
+    },
+    {
+      "nom": "jpeg aux dimensions mensongères",
+      "nom_fichier": "retaille.jpg",
+      "octets_b64": "/9j/4QBSRXhpZgAASUkqAAgAAAACAA8BAgAGAAAAJgAAAGmHBAABAAAALAAAAAAAAABDYW5vbgACAAKgBAABAAAAwA8AAAOgBAABAAAA0AsAAAAAAAD/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAwAEADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDzdExs+RVwuOO3TgcdP8BQiY2fIq4XHHbpwOOn+AoRMbPkVcLjjt04HHT/AAFCJjZ8irhccdunA46f4Cv6HjHbTt0/w/3f6/L8LnO/N73fr/j/AL77+e/W/viJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8AAUImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wFEY7adun+H+7/AF+ROd+b3u/X/H/fffz36398RMbPkVcLjjt04HHT/AUImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wFCJjZ8irhccdunA46f4CiMdtO3T/AA/3f6/InO/N73fr/j/vvv579b++ImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wFCJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8AAURjtp26f4f7v9fkTnfm97v1/wAf999/Pfrf3xExs+RVwuOO3TgcdP8AAUImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wFCJjZ8irhccdunA46f4CiMdtO3T/D/d/r8ic783vd+v8Aj/vvv579b++ImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wFCJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8BRGO2nbp/h/u/1+ROd+b3u/X/H/fffz36398RMbPkVcLjjt04HHT/AUImNnyKuFxx26cDjp/gKETGz5FXC447dOBx0/wABQiY2fIq4XHHbpwOOn+AojHbTt0/w/wB3+vyJzvze936/4/777+e/W/viJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8BQiY2fIq4XHHbpwOOn+AoRMbPkVcLjjt04HHT/AURjtp26f4f7v9fkTnfm97v1/x/wB99/Pfrf3xExs+RVwuOO3TgcdP8BQiY2fIq4XHHbpwOOn+AoRMbPkVcLjjt04HHT/AUImNnyKuFxx26cDjp/gKIx207dP8P93+vyJzvze936/4/wC++/nv1v74iY2fIq4XHHbpwOOn+AoRMbPkVcLjjt04HHT/AAFCJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8BRGO2nbp/h/u/wBfkTnfm97v1/x/33389+t/fETGz5FXC447dOBx0/wFCJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8BQiY2fIq4XHHbpwOOn+AojHbTt0/wAP93+vyJzvze936/4/777+e/W/viJjZ8irhccdunA46f4ChExs+RVwuOO3TgcdP8BQiY2fIq4XHHbpwOOn+AoRMbPkVcLjjt04HHT/AAFEY7adun+H+7/X5E535ve79f8AH/fffz3639//2Q==",
+      "dossier": {
+        "file_analysis": {
+          "filename": "retaille.jpg",
+          "mime_type": "image/jpeg",
+          "mime_source": "octets du fichier, jamais l’extension",
+          "extension_declaree": ".jpg",
+          "file_size_bytes": 1729,
+          "format_family": "JFIF/EXIF (segments APP)",
+          "conteneur": "JPEG",
+          "sha256": "56a682d99394efc2aa750e96869ac3e1e8d542e23973d8ba9f25e25dba607732"
+        },
+        "device_identification": {
+          "make": "Canon",
+          "model": null,
+          "hardware_type": null,
+          "hardware_type_regle": null,
+          "hardware_type_statut": "indéterminé",
+          "serial_number": null,
+          "lens_serial_number": null,
+          "lens_model": null,
+          "lens_make": null,
+          "owner_declared": null,
+          "detection_method": "tags EXIF standard (Make, Model) — conteneur JPEG",
+          "maker_notes": null,
+          "motif_serial_number": "Aucun numéro de série dans les tags EXIF standard (BodySerialNumber, LensSerialNumber). Beaucoup d’appareils n’en écrivent pas, et les téléphones n’en écrivent jamais dans ces champs-là. Certains boîtiers le rangent dans leurs MakerNotes propriétaires, que ce paquet ne décode pas.",
+          "ce_que_ca_n_etablit_pas": "Un numéro de série rattache le cliché à un appareil DÉCLARÉ, pas à un appareil établi : une métadonnée s’écrit et se modifie (§17.1). Il sert à confronter deux fichiers entre eux, pas à prouver une origine."
+        },
+        "capture_settings": {
+          "iso": null,
+          "focal_length_mm": null,
+          "focal_length_35mm": null,
+          "exposure_time": null,
+          "exposure_time_s": null,
+          "f_number": null,
+          "flash": null,
+          "flash_code": null,
+          "lens_specification": null,
+          "shutter_count": null,
+          "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
+          "dimensions": [
+            64,
+            48
+          ],
+          "dimensions_declarees_exif": [
+            4032,
+            3024
+          ]
+        },
+        "telemetry_and_location": {
+          "gps": null,
+          "drone_telemetry": null,
+          "ce_que_ca_n_etablit_pas": "Une position GPS est ce que le récepteur a DÉCLARÉ au moment de l’écriture. Elle ne prouve pas où le cliché a été pris : le champ s’écrit, et un récepteur dérive, se trompe ou perd sa constellation."
+        },
+        "provenance_and_software": {
+          "software": null,
+          "creation_date": null,
+          "creation_date_offset": null,
+          "modification_date": null,
+          "digitized_date": null,
+          "artist": null,
+          "copyright": null,
+          "c2pa_credentials": false,
+          "c2pa_verified": false,
+          "motif_c2pa_non_verifie": "Aucune signature n’est vérifiée : ni la validation COSE, ni la chaîne X.509, ni les empreintes de liaison au contenu. Un manifeste présent est un manifeste DÉCLARÉ.",
+          "xmp_history": [],
+          "xmp_packets": 0,
+          "motif_xmp_history": "Aucun historique XMP. Cela ne veut pas dire que le fichier n’a pas été retouché : un historique se retire, se tronque et se réécrit, et un logiciel qui ne respecte pas la convention n’y laisse rien.",
+          "iptc_records": 0
+        },
+        "deep_fingerprint": {
+          "icc_profile": null,
+          "icc_class": null,
+          "icc_version": null,
+          "motif_icc": "Aucun profil ICC intégré trouvé. Les JPEG rangent le leur dans un segment APP2 que ce relevé ne lit pas encore ; les PNG et les WebP sont couverts.",
+          "jpeg_quantization": {
+            "empreinte_tables": "9e79a5446d1defe88a99c30bf51869f245b59fc138363e554ade37bfbd921a23",
+            "qualite_ijg": 90,
+            "ecart_a_ijg": 0,
+            "conforme_ijg": true,
+            "sous_echantillonnage": "4:2:0",
+            "progressif": false,
+            "nombre_de_tables": 2
+          },
+          "jpeg_quantization_match": null,
+          "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
+          "screen_resolution_match": null,
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": [
+              64,
+              48
+            ],
+            "declaree_exif": [
+              4032,
+              3024
+            ],
+            "dimensions_coherentes": false,
+            "motif_ecart": "Les octets portent 64 × 48, l'EXIF déclare 4032 × 3024. L'écart ÉTABLIT que le fichier a été redimensionné ou recadré sans que la métadonnée suive : les deux grandeurs sont écrites à des moments différents, par des outils différents. Ce qu'il n'établit pas, c'est lequel des deux est le bon, ni qui a fait la modification.",
+            "rapport": [
+              4,
+              3
+            ],
+            "rapport_decimal": 1.3333333333333333,
+            "orientation": "paysage",
+            "megapixels": 0.003072,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": null,
+            "alignement_jpeg": 16,
+            "motif_alignement": "Un JPEG code par blocs de 8 × 8 pixels, groupés en unités de 8 ou 16 selon le sous-échantillonnage. Des dimensions non alignées sur cette unité signifient que le bord de l'image est un bloc partiel, ce qui arrive à tout recadrage. Le signal est faible dans les deux sens : la plupart des appareils produisent des dimensions alignées, et un alignement n'établit pas l'absence de recadrage."
+          },
+          "png_crc_corrompus": [],
+          "motif_crc": null,
+          "apercus_embarques": []
+        },
+        "lectures_en_echec": [],
         "avertissements": []
       }
     },
@@ -973,7 +1245,8 @@
           "dimensions": [
             64,
             48
-          ]
+          ],
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -1005,7 +1278,28 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": [
+              64,
+              48
+            ],
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": [
+              4,
+              3
+            ],
+            "rapport_decimal": 1.3333333333333333,
+            "orientation": "paysage",
+            "megapixels": 0.003072,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": null,
+            "alignement_jpeg": 16,
+            "motif_alignement": null
+          },
           "png_crc_corrompus": [],
           "motif_crc": "Un CRC faux ÉTABLIT que les octets ont changé depuis l’écriture du chunk. Un CRC juste n’établit rien de plus que « celui qui a modifié le chunk a recalculé le CRC », ce que fait tout éditeur.",
           "apercus_embarques": []
@@ -1065,7 +1359,8 @@
           "dimensions": [
             64,
             48
-          ]
+          ],
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -1097,7 +1392,28 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": [
+              64,
+              48
+            ],
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": [
+              4,
+              3
+            ],
+            "rapport_decimal": 1.3333333333333333,
+            "orientation": "paysage",
+            "megapixels": 0.003072,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": null,
+            "alignement_jpeg": 16,
+            "motif_alignement": null
+          },
           "png_crc_corrompus": [
             "iCCP à l'octet 275"
           ],
@@ -1159,7 +1475,8 @@
           "dimensions": [
             1280,
             960
-          ]
+          ],
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -1191,7 +1508,28 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": [
+              1280,
+              960
+            ],
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": [
+              4,
+              3
+            ],
+            "rapport_decimal": 1.3333333333333333,
+            "orientation": "paysage",
+            "megapixels": 1.2288,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": null,
+            "alignement_jpeg": 16,
+            "motif_alignement": null
+          },
           "png_crc_corrompus": [],
           "motif_crc": null,
           "apercus_embarques": []
@@ -1251,7 +1589,8 @@
           "dimensions": [
             32,
             24
-          ]
+          ],
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -1283,7 +1622,28 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": [
+              32,
+              24
+            ],
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": [
+              4,
+              3
+            ],
+            "rapport_decimal": 1.3333333333333333,
+            "orientation": "paysage",
+            "megapixels": 0.000768,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": null,
+            "alignement_jpeg": 8,
+            "motif_alignement": null
+          },
           "png_crc_corrompus": [],
           "motif_crc": null,
           "apercus_embarques": []
@@ -1343,7 +1703,8 @@
           "dimensions": [
             40,
             30
-          ]
+          ],
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -1375,7 +1736,28 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": [
+              40,
+              30
+            ],
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": [
+              4,
+              3
+            ],
+            "rapport_decimal": 1.3333333333333333,
+            "orientation": "paysage",
+            "megapixels": 0.0012,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": null,
+            "alignement_jpeg": null,
+            "motif_alignement": null
+          },
           "png_crc_corrompus": [],
           "motif_crc": null,
           "apercus_embarques": []
@@ -1435,7 +1817,8 @@
           "dimensions": [
             800,
             600
-          ]
+          ],
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -1467,7 +1850,28 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": [
+              800,
+              600
+            ],
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": [
+              4,
+              3
+            ],
+            "rapport_decimal": 1.3333333333333333,
+            "orientation": "paysage",
+            "megapixels": 0.48,
+            "denomination": "SVGA",
+            "motif_denomination": "Une dénomination d'usage, sans valeur probatoire. Elle dit sous quel nom ces dimensions circulent, jamais d'où vient l'image : un cliché recadré à 1920 × 1080 porte le même nom qu'une capture d'écran.",
+            "motif_mesure_indisponible": null,
+            "alignement_jpeg": 8,
+            "motif_alignement": null
+          },
           "png_crc_corrompus": [],
           "motif_crc": null,
           "apercus_embarques": []
@@ -1524,7 +1928,8 @@
           "lens_specification": null,
           "shutter_count": null,
           "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
-          "dimensions": null
+          "dimensions": null,
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -1556,7 +1961,22 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": null,
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": null,
+            "rapport_decimal": null,
+            "orientation": null,
+            "megapixels": null,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "alignement_jpeg": null,
+            "motif_alignement": null
+          },
           "png_crc_corrompus": [],
           "motif_crc": null,
           "apercus_embarques": [
@@ -1628,7 +2048,8 @@
           "lens_specification": null,
           "shutter_count": null,
           "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
-          "dimensions": null
+          "dimensions": null,
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -1660,7 +2081,22 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": null,
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": null,
+            "rapport_decimal": null,
+            "orientation": null,
+            "megapixels": null,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "alignement_jpeg": null,
+            "motif_alignement": null
+          },
           "png_crc_corrompus": [],
           "motif_crc": null,
           "apercus_embarques": [
@@ -1719,7 +2155,8 @@
           "lens_specification": null,
           "shutter_count": null,
           "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
-          "dimensions": [
+          "dimensions": null,
+          "dimensions_declarees_exif": [
             6000,
             4000
           ]
@@ -1760,7 +2197,25 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": null,
+            "declaree_exif": [
+              6000,
+              4000
+            ],
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": null,
+            "rapport_decimal": null,
+            "orientation": null,
+            "megapixels": null,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "alignement_jpeg": null,
+            "motif_alignement": null
+          },
           "png_crc_corrompus": [],
           "motif_crc": null,
           "apercus_embarques": [
@@ -1834,7 +2289,8 @@
           "dimensions": [
             64,
             48
-          ]
+          ],
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -1866,7 +2322,28 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": [
+              64,
+              48
+            ],
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": [
+              4,
+              3
+            ],
+            "rapport_decimal": 1.3333333333333333,
+            "orientation": "paysage",
+            "megapixels": 0.003072,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": null,
+            "alignement_jpeg": 16,
+            "motif_alignement": null
+          },
           "png_crc_corrompus": [],
           "motif_crc": "Un CRC faux ÉTABLIT que les octets ont changé depuis l’écriture du chunk. Un CRC juste n’établit rien de plus que « celui qui a modifié le chunk a recalculé le CRC », ce que fait tout éditeur.",
           "apercus_embarques": []
@@ -1925,7 +2402,8 @@
           "lens_specification": null,
           "shutter_count": null,
           "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
-          "dimensions": null
+          "dimensions": null,
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -1957,7 +2435,22 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": null,
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": null,
+            "rapport_decimal": null,
+            "orientation": null,
+            "megapixels": null,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce paquet ne lit pas encore, et l'association de cette boîte à l'image principale passe par une boîte `ipma` qu'il ne lit pas non plus. La cohérence mesure/déclaration reste donc invérifiable ici — et rendre la déclaration EXIF à la place recréerait exactement le défaut que cette confrontation existe pour attraper.",
+            "alignement_jpeg": null,
+            "motif_alignement": null
+          },
           "png_crc_corrompus": [],
           "motif_crc": null,
           "apercus_embarques": []
@@ -2014,7 +2507,11 @@
           "lens_specification": null,
           "shutter_count": null,
           "motif_shutter_count": "Le décompte des déclenchements n’existe dans AUCUN tag EXIF standard. Il n’est écrit que dans les MakerNotes propriétaires, différemment par chaque constructeur et souvent par chaque millésime. Ce paquet rend les MakerNotes bruts sans les décoder : les interpréter demanderait un dictionnaire par appareil, qu’on ne peut pas écrire de mémoire sans se tromper.",
-          "dimensions": null
+          "dimensions": [
+            64,
+            48
+          ],
+          "dimensions_declarees_exif": null
         },
         "telemetry_and_location": {
           "gps": null,
@@ -2054,7 +2551,28 @@
           "jpeg_quantization_match": null,
           "motif_quantization_match": "Aucun rapprochement : le registre des signatures est vide. Le remplir demande un corpus de fichiers réels dont la provenance est établie, appareil par appareil et version par version. L’empreinte ci-dessus reste utilisable pour COMPARER deux fichiers que vous avez tous les deux — des tables identiques sortent de la même chaîne d’encodage aux mêmes réglages — mais elle n’identifie rien contre une base qu’on n’a pas.",
           "screen_resolution_match": null,
-          "motif_screen_resolution": "Aucun rapprochement par la résolution : il n’existe pas de référentiel vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Et le signal serait faible même vérifié : une résolution de 1179 × 2556 identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle image recadrée à ces dimensions.",
+          "motif_screen_resolution": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+          "resolution": {
+            "mesuree": [
+              64,
+              48
+            ],
+            "declaree_exif": null,
+            "dimensions_coherentes": null,
+            "motif_ecart": null,
+            "rapport": [
+              4,
+              3
+            ],
+            "rapport_decimal": 1.3333333333333333,
+            "orientation": "paysage",
+            "megapixels": 0.003072,
+            "denomination": null,
+            "motif_denomination": null,
+            "motif_mesure_indisponible": null,
+            "alignement_jpeg": 16,
+            "motif_alignement": "Un JPEG code par blocs de 8 × 8 pixels, groupés en unités de 8 ou 16 selon le sous-échantillonnage. Des dimensions non alignées sur cette unité signifient que le bord de l'image est un bloc partiel, ce qui arrive à tout recadrage. Le signal est faible dans les deux sens : la plupart des appareils produisent des dimensions alignées, et un alignement n'établit pas l'absence de recadrage."
+          },
           "png_crc_corrompus": [],
           "motif_crc": null,
           "apercus_embarques": []

@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "verifier:ports": "npm run verifier:sources && npm run verifier:visee && npm run verifier:preuve && npm run verifier:provenance && npm run verifier:rapport && npm run verifier:metrologie && npm run verifier:extraction && npm run verifier:conteneurs && npm run verifier:isobmff && npm run verifier:makernotes && npm run verifier:dossier && npm run verifier:simulation && npm run verifier:geocodage && npm run verifier:contrastes",
+    "verifier:ports": "npm run verifier:sources && npm run verifier:visee && npm run verifier:preuve && npm run verifier:provenance && npm run verifier:rapport && npm run verifier:metrologie && npm run verifier:extraction && npm run verifier:conteneurs && npm run verifier:isobmff && npm run verifier:makernotes && npm run verifier:resolution && npm run verifier:dossier && npm run verifier:simulation && npm run verifier:geocodage && npm run verifier:contrastes",
     "verifier:sources": "node scripts/verifier-sources-texte.mjs",
     "verifier:visee": "node scripts/verifier-port-visee.mjs",
     "verifier:preuve": "node scripts/verifier-port-preuve.mjs",
@@ -26,7 +26,8 @@
     "verifier:simulation": "node scripts/verifier-port-simulation.mjs",
     "verifier:geocodage": "node scripts/verifier-geocodage-ign.mjs",
     "verifier:contrastes": "node scripts/verifier-contrastes-lab.mjs",
-    "verifier:entete": "node scripts/verifier-entete.mjs"
+    "verifier:entete": "node scripts/verifier-entete.mjs",
+    "verifier:resolution": "node scripts/verifier-port-resolution.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.0",

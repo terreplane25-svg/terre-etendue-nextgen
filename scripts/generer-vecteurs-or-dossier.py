@@ -46,8 +46,8 @@ from preuve_image.dossier import (  # noqa: E402
 from tests.test_conteneurs import SVG, bmp, gif, png, webp  # noqa: E402
 from tests.test_document import jpeg_avec_c2pa  # noqa: E402
 from tests.test_dossier import (  # noqa: E402
-    jpeg_avec_makernote, jpeg_avec_serie, jpeg_note_en_base_dementie,
-    jpeg_note_en_base_tiff, jpeg_telephone,
+    jpeg_avec_makernote, jpeg_avec_serie, jpeg_dimensions_mensongeres,
+    jpeg_note_en_base_dementie, jpeg_note_en_base_tiff, jpeg_telephone,
 )
 from tests.test_isobmff import cr3, heic  # noqa: E402
 from tests.test_quantification import jpeg  # noqa: E402
@@ -82,6 +82,10 @@ CAS = [
     ("jpeg avec note propriétaire", jpeg_avec_makernote(), "IMG_0001.jpg"),
     ("jpeg note en base tiff", jpeg_note_en_base_tiff(), "P1000001.jpg"),
     ("jpeg note en base démentie", jpeg_note_en_base_dementie(), "P1000002.jpg"),
+    # Un JPEG dont l'EXIF déclare d'autres dimensions que ses octets : c'est
+    # le cas qui motive la confrontation mesure/déclaration. Sans lui, un port
+    # qui rendrait la déclaration à la place de la mesure passerait.
+    ("jpeg aux dimensions mensongères", jpeg_dimensions_mensongeres(), "retaille.jpg"),
     ("png complet", png(), "capture.png"),
     ("png à CRC faux", png(crc_faux=True), "abime.png"),
     ("webp", webp(), "image.webp"),
@@ -206,7 +210,28 @@ def controle(v):
             assert t["sens"] is None, "un sens de tag est affirmé dans « %s »" % nom
         assert t["identifiant"].startswith("0x"), nom
 
-    print("  8 contrôles passés avant écriture.")
+    # 9. La confrontation mesure/déclaration : un écart ET une cohérence, et
+    #    le champ `dimensions` qui donne la MESURE.
+    res = {k: d["deep_fingerprint"]["resolution"] for k, d in par_nom.items()}
+    menteur = res["jpeg aux dimensions mensongères"]
+    assert menteur["dimensions_coherentes"] is False, menteur
+    assert menteur["mesuree"] != menteur["declaree_exif"]
+    assert "ÉTABLIT" in menteur["motif_ecart"]
+    assert (par_nom["jpeg aux dimensions mensongères"]["capture_settings"]["dimensions"]
+            == menteur["mesuree"]), "le relevé rend la déclaration à la place de la mesure"
+    assert res["png complet"]["dimensions_coherentes"] is None, \
+        "une absence de déclaration ne vaut pas incohérence"
+    # Et un HEIC dit pourquoi la mesure manque, au lieu de la combler.
+    assert res["heic"]["mesuree"] is None
+    assert "ispe" in res["heic"]["motif_mesure_indisponible"]
+
+    # 10. Aucun écran n'est jamais rapproché, et le motif dit ce qui est rendu
+    #     à la place.
+    for nom, d in par_nom.items():
+        assert d["deep_fingerprint"]["screen_resolution_match"] is None, nom
+        assert "à la place" in d["deep_fingerprint"]["motif_screen_resolution"], nom
+
+    print("  10 contrôles passés avant écriture.")
 
 
 if __name__ == "__main__":

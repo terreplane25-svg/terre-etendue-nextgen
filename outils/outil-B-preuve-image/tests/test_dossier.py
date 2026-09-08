@@ -498,3 +498,92 @@ def test_note_proprietaire_du_cr3_remonte_aussi():
 
 def test_absence_de_note_proprietaire():
     assert constituer_dossier(png(), "x.png").device_identification["maker_notes"] is None
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# La résolution : la mesure et la déclaration, confrontées
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+def jpeg_dimensions_mensongeres() -> bytes:
+    """Un JPEG dont l'EXIF déclare d'autres dimensions que ses octets.
+
+    C'est le cas qui motive toute cette confrontation : un fichier
+    redimensionné ou recadré sans que la métadonnée suive. Le relevé
+    préférait la déclaration, ce qui le faisait passer pour cohérent.
+
+    Il faut un VRAI JPEG : `_envelopper_en_jpeg` ne produit qu'un SOI, un APP1
+    et un EOI, sans marqueur SOF — donc sans dimensions mesurables. On greffe
+    donc l'EXIF menteur dans un JPEG encodé par Pillow, dont le SOF annonce
+    64 × 48, tandis que l'EXIF déclare 4032 × 3024.
+    """
+    import struct as st
+    from tests.test_metadata import campo_ascii, campo_long, construire_tiff
+    base = jpeg()
+    app1 = b"Exif\x00\x00" + construire_tiff(
+        {0x010F: campo_ascii("Canon")},
+        {0xA002: campo_long(4032), 0xA003: campo_long(3024)})
+    segment = b"\xff\xe1" + st.pack(">H", len(app1) + 2) + app1
+    # L'APP1 se glisse juste après le SOI, là où un appareil l'écrit.
+    return base[:2] + segment + base[2:]
+
+
+def test_les_dimensions_mesurees_et_declarees_sont_rendues_separement():
+    d = constituer_dossier(jpeg_dimensions_mensongeres(), "x.jpg")
+    r = d.deep_fingerprint["resolution"]
+    assert r["mesuree"] is not None, "les octets du SOF ne sont pas lus"
+    assert r["declaree_exif"] == [4032, 3024]
+    assert r["mesuree"] != r["declaree_exif"]
+
+
+def test_un_ecart_de_dimensions_est_signale_et_dit_ce_qu_il_etablit():
+    d = constituer_dossier(jpeg_dimensions_mensongeres(), "x.jpg")
+    r = d.deep_fingerprint["resolution"]
+    assert r["dimensions_coherentes"] is False
+    assert "ÉTABLIT" in r["motif_ecart"]
+    assert "redimensionné ou recadré" in r["motif_ecart"]
+
+
+def test_le_champ_dimensions_donne_la_MESURE_pas_la_declaration():
+    """Le relevé préférait la déclaration : c'était le défaut à corriger.
+
+    Un lecteur qui ne consulte que `capture_settings.dimensions` doit y
+    trouver ce que portent les octets, pas ce qu'un éditeur a laissé écrit.
+    """
+    d = constituer_dossier(jpeg_dimensions_mensongeres(), "x.jpg")
+    mesuree = d.deep_fingerprint["resolution"]["mesuree"]
+    assert d.capture_settings["dimensions"] == mesuree
+    assert d.capture_settings["dimensions_declarees_exif"] == [4032, 3024]
+
+
+def test_un_png_donne_ses_dimensions_mesurees_et_son_rapport():
+    d = constituer_dossier(png(), "x.png")
+    r = d.deep_fingerprint["resolution"]
+    assert r["mesuree"] == [64, 48]   # les dimensions du fixture, vérifiées
+    assert r["rapport"] == [4, 3]
+    assert r["orientation"] == "paysage"
+    # Sans EXIF, la cohérence n'est pas évaluable — et ce n'est pas un défaut.
+    assert r["dimensions_coherentes"] is None
+
+
+def test_un_heic_dit_pourquoi_la_mesure_manque():
+    """La boîte `ispe` n'est pas lue : le dire, et ne pas combler avec l'EXIF.
+
+    Rendre la déclaration à la place recréerait le défaut que cette
+    confrontation existe pour attraper.
+    """
+    d = constituer_dossier(heic(), "x.heic")
+    r = d.deep_fingerprint["resolution"]
+    assert r["mesuree"] is None
+    assert r["dimensions_coherentes"] is None
+    assert "ispe" in r["motif_mesure_indisponible"]
+    assert "recréerait" in r["motif_mesure_indisponible"]
+
+
+def test_aucun_ecran_n_est_jamais_rapproche_et_le_motif_dit_pourquoi():
+    for octets, nom in [(jpeg(), "a.jpg"), (png(), "b.png"), (heic(), "c.heic")]:
+        d = constituer_dossier(octets, nom)
+        assert d.deep_fingerprint["screen_resolution_match"] is None, nom
+        motif = d.deep_fingerprint["motif_screen_resolution"]
+        assert "même vérifié" in motif, nom
+        assert "à la place" in motif, nom

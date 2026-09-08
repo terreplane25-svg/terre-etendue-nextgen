@@ -563,6 +563,52 @@ qu'ils n'écartaient rien que les contrôles voisins n'écartaient déjà. Un
 garde-fou qui ne garde rien coûte plus qu'il ne rapporte : il fait croire à une
 protection.
 
+### La résolution : ce qu'elle établit, et le référentiel qui n'existe pas
+
+La directive demandait un « référentiel global des définitions d'écrans » pour
+rapprocher une résolution d'un appareil du marché.
+
+🔴 **`ECRANS_CONNUS` est VIDE, délibérément.** Le remplir demande un corpus
+vérifié, collecté modèle par modèle. Y écrire « 1179 × 2556 = iPhone 15 Pro »
+de mémoire produirait une identification fausse présentée comme un fait.
+
+**Et le signal serait faible même vérifié**, ce qui est le point le plus
+important : 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant
+que n'importe quelle image recadrée à ces dimensions. Un rapprochement par la
+résolution ne prouve rien sur l'origine ; il désigne au mieux une famille.
+
+**Ce qui est rendu à la place se vérifie**, et vaut mieux.
+
+Le **rapport d'aspect exact**, en fraction réduite : de l'arithmétique, sans
+référentiel. Il conserve l'orientation — 3024 × 4032 donne 3:4 et non 4:3,
+parce qu'un portrait n'est pas un paysage.
+
+Et surtout la **cohérence entre deux grandeurs que le fichier porte
+séparément** :
+
+| Grandeur | Nature | Source |
+|---|---|---|
+| dimensions lues dans les octets | une **mesure** | marqueur SOF d'un JPEG, IHDR d'un PNG |
+| dimensions déclarées dans l'EXIF | une **déclaration** | tags PixelXDimension / PixelYDimension |
+
+Un écart **ÉTABLIT** que le fichier a été redimensionné ou recadré sans que la
+métadonnée suive : les deux grandeurs sont écrites à des moments différents,
+par des outils différents. Ce qu'il n'établit pas : lequel des deux est le bon,
+ni qui a fait la modification.
+
+**Un défaut corrigé au passage, et c'est le vrai apport.** Le relevé
+*préférait* la déclaration EXIF aux octets — `dimensions` rendait 4032 × 3024
+pour un fichier dont le SOF annonçait 1024 × 768. L'écart n'était pas seulement
+ignoré : il était masqué. La mesure passe désormais en premier, la déclaration
+à côté, et leur écart porte son motif.
+
+**Ce qui reste indisponible, et qui n'est pas comblé.** Un HEIF, un AVIF ou un
+CR3 déclarent leurs dimensions dans une boîte `ispe` que ce paquet ne lit pas
+encore, associée à l'image principale par une boîte `ipma` qu'il ne lit pas non
+plus. La cohérence est donc invérifiable pour ces formats — et rendre la
+déclaration EXIF à la place recréerait exactement le défaut que cette
+confrontation existe pour attraper. Le champ porte ce motif.
+
 ### La télémétrie de vol
 
 DJI écrit `GpsLongtitude`, avec un t de trop, depuis des années : ne traiter

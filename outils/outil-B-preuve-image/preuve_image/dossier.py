@@ -38,6 +38,11 @@ from typing import Any, Dict, List, Optional, Tuple
 from .conteneurs import ConteneurError, InventaireConteneur, inventorier
 from .isobmff import IsobmffError, StructureIsobmff, analyser_isobmff
 from .makernotes import AnalyseMakerNote, analyser_makernote
+from .document import dimensions_jpeg
+from .resolution import (
+    MOTIF_ALIGNEMENT, MOTIF_AUCUN_ECRAN, MOTIF_DENOMINATION,
+    analyser_resolution,
+)
 from .metadata import (
     ConteneurNonSupporte,
     DonneesExif,
@@ -67,6 +72,7 @@ __all__ = [
     "MOTIF_NUMERO_SERIE_ABSENT",
     "MOTIF_DECLENCHEMENTS_ABSENT",
     "MOTIF_ECRAN_NON_EVALUE",
+    "MOTIF_MESURE_INDISPONIBLE",
     "deduire_type_materiel",
 ]
 
@@ -119,13 +125,21 @@ MOTIF_DECLENCHEMENTS_ABSENT = (
     "tromper."
 )
 
-MOTIF_ECRAN_NON_EVALUE = (
-    "Aucun rapprochement par la résolution : il n’existe pas de référentiel "
-    "vérifié des définitions d’écrans dans ce dépôt. En écrire un de mémoire "
-    "produirait des correspondances fausses présentées comme des faits. Et le "
-    "signal serait faible même vérifié : une résolution de 1179 × 2556 "
-    "identifie une capture d’écran d’iPhone 15 Pro autant que n’importe quelle "
-    "image recadrée à ces dimensions."
+#: Le motif du rapprochement impossible vit dans `resolution.py`, avec la
+#: matière qu'il commente. Deux textes pour une seule règle divergeraient le
+#: jour où l'un des deux serait retouché ; ce nom n'est qu'un alias, conservé
+#: parce que le générateur de vecteurs et l'interface l'importent d'ici.
+MOTIF_ECRAN_NON_EVALUE = MOTIF_AUCUN_ECRAN
+
+#: Pourquoi certaines familles n'ont pas de dimensions MESURÉES.
+MOTIF_MESURE_INDISPONIBLE = (
+    "Les dimensions n'ont pas pu être lues dans les octets pour ce conteneur. "
+    "Un HEIF, un AVIF ou un CR3 les déclarent dans une boîte `ispe` que ce "
+    "paquet ne lit pas encore, et l'association de cette boîte à l'image "
+    "principale passe par une boîte `ipma` qu'il ne lit pas non plus. La "
+    "cohérence mesure/déclaration reste donc invérifiable ici — et rendre la "
+    "déclaration EXIF à la place recréerait exactement le défaut que cette "
+    "confrontation existe pour attraper."
 )
 
 
@@ -323,6 +337,29 @@ def constituer_dossier(donnees: bytes, nom_fichier: Optional[str] = None) -> Dos
     elif structure is not None and structure.makernotes:
         makernote = analyser_makernote(structure.makernotes)
 
+    # ── Les dimensions : la mesure et la déclaration, confrontées ──────────
+    #
+    # Le relevé PRÉFÉRAIT la déclaration EXIF aux octets, ce qui masquait
+    # l'écart au lieu de le montrer : un fichier redimensionné sans que la
+    # métadonnée suive passait pour cohérent. Les deux sont désormais lues
+    # séparément, et leur écart est un signal fort et gratuit.
+    mesurees: Tuple[Optional[int], Optional[int]] = (None, None)
+    if conteneur == "JPEG":
+        # `d` est déjà l'accumulateur du relevé : nommer cette mesure `d`
+        # l'écrasait, et le relevé devenait un tuple.
+        sof = dimensions_jpeg(donnees)
+        if sof is not None:
+            mesurees = sof
+    elif inventaire is not None and inventaire.largeur:
+        mesurees = (inventaire.largeur, inventaire.hauteur)
+    # Pas de branche ISOBMFF : la boîte `ispe` n'est pas lue, et deviner
+    # depuis l'EXIF recréerait le défaut que cette confrontation attrape.
+    resolution = analyser_resolution(
+        mesurees[0], mesurees[1],
+        exif.largeur_px if exif else None,
+        exif.hauteur_px if exif else None,
+    )
+
     # ── Le matériel ────────────────────────────────────────────────────────
     deduction = deduire_type_materiel(exif, telemetrie, conteneur)
     numeros = [x for x in (
@@ -389,11 +426,15 @@ def constituer_dossier(donnees: bytes, nom_fichier: Optional[str] = None) -> Dos
         # Le décompte des déclenchements n'est dans AUCUN tag standard.
         "shutter_count": None,
         "motif_shutter_count": MOTIF_DECLENCHEMENTS_ABSENT,
+        # La MESURE d'abord, et la déclaration à côté. L'ordre inverse
+        # masquait l'écart entre les deux.
         "dimensions": (
-            [exif.largeur_px, exif.hauteur_px]
-            if exif and exif.largeur_px and exif.hauteur_px
-            else ([inventaire.largeur, inventaire.hauteur]
-                  if inventaire and inventaire.largeur else None)
+            [resolution.largeur_mesuree, resolution.hauteur_mesuree]
+            if resolution.largeur_mesuree else None
+        ),
+        "dimensions_declarees_exif": (
+            [resolution.largeur_declaree, resolution.hauteur_declaree]
+            if resolution.largeur_declaree else None
         ),
     }
 
@@ -490,8 +531,38 @@ def constituer_dossier(donnees: bytes, nom_fichier: Optional[str] = None) -> Dos
         },
         "jpeg_quantization_match": None,
         "motif_quantization_match": MOTIF_AUCUNE_SIGNATURE,
-        "screen_resolution_match": None,
-        "motif_screen_resolution": MOTIF_ECRAN_NON_EVALUE,
+        # Le rapprochement par un référentiel d'écrans reste impossible — il
+        # n'y en a pas de vérifié ici. Ce qui est rendu à la place se vérifie :
+        # le rapport exact, et la cohérence mesure/déclaration.
+        "screen_resolution_match": resolution.ecran_rapproche,
+        "motif_screen_resolution": resolution.motif_aucun_ecran,
+        "resolution": {
+            "mesuree": (
+                [resolution.largeur_mesuree, resolution.hauteur_mesuree]
+                if resolution.largeur_mesuree else None
+            ),
+            "declaree_exif": (
+                [resolution.largeur_declaree, resolution.hauteur_declaree]
+                if resolution.largeur_declaree else None
+            ),
+            "dimensions_coherentes": resolution.dimensions_coherentes,
+            "motif_ecart": resolution.motif_ecart,
+            "rapport": list(resolution.rapport) if resolution.rapport else None,
+            "rapport_decimal": resolution.rapport_decimal,
+            "orientation": resolution.orientation,
+            "megapixels": resolution.megapixels,
+            "denomination": resolution.denomination,
+            "motif_denomination": (
+                MOTIF_DENOMINATION if resolution.denomination else None
+            ),
+            "motif_mesure_indisponible": (
+                None if resolution.largeur_mesuree else MOTIF_MESURE_INDISPONIBLE
+            ),
+            "alignement_jpeg": resolution.alignement_jpeg,
+            "motif_alignement": (
+                MOTIF_ALIGNEMENT if conteneur == "JPEG" else None
+            ),
+        },
         "png_crc_corrompus": (
             list(inventaire.chunks_corrompus) if inventaire else []
         ),

@@ -810,6 +810,87 @@ export default function VerificateurIntegrite() {
               )}
 
               {(() => {
+                // La résolution : la MESURE et la DÉCLARATION côte à côte.
+                // Leur écart établit que le fichier a été redimensionné sans
+                // que la métadonnée suive — c'est le seul signal gratuit que
+                // ce fichier offre, et il était perdu quand le relevé
+                // préférait la déclaration.
+                const r = (dossier.deep_fingerprint as Record<string, unknown>).resolution as {
+                  mesuree: number[] | null; declaree_exif: number[] | null;
+                  dimensions_coherentes: boolean | null; motif_ecart: string | null;
+                  rapport: number[] | null; orientation: string | null;
+                  megapixels: number | null; denomination: string | null;
+                  motif_denomination: string | null;
+                  motif_mesure_indisponible: string | null;
+                  alignement_jpeg: number | null; motif_alignement: string | null;
+                } | undefined;
+                if (!r) return null;
+                return (
+                  <div style={{
+                    marginBottom: 12, padding: '12px 14px', borderRadius: 6,
+                    background: 'var(--bg)', border: '1px solid var(--border)',
+                    borderLeft: `3px solid ${r.dimensions_coherentes === false ? dash.rose : 'var(--border)'}`,
+                  }}>
+                    <div style={{
+                      fontSize: 10, fontFamily: dash.fontMono, letterSpacing: '0.08em',
+                      color: 'var(--ink-muted)', textTransform: 'uppercase', marginBottom: 8,
+                    }}>Dimensions — la mesure et la déclaration</div>
+                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                      <tbody>
+                        <Ligne cle="Lues dans les octets"
+                          val={r.mesuree ? `${r.mesuree[0]} × ${r.mesuree[1]}` : INDISPONIBLE} />
+                        <Ligne cle="Déclarées dans l’EXIF"
+                          val={r.declaree_exif ? `${r.declaree_exif[0]} × ${r.declaree_exif[1]}` : NON_ECRIT} />
+                        {r.rapport && (
+                          <Ligne cle="Rapport d’aspect exact"
+                            val={`${r.rapport[0]} : ${r.rapport[1]}`} />
+                        )}
+                        {r.orientation && <Ligne cle="Orientation" val={r.orientation} mono={false} />}
+                        {r.megapixels !== null && r.megapixels !== undefined && (
+                          <Ligne cle="Mégapixels" val={r.megapixels.toFixed(2)} />
+                        )}
+                        {r.denomination && (
+                          <Ligne cle="Dénomination d’usage" val={r.denomination} mono={false} />
+                        )}
+                        {r.alignement_jpeg !== null && (
+                          <Ligne cle="Alignement des blocs JPEG"
+                            val={`multiples de ${r.alignement_jpeg} px`} mono={false} />
+                        )}
+                      </tbody>
+                    </table>
+                    {r.dimensions_coherentes === false && r.motif_ecart && (
+                      <p style={{
+                        margin: '10px 0 0', fontSize: 12.5, lineHeight: 1.6, color: 'var(--ink)',
+                        padding: '9px 11px', borderRadius: 5, background: 'var(--card)',
+                        borderLeft: `3px solid ${dash.rose}`,
+                      }}>{r.motif_ecart}</p>
+                    )}
+                    {r.dimensions_coherentes === true && (
+                      <p style={{ margin: '8px 0 0', fontSize: 12, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
+                        Les deux coïncident. Cela n’établit pas que le fichier n’a pas été
+                        modifié : un outil qui redimensionne peut mettre la métadonnée à jour.
+                      </p>
+                    )}
+                    {r.motif_mesure_indisponible && (
+                      <p style={{ margin: '8px 0 0', fontSize: 12, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
+                        {r.motif_mesure_indisponible}
+                      </p>
+                    )}
+                    {r.motif_denomination && (
+                      <p style={{ margin: '8px 0 0', fontSize: 12, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
+                        {r.motif_denomination}
+                      </p>
+                    )}
+                    {r.motif_alignement && (
+                      <p style={{ margin: '8px 0 0', fontSize: 12, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
+                        {r.motif_alignement}
+                      </p>
+                    )}
+                  </div>
+                );
+              })()}
+
+              {(() => {
                 // La note propriétaire : sa structure, jamais son sens. L'écran
                 // affiche l'inventaire ET la base d'offsets retenue, parce que
                 // se tromper de base ne lève aucune erreur — elle rend

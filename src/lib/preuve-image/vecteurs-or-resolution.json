@@ -1,0 +1,496 @@
+{
+  "genere_le": "2026-09-08T22:23:04.691198+00:00",
+  "source": "preuve_image.resolution (paquet Python)",
+  "avertissement": "Fichier généré. Ne pas modifier à la main : il est la référence contre laquelle le port TypeScript est vérifié.",
+  "constantes": {
+    "ecrans_connus": {},
+    "definitions_nommees": {
+      "640x480": "VGA",
+      "800x600": "SVGA",
+      "1024x768": "XGA",
+      "1280x720": "720p",
+      "1280x1024": "SXGA",
+      "1366x768": "WXGA",
+      "1600x900": "HD+",
+      "1920x1080": "1080p",
+      "2048x1080": "2K DCI",
+      "2560x1440": "1440p",
+      "3840x2160": "2160p (UHD)",
+      "4096x2160": "4K DCI",
+      "7680x4320": "4320p (UHD-2)"
+    },
+    "motif_aucun_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare.",
+    "motif_denomination": "Une dénomination d'usage, sans valeur probatoire. Elle dit sous quel nom ces dimensions circulent, jamais d'où vient l'image : un cliché recadré à 1920 × 1080 porte le même nom qu'une capture d'écran.",
+    "motif_alignement": "Un JPEG code par blocs de 8 × 8 pixels, groupés en unités de 8 ou 16 selon le sous-échantillonnage. Des dimensions non alignées sur cette unité signifient que le bord de l'image est un bloc partiel, ce qui arrive à tout recadrage. Le signal est faible dans les deux sens : la plupart des appareils produisent des dimensions alignées, et un alignement n'établit pas l'absence de recadrage."
+  },
+  "cas": [
+    {
+      "nom": "cohérent",
+      "mesuree": [
+        4032,
+        3024
+      ],
+      "declaree": [
+        4032,
+        3024
+      ],
+      "resolution": {
+        "largeur_mesuree": 4032,
+        "hauteur_mesuree": 3024,
+        "largeur_declaree": 4032,
+        "hauteur_declaree": 3024,
+        "dimensions_coherentes": true,
+        "motif_ecart": null,
+        "rapport": [
+          4,
+          3
+        ],
+        "rapport_decimal": 1.3333333333333333,
+        "orientation": "paysage",
+        "megapixels": 12.192768,
+        "denomination": null,
+        "alignement_jpeg": 16,
+        "ecran_rapproche": null,
+        "motif_aucun_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare."
+      }
+    },
+    {
+      "nom": "redimensionné sans que l'EXIF suive",
+      "mesuree": [
+        1024,
+        768
+      ],
+      "declaree": [
+        4032,
+        3024
+      ],
+      "resolution": {
+        "largeur_mesuree": 1024,
+        "hauteur_mesuree": 768,
+        "largeur_declaree": 4032,
+        "hauteur_declaree": 3024,
+        "dimensions_coherentes": false,
+        "motif_ecart": "Les octets portent 1024 × 768, l'EXIF déclare 4032 × 3024. L'écart ÉTABLIT que le fichier a été redimensionné ou recadré sans que la métadonnée suive : les deux grandeurs sont écrites à des moments différents, par des outils différents. Ce qu'il n'établit pas, c'est lequel des deux est le bon, ni qui a fait la modification.",
+        "rapport": [
+          4,
+          3
+        ],
+        "rapport_decimal": 1.3333333333333333,
+        "orientation": "paysage",
+        "megapixels": 0.786432,
+        "denomination": "XGA",
+        "alignement_jpeg": 16,
+        "ecran_rapproche": null,
+        "motif_aucun_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare."
+      }
+    },
+    {
+      "nom": "recadré à la marge",
+      "mesuree": [
+        4030,
+        3020
+      ],
+      "declaree": [
+        4032,
+        3024
+      ],
+      "resolution": {
+        "largeur_mesuree": 4030,
+        "hauteur_mesuree": 3020,
+        "largeur_declaree": 4032,
+        "hauteur_declaree": 3024,
+        "dimensions_coherentes": false,
+        "motif_ecart": "Les octets portent 4030 × 3020, l'EXIF déclare 4032 × 3024. L'écart ÉTABLIT que le fichier a été redimensionné ou recadré sans que la métadonnée suive : les deux grandeurs sont écrites à des moments différents, par des outils différents. Ce qu'il n'établit pas, c'est lequel des deux est le bon, ni qui a fait la modification.",
+        "rapport": [
+          403,
+          302
+        ],
+        "rapport_decimal": 1.3344370860927153,
+        "orientation": "paysage",
+        "megapixels": 12.1706,
+        "denomination": null,
+        "alignement_jpeg": null,
+        "ecran_rapproche": null,
+        "motif_aucun_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare."
+      }
+    },
+    {
+      "nom": "aucune déclaration",
+      "mesuree": [
+        4032,
+        3024
+      ],
+      "declaree": [
+        null,
+        null
+      ],
+      "resolution": {
+        "largeur_mesuree": 4032,
+        "hauteur_mesuree": 3024,
+        "largeur_declaree": null,
+        "hauteur_declaree": null,
+        "dimensions_coherentes": null,
+        "motif_ecart": null,
+        "rapport": [
+          4,
+          3
+        ],
+        "rapport_decimal": 1.3333333333333333,
+        "orientation": "paysage",
+        "megapixels": 12.192768,
+        "denomination": null,
+        "alignement_jpeg": 16,
+        "ecran_rapproche": null,
+        "motif_aucun_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare."
+      }
+    },
+    {
+      "nom": "aucune mesure",
+      "mesuree": [
+        null,
+        null
+      ],
+      "declaree": [
+        4032,
+        3024
+      ],
+      "resolution": {
+        "largeur_mesuree": null,
+        "hauteur_mesuree": null,
+        "largeur_declaree": 4032,
+        "hauteur_declaree": 3024,
+        "dimensions_coherentes": null,
+        "motif_ecart": null,
+        "rapport": null,
+        "rapport_decimal": null,
+        "orientation": null,
+        "megapixels": null,
+        "denomination": null,
+        "alignement_jpeg": null,
+        "ecran_rapproche": null,
+        "motif_aucun_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare."
+      }
+    },
+    {
+      "nom": "ni l'un ni l'autre",
+      "mesuree": [
+        null,
+        null
+      ],
+      "declaree": [
+        null,
+        null
+      ],
+      "resolution": {
+        "largeur_mesuree": null,
+        "hauteur_mesuree": null,
+        "largeur_declaree": null,
+        "hauteur_declaree": null,
+        "dimensions_coherentes": null,
+        "motif_ecart": null,
+        "rapport": null,
+        "rapport_decimal": null,
+        "orientation": null,
+        "megapixels": null,
+        "denomination": null,
+        "alignement_jpeg": null,
+        "ecran_rapproche": null,
+        "motif_aucun_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare."
+      }
+    },
+    {
+      "nom": "portrait",
+      "mesuree": [
+        3024,
+        4032
+      ],
+      "declaree": [
+        3024,
+        4032
+      ],
+      "resolution": {
+        "largeur_mesuree": 3024,
+        "hauteur_mesuree": 4032,
+        "largeur_declaree": 3024,
+        "hauteur_declaree": 4032,
+        "dimensions_coherentes": true,
+        "motif_ecart": null,
+        "rapport": [
+          3,
+          4
+        ],
+        "rapport_decimal": 0.75,
+        "orientation": "portrait",
+        "megapixels": 12.192768,
+        "denomination": null,
+        "alignement_jpeg": 16,
+        "ecran_rapproche": null,
+        "motif_aucun_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare."
+      }
+    },
+    {
+      "nom": "carré",
+      "mesuree": [
+        1000,
+        1000
+      ],
+      "declaree": [
+        null,
+        null
+      ],
+      "resolution": {
+        "largeur_mesuree": 1000,
+        "hauteur_mesuree": 1000,
+        "largeur_declaree": null,
+        "hauteur_declaree": null,
+        "dimensions_coherentes": null,
+        "motif_ecart": null,
+        "rapport": [
+          1,
+          1
+        ],
+        "rapport_decimal": 1.0,
+        "orientation": "carré",
+        "megapixels": 1.0,
+        "denomination": null,
+        "alignement_jpeg": 8,
+        "ecran_rapproche": null,
+        "motif_aucun_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare."
+      }
+    },
+    {
+      "nom": "dénomination paysage",
+      "mesuree": [
+        1920,
+        1080
+      ],
+      "declaree": [
+        null,
+        null
+      ],
+      "resolution": {
+        "largeur_mesuree": 1920,
+        "hauteur_mesuree": 1080,
+        "largeur_declaree": null,
+        "hauteur_declaree": null,
+        "dimensions_coherentes": null,
+        "motif_ecart": null,
+        "rapport": [
+          16,
+          9
+        ],
+        "rapport_decimal": 1.7777777777777777,
+        "orientation": "paysage",
+        "megapixels": 2.0736,
+        "denomination": "1080p",
+        "alignement_jpeg": 8,
+        "ecran_rapproche": null,
+        "motif_aucun_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare."
+      }
+    },
+    {
+      "nom": "dénomination portrait",
+      "mesuree": [
+        1080,
+        1920
+      ],
+      "declaree": [
+        null,
+        null
+      ],
+      "resolution": {
+        "largeur_mesuree": 1080,
+        "hauteur_mesuree": 1920,
+        "largeur_declaree": null,
+        "hauteur_declaree": null,
+        "dimensions_coherentes": null,
+        "motif_ecart": null,
+        "rapport": [
+          9,
+          16
+        ],
+        "rapport_decimal": 0.5625,
+        "orientation": "portrait",
+        "megapixels": 2.0736,
+        "denomination": "1080p",
+        "alignement_jpeg": 8,
+        "ecran_rapproche": null,
+        "motif_aucun_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare."
+      }
+    },
+    {
+      "nom": "non aligné sur un bloc",
+      "mesuree": [
+        1023,
+        767
+      ],
+      "declaree": [
+        null,
+        null
+      ],
+      "resolution": {
+        "largeur_mesuree": 1023,
+        "hauteur_mesuree": 767,
+        "largeur_declaree": null,
+        "hauteur_declaree": null,
+        "dimensions_coherentes": null,
+        "motif_ecart": null,
+        "rapport": [
+          1023,
+          767
+        ],
+        "rapport_decimal": 1.333767926988266,
+        "orientation": "paysage",
+        "megapixels": 0.784641,
+        "denomination": null,
+        "alignement_jpeg": null,
+        "ecran_rapproche": null,
+        "motif_aucun_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare."
+      }
+    },
+    {
+      "nom": "aligné sur 8 seulement",
+      "mesuree": [
+        1920,
+        1080
+      ],
+      "declaree": [
+        null,
+        null
+      ],
+      "resolution": {
+        "largeur_mesuree": 1920,
+        "hauteur_mesuree": 1080,
+        "largeur_declaree": null,
+        "hauteur_declaree": null,
+        "dimensions_coherentes": null,
+        "motif_ecart": null,
+        "rapport": [
+          16,
+          9
+        ],
+        "rapport_decimal": 1.7777777777777777,
+        "orientation": "paysage",
+        "megapixels": 2.0736,
+        "denomination": "1080p",
+        "alignement_jpeg": 8,
+        "ecran_rapproche": null,
+        "motif_aucun_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare."
+      }
+    },
+    {
+      "nom": "aligné sur 16",
+      "mesuree": [
+        1920,
+        1088
+      ],
+      "declaree": [
+        null,
+        null
+      ],
+      "resolution": {
+        "largeur_mesuree": 1920,
+        "hauteur_mesuree": 1088,
+        "largeur_declaree": null,
+        "hauteur_declaree": null,
+        "dimensions_coherentes": null,
+        "motif_ecart": null,
+        "rapport": [
+          30,
+          17
+        ],
+        "rapport_decimal": 1.7647058823529411,
+        "orientation": "paysage",
+        "megapixels": 2.08896,
+        "denomination": null,
+        "alignement_jpeg": 16,
+        "ecran_rapproche": null,
+        "motif_aucun_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare."
+      }
+    },
+    {
+      "nom": "écran de téléphone, jamais rapproché",
+      "mesuree": [
+        1179,
+        2556
+      ],
+      "declaree": [
+        null,
+        null
+      ],
+      "resolution": {
+        "largeur_mesuree": 1179,
+        "hauteur_mesuree": 2556,
+        "largeur_declaree": null,
+        "hauteur_declaree": null,
+        "dimensions_coherentes": null,
+        "motif_ecart": null,
+        "rapport": [
+          131,
+          284
+        ],
+        "rapport_decimal": 0.4612676056338028,
+        "orientation": "portrait",
+        "megapixels": 3.013524,
+        "denomination": null,
+        "alignement_jpeg": null,
+        "ecran_rapproche": null,
+        "motif_aucun_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare."
+      }
+    },
+    {
+      "nom": "dimensions nulles",
+      "mesuree": [
+        0,
+        0
+      ],
+      "declaree": [
+        null,
+        null
+      ],
+      "resolution": {
+        "largeur_mesuree": null,
+        "hauteur_mesuree": null,
+        "largeur_declaree": null,
+        "hauteur_declaree": null,
+        "dimensions_coherentes": null,
+        "motif_ecart": null,
+        "rapport": null,
+        "rapport_decimal": null,
+        "orientation": null,
+        "megapixels": null,
+        "denomination": null,
+        "alignement_jpeg": null,
+        "ecran_rapproche": null,
+        "motif_aucun_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare."
+      }
+    },
+    {
+      "nom": "dimension négative",
+      "mesuree": [
+        -1,
+        100
+      ],
+      "declaree": [
+        null,
+        null
+      ],
+      "resolution": {
+        "largeur_mesuree": null,
+        "hauteur_mesuree": null,
+        "largeur_declaree": null,
+        "hauteur_declaree": null,
+        "dimensions_coherentes": null,
+        "motif_ecart": null,
+        "rapport": null,
+        "rapport_decimal": null,
+        "orientation": null,
+        "megapixels": null,
+        "denomination": null,
+        "alignement_jpeg": null,
+        "ecran_rapproche": null,
+        "motif_aucun_ecran": "Aucun rapprochement avec un appareil : il n'existe pas de référentiel vérifié des définitions d'écrans dans ce dépôt, et en écrire un de mémoire produirait des correspondances fausses présentées comme des faits. Le signal serait d'ailleurs faible même vérifié — une résolution de 1179 × 2556 identifie une capture d'écran d'iPhone 15 Pro autant que n'importe quelle image recadrée à ces dimensions. Ce qui est rendu à la place se vérifie : le rapport d'aspect exact, et la cohérence entre les dimensions mesurées et celles que l'EXIF déclare."
+      }
+    }
+  ]
+}
