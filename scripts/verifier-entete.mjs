@@ -166,8 +166,29 @@ try {
 const SECTIONS_PAGES = ['/library', '/headquarters', '/observatory', '/experiences',
   '/lab', '/laboratoire', '/enseignants', '/about'];
 
+/**
+ * Les largeurs où les contrastes sont relevés : une par palier, plus le
+ * téléphone.
+ *
+ * Une première version ne mesurait qu'à 1280 px, et la casse délibérée a
+ * montré ce que ce point unique laissait passer. Deux défauts y échappaient
+ * pour la même raison — ce qui n'est pas visible à 1280 n'est pas mesuré :
+ *
+ *   · le vert du logo échoue à 390 px, où il fait 18 px gras et relève donc du
+ *     seuil de 4,5:1 ; à 1280 px il fait 24 px et relève de celui de 3:1, où
+ *     il passe. Le défaut n'existe qu'en dessous du palier de bureau.
+ *   · le libellé de la recherche est MASQUÉ sous 1440 px. À 1280 px il n'est
+ *     pas à l'écran, donc jamais jugé, et son gris fantôme à 1,92:1 revenait
+ *     sans que rien ne le signale.
+ *
+ * Un contrôle qui ne regarde qu'un point ne garantit que ce point.
+ */
+const LARGEURS_CONTRASTE = [390, 1152, 1280, 1440, 1580];
+
 const nav2 = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
 try {
+  // Le lien ACTIF porte la teinte de sa section : les huit pages sont donc
+  // parcourues, à la largeur où toutes les teintes sont à l'écran.
   for (const theme of ['light', 'dark']) {
     for (const chemin of SECTIONS_PAGES) {
       const page = await nav2.newPage({
@@ -260,6 +281,74 @@ try {
       }
     }
   }
+
+  // Second balayage : TOUT le texte de l'en-tête, à chaque largeur et dans les
+  // deux thèmes. C'est celui qui attrape ce qui n'apparaît qu'à certaines
+  // tailles — le libellé de la recherche au-delà de 1440 px, le logo compact
+  // en dessous du palier de bureau.
+  for (const theme of ['light', 'dark']) {
+    for (const largeur of LARGEURS_CONTRASTE) {
+      const page = await nav2.newPage({
+        viewport: { width: largeur, height: 600 }, colorScheme: theme,
+      });
+      try {
+        await page.addStyleTag({
+          content: '*, *::before, *::after { transition: none !important; '
+            + 'animation: none !important; }',
+        });
+        await page.goto(`${RACINE}/library`, { waitUntil: 'domcontentloaded' });
+        await page.addStyleTag({
+          content: '*, *::before, *::after { transition: none !important; '
+            + 'animation: none !important; }',
+        });
+        await page.evaluate(() => document.fonts.ready);
+        await page.waitForTimeout(120);
+        const soucis = await page.evaluate(() => {
+          const lum = (s) => {
+            const [r, g, b] = s.match(/[\d.]+/g).slice(0, 3).map((v) => v / 255)
+              .map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+            return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+          };
+          const fond = (el) => {
+            for (let x = el; x; x = x.parentElement) {
+              const c = getComputedStyle(x).backgroundColor;
+              if (c && !/rgba\(0, 0, 0, 0\)|transparent/.test(c)) return c;
+            }
+            return 'rgb(255, 255, 255)';
+          };
+          const ratio = (a, b) => {
+            const [h, l] = [lum(a), lum(b)].sort((x, y) => y - x);
+            return (h + 0.05) / (l + 0.05);
+          };
+          const out = [];
+          for (const el of document.querySelectorAll('header *')) {
+            // Le texte porté DIRECTEMENT par l'élément : les liens du menu
+            // contiennent une icône, et les écarter sur `children.length`
+            // laissait le lien actif hors de toute mesure.
+            const t = [...el.childNodes].filter((x) => x.nodeType === 3)
+              .map((x) => x.textContent).join('').trim();
+            if (t.length < 2 || !el.offsetWidth) continue;
+            const e = getComputedStyle(el);
+            if (e.visibility === 'hidden' || e.display === 'none') continue;
+            const p = parseFloat(e.fontSize);
+            const g = parseInt(e.fontWeight, 10) >= 700;
+            const seuil = p >= 24 || (g && p >= 18.66) ? 3 : 4.5;
+            const rr = ratio(e.color, fond(el));
+            if (rr < seuil) out.push(`« ${t.slice(0, 24)} » ${rr.toFixed(2)}:1 < ${seuil} (${p} px)`);
+          }
+          return out;
+        });
+        controles += 1;
+        if (soucis.length > 0) {
+          echecs += 1;
+          console.error(`  ✗ contraste ${theme} @ ${largeur} px`);
+          for (const x of soucis) console.error(`      ${x}`);
+        }
+      } finally {
+        await page.close();
+      }
+    }
+  }
 } finally {
   await nav2.close();
 }
@@ -268,7 +357,8 @@ if (echecs === 0) {
   console.log(`✓ En-tête : ${controles} contrôles — géométrie et contrastes, aucun écart.`);
   console.log(`  De ${LARGEURS[0]} à ${LARGEURS.at(-1)} px, polices chargées, tolérance ${TOLERANCE_PX} px,`);
   console.log(`  marge minimale exigée autour du menu : ${MARGE_MIN_PX} px.`);
-  console.log('  Contrastes : les 8 sections actives, dans les deux thèmes.');
+  console.log(`  Contrastes : les 8 sections actives, plus tout le texte de l'en-tête`);
+  console.log(`  à ${LARGEURS_CONTRASTE.length} largeurs — le tout dans les deux thèmes.`);
 } else {
   console.error(`\n✗ ${echecs} configuration(s) en défaut sur ${controles}.`);
   process.exitCode = 1;
