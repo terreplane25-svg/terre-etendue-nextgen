@@ -86,26 +86,63 @@ le relief reste distingué de la courbure. Ces choix sont pris par le moteur et
 énoncés en prose dans un bloc rétractable — donc toujours contestables, ce qui
 était le point.
 
-### La règle de lecture, et son seuil
+### Ce qui est mesuré : le PIED de la cible, pas son sommet
 
-`visee_optique/simulation.py` porte la seule chose que cette refonte ajoute :
-une **convention** disant à partir de quel écart une visée permet de départager
-les deux modèles. Ce n'est pas de la physique, et c'est pour cela qu'elle est
-une constante nommée — `SEUIL_DISCRIMINATION_FRACTION = 0.01` — affichée à
-l'écran plutôt que cachée dans une condition d'interface.
+C'est le pied qui disparaît en premier sous l'horizon, et c'est là que les deux
+modèles divergent en premier. La grandeur mise en avant est donc `c`, la
+hauteur masquée **en partant de la base** — « 39,7 à 64,6 m de la base
+occultés » — et non la part visible du sommet, qui reste à 100 % longtemps
+après que la divergence est devenue mesurable.
 
-Une visée est dite **discriminante** quand, même à la réfraction la plus
-défavorable, le modèle sphérique cache au moins **1 % de la hauteur de la
-cible** : 1,1 m sur une cible de 110 m, ce qu'une photographie ordinaire
-montre. Sans plancher, une visée où la courbure cache trois centimètres serait
-déclarée discriminante ; avec un plancher en mètres absolus, la règle serait
-sévère sur un phare de 10 m et laxiste sur une falaise de 300 m.
+`c` **n'est pas bornée** à la hauteur de la cible. Au-delà de la distance
+limite elle continue de croître et dit de combien la cible est passée sous
+l'horizon. La borner à `H` perdrait cette information au moment où elle devient
+la plus parlante. Quand `c` dépasse `H`, l'interface cesse d'afficher un
+pourcentage — « 156 190 % masqués » est exact et illisible — et donne à la
+place la profondeur du sommet sous l'horizon, en kilomètres.
 
-**Le relief prime sur la courbure.** Quand une colline coupe la visée, les deux
-modèles prédisent la même chose — rien de visible — pour une raison qui n'est
-pas la forme de la Terre. La visée est alors non discriminante quel que soit
-l'écart de courbure. Confondre ce cas avec une visée discriminante
-attribuerait à la forme de la Terre ce qui revient à un talus.
+### La règle de discrimination, et ses deux conditions
+
+`visee_optique/simulation.py` porte les **conventions** que cette refonte
+ajoute. Ce n'est pas de la physique, et c'est pour cela que ce sont des
+constantes nommées — affichées à l'écran plutôt que cachées dans une condition
+d'interface.
+
+Une visée est dite **discriminante** quand DEUX conditions sont réunies :
+
+1. la courbure masque au moins **10 % de la hauteur de la cible en partant de
+   sa base** (`SEUIL_DISCRIMINATION_FRACTION = 0.10`), même à la réfraction la
+   plus défavorable — 11 m sur une cible de 110 m ;
+2. le **relief intermédiaire laisse la visée entièrement dégagée**.
+
+La première écarte les visées où les deux modèles prédisent presque la même
+chose. La seconde écarte celles où c'est une colline, et non la forme de la
+Terre, qui décide de ce qu'on voit.
+
+**Le relief prime sur la courbure.** Une colline à 500 m du poste bloque le
+pied de la cible dans les DEUX modèles : le bandeau dit alors « la cible est
+bloquée à la base par le relief local (à 0,50 km) […] ce qui empêche d'évaluer
+la courbure à grande distance », avec la distance de l'obstacle — sans elle,
+« bloquée par le relief » n'apprend rien et ne se vérifie pas sur une carte.
+
+**Le relief non évalué ne vaut ni « dégagé » ni « bloqué ».** Bloquer tout
+verdict dès que le service altimétrique tombe rendrait l'outil inutilisable ;
+présumer le trajet dégagé serait un mensonge. Le verdict porte donc sur la
+courbure et la réserve est affichée avec lui.
+
+### Aucune distance n'est refusée
+
+50 km, 500 km, 2 000 km : la géométrie ne borne rien, et rien n'a été ajouté
+pour la borner. Ce qui croît avec la distance, c'est le **nombre de points
+d'altitude** à demander. Le pas s'élargit donc par paliers — 250 m sous 100 km,
+500 m jusqu'à 500 km, 2 km au-delà — ce qui ramène une visée de 2 000 km de
+8 000 points à 1 000.
+
+L'élargissement **ne plafonne pas** ce nombre, il le freine : à 20 000 km il en
+reste 10 000. Une visée pareille n'a aucun sens physique, mais elle n'est pas
+refusée, et il vaut mieux écrire ce qu'elle coûte que laisser croire à une
+borne qui n'existe pas. Contrepartie affichée : à un pas de 2 km, une colline
+plus étroite passe entre deux points de mesure.
 
 ### Adresse ou coordonnées, et pourquoi rien ne bloque
 

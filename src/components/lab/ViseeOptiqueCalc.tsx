@@ -42,12 +42,10 @@ import {
   K_ENVELOPPE_MAX,
   K_ENVELOPPE_MIN,
   juger,
+  pasEchantillonnageM,
 } from '@/lib/visee-optique/simulation';
 
 const ACCENT = dash.opal;
-
-/** Le pas d'échantillonnage du profil de terrain, en mètres. */
-const PAS_PROFIL_M = 500;
 
 interface Saisie {
   obsPosition: string;
@@ -145,13 +143,19 @@ export default function ViseeOptiqueCalc() {
       // repart sur la surface de référence, et le motif est rendu avec. Un
       // profil manquant n'est jamais « aucun obstacle » — c'est « on ne sait
       // pas », ce qui n'est pas la même chose et ne se dit pas pareil.
+      // Le pas suit la DISTANCE : aucune visée n'est refusée pour sa
+      // longueur, mais un pas fixe de 250 m sur 2 000 km demanderait 8 000
+      // altitudes. Le pas retenu est rendu au visiteur, parce qu'il décide de
+      // ce qu'on peut manquer : une colline étroite peut passer entre deux
+      // points de mesure.
+      const pasM = pasEchantillonnageM(geo.distanceM);
       let profil = null;
       let reserveIgn: string | null = null;
       let motifProfil: string | null = null;
       let lacunes: number[] = [];
       try {
         const r = await profilDepuisIgn(
-          a.latitude, a.longitude, b.latitude, b.longitude, { pasM: PAS_PROFIL_M },
+          a.latitude, a.longitude, b.latitude, b.longitude, { pasM },
         );
         profil = r.profil;
         reserveIgn = r.reserve;
@@ -169,6 +173,7 @@ export default function ViseeOptiqueCalc() {
       setSim({
         D: geo.distanceM,
         azimutDeg: geo.azimutDepartDeg,
+        pasDemandeM: pasM,
         positionObs: a,
         positionCible: b,
         profil,

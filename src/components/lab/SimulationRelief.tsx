@@ -38,6 +38,7 @@ import {
   K_ENVELOPPE_MIN,
   K_STANDARD,
   MOTIF_REFRACTION,
+  MOTIF_RESERVE_RELIEF,
   MOTIF_SEUIL,
   SEUIL_DISCRIMINATION_FRACTION,
   type Verdict,
@@ -48,6 +49,8 @@ const ACCENT = dash.opal;
 export interface Simulation {
   D: number;
   azimutDeg: number;
+  /** Le pas d'échantillonnage demandé, choisi d'après la distance. */
+  pasDemandeM: number;
   positionObs: Position;
   positionCible: Position;
   profil: ProfilTerrain | null;
@@ -217,11 +220,17 @@ export default function ResultatSimulation({ sim }: { sim: Simulation }) {
   const v = sim.verdict;
   const parLeRelief = masqueParLeRelief(sim.globeMin);
 
-  // La fraction visible aux deux bornes, dans l'ordre lisible.
-  const visibles = [
-    sim.globeMin.fractionVisibleCourbure,
-    sim.globeMax.fractionVisibleCourbure,
-  ].sort((a, b) => a - b);
+  // Ce qui est mis en avant, c'est la hauteur masquée EN PARTANT DE LA BASE :
+  // c'est le pied de la cible qui disparaît en premier, et c'est là que les
+  // deux modèles divergent en premier. La part visible du sommet reste à
+  // 100 % longtemps après que la divergence est devenue mesurable.
+  const basMin = v.hauteurMasqueeBaseMinM;
+  const basMax = v.hauteurMasqueeBaseMaxM;
+  const memeValeur = Math.abs(basMax - basMin) < 0.05;
+  // Au-delà de la distance limite, la cible est enfouie sous l'horizon : la
+  // hauteur masquée dépasse alors sa hauteur totale, et le dire vaut mieux que
+  // d'afficher « 100 % masqué » qui perdrait de combien.
+  const enfouie = basMin > H;
 
   return (
     <div>
@@ -239,6 +248,11 @@ export default function ResultatSimulation({ sim }: { sim: Simulation }) {
           {v.discriminante ? 'Visée discriminante' : 'Visée non discriminante'}
         </div>
         <p style={{ margin: 0, fontSize: 14, lineHeight: 1.65, color: dash.ink }}>{v.motif}</p>
+        {v.reserveRelief && (
+          <p style={{ margin: '10px 0 0', fontSize: 12.5, lineHeight: 1.6, color: dash.inkSoft }}>
+            {MOTIF_RESERVE_RELIEF}
+          </p>
+        )}
       </div>
 
       {/* ── Les deux prédictions ── */}
@@ -249,41 +263,47 @@ export default function ResultatSimulation({ sim }: { sim: Simulation }) {
         <Carte
           titre="Modèle sphérique"
           couleur={ACCENT}
-          principal={
-            visibles[0] === visibles[1]
-              ? `${fmt(H * visibles[0])} m visibles`
-              : `${fmt(H * visibles[0])} à ${fmt(H * visibles[1])} m visibles`
-          }
-          soustitre={`sur ${fmt(H)} m de hauteur totale`}
+          principal={memeValeur
+            ? `${fmt(basMin)} m de la base occultés`
+            : `${fmt(basMin)} à ${fmt(basMax)} m de la base occultés`}
+          soustitre={enfouie
+            ? `sur une cible de ${fmt(H)} m — elle est entièrement sous l’horizon`
+            : `sur ${fmt(H)} m de hauteur totale`}
           lignes={[
-            ['Cachés par la courbure',
-              `${fmt(v.hauteurCacheeMinM)} à ${fmt(v.hauteurCacheeMaxM)} m`],
-            ['Part visible',
-              visibles[0] === visibles[1]
-                ? `${fmt(100 * visibles[0])} %`
-                : `${fmt(100 * visibles[0])} % à ${fmt(100 * visibles[1])} %`],
-            ['Masqué par le relief',
+            // Quand la cible est enfouie, un pourcentage de plusieurs milliers
+            // est exact et illisible. Ce qui parle alors, c'est de combien le
+            // SOMMET est passé sous l'horizon — une longueur, pas un ratio.
+            [enfouie ? 'Sommet sous l’horizon' : 'Part de la cible masquée',
+              enfouie
+                ? `de ${fmtKm(basMin - H)} à ${fmtKm(basMax - H)} en dessous`
+                : memeValeur
+                  ? `${fmt(100 * v.fractionMasqueeBaseMin)} %`
+                  : `${fmt(100 * v.fractionMasqueeBaseMin)} % à ${fmt(100 * v.fractionMasqueeBaseMax)} %`],
+            ['Ce qui reste visible',
+              enfouie ? 'rien — le sommet est passé sous l’horizon'
+                : `${fmt(Math.max(0, H - basMax))} à ${fmt(Math.max(0, H - basMin))} m, en partant du sommet`],
+            ['Relief intermédiaire',
               parLeRelief === null
                 ? 'non évalué — ce n’est pas « aucun obstacle »'
                 : parLeRelief
-                  ? `oui, à ${fmtKm(sim.globeMin.obstacleLePlusGenant!.distanceM)}`
-                  : 'non, aucun obstacle sur le trajet'],
+                  ? `bloque à ${fmtKm(sim.globeMin.obstacleLePlusGenant!.distanceM)}`
+                  : 'dégagé, aucun obstacle sur le trajet'],
           ]}
         />
         <Carte
           titre="Modèle plat"
           couleur={dash.saffron}
-          principal={parLeRelief ? 'cachée par le relief' : `${fmt(H)} m visibles`}
+          principal="0,0 m de la base occultés"
           soustitre="aucune courbure, par construction"
           lignes={[
-            ['Cachés par la courbure', '0,0 m — par construction'],
-            ['Part visible', '100,0 %'],
-            ['Masqué par le relief',
+            ['Part de la cible masquée', '0,0 %'],
+            ['Ce qui reste visible', `${fmt(H)} m — la cible entière`],
+            ['Relief intermédiaire',
               parLeRelief === null
                 ? 'non évalué — ce n’est pas « aucun obstacle »'
                 : parLeRelief
-                  ? `oui, à ${fmtKm(sim.plan.obstacleLePlusGenant?.distanceM ?? 0)}`
-                  : 'non, aucun obstacle sur le trajet'],
+                  ? `bloque à ${fmtKm(sim.plan.obstacleLePlusGenant?.distanceM ?? 0)}`
+                  : 'dégagé, aucun obstacle sur le trajet'],
           ]}
         />
       </div>
@@ -351,7 +371,11 @@ export default function ResultatSimulation({ sim }: { sim: Simulation }) {
             {sim.profil
               ? <>Le profil du terrain entre les deux points vient du modèle altimétrique
                 de l’IGN : {sim.profil.points.length} points relevés tous les{' '}
-                {fmt(sim.profil.pasM ?? 0, 0)} m environ.
+                {fmt(sim.profil.pasM ?? sim.pasDemandeM, 0)} m environ. Ce pas est choisi
+                d’après la distance — 250 m sous 100 km, 500 m jusqu’à 500 km, 2 km au-delà —
+                pour qu’une visée de n’importe quelle longueur reste interrogeable.
+                Contrepartie : à ce pas, une colline plus étroite que{' '}
+                {fmt(sim.pasDemandeM, 0)} m peut passer entre deux points de mesure.
                 {sim.lacunesM.length > 0 && (
                   <> {sim.lacunesM.length} point{sim.lacunesM.length > 1 ? 's sont' : ' est'}{' '}
                   hors couverture : {sim.lacunesM.length > 1 ? 'ils sont laissés' : 'il est laissé'}{' '}
