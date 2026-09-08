@@ -16,33 +16,35 @@
  * Ces choix sont désormais pris par le moteur et énoncés en prose dans un
  * bloc rétractable — ils sont donc encore contestables, ce qui était le point.
  *
- * DEUX RÈGLES QUI NE SE NÉGOCIENT PAS
- * ───────────────────────────────────
- *  1. La simulation tourne TOUJOURS sur les coordonnées et hauteurs saisies.
- *     Ni le géocodage ni l'altimétrie ne peuvent l'empêcher : quand ces
- *     services manquent, le résultat est rendu avec ce qui manque écrit
- *     dessus, jamais remplacé par une valeur commode.
- *  2. « Relief non évalué » n'est jamais affiché comme « aucun obstacle ».
- *     Confondre les deux attribuerait à la forme de la Terre ce qui revient à
- *     un talus, et l'erreur va dans les deux sens.
+ * GÉOMÉTRIE PURE : PLUS AUCUN MODÈLE DE TERRAIN
+ * ─────────────────────────────────────────────
+ * Le simulateur ne consulte plus de profil altimétrique et ne cherche plus
+ * d'obstacle local. Chercher ce qui bouche la vue depuis un poste donné relève
+ * du contrôle de l'analyste SUR L'IMAGE RÉELLE — une haie, un cargo, un
+ * bâtiment récent ne figurent dans aucun modèle numérique de terrain.
+ *
+ * LA RÈGLE QUI NE SE NÉGOCIE PAS
+ * ──────────────────────────────
+ * La simulation tourne TOUJOURS sur les coordonnées et hauteurs saisies. Le
+ * géocodage ne peut pas l'empêcher : les coordonnées, décimales ou en degrés-
+ * minutes-secondes, sont lues sans qu'aucune requête ne parte.
  */
 import { useCallback, useState } from 'react';
 import { dash } from '@/lib/design-tokens';
-import ResultatSimulation, { type Simulation } from './SimulationRelief';
+import ResultatVisee, { type Simulation } from './ResultatVisee';
 import {
   cible as faireCible,
+  hauteurOccultee,
   rayonEffectif,
   rayonEuler,
   vincentyInverse,
 } from '@/lib/visee-optique/noyau';
-import { analyserRelief } from '@/lib/visee-optique/relief';
-import { profilDepuisIgn } from '@/lib/visee-optique/altimetrie-ign';
 import { resoudrePosition } from '@/lib/visee-optique/geocodage-ign';
 import {
   K_ENVELOPPE_MAX,
   K_ENVELOPPE_MIN,
+  K_STANDARD,
   juger,
-  pasEchantillonnageM,
 } from '@/lib/visee-optique/simulation';
 
 const ACCENT = dash.opal;
@@ -137,56 +139,31 @@ export default function ViseeOptiqueCalc() {
       const REuler = rayonEuler((a.latitude + b.latitude) / 2, geo.azimutDepartDeg);
       const ci = faireCible(hCib, 0);
 
-      // ── Le relief, s'il est disponible ────────────────────────────────────
+      // ── L'occultation à la base, sur la seule géométrie ───────────────────
       //
-      // L'échec de l'altimétrie ne fait PAS tomber la simulation : elle
-      // repart sur la surface de référence, et le motif est rendu avec. Un
-      // profil manquant n'est jamais « aucun obstacle » — c'est « on ne sait
-      // pas », ce qui n'est pas la même chose et ne se dit pas pareil.
-      // Le pas suit la DISTANCE : aucune visée n'est refusée pour sa
-      // longueur, mais un pas fixe de 250 m sur 2 000 km demanderait 8 000
-      // altitudes. Le pas retenu est rendu au visiteur, parce qu'il décide de
-      // ce qu'on peut manquer : une colline étroite peut passer entre deux
-      // points de mesure.
-      const pasM = pasEchantillonnageM(geo.distanceM);
-      let profil = null;
-      let reserveIgn: string | null = null;
-      let motifProfil: string | null = null;
-      let lacunes: number[] = [];
-      try {
-        const r = await profilDepuisIgn(
-          a.latitude, a.longitude, b.latitude, b.longitude, { pasM },
-        );
-        profil = r.profil;
-        reserveIgn = r.reserve;
-        lacunes = r.lacunesM;
-      } catch (err) {
-        motifProfil = err instanceof Error ? err.message : String(err);
-      }
-
-      const analyse = (k: number) => analyserRelief(
-        geo.distanceM, hObs, ci, rayonEffectif(REuler, k), profil, 'sphérique', 0,
-      );
-      const globeMin = analyse(K_ENVELOPPE_MIN);
-      const globeMax = analyse(K_ENVELOPPE_MAX);
+      // Le verdict est rendu au gradient MOYEN. L'enveloppe sert à afficher
+      // l'écart que laisse l'ignorance du profil vertical de température :
+      // rendre un chiffre unique le ferait passer pour mieux connu qu'il ne
+      // l'est, mais juger sur l'enveloppe serait plus sévère que ce qui est
+      // annoncé à l'écran.
+      const masquee = (k: number) =>
+        hauteurOccultee(geo.distanceM, hObs, ci, rayonEffectif(REuler, k));
+      const masqueeStandard = masquee(K_STANDARD);
+      const bornes = [masquee(K_ENVELOPPE_MIN), masquee(K_ENVELOPPE_MAX)]
+        .sort((x, y) => x - y);
 
       setSim({
         D: geo.distanceM,
         azimutDeg: geo.azimutDepartDeg,
-        pasDemandeM: pasM,
         positionObs: a,
         positionCible: b,
-        profil,
-        motifProfil,
-        reserveIgn,
-        lacunesM: lacunes,
-        globeMin,
-        globeMax,
-        plan: analyserRelief(geo.distanceM, hObs, ci, null, profil, 'plan', 0),
-        verdict: juger(globeMin, globeMax, hCib),
+        masqueeStandardM: masqueeStandard,
+        masqueeEnveloppeMinM: bornes[0],
+        masqueeEnveloppeMaxM: bornes[1],
+        verdict: juger(masqueeStandard, hCib),
         cible: ci,
         h: hObs,
-        rTrace: rayonEffectif(REuler, (K_ENVELOPPE_MIN + K_ENVELOPPE_MAX) / 2),
+        rTrace: rayonEffectif(REuler, K_STANDARD),
       });
     } catch (err) {
       setErreur(err instanceof Error ? err.message : String(err));
@@ -229,7 +206,7 @@ export default function ViseeOptiqueCalc() {
             label="Où vous êtes" large
             valeur={s.obsPosition} onChange={maj('obsPosition')}
             placeholder="50.94642, 1.75305 — ou une adresse"
-            aide="Coordonnées « latitude, longitude », ou une adresse française."
+            aide="Degrés décimaux, degrés-minutes-secondes (50°52'47.56&quot;N 1°38'46.91&quot;E), ou une adresse."
           />
           <Champ
             label="Hauteur de l’œil"
@@ -254,7 +231,7 @@ export default function ViseeOptiqueCalc() {
             label="Ce que vous regardez" large
             valeur={s.cibPosition} onChange={maj('cibPosition')}
             placeholder="51.13152, 1.338825 — ou une adresse"
-            aide="Coordonnées « latitude, longitude », ou une adresse."
+            aide="Degrés décimaux, degrés-minutes-secondes, ou une adresse."
           />
           <Champ
             label="Hauteur totale"
@@ -298,7 +275,7 @@ export default function ViseeOptiqueCalc() {
         </div>
       )}
 
-      {sim && <ResultatSimulation sim={sim} />}
+      {sim && <ResultatVisee sim={sim} />}
     </div>
   );
 }

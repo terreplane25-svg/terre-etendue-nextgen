@@ -3,10 +3,16 @@
  *
  * CE QUE CE MODULE FAIT, ET CE QU'IL NE BLOQUE JAMAIS
  * ──────────────────────────────────────────────────
- * Il lit d'abord la saisie comme des COORDONNÉES. « 50.94642, 1.75305 » est
- * compris sans qu'aucune requête ne parte : c'est le chemin normal, et il ne
- * dépend d'aucun réseau. Le service de géocodage n'est interrogé que si la
- * saisie n'est pas un couple de nombres.
+ * Il lit d'abord la saisie comme des COORDONNÉES, en degrés décimaux
+ * (« 50.94642, 1.75305 ») ou en degrés-minutes-secondes
+ * (« 50°52'47.56\"N 1°38'46.91\"E »). Aucune requête ne part dans ce cas :
+ * c'est le chemin normal, et il ne dépend d'aucun réseau. Le service de
+ * géocodage n'est interrogé que si la saisie n'est ni l'un ni l'autre.
+ *
+ * Le DMS n'est PAS une adresse. Répondre « adresse introuvable » à des
+ * coordonnées parfaitement lisibles serait un refus de lire, pas une
+ * information — et le visiteur n'aurait aucun moyen de deviner qu'il fallait
+ * les convertir lui-même.
  *
  * Conséquence voulue : la simulation tourne toujours sur les coordonnées
  * saisies, que le géocodage marche ou non. Quand il échoue, le module le dit
@@ -62,6 +68,11 @@ export function lireCoordonnees(saisie: string): Position | null {
   const t = saisie.trim();
   if (t === '') return null;
 
+  // Le DMS d'abord : il porte des marques qui ne peuvent pas être autre chose
+  // (° ' \" et un point cardinal), donc l'essayer en premier n'ambiguïse rien.
+  const dms = lireDms(t);
+  if (dms !== null) return dms;
+
   // Deux nombres décimaux. La virgule sert de séparateur décimal ET de
   // séparateur de champs en français : on ne peut pas la traiter comme les
   // deux à la fois, donc la forme « 50,94 1,75 » est reconnue à part.
@@ -77,6 +88,62 @@ export function lireCoordonnees(saisie: string): Position | null {
     return construire(Number(pointDecimal[1]), Number(pointDecimal[2]));
   }
   return null;
+}
+
+/**
+ * Un angle en degrés, minutes, secondes, avec son point cardinal.
+ *
+ * Les secondes et les minutes sont facultatives : « 50°N » et « 50°52'N » sont
+ * des saisies légitimes. Le séparateur décimal peut être le point ou la
+ * virgule. Les guillemets typographiques (′ ″ ’) sont acceptés parce que les
+ * copier-coller depuis une carte en produisent constamment.
+ */
+const MOTIF_ANGLE_DMS = String.raw`(\d{1,3})\s*[°º]\s*(?:(\d{1,2})\s*['’′]\s*(?:(\d{1,2}(?:[.,]\d+)?)\s*(?:["”″]|''|’’)?\s*)?)?([NSEWO])`;
+
+/**
+ * Lit un couple d'angles en degrés-minutes-secondes, ou rend null.
+ *
+ * Le point cardinal fait autorité sur l'ordre : « 1°E 50°N » est compris comme
+ * « 50°N 1°E ». Se fier à la position dans la chaîne inverserait latitude et
+ * longitude sur une saisie parfaitement valide, sans rien signaler.
+ */
+function lireDms(t: string): Position | null {
+  const motif = new RegExp(`^\\s*${MOTIF_ANGLE_DMS}[\\s,;]+${MOTIF_ANGLE_DMS}\\s*$`, 'iu');
+  const r = motif.exec(t);
+  if (r === null) return null;
+
+  const premier = angleDms(r[1], r[2], r[3], r[4]);
+  const second = angleDms(r[5], r[6], r[7], r[8]);
+  if (premier === null || second === null) return null;
+
+  // Deux latitudes ou deux longitudes : la saisie est incohérente, et deviner
+  // laquelle est laquelle produirait un point ailleurs sans rien dire.
+  if (premier.axe === second.axe) return null;
+  const lat = premier.axe === 'lat' ? premier.valeur : second.valeur;
+  const lon = premier.axe === 'lon' ? premier.valeur : second.valeur;
+
+  const p = construire(lat, lon);
+  return p === null ? null : { ...p, origine: 'coordonnées saisies (degrés, minutes, secondes)' };
+}
+
+/** Un angle DMS converti en degrés décimaux, avec l'axe que son cardinal désigne. */
+function angleDms(
+  deg: string, min: string | undefined, sec: string | undefined, cardinal: string,
+): { valeur: number; axe: 'lat' | 'lon' } | null {
+  const d = Number(deg);
+  const mi = min === undefined ? 0 : Number(min);
+  const se = sec === undefined ? 0 : Number(sec.replace(',', '.'));
+  if (!Number.isFinite(d) || !Number.isFinite(mi) || !Number.isFinite(se)) return null;
+  // 60 minutes ou 60 secondes ne s'écrivent pas : c'est le degré suivant. Les
+  // accepter laisserait passer une saisie fautive en la corrigeant en silence.
+  if (mi >= 60 || se >= 60) return null;
+
+  const c = cardinal.toUpperCase();
+  const axe: 'lat' | 'lon' = c === 'N' || c === 'S' ? 'lat' : 'lon';
+  // « O » pour Ouest en français, « W » pour West en anglais : les deux se
+  // rencontrent sur les cartes, et les deux valent un signe négatif.
+  const signe = c === 'S' || c === 'W' || c === 'O' ? -1 : 1;
+  return { valeur: signe * (d + mi / 60 + se / 3600), axe };
 }
 
 function construire(latitude: number, longitude: number): Position | null {

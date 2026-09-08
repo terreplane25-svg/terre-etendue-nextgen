@@ -133,29 +133,43 @@ courbure et la réserve est affichée avec lui.
 ### Aucune distance n'est refusée
 
 50 km, 500 km, 2 000 km : la géométrie ne borne rien, et rien n'a été ajouté
-pour la borner. Ce qui croît avec la distance, c'est le **nombre de points
-d'altitude** à demander. Le pas s'élargit donc par paliers — 250 m sous 100 km,
-500 m jusqu'à 500 km, 2 km au-delà — ce qui ramène une visée de 2 000 km de
-8 000 points à 1 000.
+pour la borner. Depuis la suppression du modèle de terrain, la longueur d'une
+visée ne coûte plus rien non plus — il n'y a plus d'altitudes à demander.
 
-L'élargissement **ne plafonne pas** ce nombre, il le freine : à 20 000 km il en
-reste 10 000. Une visée pareille n'a aucun sens physique, mais elle n'est pas
-refusée, et il vaut mieux écrire ce qu'elle coûte que laisser croire à une
-borne qui n'existe pas. Contrepartie affichée : à un pas de 2 km, une colline
-plus étroite passe entre deux points de mesure.
+### Géométrie pure : plus aucun modèle de terrain
 
-### Adresse ou coordonnées, et pourquoi rien ne bloque
+Le simulateur ne consulte plus de profil altimétrique et ne cherche plus
+d'obstacle local. Le calcul porte exclusivement sur la ligne de visée théorique
+entre les deux altitudes saisies.
 
-`geocodage-ign.ts` lit d'abord la saisie comme des **coordonnées** :
-« 50.94642, 1.75305 » est compris sans qu'aucune requête ne parte. Le service
-n'est interrogé que si la saisie est du texte. Un contrôle dédié compte les
-requêtes pour l'établir, parce que c'est la propriété qui garantit que la
-simulation tourne toujours sur ce qui a été saisi, service en panne ou non.
+Ce n'est pas un renoncement, c'est un partage des rôles : ce qui bouche
+réellement la vue depuis un poste — une haie, un cargo, un bâtiment récent — ne
+figure dans **aucun** modèle numérique de terrain, et se constate sur l'image.
+C'est le contrôle de l'analyste, pas celui du simulateur. Un simulateur qui
+prétendrait trancher cette question donnerait une fausse assurance.
 
-Quand le géocodage échoue, l'outil dit quoi faire — saisir les coordonnées
-exactes — au lieu de laisser le visiteur devant un mur. Quand l'altimétrie
-échoue, la simulation tourne quand même sur la surface de référence, et le
-résultat porte « relief non évalué », jamais « aucun obstacle ».
+`src/lib/visee-optique/altimetrie-ign.ts` et son contrôle ont été supprimés.
+`relief.py` et `relief.ts` restent : le second fournit encore le tracé exact de
+la ligne de visée, et le premier garde ses propres tests.
+
+### La saisie des coordonnées : décimales ou DMS
+
+`geocodage-ign.ts` lit la saisie comme des coordonnées **avant** de songer à
+une adresse : degrés décimaux (« 50.94642, 1.75305 ») ou degrés-minutes-secondes
+(« 50°52'47.56"N 1°38'46.91"E »). Aucune requête ne part dans ces deux cas, et
+un contrôle compte les requêtes pour l'établir.
+
+Répondre « adresse introuvable » à des coordonnées parfaitement lisibles serait
+un refus de lire, pas une information. Le parseur DMS accepte les guillemets
+typographiques — un copier-coller de carte en produit toujours —, la virgule
+décimale, les minuscules, le « O » français comme le « W » anglais, et les
+minutes ou secondes omises.
+
+**Le point cardinal fait autorité sur l'ordre** : « 1°38'E 50°52'N » est compris
+comme « 50°52'N 1°38'E ». Se fier à la position dans la chaîne inverserait
+latitude et longitude sur une saisie valide, sans rien signaler. Une saisie
+incohérente — deux latitudes, 60 minutes, aucun cardinal — est refusée plutôt
+que devinée.
 
 ## Le relief (outil A)
 

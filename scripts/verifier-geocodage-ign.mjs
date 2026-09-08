@@ -86,6 +86,57 @@ try {
       p === null ? 'rendu null' : `${p.latitude} / ${p.longitude}`);
   }
 
+  // ── 1 bis. Le DMS se lit aussi sans réseau ───────────────────────────────
+  //
+  // Répondre « adresse introuvable » à des coordonnées parfaitement lisibles
+  // serait un refus de lire, pas une information.
+  for (const [saisie, lat, lon] of [
+    // La saisie de référence, celle du cas d'étude.
+    ['50°52\'47.56"N 1°38\'46.91"E', 50 + 52 / 60 + 47.56 / 3600, 1 + 38 / 60 + 46.91 / 3600],
+    // Virgule décimale sur les secondes, et virgule séparatrice.
+    ['50°52\'47,56"N, 1°38\'46,91"E', 50 + 52 / 60 + 47.56 / 3600, 1 + 38 / 60 + 46.91 / 3600],
+    // Guillemets typographiques : un copier-coller de carte en produit toujours.
+    ['50°52′47.56″N 1°38′46.91″E', 50 + 52 / 60 + 47.56 / 3600, 1 + 38 / 60 + 46.91 / 3600],
+    // Secondes puis minutes facultatives.
+    ['50°52\'N 1°38\'E', 50 + 52 / 60, 1 + 38 / 60],
+    ['50°N 1°E', 50, 1],
+    // Les quatre cardinaux, « O » français compris.
+    ['33°55\'S 18°25\'E', -(33 + 55 / 60), 18 + 25 / 60],
+    ['40°42\'N 74°0\'W', 40 + 42 / 60, -74],
+    ['40°42\'N 74°0\'O', 40 + 42 / 60, -74],
+    // Le cardinal fait autorité sur l'ORDRE : longitude écrite en premier.
+    ['1°38\'46.91"E 50°52\'47.56"N', 50 + 52 / 60 + 47.56 / 3600, 1 + 38 / 60 + 46.91 / 3600],
+    // Minuscules, et espaces autour des symboles.
+    ['50 ° 52 \' 47.56 " n   1 ° 38 \' 46.91 " e', 50 + 52 / 60 + 47.56 / 3600, 1 + 38 / 60 + 46.91 / 3600],
+  ]) {
+    const p = G.lireCoordonnees(saisie);
+    verifier(`DMS « ${saisie} » lu`,
+      p !== null && Math.abs(p.latitude - lat) < 1e-9 && Math.abs(p.longitude - lon) < 1e-9,
+      p === null ? 'rendu null' : `${p.latitude} / ${p.longitude}`);
+  }
+  const dmsOrigine = G.lireCoordonnees('50°52\'47.56"N 1°38\'46.91"E');
+  verifier('origine DMS nommée', dmsOrigine.origine.includes('degrés, minutes, secondes'),
+    dmsOrigine.origine);
+
+  // Une saisie DMS incohérente est refusée plutôt que devinée : deux latitudes,
+  // ou des minutes qui débordent, ne se corrigent pas en silence.
+  for (const mauvais of [
+    '50°52\'N 40°38\'N',        // deux latitudes
+    '50°30\'E 1°38\'E',         // deux longitudes
+    '50°60\'N 1°38\'E',         // 60 minutes, c'est le degré suivant
+    '50°52\'60"N 1°38\'E',      // 60 secondes de même
+    '95°52\'N 1°38\'E',         // latitude hors bornes
+    '50°52\'47.56" 1°38\'46.91"', // aucun cardinal : l'axe est indevinable
+  ]) {
+    verifier(`DMS incohérent refusé : « ${mauvais} »`, G.lireCoordonnees(mauvais) === null,
+      JSON.stringify(G.lireCoordonnees(mauvais)));
+  }
+
+  const sansAppelDms = fauxFetch(json({}));
+  await G.resoudrePosition('50°52\'47.56"N 1°38\'46.91"E', sansAppelDms);
+  verifier('aucune requête pour une saisie DMS', sansAppelDms.appels.length === 0,
+    `${sansAppelDms.appels.length} appel(s)`);
+
   const sansAppel = fauxFetch(json({}));
   const direct = await G.resoudrePosition('50.94642, 1.75305', sansAppel);
   verifier('aucune requête pour un couple de coordonnées', sansAppel.appels.length === 0,

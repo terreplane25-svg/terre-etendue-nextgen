@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "verifier:ports": "npm run verifier:sources && npm run verifier:visee && npm run verifier:preuve && npm run verifier:provenance && npm run verifier:rapport && npm run verifier:metrologie && npm run verifier:extraction && npm run verifier:conteneurs && npm run verifier:isobmff && npm run verifier:makernotes && npm run verifier:dossier && npm run verifier:relief && npm run verifier:simulation && npm run verifier:altimetrie && npm run verifier:geocodage",
+    "verifier:ports": "npm run verifier:sources && npm run verifier:visee && npm run verifier:preuve && npm run verifier:provenance && npm run verifier:rapport && npm run verifier:metrologie && npm run verifier:extraction && npm run verifier:conteneurs && npm run verifier:isobmff && npm run verifier:makernotes && npm run verifier:dossier && npm run verifier:relief && npm run verifier:simulation && npm run verifier:geocodage",
     "verifier:sources": "node scripts/verifier-sources-texte.mjs",
     "verifier:visee": "node scripts/verifier-port-visee.mjs",
     "verifier:preuve": "node scripts/verifier-port-preuve.mjs",
@@ -25,7 +25,6 @@
     "verifier:dossier": "node scripts/verifier-port-dossier.mjs",
     "verifier:relief": "node scripts/verifier-port-relief.mjs",
     "verifier:simulation": "node scripts/verifier-port-simulation.mjs",
-    "verifier:altimetrie": "node scripts/verifier-altimetrie-ign.mjs",
     "verifier:geocodage": "node scripts/verifier-geocodage-ign.mjs"
   },
   "dependencies": {

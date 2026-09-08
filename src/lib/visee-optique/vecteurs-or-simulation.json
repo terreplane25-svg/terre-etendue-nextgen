@@ -1,5 +1,5 @@
 {
-  "genere_le": "2026-09-08T00:37:32.147555+00:00",
+  "genere_le": "2026-09-08T10:20:39.383650+00:00",
   "source": "visee_optique.simulation (paquet Python)",
   "avertissement": "Fichier généré. Ne pas modifier à la main : il est la référence contre laquelle le port TypeScript est vérifié.",
   "constantes": {
@@ -7,293 +7,137 @@
     "k_standard": 0.13,
     "k_enveloppe_min": 0.1,
     "k_enveloppe_max": 0.4,
-    "motif_seuil": "Une visée est dite discriminante quand DEUX conditions sont réunies : la courbure masque au moins 10 % de la hauteur de la cible en partant de sa base, même à la réfraction la plus défavorable ; et le relief intermédiaire laisse la visée entièrement dégagée. La première condition écarte les visées où les deux modèles prédisent presque la même chose ; la seconde écarte celles où c'est une colline, et non la forme de la Terre, qui décide de ce qu'on voit. Ce seuil de 10 % est une convention de lecture, pas une norme.",
-    "motif_refraction": "La réfraction atmosphérique courbe les rayons lumineux et fait voir un peu plus loin que la géométrie pure. Faute de profil vertical de température mesuré sur le trajet, le calcul est conduit sur toute l'enveloppe plausible au-dessus de l'eau — de 0,10 à 0,40, valeur moyenne 0,13 — et les résultats sont rendus comme un intervalle. Un chiffre unique laisserait croire cette grandeur mieux connue qu'elle ne l'est.",
-    "motif_reserve_relief": "Le relief intermédiaire n'a pas pu être évalué : la seconde condition de discrimination n'est donc pas vérifiée, seulement présumée. Ce n'est pas « aucun obstacle » — c'est « on ne sait pas », et un talus non vu invaliderait la visée sans rien changer à la courbure.",
-    "pas_court_m": 250.0,
-    "pas_moyen_m": 500.0,
-    "pas_long_m": 2000.0,
-    "seuil_distance_moyenne_m": 100000.0,
-    "seuil_distance_longue_m": 500000.0
+    "masque_modele_plat_m": 0.0,
+    "motif_seuil": "Une visée est dite discriminante quand la courbure masque au moins 10 % de la hauteur de la cible en partant de sa base. Sous ce seuil, les deux modèles prédisent des choses trop proches pour qu'une photographie les sépare, et annoncer « discriminante » promettrait une mesure que personne ne pourrait faire. Ce seuil est une convention de lecture, pas une norme.",
+    "motif_refraction": "La réfraction atmosphérique courbe les rayons lumineux et fait voir un peu plus loin que la géométrie pure. Le calcul principal emploie le gradient moyen k = 0,13, celui d'une atmosphère bien mélangée. Faute de profil vertical de température mesuré sur le trajet, l'écart que cette ignorance laisse est affiché à part, entre k = 0,10 et k = 0,40.",
+    "motif_sans_relief": "Ce simulateur ne consulte aucun modèle de terrain : il calcule la ligne de visée théorique entre les deux altitudes saisies, et rien d'autre. Ce qui bouche réellement la vue depuis un poste — une haie, un cargo, un bâtiment récent — ne figure dans aucun modèle numérique et se constate sur l'image. C'est le contrôle de l'analyste, pas celui du simulateur."
   },
   "cas": [
     {
-      "nom": "rien de masqué aux deux bornes",
-      "masquee_borne_1_m": 0.0,
-      "masquee_borne_2_m": 0.0,
-      "obstacle": false,
-      "relief_evalue": true,
+      "nom": "rien de masqué",
+      "masquee_base_m": 0.0,
       "hauteur_cible_m": 100.0,
       "verdict": {
         "discriminante": false,
-        "motif": "À la réfraction la plus favorable, la courbure ne masque que 0,0 m à la base de la cible, soit 0,0 % de sa hauteur — sous le seuil de 10,0 %. Les deux modèles prédisent presque la même chose. Il faut viser plus loin, ou plus bas, ou une cible plus courte.",
-        "hauteur_masquee_base_min_m": 0.0,
-        "hauteur_masquee_base_max_m": 0.0,
-        "fraction_masquee_base_min": 0.0,
-        "fraction_masquee_base_max": 0.0,
-        "masque_par_le_relief": false,
-        "distance_obstacle_m": null,
-        "reserve_relief": false,
+        "motif": "Le modèle sphérique ne masque que 0,0 m à la base de la cible, soit 0,0 % de sa hauteur — sous le seuil de 10,0 %. Les deux modèles prédisent presque la même chose : il faut viser plus loin, ou plus bas, ou une cible plus courte.",
+        "hauteur_masquee_base_m": 0.0,
+        "fraction_masquee_base": 0.0,
+        "hauteur_masquee_plat_m": 0.0,
+        "ecart_entre_modeles_m": 0.0,
         "seuil_applique": 0.1
       }
     },
     {
       "nom": "cible enfouie sous l'horizon",
-      "masquee_borne_1_m": 2042.0,
-      "masquee_borne_2_m": 2500.0,
-      "obstacle": false,
-      "relief_evalue": true,
+      "masquee_base_m": 2042.0,
       "hauteur_cible_m": 300.0,
       "verdict": {
         "discriminante": true,
-        "motif": "Sur le modèle sphérique, la courbure masque de 2042,0 à 2500,0 m à la base de la cible ; sur le modèle plat, rien n'est masqué. Le relief intermédiaire laisse la visée entièrement dégagée : l'écart observable revient bien à la courbure.",
-        "hauteur_masquee_base_min_m": 2042.0,
-        "hauteur_masquee_base_max_m": 2500.0,
-        "fraction_masquee_base_min": 6.806666666666667,
-        "fraction_masquee_base_max": 8.333333333333334,
-        "masque_par_le_relief": false,
-        "distance_obstacle_m": null,
-        "reserve_relief": false,
+        "motif": "Le modèle sphérique masque 2042,0 m à la base de la cible ; le modèle plat n'en masque aucun. L'écart entre les deux prédictions est de 2042,0 m, soit 680,7 % de la hauteur de la cible — assez pour qu'une photographie les départage.",
+        "hauteur_masquee_base_m": 2042.0,
+        "fraction_masquee_base": 6.806666666666667,
+        "hauteur_masquee_plat_m": 0.0,
+        "ecart_entre_modeles_m": 2042.0,
         "seuil_applique": 0.1
       }
     },
     {
       "nom": "nettement discriminante",
-      "masquee_borne_1_m": 38.5,
-      "masquee_borne_2_m": 68.2,
-      "obstacle": false,
-      "relief_evalue": true,
+      "masquee_base_m": 38.5,
       "hauteur_cible_m": 110.0,
       "verdict": {
         "discriminante": true,
-        "motif": "Sur le modèle sphérique, la courbure masque de 38,5 à 68,2 m à la base de la cible ; sur le modèle plat, rien n'est masqué. Le relief intermédiaire laisse la visée entièrement dégagée : l'écart observable revient bien à la courbure.",
-        "hauteur_masquee_base_min_m": 38.5,
-        "hauteur_masquee_base_max_m": 68.2,
-        "fraction_masquee_base_min": 0.35,
-        "fraction_masquee_base_max": 0.62,
-        "masque_par_le_relief": false,
-        "distance_obstacle_m": null,
-        "reserve_relief": false,
+        "motif": "Le modèle sphérique masque 38,5 m à la base de la cible ; le modèle plat n'en masque aucun. L'écart entre les deux prédictions est de 38,5 m, soit 35,0 % de la hauteur de la cible — assez pour qu'une photographie les départage.",
+        "hauteur_masquee_base_m": 38.5,
+        "fraction_masquee_base": 0.35,
+        "hauteur_masquee_plat_m": 0.0,
+        "ecart_entre_modeles_m": 38.5,
         "seuil_applique": 0.1
       }
     },
     {
       "nom": "sommet visible, pied masqué",
-      "masquee_borne_1_m": 15.0,
-      "masquee_borne_2_m": 40.0,
-      "obstacle": false,
-      "relief_evalue": true,
+      "masquee_base_m": 15.0,
       "hauteur_cible_m": 100.0,
       "verdict": {
         "discriminante": true,
-        "motif": "Sur le modèle sphérique, la courbure masque de 15,0 à 40,0 m à la base de la cible ; sur le modèle plat, rien n'est masqué. Le relief intermédiaire laisse la visée entièrement dégagée : l'écart observable revient bien à la courbure.",
-        "hauteur_masquee_base_min_m": 15.0,
-        "hauteur_masquee_base_max_m": 40.0,
-        "fraction_masquee_base_min": 0.15,
-        "fraction_masquee_base_max": 0.4,
-        "masque_par_le_relief": false,
-        "distance_obstacle_m": null,
-        "reserve_relief": false,
+        "motif": "Le modèle sphérique masque 15,0 m à la base de la cible ; le modèle plat n'en masque aucun. L'écart entre les deux prédictions est de 15,0 m, soit 15,0 % de la hauteur de la cible — assez pour qu'une photographie les départage.",
+        "hauteur_masquee_base_m": 15.0,
+        "fraction_masquee_base": 0.15,
+        "hauteur_masquee_plat_m": 0.0,
+        "ecart_entre_modeles_m": 15.0,
         "seuil_applique": 0.1
       }
     },
     {
       "nom": "au seuil exact",
-      "masquee_borne_1_m": 10.0,
-      "masquee_borne_2_m": 30.0,
-      "obstacle": false,
-      "relief_evalue": true,
+      "masquee_base_m": 10.0,
       "hauteur_cible_m": 100.0,
       "verdict": {
         "discriminante": true,
-        "motif": "Sur le modèle sphérique, la courbure masque de 10,0 à 30,0 m à la base de la cible ; sur le modèle plat, rien n'est masqué. Le relief intermédiaire laisse la visée entièrement dégagée : l'écart observable revient bien à la courbure.",
-        "hauteur_masquee_base_min_m": 10.0,
-        "hauteur_masquee_base_max_m": 30.0,
-        "fraction_masquee_base_min": 0.1,
-        "fraction_masquee_base_max": 0.3,
-        "masque_par_le_relief": false,
-        "distance_obstacle_m": null,
-        "reserve_relief": false,
+        "motif": "Le modèle sphérique masque 10,0 m à la base de la cible ; le modèle plat n'en masque aucun. L'écart entre les deux prédictions est de 10,0 m, soit 10,0 % de la hauteur de la cible — assez pour qu'une photographie les départage.",
+        "hauteur_masquee_base_m": 10.0,
+        "fraction_masquee_base": 0.1,
+        "hauteur_masquee_plat_m": 0.0,
+        "ecart_entre_modeles_m": 10.0,
         "seuil_applique": 0.1
       }
     },
     {
       "nom": "juste sous le seuil",
-      "masquee_borne_1_m": 9.999999999999998,
-      "masquee_borne_2_m": 30.0,
-      "obstacle": false,
-      "relief_evalue": true,
+      "masquee_base_m": 9.999999999999998,
       "hauteur_cible_m": 100.0,
       "verdict": {
         "discriminante": false,
-        "motif": "À la réfraction la plus favorable, la courbure ne masque que 10,0 m à la base de la cible, soit 10,0 % de sa hauteur — sous le seuil de 10,0 %. Les deux modèles prédisent presque la même chose. Il faut viser plus loin, ou plus bas, ou une cible plus courte.",
-        "hauteur_masquee_base_min_m": 9.999999999999998,
-        "hauteur_masquee_base_max_m": 30.0,
-        "fraction_masquee_base_min": 0.09999999999999998,
-        "fraction_masquee_base_max": 0.3,
-        "masque_par_le_relief": false,
-        "distance_obstacle_m": null,
-        "reserve_relief": false,
+        "motif": "Le modèle sphérique ne masque que 10,0 m à la base de la cible, soit 10,0 % de sa hauteur — sous le seuil de 10,0 %. Les deux modèles prédisent presque la même chose : il faut viser plus loin, ou plus bas, ou une cible plus courte.",
+        "hauteur_masquee_base_m": 9.999999999999998,
+        "fraction_masquee_base": 0.09999999999999998,
+        "hauteur_masquee_plat_m": 0.0,
+        "ecart_entre_modeles_m": 9.999999999999998,
         "seuil_applique": 0.1
       }
     },
     {
-      "nom": "une seule borne discriminante",
-      "masquee_borne_1_m": 50.0,
-      "masquee_borne_2_m": 1.0,
-      "obstacle": false,
-      "relief_evalue": true,
-      "hauteur_cible_m": 100.0,
-      "verdict": {
-        "discriminante": false,
-        "motif": "À la réfraction la plus favorable, la courbure ne masque que 1,0 m à la base de la cible, soit 1,0 % de sa hauteur — sous le seuil de 10,0 %. Les deux modèles prédisent presque la même chose. Il faut viser plus loin, ou plus bas, ou une cible plus courte.",
-        "hauteur_masquee_base_min_m": 1.0,
-        "hauteur_masquee_base_max_m": 50.0,
-        "fraction_masquee_base_min": 0.01,
-        "fraction_masquee_base_max": 0.5,
-        "masque_par_le_relief": false,
-        "distance_obstacle_m": null,
-        "reserve_relief": false,
-        "seuil_applique": 0.1
-      }
-    },
-    {
-      "nom": "bornes dans l'ordre inverse",
-      "masquee_borne_1_m": 1.0,
-      "masquee_borne_2_m": 50.0,
-      "obstacle": false,
-      "relief_evalue": true,
-      "hauteur_cible_m": 100.0,
-      "verdict": {
-        "discriminante": false,
-        "motif": "À la réfraction la plus favorable, la courbure ne masque que 1,0 m à la base de la cible, soit 1,0 % de sa hauteur — sous le seuil de 10,0 %. Les deux modèles prédisent presque la même chose. Il faut viser plus loin, ou plus bas, ou une cible plus courte.",
-        "hauteur_masquee_base_min_m": 1.0,
-        "hauteur_masquee_base_max_m": 50.0,
-        "fraction_masquee_base_min": 0.01,
-        "fraction_masquee_base_max": 0.5,
-        "masque_par_le_relief": false,
-        "distance_obstacle_m": null,
-        "reserve_relief": false,
-        "seuil_applique": 0.1
-      }
-    },
-    {
-      "nom": "occultation minuscule à une borne",
-      "masquee_borne_1_m": 1e-07,
-      "masquee_borne_2_m": 50.0,
-      "obstacle": false,
-      "relief_evalue": true,
-      "hauteur_cible_m": 100.0,
-      "verdict": {
-        "discriminante": false,
-        "motif": "À la réfraction la plus favorable, la courbure ne masque que 0,0 m à la base de la cible, soit 0,0 % de sa hauteur — sous le seuil de 10,0 %. Les deux modèles prédisent presque la même chose. Il faut viser plus loin, ou plus bas, ou une cible plus courte.",
-        "hauteur_masquee_base_min_m": 1e-07,
-        "hauteur_masquee_base_max_m": 50.0,
-        "fraction_masquee_base_min": 9.999999999999999e-10,
-        "fraction_masquee_base_max": 0.5,
-        "masque_par_le_relief": false,
-        "distance_obstacle_m": null,
-        "reserve_relief": false,
-        "seuil_applique": 0.1
-      }
-    },
-    {
-      "nom": "relief bloquant à 500 m",
-      "masquee_borne_1_m": 90.0,
-      "masquee_borne_2_m": 95.0,
-      "obstacle": true,
-      "relief_evalue": true,
-      "hauteur_cible_m": 100.0,
-      "verdict": {
-        "discriminante": false,
-        "motif": "La cible est bloquée à la base par le relief local (à 0,50 km) dans les deux modèles, ce qui empêche d'évaluer la courbure à grande distance. Ce n'est pas la forme de la Terre qui décide ici, c'est un obstacle du terrain — et il masque identiquement quel que soit le modèle.",
-        "hauteur_masquee_base_min_m": 90.0,
-        "hauteur_masquee_base_max_m": 95.0,
-        "fraction_masquee_base_min": 0.9,
-        "fraction_masquee_base_max": 0.95,
-        "masque_par_le_relief": true,
-        "distance_obstacle_m": 500.0,
-        "reserve_relief": false,
-        "seuil_applique": 0.1
-      }
-    },
-    {
-      "nom": "relief non évalué",
-      "masquee_borne_1_m": 50.0,
-      "masquee_borne_2_m": 60.0,
-      "obstacle": false,
-      "relief_evalue": false,
-      "hauteur_cible_m": 100.0,
+      "nom": "11 m sur une cible de 110 m",
+      "masquee_base_m": 11.0,
+      "hauteur_cible_m": 110.0,
       "verdict": {
         "discriminante": true,
-        "motif": "Sur le modèle sphérique, la courbure masque de 50,0 à 60,0 m à la base de la cible ; sur le modèle plat, rien n'est masqué. Le relief intermédiaire n'a pas pu être vérifié : la seconde condition est présumée, pas établie.",
-        "hauteur_masquee_base_min_m": 50.0,
-        "hauteur_masquee_base_max_m": 60.0,
-        "fraction_masquee_base_min": 0.5,
-        "fraction_masquee_base_max": 0.6,
-        "masque_par_le_relief": null,
-        "distance_obstacle_m": null,
-        "reserve_relief": true,
+        "motif": "Le modèle sphérique masque 11,0 m à la base de la cible ; le modèle plat n'en masque aucun. L'écart entre les deux prédictions est de 11,0 m, soit 10,0 % de la hauteur de la cible — assez pour qu'une photographie les départage.",
+        "hauteur_masquee_base_m": 11.0,
+        "fraction_masquee_base": 0.1,
+        "hauteur_masquee_plat_m": 0.0,
+        "ecart_entre_modeles_m": 11.0,
         "seuil_applique": 0.1
       }
     },
     {
-      "nom": "grande cible",
-      "masquee_borne_1_m": 20.0,
-      "masquee_borne_2_m": 50.0,
-      "obstacle": false,
-      "relief_evalue": true,
-      "hauteur_cible_m": 250.0,
+      "nom": "11 m sur une cible de 300 m",
+      "masquee_base_m": 11.0,
+      "hauteur_cible_m": 300.0,
       "verdict": {
         "discriminante": false,
-        "motif": "À la réfraction la plus favorable, la courbure ne masque que 20,0 m à la base de la cible, soit 8,0 % de sa hauteur — sous le seuil de 10,0 %. Les deux modèles prédisent presque la même chose. Il faut viser plus loin, ou plus bas, ou une cible plus courte.",
-        "hauteur_masquee_base_min_m": 20.0,
-        "hauteur_masquee_base_max_m": 50.0,
-        "fraction_masquee_base_min": 0.08,
-        "fraction_masquee_base_max": 0.2,
-        "masque_par_le_relief": false,
-        "distance_obstacle_m": null,
-        "reserve_relief": false,
+        "motif": "Le modèle sphérique ne masque que 11,0 m à la base de la cible, soit 3,7 % de sa hauteur — sous le seuil de 10,0 %. Les deux modèles prédisent presque la même chose : il faut viser plus loin, ou plus bas, ou une cible plus courte.",
+        "hauteur_masquee_base_m": 11.0,
+        "fraction_masquee_base": 0.03666666666666667,
+        "hauteur_masquee_plat_m": 0.0,
+        "ecart_entre_modeles_m": 11.0,
         "seuil_applique": 0.1
       }
-    }
-  ],
-  "pas_echantillonnage": [
-    {
-      "distance_m": 1000.0,
-      "pas_m": 250.0
     },
     {
-      "distance_m": 35610.0,
-      "pas_m": 250.0
-    },
-    {
-      "distance_m": 99999.0,
-      "pas_m": 250.0
-    },
-    {
-      "distance_m": 100000.0,
-      "pas_m": 500.0
-    },
-    {
-      "distance_m": 300000.0,
-      "pas_m": 500.0
-    },
-    {
-      "distance_m": 499999.0,
-      "pas_m": 500.0
-    },
-    {
-      "distance_m": 500000.0,
-      "pas_m": 2000.0
-    },
-    {
-      "distance_m": 2000000.0,
-      "pas_m": 2000.0
-    },
-    {
-      "distance_m": 20000000.0,
-      "pas_m": 2000.0
+      "nom": "occultation minuscule",
+      "masquee_base_m": 1e-07,
+      "hauteur_cible_m": 100.0,
+      "verdict": {
+        "discriminante": false,
+        "motif": "Le modèle sphérique ne masque que 0,0 m à la base de la cible, soit 0,0 % de sa hauteur — sous le seuil de 10,0 %. Les deux modèles prédisent presque la même chose : il faut viser plus loin, ou plus bas, ou une cible plus courte.",
+        "hauteur_masquee_base_m": 1e-07,
+        "fraction_masquee_base": 9.999999999999999e-10,
+        "hauteur_masquee_plat_m": 0.0,
+        "ecart_entre_modeles_m": 1e-07,
+        "seuil_applique": 0.1
+      }
     }
   ]
 }

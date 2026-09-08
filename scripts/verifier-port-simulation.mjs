@@ -10,7 +10,7 @@
  *     node scripts/verifier-port-simulation.mjs
  */
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -28,50 +28,24 @@ function comparer(sujet, champ, attendu, obtenu) {
   }
 }
 
-/**
- * Une analyse de relief réduite à ce que la règle de lecture consulte —
- * la même fabrication que `analyse()` côté Python.
- */
-function analyse(masqueeM, obstacle, reliefEvalue) {
-  const o = obstacle
-    ? { distanceM: 500, altitudeTerrainM: 50, altitudeViseeM: 40, manqueM: 10 }
-    : null;
-  const H = 100;
-  return {
-    modele: 'sphérique',
-    rayonEffectifM: 7_000_000,
-    hauteurOccultéeCourbureM: masqueeM,
-    fractionVisibleCourbure: Math.min(1, Math.max(0, (H - masqueeM) / H)),
-    reliefEvalue,
-    motifReliefNonEvalue: reliefEvalue ? null : 'non évalué',
-    obstacles: o ? [o] : [],
-    obstacleLePlusGenant: o,
-    margeMinimaleM: o ? -10 : 5,
-    distanceMargeMinimaleM: 500,
-  };
-}
-
 const dossier = mkdtempSync(join(tmpdir(), 'simulation-'));
 try {
-  const modules = ['simulation', 'relief', 'noyau'];
+  // Le simulateur ne dépend plus du relief : un seul module à compiler.
+  const modules = ['simulation'];
   execFileSync('npx', ['--no-install', 'tsc', ...modules.map((f) => join(DIR, `${f}.ts`)),
     '--target', 'ES2022', '--module', 'ES2022', '--moduleResolution', 'bundler',
     '--outDir', dossier, '--strict', '--lib', 'ES2022,DOM'], { cwd: RACINE, stdio: 'pipe' });
 
-  // tsc ne réécrit pas les extensions ; l'ESM de Node les exige. On compte les
-  // remplacements : un remplacement silencieusement nul laisserait un import
-  // que Node refuserait plus loin sans dire pourquoi.
-  let total = 0;
-  for (const f of readdirSync(dossier).filter((x) => x.endsWith('.js'))) {
-    const p = join(dossier, f);
-    let code = readFileSync(p, 'utf8');
-    for (const m of modules) {
-      total += code.split(`'./${m}'`).length - 1;
-      code = code.replaceAll(`'./${m}'`, `'./${m}.js'`);
-    }
-    writeFileSync(p, code);
+  // `simulation.ts` ne dépend plus d'aucun autre module : c'est la trace de la
+  // suppression du relief, et elle se vérifie. Un import relatif qui
+  // réapparaîtrait ramènerait le terrain par la porte de service — et il
+  // ferait aussi échouer le chargement, tsc ne réécrivant pas les extensions
+  // que l'ESM de Node exige.
+  const compile = readFileSync(join(dossier, 'simulation.js'), 'utf8');
+  const imports = compile.match(/from ['"]\.[^'"]*['"]/g) ?? [];
+  if (imports.length > 0) {
+    throw new Error(`simulation.ts a repris des dépendances : ${imports.join(', ')}`);
   }
-  if (total === 0) throw new Error('aucun import relatif réécrit : la compilation a changé de forme.');
 
   const S = await import(pathToFileURL(join(dossier, 'simulation.js')).href);
   const v = JSON.parse(readFileSync(VECTEURS, 'utf8'));
@@ -82,50 +56,46 @@ try {
   comparer('constantes', 'k standard', c.k_standard, S.K_STANDARD);
   comparer('constantes', 'k min', c.k_enveloppe_min, S.K_ENVELOPPE_MIN);
   comparer('constantes', 'k max', c.k_enveloppe_max, S.K_ENVELOPPE_MAX);
+  comparer('constantes', 'masque du modèle plat', c.masque_modele_plat_m, S.MASQUE_MODELE_PLAT_M);
   comparer('constantes', 'motif du seuil', c.motif_seuil, S.MOTIF_SEUIL);
   comparer('constantes', 'motif de la réfraction', c.motif_refraction, S.MOTIF_REFRACTION);
-  comparer('constantes', 'motif de la réserve', c.motif_reserve_relief, S.MOTIF_RESERVE_RELIEF);
-  comparer('constantes', 'pas court', c.pas_court_m, S.PAS_COURT_M);
-  comparer('constantes', 'pas moyen', c.pas_moyen_m, S.PAS_MOYEN_M);
-  comparer('constantes', 'pas long', c.pas_long_m, S.PAS_LONG_M);
-  comparer('constantes', 'seuil distance moyenne', c.seuil_distance_moyenne_m, S.SEUIL_DISTANCE_MOYENNE_M);
-  comparer('constantes', 'seuil distance longue', c.seuil_distance_longue_m, S.SEUIL_DISTANCE_LONGUE_M);
-  n += 12;
+  comparer('constantes', 'motif sans relief', c.motif_sans_relief, S.MOTIF_SANS_RELIEF);
+  n += 8;
 
-  // Le pas d'échantillonnage : aucune distance n'est refusée, et les trois
-  // paliers doivent tomber aux mêmes endroits des deux côtés.
-  for (const p of v.pas_echantillonnage) {
-    comparer(`pas à ${p.distance_m} m`, 'pas', p.pas_m, S.pasEchantillonnageM(p.distance_m));
+  // Le module ne doit RIEN exporter du relief : un reliquat finirait par être
+  // réutilisé, et le terrain reviendrait par la porte de service.
+  for (const parti of ['pasEchantillonnageM', 'MOTIF_RESERVE_RELIEF', 'PAS_COURT_M',
+    'PAS_MOYEN_M', 'PAS_LONG_M', 'SEUIL_DISTANCE_MOYENNE_M', 'SEUIL_DISTANCE_LONGUE_M']) {
+    if (parti in S) {
+      ecarts.push({ sujet: 'relief retiré', champ: parti, attendu: '(absent)', obtenu: 'encore exporté' });
+    }
     n += 1;
   }
-  let leveDistance = false;
-  try { S.pasEchantillonnageM(0); } catch { leveDistance = true; }
-  if (!leveDistance) ecarts.push({ sujet: 'distance nulle', champ: 'refus', attendu: 'erreur levée', obtenu: 'aucune' });
-  n += 1;
 
   for (const cas of v.cas) {
-    const a = analyse(cas.masquee_borne_1_m, cas.obstacle, cas.relief_evalue);
-    const b = analyse(cas.masquee_borne_2_m, cas.obstacle, cas.relief_evalue);
-    const obtenu = S.juger(a, b, cas.hauteur_cible_m);
+    const obtenu = S.juger(cas.masquee_base_m, cas.hauteur_cible_m);
     const attendu = cas.verdict;
     comparer(cas.nom, 'discriminante', attendu.discriminante, obtenu.discriminante);
     comparer(cas.nom, 'motif', attendu.motif, obtenu.motif);
-    comparer(cas.nom, 'hauteur masquée base min', attendu.hauteur_masquee_base_min_m, obtenu.hauteurMasqueeBaseMinM);
-    comparer(cas.nom, 'hauteur masquée base max', attendu.hauteur_masquee_base_max_m, obtenu.hauteurMasqueeBaseMaxM);
-    comparer(cas.nom, 'fraction masquée base min', attendu.fraction_masquee_base_min, obtenu.fractionMasqueeBaseMin);
-    comparer(cas.nom, 'fraction masquée base max', attendu.fraction_masquee_base_max, obtenu.fractionMasqueeBaseMax);
-    comparer(cas.nom, 'masqué par le relief', attendu.masque_par_le_relief, obtenu.masqueParLeRelief);
-    comparer(cas.nom, 'distance de l’obstacle', attendu.distance_obstacle_m, obtenu.distanceObstacleM);
-    comparer(cas.nom, 'réserve relief', attendu.reserve_relief, obtenu.reserveRelief);
+    comparer(cas.nom, 'hauteur masquée base', attendu.hauteur_masquee_base_m, obtenu.hauteurMasqueeBaseM);
+    comparer(cas.nom, 'fraction masquée base', attendu.fraction_masquee_base, obtenu.fractionMasqueeBase);
+    comparer(cas.nom, 'hauteur masquée sur le plat', attendu.hauteur_masquee_plat_m, obtenu.hauteurMasqueePlatM);
+    comparer(cas.nom, 'écart entre modèles', attendu.ecart_entre_modeles_m, obtenu.ecartEntreModelesM);
     comparer(cas.nom, 'seuil appliqué', attendu.seuil_applique, obtenu.seuilApplique);
-    n += 10;
+    n += 7;
   }
 
-  // Une hauteur nulle doit être refusée des deux côtés, pas rendre l'infini.
-  let leve = false;
-  try { S.juger(analyse(1, false, true), analyse(1, false, true), 0); } catch { leve = true; }
-  if (!leve) ecarts.push({ sujet: 'hauteur nulle', champ: 'refus', attendu: 'erreur levée', obtenu: 'aucune' });
-  n += 1;
+  // Les refus, des deux côtés : une hauteur nulle rendrait l'infini, une
+  // occultation négative trahirait une erreur d'appel.
+  for (const [nom, appel] of [
+    ['hauteur nulle', () => S.juger(10, 0)],
+    ['occultation négative', () => S.juger(-1, 100)],
+  ]) {
+    let leve = false;
+    try { appel(); } catch { leve = true; }
+    if (!leve) ecarts.push({ sujet: nom, champ: 'refus', attendu: 'erreur levée', obtenu: 'aucune' });
+    n += 1;
+  }
 
   if (ecarts.length > 0) {
     console.error(`\n✗ Le port TypeScript a dérivé du paquet Python : ${ecarts.length} écart(s) sur ${n} contrôles.\n`);
