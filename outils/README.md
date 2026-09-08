@@ -355,34 +355,50 @@ lecture ne s'établissent pas de la même façon. Un partage de responsabilité
 entre lecteurs — un JPEG chez le lecteur de PNG — n'est pas consigné comme
 une panne.
 
-## L'en-tête : trois paliers, décidés par la mesure
+## L'en-tête : quatre paliers, chaque seuil calculé
 
-La barre de navigation se chevauchait de 1024 à 1540 px — c'est-à-dire sur
-toute la plage des ordinateurs portables, et sur **toutes** les pages.
+La barre de navigation se chevauchait de 1024 à 1540 px — toute la plage des
+ordinateurs portables, et sur **toutes** les pages.
 
 **Le mécanisme.** Le menu porte `flex: 1` avec `min-width: 0`, et ses liens
 `white-space: nowrap`. Quand la fenêtre se resserrait, la boîte du menu se
 comprimait sous la largeur de son contenu — mais les liens, eux, ne se
 comprimaient pas : ils DÉBORDAIENT de leur boîte, des deux côtés puisque le
-menu est centré. À gauche ils passaient sous le logo, à droite sous la
-recherche.
+menu est centré. À gauche sous le logo, à droite sous la recherche.
 
-**Le chiffre qui explique tout.** La barre pleine a besoin de 1548 px : logo
-242, huit liens 993, recherche et thème 249, marges 64. Elle démarrait au
-palier `lg` de Tailwind, 1024 px — 524 px trop tôt.
+**Le coût de chaque variante, mesuré en l'appliquant vraiment** — pas estimé :
 
-**Les trois paliers**, choisis d'après cette mesure et non à l'œil :
+| Variante | Logo | 8 liens | Droite | Total |
+|---|---|---|---|---|
+| comprimée | 179 | 802 | 91 | **1072** |
+| + liens 13,5/8 et baseline | 220 | 882 | 91 | **1193** |
+| + libellé de recherche | 220 | 882 | 249 | **1351** |
+| pleine | 242 | 993 | 249 | **1484** |
 
-| Largeur | Disposition |
+Chaque seuil vaut ce contenu plus 48 px de marges et 32 px de respiration :
+
+| Largeur | Ce qui est rendu |
 |---|---|
-| < 1120 px | menu compact (hamburger) |
-| 1120 – 1559 px | barre comprimée : logo sans baseline, liens à 12,5 px, recherche réduite à son icône |
-| ≥ 1560 px | barre pleine, celle qui demande 1548 px |
+| < 1152 px | menu compact (hamburger) |
+| 1152 px | barre de bureau, comprimée au maximum |
+| 1280 px | liens à 13,5 px, logo à 24 px, baseline rendue |
+| 1440 px | libellé de la recherche et raccourci rendus |
+| ≥ 1580 px | barre pleine |
 
-`scripts/verifier-entete.mjs` balaie **35 largeurs** de 320 à 2560 px sur trois
-pages, polices chargées, et refuse tout chevauchement de plus de 2 px comme
-tout lien sorti du cadre. Écrit AVANT la correction, il échouait sur 48 des 105
-configurations ; il les passe toutes désormais.
+Les paliers se **cumulent** : chacun rend une chose de plus, au lieu de
+redéclarer un jeu de styles complet par tranche.
+
+**« Ne se chevauche pas » n'est pas « respire ».** Une première version
+basculait à 1120 px, où la barre tenait avec exactement 0 px entre le logo et
+le premier lien. Le contrôle passait — aucun chevauchement — et pourtant les
+mots se touchaient. C'est la capture d'écran qui l'a montré, pas la mesure.
+Le contrôle exige désormais une marge minimale de 14 px autour du menu, et les
+marges relevées vont de 16 à 76 px selon la largeur.
+
+`scripts/verifier-entete.mjs` balaie **39 largeurs** de 320 à 2560 px sur trois
+pages, polices chargées, et refuse tout chevauchement de plus de 2 px, tout
+lien sorti du cadre, et toute marge sous 14 px. Écrit AVANT la correction, il
+échouait sur 48 des 105 configurations ; il passe les 117 d'aujourd'hui.
 
 Il a besoin d'un serveur qui tourne, donc il ne rejoint pas `verifier:ports`
 — qui s'exécute sur les seuls fichiers. On l'appelle à part :

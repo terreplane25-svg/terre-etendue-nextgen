@@ -571,45 +571,62 @@ html, body { overflow-x: hidden; }
 }
 .tei-carte-outil:focus:not(:focus-visible) { outline: none; }
 
-/* ── L'en-tête : trois paliers, décidés par la mesure ────────────────────────
+/* ── L'en-tête : quatre paliers, chaque seuil calculé ────────────────────────
  *
  * LE DÉFAUT CORRIGÉ ICI
- * La barre de bureau a besoin de 1548 px pour tenir sur une ligne — logo 242,
- * huit liens 993, recherche et thème 249, marges 64. Elle démarrait à 1024 px
+ * La barre de bureau a besoin de 1484 px de contenu — logo 242, huit liens
+ * 993, recherche et thème 249 — plus 64 px de marges. Elle démarrait à 1024 px
  * (le palier `lg` de Tailwind), soit 524 px trop tôt. Comme le menu porte
  * `flex: 1` avec `min-width: 0` et ses liens `white-space: nowrap`, sa boîte
  * se comprimait sous la largeur de son contenu sans que les liens se
  * comprimment : ils débordaient des deux côtés, sur le logo à gauche et sur la
- * recherche à droite. Le chevauchement était donc garanti sur toute la plage
- * des ordinateurs portables, et sur toutes les pages.
+ * recherche à droite. Le chevauchement était garanti sur toute la plage des
+ * ordinateurs portables, et sur toutes les pages.
  *
- * LES TROIS PALIERS
- *   · sous 1120 px : menu compact (bouton hamburger) ;
- *   · de 1120 à 1559 px : barre de bureau COMPRIMÉE — logo sans sa baseline,
- *     liens resserrés, recherche réduite à son icône ;
- *   · à partir de 1560 px : barre pleine, celle qui demande 1548 px.
+ * LES SEUILS SONT CALCULÉS, PAS CHOISIS À L'ŒIL
+ * Le coût de chaque variante a été mesuré en l'appliquant vraiment :
  *
- * Les seuils ne sont pas choisis à l'œil : `scripts/verifier-entete.mjs`
- * balaie 35 largeurs sur trois pages et refuse tout chevauchement.
+ *   comprimé            logo 179 + liens 802 + droite  91 = 1072 px
+ *   + liens 13,5/8      logo 220 + liens 882 + droite  91 = 1193 px
+ *   + libellé recherche logo 220 + liens 882 + droite 249 = 1351 px
+ *   plein               logo 242 + liens 993 + droite 249 = 1484 px
+ *
+ * Chaque seuil vaut ce contenu plus 48 px de marges et 32 px de respiration —
+ * 16 px de chaque côté. Sans cette respiration, une première version basculait
+ * à 1120 px où la barre tenait avec 0 px de marge : le contrôle passait, et
+ * pourtant le logo touchait le premier lien. « Ne se chevauche pas » n'est pas
+ * « respire », et le contrôle exige désormais les deux.
+ *
+ * Les paliers se CUMULENT : chacun rend une chose de plus, au lieu de
+ * redéclarer tout un jeu de styles par tranche.
  */
 .tei-entete-bureau { display: none; padding: 0 24px; }
 .tei-entete-compacte { display: flex; }
 
-@media (min-width: 1120px) {
+/* 1152 px — la barre de bureau apparaît, comprimée au maximum. */
+@media (min-width: 1152px) {
   .tei-entete-bureau { display: flex; }
   .tei-entete-compacte { display: none; }
-}
-
-/* Palier comprimé. */
-@media (min-width: 1120px) and (max-width: 1559px) {
   .tei-logo-titre { font-size: 20px; }
   .tei-logo-sous { display: none; }
   .tei-nav-lien { padding: 16px 6px; font-size: 12.5px; }
   .tei-recherche-texte { display: none; }
 }
 
-/* Palier plein. */
-@media (min-width: 1560px) {
+/* 1280 px — les liens et le logo respirent, la baseline revient. */
+@media (min-width: 1280px) {
+  .tei-logo-titre { font-size: 24px; }
+  .tei-logo-sous { display: block; }
+  .tei-nav-lien { padding: 16px 8px; font-size: 13.5px; }
+}
+
+/* 1440 px — le libellé de la recherche et son raccourci reviennent. */
+@media (min-width: 1440px) {
+  .tei-recherche-texte { display: inline; }
+}
+
+/* 1580 px — barre pleine, celle qui demande 1484 px de contenu. */
+@media (min-width: 1580px) {
   .tei-entete-bureau { padding: 0 32px; }
   .tei-logo-titre { font-size: 27px; }
   .tei-nav-lien { padding: 16px 12px; font-size: 14.5px; }

@@ -37,14 +37,26 @@ const RACINE = `http://localhost:${PORT}`;
 const TOLERANCE_PX = 2;
 
 /**
+ * La marge minimale exigée autour du menu, sur la barre de bureau.
+ *
+ * « Ne se chevauche pas » n'est pas « respire ». Une première version des
+ * paliers basculait à 1120 px, où la barre tenait avec exactement 0 px entre le
+ * logo et le premier lien : aucun chevauchement, et pourtant les mots se
+ * touchaient. Le contrôle ne le voyait pas, et c'est en regardant la capture
+ * que le défaut est apparu. Il l'attrape maintenant.
+ */
+const MARGE_MIN_PX = 14;
+
+/**
  * Les largeurs balayées. Elles couvrent les tailles réelles, et surtout les
  * ABORDS des points de bascule : c'est là que les dispositions se cassent, et
  * un balayage grossier passerait juste à côté.
  */
 const LARGEURS = [
   320, 360, 390, 414, 480, 600, 700, 768, 800, 900, 1000,
-  1020, 1024, 1028, 1080, 1120, 1150, 1176, 1180, 1184, 1230, 1280,
-  1330, 1366, 1400, 1440, 1500, 1536, 1544, 1548, 1552, 1600, 1700, 1920, 2560,
+  1020, 1024, 1080, 1120, 1148, 1152, 1156, 1200, 1230, 1276, 1280, 1284,
+  1330, 1366, 1400, 1436, 1440, 1444, 1500, 1536, 1548, 1576, 1580, 1584,
+  1600, 1700, 1920, 2560,
 ];
 
 const PAGES = ['/', '/lab', '/library'];
@@ -64,7 +76,7 @@ try {
         await page.evaluate(() => document.fonts.ready);
         await page.waitForTimeout(120);
 
-        const r = await page.evaluate((tol) => {
+        const r = await page.evaluate(({ tol, margeMin }) => {
           const cibles = [...document.querySelectorAll('header a, header button')]
             .map((e) => ({
               t: (e.textContent || '').trim().slice(0, 20) || e.getAttribute('aria-label') || '?',
@@ -86,18 +98,41 @@ try {
           const debords = cibles
             .filter((x) => x.r.left < -tol || x.r.right > window.innerWidth + tol)
             .map((x) => `${x.t} (${Math.round(x.r.left)}→${Math.round(x.r.right)})`);
-          return { chevauchements, debords, nb: cibles.length };
-        }, TOLERANCE_PX);
+
+          // Les marges autour du menu, sur la barre de bureau seulement : la
+          // barre compacte n'a pas de menu horizontal à border.
+          const etroites = [];
+          const bureau = [...document.querySelectorAll('header > div')]
+            .find((d) => d.classList.contains('tei-entete-bureau')
+              && getComputedStyle(d).display !== 'none');
+          if (bureau) {
+            const logo = bureau.querySelector('a');
+            const liens = [...bureau.querySelectorAll('nav > div > a')]
+              .filter((a) => a.offsetWidth > 0);
+            const droite = bureau.lastElementChild;
+            if (logo && liens.length > 0 && droite) {
+              const g = Math.round(liens[0].getBoundingClientRect().left
+                - logo.getBoundingClientRect().right);
+              const d = Math.round(droite.getBoundingClientRect().left
+                - liens.at(-1).getBoundingClientRect().right);
+              if (g < margeMin) etroites.push(`logo→premier lien : ${g} px`);
+              if (d < margeMin) etroites.push(`dernier lien→recherche : ${d} px`);
+            }
+          }
+          return { chevauchements, debords, etroites, nb: cibles.length };
+        }, { tol: TOLERANCE_PX, margeMin: MARGE_MIN_PX });
 
         controles += 1;
         if (r.nb === 0) {
           echecs += 1;
           console.error(`  ✗ ${chemin} @ ${largeur} px : aucun élément d'en-tête trouvé — le contrôle ne mesure rien`);
-        } else if (r.chevauchements.length > 0 || r.debords.length > 0) {
+        } else if (r.chevauchements.length > 0 || r.debords.length > 0
+                   || r.etroites.length > 0) {
           echecs += 1;
           console.error(`  ✗ ${chemin} @ ${largeur} px`);
           for (const c of r.chevauchements) console.error(`      chevauchement : ${c}`);
           for (const d of r.debords) console.error(`      hors cadre : ${d}`);
+          for (const e of r.etroites) console.error(`      marge sous ${MARGE_MIN_PX} px — ${e}`);
         }
       } finally {
         await page.close();
@@ -110,7 +145,8 @@ try {
 
 if (echecs === 0) {
   console.log(`✓ En-tête : ${controles} largeurs × pages contrôlées, aucun chevauchement ni débord.`);
-  console.log(`  De ${LARGEURS[0]} à ${LARGEURS.at(-1)} px, polices chargées, tolérance ${TOLERANCE_PX} px.`);
+  console.log(`  De ${LARGEURS[0]} à ${LARGEURS.at(-1)} px, polices chargées, tolérance ${TOLERANCE_PX} px,`);
+  console.log(`  marge minimale exigée autour du menu : ${MARGE_MIN_PX} px.`);
 } else {
   console.error(`\n✗ ${echecs} configuration(s) en défaut sur ${controles}.`);
   process.exitCode = 1;
