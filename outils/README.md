@@ -80,9 +80,9 @@ paragraphes d'un document qu'il n'a pas lu. Elle était juste et inutilisable :
 un outil qu'il faut avoir compris avant de s'en servir ne sert qu'à ceux qui
 n'en ont pas besoin.
 
-**Ce qui a quitté l'écran n'a pas quitté le calcul.** La réfraction reste
-traitée en enveloppe, la géodésique reste celle de Vincenty sur l'ellipsoïde,
-le relief reste distingué de la courbure. Ces choix sont pris par le moteur et
+**Ce qui a quitté l'écran n'a pas quitté le calcul.** La géodésique reste
+celle de Vincenty sur l'ellipsoïde, et la réfraction reste rendue en enveloppe
+tant que l'analyste ne la déclare pas. Ces choix sont pris par le moteur et
 énoncés en prose dans un bloc rétractable — donc toujours contestables, ce qui
 était le point.
 
@@ -90,9 +90,10 @@ le relief reste distingué de la courbure. Ces choix sont pris par le moteur et
 
 C'est le pied qui disparaît en premier sous l'horizon, et c'est là que les deux
 modèles divergent en premier. La grandeur mise en avant est donc `c`, la
-hauteur masquée **en partant de la base** — « 39,7 à 64,6 m de la base
-occultés » — et non la part visible du sommet, qui reste à 100 % longtemps
-après que la divergence est devenue mesurable.
+hauteur masquée **en partant de la base** — « 54,3 m de la base masqués », avec
+la fourchette de réfraction sur une ligne subordonnée — et non la part visible
+du sommet, qui reste à 100 % longtemps après que la divergence est devenue
+mesurable.
 
 `c` **n'est pas bornée** à la hauteur de la cible. Au-delà de la distance
 limite elle continue de croître et dit de combien la cible est passée sous
@@ -101,34 +102,23 @@ la plus parlante. Quand `c` dépasse `H`, l'interface cesse d'afficher un
 pourcentage — « 156 190 % masqués » est exact et illisible — et donne à la
 place la profondeur du sommet sous l'horizon, en kilomètres.
 
-### La règle de discrimination, et ses deux conditions
+### La règle de discrimination, et son seuil
 
 `visee_optique/simulation.py` porte les **conventions** que cette refonte
 ajoute. Ce n'est pas de la physique, et c'est pour cela que ce sont des
 constantes nommées — affichées à l'écran plutôt que cachées dans une condition
 d'interface.
 
-Une visée est dite **discriminante** quand DEUX conditions sont réunies :
+Une visée est dite **discriminante** quand la courbure masque au moins **10 %
+de la hauteur de la cible en partant de sa base**
+(`SEUIL_DISCRIMINATION_FRACTION = 0.10`) — 11 m sur une cible de 110 m. Sous ce
+seuil, les deux modèles prédisent des choses trop proches pour qu'une
+photographie les sépare, et annoncer « discriminante » promettrait une mesure
+que personne ne pourrait faire.
 
-1. la courbure masque au moins **10 % de la hauteur de la cible en partant de
-   sa base** (`SEUIL_DISCRIMINATION_FRACTION = 0.10`), même à la réfraction la
-   plus défavorable — 11 m sur une cible de 110 m ;
-2. le **relief intermédiaire laisse la visée entièrement dégagée**.
-
-La première écarte les visées où les deux modèles prédisent presque la même
-chose. La seconde écarte celles où c'est une colline, et non la forme de la
-Terre, qui décide de ce qu'on voit.
-
-**Le relief prime sur la courbure.** Une colline à 500 m du poste bloque le
-pied de la cible dans les DEUX modèles : le bandeau dit alors « la cible est
-bloquée à la base par le relief local (à 0,50 km) […] ce qui empêche d'évaluer
-la courbure à grande distance », avec la distance de l'obstacle — sans elle,
-« bloquée par le relief » n'apprend rien et ne se vérifie pas sur une carte.
-
-**Le relief non évalué ne vaut ni « dégagé » ni « bloqué ».** Bloquer tout
-verdict dès que le service altimétrique tombe rendrait l'outil inutilisable ;
-présumer le trajet dégagé serait un mensonge. Le verdict porte donc sur la
-courbure et la réserve est affichée avec lui.
+Une condition sur le relief a existé, et elle a été retirée avec le MNT : le
+simulateur ne consulte plus de modèle de terrain, donc il n'a plus rien à dire
+sur les obstacles. Ce contrôle appartient à l'analyste, sur l'image.
 
 ### Aucune distance n'est refusée
 
@@ -260,13 +250,20 @@ latitude et longitude sur une saisie valide, sans rien signaler. Une saisie
 incohérente — deux latitudes, 60 minutes, aucun cardinal — est refusée plutôt
 que devinée.
 
-## Le relief (outil A)
+## Le relief (outil A) — hors du simulateur, conservé côté Python
 
-L'outil A intègre la coupe du terrain entre le poste et la cible. Le moteur
-vit dans `visee_optique/relief.py` ; le port navigateur est épinglé par
-`scripts/verifier-port-relief.mjs` (804 contrôles).
+`visee_optique/relief.py` garde ses tests et reste dans le paquet de
+référence : la coupe du terrain, la détection d'obstacles et la ligne de visée
+exacte y sont éprouvées, et le protocole peut en avoir besoin.
 
-Deux points de conception commandent le reste :
+Ce qui a été **supprimé**, c'est son port navigateur — `relief.ts`, ses
+vecteurs d'or, son générateur et son vérificateur de 804 contrôles. Le
+simulateur ne consulte plus aucun modèle de terrain ; le module n'était plus
+importé par aucune page. Un port qu'aucun appelant ne touche ne se vérifie que
+contre lui-même : il coûte un vérificateur à chaque passe et ne protège rien.
+`git` le garde, si la question revient.
+
+Deux points de conception commandent le module Python :
 
 - **Un profil absent donne « relief non évalué », jamais « aucun obstacle ».**
   Le champ vaut `None`, pas `False`. Les confondre transformerait une lacune de
