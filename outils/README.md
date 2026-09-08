@@ -355,6 +355,39 @@ lecture ne s'établissent pas de la même façon. Un partage de responsabilité
 entre lecteurs — un JPEG chez le lecteur de PNG — n'est pas consigné comme
 une panne.
 
+## L'en-tête : trois paliers, décidés par la mesure
+
+La barre de navigation se chevauchait de 1024 à 1540 px — c'est-à-dire sur
+toute la plage des ordinateurs portables, et sur **toutes** les pages.
+
+**Le mécanisme.** Le menu porte `flex: 1` avec `min-width: 0`, et ses liens
+`white-space: nowrap`. Quand la fenêtre se resserrait, la boîte du menu se
+comprimait sous la largeur de son contenu — mais les liens, eux, ne se
+comprimaient pas : ils DÉBORDAIENT de leur boîte, des deux côtés puisque le
+menu est centré. À gauche ils passaient sous le logo, à droite sous la
+recherche.
+
+**Le chiffre qui explique tout.** La barre pleine a besoin de 1548 px : logo
+242, huit liens 993, recherche et thème 249, marges 64. Elle démarrait au
+palier `lg` de Tailwind, 1024 px — 524 px trop tôt.
+
+**Les trois paliers**, choisis d'après cette mesure et non à l'œil :
+
+| Largeur | Disposition |
+|---|---|
+| < 1120 px | menu compact (hamburger) |
+| 1120 – 1559 px | barre comprimée : logo sans baseline, liens à 12,5 px, recherche réduite à son icône |
+| ≥ 1560 px | barre pleine, celle qui demande 1548 px |
+
+`scripts/verifier-entete.mjs` balaie **35 largeurs** de 320 à 2560 px sur trois
+pages, polices chargées, et refuse tout chevauchement de plus de 2 px comme
+tout lien sorti du cadre. Écrit AVANT la correction, il échouait sur 48 des 105
+configurations ; il les passe toutes désormais.
+
+Il a besoin d'un serveur qui tourne, donc il ne rejoint pas `verifier:ports`
+— qui s'exécute sur les seuls fichiers. On l'appelle à part :
+`npm run verifier:entete -- <port>`.
+
 ## Les contrastes du Lab, mesurés plutôt que promis
 
 `scripts/verifier-contrastes-lab.mjs` lit les couleurs des outils dans

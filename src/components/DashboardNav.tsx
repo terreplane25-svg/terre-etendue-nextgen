@@ -108,16 +108,16 @@ export default function DashboardNav() {
         transition: 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)',
       }}>
         {/* ── Desktop header ── */}
-        <div className="hidden lg:flex" style={{ width: '100%', padding: '0 32px', alignItems: 'center' }}>
+        <div className="tei-entete-bureau" style={{ width: '100%', alignItems: 'center' }}>
           <Link href="/" style={{ flexShrink: 0, padding: '8px 0' }}>
-            <div style={{
-              fontSize: 27, fontWeight: 900, color: 'var(--ink)', letterSpacing: '-0.03em',
+            <div className="tei-logo-titre" style={{
+              fontWeight: 900, color: 'var(--ink)', letterSpacing: '-0.03em',
               lineHeight: 1.1, fontFamily: "'Plus Jakarta Sans', sans-serif",
             }}>
               Terre Étendue <span style={{ color: '#2B9E6E', fontWeight: 900 }}>Islam</span>
             </div>
-            <div style={{
-              fontSize: 10.5, color: 'var(--ink-muted)', letterSpacing: '0.03em',
+            <div className="tei-logo-sous" style={{
+              fontSize: 10.5, color: 'var(--ink-soft)', letterSpacing: '0.03em',
               marginTop: 1, fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 500,
             }}>
               Explorer la création, honorer la Révélation
@@ -141,10 +141,9 @@ export default function DashboardNav() {
                     timeoutRef.current = setTimeout(() => setOpenDropdown(null), 150);
                   }}
                 >
-                  <Link href={s.href} style={{
+                  <Link href={s.href} className="tei-nav-lien" style={{
                     display: 'flex', alignItems: 'center', gap: 4,
-                    padding: '16px 12px',
-                    fontSize: 14.5, fontWeight: 750,
+                    fontWeight: 750,
                     color: active ? s.color : 'var(--ink)',
                     borderBottom: active ? `3px solid ${s.color}` : '3px solid transparent',
                     transition: 'color 0.15s',
@@ -189,7 +188,7 @@ export default function DashboardNav() {
         </div>
 
         {/* ── Mobile header ── */}
-        <div className="flex lg:hidden" style={{ padding: '0 16px', alignItems: 'center', height: 56 }}>
+        <div className="tei-entete-compacte" style={{ padding: '0 16px', alignItems: 'center', height: 56 }}>
           <button onClick={() => setMobileOpen(!mobileOpen)}
             style={{ padding: 8, background: 'none', border: 'none', cursor: 'pointer', color: 'var(--ink)', flexShrink: 0 }}>
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}

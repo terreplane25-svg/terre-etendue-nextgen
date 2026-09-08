@@ -25,7 +25,8 @@
     "verifier:dossier": "node scripts/verifier-port-dossier.mjs",
     "verifier:simulation": "node scripts/verifier-port-simulation.mjs",
     "verifier:geocodage": "node scripts/verifier-geocodage-ign.mjs",
-    "verifier:contrastes": "node scripts/verifier-contrastes-lab.mjs"
+    "verifier:contrastes": "node scripts/verifier-contrastes-lab.mjs",
+    "verifier:entete": "node scripts/verifier-entete.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.0",

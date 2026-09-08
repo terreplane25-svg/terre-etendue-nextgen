@@ -156,11 +156,14 @@ export default function SearchCommand({ inline }: { inline?: boolean }) {
           onMouseOut={e => (e.currentTarget.style.borderColor = dash.border)}
         >
           <Search size={15} />
-          <span>Rechercher...</span>
-          <kbd style={{
+          {/* Le libellé et le raccourci se replient aux largeurs
+              intermédiaires, où la barre de navigation a besoin de la place.
+              L'icône, elle, reste : c'est la cible cliquable. */}
+          <span className="tei-recherche-texte">Rechercher...</span>
+          <kbd className="tei-recherche-texte" style={{
             marginLeft: 'auto', fontSize: 11, padding: '1px 6px',
             border: `1px solid ${dash.border}`, borderRadius: 4,
-            color: dash.inkGhost, fontFamily: dash.fontMono,
+            color: 'var(--ink-soft)', fontFamily: dash.fontMono,
           }}>
             Ctrl+K
           </kbd>
