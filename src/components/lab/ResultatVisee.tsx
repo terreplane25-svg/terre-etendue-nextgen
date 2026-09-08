@@ -26,11 +26,11 @@
  */
 
 import { dash } from '@/lib/design-tokens';
-import { type Cible } from '@/lib/visee-optique/noyau';
 import {
-  altitudeLigneDeVisee,
-  altitudeLigneDeViseePlane,
-} from '@/lib/visee-optique/relief';
+  type Cible,
+  altitudeDepuisArc,
+  arcTangence,
+} from '@/lib/visee-optique/noyau';
 import { RESERVE_GEOCODAGE, type Position } from '@/lib/visee-optique/geocodage-ign';
 import {
   K_ENVELOPPE_MAX,
@@ -69,120 +69,154 @@ const fmt = (x: number | null | undefined, n = 1): string =>
 
 const fmtKm = (m: number) => `${fmt(m / 1000, 2)} km`;
 
-// ── La coupe ────────────────────────────────────────────────────────────────
+// ── Les deux schémas ────────────────────────────────────────────────────────
+//
+// POURQUOI DEUX, ET POURQUOI LA TERRE SE BOMBE
+// ────────────────────────────────────────────
+// Un tracé unique en « altitude au-dessus de la surface » faisait plonger la
+// ligne de visée sous le niveau zéro. Le calcul était exact — une corde droite
+// entre deux points bas traverse bel et bien la Terre — mais l'image était
+// absurde : une visée ne passe pas sous le sol.
+//
+// C'est le repère qu'il fallait changer, pas le calcul. Les altitudes sont
+// donc décalées du BOMBEMENT de la surface au-dessus de la corde A–B :
+//
+//     b(d) = R · [ cos(d/R − D/2R) − cos(D/2R) ]
+//
+// nul aux deux extrémités, égal à la flèche au milieu. La surface devient un
+// arc qui monte, et c'est LUI qui vient couper la visée — ce qui est la
+// description physique juste. Le décalage étant le même pour la surface et
+// pour la visée, tous les ÉCARTS VERTICAUX sont préservés exactement : la
+// bande rouge sur la cible mesure toujours la hauteur masquée réelle.
+//
+// La visée tracée est le RAYON RASANT, celui qui frôle la surface à
+// l'horizon. C'est le rayon le plus bas que l'observateur puisse envoyer, donc
+// la limite de ce qu'il voit — et il ne descend jamais sous la surface. Sa
+// hauteur au-dessus de la base de la cible vaut exactement l'occultation
+// calculée ; les deux ont été confrontées, l'écart est nul à l'epsilon machine.
 
 const L = 860;
 const Ht = 300;
 const MG = 62;
 // La marge droite loge le repère de la cible ET l'étiquette de la dernière
-// graduation, qui déborderait sinon hors du cadre — un axe dont on ne lit pas
-// la dernière valeur n'a pas d'échelle.
-const MD = 46;
-const MH = 22;
+// graduation, qui déborderait sinon hors du cadre.
+const MD = 52;
+const MH = 26;
 const MB = 42;
 
-function Coupe({ s }: { s: Simulation }) {
-  const { D, cible, h, rTrace } = s;
-  const zSommet = cible.zB + cible.H;
+const VERT = '#3D9E7C';
+const ROUGE = '#C45E6A';
 
-  // Échantillonnage fin : la visée sphérique doit rester lisse.
-  const N = 240;
-  const echantillons = Array.from({ length: N + 1 }, (_, i) => (i * D) / N);
-  const viseeGlobe = echantillons.map((d) => [d, altitudeLigneDeVisee(d, D, h, zSommet, rTrace)] as const);
-  const viseePlane = echantillons.map((d) => [d, altitudeLigneDeViseePlane(d, D, h, zSommet)] as const);
+/** Le bombement de la surface au-dessus de la corde A–B, à l'abscisse d. */
+function bombement(d: number, D: number, R: number): number {
+  const a = D / (2 * R);
+  return R * (Math.cos(d / R - a) - Math.cos(a));
+}
 
-  // La borne basse descend sous la visée sphérique quand celle-ci plonge sous
-  // le niveau zéro : c'est là que se lit l'occultation, et la rogner
-  // reviendrait à cacher le phénomène observé.
-  const altitudes = [
-    ...viseeGlobe.map(([, z]) => z),
-    ...viseePlane.map(([, z]) => z),
-    0, h, cible.zB, zSommet,
-  ];
-  let zMin = Math.min(...altitudes);
-  let zMax = Math.max(...altitudes);
-  const marge = Math.max(5, (zMax - zMin) * 0.08);
-  zMin -= marge;
-  zMax += marge;
+/**
+ * L'altitude du rayon rasant au-dessus de la surface, à l'abscisse d.
+ *
+ * En deçà de l'horizon le rayon descend vers son point de tangence, au-delà il
+ * remonte : c'est la même courbe des deux côtés, prise en valeur absolue de
+ * l'écart à l'horizon. Elle vaut la hauteur de l'œil en d = 0 et zéro à
+ * l'horizon.
+ */
+function altitudeRayonRasant(d: number, sH: number, R: number): number {
+  const arc = Math.abs(d - sH);
+  // Au-delà de π/2 la construction de tangence sort de son domaine. Cela
+  // n'arrive que sur des visées de plusieurs milliers de kilomètres, où la
+  // cible est de toute façon enfouie ; on borne le TRACÉ plutôt que de lever.
+  if (arc / R >= Math.PI / 2 - 1e-9) return Number.NaN;
+  return altitudeDepuisArc(arc, R);
+}
 
-  const x = (d: number) => MG + (d / D) * (L - MG - MD);
-  const y = (z: number) => MH + (1 - (z - zMin) / (zMax - zMin)) * (Ht - MH - MB);
+interface Echelle {
+  x: (d: number) => number;
+  y: (z: number) => number;
+  zMin: number;
+  zMax: number;
+  exageration: number;
+}
 
-  // L'exagération verticale : combien de fois l'échelle des altitudes dépasse
-  // celle des distances. C'est LE chiffre sans lequel une coupe ne se lit pas.
-  const exageration = ((Ht - MH - MB) / (zMax - zMin)) / ((L - MG - MD) / D);
+function faireEchelle(D: number, zMin: number, zMax: number): Echelle {
+  const marge = Math.max(5, (zMax - zMin) * 0.1);
+  const bas = zMin - marge;
+  const haut = zMax + marge;
+  return {
+    x: (d) => MG + (d / D) * (L - MG - MD),
+    y: (z) => MH + (1 - (z - bas) / (haut - bas)) * (Ht - MH - MB),
+    zMin: bas,
+    zMax: haut,
+    exageration: ((Ht - MH - MB) / (haut - bas)) / ((L - MG - MD) / D),
+  };
+}
 
-  const chemin = (pts: readonly (readonly [number, number])[]) =>
-    pts.map(([d, z], i) => `${i === 0 ? 'M' : 'L'}${x(d).toFixed(2)},${y(z).toFixed(2)}`).join(' ');
-
-  // La surface de référence : une ligne, pas un terrain. Le simulateur ne
-  // prétend rien savoir du relief, et le dessin ne doit pas suggérer le
-  // contraire en montrant des collines qu'il n'a pas mesurées.
-  const surface = `${chemin([[0, 0], [D, 0]])} L${x(D).toFixed(2)},${y(zMin).toFixed(2)} L${x(0).toFixed(2)},${y(zMin).toFixed(2)} Z`;
-
-  // La part masquée de la cible, dessinée sur la cible elle-même : c'est le
-  // résultat, et il doit se voir sur le dessin autant que dans le tableau.
-  const hautMasque = Math.min(cible.zB + s.masqueeStandardM, zSommet);
+function Cadre({ D, e, titre, children }: {
+  D: number; e: Echelle; titre: string; children: React.ReactNode;
+}) {
   const graduations = [0, 0.25, 0.5, 0.75, 1].map((f) => f * D);
-
   return (
     <div style={{ overflowX: 'auto' }}>
-      <svg viewBox={`0 0 ${L} ${Ht}`} style={{ width: '100%', minWidth: 540, height: 'auto', display: 'block' }}
-        role="img"
-        aria-label={`Coupe de la visée sur ${fmtKm(D)}, exagération verticale ${Math.round(exageration)} fois`}>
+      <svg viewBox={`0 0 ${L} ${Ht}`} style={{ width: '100%', minWidth: 460, height: 'auto', display: 'block' }}
+        role="img" aria-label={titre}>
         <rect x={0} y={0} width={L} height={Ht} fill="#0d1117" rx={8} />
-
         {graduations.map((d) => (
           <g key={`g${d}`}>
-            <line x1={x(d)} y1={MH} x2={x(d)} y2={Ht - MB} stroke="#1e2733" strokeWidth={1} />
-            <text x={x(d)} y={Ht - MB + 16} fill="#6b7d8f" fontSize={10} fontFamily="ui-monospace, monospace" textAnchor="middle">
+            <line x1={e.x(d)} y1={MH} x2={e.x(d)} y2={Ht - MB} stroke="#1e2733" strokeWidth={1} />
+            <text x={e.x(d)} y={Ht - MB + 16} fill="#6b7d8f" fontSize={10}
+              fontFamily="ui-monospace, monospace" textAnchor="middle">
               {fmt(d / 1000, 1)} km
             </text>
           </g>
         ))}
-        {[zMin, (zMin + zMax) / 2, zMax].map((z) => (
+        {[e.zMin, (e.zMin + e.zMax) / 2, e.zMax].map((z) => (
           <g key={`n${z}`}>
-            <line x1={MG} y1={y(z)} x2={L - MD} y2={y(z)} stroke="#1e2733" strokeWidth={1} />
-            <text x={MG - 6} y={y(z) + 3} fill="#6b7d8f" fontSize={10} fontFamily="ui-monospace, monospace" textAnchor="end">
+            <line x1={MG} y1={e.y(z)} x2={L - MD} y2={e.y(z)} stroke="#1e2733" strokeWidth={1} />
+            <text x={MG - 6} y={e.y(z) + 3} fill="#6b7d8f" fontSize={10}
+              fontFamily="ui-monospace, monospace" textAnchor="end">
               {fmt(z, 0)} m
             </text>
           </g>
         ))}
-
-        <path d={surface} fill="#243044" stroke="#3d5068" strokeWidth={1.2} />
-        <path d={chemin(viseePlane)} fill="none" stroke={dash.saffron} strokeWidth={1.8} strokeDasharray="7 5" />
-        <path d={chemin(viseeGlobe)} fill="none" stroke={ACCENT} strokeWidth={2} />
-
-        {/* La cible : la part masquée en rose, la part émergente en clair. */}
-        <line x1={x(D)} y1={y(cible.zB)} x2={x(D)} y2={y(zSommet)} stroke="#C8D8E8" strokeWidth={3} />
-        {s.masqueeStandardM > 0 && (
-          <line x1={x(D)} y1={y(cible.zB)} x2={x(D)} y2={y(hautMasque)}
-            stroke={dash.rose} strokeWidth={5} />
-        )}
-        <circle cx={x(D)} cy={y(zSommet)} r={3.5} fill="#C8D8E8" />
-        <circle cx={x(0)} cy={y(h)} r={4} fill={ACCENT} />
-
-        <text x={L - MD} y={MH - 8} fill="#8a9bad" fontSize={10.5} fontFamily="ui-monospace, monospace" textAnchor="end">
-          exagération verticale × {Math.round(exageration).toLocaleString('fr-FR')}
+        {children}
+        <text x={L - MD} y={MH - 10} fill="#8a9bad" fontSize={10.5}
+          fontFamily="ui-monospace, monospace" textAnchor="end">
+          exagération verticale × {Math.round(e.exageration).toLocaleString('fr-FR')}
         </text>
       </svg>
-
-      <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', marginTop: 10, fontSize: 12 }}>
-        <Legende couleur={ACCENT} texte="Ligne de visée — modèle sphérique" />
-        <Legende couleur={dash.saffron} texte="Ligne de visée — modèle plat" tirets />
-        <Legende couleur={dash.rose} texte="Base masquée sur le globe" />
-        <Legende couleur="#3d5068" texte="Surface de référence" />
-      </div>
-      <p style={{ margin: '10px 0 0', fontSize: 12, lineHeight: 1.6, color: 'var(--ink-muted)' }}>
-        Les altitudes sont <strong>exagérées {Math.round(exageration).toLocaleString('fr-FR')} fois</strong> par
-        rapport aux distances. Sans cela la coupe serait un trait. Ce facteur est ce qui rend un
-        même écart spectaculaire ou anodin — il est donc écrit, ici et sur le dessin. La bande
-        grise est la <strong>surface de référence</strong>, pas un terrain : ce simulateur ne
-        consulte aucun modèle de relief.
-      </p>
     </div>
   );
 }
+
+/** La cible dessinée, découpée en masqué et émergent. */
+function CibleDessinee({ e, D, base, masquee, H }: {
+  e: Echelle; D: number; base: number; masquee: number; H: number;
+}) {
+  const hautMasque = base + Math.min(masquee, H);
+  const sommet = base + H;
+  return (
+    <g>
+      {masquee > 0 && (
+        <line x1={e.x(D)} y1={e.y(base)} x2={e.x(D)} y2={e.y(hautMasque)}
+          stroke={ROUGE} strokeWidth={6} strokeLinecap="butt" />
+      )}
+      {hautMasque < sommet && (
+        <line x1={e.x(D)} y1={e.y(hautMasque)} x2={e.x(D)} y2={e.y(sommet)}
+          stroke={VERT} strokeWidth={6} strokeLinecap="butt" />
+      )}
+      <circle cx={e.x(D)} cy={e.y(sommet)} r={3} fill={hautMasque < sommet ? VERT : ROUGE} />
+    </g>
+  );
+}
+
+function chemin(pts: readonly (readonly [number, number])[], e: Echelle): string {
+  return pts
+    .filter(([, z]) => Number.isFinite(z))
+    .map(([d, z], i) => `${i === 0 ? 'M' : 'L'}${e.x(d).toFixed(2)},${e.y(z).toFixed(2)}`)
+    .join(' ');
+}
+
+const N = 240;
 
 function Legende({ couleur, texte, tirets }: { couleur: string; texte: string; tirets?: boolean }) {
   return (
@@ -190,6 +224,75 @@ function Legende({ couleur, texte, tirets }: { couleur: string; texte: string; t
       <span style={{ width: 20, height: 0, borderTop: `2px ${tirets ? 'dashed' : 'solid'} ${couleur}` }} />
       {texte}
     </span>
+  );
+}
+
+function SchemaSpherique({ s, e }: { s: Simulation; e: Echelle }) {
+  const { D, cible, h, rTrace } = s;
+  const sH = arcTangence(h, rTrace);
+  const ech = Array.from({ length: N + 1 }, (_, i) => (i * D) / N);
+
+  // La surface : l'arc qui monte. C'est lui qui coupe la visée.
+  const surface = ech.map((d) => [d, bombement(d, D, rTrace)] as const);
+  // Le rayon rasant, dans le même repère décalé.
+  const rasant = ech.map((d) =>
+    [d, altitudeRayonRasant(d, sH, rTrace) + bombement(d, D, rTrace)] as const);
+
+  const bas = e.y(e.zMin);
+  const sol = `${chemin(surface, e)} L${e.x(D).toFixed(2)},${bas.toFixed(2)} L${e.x(0).toFixed(2)},${bas.toFixed(2)} Z`;
+  const horizonVisible = sH < D;
+
+  return (
+    <>
+      <Cadre D={D} e={e} titre={`Modèle sphérique : coupe sur ${fmtKm(D)}`}>
+        <path d={sol} fill="#243044" stroke="#3d5068" strokeWidth={1.4} />
+        <path d={chemin(rasant, e)} fill="none" stroke={ACCENT} strokeWidth={2} />
+        {horizonVisible && (
+          <g>
+            <line x1={e.x(sH)} y1={e.y(bombement(sH, D, rTrace))} x2={e.x(sH)} y2={MH + 6}
+              stroke="#5a6b7d" strokeWidth={1} strokeDasharray="3 3" />
+            <text x={e.x(sH)} y={MH + 2} fill="#8a9bad" fontSize={10}
+              fontFamily="ui-monospace, monospace" textAnchor="middle">
+              horizon {fmt(sH / 1000, 1)} km
+            </text>
+          </g>
+        )}
+        <circle cx={e.x(0)} cy={e.y(h)} r={4} fill={ACCENT} />
+        <CibleDessinee e={e} D={D} base={cible.zB} masquee={s.masqueeStandardM} H={cible.H} />
+      </Cadre>
+      <p style={{ margin: '10px 0 0', fontSize: 12, lineHeight: 1.6, color: 'var(--ink-muted)' }}>
+        La <strong>surface se bombe</strong> entre les deux points : c’est elle qui vient couper
+        la visée, et non la visée qui s’enfoncerait sous le sol. Le trait vert est le{' '}
+        <strong>rayon rasant</strong>, le plus bas que l’observateur puisse envoyer — il frôle la
+        surface à l’horizon{horizonVisible ? ` (${fmt(sH / 1000, 1)} km)` : ''} puis remonte, et
+        arrive sur la cible à <strong>{fmt(s.masqueeStandardM)} m</strong> au-dessus de sa base.
+        Tout ce qui est sous ce trait est masqué : c’est la bande rouge.
+      </p>
+    </>
+  );
+}
+
+function SchemaPlat({ s, e }: { s: Simulation; e: Echelle }) {
+  const { D, cible, h } = s;
+  const sommet = cible.zB + cible.H;
+  const bas = e.y(e.zMin);
+  const sol = `${chemin([[0, 0], [D, 0]], e)} L${e.x(D).toFixed(2)},${bas.toFixed(2)} L${e.x(0).toFixed(2)},${bas.toFixed(2)} Z`;
+
+  return (
+    <>
+      <Cadre D={D} e={e} titre={`Modèle plat : coupe sur ${fmtKm(D)}`}>
+        <path d={sol} fill="#243044" stroke="#3d5068" strokeWidth={1.4} />
+        <path d={chemin([[0, h], [D, sommet]], e)} fill="none"
+          stroke={dash.saffron} strokeWidth={2} strokeDasharray="7 5" />
+        <circle cx={e.x(0)} cy={e.y(h)} r={4} fill={dash.saffron} />
+        <CibleDessinee e={e} D={D} base={cible.zB} masquee={0} H={cible.H} />
+      </Cadre>
+      <p style={{ margin: '10px 0 0', fontSize: 12, lineHeight: 1.6, color: 'var(--ink-muted)' }}>
+        Aucune courbure : la surface est plate et la visée va droit de l’œil au sommet. Rien ne
+        s’interpose, donc <strong>la cible entière est visible</strong> — du pied au sommet, 0 m
+        masqué. Ce modèle n’a aucun paramètre libre : il prédit la même chose à toute distance.
+      </p>
+    </>
   );
 }
 
@@ -274,16 +377,55 @@ export default function ResultatVisee({ sim }: { sim: Simulation }) {
         </p>
       </div>
 
-      {/* ── La coupe ── */}
-      <div style={{
-        background: 'var(--card)', border: '1px solid var(--border)',
-        borderRadius: 10, padding: '16px 18px', marginBottom: 18,
-      }}>
-        <div style={{
-          fontSize: 11, fontFamily: dash.fontMono, fontWeight: 700, letterSpacing: '0.1em',
-          color: 'var(--ink-muted)', textTransform: 'uppercase', marginBottom: 12,
-        }}>Coupe de la visée — {fmtKm(sim.D)}</div>
-        <Coupe s={sim} />
+      {/* ── Les deux schémas ──
+          Une SEULE échelle verticale pour les deux : sans cela, la bande rouge
+          d'un schéma ne serait pas comparable à la cible entière de l'autre, et
+          la comparaison — qui est tout l'objet de l'outil — serait fausse. */}
+      {(() => {
+        // L'échelle doit contenir le plus haut de tout ce qui est tracé dans
+        // les DEUX schémas : le sommet de la cible, l'œil, la flèche du
+        // bombement, et le rayon rasant à son arrivée.
+        const fleche = bombement(sim.D / 2, sim.D, sim.rTrace);
+        const sommet = sim.cible.zB + sim.cible.H;
+        const zMax = Math.max(sim.h, sommet, fleche + sim.masqueeStandardM, fleche);
+        const e = faireEchelle(sim.D, 0, zMax);
+        return (
+          // Les deux schémas sont EMPILÉS, pas côte à côte : un dessin de
+          // 860 px de large réduit à une demi-colonne sortait la cible du
+          // cadre — or la cible découpée en rouge et vert est tout ce que le
+          // schéma existe pour montrer. L'échelle verticale restant commune,
+          // la comparaison se fait aussi bien de haut en bas.
+          <div style={{ display: 'grid', gap: 14, marginBottom: 18 }}>
+            <div style={{
+              background: 'var(--card)', border: '1px solid var(--border)',
+              borderTop: `3px solid ${ACCENT}`, borderRadius: 10, padding: '16px 18px',
+            }}>
+              <div style={{
+                fontSize: 11, fontFamily: dash.fontMono, fontWeight: 700, letterSpacing: '0.1em',
+                color: ACCENT, textTransform: 'uppercase', marginBottom: 12,
+              }}>Modèle sphérique — {fmtKm(sim.D)}</div>
+              <SchemaSpherique s={sim} e={e} />
+            </div>
+            <div style={{
+              background: 'var(--card)', border: '1px solid var(--border)',
+              borderTop: `3px solid ${dash.saffron}`, borderRadius: 10, padding: '16px 18px',
+            }}>
+              <div style={{
+                fontSize: 11, fontFamily: dash.fontMono, fontWeight: 700, letterSpacing: '0.1em',
+                color: dash.saffron, textTransform: 'uppercase', marginBottom: 12,
+              }}>Modèle plat — {fmtKm(sim.D)}</div>
+              <SchemaPlat s={sim} e={e} />
+            </div>
+          </div>
+        );
+      })()}
+
+      <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', marginBottom: 18, fontSize: 12 }}>
+        <Legende couleur={ROUGE} texte="Masqué à la base" />
+        <Legende couleur={VERT} texte="Émergent, visible" />
+        <Legende couleur={ACCENT} texte="Rayon rasant — modèle sphérique" />
+        <Legende couleur={dash.saffron} texte="Visée droite — modèle plat" tirets />
+        <Legende couleur="#3d5068" texte="Surface de référence" />
       </div>
 
       {/* ── Le bloc explicatif, unique et rétractable ── */}

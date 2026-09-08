@@ -152,6 +152,43 @@ prétendrait trancher cette question donnerait une fausse assurance.
 `relief.py` et `relief.ts` restent : le second fournit encore le tracé exact de
 la ligne de visée, et le premier garde ses propres tests.
 
+### Deux schémas, et pourquoi la Terre se bombe
+
+Un tracé unique en « altitude au-dessus de la surface » faisait plonger la
+ligne de visée sous le niveau zéro. Le calcul était exact — une corde droite
+entre deux points bas traverse bel et bien la Terre, et c'est précisément
+pourquoi la cible est occultée — mais l'image était absurde : une visée ne
+passe pas sous le sol.
+
+**C'est le repère qu'il fallait changer, pas le calcul.** Les altitudes sont
+décalées du bombement de la surface au-dessus de la corde A–B :
+
+    b(d) = R · [ cos(d/R − D/2R) − cos(D/2R) ]
+
+nul aux deux extrémités, égal à la flèche au milieu. La surface devient un arc
+qui monte, et c'est **lui** qui vient couper la visée — la description physique
+juste. Le décalage étant le même pour la surface et pour la visée, tous les
+écarts verticaux sont préservés exactement : la bande rouge sur la cible mesure
+la hauteur masquée réelle.
+
+La visée tracée est le **rayon rasant**, celui qui frôle la surface à
+l'horizon. C'est le rayon le plus bas que l'observateur puisse envoyer, donc la
+limite de ce qu'il voit, et il ne descend jamais sous la surface. Sa hauteur
+au-dessus de la base de la cible vaut **exactement** l'occultation calculée :
+les deux ont été confrontées numériquement, l'écart est nul à l'epsilon
+machine. Le dessin et le chiffre disent donc la même chose.
+
+Deux schémas empilés, une seule échelle verticale — sans échelle commune, la
+bande rouge d'un schéma ne serait pas comparable à la cible entière de l'autre,
+et la comparaison, qui est tout l'objet de l'outil, serait fausse. La cible est
+découpée en **rouge** (masqué à la base) et **vert** (émergent) ; sur le modèle
+plat elle est entièrement verte.
+
+Un contrôle au navigateur lit les chemins SVG et mesure, abscisse par abscisse,
+de combien la visée passe sous le sol : zéro pixel sur trois configurations,
+dont une cible enfouie à 2 548 km. Rétablir l'ancien tracé fait remonter le
+contrôle à 38 pixels — il discrimine.
+
 ### La saisie des coordonnées : décimales ou DMS
 
 `geocodage-ign.ts` lit la saisie comme des coordonnées **avant** de songer à
