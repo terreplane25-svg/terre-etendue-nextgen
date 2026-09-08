@@ -8,7 +8,7 @@ import ThemeToggle from '@/components/ThemeToggle';
 
 const SECTIONS = [
   {
-    label: 'Bibliothèque', href: '/library', color: '#D4943A',
+    label: 'Bibliothèque', href: '/library', color: '#D4943A', colorTexte: 'var(--saffron-texte)',
     subs: [
       { label: '📖 Coran & Sunna', href: '/library?filter=coran' },
       { label: '🕌 Textes historiques', href: '/library?filter=historique' },
@@ -16,7 +16,7 @@ const SECTIONS = [
     ],
   },
   {
-    label: 'Centre de Recherche', href: '/headquarters', color: '#8B7EC8',
+    label: 'Centre de Recherche', href: '/headquarters', color: '#8B7EC8', colorTexte: 'var(--lavender-texte)',
     subs: [
       { label: '🧠 Épistémologie', href: '/headquarters?filter=epistemologie' },
       { label: '🔬 Méthode zététique', href: '/headquarters?filter=zetetique' },
@@ -24,7 +24,7 @@ const SECTIONS = [
     ],
   },
   {
-    label: 'Observatoire', href: '/observatory', color: '#3B8FD4',
+    label: 'Observatoire', href: '/observatory', color: '#3B8FD4', colorTexte: 'var(--cyan-texte)',
     subs: [
       { label: '🔭 Optique & horizon', href: '/observatory?filter=optique' },
       { label: '🌊 Hydrologie', href: '/observatory?filter=hydrologie' },
@@ -32,7 +32,7 @@ const SECTIONS = [
     ],
   },
   {
-    label: 'Expériences', href: '/experiences', color: '#C45E6A',
+    label: 'Expériences', href: '/experiences', color: '#C45E6A', colorTexte: 'var(--rose-texte)',
     subs: [
       { label: '💧 Fluides & matière', href: '/experiences?filter=fluides' },
       { label: '🔭 Optique & perspective', href: '/experiences?filter=optique' },
@@ -41,7 +41,7 @@ const SECTIONS = [
     ],
   },
   {
-    label: 'Outils', href: '/lab', color: '#3D9E7C',
+    label: 'Outils', href: '/lab', color: '#3D9E7C', colorTexte: 'var(--opal-texte)',
     subs: [
       { label: '📐 Calculateur de Courbure', href: '/lab?sim=curvature' },
       { label: '⚗️ Simulateur de Densité', href: '/lab?sim=density' },
@@ -49,14 +49,14 @@ const SECTIONS = [
     ],
   },
   {
-    label: 'Décryptage', href: '/laboratoire', color: '#8B7EC8',
+    label: 'Décryptage', href: '/laboratoire', color: '#8B7EC8', colorTexte: 'var(--lavender-texte)',
     subs: [
       { label: '🎬 Vidéos', href: '/laboratoire?tab=video' },
       { label: '🖼️ Images', href: '/laboratoire?tab=image' },
     ],
   },
   {
-    label: 'Enseignants', href: '/enseignants', color: '#2B7A5F',
+    label: 'Enseignants', href: '/enseignants', color: '#2B7A5F', colorTexte: 'var(--vert-texte)',
     subs: [
       { label: '📄 Livret enseignant (PDF)', href: '/livret-enseignant.pdf' },
       { label: '🧪 Fiches par niveau', href: '/enseignants#fiches' },
@@ -64,7 +64,7 @@ const SECTIONS = [
     ],
   },
   {
-    label: 'À propos', href: '/about', color: '#8B8F96',
+    label: 'À propos', href: '/about', color: '#8B8F96', colorTexte: 'var(--gris-texte)',
     subs: [],
   },
 ];
@@ -114,7 +114,7 @@ export default function DashboardNav() {
               fontWeight: 900, color: 'var(--ink)', letterSpacing: '-0.03em',
               lineHeight: 1.1, fontFamily: "'Plus Jakarta Sans', sans-serif",
             }}>
-              Terre Étendue <span style={{ color: '#2B9E6E', fontWeight: 900 }}>Islam</span>
+              Terre Étendue <span style={{ color: 'var(--vert-logo-texte)', fontWeight: 900 }}>Islam</span>
             </div>
             <div className="tei-logo-sous" style={{
               fontSize: 10.5, color: 'var(--ink-soft)', letterSpacing: '0.03em',
@@ -144,8 +144,11 @@ export default function DashboardNav() {
                   <Link href={s.href} className="tei-nav-lien" style={{
                     display: 'flex', alignItems: 'center', gap: 4,
                     fontWeight: 750,
-                    color: active ? s.color : 'var(--ink)',
-                    borderBottom: active ? `3px solid ${s.color}` : '3px solid transparent',
+                    // Le texte prend la variante lisible de la teinte ; le
+                    // soulignement garde la couleur de pilier, où le seuil
+                    // n'est que de 3:1 — un trait n'est pas un mot.
+                    color: active ? s.colorTexte : 'var(--ink)',
+                    borderBottom: active ? `3px solid ${s.colorTexte}` : '3px solid transparent',
                     transition: 'color 0.15s',
                     whiteSpace: 'nowrap',
                     letterSpacing: '-0.01em',
@@ -169,7 +172,7 @@ export default function DashboardNav() {
                           fontSize: 14, fontWeight: 500, color: 'var(--ink-soft)',
                           transition: 'background 0.1s, color 0.1s',
                         }}
-                        onMouseOver={e => { e.currentTarget.style.background = 'var(--bg)'; e.currentTarget.style.color = s.color; }}
+                        onMouseOver={e => { e.currentTarget.style.background = 'var(--bg)'; e.currentTarget.style.color = s.colorTexte; }}
                         onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--ink-soft)'; }}>
                           {sub.label}
                         </Link>
@@ -199,7 +202,7 @@ export default function DashboardNav() {
               fontSize: 18, fontWeight: 900, color: 'var(--ink)', letterSpacing: '-0.02em',
               lineHeight: 1.15, fontFamily: "'Plus Jakarta Sans', sans-serif",
             }}>
-              Terre Étendue <span style={{ color: '#2B9E6E' }}>Islam</span>
+              Terre Étendue <span style={{ color: 'var(--vert-logo-texte)' }}>Islam</span>
             </div>
           </Link>
 

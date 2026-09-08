@@ -11,6 +11,33 @@
   --ink-muted: #8B8F96;
   --ink-ghost: #B8BBC2;
   --border: #E8EAED;
+
+  /* ── Les couleurs de pilier, en variantes LISIBLES COMME TEXTE ──────────
+   *
+   * Un fait structurel, mesuré : aucune couleur fixe ne peut servir de texte
+   * dans les deux thèmes. Assez sombre pour atteindre 4,5:1 sur blanc, elle
+   * tombe sous le seuil sur la carte sombre — et réciproquement. Le saffron
+   * d'origine donne 2,59:1 sur blanc et 6,26:1 en sombre ; le vert des
+   * enseignants, 5,18 et 3,13.
+   *
+   * Chaque variante est la mise à l'échelle la plus PROCHE de l'originale qui
+   * atteigne 4,8:1 : la teinte est conservée au mieux, et l'écart n'est jamais
+   * gratuit. Les couleurs d'origine restent employées partout où elles ne
+   * portent pas de texte — barres, bordures, aplats.
+   *
+   * POURQUOI 4,8 ET NON 4,5. Une première série visait le seuil exact et
+   * atterrissait entre 4,51 et 4,57 : une seule unité de canal, ou n'importe
+   * quelle retouche de teinte, aurait fait basculer sous le seuil sans qu'on
+   * le veuille. La marge est là pour que la conformité survive aux retouches.
+   */
+  --saffron-texte: #976929;
+  --lavender-texte: #7369A6;
+  --cyan-texte: #3075AE;
+  --opal-texte: #317E63;
+  --rose-texte: #B0555F;
+  --vert-texte: #2B7A5F;
+  --gris-texte: #6F7278;
+  --vert-logo-texte: #238059;
   --border-soft: #F0F1F3;
   --lavender: #8B7EC8;
   --saffron: #D4943A;
@@ -39,6 +66,18 @@
   --ink-muted: #6B7588;
   --ink-ghost: #4A5568;
   --border: #2A3344;
+
+  /* Les mêmes, pour la carte sombre : la plupart des couleurs d'origine y
+   * atteignent déjà le seuil, seules le rose et le vert demandent un
+   * éclaircissement. Voir le commentaire du bloc clair. */
+  --saffron-texte: #D4943A;
+  --lavender-texte: #8F82CE;
+  --cyan-texte: #3C92D8;
+  --opal-texte: #3D9E7C;
+  --rose-texte: #DA6876;
+  --vert-texte: #379D7B;
+  --gris-texte: #8B8F96;
+  --vert-logo-texte: #2B9E6E;
   --border-soft: #1E2738;
   --gloss: #B8941F;
 }

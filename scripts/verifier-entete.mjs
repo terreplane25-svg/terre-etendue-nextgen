@@ -26,6 +26,21 @@
  * même mécanisme : un menu qui ne rentre pas peut sortir du cadre au lieu de
  * recouvrir son voisin, ce qui rend le lien invisible plutôt que masqué.
  *
+ * IL VÉRIFIE AUSSI LES CONTRASTES
+ * ───────────────────────────────
+ * Le libellé de la section ACTIVE prenait la couleur de son pilier comme
+ * couleur de texte : 2,59:1 pour le saffron de la Bibliothèque, très en
+ * dessous du seuil de 4,5:1. Autrement dit, le mot qui vous dit où vous êtes
+ * était le moins lisible de l'en-tête.
+ *
+ * Un fait structurel a guidé la correction : aucune couleur fixe ne peut
+ * servir de texte dans les DEUX thèmes. Assez sombre pour le blanc, elle
+ * tombe sous le seuil sur la carte sombre — et réciproquement. Il a donc fallu
+ * une variante par thème, la plus proche de l'originale qui atteigne 4,5:1.
+ *
+ * Ce contrôle balaie les HUIT sections, chacune ayant sa teinte : n'en tester
+ * qu'une ne dirait rien des sept autres.
+ *
  *     node scripts/verifier-entete.mjs [port]
  */
 import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
@@ -143,10 +158,117 @@ try {
   await nav.close();
 }
 
+// ── Les contrastes ──────────────────────────────────────────────────────────
+//
+// Le lien actif porte la teinte de sa section : en tester une seule laisserait
+// les sept autres sans contrôle. Le soulignement est jugé à 3:1 — un trait
+// n'est pas un mot — et le texte au seuil de sa taille.
+const SECTIONS_PAGES = ['/library', '/headquarters', '/observatory', '/experiences',
+  '/lab', '/laboratoire', '/enseignants', '/about'];
+
+const nav2 = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+try {
+  for (const theme of ['light', 'dark']) {
+    for (const chemin of SECTIONS_PAGES) {
+      const page = await nav2.newPage({
+        viewport: { width: 1280, height: 600 }, colorScheme: theme,
+      });
+      try {
+        // Les transitions sont COUPÉES avant de mesurer. Les liens du menu
+        // portent `transition: color 0.15s` : mesurer à 120 ms attrapait une
+        // couleur intermédiaire, et le contrôle rapportait des échecs qui
+        // n'existaient pas à l'état stabilisé — 4,43:1 au lieu de 4,57:1.
+        // Attendre plus longtemps aurait marché aujourd'hui et cassé le jour
+        // où quelqu'un allonge la transition ; couper l'animation retire le
+        // facteur temps de l'équation.
+        await page.addStyleTag({
+          content: '*, *::before, *::after { transition: none !important; '
+            + 'animation: none !important; }',
+        });
+        await page.goto(RACINE + chemin, { waitUntil: 'domcontentloaded' });
+        await page.addStyleTag({
+          content: '*, *::before, *::after { transition: none !important; '
+            + 'animation: none !important; }',
+        });
+        await page.evaluate(() => document.fonts.ready);
+        await page.waitForTimeout(120);
+        const r = await page.evaluate(() => {
+          const lum = (s) => {
+            const [r, g, b] = s.match(/[\d.]+/g).slice(0, 3).map((v) => v / 255)
+              .map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+            return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+          };
+          const fond = (el) => {
+            for (let x = el; x; x = x.parentElement) {
+              const c = getComputedStyle(x).backgroundColor;
+              if (c && !/rgba\(0, 0, 0, 0\)|transparent/.test(c)) return c;
+            }
+            return 'rgb(255, 255, 255)';
+          };
+          const ratio = (a, b) => {
+            const [h, l] = [lum(a), lum(b)].sort((x, y) => y - x);
+            return (h + 0.05) / (l + 0.05);
+          };
+          const actif = [...document.querySelectorAll('header nav > div > a')]
+            .find((a) => !/transparent|rgba\(0, 0, 0, 0\)/
+              .test(getComputedStyle(a).borderBottomColor));
+          if (!actif) return null;
+          const st = getComputedStyle(actif);
+          const px = parseFloat(st.fontSize);
+          const gras = parseInt(st.fontWeight, 10) >= 700;
+          // Tout texte de l'en-tête, pas seulement le lien actif : le libellé
+          // de la recherche et le vert du logo ont échoué là aussi.
+          const tous = [];
+          for (const el of document.querySelectorAll('header *')) {
+            const t = [...el.childNodes].filter((x) => x.nodeType === 3)
+              .map((x) => x.textContent).join('').trim();
+            if (t.length < 2 || !el.offsetWidth) continue;
+            const e = getComputedStyle(el);
+            if (e.visibility === 'hidden' || e.display === 'none') continue;
+            const p = parseFloat(e.fontSize);
+            const g = parseInt(e.fontWeight, 10) >= 700;
+            const seuil = p >= 24 || (g && p >= 18.66) ? 3 : 4.5;
+            const rr = ratio(e.color, fond(el));
+            if (rr < seuil) tous.push(`« ${t.slice(0, 24)} » ${rr.toFixed(2)}:1 < ${seuil} (${p} px)`);
+          }
+          return {
+            t: actif.textContent.trim().slice(0, 20),
+            seuilTexte: px >= 24 || (gras && px >= 18.66) ? 3 : 4.5,
+            texte: ratio(st.color, fond(actif)),
+            trait: ratio(st.borderBottomColor, fond(actif)),
+            tous,
+          };
+        });
+        controles += 1;
+        if (r === null) {
+          echecs += 1;
+          console.error(`  ✗ contraste ${theme} ${chemin} : aucun lien actif — le contrôle ne mesure rien`);
+        } else {
+          const soucis = [...r.tous];
+          if (r.texte < r.seuilTexte) {
+            soucis.push(`lien actif « ${r.t} » : ${r.texte.toFixed(2)}:1 < ${r.seuilTexte}`);
+          }
+          if (r.trait < 3) soucis.push(`soulignement : ${r.trait.toFixed(2)}:1 < 3`);
+          if (soucis.length > 0) {
+            echecs += 1;
+            console.error(`  ✗ contraste ${theme} ${chemin}`);
+            for (const x of soucis) console.error(`      ${x}`);
+          }
+        }
+      } finally {
+        await page.close();
+      }
+    }
+  }
+} finally {
+  await nav2.close();
+}
+
 if (echecs === 0) {
-  console.log(`✓ En-tête : ${controles} largeurs × pages contrôlées, aucun chevauchement ni débord.`);
+  console.log(`✓ En-tête : ${controles} contrôles — géométrie et contrastes, aucun écart.`);
   console.log(`  De ${LARGEURS[0]} à ${LARGEURS.at(-1)} px, polices chargées, tolérance ${TOLERANCE_PX} px,`);
   console.log(`  marge minimale exigée autour du menu : ${MARGE_MIN_PX} px.`);
+  console.log('  Contrastes : les 8 sections actives, dans les deux thèmes.');
 } else {
   console.error(`\n✗ ${echecs} configuration(s) en défaut sur ${controles}.`);
   process.exitCode = 1;

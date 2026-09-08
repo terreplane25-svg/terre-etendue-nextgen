@@ -149,7 +149,8 @@ export default function SearchCommand({ inline }: { inline?: boolean }) {
             display: 'flex', alignItems: 'center', gap: 8,
             padding: '7px 14px', borderRadius: 6,
             border: `1px solid ${dash.border}`,
-            fontSize: 14, color: dash.inkGhost, cursor: 'pointer',
+            // `inkGhost` donnait 1,92:1 : le libellé était effacé.
+            fontSize: 14, color: 'var(--ink-soft)', cursor: 'pointer',
             transition: 'border-color 0.2s',
           }}
           onMouseOver={e => (e.currentTarget.style.borderColor = dash.lavender)}

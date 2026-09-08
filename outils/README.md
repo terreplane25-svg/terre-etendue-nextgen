@@ -400,6 +400,46 @@ pages, polices chargées, et refuse tout chevauchement de plus de 2 px, tout
 lien sorti du cadre, et toute marge sous 14 px. Écrit AVANT la correction, il
 échouait sur 48 des 105 configurations ; il passe les 117 d'aujourd'hui.
 
+### Les contrastes de l'en-tête
+
+Trois échecs, tous en thème clair, et le premier est le plus gênant :
+
+| Texte | Mesuré | Seuil |
+|---|---|---|
+| libellé de la section ACTIVE (saffron) | **2,59:1** | 4,5 |
+| « Rechercher… » (`--ink-ghost`) | **1,92:1** | 4,5 |
+| « Islam » du logo, sur mobile (18 px) | **3,38:1** | 4,5 |
+
+Le mot qui vous dit **où vous êtes** était le moins lisible de l'en-tête, sur
+les huit sections et à tous les paliers.
+
+Une première mesure ne l'avait pas vu : elle excluait les éléments ayant des
+enfants, et les liens du menu contiennent une icône de chevron. C'est en
+comblant ce trou que le défaut est apparu — la leçon vaut d'être notée, un
+contrôle peut passer parce qu'il ne regarde pas.
+
+**Un fait structurel commande la correction.** Aucune couleur fixe ne peut
+servir de texte dans les DEUX thèmes : assez sombre pour atteindre le seuil sur
+blanc, elle tombe en dessous sur la carte sombre, et réciproquement. Le saffron
+d'origine donne 2,59:1 en clair et 6,26:1 en sombre ; le vert des Enseignants,
+5,18 et 3,13.
+
+D'où huit variables `--*-texte`, une valeur par thème, chacune la mise à
+l'échelle la plus proche de l'originale qui atteigne **4,8:1**. Les couleurs
+d'origine restent partout où elles ne portent pas de texte. Le soulignement du
+lien actif prend la même variante : à 2,59:1 le saffron échouait même au seuil
+de 3:1 des composants non textuels.
+
+Pourquoi 4,8 et non 4,5 : une première série visait le seuil exact et
+atterrissait entre 4,51 et 4,57, où une seule unité de canal fait basculer.
+
+**Deux défauts de l'outillage, trouvés en route.** Les liens portent
+`transition: color 0.15s` ; mesurer à 120 ms attrapait une couleur intermédiaire
+et le contrôle rapportait 4,43:1 là où l'état stabilisé donne 4,57:1. Le
+vérificateur coupe désormais les transitions avant de mesurer — attendre plus
+longtemps aurait marché ce jour-là et cassé le jour où quelqu'un allonge
+l'animation.
+
 Il a besoin d'un serveur qui tourne, donc il ne rejoint pas `verifier:ports`
 — qui s'exécute sur les seuls fichiers. On l'appelle à part :
 `npm run verifier:entete -- <port>`.
