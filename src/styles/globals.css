@@ -555,3 +555,18 @@ html, body { overflow-x: hidden; }
 
 /* SVG lightbox dark */
 [data-theme="dark"] .svg-lightbox-content svg { background: var(--card) !important; }
+
+/* ── Les cartes d'outils du Lab ──────────────────────────────────────────
+ *
+ * L'anneau de focus ne peut pas s'écrire en style inline : `:focus-visible`
+ * n'existe qu'en CSS. Sans lui, la carte était atteignable au clavier mais
+ * invisible — une cible qu'on ne voit pas n'est pas une cible.
+ *
+ * `outline-offset` négatif garde l'anneau DANS la carte : posé dehors, il
+ * était rogné par le `overflow: hidden` qui contient la barre d'accentuation.
+ */
+.tei-carte-outil:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: -3px;
+}
+.tei-carte-outil:focus:not(:focus-visible) { outline: none; }

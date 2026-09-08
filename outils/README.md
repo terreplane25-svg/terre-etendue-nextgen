@@ -354,6 +354,42 @@ lecture ne s'établissent pas de la même façon. Un partage de responsabilité
 entre lecteurs — un JPEG chez le lecteur de PNG — n'est pas consigné comme
 une panne.
 
+## Les contrastes du Lab, mesurés plutôt que promis
+
+`scripts/verifier-contrastes-lab.mjs` lit les couleurs des outils dans
+`src/lib/lab-tools.ts`, les tokens dans `src/styles/globals.css`, et applique
+la formule WCAG 2.1 aux couples couleur/fond de chaque rôle de texte, **dans
+les deux thèmes**. Il refuse ce qui passe sous le seuil : 4,5:1 pour un texte
+normal, 3:1 pour un texte large (≥ 18,66 px en gras) et pour un composant non
+textuel.
+
+Ce qu'il a trouvé sur la version précédente des cartes :
+
+| Rôle | Couleur | Ratio | Verdict |
+|---|---|---|---|
+| étiquettes | `--ink-ghost` sur gris | **1,76:1** | échec sévère |
+| descriptif | `--ink-muted` | **3,25:1** | échec |
+| numéro « 01 » | pilier à 50 % | **1,73:1** | échec |
+| titre actif | couleur de pilier à 13 px | **3,3–3,6:1** | échec |
+
+Aucune de ces valeurs n'avait été décidée : elles avaient dérivé. Un texte à
+1,76:1 est effacé, et rien ne le signalait.
+
+**Le titre coloré tient à sa taille.** Les couleurs de pilier plafonnent à
+3,3:1 sur blanc : illégales pour un texte normal, admises pour un texte large.
+Le titre est donc à 20 px / 700, et le contrôle échoue si quelqu'un le ramène
+sous 18,66 px — l'état actif cesserait d'être conforme sans qu'aucun test
+d'apparence ne s'en aperçoive.
+
+**L'anneau de focus n'existait pas.** La carte était atteignable au clavier
+mais invisible. `:focus-visible` ne s'écrit pas en style inline : il a fallu
+passer par une classe CSS, et le contrôle vérifie que la carte la porte.
+
+Le balayage de la page a aussi remonté cinq textes en échec hors des cartes,
+dont le premier paragraphe de `PageIntro` à 2,98:1 — présent sur **chaque
+page** du site, pas seulement au Lab. Tous corrigés ; le pire texte de `/lab`
+est désormais à 7,64:1, mesuré sur les pixels calculés par le navigateur.
+
 ## Extraction universelle (outil B)
 
 Quatre familles de lecteurs se partagent le travail. Un format non couvert par

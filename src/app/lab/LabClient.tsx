@@ -21,59 +21,103 @@ interface A { slug: string; title: string; description: string; tags: string[]; 
 
 const EXCLUDED_PATTERNS = ['mgpp', 'modele-geostationnaire', 'monde-plat-et-du-paradis'];
 
+/**
+ * La carte d'un outil sur la page d'accueil du Lab.
+ *
+ * LES CONTRASTES SONT MESURÉS, PAS ESTIMÉS
+ * ────────────────────────────────────────
+ * La version précédente posait le descriptif en `--ink-muted` (3,25:1 sur
+ * blanc) et les étiquettes en `--ink-ghost` sur gris (1,76:1). Les deux
+ * échouaient au seuil WCAG AA de 4,5:1 pour un texte normal — la seconde de
+ * loin. Ce n'était pas une question de goût : les mots étaient effacés.
+ *
+ * Les rôles de texte emploient donc `--ink` et `--ink-soft`, seuls tokens AAA
+ * dans les DEUX thèmes (16,9:1 et 8,3:1 en clair ; 12,7:1 et 7,5:1 en sombre).
+ * `--ink-muted` échoue des deux côtés et ne porte plus aucun mot ici.
+ *
+ * LE TITRE COLORÉ TIENT À SA TAILLE
+ * ─────────────────────────────────
+ * Les couleurs de pilier plafonnent à 3,3–3,6:1 sur blanc : illégales pour un
+ * texte normal, admises pour un TEXTE LARGE (≥ 18,66 px en gras), dont le
+ * seuil est 3:1. Le titre est donc à 20 px / 700 — et s'il redescendait sous
+ * 18,66 px, l'état actif cesserait d'être conforme. `scripts/verifier-contrastes-lab.mjs`
+ * mesure tout cela à chaque passe et refuse la dérive.
+ */
 function ToolCard({ tool, active, onClick }: { tool: typeof TOOLS[0]; active: boolean; onClick: () => void }) {
+  const [survol, setSurvol] = useState(false);
   return (
     <motion.button
       onClick={onClick}
-      whileHover={{ y: -1 }}
-      transition={{ duration: 0.2 }}
+      onMouseEnter={() => setSurvol(true)}
+      onMouseLeave={() => setSurvol(false)}
+      whileHover={{ y: -3 }}
+      whileTap={{ y: 0 }}
+      transition={{ duration: 0.18 }}
+      aria-pressed={active}
       style={{
         padding: 0,
         textAlign: 'left' as const,
         cursor: 'pointer',
         width: '100%',
-        border: active ? `1.5px solid ${tool.color}` : `1px solid ${dash.border}`,
-        background: active ? tool.color + '08' : '#FFFFFF',
-        borderRadius: 6,
+        // La surface entière est un bouton : c'est déjà le cas, et l'anneau de
+        // focus ci-dessous rend la cible visible au clavier, ce qu'elle
+        // n'était pas.
+        border: `2px solid ${active || survol ? tool.color : 'var(--border)'}`,
+        background: active ? `${tool.color}14` : 'var(--card)',
+        borderRadius: 10,
         position: 'relative' as const,
         overflow: 'hidden' as const,
-        boxShadow: active ? `0 0 0 1px ${tool.color}20` : 'none',
+        boxShadow: active
+          ? `0 0 0 3px ${tool.color}33, 0 8px 20px -6px ${tool.color}55`
+          : survol
+            ? `0 10px 24px -8px ${tool.color}66`
+            : '0 2px 8px -4px rgba(0,0,0,0.18)',
+        transition: 'box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease',
       }}
+      className="tei-carte-outil"
     >
-      {/* Top accent bar */}
+      {/* La barre d'accentuation : composant non textuel, seuil 3:1 — tenu
+          par les quatre couleurs employées, dans les deux thèmes. */}
       <div style={{
-        height: 3,
-        background: active ? tool.color : tool.color + '30',
-        transition: 'background 0.2s ease',
+        height: 5,
+        background: tool.color,
+        opacity: active || survol ? 1 : 0.75,
+        transition: 'opacity 0.18s ease',
       }} />
-      <div style={{ padding: '14px 16px 16px' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 8 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 18 }}>{tool.icon}</span>
+      <div style={{ padding: '16px 18px 18px' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 13, marginBottom: 10 }}>
+          <span style={{ fontSize: 30, lineHeight: 1.1, flexShrink: 0 }} aria-hidden>{tool.icon}</span>
+          <div style={{ minWidth: 0, flex: 1 }}>
             <div style={{
-              fontSize: 13, fontWeight: 700,
-              color: active ? tool.color : dash.ink,
-              lineHeight: 1.3,
+              // 20 px / 700 : le seuil du texte large. C'est ce qui autorise
+              // la couleur de pilier à l'état actif.
+              fontSize: 20, fontWeight: 700,
+              color: active ? tool.color : 'var(--ink)',
+              lineHeight: 1.25, letterSpacing: '-0.01em',
             }}>{tool.label}</div>
           </div>
+          {/* Le numéro : pastille pleine, texte blanc, 19 px en gras — donc
+              texte large, seuil 3:1, tenu par les quatre couleurs. */}
           <span style={{
-            fontSize: 9, fontFamily: dash.fontMono, fontWeight: 700,
-            color: tool.color, opacity: 0.5,
-            letterSpacing: '0.05em',
+            fontSize: 19, fontFamily: dash.fontMono, fontWeight: 800,
+            color: '#FFFFFF', background: tool.color,
+            padding: '2px 9px', borderRadius: 7, flexShrink: 0,
+            letterSpacing: '0.02em', lineHeight: 1.35,
           }}>{tool.num}</span>
         </div>
         <div style={{
-          fontSize: 12, color: dash.inkMuted, lineHeight: 1.5,
-          marginBottom: 10,
+          fontSize: 15, color: 'var(--ink-soft)', lineHeight: 1.6,
+          marginBottom: 13,
         }}>{tool.desc}</div>
-        <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' as const }}>
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' as const }}>
           {tool.tags.map(tag => (
             <span key={tag} style={{
-              fontSize: 9, fontWeight: 600, fontFamily: dash.fontMono,
-              padding: '2px 6px', borderRadius: 3,
-              background: active ? tool.color + '12' : '#F4F5F7',
-              color: active ? tool.color : dash.inkGhost,
-              letterSpacing: '0.02em',
+              fontSize: 12, fontWeight: 600, fontFamily: dash.fontMono,
+              padding: '3px 9px', borderRadius: 5,
+              background: 'var(--bg)',
+              border: `1px solid ${tool.color}55`,
+              color: 'var(--ink-soft)',
+              letterSpacing: '0.01em',
             }}>{tag}</span>
           ))}
         </div>
@@ -177,7 +221,8 @@ export default function LabClient({ articles }: { articles: A[] }) {
               padding: '3px 8px', border: '1px solid #3D9E7C40', borderRadius: 3,
             }}>PILIER 04</span>
             <div style={{ width: 24, height: 1, background: '#607890' }} />
-            <span style={{ fontSize: 10, fontFamily: dash.fontMono, color: '#607890', letterSpacing: '0.08em' }}>
+            {/* #607890 donnait 3,97:1 sur le bandeau : sous le seuil. */}
+            <span style={{ fontSize: 11.5, fontFamily: dash.fontMono, color: '#9AAEC2', letterSpacing: '0.08em' }}>
               MODÉLISATION & CALCUL
             </span>
           </div>
@@ -188,7 +233,7 @@ export default function LabClient({ articles }: { articles: A[] }) {
             Outils & Simulateurs
           </h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-            <p style={{ fontSize: 14, color: '#607890', lineHeight: 1.5 }}>
+            <p style={{ fontSize: 15, color: '#9AAEC2', lineHeight: 1.55 }}>
               {OUTILS_GRILLE.length} simulateurs interactifs — modélisation 3D, calcul et visualisation
             </p>
             <div style={{
@@ -265,8 +310,15 @@ export default function LabClient({ articles }: { articles: A[] }) {
                       onClick={() => setActiveTool(activeTool === tool.id ? null : tool.id)}
                       style={{
                         background: 'none', border: 'none', padding: 0,
-                        font: 'inherit', cursor: 'pointer', color: tool.color,
+                        font: 'inherit', cursor: 'pointer',
+                        // La couleur du pilier donnait 3,25:1 sur le fond de
+                        // page : elle passe donc au SOULIGNEMENT, où le seuil
+                        // est 3:1, et le texte prend le token à 15,5:1. Le
+                        // repère coloré reste, la lisibilité aussi.
+                        color: 'var(--ink)',
                         textDecoration: 'underline', textUnderlineOffset: 3,
+                        textDecorationColor: tool.color,
+                        textDecorationThickness: 2,
                       }}
                     >Accéder au générateur de fiche d’audit</button>
                   </span>
@@ -355,7 +407,12 @@ export default function LabClient({ articles }: { articles: A[] }) {
               marginBottom: 32,
               border: `1px dashed ${dash.border}`,
             }}>
-              <div style={{ fontSize: 11, fontFamily: dash.fontMono, color: dash.inkGhost, letterSpacing: '0.08em' }}>
+              {/* `inkGhost` donnait 1,92:1 — le texte le plus effacé de la
+                   page. Une invite qu'on ne lit pas n'invite à rien. */}
+              <div style={{
+                fontSize: 13, fontFamily: dash.fontMono, fontWeight: 600,
+                color: 'var(--ink-soft)', letterSpacing: '0.08em',
+              }}>
                 SÉLECTIONNEZ UN OUTIL CI-DESSUS
               </div>
             </div>

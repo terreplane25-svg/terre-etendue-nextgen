@@ -18,7 +18,11 @@ export default function PageIntro({ lede, body, color }: Props) {
           lineHeight: 1.35, marginBottom: 14, letterSpacing: '-0.015em',
         }}>{lede}</p>
         <p style={{
-          fontSize: 17, color: 'var(--ink-muted)', lineHeight: 1.75, maxWidth: 880,
+          // `--ink-muted` donnait 2,98:1 : sous le seuil WCAG AA de 4,5:1 pour
+          // un texte de 17 px. Ce corps de texte est le premier paragraphe de
+          // CHAQUE page du site — il échouait donc partout, pas seulement au
+          // Lab. `--ink-soft` monte à 8,34:1 en clair et 7,45:1 en sombre.
+          fontSize: 17, color: 'var(--ink-soft)', lineHeight: 1.75, maxWidth: 880,
         }}>{body}</p>
       </div>
     </div>
