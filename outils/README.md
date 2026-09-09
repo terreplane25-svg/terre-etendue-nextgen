@@ -60,7 +60,7 @@ répercute dans le port, puis les vecteurs sont régénérés. Jamais l'inverse.
 
 ## Tests
 
-    cd outils/outil-A-visee-optique     && ../.venv/bin/python -m pytest -q   # 397
+    cd outils/outil-A-visee-optique     && ../.venv/bin/python -m pytest -q   # 435
     cd outils/outil-B-preuve-image      && ../.venv/bin/python -m pytest -q   # 525
     cd outils/outil-C-rapport-expertise && ../.venv/bin/python -m pytest -q   #  42
     cd outils/outil-D-metrologie-image  && ../.venv/bin/python -m pytest -q   # 102
@@ -138,9 +138,79 @@ figure dans **aucun** modèle numérique de terrain, et se constate sur l'image.
 C'est le contrôle de l'analyste, pas celui du simulateur. Un simulateur qui
 prétendrait trancher cette question donnerait une fausse assurance.
 
-`src/lib/visee-optique/altimetrie-ign.ts` et son contrôle ont été supprimés.
-`relief.py` et `relief.ts` restent : le second fournit encore le tracé exact de
-la ligne de visée, et le premier garde ses propres tests.
+`src/lib/visee-optique/altimetrie-ign.ts` et `relief.ts` ont été supprimés,
+avec leurs vecteurs et leurs contrôles. `relief.py` reste dans le paquet
+Python, avec ses propres tests : il n'est plus appelé par le simulateur, et
+c'est le port qui a disparu, pas la référence.
+
+### La fiche protocole terrain
+
+Une simulation faite, un bouton propose une **fiche d'une page** dérivée
+d'elle : `visee_optique/fiche_terrain.py`, portée par
+`src/lib/visee-optique/fiche-terrain.ts` et épinglée par
+`scripts/verifier-port-fiche.mjs`. Elle se télécharge en texte pur et
+s'imprime — l'impression du navigateur sait déjà écrire un PDF, et embarquer
+un générateur de PDF aurait pesé quelques centaines de kilooctets pour couper
+les pages moins bien.
+
+**Chaque champ demandé porte son POURQUOI, en une phrase.** Un formulaire dont
+on ne comprend pas l'utilité est rempli au hasard ou pas du tout, et une valeur
+au hasard est pire qu'une case vide. Inversement, ce qui n'entre ni dans le
+calcul, ni dans la possibilité de le refaire, ni dans la possibilité de le
+contester n'est pas sur la fiche — et la liste de ce qui a été **écarté** est
+rendue elle aussi, avec ses motifs, pour qu'on puisse discuter l'omission.
+
+Les deux **températures** demandées sont le cas à ne pas travestir. Le calcul
+tourne sur `k = 0,13` et ne les emploie pas ; elles servent à ce qu'un tiers
+puisse borner `k` après coup et **contester** ce choix. La fiche le dit en
+clair, sans quoi elle laisserait croire qu'elle affine le calcul.
+
+#### La prédiction est en dernier, et c'est tout le point
+
+Le protocole exige une analyse en aveugle. Une fiche qui afficherait en tête
+« la courbure doit masquer 40 m » ferait mesurer 40 m : l'œil trouve ce qu'on
+lui a annoncé, sans mauvaise foi. La prédiction est donc rassemblée dans un
+**dernier** bloc, replié à l'écran jusqu'à un clic explicite, et imprimé sur
+une page neuve — de quoi la replier ou la détacher avant de partir.
+
+La fuite la plus difficile à voir était ailleurs. L'exigence de cadrage
+(« la cible doit occuper au moins N pixels de haut ») se calculait d'abord
+depuis la fraction **réellement** masquée : le nombre était juste, et il
+annonçait la grandeur à mesurer — 20 pixels pour 55 de cible, la fraction se
+retrouve en une division. Elle est donc tirée du **seuil**, qui ne dépend pas
+du résultat, et qui suffit puisqu'une visée discriminante exige toujours moins
+de pixels que le seuil.
+
+Le bloc dit aussi **ce qu'il ne prouve pas** : son horodatage est celui de la
+machine du visiteur, il n'atteste aucune antériorité devant un tiers, et le
+présenter comme un dépôt serait exactement le défaut que le préenregistrement
+existe pour empêcher.
+
+#### Le milieu ne change aucun chiffre
+
+Lac, mer ou terre : la géométrie est la même, et la fiche l'écrit. Ce que le
+milieu change est ailleurs — le **niveau de référence** auquel les hauteurs
+sont comptées, les grandeurs qui le font bouger (la marée n'est demandée qu'en
+mer), et ce que l'observation pourra établir. Une visée **terrestre** est
+structurellement plus faible : le sol intermédiaire n'est pas une surface de
+référence, le simulateur ne modélise aucun relief, et une base masquée peut
+l'être par un pli de terrain. La fiche le dit avant le départ, plutôt que de
+le laisser deviner.
+
+#### Une divergence d'arrondi que la fiche a révélée
+
+Le « %.*f » du Python arrondit les égalités **vers le pair** ; le `toFixed` et
+le `toLocaleString` du navigateur les arrondissent **à l'écart de zéro**. Une
+cible de 12,5 m donne un seuil de 1,25 m — une égalité exacte en binaire — qui
+valait 1,2 m dans le paquet de référence et 1,3 m à l'écran. Le cas est rare
+mais tombe sur les chiffres ronds, et à l'œil les deux valeurs sont plausibles.
+
+`formatDecimal` reproduit désormais la convention du Python en travaillant sur
+la représentation décimale exacte du double, et l'affichage de l'écran arrondit
+par lui avant de grouper. La convention est épinglée à part, sur des égalités
+exactes mêlées à des quasi-égalités — 1,85 n'en est pas une, et un port qui
+traiterait toute décimale finissant par 5 comme une égalité passerait sans ces
+secondes.
 
 ### Deux schémas, et pourquoi la Terre se bombe
 

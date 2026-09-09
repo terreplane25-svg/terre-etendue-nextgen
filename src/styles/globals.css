@@ -670,3 +670,116 @@ html, body { overflow-x: hidden; }
   .tei-logo-titre { font-size: 27px; }
   .tei-nav-lien { padding: 16px 12px; font-size: 14.5px; }
 }
+
+/* ═══ Fiche protocole terrain : impression ═══
+   Un `window.print()` sur la page du Lab sortirait l'en-tête du site, le menu
+   et le simulateur entier. Le composant pose donc `data-impression` sur
+   `<body>` le temps de l'impression, et ces règles ne conservent que la fiche.
+
+   Le masquage passe par `visibility` et non par `display: none` : masquer un
+   ancêtre en `display: none` retire aussi ses descendants du flux, et la fiche
+   — qui est imbriquée profond dans l'arbre — disparaîtrait avec eux. Avec
+   `visibility`, un descendant peut redevenir visible dans un ancêtre invisible.
+   Le repositionnement en tête de page reste nécessaire : sans lui, la fiche
+   s'imprimerait à l'emplacement qu'elle occupe dans la page, précédé de
+   plusieurs pages blanches. */
+@media print {
+  body[data-impression='fiche-terrain'] * { visibility: hidden; }
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain,
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain * { visibility: visible; }
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: #fff;
+    color: #000;
+  }
+  /* Les boutons et sélecteurs n'ont rien à faire sur du papier. */
+  body[data-impression='fiche-terrain'] .tei-fiche-reglages { display: none !important; }
+  /* À l'impression, le bloc scellé est TOUJOURS rendu : la feuille qu'on
+     emporte doit le porter pour être repliée ou découpée. Ce que l'écran
+     replie, le papier l'imprime. */
+  body[data-impression='fiche-terrain'] .tei-fiche-scelle-cache { display: block !important; }
+  /* Un bloc coupé en deux par un saut de page devient illisible sur une fiche
+     qu'on suit debout, une case à cocher après l'autre. */
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain section { break-inside: avoid; }
+
+  /* Les gris de l'écran ne survivent pas au papier : un motif en
+     `--ink-soft` sort presque blanc sur une imprimante laser, et la ligne à
+     remplir en `--border` disparaît — or c'est la ligne sur laquelle le
+     volontaire écrit. Les variables sont donc REDÉFINIES sur le conteneur :
+     les styles en ligne du composant les lisent, et une seule déclaration
+     assombrit tout sans écraser les couleurs qui portent du sens (le numéro
+     de bloc, la couleur du scellé). */
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain {
+    --ink: #000;
+    --ink-soft: #1c1c1c;
+    --ink-muted: #3a3a3a;
+    --border: #8a9098;
+    --bg: #f1f2f4;
+    --card: #fff;
+  }
+
+  /* Resserré pour le papier. Aux dimensions de l'écran la fiche tenait sur
+     trois pages A4, ce qui est trop pour un document qu'on suit debout, une
+     case après l'autre. Ce qui est réduit est l'ESPACE, jamais le contenu :
+     les motifs sous chaque champ sont la raison pour laquelle la fiche est
+     utilisable sans avoir lu le protocole, et les couper les remplacerait par
+     des cases qu'on remplit au hasard. */
+  /* `!important` est ici nécessaire, pas paresseux : le composant porte ses
+     tailles en styles EN LIGNE, qui l'emportent sur toute règle de feuille.
+     Une première version de ce bloc réglait `font-size` sur le conteneur seul
+     et ne changeait donc rien du tout — trois pages avant, trois pages après.
+     C'est en mesurant la hauteur rendue que ça s'est vu, pas en relisant. */
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain { line-height: 1.4 !important; }
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain section { margin-bottom: 11px !important; }
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain h3 { font-size: 15pt !important; }
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain h4 {
+    font-size: 11pt !important;
+    margin-bottom: 5px !important;
+  }
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain p {
+    font-size: 8.6pt !important;
+    line-height: 1.4 !important;
+    margin: 3px 0 3px 22px !important;
+    padding: 5px 8px !important;
+  }
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain table p,
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain section > p { margin-left: 0 !important; }
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain td {
+    font-size: 8.8pt !important;
+    padding: 2px 8px 2px 0 !important;
+  }
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain li {
+    font-size: 9pt !important;
+    line-height: 1.4 !important;
+    margin-bottom: 3px !important;
+  }
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain ol { padding-left: 16px !important; }
+  /* Les champs à remplir : l'espacement vertical est le premier poste de
+     hauteur, et la ligne d'écriture doit rester assez haute pour y écrire. */
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain section > div > div {
+    padding: 5px 0 !important;
+  }
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain div[aria-hidden] {
+    height: 15px !important;
+    margin: 4px 0 3px 22px !important;
+  }
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain span { font-size: 9.4pt !important; }
+
+  /* Le dépôt commence une PAGE NEUVE : c'est ce qui permet de replier ou de
+     détacher la partie qu'on ne doit pas lire avant la prise de vue. Sur la
+     même page que la fin des consignes, la consigne « ne pas lire » ne tient
+     pas — l'œil a déjà lu. */
+  body[data-impression='fiche-terrain'] .tei-fiche-terrain section:last-of-type {
+    break-before: page;
+  }
+}
+
+/* À l'écran, le contenu du scellé attend un clic explicite. La fiche existe
+   pour que la prédiction ne soit pas lue avant la prise de vue ; l'afficher
+   d'emblée annulerait le seul dispositif qui la protège. */
+.tei-fiche-scelle-cache { display: none; }

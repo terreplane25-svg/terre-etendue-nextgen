@@ -63,6 +63,9 @@ __all__ = [
     "MOTIF_SANS_RELIEF",
     "motif_refraction",
     "verifier_k",
+    "format_metres",
+    "format_pourcent",
+    "format_k",
     "Verdict",
     "juger",
 ]
@@ -266,15 +269,29 @@ def juger(hauteur_masquee_base_m: float, hauteur_cible_m: float) -> Verdict:
     )
 
 
-def _m(x: float) -> str:
-    """Une longueur en mètres, à la décimale, virgule française."""
+def format_metres(x: float) -> str:
+    """Une longueur en mètres, à la décimale, virgule française.
+
+    PUBLIC, et pas par commodité : la fiche terrain écrit les mêmes grandeurs
+    que l'écran. Deux formateurs pour un seul chiffre finiraient par rendre
+    40,1 d'un côté et 40,2 de l'autre, et le lecteur n'aurait aucun moyen de
+    savoir lequel des deux est le résultat.
+    """
     return ("%.1f" % x).replace(".", ",")
 
 
-def _pc(fraction: float) -> str:
+def format_pourcent(fraction: float) -> str:
+    """Une fraction en pourcentage, à la décimale, virgule française."""
     return ("%.1f" % (100.0 * fraction)).replace(".", ",")
 
 
-def _k(x: float) -> str:
+def format_k(x: float) -> str:
     """Un coefficient de réfraction, à deux décimales, virgule française."""
     return ("%.2f" % x).replace(".", ",")
+
+
+# Les noms courts restent, employés dans les motifs ci-dessus. Ce sont des
+# ALIAS, pas des copies : une seule implémentation, donc un seul résultat.
+_m = format_metres
+_pc = format_pourcent
+_k = format_k

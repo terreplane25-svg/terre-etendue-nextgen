@@ -174,10 +174,91 @@ export interface Verdict {
   seuilApplique: number;
 }
 
-const m = (x: number) => x.toFixed(1).replace('.', ',');
-const pc = (f: number) => (100 * f).toFixed(1).replace('.', ',');
+/**
+ * Arrondit comme le « %.*f » du Python, DEMI VERS LE PAIR sur une égalité exacte.
+ *
+ * POURQUOI CETTE FONCTION EXISTE
+ * ──────────────────────────────
+ * `toFixed` et `toLocaleString` arrondissent les égalités À L'ÉCART DE ZÉRO,
+ * le « %.*f » du Python les arrondit VERS LE PAIR. Les deux conventions sont
+ * défendables ; ce qui ne l'est pas, c'est d'en employer une de chaque côté
+ * d'un port. 1,25 devenait 1,2 dans le paquet de référence et 1,3 dans le
+ * navigateur — sur le seuil en mètres, affiché à l'écran ET imprimé sur la
+ * fiche que le volontaire emporte.
+ *
+ * Le cas est rare mais pas exotique : il tombe sur les valeurs exactement
+ * représentables en binaire, donc sur des chiffres ronds — une cible de
+ * 12,5 m donne un seuil de 1,25 m. C'est un vérificateur de port qui l'a
+ * trouvé, pas une relecture : à l'œil, 1,2 et 1,3 sont tous deux plausibles.
+ *
+ * COMMENT
+ * ───────
+ * Le travail se fait sur la représentation DÉCIMALE EXACTE du double, prise à
+ * vingt chiffres — assez pour distinguer une égalité vraie (1,25, dont les
+ * décimales suivantes sont nulles) d'une quasi-égalité (1,85, qui vaut en
+ * réalité 1,850000000000000088…, donc au-dessus). Repasser par un nombre pour
+ * propager la retenue réintroduirait l'erreur binaire qu'on vient d'écarter :
+ * la retenue se propage donc sur la chaîne.
+ */
+export function formatDecimal(x: number, n: number): string {
+  // Hors domaine : on ne prétend rien de mieux que le rendu natif.
+  if (!Number.isFinite(x) || Math.abs(x) >= 1e21) return x.toFixed(n);
+  const negatif = x < 0 || Object.is(x, -0);
+  const [entier, frac = ''] = Math.abs(x).toFixed(20).split('.');
+
+  const garde = frac.slice(0, n);
+  const reste = frac.slice(n);
+  let monter = false;
+  if (reste.length > 0) {
+    // Comparaison de deux chaînes de chiffres de même longueur : l'ordre
+    // lexicographique y coïncide avec l'ordre numérique.
+    const moitie = `5${'0'.repeat(reste.length - 1)}`;
+    if (reste > moitie) monter = true;
+    else if (reste === moitie) {
+      const dernier = n > 0
+        ? garde.charCodeAt(n - 1) - 48
+        : entier.charCodeAt(entier.length - 1) - 48;
+      monter = dernier % 2 === 1;
+    }
+  }
+
+  let chiffres = entier + garde;
+  if (monter) {
+    const t = chiffres.split('');
+    let i = t.length - 1;
+    for (; i >= 0; i--) {
+      if (t[i] === '9') t[i] = '0';
+      else { t[i] = String(Number(t[i]) + 1); break; }
+    }
+    chiffres = (i < 0 ? '1' : '') + t.join('');
+  }
+
+  const coupe = chiffres.length - n;
+  const e = chiffres.slice(0, coupe) || '0';
+  const rendu = n > 0 ? `${e}.${chiffres.slice(coupe)}` : e;
+  // Le signe est conservé même sur un zéro arrondi : le Python rend « -0.0 ».
+  return negatif ? `-${rendu}` : rendu;
+}
+
+/**
+ * Une longueur en mètres, à la décimale, virgule française.
+ *
+ * EXPORTÉ, et pas par commodité : la fiche terrain écrit les mêmes grandeurs
+ * que l'écran. Deux formateurs pour un seul chiffre finiraient par rendre
+ * 40,1 d'un côté et 40,2 de l'autre, et le lecteur n'aurait aucun moyen de
+ * savoir lequel des deux est le résultat.
+ */
+export const formatMetres = (x: number) => formatDecimal(x, 1).replace('.', ',');
+/** Une fraction en pourcentage, à la décimale, virgule française. */
+export const formatPourcent = (f: number) => formatDecimal(100 * f, 1).replace('.', ',');
 /** Un coefficient de réfraction, à deux décimales, virgule française. */
-const kf = (x: number) => x.toFixed(2).replace('.', ',');
+export const formatK = (x: number) => formatDecimal(x, 2).replace('.', ',');
+
+// Les noms courts restent, employés dans les motifs ci-dessous. Ce sont des
+// ALIAS, pas des copies : une seule implémentation, donc un seul résultat.
+const m = formatMetres;
+const pc = formatPourcent;
+const kf = formatK;
 
 /**
  * Le verdict, sur la seule occultation à la base.

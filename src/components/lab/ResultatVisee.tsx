@@ -26,6 +26,7 @@
  */
 
 import { dash } from '@/lib/design-tokens';
+import FicheTerrainPanneau from './FicheTerrainPanneau';
 import {
   type Cible,
   altitudeDepuisArc,
@@ -42,6 +43,7 @@ import {
   MOTIF_SEUIL,
   SEUIL_DISCRIMINATION_FRACTION,
   type Verdict,
+  formatDecimal,
 } from '@/lib/visee-optique/simulation';
 
 const ACCENT = dash.opal;
@@ -70,10 +72,23 @@ export interface Simulation {
   rTrace: number;
 }
 
+/**
+ * Un nombre à l'écran : arrondi comme le paquet Python, groupé comme le
+ * français.
+ *
+ * L'ARRONDI PASSE D'ABORD PAR `formatDecimal`, et ce n'est pas un détour.
+ * `toLocaleString` arrondit les égalités à l'écart de zéro, le « %.*f » du
+ * paquet de référence les arrondit vers le pair : le seuil d'une cible de
+ * 12,5 m valait 1,3 m à l'écran et 1,2 m sur la fiche terrain imprimée, pour
+ * la même visée. Arrondir avant de grouper rend l'opération de groupement
+ * insensible à la convention, et les deux affichages redeviennent le même
+ * chiffre.
+ */
 const fmt = (x: number | null | undefined, n = 1): string =>
   x === null || x === undefined || !Number.isFinite(x)
     ? 'indisponible'
-    : x.toLocaleString('fr-FR', { minimumFractionDigits: n, maximumFractionDigits: n });
+    : Number(formatDecimal(x, n))
+      .toLocaleString('fr-FR', { minimumFractionDigits: n, maximumFractionDigits: n });
 
 const fmtKm = (m: number) => `${fmt(m / 1000, 2)} km`;
 
@@ -525,6 +540,10 @@ export default function ResultatVisee({ sim }: { sim: Simulation }) {
           )}
         </div>
       </details>
+
+      {/* La fiche vient APRÈS le bloc explicatif : on emporte une visée une
+          fois qu'on a compris ce qu'elle dit, pas avant. */}
+      <FicheTerrainPanneau sim={sim} />
     </div>
   );
 }

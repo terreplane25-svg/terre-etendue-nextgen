@@ -269,3 +269,39 @@ def test_le_module_ne_depend_plus_du_relief():
     for interdit in ("AnalyseRelief", "masque_par_le_relief", "obstacle_le_plus_genant",
                      "pas_echantillonnage_m", "profil"):
         assert interdit not in noms, "« %s » est encore employé" % interdit
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# La convention d'arrondi des formateurs partagés
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+def test_les_egalites_d_arrondi_vont_vers_le_pair():
+    """La convention du « %.*f » : demi vers le pair, et il faut l'écrire.
+
+    Elle n'est pas anodine parce que le port TypeScript ne l'a pas
+    naturellement : `toFixed` et `toLocaleString` arrondissent les égalités à
+    l'écart de zéro. Une cible de 12,5 m donne un seuil de 1,25 m — une égalité
+    EXACTE en binaire — qui valait 1,2 m dans ce paquet et 1,3 m à l'écran,
+    puis sur la fiche terrain imprimée. Ce test énonce la convention côté
+    référence ; les vecteurs d'or l'imposent au port.
+    """
+    from visee_optique.simulation import format_k, format_metres
+
+    # Égalités exactes : le chiffre conservé devient pair.
+    assert format_metres(1.25) == "1,2"
+    assert format_metres(1.75) == "1,8"
+    assert format_metres(2.5 * 0.1) == "0,2"
+    assert format_k(0.125) == "0,12"
+    # Quasi-égalités : ce ne sont PAS des égalités, et la valeur réelle décide.
+    # Sans ces cas, une implémentation qui traiterait toute décimale finissant
+    # par 5 comme une égalité passerait le test précédent.
+    assert format_metres(1.85) == "1,9", "1,85 vaut en réalité 1,850000000000000088"
+    assert format_metres(1.45) == "1,4", "1,45 vaut en réalité 1,449999999999999956"
+
+
+def test_le_signe_du_zero_est_conserve():
+    """« -0,0 » dit que la grandeur est négative et petite, pas qu'elle est nulle."""
+    from visee_optique.simulation import format_metres
+
+    assert format_metres(-0.04) == "-0,0"
