@@ -82,6 +82,12 @@ async function fetchElevation(lat: number, lon: number): Promise<{ elevation: nu
 // ─── Presets GPS ────────────────────────────────
 const GPS_PRESETS = [
   {
+    label: 'Finestrelles → Écrins',
+    obsLat: '42.4827', obsLon: '0.7521',
+    tgtLat: '44.9243', tgtLon: '6.3572',
+    desc: 'Pic de Finestrelles 2 820 m (Pyrénées) → Barre des Écrins 4 102 m · 443 km',
+  },
+  {
     label: 'Shkhara → Elbrouz',
     obsLat: '41.128', obsLon: '42.573',
     tgtLat: '43.355', tgtLon: '42.439',
