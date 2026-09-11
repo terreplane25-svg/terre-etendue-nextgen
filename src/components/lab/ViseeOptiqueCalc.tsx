@@ -84,15 +84,45 @@ const VIDE: Saisie = {
   kPersonnalise: false, k: String(K_STANDARD),
 };
 
-/** Un exemple réel, chargeable d'un clic : Sangatte vers les falaises de Douvres. */
-const EXEMPLE: Saisie = {
-  obsPosition: '50.94642, 1.75305',
-  obsHauteur: '2',
-  cibPosition: '51.13152, 1.338825',
-  cibHauteur: '110',
-  kPersonnalise: false,
-  k: String(K_STANDARD),
-};
+/** Exemples réels chargeables d'un clic, défilis dans l'ordre. */
+const EXEMPLES: Array<{ nom: string } & Saisie> = [
+  {
+    nom: 'Sangatte → Douvres (28 km)',
+    obsPosition: '50.94642, 1.75305',
+    obsHauteur: '2',
+    cibPosition: '51.13152, 1.338825',
+    cibHauteur: '110',
+    kPersonnalise: false,
+    k: String(K_STANDARD),
+  },
+  {
+    nom: 'Finestrelles → Barre des Écrins (443 km)',
+    obsPosition: '42.4827, 0.7521',
+    obsHauteur: '2820',
+    cibPosition: '44.9243, 6.3572',
+    cibHauteur: '4102',
+    kPersonnalise: true,
+    k: '0.14',
+  },
+  {
+    nom: 'Karagöl → Elbrouz (493 km)',
+    obsPosition: '41.128, 42.573',
+    obsHauteur: '3107',
+    cibPosition: '43.355, 42.439',
+    cibHauteur: '5642',
+    kPersonnalise: true,
+    k: '0.18',
+  },
+  {
+    nom: 'Ol Doinyo Lengai → Kilimandjaro (170 km)',
+    obsPosition: '-2.764, 35.914',
+    obsHauteur: '2878',
+    cibPosition: '-3.067, 37.355',
+    cibHauteur: '5895',
+    kPersonnalise: false,
+    k: String(K_STANDARD),
+  },
+];
 
 function nombre(s: string): number | null {
   if (s.trim() === '') return null;
@@ -135,6 +165,7 @@ function Champ({
 
 export default function ViseeOptiqueCalc() {
   const [s, setS] = useState<Saisie>(VIDE);
+  const [exempleIdx, setExempleIdx] = useState(-1);
   const [sim, setSim] = useState<Simulation | null>(null);
   const [enCours, setEnCours] = useState(false);
   const [erreur, setErreur] = useState<string | null>(null);
@@ -398,13 +429,26 @@ export default function ViseeOptiqueCalc() {
           }}
         >{enCours ? 'Simulation en cours…' : 'Lancer la simulation'}</button>
         <button
-          onClick={() => { setS(EXEMPLE); setSim(null); setErreur(null); }}
-          style={{
-            padding: '11px 18px', fontSize: 13.5, minHeight: 44, cursor: 'pointer',
-            background: 'transparent', color: 'var(--ink-soft)',
-            border: '1px solid var(--border)', borderRadius: 6,
+          onClick={() => {
+            const idx = (exempleIdx + 1) % EXEMPLES.length;
+            const { nom: _nom, ...saisie } = EXEMPLES[idx];
+            setExempleIdx(idx);
+            setS(saisie);
+            setSim(null);
+            setErreur(null);
           }}
-        >Charger un exemple</button>
+          style={{
+            padding: '11px 20px', fontSize: 13.5, minHeight: 44, cursor: 'pointer',
+            background: `${ACCENT}18`,
+            color: 'var(--ink)',
+            border: `1.5px solid ${ACCENT}70`,
+            borderRadius: 6, fontWeight: 600,
+          }}
+        >
+          {exempleIdx < 0
+            ? `Charger un exemple`
+            : `→ ${EXEMPLES[(exempleIdx + 1) % EXEMPLES.length].nom}`}
+        </button>
       </div>
 
       {erreur && (
