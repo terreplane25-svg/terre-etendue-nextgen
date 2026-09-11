@@ -204,7 +204,8 @@ class Verdict:
     #: bornée à H : au-delà de la distance limite elle continue de croître, et
     #: dit de combien la cible est passée sous l'horizon.
     hauteur_masquee_base_m: float
-    #: La même chose en fraction de la hauteur de la cible. Peut dépasser 1.
+    #: La même chose en fraction de la hauteur de la cible, toujours comptée
+    #: DEPUIS LA BASE. Peut dépasser 1.
     fraction_masquee_base: float
     #: Ce que le modèle plat masque : rien, à toute distance.
     hauteur_masquee_plat_m: float

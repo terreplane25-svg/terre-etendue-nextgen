@@ -496,8 +496,9 @@ def construire_fiche(
     px = _hauteur_apparente_min_px(verdict.seuil_applique)
     if px is not None:
         pourquoi_px = (
-            "Au seuil de %s %%, un écart de %d pixels demande une cible de %d "
-            "pixels de haut : zoomez jusque-là. Ce nombre est tiré du SEUIL et "
+            "Au seuil de %s %% de la hauteur de la cible comptée depuis sa "
+            "base, un écart de %d pixels demande une cible de %d pixels de "
+            "haut : zoomez jusque-là. Ce nombre est tiré du SEUIL et "
             "non de votre résultat — le donner à partir du résultat "
             "reviendrait à vous annoncer la grandeur que vous devez mesurer." % (
                 format_pourcent(verdict.seuil_applique), PIXELS_MIN_ECART, px,
@@ -568,7 +569,8 @@ def construire_fiche(
         ("Modèle sphérique — masqué à la base",
          "%s m" % format_metres(verdict.hauteur_masquee_base_m)),
         ("Soit, en fraction de la cible",
-         "%s %%" % format_pourcent(verdict.fraction_masquee_base)),
+         "%s %% de sa hauteur, comptés depuis la base"
+         % format_pourcent(verdict.fraction_masquee_base)),
         ("Modèle plat — masqué à la base",
          "%s m" % format_metres(verdict.hauteur_masquee_plat_m)),
         ("Écart entre les deux prédictions",
@@ -576,7 +578,7 @@ def construire_fiche(
         ("Taille angulaire de cet écart",
          "%s minutes d'arc" % _arcmin(verdict.ecart_entre_modeles_m, distance_m)),
         ("Seuil retenu",
-         "%s %% de la hauteur de la cible, soit %s m ici" % (
+         "%s %% de la hauteur de la cible à partir de sa base, soit %s m ici" % (
              format_pourcent(verdict.seuil_applique),
              format_metres(hauteur_cible_m * verdict.seuil_applique),
          )),

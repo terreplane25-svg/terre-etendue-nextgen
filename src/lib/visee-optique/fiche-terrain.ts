@@ -430,9 +430,10 @@ export function construireFiche(e: EntreeFiche): FicheTerrain {
     libelle: `Hauteur de la cible sur l'image, en pixels`,
     unite: 'px',
     pourquoi: px !== null
-      ? `Au seuil de ${formatPourcent(v.seuilApplique)} %, un écart de `
-        + `${PIXELS_MIN_ECART} pixels demande une cible de ${px} pixels de `
-        + `haut : zoomez jusque-là. Ce nombre est tiré du SEUIL et non de `
+      ? `Au seuil de ${formatPourcent(v.seuilApplique)} % de la hauteur de la `
+        + `cible comptée depuis sa base, un écart de ${PIXELS_MIN_ECART} pixels `
+        + `demande une cible de ${px} pixels de haut : zoomez jusque-là. Ce `
+        + `nombre est tiré du SEUIL et non de `
         + `votre résultat — le donner à partir du résultat reviendrait à vous `
         + `annoncer la grandeur que vous devez mesurer.`
       : `Aucun seuil n'étant appliqué, aucune exigence de cadrage ne peut `
@@ -514,14 +515,15 @@ export function construireFiche(e: EntreeFiche): FicheTerrain {
   const depot: [string, string][] = [
     ['Fiche générée le', e.horodatage],
     ['Modèle sphérique — masqué à la base', `${formatMetres(v.hauteurMasqueeBaseM)} m`],
-    ['Soit, en fraction de la cible', `${formatPourcent(v.fractionMasqueeBase)} %`],
+    ['Soit, en fraction de la cible',
+      `${formatPourcent(v.fractionMasqueeBase)} % de sa hauteur, comptés depuis la base`],
     ['Modèle plat — masqué à la base', `${formatMetres(v.hauteurMasqueePlatM)} m`],
     ['Écart entre les deux prédictions', `${formatMetres(v.ecartEntreModelesM)} m`],
     ['Taille angulaire de cet écart',
       `${arcmin(v.ecartEntreModelesM, e.distanceM)} minutes d'arc`],
     ['Seuil retenu',
-      `${formatPourcent(v.seuilApplique)} % de la hauteur de la cible, soit `
-      + `${formatMetres(e.hauteurCibleM * v.seuilApplique)} m ici`],
+      `${formatPourcent(v.seuilApplique)} % de la hauteur de la cible à partir `
+      + `de sa base, soit ${formatMetres(e.hauteurCibleM * v.seuilApplique)} m ici`],
     ['Verdict géométrique',
       v.discriminante ? 'visée discriminante' : 'visée NON discriminante'],
   ];

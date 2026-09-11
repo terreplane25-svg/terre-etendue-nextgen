@@ -190,6 +190,15 @@ Le code dit déjà la règle en entier (`SEUIL_DISCRIMINATION_FRACTION`,
 `MOTIF_SEUIL`, `juger()` dans `simulation.py` et son port) : c'est la prose
 autour qui a dérapé, et c'est elle qu'il faut surveiller.
 
+    node scripts/verifier-formule-seuil.mjs
+
+Ce contrôle examine les textes de l'interface, les articles, les motifs du
+paquet et les README : tout énoncé qui rapporte un pourcentage à la hauteur de
+la cible doit nommer la **base** dans la même phrase. Deux exclusions, écrites
+dans le script : `content/reseau`, qui porte un AUTRE seuil de 10 % — l'écart
+entre modèles sur les paires du réseau, qui ne parle d'aucune base — et les
+vecteurs d'or, engendrés depuis le paquet Python.
+
 ## Format des réponses (préférence utilisateur)
 
 🔴 **Répondre en Markdown normal. NE PAS enfermer la réponse dans un bloc de code.**

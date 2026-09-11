@@ -161,7 +161,10 @@ export interface Verdict {
    * bornée à H : au-delà de la distance limite elle continue de croître.
    */
   hauteurMasqueeBaseM: number;
-  /** La même chose en fraction de la hauteur de la cible. Peut dépasser 1. */
+  /**
+   * La même chose en fraction de la hauteur de la cible, toujours comptée
+   * DEPUIS LA BASE. Peut dépasser 1.
+   */
   fractionMasqueeBase: number;
   /** Ce que le modèle plat masque : rien, à toute distance. */
   hauteurMasqueePlatM: number;

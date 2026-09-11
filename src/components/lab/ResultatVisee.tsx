@@ -361,7 +361,7 @@ export default function ResultatVisee({ sim }: { sim: Simulation }) {
             ? `sur une cible de ${fmt(H)} m — elle est entièrement sous l’horizon`
             : `sur ${fmt(H)} m de hauteur totale`}
           lignes={[
-            [enfouie ? 'Sommet sous l’horizon' : 'Part de la cible masquée',
+            [enfouie ? 'Sommet sous l’horizon' : 'Part masquée depuis la base',
               enfouie
                 ? `${fmtKm(masquee - H)} en dessous`
                 : `${fmt(100 * v.fractionMasqueeBase)} %`],
@@ -380,7 +380,7 @@ export default function ResultatVisee({ sim }: { sim: Simulation }) {
           principal={`${fmt(v.hauteurMasqueePlatM)} m de la base masqués`}
           soustitre="aucune courbure, par construction"
           lignes={[
-            ['Part de la cible masquée', '0,0 %'],
+            ['Part masquée depuis la base', '0,0 %'],
             ['Ce qui reste visible', `${fmt(H)} m — la cible entière`],
             ['Selon la réfraction', '0,0 m à toute distance, quel que soit k'],
           ]}
