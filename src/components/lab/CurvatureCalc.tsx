@@ -79,6 +79,22 @@ async function fetchElevation(lat: number, lon: number): Promise<{ elevation: nu
   return { elevation: Math.max(0, z2), source: 'SRTM / Open-Elevation' };
 }
 
+// ─── Presets GPS ────────────────────────────────
+const GPS_PRESETS = [
+  {
+    label: 'Shkhara → Elbrouz',
+    obsLat: '41.128', obsLon: '42.573',
+    tgtLat: '43.355', tgtLon: '42.439',
+    desc: 'Karagöl ~3 107 m (Artvin, Turquie) → Elbrouz 5 642 m · 493 km',
+  },
+  {
+    label: 'Kilimandjaro',
+    obsLat: '-2.764', obsLon: '35.914',
+    tgtLat: '-3.067', tgtLon: '37.355',
+    desc: 'Ol Doinyo Lengai ~2 878 m (Tanzanie) → Kilimandjaro 5 895 m · ~170 km',
+  },
+];
+
 // Distance approx entre deux coords (km) — haversine
 function haversine(lat1:number,lon1:number,lat2:number,lon2:number):number{
   const R=6371,dLat=(lat2-lat1)*Math.PI/180,dLon=(lon2-lon1)*Math.PI/180;
@@ -283,6 +299,18 @@ export default function CurvatureCalc(){
             <CoordInput label="OBS. LONGITUDE" value={obsLon} onChange={setObsLon} placeholder="0.7521"/>
             <CoordInput label="CIBLE LATITUDE" value={tgtLat} onChange={setTgtLat} placeholder="44.9243"/>
             <CoordInput label="CIBLE LONGITUDE" value={tgtLon} onChange={setTgtLon} placeholder="6.3572"/>
+          </div>
+
+          <div className="flex flex-wrap gap-2 mb-3">
+            {GPS_PRESETS.map(p => (
+              <button key={p.label}
+                onClick={() => { setObsLat(p.obsLat); setObsLon(p.obsLon); setTgtLat(p.tgtLat); setTgtLon(p.tgtLon); setGpsError(''); setGpsSource(''); }}
+                className="px-3 py-1.5 text-[10px] font-tech-mono border border-slate-700 text-slate-400 hover:border-[#00C8FF]/50 hover:text-[#00C8FF] transition-colors text-left"
+                title={p.desc}
+              >
+                {p.label}
+              </button>
+            ))}
           </div>
 
           <div className="flex items-center gap-4 flex-wrap">
