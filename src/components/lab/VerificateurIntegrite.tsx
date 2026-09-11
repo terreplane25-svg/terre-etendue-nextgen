@@ -685,10 +685,21 @@ export default function VerificateurIntegrite() {
                   </div>
                 </div>
               )}
-              <details>
-                <summary style={{ cursor: 'pointer', fontSize: 12.5, color: 'var(--ink-soft)' }}>
-                  {provenance.chaines.length} chaîne{provenance.chaines.length > 1 ? 's' : ''} relevée
-                  {provenance.chaines.length > 1 ? 's' : ''} avant le début des données d’image
+              <details className="tei-depliant">
+                <summary style={{ fontSize: 12.5 }}>
+                  <svg className="tei-depliant-fleche" width="11" height="11" viewBox="0 0 11 11"
+                    aria-hidden focusable="false">
+                    <path d="M3.5 1.5 L7.5 5.5 L3.5 9.5" fill="none" stroke="currentColor"
+                      strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <span className="tei-depliant-titre">
+                    {provenance.chaines.length} chaîne{provenance.chaines.length > 1 ? 's' : ''} relevée
+                    {provenance.chaines.length > 1 ? 's' : ''} avant le début des données d’image
+                  </span>
+                  <span className="tei-depliant-invite" aria-hidden>
+                    <span className="tei-depliant-invite-ouvrir">Afficher</span>
+                    <span className="tei-depliant-invite-fermer">Masquer</span>
+                  </span>
                 </summary>
                 <div style={{
                   marginTop: 10, maxHeight: 320, overflowY: 'auto', borderRadius: 6,
@@ -745,9 +756,20 @@ export default function VerificateurIntegrite() {
                   }}
                 >Télécharger la synthèse (JSON)</button>
               </div>
-              <details>
-                <summary style={{ cursor: 'pointer', fontSize: 12.5, color: 'var(--ink-soft)' }}>
-                  Voir le document
+              <details className="tei-depliant">
+                <summary style={{ fontSize: 12.5 }}>
+                  <svg className="tei-depliant-fleche" width="11" height="11" viewBox="0 0 11 11"
+                    aria-hidden focusable="false">
+                    <path d="M3.5 1.5 L7.5 5.5 L3.5 9.5" fill="none" stroke="currentColor"
+                      strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <span className="tei-depliant-titre">
+                    Voir le document
+                  </span>
+                  <span className="tei-depliant-invite" aria-hidden>
+                    <span className="tei-depliant-invite-ouvrir">Afficher</span>
+                    <span className="tei-depliant-invite-fermer">Masquer</span>
+                  </span>
                 </summary>
                 <pre style={{
                   marginTop: 10, maxHeight: 380, overflow: 'auto', borderRadius: 6,
@@ -908,11 +930,22 @@ export default function VerificateurIntegrite() {
                 } | null;
                 if (!mn) return null;
                 return (
-                  <details style={{ marginBottom: 12 }}>
-                    <summary style={{ cursor: 'pointer', fontSize: 12.5, color: 'var(--ink-soft)' }}>
-                      Note propriétaire (MakerNote) — {mn.octets} octets,{' '}
-                      {mn.nombre_de_tags} tag(s)
-                      {mn.constructeur_reconnu ? `, ${mn.constructeur_reconnu}` : ', constructeur non signé'}
+                  <details className="tei-depliant" style={{ marginBottom: 12 }}>
+                    <summary style={{ fontSize: 12.5 }}>
+                      <svg className="tei-depliant-fleche" width="11" height="11" viewBox="0 0 11 11"
+                        aria-hidden focusable="false">
+                        <path d="M3.5 1.5 L7.5 5.5 L3.5 9.5" fill="none" stroke="currentColor"
+                          strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      <span className="tei-depliant-titre">
+                        Note propriétaire (MakerNote) — {mn.octets} octets,{' '}
+                        {mn.nombre_de_tags} tag(s)
+                        {mn.constructeur_reconnu ? `, ${mn.constructeur_reconnu}` : ', constructeur non signé'}
+                      </span>
+                      <span className="tei-depliant-invite" aria-hidden>
+                        <span className="tei-depliant-invite-ouvrir">Afficher</span>
+                        <span className="tei-depliant-invite-fermer">Masquer</span>
+                      </span>
                     </summary>
                     <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 8 }}>
                       <tbody>
@@ -995,9 +1028,20 @@ export default function VerificateurIntegrite() {
               </div>
 
               {dossier.lectures_en_echec.length > 0 && (
-                <details style={{ marginBottom: 12 }}>
-                  <summary style={{ cursor: 'pointer', fontSize: 12.5, color: 'var(--ink-soft)' }}>
-                    {dossier.lectures_en_echec.length} lecteur(s) en échec — le motif est conservé
+                <details className="tei-depliant" style={{ marginBottom: 12 }}>
+                  <summary style={{ fontSize: 12.5 }}>
+                    <svg className="tei-depliant-fleche" width="11" height="11" viewBox="0 0 11 11"
+                      aria-hidden focusable="false">
+                      <path d="M3.5 1.5 L7.5 5.5 L3.5 9.5" fill="none" stroke="currentColor"
+                        strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <span className="tei-depliant-titre">
+                      {dossier.lectures_en_echec.length} lecteur(s) en échec — le motif est conservé
+                    </span>
+                    <span className="tei-depliant-invite" aria-hidden>
+                      <span className="tei-depliant-invite-ouvrir">Afficher</span>
+                      <span className="tei-depliant-invite-fermer">Masquer</span>
+                    </span>
                   </summary>
                   <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 8 }}>
                     <tbody>
@@ -1034,9 +1078,20 @@ export default function VerificateurIntegrite() {
                 >Télécharger le relevé unifié (JSON)</button>
               </div>
 
-              <details>
-                <summary style={{ cursor: 'pointer', fontSize: 12.5, color: 'var(--ink-soft)' }}>
-                  Voir le relevé complet
+              <details className="tei-depliant">
+                <summary style={{ fontSize: 12.5 }}>
+                  <svg className="tei-depliant-fleche" width="11" height="11" viewBox="0 0 11 11"
+                    aria-hidden focusable="false">
+                    <path d="M3.5 1.5 L7.5 5.5 L3.5 9.5" fill="none" stroke="currentColor"
+                      strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <span className="tei-depliant-titre">
+                    Voir le relevé complet
+                  </span>
+                  <span className="tei-depliant-invite" aria-hidden>
+                    <span className="tei-depliant-invite-ouvrir">Afficher</span>
+                    <span className="tei-depliant-invite-fermer">Masquer</span>
+                  </span>
                 </summary>
                 <pre style={{
                   marginTop: 10, maxHeight: 420, overflow: 'auto', borderRadius: 6,

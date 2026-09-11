@@ -497,15 +497,21 @@ export default function ResultatVisee({ sim, relief, onRelever }: {
       </div>
 
       {/* ── Le bloc explicatif, unique et rétractable ── */}
-      <details style={{
+      <details className="tei-depliant" style={{
         background: 'var(--card)', border: '1px solid var(--border)',
         borderRadius: 10, padding: '14px 18px',
       }}>
-        <summary style={{
-          cursor: 'pointer', fontSize: 13.5, fontWeight: 600, color: ACCENT,
-          minHeight: 32, display: 'flex', alignItems: 'center',
-        }}>
-          Comment ce résultat est calculé, et ce qu’il n’établit pas
+        <summary style={{ fontSize: 13.5, fontWeight: 600 }}>
+          <svg className="tei-depliant-fleche" width="11" height="11" viewBox="0 0 11 11"
+            aria-hidden focusable="false">
+            <path d="M3.5 1.5 L7.5 5.5 L3.5 9.5" fill="none" stroke="currentColor"
+              strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span className="tei-depliant-titre">Comment ce résultat est calculé, et ce qu’il n’établit pas</span>
+          <span className="tei-depliant-invite" aria-hidden>
+            <span className="tei-depliant-invite-ouvrir">Afficher</span>
+            <span className="tei-depliant-invite-fermer">Masquer</span>
+          </span>
         </summary>
 
         <div style={{ marginTop: 14, fontSize: 13, lineHeight: 1.7, color: 'var(--ink)' }}>

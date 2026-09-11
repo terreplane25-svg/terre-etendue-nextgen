@@ -783,3 +783,89 @@ html, body { overflow-x: hidden; }
    pour que la prédiction ne soit pas lue avant la prise de vue ; l'afficher
    d'emblée annulerait le seul dispositif qui la protège. */
 .tei-fiche-scelle-cache { display: none; }
+
+/* ═══ Dépliants : un bloc qui s'ouvre doit avoir l'air de s'ouvrir ═══
+   Le `<summary>` du panneau de résultat portait `display: flex`, ce qui
+   SUPPRIME le triangle natif du navigateur — et rien ne l'avait remplacé. Le
+   bloc ressemblait alors à un simple cadre de texte : on n'avait aucune raison
+   de cliquer dessus, donc on ne cliquait pas, et tout ce qu'il contenait
+   restait invisible.
+
+   L'affordance est rendue AU REPOS, pas seulement au survol : sur un écran
+   tactile il n'y a pas de survol, et un indice qui n'apparaît qu'à la souris
+   n'existe pas pour la moitié des visiteurs. D'où le chevron ET la mention
+   « Afficher / Masquer », visibles tous les deux sans rien faire. */
+.tei-depliant > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  /* Le TITRE porte l'encre franche, pas la couleur d'accent : `--opal-texte`
+     sur ce fond donne 4,48:1, sous le seuil de 4,5:1 des textes courants — et
+     4,57:1 sur le fond de survol, c'est-à-dire à deux centièmes de l'échec.
+     L'accent se déplace donc sur le CHEVRON, qui n'est pas du texte et à qui
+     3:1 suffit. La couleur vit ici et non en style en ligne : six dépliants,
+     une seule règle. */
+  color: var(--ink);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+/* Les deux façons de masquer le marqueur natif : WebKit emploie encore le
+   pseudo-élément propriétaire, les autres suivent `::marker`. */
+.tei-depliant > summary::-webkit-details-marker { display: none; }
+.tei-depliant > summary::marker { content: ''; }
+
+.tei-depliant > summary:hover {
+  background: var(--cream);
+  border-color: var(--opal);
+}
+.tei-depliant > summary:focus-visible {
+  outline: 2px solid var(--opal);
+  outline-offset: 2px;
+}
+
+.tei-depliant-titre { flex: 1 1 auto; min-width: 0; }
+
+.tei-depliant-fleche {
+  flex: 0 0 auto;
+  color: var(--opal-texte);
+  transition: transform 0.18s ease;
+}
+.tei-depliant[open] > summary .tei-depliant-fleche { transform: rotate(90deg); }
+
+/* La mention change avec l'état. Deux éléments plutôt qu'un `content` en CSS :
+   le texte reste dans le document, donc lisible par une synthèse vocale et
+   traduisible. */
+.tei-depliant-invite {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 100px;
+  /* La mention est du TEXTE, même en petites capitales : 4,5:1 s'applique. */
+  color: var(--ink-soft);
+  border: 1px solid var(--ink-soft);
+}
+.tei-depliant[open] > summary .tei-depliant-invite-ouvrir,
+.tei-depliant:not([open]) > summary .tei-depliant-invite-fermer { display: none; }
+
+/* Sur un écran étroit, la mention passe à la ligne plutôt que d'écraser le
+   titre — c'est le titre qui porte l'information. */
+@media (max-width: 520px) {
+  .tei-depliant > summary { flex-wrap: wrap; }
+  .tei-depliant-titre { flex: 1 1 100%; order: 2; }
+  .tei-depliant-invite { order: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tei-depliant > summary,
+  .tei-depliant-fleche { transition: none; }
+}
