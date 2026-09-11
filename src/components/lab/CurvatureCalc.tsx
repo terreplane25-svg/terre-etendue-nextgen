@@ -83,9 +83,9 @@ async function fetchElevation(lat: number, lon: number): Promise<{ elevation: nu
 const GPS_PRESETS = [
   {
     label: 'Finestrelles → Écrins',
-    obsLat: '42.4827', obsLon: '0.7521',
+    obsLat: '42.35', obsLon: '2.15',
     tgtLat: '44.9243', tgtLon: '6.3572',
-    desc: 'Pic de Finestrelles 2 820 m (Pyrénées) → Barre des Écrins 4 102 m · 443 km',
+    desc: 'Pic de Finestrelles 2 820 m (Pyrénées catalanes) → Barre des Écrins 4 102 m · 443 km',
   },
   {
     label: 'Karagöl → Elbrouz',
@@ -97,7 +97,7 @@ const GPS_PRESETS = [
     label: 'Kilimandjaro',
     obsLat: '-2.764', obsLon: '35.914',
     tgtLat: '-3.067', tgtLon: '37.355',
-    desc: 'Ol Doinyo Lengai ~2 878 m (Tanzanie) → Kilimandjaro 5 895 m · ~170 km',
+    desc: 'Ol Doinyo Lengai ~2 878 m (Tanzanie) → Kilimandjaro 5 895 m · ~163 km',
   },
 ];
 
@@ -340,7 +340,7 @@ export default function CurvatureCalc(){
           </div>
 
           <p className="mt-3 text-[10px] font-tech-mono text-slate-600 leading-relaxed">
-            Décimal, WGS84. Exemples : Finestrelles (42.4827, 0.7521), Écrins (44.9243, 6.3572),
+            Décimal, WGS84. Exemples : Finestrelles (42.35, 2.15), Écrins (44.9243, 6.3572),
             Kilimandjaro (−3.0674, 37.3556). La distance entre les deux points est calculée automatiquement.
             Surface aquatique → altitude 0 m.
           </p>

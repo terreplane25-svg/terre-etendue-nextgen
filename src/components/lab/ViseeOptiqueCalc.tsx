@@ -87,7 +87,7 @@ const VIDE: Saisie = {
 /** Exemples réels chargeables d'un clic, défilis dans l'ordre. */
 const EXEMPLES: Array<{ nom: string } & Saisie> = [
   {
-    nom: 'Sangatte → Douvres (28 km)',
+    nom: 'Sangatte → Douvres (35 km)',
     obsPosition: '50.94642, 1.75305',
     obsHauteur: '2',
     cibPosition: '51.13152, 1.338825',
@@ -97,7 +97,7 @@ const EXEMPLES: Array<{ nom: string } & Saisie> = [
   },
   {
     nom: 'Finestrelles → Barre des Écrins (443 km)',
-    obsPosition: '42.4827, 0.7521',
+    obsPosition: '42.35, 2.15',
     obsHauteur: '2820',
     cibPosition: '44.9243, 6.3572',
     cibHauteur: '4102',
@@ -114,7 +114,7 @@ const EXEMPLES: Array<{ nom: string } & Saisie> = [
     k: '0.18',
   },
   {
-    nom: 'Ol Doinyo Lengai → Kilimandjaro (170 km)',
+    nom: 'Ol Doinyo Lengai → Kilimandjaro (163 km)',
     obsPosition: '-2.764, 35.914',
     obsHauteur: '2878',
     cibPosition: '-3.067, 37.355',
