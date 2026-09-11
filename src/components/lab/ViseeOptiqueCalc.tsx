@@ -89,7 +89,24 @@ const VIDE: Saisie = {
   kPersonnalise: false, k: String(K_STANDARD),
 };
 
-/** Exemples réels chargeables d'un clic, défilis dans l'ordre. */
+/**
+ * Exemples réels chargeables d'un clic, défilés dans l'ordre.
+ *
+ * CHACUN DOIT DISCRIMINER, SINON IL N'A RIEN À FAIRE ICI
+ * ─────────────────────────────────────────────────────
+ * Un exemple qu'on charge d'un clic est une DÉMONSTRATION : il montre ce que
+ * l'outil sait faire. Une visée où les deux modèles prédisent la même chose ne
+ * montre rien, et laisse croire que l'outil ne départage jamais.
+ *
+ * Les trois retenus masquent 56 %, 94 % et 85 % de la hauteur de leur cible à
+ * partir de sa base. « Ol Doinyo Lengai → Kilimandjaro (163 km) » a été retiré
+ * pour cette raison : depuis 2 878 m l'horizon est à près de 200 km, donc à
+ * 163 km la courbure ne masque RIEN — 0,0 m, 0,0 %. Les deux modèles y
+ * prédisent exactement la même chose, et aucune photographie ne les séparerait.
+ *
+ * Avant d'en ajouter un : le passer dans le simulateur, et vérifier que le
+ * verdict est « discriminante ».
+ */
 const EXEMPLES: Array<{ nom: string } & Saisie> = [
   {
     nom: 'Sangatte → Douvres (35 km)',
@@ -117,15 +134,6 @@ const EXEMPLES: Array<{ nom: string } & Saisie> = [
     cibHauteur: '5642',
     kPersonnalise: true,
     k: '0.18',
-  },
-  {
-    nom: 'Ol Doinyo Lengai → Kilimandjaro (163 km)',
-    obsPosition: '-2.764, 35.914',
-    obsHauteur: '2878',
-    cibPosition: '-3.067, 37.355',
-    cibHauteur: '5895',
-    kPersonnalise: false,
-    k: String(K_STANDARD),
   },
 ];
 
