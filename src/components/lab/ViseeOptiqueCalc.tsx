@@ -105,8 +105,8 @@ const EXEMPLES: Array<{ nom: string } & Saisie> = [
     k: '0.14',
   },
   {
-    nom: 'Karagöl → Elbrouz (493 km)',
-    obsPosition: '41.128, 42.573',
+    nom: 'Karagöl (Munzur) → Elbrouz (493 km)',
+    obsPosition: '39.45, 39.65',
     obsHauteur: '3107',
     cibPosition: '43.355, 42.439',
     cibHauteur: '5642',

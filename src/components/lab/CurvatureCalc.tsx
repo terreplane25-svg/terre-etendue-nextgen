@@ -88,10 +88,10 @@ const GPS_PRESETS = [
     desc: 'Pic de Finestrelles 2 820 m (Pyrénées) → Barre des Écrins 4 102 m · 443 km',
   },
   {
-    label: 'Shkhara → Elbrouz',
-    obsLat: '41.128', obsLon: '42.573',
+    label: 'Karagöl → Elbrouz',
+    obsLat: '39.45', obsLon: '39.65',
     tgtLat: '43.355', tgtLon: '42.439',
-    desc: 'Karagöl ~3 107 m (Artvin, Turquie) → Elbrouz 5 642 m · 493 km',
+    desc: 'Karagöl ~3 107 m (Munzur/Tunceli, Turquie) → Elbrouz 5 642 m · 493 km',
   },
   {
     label: 'Kilimandjaro',
