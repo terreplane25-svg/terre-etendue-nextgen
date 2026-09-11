@@ -1,14 +1,11 @@
 'use client';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Line, Html } from '@react-three/drei';
 import * as THREE from 'three';
 
 const R_EARTH = 6371; // km
 
-// ─── Formules avec réfraction ───────────────────
-// Rayon effectif : R' = R / (1 - k)
-// k=0 → pas de réfraction, k=0.143 → standard, k≥1 → terre paraît plate/concave
 function Reff(k:number):number{ return R_EARTH / (1 - k); }
 
 function horizonDist(h:number, k:number):number{
@@ -34,7 +31,62 @@ function fmt(km:number):string{
   return(km*100000).toFixed(1)+' cm';
 }
 
-// ─── Cas réels avec k estimé ────────────────────
+// ─── Service d'altitude mondial ─────────────────────────────────────────────
+// Cascade : IGN RGE ALTI (France uniquement, haute précision)
+//           → OpenTopoData Copernicus DEM 30m (mondial)
+//           → Open-Elevation / SRTM (fallback mondial)
+// Surfaces aquatiques : élévation renvoyée à 0 sans erreur.
+
+function isFranceMetro(lat: number, lon: number): boolean {
+  return lat >= 41.0 && lat <= 51.5 && lon >= -5.5 && lon <= 10.0;
+}
+
+async function fetchElevation(lat: number, lon: number): Promise<{ elevation: number; source: string }> {
+  // 1. IGN RGE ALTI — France métropolitaine seulement
+  if (isFranceMetro(lat, lon)) {
+    try {
+      const url = `https://data.geopf.fr/altimetrie/rest/elevationLine?lon=${lon}&lat=${lat}&resource=ign_rge_alti_wld&delimiter=|&indent=false&measures=true&zonly=true`;
+      const r = await fetch(url, { signal: AbortSignal.timeout(6000) });
+      if (r.ok) {
+        const d = await r.json();
+        const z: number | undefined = d?.elevations?.[0]?.z ?? d?.alts?.[0];
+        if (z != null && z > -500) {
+          return { elevation: Math.max(0, z), source: 'IGN RGE ALTI' };
+        }
+      }
+    } catch { /* hors-limite ou erreur → fallback mondial */ }
+  }
+
+  // 2. OpenTopoData — Copernicus DEM GLO-30 (couverture mondiale ~85°N–85°S)
+  try {
+    const url = `https://api.opentopodata.org/v1/copernicus30m?locations=${lat},${lon}`;
+    const r = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    if (r.ok) {
+      const d = await r.json();
+      const z: number | null = d?.results?.[0]?.elevation ?? null;
+      // null = surface aquatique → on renvoie 0 sans erreur
+      return { elevation: Math.max(0, z ?? 0), source: 'Copernicus DEM 30m' };
+    }
+  } catch { /* timeout → fallback */ }
+
+  // 3. Open-Elevation / SRTM — fallback universel
+  const url2 = `https://api.open-elevation.com/api/v1/lookup?locations=${lat},${lon}`;
+  const r2 = await fetch(url2, { signal: AbortSignal.timeout(10000) });
+  if (!r2.ok) throw new Error('Service d\'altitude indisponible');
+  const d2 = await r2.json();
+  const z2: number | undefined = d2?.results?.[0]?.elevation;
+  if (z2 == null) throw new Error('Aucune donnée pour ces coordonnées');
+  return { elevation: Math.max(0, z2), source: 'SRTM / Open-Elevation' };
+}
+
+// Distance approx entre deux coords (km) — haversine
+function haversine(lat1:number,lon1:number,lat2:number,lon2:number):number{
+  const R=6371,dLat=(lat2-lat1)*Math.PI/180,dLon=(lon2-lon1)*Math.PI/180;
+  const a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
+  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+
+// ─── Cas réels ───────────────────────────────────
 const PRESETS = [
   { label:'Finestrelles → Alpes (443 km)', d:443, oh:2820, th:4102, k:0.14,
     desc:'Pic de Finestrelles 2 820 m → Barre des Écrins 4 102 m. Record 2016, Marc Bret. Réfraction standard.' },
@@ -65,6 +117,20 @@ function NumInput({label,value,onChange,min,max,unit,step=1}:{
   );
 }
 
+// ─── Composant saisie coordonnée ─────────────────
+function CoordInput({label,value,onChange,placeholder}:{
+  label:string;value:string;onChange:(v:string)=>void;placeholder:string;
+}){
+  return(
+    <div className="flex flex-col gap-1">
+      <label className="text-[10px] font-tech-mono text-slate-500 tracking-widest">{label}</label>
+      <input type="number" step="any" value={value} onChange={e=>onChange(e.target.value)}
+        placeholder={placeholder}
+        className="bg-[#050A12] border border-slate-700 text-[13px] font-tech-mono text-[#00C8FF] px-3 py-2 rounded-none w-full placeholder:text-slate-700"/>
+    </div>
+  );
+}
+
 // ─── Scène 3D ───────────────────────────────────
 function Scene({d,oh,th,k}:{d:number;oh:number;th:number;k:number}){
   const hidden=hiddenH(d,oh,k);
@@ -74,14 +140,12 @@ function Scene({d,oh,th,k}:{d:number;oh:number;th:number;k:number}){
   const arc=d/rEff;
   const arcNoRef=d/R_EARTH;
 
-  // Courbe AVEC réfraction (rayon effectif)
   const curveRef=useMemo(()=>{
     const p:THREE.Vector3[]=[];
     for(let i=0;i<=150;i++){const a=-arc/2+(i/150)*arc;p.push(new THREE.Vector3(Math.sin(a)*rEff*s,(Math.cos(a)-1)*rEff*s,0));}
     return p;
   },[d,s,arc,rEff]);
 
-  // Courbe SANS réfraction (rayon réel) — en pointillé pour comparaison
   const curveNoRef=useMemo(()=>{
     const p:THREE.Vector3[]=[];
     for(let i=0;i<=150;i++){const a=-arcNoRef/2+(i/150)*arcNoRef;p.push(new THREE.Vector3(Math.sin(a)*R_EARTH*s,(Math.cos(a)-1)*R_EARTH*s,0));}
@@ -91,7 +155,6 @@ function Scene({d,oh,th,k}:{d:number;oh:number;th:number;k:number}){
   const maxH=Math.max(oh,th,0.001);const hs=Math.min(s*150,3/maxH);
   const halfD=(d/2)*s;
 
-  // Positions sur la courbe avec réfraction
   const oA=-arc/2,tA=arc/2;
   const oGx=Math.sin(oA)*rEff*s,oGy=(Math.cos(oA)-1)*rEff*s;
   const tGx=Math.sin(tA)*rEff*s,tGy=(Math.cos(tA)-1)*rEff*s;
@@ -103,32 +166,24 @@ function Scene({d,oh,th,k}:{d:number;oh:number;th:number;k:number}){
 
   return<>
     <ambientLight intensity={0.5}/>
-    {/* GLOBE avec réfraction */}
     <group position={[0,3,0]}>
-      {/* Courbe sans réfraction (gris pointillé) si k>0 */}
       {k>0.01 && <Line points={curveNoRef} color="#666666" lineWidth={1} opacity={0.3} transparent dashed dashSize={0.06} gapSize={0.04}/>}
-      {/* Courbe avec réfraction */}
       <Line points={curveRef} color="#00C8FF" lineWidth={2.5}/>
-      {/* Observateur */}
       <Line points={[new THREE.Vector3(oGx,oGy,0),new THREE.Vector3(...obsP)]} color="#00C8FF" lineWidth={2}/>
       <mesh position={obsP}><sphereGeometry args={[0.08,12,12]}/><meshBasicMaterial color="#00C8FF"/></mesh>
-      {/* Cible visible (vert) */}
       {vis&&<Line points={[new THREE.Vector3(tGx+tNx*hidden*hs,tGy+tNy*hidden*hs,0),new THREE.Vector3(...tgtP)]} color="#00E87B" lineWidth={3}/>}
-      {/* Cible cachée (rouge) */}
       {hidden>0&&<Line points={[new THREE.Vector3(tGx,tGy,0),new THREE.Vector3(...hidP)]} color="#FF4444" lineWidth={4}/>}
-      {/* Ligne de visée */}
       <Line points={[new THREE.Vector3(...obsP),new THREE.Vector3(...tgtP)]}
         color={vis?'#00E87B':'#FF4444'} lineWidth={1} opacity={0.4} transparent dashed dashSize={0.08} gapSize={0.04}/>
       <Html position={[0,2.8,0]} center distanceFactor={10} style={{pointerEvents:'none'}}>
         <div style={{color:'#00C8FF',fontSize:'13px',fontFamily:'monospace',letterSpacing:'0.12em',fontWeight:'bold'}}>
-          MODÈLE GLOBE {k>0.01 ? `(R\u2019 = ${Math.round(rEff)} km)` : '(R = 6 371 km)'}
+          MODÈLE GLOBE {k>0.01 ? `(R’ = ${Math.round(rEff)} km)` : '(R = 6 371 km)'}
         </div>
       </Html>
       {k>0.01 && <Html position={[0,2.2,0]} center distanceFactor={10} style={{pointerEvents:'none'}}>
         <div style={{color:'#666',fontSize:'10px',fontFamily:'monospace'}}>pointillé = sans réfraction</div>
       </Html>}
     </group>
-    {/* PLAN */}
     <group position={[0,-3.5,0]}>
       <Line points={[new THREE.Vector3(-halfD-0.5,0,0),new THREE.Vector3(halfD+0.5,0,0)]} color="#D4A843" lineWidth={2.5}/>
       <Line points={[new THREE.Vector3(-halfD,0,0),new THREE.Vector3(-halfD,oh*hs,0)]} color="#D4A843" lineWidth={2}/>
@@ -149,7 +204,17 @@ export default function CurvatureCalc(){
   const [dist,setDist]=useState(443);
   const [obsM,setObsM]=useState(2820);
   const [tgtM,setTgtM]=useState(4102);
-  const [k,setK]=useState(0.143); // Standard par défaut
+  const [k,setK]=useState(0.143);
+
+  // État auto-altitude GPS
+  const [obsLat,setObsLat]=useState('');
+  const [obsLon,setObsLon]=useState('');
+  const [tgtLat,setTgtLat]=useState('');
+  const [tgtLon,setTgtLon]=useState('');
+  const [gpsLoading,setGpsLoading]=useState(false);
+  const [gpsError,setGpsError]=useState('');
+  const [gpsSource,setGpsSource]=useState('');
+  const [gpsOpen,setGpsOpen]=useState(false);
 
   const oh=obsM/1000,th=tgtM/1000;
   const hidden=hiddenH(dist,oh,k);
@@ -161,12 +226,92 @@ export default function CurvatureCalc(){
   const vis=hidden<th;
   const visNoRef=hiddenNoRef<th;
 
+  const handleFetchElevations = useCallback(async () => {
+    const oLat=parseFloat(obsLat), oLon=parseFloat(obsLon);
+    const tLat=parseFloat(tgtLat), tLon=parseFloat(tgtLon);
+    if(isNaN(oLat)||isNaN(oLon)||isNaN(tLat)||isNaN(tLon)){
+      setGpsError('Saisir des coordonnées valides pour les deux points.');
+      return;
+    }
+    setGpsLoading(true);
+    setGpsError('');
+    setGpsSource('');
+    try {
+      const [obsResult, tgtResult] = await Promise.all([
+        fetchElevation(oLat, oLon),
+        fetchElevation(tLat, tLon),
+      ]);
+      setObsM(Math.round(obsResult.elevation));
+      setTgtM(Math.round(tgtResult.elevation));
+      // Distance automatique entre les deux points
+      const d = haversine(oLat, oLon, tLat, tLon);
+      if(d > 0) setDist(Math.round(d));
+      // Source(s) utilisée(s)
+      const sources = obsResult.source === tgtResult.source
+        ? obsResult.source
+        : `${obsResult.source} / ${tgtResult.source}`;
+      setGpsSource(sources);
+    } catch(e: unknown) {
+      setGpsError(e instanceof Error ? e.message : 'Erreur lors de la récupération des altitudes.');
+    } finally {
+      setGpsLoading(false);
+    }
+  }, [obsLat, obsLon, tgtLat, tgtLon]);
+
   return<div className="w-full">
     {/* Sliders principaux */}
     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
       <NumInput label="DISTANCE" value={dist} onChange={setDist} min={0} max={2000} unit="km"/>
       <NumInput label="HAUTEUR OBSERVATEUR" value={obsM} onChange={setObsM} min={0} max={500000} unit="m"/>
       <NumInput label="HAUTEUR CIBLE" value={tgtM} onChange={setTgtM} min={0} max={10000} unit="m"/>
+    </div>
+
+    {/* Panel auto-altitude GPS */}
+    <div className="mb-4 border border-slate-800/50">
+      <button
+        onClick={()=>setGpsOpen(o=>!o)}
+        className="w-full flex items-center justify-between px-4 py-3 bg-[#0A1020] hover:bg-[#0D1628] transition-colors"
+      >
+        <span className="text-[11px] font-tech-mono text-slate-400 tracking-widest">AUTO-ALTITUDE GPS</span>
+        <span className="text-[10px] font-tech-mono text-slate-600">{gpsOpen ? '▲ RÉDUIRE' : '▼ SAISIR DES COORDONNÉES'}</span>
+      </button>
+
+      {gpsOpen && (
+        <div className="bg-[#080E1C] px-4 py-4 border-t border-slate-800/50">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+            <CoordInput label="OBS. LATITUDE" value={obsLat} onChange={setObsLat} placeholder="42.4827"/>
+            <CoordInput label="OBS. LONGITUDE" value={obsLon} onChange={setObsLon} placeholder="0.7521"/>
+            <CoordInput label="CIBLE LATITUDE" value={tgtLat} onChange={setTgtLat} placeholder="44.9243"/>
+            <CoordInput label="CIBLE LONGITUDE" value={tgtLon} onChange={setTgtLon} placeholder="6.3572"/>
+          </div>
+
+          <div className="flex items-center gap-4 flex-wrap">
+            <button
+              onClick={handleFetchElevations}
+              disabled={gpsLoading}
+              className="px-5 py-2 text-[11px] font-tech-mono border border-[#00C8FF]/40 text-[#00C8FF] hover:bg-[#00C8FF]/10 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            >
+              {gpsLoading ? '⟳ RÉCUPÉRATION…' : '↓ RÉCUPÉRER LES ALTITUDES'}
+            </button>
+
+            {gpsSource && !gpsError && (
+              <span className="text-[10px] font-tech-mono text-slate-500">
+                Source : <span className="text-slate-400">{gpsSource}</span>
+              </span>
+            )}
+
+            {gpsError && (
+              <span className="text-[10px] font-tech-mono text-red-400">{gpsError}</span>
+            )}
+          </div>
+
+          <p className="mt-3 text-[10px] font-tech-mono text-slate-600 leading-relaxed">
+            Décimal, WGS84. Exemples : Finestrelles (42.4827, 0.7521), Écrins (44.9243, 6.3572),
+            Kilimandjaro (−3.0674, 37.3556). La distance entre les deux points est calculée automatiquement.
+            Surface aquatique → altitude 0 m.
+          </p>
+        </div>
+      )}
     </div>
 
     {/* Slider réfraction */}
@@ -191,7 +336,7 @@ export default function CurvatureCalc(){
       </div>
     </div>
 
-    {/* Cas réels — avec détails */}
+    {/* Cas réels */}
     <div className="mb-5">
       <div className="text-[11px] font-tech-mono text-slate-500 mb-3">CAS RÉELS DOCUMENTÉS :</div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
@@ -225,7 +370,7 @@ export default function CurvatureCalc(){
       </Canvas>
     </div>
 
-    {/* Résultats — avec et sans réfraction */}
+    {/* Résultats */}
     <div className="mt-5 grid grid-cols-2 md:grid-cols-5 gap-3">
       <div className="border border-cyan-900/30 bg-[#0A1020] p-4">
         <div className="text-[11px] font-tech-mono text-cyan-400/70 tracking-widest mb-2">HORIZON</div>
@@ -261,17 +406,19 @@ export default function CurvatureCalc(){
     <div className="mt-4 border border-[#D4A843]/20 bg-[#0A1020] p-4">
       <div className="text-[11px] font-tech-mono text-[#D4A843]/60 mb-2">À PROPOS DE LA RÉFRACTION</div>
       <p className="text-[12px] text-[#C8D8E8]/50 font-rajdhani leading-relaxed">
-        La réfraction atmosphérique courbe les rayons lumineux vers le sol (l&apos;air dense au sol a un indice plus élevé). 
-        L&apos;effet est modélisé par un rayon terrestre effectif R&apos; = R/(1−k). 
-        En conditions standard (k≈0.143), l&apos;horizon recule de ~8%. 
-        Sur mer froide (k≈0.17-0.38), la réfraction est plus forte. 
+        La réfraction atmosphérique courbe les rayons lumineux vers le sol (l&apos;air dense au sol a un indice plus élevé).
+        L&apos;effet est modélisé par un rayon terrestre effectif R&apos; = R/(1−k).
+        En conditions standard (k≈0.143), l&apos;horizon recule de ~8%.
+        Sur mer froide (k≈0.17-0.38), la réfraction est plus forte.
         En super-réfraction (k&gt;0.4, Fata Morgana), des objets à des centaines de km deviennent visibles.
         Quand k≥1, la lumière suit la courbure terrestre : la Terre paraît plate.
       </p>
     </div>
 
-    <div className="mt-4 border-t border-slate-800/30 pt-4 flex items-center gap-5">
-      <span className="text-[11px] font-tech-mono text-slate-500">ARTICLES :</span>
+    <div className="mt-4 border-t border-slate-800/30 pt-4 flex flex-wrap items-center gap-5">
+      <span className="text-[10px] font-tech-mono text-slate-600">
+        Données d&apos;altitude : Copernicus DEM 30m · SRTM · IGN RGE ALTI (France)
+      </span>
       <a href="/article/leau-ne-ment-pas" className="text-[12px] font-tech-mono text-[#00C8FF]/60 hover:text-[#00C8FF]">L&apos;eau ne ment pas →</a>
       <a href="/article/ce-quon-voit-quand-on-ne-devrait-plus-voir" className="text-[12px] font-tech-mono text-[#00C8FF]/60 hover:text-[#00C8FF]">Ce qu&apos;on voit →</a>
       <a href="/article/lhorizon-la-perspective-et-la-refraction" className="text-[12px] font-tech-mono text-[#00C8FF]/60 hover:text-[#00C8FF]">L&apos;horizon et la réfraction →</a>
