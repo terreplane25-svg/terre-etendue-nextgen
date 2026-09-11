@@ -40,6 +40,8 @@ from visee_optique.relief import (
     altitude_ligne_de_visee_plane,
     analyser_relief,
     profil_depuis_couples,
+    Occlusion,
+    grouper_occlusions,
 )
 
 R_TERRE = 6371008.8
@@ -405,3 +407,95 @@ def test_l_observateur_pose_au_sol_ne_se_masque_pas_lui_meme():
     )
     assert a.masque_par_le_relief is False
     assert all(o.distance_m not in (0.0, D) for o in a.obstacles)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Le regroupement en occlusions
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+def obstacle(distance_m, manque_m):
+    """Un point qui dépasse la visée de `manque_m`."""
+    return Obstacle(
+        distance_m=float(distance_m), altitude_terrain_m=100.0,
+        altitude_visee_m=100.0 - manque_m, manque_m=float(manque_m),
+    )
+
+
+def test_une_colline_echantillonnee_vingt_fois_fait_UNE_occlusion():
+    """Le point de tout le regroupement.
+
+    `analyser_relief` rend un obstacle par point qui dépasse. Au pas de 250 m,
+    une colline large de cinq kilomètres en produit vingt — et annoncer
+    « 20 occlusions » quand il y a une colline serait faux dans le seul sens
+    qui compte, celui du nombre.
+    """
+    points = [obstacle(4000 + 250 * i, 10 + i) for i in range(20)]
+    occ = grouper_occlusions(points, pas_m=250.0)
+    assert len(occ) == 1
+    assert occ[0].nb_points == 20
+    assert occ[0].debut_m == 4000.0
+    assert occ[0].fin_m == 4000.0 + 250 * 19
+
+
+def test_deux_reliefs_separes_font_deux_occlusions():
+    """Sans cette distinction, le regroupement serait un simple compteur."""
+    points = [obstacle(d, 10) for d in (4000, 4250, 4500)] \
+        + [obstacle(d, 4) for d in (12000, 12250)]
+    occ = grouper_occlusions(points, pas_m=250.0)
+    assert len(occ) == 2
+    assert [o.nb_points for o in occ] == [3, 2]
+
+
+def test_le_sommet_est_le_point_qui_depasse_le_PLUS():
+    """Ni le premier ni le dernier : c'est le pire qui décide de ce qu'on voit."""
+    points = [obstacle(4000, 5), obstacle(4250, 31), obstacle(4500, 12)]
+    occ = grouper_occlusions(points, pas_m=250.0)
+    assert len(occ) == 1
+    assert occ[0].sommet.manque_m == 31.0
+    assert occ[0].sommet.distance_m == 4250.0
+
+
+def test_une_trouee_d_un_pas_entier_separe_deux_occlusions():
+    """La tolérance admet le pas nominal, pas un trou où la visée passe.
+
+    Entre 4 500 et 5 000 m, le point à 4 750 ne dépasse pas : la visée y passe,
+    et ce sont bien deux reliefs. La tolérance de 1,5 pas laisse passer les
+    irrégularités du relevé sans franchir une trouée entière.
+    """
+    points = [obstacle(4250, 10), obstacle(4500, 10), obstacle(5000, 10)]
+    occ = grouper_occlusions(points, pas_m=250.0)
+    assert len(occ) == 2
+    assert occ[0].fin_m == 4500.0 and occ[1].debut_m == 5000.0
+
+
+def test_un_seul_point_fait_une_occlusion_de_largeur_nulle():
+    """Et la largeur est une borne INFÉRIEURE, pas la taille du relief."""
+    occ = grouper_occlusions([obstacle(7000, 3)], pas_m=250.0)
+    assert len(occ) == 1
+    assert occ[0].largeur_m == 0.0
+    assert occ[0].nb_points == 1
+
+
+def test_aucun_obstacle_rend_aucune_occlusion():
+    assert grouper_occlusions([], pas_m=250.0) == ()
+
+
+def test_les_points_desordonnes_sont_remis_en_ordre():
+    """Un profil n'arrive pas toujours trié, et l'ordre décide des groupes."""
+    points = [obstacle(4500, 10), obstacle(4000, 10), obstacle(4250, 10)]
+    occ = grouper_occlusions(points, pas_m=250.0)
+    assert len(occ) == 1
+    assert occ[0].debut_m == 4000.0 and occ[0].fin_m == 4500.0
+
+
+def test_sans_pas_declare_l_ecart_minimal_observe_sert_de_reference():
+    """Le regroupement reste utilisable quand le pas n'est pas connu.
+
+    Il se dégrade proprement : au pire deux reliefs sont comptés pour un,
+    jamais l'inverse — et compter trop peu d'occlusions est le sens prudent,
+    puisque personne n'en déduira qu'une visée est dégagée.
+    """
+    points = [obstacle(4000, 10), obstacle(4250, 10), obstacle(9000, 10)]
+    occ = grouper_occlusions(points)
+    assert len(occ) == 2

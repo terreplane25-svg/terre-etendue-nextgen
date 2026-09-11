@@ -68,10 +68,29 @@ try {
   comparer('constantes', 'masque du modèle plat', c.masque_modele_plat_m, S.MASQUE_MODELE_PLAT_M);
   comparer('constantes', 'motif du seuil', c.motif_seuil, S.MOTIF_SEUIL);
   comparer('constantes', 'motif sans relief', c.motif_sans_relief, S.MOTIF_SANS_RELIEF);
+  comparer('constantes', 'motif du relief relevé', c.motif_relief_releve, S.MOTIF_RELIEF_RELEVE);
   comparer('constantes', 'motif de réfraction standard', c.motif_refraction_standard, S.MOTIF_REFRACTION_STANDARD);
   comparer('constantes', 'plancher admis pour k', c.k_plancher_admis, S.K_PLANCHER_ADMIS);
   comparer('constantes', 'motif du conduit optique', c.motif_conduit_optique, S.MOTIF_CONDUIT_OPTIQUE);
-  n += 11;
+  comparer('constantes', 'pas court', c.pas_court_m, S.PAS_COURT_M);
+  comparer('constantes', 'pas moyen', c.pas_moyen_m, S.PAS_MOYEN_M);
+  comparer('constantes', 'pas long', c.pas_long_m, S.PAS_LONG_M);
+  comparer('constantes', 'seuil de distance moyenne', c.seuil_distance_moyenne_m, S.SEUIL_DISTANCE_MOYENNE_M);
+  comparer('constantes', 'seuil de distance longue', c.seuil_distance_longue_m, S.SEUIL_DISTANCE_LONGUE_M);
+  n += 17;
+
+  // Le pas d'échantillonnage : c'est lui qui décide du nombre d'altitudes
+  // demandées à l'IGN, et de ce qui peut passer entre deux mesures.
+  for (const cas of v.pas_echantillonnage) {
+    comparer(`pas à ${cas.distance_m} m`, 'pas retenu', cas.pas_m, S.pasEchantillonnageM(cas.distance_m));
+    n += 1;
+  }
+  for (const d of [0, -1]) {
+    let leve = false;
+    try { S.pasEchantillonnageM(d); } catch { leve = true; }
+    if (!leve) faux(`pas à ${d} m`, 'refus', 'erreur levée', 'aucune');
+    n += 1;
+  }
 
   // Le motif de réfraction nomme le k RÉELLEMENT employé. Une phrase figée
   // qui dirait 0,13 sur un calcul mené à 0,18 serait un mensonge d'affichage,
@@ -105,15 +124,29 @@ try {
     n += 1;
   }
 
-  // Le module ne doit RIEN exporter du relief : un reliquat finirait par être
-  // réutilisé, et le terrain reviendrait par la porte de service.
-  for (const parti of ['pasEchantillonnageM', 'MOTIF_RESERVE_RELIEF', 'PAS_COURT_M',
+  // Le relief est revenu : le pas d'échantillonnage est de nouveau exporté, et
+  // c'est vérifié plutôt que supposé. Cette boucle demandait l'inverse tant que
+  // le terrain était retiré — elle est le témoin du sens dans lequel va la
+  // décision, et l'inverser devait être un geste délibéré, pas un oubli.
+  for (const attendu of ['pasEchantillonnageM', 'PAS_COURT_M',
     'PAS_MOYEN_M', 'PAS_LONG_M', 'SEUIL_DISTANCE_MOYENNE_M', 'SEUIL_DISTANCE_LONGUE_M']) {
-    if (parti in S) {
-      ecarts.push({ sujet: 'relief retiré', champ: parti, attendu: '(absent)', obtenu: 'encore exporté' });
+    if (!(attendu in S)) {
+      ecarts.push({ sujet: 'relief rétabli', champ: attendu, attendu: 'exporté', obtenu: '(absent)' });
     }
     n += 1;
   }
+  // En revanche, le VERDICT ne doit toujours rien savoir du relief : il a été
+  // rétabli comme information, pas comme condition. Un motif de réserve
+  // exporté ici signalerait qu'il est redevenu une seconde condition.
+  if ('MOTIF_RESERVE_RELIEF' in S) {
+    ecarts.push({
+      sujet: 'le relief reste informatif',
+      champ: 'MOTIF_RESERVE_RELIEF',
+      attendu: '(absent — le verdict ne dépend pas du relief)',
+      obtenu: 'exporté',
+    });
+  }
+  n += 1;
 
   for (const cas of v.cas) {
     const obtenu = S.juger(cas.masquee_base_m, cas.hauteur_cible_m);

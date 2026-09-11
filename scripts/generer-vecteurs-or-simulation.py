@@ -45,7 +45,14 @@ from visee_optique.simulation import (  # noqa: E402
     K_ENVELOPPE_MAX, K_ENVELOPPE_MIN, K_PLANCHER_ADMIS, K_STANDARD,
     MASQUE_MODELE_PLAT_M, MOTIF_CONDUIT_OPTIQUE, MOTIF_REFRACTION_STANDARD,
     MOTIF_SANS_RELIEF,
+    MOTIF_RELIEF_RELEVE,
     MOTIF_SEUIL, SEUIL_DISCRIMINATION_FRACTION, juger, motif_refraction,
+    PAS_COURT_M,
+    PAS_MOYEN_M,
+    PAS_LONG_M,
+    SEUIL_DISTANCE_MOYENNE_M,
+    SEUIL_DISTANCE_LONGUE_M,
+    pas_echantillonnage_m,
 )
 
 #: Les coefficients de réfraction dont le motif est épinglé. La plage est
@@ -108,10 +115,29 @@ def main():
             "masque_modele_plat_m": MASQUE_MODELE_PLAT_M,
             "motif_seuil": MOTIF_SEUIL,
             "motif_sans_relief": MOTIF_SANS_RELIEF,
+            "motif_relief_releve": MOTIF_RELIEF_RELEVE,
             "motif_refraction_standard": MOTIF_REFRACTION_STANDARD,
             "k_plancher_admis": K_PLANCHER_ADMIS,
             "motif_conduit_optique": MOTIF_CONDUIT_OPTIQUE,
+            "pas_court_m": PAS_COURT_M,
+            "pas_moyen_m": PAS_MOYEN_M,
+            "pas_long_m": PAS_LONG_M,
+            "seuil_distance_moyenne_m": SEUIL_DISTANCE_MOYENNE_M,
+            "seuil_distance_longue_m": SEUIL_DISTANCE_LONGUE_M,
         },
+        # Le pas d'échantillonnage, épinglé DE PART ET D'AUTRE de chaque
+        # seuil : un seuil qui glisserait d'un mètre ne se verrait pas
+        # autrement, et il change le nombre de points demandés à l'IGN.
+        "pas_echantillonnage": [
+            {"distance_m": d, "pas_m": pas_echantillonnage_m(d)}
+            for d in [
+                1.0, 250.0, 35418.0, 99_999.0, 99_999.999,
+                SEUIL_DISTANCE_MOYENNE_M, SEUIL_DISTANCE_MOYENNE_M + 1,
+                350_000.0, SEUIL_DISTANCE_LONGUE_M - 1,
+                SEUIL_DISTANCE_LONGUE_M, SEUIL_DISTANCE_LONGUE_M + 1,
+                2_000_000.0, 20_000_000.0,
+            ]
+        ],
         "refraction": [
             {"k": k, "motif": motif_refraction(k)} for k in CAS_K
         ],
@@ -136,6 +162,24 @@ def main():
 
 
 def controle(v):
+    # 0. Le pas d'échantillonnage prend bien ses trois valeurs, et il change
+    #    AUX seuils. Des cas qui rendraient tous le même pas n'épingleraient
+    #    aucune borne.
+    pas = {c["pas_m"] for c in v["pas_echantillonnage"]}
+    assert pas == {PAS_COURT_M, PAS_MOYEN_M, PAS_LONG_M}, pas
+    # Les valeurs EN CLAIR : les vecteurs sont engendrés depuis les constantes,
+    # donc des cas écrits en fonction d'elles glisseraient avec elles sans que
+    # rien n'échoue. Le contrôle doit porter sur des nombres, pas sur des noms.
+    par_d = {c["distance_m"]: c["pas_m"] for c in v["pas_echantillonnage"]}
+    assert par_d[99_999.0] == 250.0
+    assert par_d[350_000.0] == 500.0
+    assert par_d[2_000_000.0] == 2000.0
+    par_d = {c["distance_m"]: c["pas_m"] for c in v["pas_echantillonnage"]}
+    assert par_d[SEUIL_DISTANCE_MOYENNE_M - 1] == PAS_COURT_M
+    assert par_d[SEUIL_DISTANCE_MOYENNE_M] == PAS_MOYEN_M
+    assert par_d[SEUIL_DISTANCE_LONGUE_M - 1] == PAS_MOYEN_M
+    assert par_d[SEUIL_DISTANCE_LONGUE_M] == PAS_LONG_M
+
     par_nom = {c["nom"]: c["verdict"] for c in v["cas"]}
 
     # 1. Les deux verdicts existent. Un jeu qui n'en porterait qu'un laisserait

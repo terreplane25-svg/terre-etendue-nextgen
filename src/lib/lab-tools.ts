@@ -34,14 +34,11 @@ export const TOOLS: LabTool[] = [
   {
     id: 'visee-optique',
     label: 'Simulateur de Visée',
-    desc: "Deux points, deux hauteurs. Ce que les modèles sphérique et plat prédisent que vous devriez voir, si l’écart entre les deux est assez grand pour être photographié, et une fiche à emporter sur le terrain.",
+    desc: "Deux points, deux hauteurs. Ce que les modèles sphérique et plat prédisent que vous devriez voir, si l’écart entre les deux est assez grand pour être photographié, les reliefs qui coupent la visée, et une fiche à emporter sur le terrain.",
     icon: '📐',
     color: '#3D9E7C',
     num: '01',
-    // « relief » a quitté cette liste avec le modèle de terrain : le
-    // simulateur n'en consulte plus aucun, et le tag promettait une
-    // fonctionnalité retirée.
-    tags: ['simulateur', 'géodésie', 'réfraction', 'fiche terrain'],
+    tags: ['simulateur', 'géodésie', 'réfraction', 'relief', 'fiche terrain'],
   },
   {
     id: 'integrite-image',

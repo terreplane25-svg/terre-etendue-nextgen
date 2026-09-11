@@ -1,5 +1,5 @@
 {
-  "genere_le": "2026-09-08T14:57:36.994210+00:00",
+  "genere_le": "2026-09-11T09:25:05.795769+00:00",
   "source": "visee_optique.simulation (paquet Python)",
   "avertissement": "Fichier généré. Ne pas modifier à la main : il est la référence contre laquelle le port TypeScript est vérifié.",
   "constantes": {
@@ -9,11 +9,71 @@
     "k_enveloppe_max": 0.4,
     "masque_modele_plat_m": 0.0,
     "motif_seuil": "Une visée est dite discriminante quand la courbure masque au moins 10 % de la hauteur de la cible en partant de sa base. Sous ce seuil, les deux modèles prédisent des choses trop proches pour qu'une photographie les sépare, et annoncer « discriminante » promettrait une mesure que personne ne pourrait faire. Ce seuil est une convention de lecture, pas une norme.",
-    "motif_sans_relief": "Ce simulateur ne consulte aucun modèle de terrain : il calcule la ligne de visée théorique entre les deux altitudes saisies, et rien d'autre. Ce qui bouche réellement la vue depuis un poste — une haie, un cargo, un bâtiment récent — ne figure dans aucun modèle numérique et se constate sur l'image. C'est le contrôle de l'analyste, pas celui du simulateur.",
+    "motif_sans_relief": "Aucun profil de terrain n'a été relevé pour cette visée : le calcul porte sur la ligne de visée théorique entre les deux altitudes saisies, et rien d'autre. Ce n'est PAS « aucun obstacle » — c'est « on ne sait pas », et un talus non vu invaliderait la visée sans rien changer à la courbure. Le relevé se demande explicitement, parce qu'il transmet vos coordonnées à un service tiers.",
+    "motif_relief_releve": "Le relief relevé dit ce qu'un modèle numérique de terrain déclare du SOL, à sa date et à sa résolution. Il ignore les bâtiments, la végétation, les ouvrages et tout ce qui flotte — une haie, un cargo, une grue n'y figurent pas. Une visée dégagée selon ce relevé peut donc être bouchée en vrai, et c'est sur l'image que cela se constate. Ce relevé réduit l'incertitude ; il ne la remplace pas par une certitude.",
     "motif_refraction_standard": "La réfraction atmosphérique courbe les rayons lumineux et fait voir un peu plus loin que la géométrie pure. Le calcul emploie le gradient moyen k = 0,13, celui d'une atmosphère bien mélangée. Faute de profil vertical de température mesuré sur le trajet, l'écart que cette ignorance laisse est affiché à part, entre k = 0,10 et k = 0,40.",
     "k_plancher_admis": -1.0,
-    "motif_conduit_optique": "Un coefficient de réfraction supérieur ou égal à 1 décrit un conduit optique : le rayon lumineux se courbe autant que la surface et ne s'en détache plus. La construction géométrique employée ici ne s'applique plus du tout dans ce régime, et aucun résultat ne serait interprétable. Les valeurs rencontrées au-dessus de l'eau vont de 0 à 0,4 environ."
+    "motif_conduit_optique": "Un coefficient de réfraction supérieur ou égal à 1 décrit un conduit optique : le rayon lumineux se courbe autant que la surface et ne s'en détache plus. La construction géométrique employée ici ne s'applique plus du tout dans ce régime, et aucun résultat ne serait interprétable. Les valeurs rencontrées au-dessus de l'eau vont de 0 à 0,4 environ.",
+    "pas_court_m": 250.0,
+    "pas_moyen_m": 500.0,
+    "pas_long_m": 2000.0,
+    "seuil_distance_moyenne_m": 100000.0,
+    "seuil_distance_longue_m": 500000.0
   },
+  "pas_echantillonnage": [
+    {
+      "distance_m": 1.0,
+      "pas_m": 250.0
+    },
+    {
+      "distance_m": 250.0,
+      "pas_m": 250.0
+    },
+    {
+      "distance_m": 35418.0,
+      "pas_m": 250.0
+    },
+    {
+      "distance_m": 99999.0,
+      "pas_m": 250.0
+    },
+    {
+      "distance_m": 99999.999,
+      "pas_m": 250.0
+    },
+    {
+      "distance_m": 100000.0,
+      "pas_m": 500.0
+    },
+    {
+      "distance_m": 100001.0,
+      "pas_m": 500.0
+    },
+    {
+      "distance_m": 350000.0,
+      "pas_m": 500.0
+    },
+    {
+      "distance_m": 499999.0,
+      "pas_m": 500.0
+    },
+    {
+      "distance_m": 500000.0,
+      "pas_m": 2000.0
+    },
+    {
+      "distance_m": 500001.0,
+      "pas_m": 2000.0
+    },
+    {
+      "distance_m": 2000000.0,
+      "pas_m": 2000.0
+    },
+    {
+      "distance_m": 20000000.0,
+      "pas_m": 2000.0
+    }
+  ],
   "refraction": [
     {
       "k": 0.0,

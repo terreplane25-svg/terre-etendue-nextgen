@@ -16,12 +16,16 @@
  * Ces choix sont désormais pris par le moteur et énoncés en prose dans un
  * bloc rétractable — ils sont donc encore contestables, ce qui était le point.
  *
- * GÉOMÉTRIE PURE : PLUS AUCUN MODÈLE DE TERRAIN
- * ─────────────────────────────────────────────
- * Le simulateur ne consulte plus de profil altimétrique et ne cherche plus
- * d'obstacle local. Chercher ce qui bouche la vue depuis un poste donné relève
- * du contrôle de l'analyste SUR L'IMAGE RÉELLE — une haie, un cargo, un
- * bâtiment récent ne figurent dans aucun modèle numérique de terrain.
+ * LE RELIEF, À LA DEMANDE ET JAMAIS AUTOMATIQUEMENT
+ * ─────────────────────────────────────────────────
+ * Le relevé du terrain part sur une action explicite, après la simulation.
+ * C'est le seul outil du Lab qui transmet quelque chose — les coordonnées
+ * saisies, à l'IGN — et une requête automatique les enverrait sans que
+ * personne l'ait demandé.
+ *
+ * La simulation, elle, ne l'attend pas et n'en dépend pas : elle a déjà
+ * tourné. Un service en panne laisse le résultat entier, et le relief reste
+ * « non évalué » — ce qui n'est pas « aucun obstacle ».
  *
  * LA RÈGLE QUI NE SE NÉGOCIE PAS
  * ──────────────────────────────
@@ -31,7 +35,7 @@
  */
 import { useCallback, useState } from 'react';
 import { dash } from '@/lib/design-tokens';
-import ResultatVisee, { type Simulation } from './ResultatVisee';
+import ResultatVisee, { type EtatRelief, type Simulation } from './ResultatVisee';
 import {
   cible as faireCible,
   hauteurOccultee,
@@ -45,8 +49,11 @@ import {
   K_ENVELOPPE_MIN,
   K_STANDARD,
   juger,
+  pasEchantillonnageM,
   verifierK,
 } from '@/lib/visee-optique/simulation';
+import { analyserRelief, grouperOcclusions } from '@/lib/visee-optique/relief';
+import { profilDepuisIgn } from '@/lib/visee-optique/altimetrie-ign';
 
 const ACCENT = dash.opal;
 
@@ -131,6 +138,11 @@ export default function ViseeOptiqueCalc() {
   const [sim, setSim] = useState<Simulation | null>(null);
   const [enCours, setEnCours] = useState(false);
   const [erreur, setErreur] = useState<string | null>(null);
+  // Le relevé du terrain est SÉPARÉ de la simulation, et il part sur une
+  // action explicite : il transmet les coordonnées saisies à un service tiers,
+  // ce qu'aucun autre outil du Lab ne fait. Une requête automatique enverrait
+  // ces coordonnées sans que personne l'ait demandé.
+  const [relief, setRelief] = useState<EtatRelief>({ etat: 'inactif' });
 
   const maj = (cle: keyof Saisie) => (v: string) => setS((p) => ({ ...p, [cle]: v }));
 
@@ -138,6 +150,9 @@ export default function ViseeOptiqueCalc() {
     setEnCours(true);
     setErreur(null);
     setSim(null);
+    // Un relevé appartient à UNE visée. Le garder d'une simulation à l'autre
+    // afficherait le relief d'un trajet sous le résultat d'un autre.
+    setRelief({ etat: 'inactif' });
     try {
       const hObs = nombre(s.obsHauteur);
       const hCib = nombre(s.cibHauteur);
@@ -212,6 +227,45 @@ export default function ViseeOptiqueCalc() {
       setEnCours(false);
     }
   }, [s]);
+
+  /**
+   * Le relevé du terrain, à la demande.
+   *
+   * Il ne touche jamais `sim` : la géométrie reste ce qu'elle était, et un
+   * échec du service laisse le résultat entier. C'était la règle posée quand
+   * le modèle de terrain avait été retiré, et elle vaut aussi pour son retour.
+   */
+  const relever = useCallback(async () => {
+    if (sim === null) return;
+    setRelief({ etat: 'en-cours' });
+    try {
+      // Le pas suit la DISTANCE : aucune visée n'est refusée pour sa longueur,
+      // mais un pas fixe de 250 m sur 2 000 km demanderait 8 000 altitudes.
+      const pasM = pasEchantillonnageM(sim.D);
+      const r = await profilDepuisIgn(
+        sim.positionObs.latitude, sim.positionObs.longitude,
+        sim.positionCible.latitude, sim.positionCible.longitude,
+        { pasM },
+      );
+      const analyse = analyserRelief(sim.D, sim.h, sim.cible, sim.rTrace, r.profil, 'sphérique', 0);
+      setRelief({
+        etat: 'fait',
+        releve: {
+          analyse,
+          occlusions: grouperOcclusions(analyse.obstacles, r.profil.pasM),
+          pasM: r.profil.pasM,
+          source: r.profil.source,
+          lacunesM: r.lacunesM,
+          reserve: r.reserve,
+        },
+      });
+    } catch (err) {
+      setRelief({
+        etat: 'echec',
+        motif: err instanceof Error ? err.message : String(err),
+      });
+    }
+  }, [sim]);
 
   const pret = s.obsPosition.trim() !== '' && s.cibPosition.trim() !== ''
     && nombre(s.obsHauteur) !== null && nombre(s.cibHauteur) !== null
@@ -363,7 +417,7 @@ export default function ViseeOptiqueCalc() {
         </div>
       )}
 
-      {sim && <ResultatVisee sim={sim} />}
+      {sim && <ResultatVisee sim={sim} relief={relief} onRelever={() => void relever()} />}
     </div>
   );
 }

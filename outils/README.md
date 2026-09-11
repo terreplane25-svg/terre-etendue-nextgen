@@ -126,22 +126,64 @@ sur les obstacles. Ce contrôle appartient à l'analyste, sur l'image.
 pour la borner. Depuis la suppression du modèle de terrain, la longueur d'une
 visée ne coûte plus rien non plus — il n'y a plus d'altitudes à demander.
 
-### Géométrie pure : plus aucun modèle de terrain
+### Le relief : relevé à la demande, informatif, hors du verdict
 
-Le simulateur ne consulte plus de profil altimétrique et ne cherche plus
-d'obstacle local. Le calcul porte exclusivement sur la ligne de visée théorique
-entre les deux altitudes saisies.
+Le modèle de terrain a été retiré, puis **rétabli**. Il est de nouveau relevé
+auprès du service RGE ALTI de l'IGN, et rendu sous la forme que la question
+appelle : **combien de reliefs coupent la visée, où, et de combien chacun la
+dépasse**.
 
-Ce n'est pas un renoncement, c'est un partage des rôles : ce qui bouche
-réellement la vue depuis un poste — une haie, un cargo, un bâtiment récent — ne
-figure dans **aucun** modèle numérique de terrain, et se constate sur l'image.
-C'est le contrôle de l'analyste, pas celui du simulateur. Un simulateur qui
-prétendrait trancher cette question donnerait une fausse assurance.
+**Le relevé part sur une action explicite**, après la simulation. C'est le seul
+outil du Lab qui transmet quelque chose — les coordonnées saisies — et une
+requête automatique les enverrait sans que personne l'ait demandé. La
+simulation, elle, a déjà tourné : un service en panne laisse le résultat
+entier.
 
-`src/lib/visee-optique/altimetrie-ign.ts` et `relief.ts` ont été supprimés,
-avec leurs vecteurs et leurs contrôles. `relief.py` reste dans le paquet
-Python, avec ses propres tests : il n'est plus appelé par le simulateur, et
-c'est le port qui a disparu, pas la référence.
+**Le relief n'entre pas dans le verdict.** La hauteur masquée, la fraction et
+le caractère discriminant répondent à « que prédit chaque modèle », pas à
+« que voit-on depuis ce poste ». Les fondre sous un seul « invisible » perdrait
+ce qui distingue les deux causes : une cible peut être entièrement au-dessus de
+l'horizon géométrique ET entièrement cachée par une colline. Une version
+antérieure faisait du relief une *seconde condition* de discrimination ; ce
+n'est plus le cas, et `verifier-port-simulation.mjs` refuse le retour d'un
+`MOTIF_RESERVE_RELIEF` qui signalerait ce glissement.
+
+**Un relief non relevé n'est jamais présenté comme une absence d'obstacle.**
+« On ne sait pas » et « il n'y a rien » sont deux réponses différentes ; c'est
+pour avoir confondu les deux qu'un simulateur donne une fausse assurance.
+
+#### Des points de mesure aux occlusions
+
+`analyser_relief` rend un obstacle **par point échantillonné** qui dépasse la
+ligne. C'est ce qu'il faut pour calculer, et c'est inutilisable pour dire ce
+qu'on voit : au pas de 250 m, une colline large de six kilomètres produit
+vingt-quatre « obstacles ». Annoncer « 24 occlusions » quand il y a une colline
+serait faux dans le seul sens qui compte, celui du nombre.
+
+`grouper_occlusions` réunit donc les points **contigus** en reliefs. Deux
+collines séparées par une trouée où la visée passe font deux occlusions ; une
+colline échantillonnée vingt-quatre fois en fait une. La limite est écrite avec
+le résultat : le regroupement ne voit que des échantillons, une trouée plus
+étroite que le pas ne laisse aucune trace, et deux collines très voisines
+peuvent être comptées pour une — au pire on en compte trop peu, jamais trop,
+et personne n'en déduira qu'une visée est dégagée.
+
+#### Ce que le relevé n'établit pas
+
+Un modèle numérique décrit le **sol**, à une date et à une résolution données.
+Il ignore les bâtiments, la végétation, les ouvrages et tout ce qui flotte —
+une haie, un cargo, une grue n'y figurent pas. Une visée dégagée selon ce
+relevé peut donc être bouchée en vrai, et c'est sur l'image que cela se
+constate. Le relevé réduit l'incertitude ; il ne la remplace pas par une
+certitude.
+
+**Réserve de fond, inchangée :** l'environnement de développement n'a aucun
+accès sortant vers `data.geopf.fr` — ni vers aucun service d'altitude. Le
+client est écrit d'après le contrat publié et **n'a jamais été exécuté contre
+le service réel**. Ce qui est éprouvé, c'est la mise en forme de la requête,
+l'interprétation d'une réponse conforme, le refus d'une réponse non conforme,
+et le câblage complet contre une réponse simulée dans un vrai navigateur — pas
+que le service réponde ce qu'on croit.
 
 ### La fiche protocole terrain
 

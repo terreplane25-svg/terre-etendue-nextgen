@@ -54,6 +54,8 @@ __all__ = [
     "altitude_ligne_de_visee_plane",
     "analyser_relief",
     "RELIEF_NON_EVALUE",
+    "Occlusion",
+    "grouper_occlusions",
 ]
 
 
@@ -383,4 +385,93 @@ def profil_depuis_couples(
         source=source,
         pas_m=pas_m,
         incertitude_verticale_m=incertitude_verticale_m,
+    )
+
+
+# ── Le regroupement en occlusions ───────────────────────────────────────────
+
+
+@dataclass(frozen=True)
+class Occlusion:
+    """Un RELIEF continu qui coupe la visée, et non un point de mesure isolé.
+
+    POURQUOI CE REGROUPEMENT EXISTE
+    ───────────────────────────────
+    `analyser_relief` rend un obstacle PAR POINT ÉCHANTILLONNÉ dépassant la
+    ligne. C'est ce qu'il faut pour calculer, et c'est inutilisable pour dire
+    ce qu'on voit : au pas de 250 m, une seule colline large de six kilomètres
+    produit vingt-quatre « obstacles ». Annoncer « 24 occlusions » quand il y
+    a une colline serait faux dans le seul sens qui compte — celui du nombre.
+
+    Une occlusion, ici, est un intervalle CONTIGU de points qui dépassent tous.
+    Deux collines séparées par une trouée où la visée passe font deux
+    occlusions ; une colline échantillonnée vingt-quatre fois en fait une.
+
+    CE QUE LE REGROUPEMENT NE SAIT PAS
+    ──────────────────────────────────
+    Il ne sait pas si deux points consécutifs appartiennent au même relief :
+    il ne voit que des échantillons, et une trouée plus étroite que le pas ne
+    laisse aucune trace. Deux collines très voisines peuvent donc être comptées
+    pour une. Le pas est rendu avec le résultat pour que cette limite se lise.
+    """
+
+    #: Distance du PREMIER point qui dépasse, depuis l'observateur.
+    debut_m: float
+    #: Distance du DERNIER point qui dépasse.
+    fin_m: float
+    #: Le point le plus gênant de l'intervalle : celui qui dépasse le plus.
+    sommet: Obstacle
+    #: Combien de points échantillonnés composent cette occlusion.
+    nb_points: int
+
+    @property
+    def largeur_m(self) -> float:
+        """L'étendue mesurée. Nulle quand un seul point dépasse.
+
+        C'est une borne INFÉRIEURE : le relief commence avant le premier point
+        qui dépasse et finit après le dernier, quelque part dans les deux
+        intervalles d'échantillonnage voisins.
+        """
+        return self.fin_m - self.debut_m
+
+
+def grouper_occlusions(obstacles: Sequence[Obstacle], pas_m: Optional[float] = None) -> Tuple[Occlusion, ...]:
+    """Regroupe les points qui dépassent en reliefs contigus.
+
+    Deux points appartiennent à la même occlusion quand rien ne les sépare :
+    ni un point qui passe sous la visée, ni un trou plus large que le pas.
+
+    `pas_m` sert à décider de la contiguïté quand les points ne sont pas
+    consécutifs dans la liste — ce qui arrive dès qu'un point intermédiaire
+    passe. Sans lui, la règle retombe sur l'écart observé entre les deux
+    premiers points, ce qui reste juste pour un profil régulier et se dégrade
+    proprement pour les autres : au pire, deux reliefs sont comptés pour un,
+    jamais l'inverse.
+    """
+    tries = sorted(obstacles, key=lambda o: o.distance_m)
+    if not tries:
+        return ()
+
+    # La tolérance de contiguïté. Un facteur 1,5 admet le pas nominal et ses
+    # irrégularités, sans franchir une trouée d'un pas entier.
+    ecart = pas_m
+    if ecart is None and len(tries) >= 2:
+        ecart = min(b.distance_m - a.distance_m for a, b in zip(tries, tries[1:]))
+    tolerance = (ecart or 0.0) * 1.5
+
+    groupes: List[List[Obstacle]] = [[tries[0]]]
+    for precedent, courant in zip(tries, tries[1:]):
+        if courant.distance_m - precedent.distance_m <= tolerance:
+            groupes[-1].append(courant)
+        else:
+            groupes.append([courant])
+
+    return tuple(
+        Occlusion(
+            debut_m=g[0].distance_m,
+            fin_m=g[-1].distance_m,
+            sommet=max(g, key=lambda o: o.manque_m),
+            nb_points=len(g),
+        )
+        for g in groupes
     )

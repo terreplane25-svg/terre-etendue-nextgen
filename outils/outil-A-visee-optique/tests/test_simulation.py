@@ -305,3 +305,65 @@ def test_le_signe_du_zero_est_conserve():
     from visee_optique.simulation import format_metres
 
     assert format_metres(-0.04) == "-0,0"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Le pas d'échantillonnage du terrain
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+def test_le_pas_suit_la_distance_et_ses_bornes_sont_exactes():
+    """Aucune distance n'est refusée ; c'est la FINESSE du relevé qui s'adapte.
+
+    Les bornes sont éprouvées de part et d'autre : un seuil qui glisserait
+    d'un mètre ne se verrait pas autrement, et il change le nombre de points
+    demandés au service altimétrique.
+    """
+    from visee_optique.simulation import (
+        PAS_COURT_M, PAS_LONG_M, PAS_MOYEN_M,
+        SEUIL_DISTANCE_LONGUE_M, SEUIL_DISTANCE_MOYENNE_M,
+        pas_echantillonnage_m,
+    )
+
+    # Les VALEURS d'abord, en clair. Une première version de ce test n'écrivait
+    # que les relations — `pas(SEUIL - 1) == PAS_COURT` — et les seuils y
+    # glissaient avec eux-mêmes : déplacer SEUIL_DISTANCE_MOYENNE_M d'un mètre
+    # ne le faisait pas échouer. Un test écrit en fonction de la chose qu'il
+    # doit épingler n'épingle rien, et c'est une rupture délibérée qui l'a
+    # montré.
+    assert PAS_COURT_M == 250.0
+    assert PAS_MOYEN_M == 500.0
+    assert PAS_LONG_M == 2000.0
+    assert SEUIL_DISTANCE_MOYENNE_M == 100_000.0
+    assert SEUIL_DISTANCE_LONGUE_M == 500_000.0
+
+    # Puis les bornes, sur des distances écrites en clair elles aussi.
+    assert pas_echantillonnage_m(1.0) == 250.0
+    assert pas_echantillonnage_m(99_999.0) == 250.0
+    assert pas_echantillonnage_m(100_000.0) == 500.0
+    assert pas_echantillonnage_m(499_999.0) == 500.0
+    assert pas_echantillonnage_m(500_000.0) == 2000.0
+    assert pas_echantillonnage_m(20_000_000.0) == 2000.0
+
+
+def test_le_pas_freine_le_nombre_de_points_sans_le_plafonner():
+    """L'élargissement n'est pas une borne déguisée.
+
+    Sur 2 000 km il reste 1 000 points, et sur 20 000 km il en reste 10 000.
+    Écrire ce que coûte une visée longue vaut mieux que laisser croire à une
+    limite qui n'existe pas.
+    """
+    from visee_optique.simulation import pas_echantillonnage_m
+
+    for distance in (2_000_000.0, 20_000_000.0):
+        points = distance / pas_echantillonnage_m(distance)
+        assert points == distance / 2000.0
+    assert 2_000_000.0 / pas_echantillonnage_m(2_000_000.0) == 1000.0
+
+
+def test_une_distance_nulle_ou_negative_est_refusee():
+    from visee_optique.simulation import pas_echantillonnage_m
+
+    for d in (0.0, -1.0):
+        with pytest.raises(ValueError, match="strictement positive"):
+            pas_echantillonnage_m(d)

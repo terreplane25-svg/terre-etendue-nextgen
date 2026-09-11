@@ -6,16 +6,19 @@
  * Ce port est épinglé au Python par `vecteurs-or-simulation.json`, que
  * `scripts/verifier-port-simulation.mjs` rejoue ici.
  *
- * GÉOMÉTRIE PURE : PLUS AUCUN MODÈLE DE TERRAIN
- * ─────────────────────────────────────────────
- * Le simulateur ne consulte plus de profil altimétrique et ne détecte plus
- * d'obstacle local. Le calcul porte exclusivement sur la ligne de visée
- * théorique entre les deux altitudes saisies.
+ * LE RELIEF EST REVENU, MAIS IL N'ENTRE PAS DANS LE VERDICT
+ * ────────────────────────────────────────────────────────
+ * Le modèle de terrain avait été retiré, puis rétabli. Il est de nouveau
+ * relevé — à la demande, jamais automatiquement — et rendu comme une
+ * INFORMATION : le nombre de reliefs qui coupent la visée, et de combien
+ * chacun la dépasse.
  *
- * Ce n'est pas un renoncement, c'est un partage des rôles : chercher ce qui
- * bouche la vue depuis un poste donné relève du contrôle de l'analyste SUR
- * L'IMAGE RÉELLE — une haie, un cargo, un bâtiment récent ne figurent dans
- * aucun modèle numérique de terrain.
+ * Ce qu'il ne fait pas, et c'est la moitié importante : il n'entre pas dans le
+ * verdict. La hauteur masquée, la fraction et le caractère discriminant
+ * répondent à « que prédit chaque modèle », pas à « que voit-on depuis ce
+ * poste ». Et un relief NON RELEVÉ n'est jamais présenté comme une absence
+ * d'obstacle : « on ne sait pas » et « il n'y a rien » sont deux réponses
+ * différentes.
  *
  * CE QUI SE MESURE : LE PIED DE LA CIBLE, PAS SON SOMMET
  * ──────────────────────────────────────────────────────
@@ -46,6 +49,45 @@ export const SEUIL_DISCRIMINATION_FRACTION = 0.10;
 export const K_STANDARD = 0.13;
 export const K_ENVELOPPE_MIN = 0.10;
 export const K_ENVELOPPE_MAX = 0.40;
+
+/**
+ * Le pas d'échantillonnage du terrain, par tranche de distance.
+ *
+ * Aucune longueur de visée n'est refusée. Ce qui croît avec la distance, ce
+ * n'est pas la difficulté du calcul — la géodésie et l'occultation ne coûtent
+ * rien — mais le NOMBRE de points d'altitude à demander. Un pas fixe de 250 m
+ * sur 2 000 km ferait 8 000 points ; le pas s'élargit donc avec la distance,
+ * ce qui ramène cette visée à 1 000 points.
+ *
+ * L'élargissement ne PLAFONNE pas le nombre de points, il le freine : à
+ * 20 000 km il en reste 10 000. Une visée pareille n'a aucun sens physique,
+ * mais elle n'est pas refusée pour autant, et il vaut mieux écrire ce qu'elle
+ * coûte que laisser croire à une borne qui n'existe pas.
+ *
+ * Contrepartie assumée et affichée : sur une visée longue, une colline étroite
+ * peut passer entre deux points de mesure. Un relief manqué ne se rattrape
+ * pas, et c'est pourquoi le pas retenu est écrit dans le résultat.
+ */
+export const PAS_COURT_M = 250.0;
+export const PAS_MOYEN_M = 500.0;
+export const PAS_LONG_M = 2000.0;
+export const SEUIL_DISTANCE_MOYENNE_M = 100000.0;
+export const SEUIL_DISTANCE_LONGUE_M = 500000.0;
+
+/**
+ * Le pas d'échantillonnage du terrain, choisi d'après la distance.
+ *
+ * Cette fonction ne borne rien : elle règle seulement la finesse du relevé
+ * pour que le nombre de points reste tenable. Le pas retenu est rendu au
+ * visiteur, parce qu'il décide de ce qui peut passer inaperçu entre deux
+ * mesures.
+ */
+export function pasEchantillonnageM(distanceM: number): number {
+  if (distanceM <= 0) throw new Error('La distance doit être strictement positive.');
+  if (distanceM < SEUIL_DISTANCE_MOYENNE_M) return PAS_COURT_M;
+  if (distanceM < SEUIL_DISTANCE_LONGUE_M) return PAS_MOYEN_M;
+  return PAS_LONG_M;
+}
 
 /**
  * Le plancher admis dans le formulaire pour un k saisi à la main.
@@ -145,11 +187,28 @@ export function motifRefraction(k: number): string {
 }
 
 export const MOTIF_SANS_RELIEF =
-  'Ce simulateur ne consulte aucun modèle de terrain : il calcule la ligne '
-  + "de visée théorique entre les deux altitudes saisies, et rien d'autre. Ce "
-  + 'qui bouche réellement la vue depuis un poste — une haie, un cargo, un '
-  + 'bâtiment récent — ne figure dans aucun modèle numérique et se constate '
-  + "sur l'image. C'est le contrôle de l'analyste, pas celui du simulateur.";
+  "Aucun profil de terrain n'a été relevé pour cette visée : le calcul porte "
+  + 'sur la ligne de visée théorique entre les deux altitudes saisies, et rien '
+  + "d'autre. Ce n'est PAS « aucun obstacle » — c'est « on ne sait pas », et "
+  + 'un talus non vu invaliderait la visée sans rien changer à la courbure. Le '
+  + 'relevé se demande explicitement, parce qu\'il transmet vos coordonnées à '
+  + 'un service tiers.';
+
+/**
+ * Ce que le relevé du terrain établit, et ce qu'il laisse dehors.
+ *
+ * Ce motif accompagne TOUT résultat de relief. Un modèle numérique décrit le
+ * sol, à une date et à une résolution données : il ignore ce qui bouche le plus
+ * souvent une visée réelle. Le relief relevé réduit l'incertitude, il ne la
+ * supprime pas.
+ */
+export const MOTIF_RELIEF_RELEVE =
+  "Le relief relevé dit ce qu'un modèle numérique de terrain déclare du SOL, "
+  + 'à sa date et à sa résolution. Il ignore les bâtiments, la végétation, les '
+  + 'ouvrages et tout ce qui flotte — une haie, un cargo, une grue n\'y figurent '
+  + 'pas. Une visée dégagée selon ce relevé peut donc être bouchée en vrai, et '
+  + "c'est sur l'image que cela se constate. Ce relevé réduit l'incertitude ; "
+  + 'il ne la remplace pas par une certitude.';
 
 /** Ce que la géométrie permet de conclure, avant toute observation. */
 export interface Verdict {

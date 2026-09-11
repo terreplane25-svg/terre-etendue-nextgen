@@ -9,12 +9,16 @@
  * modèles, ce que chacun prédit à la BASE de la cible, et la coupe de la ligne
  * de visée théorique.
  *
- * Il se refuse à : conclure sur la forme de la Terre, et à dire ce qui bouche
- * réellement la vue. Ce qui est affiché, c'est ce que chaque modèle IMPLIQUE
- * sur une surface de référence lisse. Un simulateur qui afficherait « le
+ * Il montre aussi, quand le relevé a été demandé, les reliefs qui coupent la
+ * visée : combien, où, et de combien chacun la dépasse.
+ *
+ * Il se refuse à : conclure sur la forme de la Terre, et à faire entrer le
+ * relief dans le verdict. Ce qui est affiché en haut, c'est ce que chaque
+ * modèle IMPLIQUE sur une surface de référence lisse ; le relief est une
+ * information à côté, pas une condition. Un simulateur qui afficherait « le
  * modèle X est réfuté » ferait passer une prédiction pour une observation ; un
- * simulateur qui prétendrait connaître les obstacles ferait passer un modèle
- * de terrain pour la réalité d'un poste.
+ * simulateur qui présenterait un relief NON RELEVÉ comme une absence
+ * d'obstacle ferait passer son ignorance pour une mesure.
  *
  * L'EXAGÉRATION VERTICALE EST ÉCRITE, TOUJOURS
  * ────────────────────────────────────────────
@@ -34,11 +38,17 @@ import {
 } from '@/lib/visee-optique/noyau';
 import { RESERVE_GEOCODAGE, type Position } from '@/lib/visee-optique/geocodage-ign';
 import {
+  type AnalyseRelief,
+  type Occlusion,
+  largeurOcclusionM,
+} from '@/lib/visee-optique/relief';
+import {
   K_ENVELOPPE_MAX,
   K_ENVELOPPE_MIN,
   K_STANDARD,
   MOTIF_REFRACTION_STANDARD,
   motifRefraction,
+  MOTIF_RELIEF_RELEVE,
   MOTIF_SANS_RELIEF,
   MOTIF_SEUIL,
   SEUIL_DISCRIMINATION_FRACTION,
@@ -71,6 +81,33 @@ export interface Simulation {
   /** Le rayon employé pour le TRACÉ, au gradient moyen. */
   rTrace: number;
 }
+
+/**
+ * Le relevé du terrain, quand il a été demandé.
+ *
+ * Il est SÉPARÉ de `Simulation` à dessein : la géométrie ne dépend pas de lui,
+ * ne l'attend pas, et se passe très bien de son absence. Le fondre dans la
+ * simulation laisserait croire que le verdict en tient compte — il n'en tient
+ * pas compte, et c'est une décision, pas un oubli.
+ */
+export interface ReleveRelief {
+  analyse: AnalyseRelief;
+  /** Les points qui dépassent, regroupés en RELIEFS contigus. */
+  occlusions: Occlusion[];
+  /** Le pas réellement employé pour interroger le service. */
+  pasM: number | null;
+  source: string;
+  /** Les points sans donnée, en distance depuis le poste. Jamais comblés. */
+  lacunesM: number[];
+  reserve: string;
+}
+
+/** L'état du relevé, vu par l'interface. */
+export type EtatRelief =
+  | { etat: 'inactif' }
+  | { etat: 'en-cours' }
+  | { etat: 'fait'; releve: ReleveRelief }
+  | { etat: 'echec'; motif: string };
 
 /**
  * Un nombre à l'écran : arrondi comme le paquet Python, groupé comme le
@@ -321,7 +358,13 @@ function SchemaPlat({ s, e }: { s: Simulation; e: Echelle }) {
 
 // ── Le panneau ──────────────────────────────────────────────────────────────
 
-export default function ResultatVisee({ sim }: { sim: Simulation }) {
+export default function ResultatVisee({ sim, relief, onRelever }: {
+  sim: Simulation;
+  /** L'état du relevé de terrain. Optionnel : la géométrie n'en dépend pas. */
+  relief?: EtatRelief;
+  /** Déclenche le relevé. Absent = le relevé n'est pas proposé. */
+  onRelever?: () => void;
+}) {
   const H = sim.cible.H;
   const v = sim.verdict;
   const masquee = v.hauteurMasqueeBaseM;
@@ -512,12 +555,7 @@ export default function ResultatVisee({ sim }: { sim: Simulation }) {
             ({sim.positionCible.origine}).
           </p>
 
-          <p style={{
-            margin: '0 0 12px', padding: '12px 14px', borderRadius: 8,
-            background: 'var(--bg)', borderLeft: `3px solid ${dash.saffron}`,
-          }}>
-            <strong>Aucun modèle de terrain.</strong> {MOTIF_SANS_RELIEF}
-          </p>
+          <BlocRelief sim={sim} relief={relief} onRelever={onRelever} />
 
           <p style={{
             margin: '0 0 12px', padding: '12px 14px', borderRadius: 8,
@@ -582,4 +620,140 @@ function Carte({ titre, couleur, principal, soustitre, lignes }: {
       </table>
     </div>
   );
+}
+
+/**
+ * Le relief intermédiaire : ce qui coupe la visée entre les deux points.
+ *
+ * TROIS ÉTATS, ET ILS NE DISENT PAS LA MÊME CHOSE
+ * ───────────────────────────────────────────────
+ * « Pas relevé », « relevé et dégagé » et « relevé, N occlusions » sont trois
+ * réponses distinctes, et la première n'est surtout pas la deuxième. Un
+ * simulateur qui afficherait « aucun obstacle » faute d'avoir regardé
+ * donnerait une assurance qu'il n'a pas — c'est le défaut pour lequel le
+ * modèle de terrain avait été retiré, et il est écarté ici en nommant l'état
+ * plutôt qu'en le déduisant.
+ *
+ * LE VERDICT N'EN TIENT PAS COMPTE
+ * ────────────────────────────────
+ * Le relief est rendu à titre d'INFORMATION. Il ne change ni la hauteur
+ * masquée, ni la fraction, ni le caractère discriminant de la visée : ces
+ * grandeurs répondent à « que prédit chaque modèle », pas à « que voit-on
+ * depuis ce poste ». Les mêler sous un seul « invisible » perdrait ce qui
+ * distingue les deux causes — une cible peut être entièrement au-dessus de
+ * l'horizon géométrique ET entièrement cachée par une colline.
+ */
+function BlocRelief({ sim, relief, onRelever }: {
+  sim: Simulation; relief?: EtatRelief; onRelever?: () => void;
+}) {
+  const etat = relief?.etat ?? 'inactif';
+  const encadre = (couleur: string, contenu: React.ReactNode) => (
+    <div style={{
+      margin: '0 0 12px', padding: '12px 14px', borderRadius: 8,
+      background: 'var(--bg)', borderLeft: `3px solid ${couleur}`,
+      fontSize: 13, lineHeight: 1.7, color: 'var(--ink)',
+    }}>{contenu}</div>
+  );
+
+  if (etat === 'en-cours') {
+    return encadre(dash.saffron, (
+      <><strong>Relief intermédiaire.</strong> Relevé du terrain en cours…</>
+    ));
+  }
+
+  if (etat === 'echec') {
+    const motif = relief && relief.etat === 'echec' ? relief.motif : '';
+    return encadre(dash.rose, (
+      <>
+        <strong>Le relevé du terrain a échoué.</strong> {motif}
+        {' '}La simulation ci-dessus, elle, n’en dépend pas : elle a tourné sur
+        vos coordonnées et reste valide. Le relief reste <em>non évalué</em>,
+        ce qui n’est pas « aucun obstacle ».
+      </>
+    ));
+  }
+
+  if (etat === 'inactif' || relief === undefined || relief.etat !== 'fait') {
+    return encadre(dash.saffron, (
+      <>
+        <strong>Relief intermédiaire : non relevé.</strong> {MOTIF_SANS_RELIEF}
+        {onRelever && (
+          <div style={{ marginTop: 11 }}>
+            <button
+              onClick={onRelever}
+              style={{
+                padding: '9px 16px', fontSize: 13, fontWeight: 600, minHeight: 40,
+                cursor: 'pointer', background: 'transparent', color: ACCENT,
+                border: `1px solid ${ACCENT}80`, borderRadius: 6,
+              }}
+            >Relever le terrain auprès de l’IGN</button>
+          </div>
+        )}
+      </>
+    ));
+  }
+
+  const { analyse, occlusions, pasM, source, lacunesM, reserve } = relief.releve;
+  const degage = occlusions.length === 0;
+
+  return encadre(degage ? ACCENT : dash.rose, (
+    <>
+      <strong>
+        {degage
+          ? 'Relief intermédiaire : aucune occlusion.'
+          : `Relief intermédiaire : ${occlusions.length} occlusion${occlusions.length > 1 ? 's' : ''} `
+            + `entre l’observateur et la cible.`}
+      </strong>
+      {degage ? (
+        <>
+          {' '}Sur le terrain relevé, la visée passe au-dessus de tout le trajet
+          {analyse.margeMinimaleM !== null && (
+            <>, avec une marge minimale de <strong>{fmt(analyse.margeMinimaleM)} m</strong>
+            {analyse.distanceMargeMinimaleM !== null && <> à {fmtKm(analyse.distanceMargeMinimaleM)}</>}</>
+          )}.
+        </>
+      ) : (
+        <ul style={{ margin: '9px 0 0', paddingLeft: 20 }}>
+          {occlusions.map((o, i) => {
+            const large = largeurOcclusionM(o);
+            return (
+              <li key={i} style={{ marginBottom: 6 }}>
+                à <strong>{fmtKm(o.sommet.distanceM)}</strong> — le terrain
+                culmine à {fmt(o.sommet.altitudeTerrainM)} m et dépasse la ligne
+                de visée de <strong>{fmt(o.sommet.manqueM)} m</strong>
+                {large > 0 && <> ; le relief coupe la visée sur {fmt(large / 1000, 2)} km au moins</>}
+                {' '}({o.nbPoints} point{o.nbPoints > 1 ? 's' : ''} de mesure).
+              </li>
+            );
+          })}
+        </ul>
+      )}
+
+      <p style={{ margin: '10px 0 0', fontSize: 12, lineHeight: 1.6, color: 'var(--ink-soft)' }}>
+        Terrain relevé tous les {pasM === null ? 'pas inconnu' : `${fmt(pasM, 0)} m`} sur
+        {' '}{fmtKm(sim.D)}, source {source}.
+        {pasM !== null && (
+          <> Un relief plus étroit que ce pas peut passer entre deux mesures — et un
+          relief manqué ne se rattrape pas.</>
+        )}
+        {lacunesM.length > 0 && (
+          <> {lacunesM.length} point{lacunesM.length > 1 ? 's' : ''} sans donnée
+          {' '}dans le modèle, jamais comblé{lacunesM.length > 1 ? 's' : ''} par une
+          valeur inventée : le trajet n’est donc pas relevé en entier.</>
+        )}
+      </p>
+
+      <p style={{ margin: '8px 0 0', fontSize: 12, lineHeight: 1.6, color: 'var(--ink-soft)' }}>
+        <strong>Ce que ce relevé n’établit pas.</strong> {MOTIF_RELIEF_RELEVE}
+      </p>
+      <p style={{ margin: '8px 0 0', fontSize: 11.5, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
+        {reserve}
+      </p>
+      <p style={{ margin: '8px 0 0', fontSize: 11.5, lineHeight: 1.55, color: 'var(--ink-muted)' }}>
+        Le verdict affiché plus haut <strong>ne tient pas compte</strong> de ce
+        relief : il dit ce que chaque modèle prédit sur une surface lisse, pas
+        ce qui est visible depuis ce poste.
+      </p>
+    </>
+  ));
 }
