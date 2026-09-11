@@ -52,8 +52,13 @@ import {
   pasEchantillonnageM,
   verifierK,
 } from '@/lib/visee-optique/simulation';
-import { analyserRelief, grouperOcclusions } from '@/lib/visee-optique/relief';
-import { profilDepuisIgn } from '@/lib/visee-optique/altimetrie-ign';
+import {
+  VISER_BASE,
+  VISER_SOMMET,
+  analyserRelief,
+  grouperOcclusions,
+} from '@/lib/visee-optique/relief';
+import { profilDepuisSourceMondiale } from '@/lib/visee-optique/altimetrie-mondiale';
 
 const ACCENT = dash.opal;
 
@@ -177,6 +182,48 @@ export default function ViseeOptiqueCalc() {
 
   const maj = (cle: keyof Saisie) => (v: string) => setS((p) => ({ ...p, [cle]: v }));
 
+  const relever = useCallback(async (s: Simulation) => {
+    setRelief({ etat: 'en-cours' });
+    try {
+      // Le pas suit la DISTANCE : aucune visée n'est refusée pour sa longueur,
+      // mais un pas fixe de 250 m sur 2 000 km demanderait 8 000 altitudes.
+      const pasM = pasEchantillonnageM(s.D);
+      const r = await profilDepuisSourceMondiale(
+        s.positionObs.latitude, s.positionObs.longitude,
+        s.positionCible.latitude, s.positionCible.longitude,
+        { pasM },
+      );
+      const pourModele = (nom: string, R: number | null) => {
+        const base = analyserRelief(s.D, s.h, s.cible, R, r.profil, nom, 0, 0, VISER_BASE);
+        const sommet = analyserRelief(s.D, s.h, s.cible, R, r.profil, nom, 0, 0, VISER_SOMMET);
+        return {
+          base,
+          sommet,
+          occlusionsBase: grouperOcclusions(base.obstacles, r.profil.pasM),
+          occlusionsSommet: grouperOcclusions(sommet.obstacles, r.profil.pasM),
+        };
+      };
+      setRelief({
+        etat: 'fait',
+        releve: {
+          spherique: pourModele('sphérique', s.rTrace),
+          // R vaut null pour le modèle plan : la visée y est une droite, et
+          // la surface ne se bombe pas.
+          plat: pourModele('plan', null),
+          pasM: r.profil.pasM,
+          source: r.profil.source,
+          lacunesM: r.lacunesM,
+          reserve: r.reserve,
+        },
+      });
+    } catch (err) {
+      setRelief({
+        etat: 'echec',
+        motif: err instanceof Error ? err.message : String(err),
+      });
+    }
+  }, []);
+
   const lancer = useCallback(async () => {
     setEnCours(true);
     setErreur(null);
@@ -237,7 +284,7 @@ export default function ViseeOptiqueCalc() {
         ? [masqueeStandard, masqueeStandard]
         : [masquee(K_ENVELOPPE_MIN), masquee(K_ENVELOPPE_MAX)].sort((x, y) => x - y);
 
-      setSim({
+      const simulation: Simulation = {
         D: geo.distanceM,
         azimutDeg: geo.azimutDepartDeg,
         positionObs: a,
@@ -251,53 +298,38 @@ export default function ViseeOptiqueCalc() {
         cible: ci,
         h: hObs,
         rTrace: rayonEffectif(REuler, k),
-      });
+      };
+      setSim(simulation);
+      // Le relief part APRÈS que le résultat est posé, et sans être attendu :
+      // la géométrie est déjà à l'écran quand la requête s'envole.
+      void relever(simulation);
     } catch (err) {
       setErreur(err instanceof Error ? err.message : String(err));
     } finally {
       setEnCours(false);
     }
-  }, [s]);
+    // `relever` est stable (aucune dépendance) ; le citer évite qu'une
+    // future capture de variable y devienne invisible.
+  }, [s, relever]);
 
   /**
-   * Le relevé du terrain, à la demande.
+   * Le relevé du terrain, lancé AUTOMATIQUEMENT après la simulation.
    *
-   * Il ne touche jamais `sim` : la géométrie reste ce qu'elle était, et un
-   * échec du service laisse le résultat entier. C'était la règle posée quand
-   * le modèle de terrain avait été retiré, et elle vaut aussi pour son retour.
+   * Il ne touche jamais le résultat géométrique : celui-ci est déjà affiché
+   * quand la requête part, et un service en panne le laisse entier. C'est la
+   * règle posée dès l'origine — la simulation tourne sur les coordonnées
+   * saisies, que le réseau réponde ou non — et elle vaut aussi pour le retour
+   * du modèle de terrain.
+   *
+   * QUATRE ANALYSES, PAS UNE
+   * ────────────────────────
+   * Deux modèles × deux lignes. Le profil du terrain est le même partout ; ce
+   * qui change, c'est la hauteur à laquelle la visée passe au-dessus de lui.
+   * Sur le globe la surface se bombe entre les deux points, sur le plan elle
+   * ne se bombe pas : un même relief peut couper l'une et pas l'autre. Et la
+   * ligne du PIED passe plus bas que celle du sommet, donc elle est coupée la
+   * première — c'est elle qui décide si la mesure est faisable.
    */
-  const relever = useCallback(async () => {
-    if (sim === null) return;
-    setRelief({ etat: 'en-cours' });
-    try {
-      // Le pas suit la DISTANCE : aucune visée n'est refusée pour sa longueur,
-      // mais un pas fixe de 250 m sur 2 000 km demanderait 8 000 altitudes.
-      const pasM = pasEchantillonnageM(sim.D);
-      const r = await profilDepuisIgn(
-        sim.positionObs.latitude, sim.positionObs.longitude,
-        sim.positionCible.latitude, sim.positionCible.longitude,
-        { pasM },
-      );
-      const analyse = analyserRelief(sim.D, sim.h, sim.cible, sim.rTrace, r.profil, 'sphérique', 0);
-      setRelief({
-        etat: 'fait',
-        releve: {
-          analyse,
-          occlusions: grouperOcclusions(analyse.obstacles, r.profil.pasM),
-          pasM: r.profil.pasM,
-          source: r.profil.source,
-          lacunesM: r.lacunesM,
-          reserve: r.reserve,
-        },
-      });
-    } catch (err) {
-      setRelief({
-        etat: 'echec',
-        motif: err instanceof Error ? err.message : String(err),
-      });
-    }
-  }, [sim]);
-
   const pret = s.obsPosition.trim() !== '' && s.cibPosition.trim() !== ''
     && nombre(s.obsHauteur) !== null && nombre(s.cibHauteur) !== null
     && (!s.kPersonnalise || nombre(s.k) !== null);
@@ -461,7 +493,7 @@ export default function ViseeOptiqueCalc() {
         </div>
       )}
 
-      {sim && <ResultatVisee sim={sim} relief={relief} onRelever={() => void relever()} />}
+      {sim && <ResultatVisee sim={sim} relief={relief} />}
     </div>
   );
 }

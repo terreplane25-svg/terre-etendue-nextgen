@@ -36,6 +36,38 @@ export class ReliefError extends Error {
   }
 }
 
+/**
+ * Les deux points de la cible qu'une ligne de visée peut rejoindre, et ce que
+ * chacun SIGNIFIE quand un relief la coupe :
+ *
+ *   · SOMMET — la cible est ENTIÈREMENT cachée. Si même son point le plus
+ *     favorable est masqué, tout l'est.
+ *   · BASE — le PIED n'est pas visible, donc l'occultation par la courbure ne
+ *     peut pas être mesurée. La cible peut rester parfaitement visible par
+ *     ailleurs : ce n'est pas « on ne voit rien », c'est « on ne peut pas
+ *     mesurer ce qu'on était venu mesurer ».
+ *
+ * Nommés plutôt qu'écrits en chaînes libres : « Sommet » mal capitalisé
+ * tomberait silencieusement sur la base, et le résultat resterait plausible.
+ */
+/**
+ * De combien un terrain doit s'élever au-dessus de la surface de référence
+ * pour compter comme un RELIEF, quand le profil ne déclare pas sa propre
+ * incertitude verticale.
+ *
+ * Un modèle numérique ne rend pas zéro sur la mer : il rend un mètre, ou
+ * trois, selon le géoïde qu'il emploie et la marée du jour. Sans plancher,
+ * chaque visée maritime annoncerait « le pied est masqué par le relief » — en
+ * désignant la mer, et en recomptant sous le nom de relief l'occultation par
+ * la courbure, qui est le résultat principal de l'outil.
+ *
+ * Contrepartie assumée : une digue de trois mètres ne sera jamais nommée.
+ */
+export const RELIEF_MINIMAL_M = 5.0;
+
+export const VISER_SOMMET = 'sommet';
+export const VISER_BASE = 'base';
+
 /** Ce que dit un résultat sans profil. Ce n'est PAS « aucun obstacle ». */
 export const RELIEF_NON_EVALUE = 'relief non évalué — aucun profil de terrain fourni';
 
@@ -211,7 +243,16 @@ export function analyserRelief(
   modele = 'sphérique',
   margeRequiseM = 0.0,
   altitudeReferenceM = 0.0,
+  viser: string = VISER_SOMMET,
 ): AnalyseRelief {
+  if (viser !== VISER_SOMMET && viser !== VISER_BASE) {
+    throw new ReliefError(
+      `La ligne à tester vaut '${VISER_SOMMET}' ou '${VISER_BASE}', pas `
+      + `'${viser}'. Les deux répondent à des questions différentes et `
+      + `confondre les deux rendrait un résultat juste à une question qu'on ne `
+      + `posait pas.`,
+    );
+  }
   if (D <= 0) throw new ReliefError('La distance doit être strictement positive.');
   if (margeRequiseM < 0) throw new ReliefError('La marge requise ne peut pas être négative.');
 
@@ -233,8 +274,15 @@ export function analyserRelief(
     };
   }
 
-  const zSommet = cible.zB + cible.H;
+  const zVise = viser === VISER_SOMMET ? cible.zB + cible.H : cible.zB;
   const obstacles: Obstacle[] = [];
+  // Le plancher de relief : l'incertitude verticale que le profil DÉCLARE, ou
+  // RELIEF_MINIMAL_M à défaut. Sans lui, la mer — qu'aucun modèle ne rend à
+  // exactement zéro — serait rapportée comme un obstacle de relief, et
+  // l'occultation par la courbure serait comptée deux fois sous deux noms.
+  const plancher = altitudeReferenceM + (
+    profil.incertitudeVerticaleM !== null ? profil.incertitudeVerticaleM : RELIEF_MINIMAL_M
+  );
   let margeMin = Infinity;
   let distanceMargeMin = 0.0;
   for (const p of profil.points) {
@@ -242,14 +290,14 @@ export function analyserRelief(
     // compter ferait qu'un poste posé au sol se masquerait lui-même.
     if (p.distanceM <= 0.0 || p.distanceM >= D) continue;
     const zVisee = R === null
-      ? altitudeLigneDeViseePlane(p.distanceM, D, h, zSommet)
-      : altitudeLigneDeVisee(p.distanceM, D, h, zSommet, R);
+      ? altitudeLigneDeViseePlane(p.distanceM, D, h, zVise)
+      : altitudeLigneDeVisee(p.distanceM, D, h, zVise, R);
     const marge = zVisee - p.altitudeM;
     if (marge < margeMin) {
       margeMin = marge;
       distanceMargeMin = p.distanceM;
     }
-    if (marge < margeRequiseM && p.altitudeM > altitudeReferenceM) {
+    if (marge < margeRequiseM && p.altitudeM > plancher) {
       obstacles.push({
         distanceM: p.distanceM,
         altitudeTerrainM: p.altitudeM,

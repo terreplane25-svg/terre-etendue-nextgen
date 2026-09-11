@@ -29,7 +29,8 @@ import math
 
 import pytest
 
-from visee_optique.geometry import Cible, GeometryError
+from visee_optique.geometry import Cible, GeometryError, IUGG_R1
+from visee_optique.refraction import rayon_effectif
 from visee_optique.relief import (
     Obstacle,
     PointProfil,
@@ -42,6 +43,9 @@ from visee_optique.relief import (
     profil_depuis_couples,
     Occlusion,
     grouper_occlusions,
+    VISER_SOMMET,
+    VISER_BASE,
+    RELIEF_MINIMAL_M,
 )
 
 R_TERRE = 6371008.8
@@ -297,17 +301,49 @@ def test_cible_sous_l_horizon_sur_un_trajet_parfaitement_plat():
     assert a.obstacles == ()
 
 
-def test_un_terrain_a_peine_au_dessus_du_zero_redevient_un_obstacle():
-    """La frontière est bien à la surface de référence, pas ailleurs.
+def test_un_terrain_sous_le_plancher_n_est_pas_du_relief():
+    """La frontière est le PLANCHER, pas la surface de référence elle-même.
 
-    Le même trajet, avec un terrain relevé d'un mètre : ce mètre est du relief,
-    et il est nommé. Sans ce test, le filtre pourrait écarter n'importe quoi
-    sans qu'on le voie.
+    Elle y était, et c'était un défaut : un modèle numérique ne rend pas zéro
+    sur la mer, il rend un mètre ou trois selon le géoïde et la marée. Chaque
+    visée maritime annonçait donc « le pied est masqué par le relief » — en
+    désignant la mer, et en recomptant sous le nom de relief l'occultation par
+    la courbure, qui est le résultat principal de l'outil. C'est un essai au
+    navigateur qui l'a montré, pas une relecture.
     """
     D = 60_000.0
-    a = analyser_relief(D, 10.0, Cible(H=110.0), R_TERRE, profil=plat(D, altitude=1.0))
+    sous = analyser_relief(D, 10.0, Cible(H=110.0), R_TERRE,
+                           profil=plat(D, altitude=RELIEF_MINIMAL_M - 1))
+    assert sous.masque_par_le_relief is False
+    assert sous.obstacles == ()
+
+
+def test_un_terrain_au_dessus_du_plancher_est_bien_du_relief():
+    """Le filtre écarte le bruit du modèle, pas les obstacles.
+
+    Sans ce second cas, un plancher démesuré écarterait tout sans qu'on le
+    voie — et l'outil ne signalerait plus jamais rien.
+    """
+    D = 60_000.0
+    a = analyser_relief(D, 10.0, Cible(H=110.0), R_TERRE,
+                        profil=plat(D, altitude=RELIEF_MINIMAL_M + 1))
     assert a.masque_par_le_relief is True
-    assert a.obstacle_le_plus_genant.altitude_terrain_m == 1.0
+    assert a.obstacle_le_plus_genant.altitude_terrain_m == RELIEF_MINIMAL_M + 1
+
+
+def test_l_incertitude_declaree_par_le_profil_l_emporte_sur_le_plancher():
+    """Un profil qui connaît sa propre incertitude fait mieux qu'une convention.
+
+    Le RGE ALTI annonce quelques décimètres, un modèle mondial plusieurs
+    mètres : leur appliquer le même plancher perdrait la précision du premier
+    ou croirait le second sur parole.
+    """
+    D = 60_000.0
+    couples = [(d, 2.0) for d in [i * 500.0 for i in range(int(D / 500) + 1)]]
+    fin = profil_depuis_couples(couples, "MNT fin", pas_m=500.0, incertitude_verticale_m=0.5)
+    grossier = profil_depuis_couples(couples, "MNT grossier", pas_m=500.0, incertitude_verticale_m=8.0)
+    assert analyser_relief(D, 10.0, Cible(H=110.0), R_TERRE, profil=fin).obstacles
+    assert analyser_relief(D, 10.0, Cible(H=110.0), R_TERRE, profil=grossier).obstacles == ()
 
 
 def test_le_modele_plan_n_occulte_rien_mais_voit_le_relief():
@@ -499,3 +535,71 @@ def test_sans_pas_declare_l_ecart_minimal_observe_sert_de_reference():
     points = [obstacle(4000, 10), obstacle(4250, 10), obstacle(9000, 10)]
     occ = grouper_occlusions(points)
     assert len(occ) == 2
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Les deux lignes : sommet et base
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+def profil_avec_croupe(D, altitude_croupe, debut, fin, pas=250.0, sol=0.0):
+    """Un terrain plat, sauf une croupe entre `debut` et `fin`."""
+    n = int(D / pas)
+    return profil_depuis_couples(
+        [(i * pas, altitude_croupe if debut <= i * pas <= fin else sol)
+         for i in range(n + 1)],
+        "profil d'essai", pas_m=pas,
+    )
+
+
+def test_une_croupe_peut_masquer_la_base_sans_masquer_le_sommet():
+    """LE cas qui justifie de tester les deux lignes.
+
+    Une cible de 500 m derrière une croupe de 300 m : le sommet reste visible,
+    le pied non. Ne tester que le sommet dirait « aucun obstacle » — juste, et
+    à côté de la question, puisque c'est le PIED que le protocole mesure.
+    """
+    D, h = 50_000.0, 500.0
+    cible = Cible(H=500.0, z_b=0.0)
+    R = rayon_effectif(IUGG_R1, 0.13)
+    profil = profil_avec_croupe(D, 300.0, 20_000.0, 24_000.0)
+
+    sommet = analyser_relief(D, h, cible, R, profil, viser=VISER_SOMMET)
+    base = analyser_relief(D, h, cible, R, profil, viser=VISER_BASE)
+
+    assert sommet.obstacles == (), "le sommet devrait rester dégagé"
+    assert base.obstacles, "le pied devrait être masqué par la croupe"
+    assert base.marge_minimale_m < 0 < sommet.marge_minimale_m
+
+
+def test_une_croupe_assez_haute_masque_les_deux():
+    """Quand même le sommet est pris, la cible est entièrement cachée."""
+    D, h = 50_000.0, 500.0
+    cible = Cible(H=500.0, z_b=0.0)
+    R = rayon_effectif(IUGG_R1, 0.13)
+    profil = profil_avec_croupe(D, 900.0, 20_000.0, 24_000.0)
+
+    sommet = analyser_relief(D, h, cible, R, profil, viser=VISER_SOMMET)
+    base = analyser_relief(D, h, cible, R, profil, viser=VISER_BASE)
+    assert sommet.obstacles and base.obstacles
+    # Le pied est toujours AU MOINS aussi masqué que le sommet : la ligne qui
+    # le rejoint passe plus bas. L'inverse signalerait une erreur de signe.
+    assert base.marge_minimale_m <= sommet.marge_minimale_m
+
+
+def test_le_defaut_reste_le_sommet():
+    """Le comportement d'avant l'option ne doit pas avoir bougé."""
+    D, h = 50_000.0, 500.0
+    cible = Cible(H=500.0, z_b=0.0)
+    R = rayon_effectif(IUGG_R1, 0.13)
+    profil = profil_avec_croupe(D, 300.0, 20_000.0, 24_000.0)
+    assert (analyser_relief(D, h, cible, R, profil).obstacles
+            == analyser_relief(D, h, cible, R, profil, viser=VISER_SOMMET).obstacles)
+
+
+def test_une_ligne_mal_nommee_est_refusee():
+    """« sommet » tomberait silencieusement sur la base, et resterait plausible."""
+    with pytest.raises(ReliefError, match="ligne à tester"):
+        analyser_relief(1000.0, 2.0, Cible(H=10.0), 6.4e6,
+                        profil_avec_croupe(1000.0, 0.0, 0.0, 0.0, pas=100.0),
+                        viser="Sommet")

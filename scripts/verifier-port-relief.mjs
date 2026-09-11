@@ -81,6 +81,34 @@ try {
   const v = JSON.parse(readFileSync(VECTEURS, 'utf8'));
   let controles = 0;
 
+  /**
+   * Les profils des cas de lignes, refabriqués à l'identique du générateur.
+   * Les porter dans le JSON ferait deux cents points par cas pour rien : ce
+   * qui doit être épinglé, ce sont les RÉSULTATS, et la fabrication est
+   * déterministe des deux côtés.
+   */
+  const croupe = (D, altitude, debut, fin, pas = 250) => {
+    const n = Math.trunc(D / pas);
+    const points = [];
+    for (let i = 0; i <= n; i++) {
+      const d = i * pas;
+      points.push({ distanceM: d, altitudeM: (d >= debut && d <= fin) ? altitude : 0 });
+    }
+    return { points, source: "profil d'essai", pasM: pas, incertitudeVerticaleM: null };
+  };
+  const R013 = N.rayonEffectif(6371008.7714, 0.13);
+  const CIBLE = { H: 500, zB: 0 };
+  const CAS_LIGNES = {
+    'croupe de 300 m, cible de 500 m — le pied seul est masqué':
+      { D: 50000, h: 500, cible: CIBLE, R: R013, profil: croupe(50000, 300, 20000, 24000) },
+    'croupe de 900 m — les deux lignes sont coupées':
+      { D: 50000, h: 500, cible: CIBLE, R: R013, profil: croupe(50000, 900, 20000, 24000) },
+    "terrain plat — aucune des deux n'est coupée":
+      { D: 50000, h: 500, cible: CIBLE, R: R013, profil: croupe(50000, 0, 0, 0) },
+    'croupe de 300 m, modèle plan':
+      { D: 50000, h: 500, cible: CIBLE, R: null, profil: croupe(50000, 300, 20000, 24000) },
+  };
+
   // Le sentinel doit être identique des deux côtés : sinon un relief déclaré
   // non évalué d'un côté ne l'est pas de l'autre.
   comparer('sentinel', 'RELIEF_NON_EVALUE', v.relief_non_evalue, R.RELIEF_NON_EVALUE);
@@ -195,7 +223,46 @@ try {
     controles += 1;
   }
 
-    // ── Le regroupement en occlusions ────────────────────────────────────────
+    // ── Les deux lignes : sommet et base ────────────────────────────────────
+  //
+  // Elles répondent à deux questions différentes — « la cible est-elle
+  // entièrement cachée » et « le pied est-il visible ». Un port qui ignorerait
+  // le paramètre rendrait toujours la même analyse, et resterait plausible.
+  for (const cas of v.lignes_visees) {
+    const c = CAS_LIGNES[cas.nom];
+    if (c === undefined) { faux(cas.nom, 'cas', 'connu du vérificateur', 'inconnu'); controles += 1; continue; }
+    const a = R.analyserRelief(c.D, c.h, c.cible, c.R, c.profil, 'sphérique', 0, 0, cas.viser);
+    const ou = `${cas.nom} — ${cas.viser}`;
+    comparer(ou, 'nombre d’obstacles', cas.obstacles, a.obstacles.length);
+    comparer(ou, 'marge minimale', cas.marge_minimale_m, a.margeMinimaleM, TOL_ALTITUDE_M);
+    comparer(ou, 'distance de la marge minimale', cas.distance_marge_minimale_m, a.distanceMargeMinimaleM);
+    controles += 3;
+    if (cas.plus_genant !== null) {
+      const p = a.obstacleLePlusGenant;
+      if (p === null) { faux(ou, 'obstacle le plus gênant', 'présent', 'absent'); }
+      else {
+        comparer(ou, 'plus gênant — distance', cas.plus_genant.distance_m, p.distanceM);
+        comparer(ou, 'plus gênant — dépassement', cas.plus_genant.manque_m, p.manqueM, TOL_ALTITUDE_M);
+      }
+      controles += 2;
+    } else if (a.obstacleLePlusGenant !== null) {
+      faux(ou, 'obstacle le plus gênant', 'aucun', 'un obstacle rendu');
+      controles += 1;
+    }
+  }
+
+  // Une ligne mal nommée doit être REFUSÉE : « Sommet » mal capitalisé
+  // tomberait sinon sur la base, et le résultat resterait plausible.
+  {
+    const c = Object.values(CAS_LIGNES)[0];
+    let leve = false;
+    try { R.analyserRelief(c.D, c.h, c.cible, c.R, c.profil, 'sphérique', 0, 0, 'Sommet'); }
+    catch { leve = true; }
+    if (!leve) faux('ligne mal nommée', 'refus', 'erreur levée', 'aucune');
+    controles += 1;
+  }
+
+  // ── Le regroupement en occlusions ────────────────────────────────────────
   //
   // C'est ce qui transforme une liste de points qui dépassent en un NOMBRE de
   // reliefs. Une divergence ici annoncerait « 20 occlusions » là où le paquet

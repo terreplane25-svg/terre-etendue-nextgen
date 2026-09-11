@@ -1,5 +1,5 @@
 {
-  "genere_le": "2026-09-11T09:16:10.926395+00:00",
+  "genere_le": "2026-09-11T14:50:53.779055+00:00",
   "source": "visee_optique.relief (paquet Python)",
   "avertissement": "Fichier généré. Ne pas modifier à la main : il est la référence contre laquelle le port TypeScript est vérifié.",
   "relief_non_evalue": "relief non évalué — aucun profil de terrain fourni",
@@ -6496,6 +6496,92 @@
     {
       "nom": "rayon nul",
       "message_python": "Le rayon doit être strictement positif."
+    }
+  ],
+  "lignes_visees": [
+    {
+      "nom": "croupe de 300 m, cible de 500 m — le pied seul est masqué",
+      "viser": "sommet",
+      "obstacles": 0,
+      "marge_minimale_m": 157.39163445308805,
+      "distance_marge_minimale_m": 24000.0,
+      "plus_genant": null
+    },
+    {
+      "nom": "croupe de 300 m, cible de 500 m — le pied seul est masqué",
+      "viser": "base",
+      "obstacles": 17,
+      "marge_minimale_m": -82.61552877631038,
+      "distance_marge_minimale_m": 24000.0,
+      "plus_genant": {
+        "distance_m": 24000.0,
+        "altitude_terrain_m": 300.0,
+        "altitude_visee_m": 217.38447122368962,
+        "manque_m": 82.61552877631038
+      }
+    },
+    {
+      "nom": "croupe de 900 m — les deux lignes sont coupées",
+      "viser": "sommet",
+      "obstacles": 17,
+      "marge_minimale_m": -442.60836554691195,
+      "distance_marge_minimale_m": 24000.0,
+      "plus_genant": {
+        "distance_m": 24000.0,
+        "altitude_terrain_m": 900.0,
+        "altitude_visee_m": 457.39163445308805,
+        "manque_m": 442.60836554691195
+      }
+    },
+    {
+      "nom": "croupe de 900 m — les deux lignes sont coupées",
+      "viser": "base",
+      "obstacles": 17,
+      "marge_minimale_m": -682.6155287763104,
+      "distance_marge_minimale_m": 24000.0,
+      "plus_genant": {
+        "distance_m": 24000.0,
+        "altitude_terrain_m": 900.0,
+        "altitude_visee_m": 217.38447122368962,
+        "manque_m": 682.6155287763104
+      }
+    },
+    {
+      "nom": "terrain plat — aucune des deux n'est coupée",
+      "viser": "sommet",
+      "obstacles": 0,
+      "marge_minimale_m": 457.32335214782506,
+      "distance_marge_minimale_m": 25000.0,
+      "plus_genant": null
+    },
+    {
+      "nom": "terrain plat — aucune des deux n'est coupée",
+      "viser": "base",
+      "obstacles": 0,
+      "marge_minimale_m": 1.650637660175562,
+      "distance_marge_minimale_m": 49750.0,
+      "plus_genant": null
+    },
+    {
+      "nom": "croupe de 300 m, modèle plan",
+      "viser": "sommet",
+      "obstacles": 0,
+      "marge_minimale_m": 200.0,
+      "distance_marge_minimale_m": 20000.0,
+      "plus_genant": null
+    },
+    {
+      "nom": "croupe de 300 m, modèle plan",
+      "viser": "base",
+      "obstacles": 16,
+      "marge_minimale_m": -40.0,
+      "distance_marge_minimale_m": 24000.0,
+      "plus_genant": {
+        "distance_m": 24000.0,
+        "altitude_terrain_m": 300.0,
+        "altitude_visee_m": 260.0,
+        "manque_m": 40.0
+      }
     }
   ],
   "occlusions": [

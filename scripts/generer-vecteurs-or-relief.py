@@ -51,7 +51,7 @@ except ImportError:
 from visee_optique.geodesy import (  # noqa: E402
     GRS80_A, GRS80_F, vincenty_direct, vincenty_inverse,
 )
-from visee_optique.geometry import Cible  # noqa: E402
+from visee_optique.geometry import Cible, IUGG_R1  # noqa: E402
 from visee_optique.refraction import rayon_effectif  # noqa: E402
 from visee_optique.relief import (  # noqa: E402
     RELIEF_NON_EVALUE,
@@ -62,6 +62,8 @@ from visee_optique.relief import (  # noqa: E402
     profil_depuis_couples,
     Obstacle,
     grouper_occlusions,
+    VISER_SOMMET,
+    VISER_BASE,
 )
 
 R_TERRE = 6371008.8
@@ -154,6 +156,32 @@ CAS_OCCLUSIONS = [
 ]
 
 
+#: Les cas des deux lignes. La croupe de 300 m est choisie pour tomber ENTRE
+#: la ligne du pied et celle du sommet d'une cible de 500 m : c'est le seul
+#: réglage où les deux réponses diffèrent, et donc le seul qui discrimine.
+def _croupe(D, altitude, debut, fin, pas=250.0):
+    n = int(D / pas)
+    return profil_depuis_couples(
+        [(i * pas, altitude if debut <= i * pas <= fin else 0.0) for i in range(n + 1)],
+        "profil d'essai", pas_m=pas,
+    )
+
+
+_R013 = rayon_effectif(IUGG_R1, 0.13)
+CAS_LIGNES = [
+    ("croupe de 300 m, cible de 500 m — le pied seul est masqué",
+     50_000.0, 500.0, Cible(H=500.0, z_b=0.0), _R013, _croupe(50_000.0, 300.0, 20_000.0, 24_000.0)),
+    ("croupe de 900 m — les deux lignes sont coupées",
+     50_000.0, 500.0, Cible(H=500.0, z_b=0.0), _R013, _croupe(50_000.0, 900.0, 20_000.0, 24_000.0)),
+    ("terrain plat — aucune des deux n'est coupée",
+     50_000.0, 500.0, Cible(H=500.0, z_b=0.0), _R013, _croupe(50_000.0, 0.0, 0.0, 0.0)),
+    # Le modèle PLAN : la ligne est droite, donc plus haute. Les deux modèles
+    # ne comptent pas les mêmes obstacles, et c'est en soi une information.
+    ("croupe de 300 m, modèle plan",
+     50_000.0, 500.0, Cible(H=500.0, z_b=0.0), None, _croupe(50_000.0, 300.0, 20_000.0, 24_000.0)),
+]
+
+
 def main():
     v = {
         "genere_le": datetime.now(timezone.utc).isoformat(),
@@ -172,6 +200,23 @@ def main():
         # Le regroupement des points qui dépassent en RELIEFS contigus. Sans
         # lui, une colline échantillonnée vingt fois s'annoncerait « 20
         # occlusions » — faux dans le seul sens qui compte, celui du nombre.
+        # Les DEUX lignes, sur une croupe qui masque le pied sans masquer le
+        # sommet. Sans ce cas, un port qui ignorerait le paramètre `viser`
+        # rendrait toujours la même analyse et passerait tous les contrôles.
+        "lignes_visees": [
+            {
+                "nom": nom,
+                "viser": viser,
+                "obstacles": len(a.obstacles),
+                "marge_minimale_m": a.marge_minimale_m,
+                "distance_marge_minimale_m": a.distance_marge_minimale_m,
+                "plus_genant": (None if a.obstacle_le_plus_genant is None
+                                else obstacle_en_dict(a.obstacle_le_plus_genant)),
+            }
+            for nom, D, h, cible, R, profil in CAS_LIGNES
+            for viser in (VISER_SOMMET, VISER_BASE)
+            for a in [analyser_relief(D, h, cible, R, profil, viser=viser)]
+        ],
         "occlusions": [
             {
                 "nom": nom,
@@ -279,6 +324,19 @@ def main():
 
 
 def controle(v):
+    # 0. Les deux lignes DIFFÈRENT réellement sur le cas prévu pour ça. Si
+    #    elles rendaient la même chose, le paramètre ne serait pas épinglé.
+    par = {(c["nom"], c["viser"]): c for c in v["lignes_visees"]}
+    nom = "croupe de 300 m, cible de 500 m — le pied seul est masqué"
+    assert par[(nom, "sommet")]["obstacles"] == 0, par[(nom, "sommet")]
+    assert par[(nom, "base")]["obstacles"] > 0, par[(nom, "base")]
+    # Le pied est TOUJOURS au moins aussi masqué que le sommet : sa ligne passe
+    # plus bas. L'inverse signalerait une erreur de signe.
+    for c in v["lignes_visees"]:
+        autre = par[(c["nom"], "sommet" if c["viser"] == "base" else "base")]
+        if c["viser"] == "base" and c["marge_minimale_m"] is not None:
+            assert c["marge_minimale_m"] <= autre["marge_minimale_m"] + 1e-9, c["nom"]
+
     # 0. Le regroupement compte des RELIEFS, pas des points de mesure.
     par_nom = {c["nom"]: c for c in v["occlusions"]}
     vingt = par_nom["une colline de vingt points"]

@@ -46,6 +46,9 @@ from .geometry import Cible, GeometryError, fraction_visible, hauteur_occultee
 
 __all__ = [
     "ReliefError",
+    "RELIEF_MINIMAL_M",
+    "VISER_SOMMET",
+    "VISER_BASE",
     "PointProfil",
     "ProfilTerrain",
     "Obstacle",
@@ -57,6 +60,30 @@ __all__ = [
     "Occlusion",
     "grouper_occlusions",
 ]
+
+
+#: Les deux points de la cible qu'une ligne de visée peut rejoindre.
+#:
+#: Nommés plutôt qu'écrits en chaînes libres : « sommet » mal orthographié
+#: tomberait silencieusement sur la base, et le résultat resterait plausible.
+#: De combien un terrain doit s'élever au-dessus de la surface de référence
+#: pour compter comme un RELIEF, quand le profil ne déclare pas sa propre
+#: incertitude verticale.
+#:
+#: Un modèle numérique ne rend pas zéro sur la mer : il rend un mètre, ou trois,
+#: selon le géoïde qu'il emploie et la marée du jour de la prise. Sans plancher,
+#: chaque visée maritime annoncerait donc « le pied est masqué par le relief »
+#: — en désignant la mer elle-même, et en recomptant sous le nom de relief
+#: l'occultation par la courbure, qui est le résultat principal de l'outil.
+#:
+#: Cinq mètres : au-delà de ce qu'un MNT mondial se trompe au-dessus de l'eau,
+#: en deçà de tout ce qui mérite le nom d'obstacle. Contrepartie assumée et
+#: écrite : une digue de trois mètres ne sera jamais nommée. Quand le profil
+#: déclare son incertitude verticale, c'est ELLE qui sert de plancher.
+RELIEF_MINIMAL_M = 5.0
+
+VISER_SOMMET = "sommet"
+VISER_BASE = "base"
 
 
 class ReliefError(ValueError):
@@ -255,19 +282,31 @@ def _obstacles_le_long(
 
     CE QUI COMPTE COMME OBSTACLE, ET POURQUOI PAS TOUT
     ──────────────────────────────────────────────────
-    Un point ne devient obstacle que s'il coupe la visée ET s'élève au-dessus
-    de la surface de référence. La seconde condition n'est pas un détail :
+    Un point ne devient obstacle que s'il coupe la visée ET s'élève ASSEZ
+    au-dessus de la surface de référence. La seconde condition n'est pas un
+    détail :
     sans elle, dès que la courbure occulte quoi que ce soit, la mer elle-même
     coupe la visée dirigée vers le sommet — et serait rapportée comme un
     « obstacle de relief ». La distinction que ce module existe pour établir
     s'effondrerait exactement dans les cas où elle sert.
 
-    La conséquence assumée : un terrain plat AU NIVEAU de la surface de
+    « Assez » et non « au-dessus » : un modèle numérique ne rend pas zéro sur
+    la mer, il rend un mètre ou trois selon le géoïde et la marée. Le plancher
+    est l'incertitude verticale que le profil DÉCLARE, ou RELIEF_MINIMAL_M
+    quand il n'en déclare aucune.
+
+    La conséquence assumée : un terrain plat au niveau de la surface de
     référence est traité comme la surface elle-même, et son masquage est
-    imputé à la courbure. C'est correct — il est géométriquement
-    indiscernable de la mer — mais il faut le dire, car une plaine à l'altitude
-    zéro ne sera jamais nommée comme obstacle.
+    imputé à la courbure. C'est correct — il en est géométriquement
+    indiscernable — mais il faut le dire, car une plaine à l'altitude zéro, ou
+    une digue plus basse que le plancher, ne seront jamais nommées comme
+    obstacles.
     """
+    plancher = altitude_reference_m + (
+        profil.incertitude_verticale_m
+        if profil.incertitude_verticale_m is not None
+        else RELIEF_MINIMAL_M
+    )
     obstacles: List[Obstacle] = []
     marge_min = math.inf
     distance_marge_min = 0.0
@@ -285,7 +324,7 @@ def _obstacles_le_long(
         if marge < marge_min:
             marge_min = marge
             distance_marge_min = p.distance_m
-        if marge < marge_requise_m and p.altitude_m > altitude_reference_m:
+        if marge < marge_requise_m and p.altitude_m > plancher:
             obstacles.append(Obstacle(
                 distance_m=p.distance_m,
                 altitude_terrain_m=p.altitude_m,
@@ -306,6 +345,7 @@ def analyser_relief(
     modele: str = "sphérique",
     marge_requise_m: float = 0.0,
     altitude_reference_m: float = 0.0,
+    viser: str = VISER_SOMMET,
 ) -> AnalyseRelief:
     """Ce que la courbure occulte, ce que le relief masque, et les deux séparément.
 
@@ -314,10 +354,23 @@ def analyser_relief(
     n'entre dans aucun calcul — mais il est rendu tel quel dans le résultat,
     donc une incohérence s'y verrait.
 
-    La visée est dirigée vers le SOMMET de la cible (z_b + H). C'est le point
-    le plus favorable : si même lui est masqué par le relief, tout l'est. Le
-    dire dans l'autre sens serait faux — qu'il soit visible n'implique pas que
-    la base le soit.
+    DEUX LIGNES, DEUX QUESTIONS
+    ───────────────────────────
+    `viser` choisit le point de la cible que la ligne rejoint, et ce choix
+    change ce que le résultat SIGNIFIE :
+
+      · VISER_SOMMET — la ligne rejoint z_b + H, le point le plus favorable.
+        Un obstacle ici veut dire que la cible est ENTIÈREMENT cachée : si même
+        le sommet est masqué, tout l'est. Le dire dans l'autre sens serait
+        faux — qu'il soit visible n'implique pas que la base le soit.
+      · VISER_BASE — la ligne rejoint z_b, le pied de la cible. Un obstacle ici
+        veut dire que le PIED n'est pas visible, donc que l'occultation par la
+        courbure ne peut pas être mesurée. La cible peut rester parfaitement
+        visible par ailleurs : ce n'est pas « on ne voit rien », c'est « on ne
+        peut pas mesurer ce qu'on était venu mesurer ».
+
+    Les deux sont rendues séparément par l'appelant, parce que les confondre
+    donnerait une réponse juste à une question qu'on ne posait pas.
 
     `marge_requise_m` permet d'exiger une garde au-dessus du terrain plutôt
     que le simple contact. Une visée qui frôle un sommet à 20 cm près, avec un
@@ -325,6 +378,13 @@ def analyser_relief(
     fixer cette garde d'après l'incertitude de son profil, pas à ce module de
     la deviner.
     """
+    if viser not in (VISER_SOMMET, VISER_BASE):
+        raise ReliefError(
+            "La ligne à tester vaut %r ou %r, pas %r. Les deux répondent à des "
+            "questions différentes et confondre les deux rendrait un résultat "
+            "juste à une question qu'on ne posait pas."
+            % (VISER_SOMMET, VISER_BASE, viser)
+        )
     if D <= 0:
         raise ReliefError("La distance doit être strictement positive.")
     if marge_requise_m < 0:
@@ -351,9 +411,9 @@ def analyser_relief(
             distance_marge_minimale_m=None,
         )
 
-    z_sommet = cible.z_b + cible.H
+    z_vise = cible.z_b + cible.H if viser == VISER_SOMMET else cible.z_b
     obstacles, marge_min, distance_marge_min = _obstacles_le_long(
-        profil, D, h, z_sommet, R, marge_requise_m, altitude_reference_m,
+        profil, D, h, z_vise, R, marge_requise_m, altitude_reference_m,
     )
     # Le plus gênant : celui qui manque de le plus. À manque égal, le plus
     # proche de l'observateur — c'est celui qu'on peut aller vérifier.
