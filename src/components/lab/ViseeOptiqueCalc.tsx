@@ -232,13 +232,25 @@ export default function ViseeOptiqueCalc() {
     }
   }, []);
 
+  /**
+   * Efface le résultat ET tout ce qui en dépend, d'un seul geste.
+   *
+   * Un relevé de relief appartient à UNE visée : le garder d'un trajet à
+   * l'autre afficherait le relief d'un parcours sous le résultat d'un autre.
+   * Deux endroits effacent le résultat — le bouton « Lancer » et celui des
+   * exemples — et le second oubliait le relief. Un helper plutôt qu'une ligne
+   * ajoutée : ce qui doit disparaître ensemble disparaît au même endroit, et
+   * un troisième appelant n'aura pas à s'en souvenir.
+   */
+  const oublierResultat = useCallback(() => {
+    setSim(null);
+    setRelief({ etat: 'inactif' });
+    setErreur(null);
+  }, []);
+
   const lancer = useCallback(async () => {
     setEnCours(true);
-    setErreur(null);
-    setSim(null);
-    // Un relevé appartient à UNE visée. Le garder d'une simulation à l'autre
-    // afficherait le relief d'un trajet sous le résultat d'un autre.
-    setRelief({ etat: 'inactif' });
+    oublierResultat();
     try {
       const hObs = nombre(s.obsHauteur);
       const hCib = nombre(s.cibHauteur);
@@ -318,7 +330,7 @@ export default function ViseeOptiqueCalc() {
     }
     // `relever` est stable (aucune dépendance) ; le citer évite qu'une
     // future capture de variable y devienne invisible.
-  }, [s, relever]);
+  }, [s, relever, oublierResultat]);
 
   /**
    * Le relevé du terrain, lancé AUTOMATIQUEMENT après la simulation.
@@ -474,8 +486,7 @@ export default function ViseeOptiqueCalc() {
             const { nom: _nom, ...saisie } = EXEMPLES[idx];
             setExempleIdx(idx);
             setS(saisie);
-            setSim(null);
-            setErreur(null);
+            oublierResultat();
           }}
           style={{
             padding: '11px 20px', fontSize: 13.5, minHeight: 44, cursor: 'pointer',
