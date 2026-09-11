@@ -160,6 +160,36 @@ adapté à l'identité de la page. Markup :
 - `src/lib/nexus-data.ts` — nœud + liens du graphe (si pertinent).
 - L'article apparaît automatiquement sur sa page de catégorie.
 
+## Vocabulaire imposé — à ne plus jamais raccourcir
+
+### Le seuil du Simulateur de Visée s'énonce TOUJOURS « à partir de la base »
+
+🔴 La règle se dit **en entier**, partout — interface, article, README, texte de
+présentation, description de vidéo, message :
+
+> Une visée est discriminante quand la courbure masque au moins **10 % de la
+> hauteur de la cible, EN PARTANT DE SA BASE**.
+
+Ce qui est mesuré, c'est **l'occultation qui monte depuis le pied de la cible**.
+La base est à 0 %, on monte vers le sommet, et le seuil est franchi dès que la
+bande masquée dépasse 10 % de la hauteur totale. C'est le pied qui disparaît en
+premier sous l'horizon, et c'est là que les deux modèles divergent en premier —
+le sommet, lui, reste visible longtemps après.
+
+**Interdit** : « 10 % de la hauteur de la cible » tout court, « 10 % de hauteur
+cachée », « 10 % masqués ». Ces formules taisent **d'où on compte** et laissent
+croire à une portion prise n'importe où sur la cible. Elles décrivent une autre
+mesure que celle que l'outil fait.
+
+**La phrase porte deux moitiés, et il faut les deux** : le point de départ est
+la **base**, le dénominateur est la **hauteur totale** de la cible. La base est
+le zéro de l'échelle — elle n'a pas de hauteur propre, donc « 10 % de la base »
+ne désigne aucune grandeur. Toujours les deux dans la même phrase.
+
+Le code dit déjà la règle en entier (`SEUIL_DISCRIMINATION_FRACTION`,
+`MOTIF_SEUIL`, `juger()` dans `simulation.py` et son port) : c'est la prose
+autour qui a dérapé, et c'est elle qu'il faut surveiller.
+
 ## Format des réponses (préférence utilisateur)
 
 🔴 **Répondre en Markdown normal. NE PAS enfermer la réponse dans un bloc de code.**
